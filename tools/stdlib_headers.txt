@@ -554,7 +554,8 @@ std::invalid_argument                            stdexcept
 std::ios_base::failure                           ios
 std::is_arithmetic                               type_traits
 std::is_convertible                              type_traits
-std::is_integral                                 type_traits
+std::is_signed                                   type_traits
+std::is_unsigned                                 type_traits
 std::istream                                     istream
 std::istreambuf_iterator                         iterator
 std::istringstream                               sstream

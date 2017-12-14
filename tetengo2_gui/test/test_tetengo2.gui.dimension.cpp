@@ -6,10 +6,8 @@
     $Id$
 */
 
-#include <boost/rational.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/detail/stub/unit.h>
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/unit/em.h>
 #include <tetengo2/type_list.h>
@@ -17,8 +15,7 @@
 
 namespace
 {
-    using unit_type =
-        tetengo2::gui::unit::em<boost::rational<tetengo2::type_list::size_type>, tetengo2::detail::stub::unit>;
+    using unit_type = tetengo2::gui::unit::uem_for_test;
 
     using dimension_type = tetengo2::gui::dimension<unit_type>;
 
@@ -62,7 +59,7 @@ BOOST_AUTO_TEST_SUITE(dimension)
 
         const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
 
-        BOOST_CHECK(dimension.width() == unit_type{ 42 });
+        BOOST_CHECK((dimension.width() == unit_type{ 42 }));
     }
 
     BOOST_AUTO_TEST_CASE(height)
@@ -71,7 +68,7 @@ BOOST_AUTO_TEST_SUITE(dimension)
 
         const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
 
-        BOOST_CHECK(dimension.height() == unit_type{ 24 });
+        BOOST_CHECK((dimension.height() == unit_type{ 24 }));
     }
 
 

@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::unit::pixel.
+    \brief The definition of tetengo2::gui::unit::basic_pixel.
 
     Copyright (C) 2007-2017 kaoru
 
@@ -9,10 +9,7 @@
 #if !defined(TETENGO2_GUI_UNIT_PIXEL_H)
 #define TETENGO2_GUI_UNIT_PIXEL_H
 
-#include <type_traits>
-
 #include <boost/rational.hpp>
-#include <boost/swap.hpp>
 
 #include <tetengo2/gui/unit/unit.h>
 
@@ -25,7 +22,7 @@ namespace tetengo2 { namespace gui { namespace unit
         \tparam Value A value type.
    */
     template <typename Value>
-    class pixel : public unit<pixel<Value>, Value>
+    class basic_pixel : public unit<basic_pixel<Value>, Value>
     {
     public:
         // types
@@ -39,16 +36,16 @@ namespace tetengo2 { namespace gui { namespace unit
         /*!
             \brief Returns a pixel unit made from a value in pixels.
 
-            \tparam PixelValue A pixel value type.
+            \tparam PixelValue A basic_pixel value type.
 
             \param value A value in pixels.
 
             \return A pixel unit.
         */
         template <typename PixelValue>
-        static pixel from_pixels(const PixelValue value)
+        static basic_pixel from_pixels(const PixelValue value)
         {
-            return pixel{ static_cast<value_type>(value) };
+            return basic_pixel{ value_type{ value } };
         }
 
 
@@ -57,12 +54,9 @@ namespace tetengo2 { namespace gui { namespace unit
         /*!
             \brief Creates a pixel unit.
 
-            \param value A value.
+            \param value A value in pixels.
         */
-        explicit pixel(const value_type& value)
-        :
-        m_value(value)
-        {}
+        explicit basic_pixel(value_type value);
 
 
         // functions
@@ -70,19 +64,23 @@ namespace tetengo2 { namespace gui { namespace unit
         /*!
             \brief Checks whether one  pixel unit is equal to another.
 
+            \tparam V1 A value #1 type.
+            \tparam V2 A value #2 type.
+
             \param one     One pixel unit.
             \param another Another value in pixel unit.
 
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        friend bool operator==(const pixel& one, const value_type& another)
-        {
-            return one.m_value == another;
-        }
+        template <typename V1, typename V2>
+        friend bool operator==(const basic_pixel<V1>& one, const V2& another);
 
         /*!
             \brief Checks whether one pixel unit is less than another.
+
+            \tparam V1 A value #1 type.
+            \tparam V2 A value #2 type.
 
             \param one     One pixel unit.
             \param another Another value in pixel unit.
@@ -90,13 +88,14 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval true  When the one is less than the other.
             \retval false Otherwise.
         */
-        friend bool operator<(const pixel& one, const value_type& another)
-        {
-            return one.m_value < another;
-        }
+        template <typename V1, typename V2>
+        friend bool operator<(const basic_pixel<V1>& one, const V2& another);
 
         /*!
             \brief Checks whether one pixel unit is greater than another.
+
+            \tparam V1 A value #1 type.
+            \tparam V2 A value #2 type.
 
             \param one     One pixel unit.
             \param another Another value in pixel unit.
@@ -104,10 +103,8 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval true  When the one is greater than the other.
             \retval false Otherwise.
         */
-        friend bool operator>(const pixel& one, const value_type& another)
-        {
-            return one.m_value > another;
-        }
+        template <typename V1, typename V2>
+        friend bool operator>(const basic_pixel<V1>& one, const V2& another);
 
         /*!
             \brief Adds another value in pixel unit.
@@ -116,15 +113,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        pixel& add(const value_type& another)
-        {
-            pixel temp{ *this };
-
-            temp.m_value += another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        basic_pixel& add(const value_type& another);
 
         /*!
             \brief Subtracts another value in pixel unit.
@@ -133,15 +122,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        pixel& subtract(const value_type& another)
-        {
-            pixel temp{ *this };
-
-            temp.m_value -= another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        basic_pixel& subtract(const value_type& another);
 
         /*!
             \brief Multiplies another value in pixel unit.
@@ -150,15 +131,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        pixel& multiply(const value_type& another)
-        {
-            pixel temp{ *this };
-
-            temp.m_value *= another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        basic_pixel& multiply(const value_type& another);
 
         /*!
             \brief Divides by another value in pixel unit.
@@ -167,15 +140,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        pixel& divide_by(const value_type& another)
-        {
-            pixel temp{ *this };
-
-            temp.m_value /= another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        basic_pixel& divide_by(const value_type& another);
 
         /*!
             \brief Divides by another pixel unit.
@@ -184,11 +149,8 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return A value.
         */
-        value_type divide_by(const pixel& another)
-        const
-        {
-            return value() / another.value();
-        }
+        value_type divide_by(const basic_pixel& another)
+        const;
 
         /*!
             \brief Returns the value.
@@ -196,15 +158,12 @@ namespace tetengo2 { namespace gui { namespace unit
             \return The value.
         */
         const value_type& value()
-        const
-        {
-            return m_value;
-        }
+        const;
 
         /*!
             \brief Returns the value in pixels.
 
-            \tparam PixelValue A pixel value type.
+            \tparam PixelValue A basic_pixel value type.
 
             \return The value in pixels.
         */
@@ -212,27 +171,14 @@ namespace tetengo2 { namespace gui { namespace unit
         PixelValue to_pixels()
         const
         {
-            return to_pixels_impl<PixelValue>(m_value);
+            return static_cast<PixelValue>(to_pixels_impl(m_value));
         }
 
 
     private:
         // static functions
 
-        template <typename PixelValue, typename Integer>
-        static PixelValue to_pixels_impl(
-            const Integer                                                    value,
-            typename std::enable_if<std::is_integral<Integer>::value>::type* = nullptr
-        )
-        {
-            return static_cast<PixelValue>(value);
-        }
-
-        template <typename PixelValue, typename Integer>
-        static PixelValue to_pixels_impl(const boost::rational<Integer>& value)
-        {
-            return boost::rational_cast<PixelValue>(value);
-        }
+        static typename value_type::int_type to_pixels_impl(const value_type& value);
 
 
         // variables
@@ -241,6 +187,13 @@ namespace tetengo2 { namespace gui { namespace unit
 
 
     };
+
+
+    //! The signed pixel type.
+    using pixel = basic_pixel<boost::rational<type_list::difference_type>>;
+
+    //! The unsigned pixel type.
+    using upixel = basic_pixel<boost::rational<type_list::size_type>>;
 
 
 }}}

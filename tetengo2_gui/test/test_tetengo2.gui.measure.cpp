@@ -11,6 +11,17 @@
 
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/unit/pixel.h>
+#include <tetengo2/type_list.h>
+
+
+namespace
+{
+    // types
+
+    using difference_rational_type = boost::rational<tetengo2::type_list::difference_type>;
+
+
+}
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
@@ -22,7 +33,7 @@ BOOST_AUTO_TEST_SUITE(gui)
         BOOST_TEST_PASSPOINT();
 
         {
-            const tetengo2::gui::unit::pixel<int> value{ 123 };
+            const tetengo2::gui::unit::pixel value{ 123 };
 
             const auto pixels = tetengo2::gui::to_pixels<int>(value);
 
@@ -42,7 +53,7 @@ BOOST_AUTO_TEST_SUITE(gui)
         BOOST_TEST_PASSPOINT();
 
         {
-            using unit_type = tetengo2::gui::unit::pixel<int>;
+            using unit_type = tetengo2::gui::unit::pixel;
             const int value = 123;
 
             const auto unit = tetengo2::gui::to_unit<unit_type>(value);
@@ -64,16 +75,16 @@ BOOST_AUTO_TEST_SUITE(gui)
         BOOST_TEST_PASSPOINT();
 
         {
-            const tetengo2::gui::unit::pixel<boost::rational<int>> value{ boost::rational<int>(3, 2) };
+            const tetengo2::gui::unit::pixel value{ difference_rational_type{ 3, 2 } };
 
-            const auto ceiling = tetengo2::gui::ceil<int>(value);
+            const auto ceiling = tetengo2::gui::ceil<difference_rational_type::int_type>(value);
 
             BOOST_TEST(ceiling == 2);
         }
         {
-            const int value = 42;
+            const difference_rational_type::int_type value = 42;
 
-            const auto ceiling = tetengo2::gui::ceil<int>(value);
+            const auto ceiling = tetengo2::gui::ceil<difference_rational_type::int_type>(value);
 
             BOOST_TEST(ceiling == 42);
         }
@@ -84,16 +95,16 @@ BOOST_AUTO_TEST_SUITE(gui)
         BOOST_TEST_PASSPOINT();
 
         {
-            const tetengo2::gui::unit::pixel<boost::rational<int>> value{ boost::rational<int>(3, 2) };
+            const tetengo2::gui::unit::pixel value{ difference_rational_type{ 3, 2 } };
 
-            const auto floor = tetengo2::gui::floor<int>(value);
+            const auto floor = tetengo2::gui::floor<difference_rational_type::int_type>(value);
 
             BOOST_TEST(floor == 1);
         }
         {
-            const int value = 42;
+            const difference_rational_type::int_type value = 42;
 
-            const auto floor = tetengo2::gui::floor<int>(value);
+            const auto floor = tetengo2::gui::floor<difference_rational_type::int_type>(value);
 
             BOOST_TEST(floor == 42);
         }

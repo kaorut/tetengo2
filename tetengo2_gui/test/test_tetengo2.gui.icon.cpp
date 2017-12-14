@@ -26,6 +26,8 @@ namespace
 
     using dimension_type = common_type_list_type::dimension_type;
 
+    using dimension_unit_type = dimension_type::unit_type;
+
     using icon_type = tetengo2::gui::icon<dimension_type, detail_type_list_type::icon_type>;
 
 
@@ -33,7 +35,7 @@ namespace
 
     dimension_type make_dimension(const std::size_t width, const std::size_t height)
     {
-        return { dimension_type::unit_type{ width }, dimension_type::unit_type{ height } };
+        return { dimension_unit_type{ width }, dimension_unit_type{ height } };
     }
 
 

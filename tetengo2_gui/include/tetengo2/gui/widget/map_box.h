@@ -392,7 +392,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             static const position_unit_type& min_left()
             {
-                static const position_unit_type singleton{ 4 };
+                static const auto singleton = position_unit_type{ 4 };
                 return singleton;
             }
 
@@ -537,8 +537,8 @@ namespace tetengo2 { namespace gui { namespace widget
             virtual void resized_impl()
             override
             {
-                dimension_unit_type key_text_height{ 0 };
-                dimension_unit_type mapped_text_height{ 0 };
+                auto key_text_height = dimension_unit_type{ 0 };
+                auto mapped_text_height = dimension_unit_type{ 0 };
                 {
                     const auto p_canvas = this->parent().create_canvas();
                     key_text_height = p_canvas->calc_text_dimension(m_value.first, key_text_max_width()).height();
@@ -577,7 +577,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 );
 
                 canvas.set_color(system_color_set_type::dialog_background());
-                canvas.set_line_width(typename canvas_type::dimension_unit_type{ 1 } / 12);
+                canvas.set_line_width(dimension_unit_type{ 1 } / 12);
                 {
                     auto positions = border_line_positions(position_to_paint_);
                     canvas.draw_line(positions.first, positions.second);
@@ -606,7 +606,9 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 const auto top = position_to_paint_.top();
                 if (top > position_unit_type::from(this->parent().client_dimension().height()))
+                {
                     return true;
+                }
 
                 const auto bottom = top + position_unit_type::from(this->dimension().height());
                 if (bottom < position_unit_type{ 0 })
@@ -661,7 +663,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (
                     map_box_client_width >
                     dimension_unit_type::from(this->template parent_to<map_box>().m_splitter_position) +
-                        padding_width() * 2
+                    padding_width() * 2
                 )
                 {
                     return
@@ -970,7 +972,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 return 0;
 
             const auto client_height = this->client_dimension().height();
-            dimension_unit_type height{ 0 };
+            auto height = dimension_unit_type{ 0 };
             std::ptrdiff_t count = 0;
             for (
                 std::ptrdiff_t i = *m_selected_value_index;
@@ -990,7 +992,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         void set_value_item_positions()
         {
-            position_unit_type top{ 0 };
+            auto top = position_unit_type{ 0 };
             for (const auto& p_value_item: m_p_value_items)
             {
                 p_value_item->set_position(position_type{ position_unit_type{ 0 }, top });

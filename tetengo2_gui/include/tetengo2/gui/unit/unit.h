@@ -11,6 +11,8 @@
 
 #include <boost/operators.hpp>
 
+#include <tetengo2/detail/base/unit.h>
+
 
 namespace tetengo2 { namespace gui { namespace unit
 {
@@ -18,6 +20,7 @@ namespace tetengo2 { namespace gui { namespace unit
         \brief The class template for a unit.
 
         \tparam ConcreteUnit A concrete unit type.
+        \tparam Value        A value type.
    */
     template <typename ConcreteUnit, typename Value>
     class unit :
@@ -44,14 +47,17 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \tparam U  A unit type.
 
-            \param value A value in another unit.
+            \param value A value in pixels.
 
             \return A unit.
         */
         template <typename U>
         static concrete_unit_type from(const unit<U, typename U::value_type>& value)
         {
-            return concrete_unit_type::from_pixels(static_cast<const U&>(value).template to_pixels<int>());
+            return
+                concrete_unit_type::from_pixels(
+                    static_cast<const U&>(value).template to_pixels<typename U::value_type::int_type>()
+                );
         }
 
 
@@ -226,7 +232,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval false Otherwise.
         */
         template <typename U>
-        friend bool operator==(const concrete_unit_type&  one, const unit<U, typename U::value_type>& another)
+        friend bool operator==(const concrete_unit_type& one, const unit<U, typename U::value_type>& another)
         {
             return operator==(one, from(another).value());
         }

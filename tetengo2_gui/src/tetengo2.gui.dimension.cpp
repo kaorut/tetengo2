@@ -9,12 +9,7 @@
 #include <utility>
 
 #include <boost/predef.h>
-#include <boost/rational.hpp>
 
-#include <tetengo2/detail/stub/unit.h>
-#if BOOST_OS_WINDOWS
-#   include <tetengo2/detail/windows/unit.h>
-#endif
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/unit/em.h>
 #include <tetengo2/gui/unit/pixel.h>
@@ -54,16 +49,16 @@ namespace tetengo2 { namespace gui
 
     namespace
     {
-        using em_stub_unit_type = gui::unit::em<boost::rational<type_list::size_type>, detail::stub::unit>;
+        using em_stub_unit_type = gui::unit::uem_for_test;
 
-        using pixel_unit_type = gui::unit::pixel<boost::rational<type_list::size_type>>;
+        using pixel_unit_type = gui::unit::upixel;
 
-        using point_stub_unit_type = gui::unit::point<boost::rational<type_list::size_type>, detail::stub::unit>;
+        using point_stub_unit_type = gui::unit::upoint_for_test;
 
 #if BOOST_OS_WINDOWS
-        using em_windows_unit_type = gui::unit::em<boost::rational<type_list::size_type>, detail::windows::unit>;
+        using em_windows_unit_type = gui::unit::uem;
 
-        using point_windows_unit_type = gui::unit::point<boost::rational<type_list::size_type>, detail::windows::unit>;
+        using point_windows_unit_type = gui::unit::upoint;
 #endif
 
     }

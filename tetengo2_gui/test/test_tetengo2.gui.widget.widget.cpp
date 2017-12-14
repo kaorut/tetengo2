@@ -43,7 +43,11 @@ namespace
 
     using position_type = common_type_list_type::position_type;
 
+    using position_unit_type = position_type::unit_type;
+
     using dimension_type = common_type_list_type::dimension_type;
+
+    using dimension_unit_type = dimension_type::unit_type;
 
     using drawing_details_type = detail_type_list_type::drawing_type;
 
@@ -124,12 +128,12 @@ namespace
 
     position_type make_position(const std::ptrdiff_t left, const std::ptrdiff_t top)
     {
-        return { position_type::unit_type{ left }, position_type::unit_type{ top } };
+        return { position_unit_type{ left }, position_unit_type{ top } };
     }
 
     dimension_type make_dimension(const std::size_t width, const std::size_t height)
     {
-        return { dimension_type::unit_type{ width }, dimension_type::unit_type{ height } };
+        return { dimension_unit_type{ width }, dimension_unit_type{ height } };
     }
 
 }

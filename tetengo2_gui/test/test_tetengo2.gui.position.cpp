@@ -6,7 +6,6 @@
     $Id$
 */
 
-#include <boost/rational.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/detail/stub/unit.h>
@@ -17,8 +16,7 @@
 
 namespace
 {
-    using unit_type =
-        tetengo2::gui::unit::em<boost::rational<tetengo2::type_list::difference_type>, tetengo2::detail::stub::unit>;
+    using unit_type = tetengo2::gui::unit::em_for_test;
 
     using position_type = tetengo2::gui::position<unit_type>;
 
@@ -62,7 +60,7 @@ BOOST_AUTO_TEST_SUITE(position)
 
         const position_type position{ unit_type{ 42 }, unit_type{ 24 } };
 
-        BOOST_CHECK(position.left() == unit_type{ 42 });
+        BOOST_CHECK((position.left() == unit_type{ 42 }));
     }
 
     BOOST_AUTO_TEST_CASE(top)
@@ -71,7 +69,7 @@ BOOST_AUTO_TEST_SUITE(position)
 
         const position_type position{ unit_type{ 42 }, unit_type{ 24 } };
 
-        BOOST_CHECK(position.top() == unit_type{ 24 });
+        BOOST_CHECK((position.top() == unit_type{ 24 }));
     }
 
 

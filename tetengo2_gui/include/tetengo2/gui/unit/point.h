@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::unit::point.
+    \brief The definition of tetengo2::gui::unit::basic_point.
 
     Copyright (C) 2007-2017 kaoru
 
@@ -11,10 +11,15 @@
 
 #include <type_traits>
 
+#include <boost/predef.h>
 #include <boost/rational.hpp>
-#include <boost/swap.hpp>
 
+#include <tetengo2/detail/stub/unit.h>
+#if BOOST_OS_WINDOWS
+#   include <tetengo2/detail/windows/unit.h>
+#endif
 #include <tetengo2/gui/unit/unit.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2 { namespace gui { namespace unit
@@ -23,10 +28,10 @@ namespace tetengo2 { namespace gui { namespace unit
         \brief The class template for a point unit.
 
         \tparam Value       A value type.
-        \tparam UnitDetails A detail implementation type of a unit.
+        \tparam UnitDetails A unit details type.
    */
     template <typename Value, typename UnitDetails>
-    class point : public unit<point<Value, UnitDetails>, Value>
+    class basic_point : public unit<basic_point<Value, UnitDetails>, Value>
     {
     public:
         // types
@@ -50,9 +55,9 @@ namespace tetengo2 { namespace gui { namespace unit
             \return A point unit.
         */
         template <typename V>
-        static point from(const point<V, unit_details_type>& another)
+        static basic_point from(const basic_point<V, unit_details_type>& another)
         {
-            return point{ cast<value_type>(another.value()) };
+            return basic_point{ cast<value_type>(another.value()) };
         }
 
         /*!
@@ -62,12 +67,12 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \param value A value in pixels.
 
-            \return An point unit.
+            \return A point unit.
         */
         template <typename PixelValue>
-        static point from_pixels(const PixelValue value)
+        static basic_point from_pixels(const PixelValue value)
         {
-            return point{ unit_details_type::template pixels_to_points<value_type>(value) };
+            return from_pixels_impl(static_cast<typename value_type::int_type>(value));
         }
 
 
@@ -78,10 +83,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \param value A value.
         */
-        explicit point(const value_type& value)
-        :
-        m_value(value)
-        {}
+        explicit basic_point(value_type value);
 
 
         // functions
@@ -89,19 +91,25 @@ namespace tetengo2 { namespace gui { namespace unit
         /*!
             \brief Checks whether one point unit is equal to another.
 
+            \tparam V1 A value #1 type.
+            \tparam V2 A value #2 type.
+            \tparam UD A unit details type.
+
             \param one     One point unit.
             \param another Another value in point unit.
 
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        friend bool operator==(const point& one, const value_type& another)
-        {
-            return one.m_value == another;
-        }
+        template <typename V1, typename V2, typename UD>
+        friend bool operator==(const basic_point<V1, UD>& one, const V2& another);
 
         /*!
             \brief Checks whether one point unit is less than another.
+
+            \tparam V1 A value #1 type.
+            \tparam V2 A value #2 type.
+            \tparam UD A unit details type.
 
             \param one     One point unit.
             \param another Another value in point unit.
@@ -109,13 +117,15 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval true  When the one is less than the other.
             \retval false Otherwise.
         */
-        friend bool operator<(const point& one, const value_type& another)
-        {
-            return one.m_value < another;
-        }
+        template <typename V1, typename V2, typename UD>
+        friend bool operator<(const basic_point<V1, UD>& one, const V2& another);
 
         /*!
             \brief Checks whether one point unit is greater than another.
+
+            \tparam V1 A value #1 type.
+            \tparam V2 A value #2 type.
+            \tparam UD A unit details type.
 
             \param one     One point unit.
             \param another Another value in point unit.
@@ -123,10 +133,8 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval true  When the one is greater than the other.
             \retval false Otherwise.
         */
-        friend bool operator>(const point& one, const value_type& another)
-        {
-            return one.m_value > another;
-        }
+        template <typename V1, typename V2, typename UD>
+        friend bool operator>(const basic_point<V1, UD>& one, const V2& another);
 
         /*!
             \brief Adds another value in point unit.
@@ -135,15 +143,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        point& add(const value_type& another)
-        {
-            point temp{ *this };
-
-            temp.m_value += another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        basic_point& add(const value_type& another);
 
         /*!
             \brief Subtracts another value in point unit.
@@ -152,15 +152,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        point& subtract(const value_type& another)
-        {
-            point temp{ *this };
-
-            temp.m_value -= another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        basic_point& subtract(const value_type& another);
 
         /*!
             \brief Multiplies another value in point unit.
@@ -169,15 +161,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        point& multiply(const value_type& another)
-        {
-            point temp{ *this };
-
-            temp.m_value *= another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        basic_point& multiply(const value_type& another);
 
         /*!
             \brief Divides by another value in point unit.
@@ -186,15 +170,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        point& divide_by(const value_type& another)
-        {
-            point temp{ *this };
-
-            temp.m_value /= another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
+        basic_point& divide_by(const value_type& another);
 
         /*!
             \brief Divides by another point unit.
@@ -203,11 +179,8 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return A value.
         */
-        value_type divide_by(const point& another)
-        const
-        {
-            return value() / another.value();
-        }
+        value_type divide_by(const basic_point& another)
+        const;
 
         /*!
             \brief Returns the value.
@@ -215,23 +188,20 @@ namespace tetengo2 { namespace gui { namespace unit
             \return The value.
         */
         const value_type& value()
-        const
-        {
-            return m_value;
-        }
+        const;
 
         /*!
             \brief Returns the value in pixels.
 
             \tparam PixelValue A pixel value type.
 
-            \return The value in points.
+            \return The value in pixels.
         */
         template <typename PixelValue>
         PixelValue to_pixels()
         const
         {
-            return unit_details_type::template points_to_pixels<PixelValue>(m_value);
+            return static_cast<PixelValue>(to_pixels_impl(m_value));
         }
 
 
@@ -257,6 +227,10 @@ namespace tetengo2 { namespace gui { namespace unit
                 };
         }
 
+        static basic_point from_pixels_impl(const typename value_type::int_type value);
+
+        static typename value_type::int_type to_pixels_impl(const value_type& value);
+
 
         // variables
 
@@ -264,6 +238,27 @@ namespace tetengo2 { namespace gui { namespace unit
 
 
     };
+
+
+#if BOOST_OS_WINDOWS
+    //! The signed point type.
+    using point = basic_point<boost::rational<type_list::difference_type>, detail::windows::unit>;
+
+    //! The unsigned point type.
+    using upoint = basic_point<boost::rational<type_list::size_type>, detail::windows::unit>;
+#else
+    //! The signed point type.
+    using point = basic_point<boost::rational<type_list::difference_type>, detail::stub::unit>;
+
+    //! The unsigned point type.
+    using upoint = basic_point<boost::rational<type_list::size_type>, detail::stub::unit>;
+#endif
+
+    //! The signed point type for testing.
+    using point_for_test = basic_point<boost::rational<type_list::difference_type>, detail::stub::unit>;
+
+    //! The unsigned point type for testing.
+    using upoint_for_test = basic_point<boost::rational<type_list::size_type>, detail::stub::unit>;
 
 
 }}}

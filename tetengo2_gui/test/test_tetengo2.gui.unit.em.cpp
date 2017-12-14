@@ -1,29 +1,30 @@
 /*! \file
-    \brief Test of class tetengo2::gui::unit::em.
+    \brief Test of class tetengo2::gui::unit::basic_em.
 
     Copyright (C) 2007-2017 kaoru
 
     $Id$
 */
 
+#include <cstddef>
+#include <utility>
+
+#include <boost/rational.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/unit/em.h>
-
-#include "test_tetengo2.gui.type_list.h"
+#include <tetengo2/type_list.h>
 
 
 namespace
 {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using difference_rational_type = boost::rational<tetengo2::type_list::difference_type>;
 
-    using unit_details_type = detail_type_list_type::unit_type;
+    using unit_type = tetengo2::gui::unit::em_for_test;
 
-    using unit_type = tetengo2::gui::unit::em<int, unit_details_type>;
-
-    using another_unit_type = tetengo2::gui::unit::em<unsigned short, unit_details_type>;
+    using another_unit_type = tetengo2::gui::unit::uem_for_test;
 
 
 }
@@ -32,7 +33,7 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(unit)
-BOOST_AUTO_TEST_SUITE(em)
+BOOST_AUTO_TEST_SUITE(basic_em)
     // test cases
 
     BOOST_AUTO_TEST_CASE(from)
@@ -58,8 +59,8 @@ BOOST_AUTO_TEST_SUITE(em)
         BOOST_TEST_PASSPOINT();
 
         {
-            const int value = 123;
-            const unit_type unit{ value };
+            const difference_rational_type value{ 123 };
+            const unit_type unit{ std::move(value) };
         }
         {
             const unit_type unit{ 123 };
@@ -73,12 +74,17 @@ BOOST_AUTO_TEST_SUITE(em)
         {
             const unit_type unit1{ 123 };
 
-            BOOST_CHECK(unit1 == 123);
+            BOOST_CHECK(unit1 == difference_rational_type{ 123 });
+        }
+        {
+            const unit_type unit1{ 123 };
+
+            BOOST_CHECK(unit1 == static_cast<difference_rational_type::int_type>(123) );
         }
         {
             const unit_type unit1{ 456 };
 
-            BOOST_CHECK(unit1 != 123);
+            BOOST_CHECK(unit1 != difference_rational_type{ 123 });
         }
     }
 
@@ -86,18 +92,32 @@ BOOST_AUTO_TEST_SUITE(em)
     {
         BOOST_TEST_PASSPOINT();
 
-        const unit_type unit1{ 123 };
+        {
+            const unit_type unit1{ 123 };
 
-        BOOST_CHECK(unit1 < 456);
+            BOOST_CHECK(unit1 < static_cast<difference_rational_type::int_type>(456) );
+        }
+        {
+            const unit_type unit1{ 123 };
+
+            BOOST_CHECK(unit1 < difference_rational_type{ 456 });
+        }
     }
 
     BOOST_AUTO_TEST_CASE(operator_greater_than)
     {
         BOOST_TEST_PASSPOINT();
 
-        const unit_type unit1{ 456 };
+        {
+            const unit_type unit1{ 456 };
 
-        BOOST_CHECK(unit1 > 123);
+            BOOST_CHECK(unit1 > static_cast<difference_rational_type::int_type>(123) );
+        }
+        {
+            const unit_type unit1{ 456 };
+
+            BOOST_CHECK(unit1 > difference_rational_type{ 123 });
+        }
     }
 
     BOOST_AUTO_TEST_CASE(add)
@@ -140,13 +160,13 @@ BOOST_AUTO_TEST_SUITE(em)
         {
             unit_type unit1{ 456 };
 
-            unit1.divide_by(123);
+            unit1.divide_by(152);
 
             BOOST_TEST(unit1.value() == 3);
         }
         {
             const unit_type unit1{ 456 };
-            const unit_type unit2{ 123 };
+            const unit_type unit2{ 152 };
 
             BOOST_TEST(unit1.divide_by(unit2) == 3);
         }
@@ -167,7 +187,7 @@ BOOST_AUTO_TEST_SUITE(em)
 
         const unit_type unit{ 123 };
 
-        BOOST_TEST(unit.to_pixels<int>() == 123 * 12);
+        BOOST_TEST(unit.to_pixels<std::ptrdiff_t>() == 123 * 12);
     }
 
 

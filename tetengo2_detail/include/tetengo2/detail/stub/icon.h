@@ -48,7 +48,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension>
         static Dimension default_dimension()
         {
-            return { typename Dimension::unit_type{ 42 }, typename Dimension::unit_type{ 42 } };
+            using dimension_unit_type = typename Dimension::unit_type;
+            return { dimension_unit_type{ 42 }, dimension_unit_type{ 42 } };
         }
 
         /*!

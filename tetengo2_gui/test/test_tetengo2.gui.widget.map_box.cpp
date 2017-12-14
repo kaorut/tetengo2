@@ -10,7 +10,6 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/detail/stub/cursor.h>
 #include <tetengo2/gui/widget/map_box.h>
 #include <tetengo2/gui/widget/window.h>
 
@@ -57,7 +56,7 @@ namespace
 
     using dimension_unit_type = dimension_type::unit_type;
 
-    using cursor_details_type = tetengo2::detail::stub::cursor;
+    using cursor_details_type = detail_type_list_type::cursor_type;
 
 
     // functions

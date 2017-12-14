@@ -201,7 +201,7 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         concrete_custom_control custom_control{ parent };
         concrete_inner_item inner_item{ custom_control };
 
-        inner_item.set_position(position_type{ position_unit_type{ 53 }, position_unit_type{ 35 } });
+        inner_item.set_position(position_type{ position_unit_type{ 53 },  position_unit_type{ 35 } });
 
         BOOST_CHECK((inner_item.position() == position_type{ position_unit_type{ 53 }, position_unit_type{ 35 } }));
     }
@@ -215,7 +215,7 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         const concrete_inner_item inner_item{ custom_control };
 
         BOOST_CHECK((
-            inner_item.dimension() == dimension_type{ dimension_unit_type{ 12 }, dimension_unit_type{ 34 } }
+            inner_item.dimension() == dimension_type{  dimension_unit_type{ 12 },  dimension_unit_type{ 34 } }
         ));
     }
 
@@ -227,10 +227,10 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         concrete_custom_control custom_control{ parent };
         concrete_inner_item inner_item{ custom_control };
 
-        inner_item.set_dimension(dimension_type{ dimension_unit_type{ 56 }, dimension_unit_type{ 78 } });
+        inner_item.set_dimension(dimension_type{  dimension_unit_type{ 56 },  dimension_unit_type{ 78 } });
 
         BOOST_CHECK((
-            inner_item.dimension() == dimension_type{ dimension_unit_type{ 56 }, dimension_unit_type{ 78 } }
+            inner_item.dimension() == dimension_type{  dimension_unit_type{ 56 },  dimension_unit_type{ 78 } }
         ));
     }
 
@@ -320,7 +320,7 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         concrete_inner_item inner_item{ custom_control };
 
         inner_item.mouse_pressed(
-            mouse_button_type::left, position_type{ position_unit_type{ 11 }, position_unit_type{ 22 } }
+            mouse_button_type::left, position_type{ position_unit_type{ 11 },  position_unit_type{ 22 } }
         );
     }
 

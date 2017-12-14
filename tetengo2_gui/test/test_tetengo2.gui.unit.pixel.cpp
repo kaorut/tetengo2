@@ -6,16 +6,22 @@
     $Id$
 */
 
+#include <utility>
+
+#include <boost/rational.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/unit/pixel.h>
+#include <tetengo2/type_list.h>
 
 
 namespace
 {
     // types
+    
+    using difference_rational_type = boost::rational<tetengo2::type_list::difference_type>;
 
-    using unit_type = tetengo2::gui::unit::pixel<int>;
+    using unit_type = tetengo2::gui::unit::pixel;
 
 
 }
@@ -24,7 +30,7 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(unit)
-BOOST_AUTO_TEST_SUITE(pixel)
+BOOST_AUTO_TEST_SUITE(basic_pixel)
     // test cases
 
     BOOST_AUTO_TEST_CASE(from_pixels)
@@ -41,8 +47,8 @@ BOOST_AUTO_TEST_SUITE(pixel)
         BOOST_TEST_PASSPOINT();
 
         {
-            const int value = 123;
-            const unit_type unit{ value };
+            const difference_rational_type value{ 123 };
+            const unit_type unit{ std::move(value) };
         }
         {
             const unit_type unit{ 123 };
@@ -56,12 +62,17 @@ BOOST_AUTO_TEST_SUITE(pixel)
         {
             const unit_type unit1{ 123 };
 
-            BOOST_CHECK(unit1 == 123);
+            BOOST_CHECK(unit1 == difference_rational_type{ 123 } );
+        }
+        {
+            const unit_type unit1{ 123 };
+
+            BOOST_CHECK(unit1 == static_cast<difference_rational_type::int_type>(123) );
         }
         {
             const unit_type unit1{ 456 };
 
-            BOOST_CHECK(unit1 != 123);
+            BOOST_CHECK(unit1 != difference_rational_type{ 123 });
         }
     }
 
@@ -69,18 +80,32 @@ BOOST_AUTO_TEST_SUITE(pixel)
     {
         BOOST_TEST_PASSPOINT();
 
-        const unit_type unit1{ 123 };
+        {
+            const unit_type unit1{ 123 };
 
-        BOOST_CHECK(unit1 < 456);
+            BOOST_CHECK(unit1 < difference_rational_type{ 456 });
+        }
+        {
+            const unit_type unit1{ 123 };
+
+            BOOST_CHECK(unit1 < static_cast<difference_rational_type::int_type>(456));
+        }
     }
 
     BOOST_AUTO_TEST_CASE(operator_greater_than)
     {
         BOOST_TEST_PASSPOINT();
 
-        const unit_type unit1{ 456 };
+        {
+            const unit_type unit1{ 456 };
 
-        BOOST_CHECK(unit1 > 123);
+            BOOST_CHECK(unit1 > difference_rational_type{ 123 });
+        }
+        {
+            const unit_type unit1{ 456 };
+
+            BOOST_CHECK(unit1 > static_cast<difference_rational_type::int_type>(123));
+        }
     }
 
     BOOST_AUTO_TEST_CASE(add)
@@ -123,13 +148,13 @@ BOOST_AUTO_TEST_SUITE(pixel)
         {
             unit_type unit1{ 456 };
 
-            unit1.divide_by(123);
+            unit1.divide_by(152);
 
             BOOST_TEST(unit1.value() == 3);
         }
         {
             const unit_type unit1{ 456 };
-            const unit_type unit2{ 123 };
+            const unit_type unit2{ 152 };
 
             BOOST_TEST(unit1.divide_by(unit2) == 3);
         }

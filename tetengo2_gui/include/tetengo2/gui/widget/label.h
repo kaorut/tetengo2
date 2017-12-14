@@ -113,7 +113,8 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         void fit_to_content()
         {
-            if (this->text().empty()) return;
+            if (this->text().empty())
+                return;
 
             this->set_client_dimension(calc_text_dimension());
         }
@@ -125,10 +126,11 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         void fit_to_content(dimension_unit_type max_width)
         {
-            if (this->text().empty() || max_width == dimension_unit_type{ 0 }) return;
+            if (this->text().empty() || max_width == dimension_unit_type{ 0 })
+                return;
 
             auto one_line_dimension = calc_text_dimension();
-            const dimension_unit_type line_count{ one_line_dimension.width() / max_width };
+            const auto line_count = dimension_unit_type{ one_line_dimension.width() / max_width };
             if (line_count <= dimension_unit_type{ 1 })
             {
                 this->set_client_dimension(std::move(one_line_dimension));

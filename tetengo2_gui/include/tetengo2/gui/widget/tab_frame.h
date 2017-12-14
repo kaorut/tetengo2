@@ -223,7 +223,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 );
                 canvas.set_line_width(dimension_unit_type{ 1 } / 8);
 
-                position_unit_type unselected_left{ 0 };
+                auto unselected_left = position_unit_type{ 0 };
                 if (m_index != static_cast<const tab_frame&>(this->parent()).selected_tab_index())
                     unselected_left = position_unit_type{ 1 } / 12;
                 position_type label_position{ this->position().left() + unselected_left, this->position().top() };
@@ -398,6 +398,13 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
         private:
+            // types
+
+            using position_unit_type = typename tab_frame::position_unit_type;
+
+            using dimension_unit_type = typename tab_frame::dimension_unit_type;
+
+
             // variables
 
             control_type& m_control;
@@ -895,7 +902,7 @@ namespace tetengo2 { namespace gui { namespace widget
         position_unit_type tab_label_top(const tab_label_type& tab_label)
         const
         {
-            position_unit_type top{ 0 };
+            auto top = position_unit_type{ 0 };
             for (const auto& p_tab: m_p_tabs)
             {
                 if (&p_tab->label() == &tab_label)
@@ -921,7 +928,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 );
             if (max_width_tab == m_p_tabs.end())
             {
-                static const dimension_unit_type zero_width{ 0 };
+                static const auto zero_width = dimension_unit_type{ 0 };
                 return zero_width;
             }
 

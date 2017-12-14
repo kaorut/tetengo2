@@ -207,7 +207,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         const auto line_width = canvas.line_width();
 
-        BOOST_CHECK(line_width == 1U);
+        BOOST_CHECK(line_width == static_cast<size_type>(1));
     }
 
     BOOST_AUTO_TEST_CASE(set_line_width)
@@ -218,7 +218,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         canvas.set_line_width(dimension_unit_type{ 42 });
 
-        BOOST_CHECK(canvas.line_width() == 42U);
+        BOOST_CHECK(canvas.line_width() == static_cast<size_type>(42));
     }
 
     BOOST_AUTO_TEST_CASE(line_style)
@@ -344,14 +344,16 @@ BOOST_AUTO_TEST_SUITE(canvas)
         {
             const concrete_canvas canvas{};
 
-            const auto dimension = canvas.calc_text_dimension(string_type{ TETENGO2_TEXT("hoge") }, dimension_unit_type{ 256 });
+            const auto dimension =
+                canvas.calc_text_dimension(string_type{ TETENGO2_TEXT("hoge") }, dimension_unit_type{ 256 });
 
             BOOST_CHECK(dimension == make_dimension(123U, 456U));
         }
         {
             const concrete_canvas canvas{};
 
-            const auto dimension = canvas.calc_text_dimension(string_type{ TETENGO2_TEXT("hoge") }, dimension_unit_type{ 64 });
+            const auto dimension =
+                canvas.calc_text_dimension(string_type{ TETENGO2_TEXT("hoge") }, dimension_unit_type{ 64 });
 
             BOOST_CHECK(dimension == make_dimension(46U, 890U));
         }

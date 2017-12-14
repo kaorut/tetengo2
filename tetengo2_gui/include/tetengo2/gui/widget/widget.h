@@ -100,7 +100,8 @@ namespace tetengo2 { namespace gui { namespace widget
             gui::drawing::canvas_traits<size_type, string_type, position_type, dimension_type, encoder_type>;
 
         //! The canvas type.
-        using canvas_type = gui::drawing::canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
+        using canvas_type =
+            gui::drawing::canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
 
         //! The widget canvas type.
         using widget_canvas_type =
@@ -379,8 +380,8 @@ namespace tetengo2 { namespace gui { namespace widget
         void set_client_dimension(const D& client_dimension)
         {
             if (
-                client_dimension.width() == typename D::unit_type{ 0 } ||
-                client_dimension.height() == typename D::unit_type{ 0 }
+                client_dimension.width() == dimension_unit_type{ 0 } ||
+                client_dimension.height() == dimension_unit_type{ 0 }
             )
             {
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "Client dimension has zero value." }));
@@ -920,6 +921,8 @@ namespace tetengo2 { namespace gui { namespace widget
         // types
 
         using position_unit_type = typename position_type::unit_type;
+
+        using dimension_unit_type = typename dimension_type::unit_type;
 
         class paint_background
         {

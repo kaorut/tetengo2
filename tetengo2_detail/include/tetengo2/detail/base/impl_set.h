@@ -19,6 +19,7 @@ namespace tetengo2 { namespace detail { namespace base
     class alert;
     class cursor;
     class gui_fixture;
+    class unit;
 
 
     /*!
@@ -61,6 +62,14 @@ namespace tetengo2 { namespace detail { namespace base
         std::unique_ptr<gui_fixture> create_gui_fixture()
         const;
 
+        /*!
+            \brief Returns the detail implementation of unit.
+
+            \return The detail implementation.
+        */
+        const unit& unit_()
+        const;
+
 
     protected:
         // constructors
@@ -81,6 +90,9 @@ namespace tetengo2 { namespace detail { namespace base
         const = 0;
 
         virtual std::unique_ptr<gui_fixture> create_gui_fixture_impl()
+        const = 0;
+
+        virtual const unit& unit_impl()
         const = 0;
 
 

@@ -261,6 +261,9 @@
     <ClInclude Include="include\tetengo2\detail\base\gui_fixture.h">
       <Filter>headers\tetengo2::detail\base</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\base\unit.h">
+      <Filter>headers\tetengo2::detail\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\tetengo2.detail.base.config.cpp">
@@ -328,6 +331,15 @@
     </ClCompile>
     <ClCompile Include="src\tetengo2.detail.base.gui_fixture.cpp">
       <Filter>sources\tetengo2::detail\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.base.unit.cpp">
+      <Filter>sources\tetengo2::detail\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.stub.unit.cpp">
+      <Filter>sources\tetengo2::detail\stub</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.unit.cpp">
+      <Filter>sources\tetengo2::detail\windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
