@@ -63,7 +63,7 @@ BOOST_AUTO_TEST_SUITE(dimension)
         {
             const dimension_type dimension{};
 
-            BOOST_CHECK((dimension.width() == unit_type{ 0 }));
+            BOOST_CHECK((dimension.width() == unit_type{}));
         }
         {
             const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
@@ -79,7 +79,7 @@ BOOST_AUTO_TEST_SUITE(dimension)
         {
             const dimension_type dimension{};
 
-            BOOST_CHECK((dimension.height() == unit_type{ 0 }));
+            BOOST_CHECK((dimension.height() == unit_type{}));
         }
         {
             const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };

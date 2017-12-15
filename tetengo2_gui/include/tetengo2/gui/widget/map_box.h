@@ -1030,7 +1030,7 @@ namespace tetengo2 { namespace gui { namespace widget
                         upper_bound > page_size ? upper_bound - page_size + 1 : 0
                     );
                 }
-                scroll_bar.set_range(std::make_pair(scroll_bar_size_type{ 0 }, upper_bound));
+                scroll_bar.set_range(std::make_pair(scroll_bar_size_type{}, upper_bound));
                 scroll_bar.set_page_size(page_size);
                 scroll_bar.set_enabled(true);
             }

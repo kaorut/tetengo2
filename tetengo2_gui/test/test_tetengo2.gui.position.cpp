@@ -64,7 +64,7 @@ BOOST_AUTO_TEST_SUITE(position)
         {
             const position_type position{};
 
-            BOOST_CHECK((position.left() == unit_type{ 0 }));
+            BOOST_CHECK((position.left() == unit_type{}));
         }
         {
             const position_type position{ unit_type{ 42 }, unit_type{ 24 } };
@@ -80,7 +80,7 @@ BOOST_AUTO_TEST_SUITE(position)
         {
             const position_type position{};
 
-            BOOST_CHECK((position.top() == unit_type{ 0 }));
+            BOOST_CHECK((position.top() == unit_type{}));
         }
         {
             const position_type position{ unit_type{ 42 }, unit_type{ 24 } };
