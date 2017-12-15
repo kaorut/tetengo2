@@ -18,6 +18,12 @@
 namespace tetengo2 { namespace gui { namespace unit
 {
     template <typename Value>
+    basic_pixel<Value>::basic_pixel()
+    :
+    m_value(0)
+    {}
+
+    template <typename Value>
     basic_pixel<Value>::basic_pixel(value_type value)
     :
     m_value(std::move(value))

@@ -21,6 +21,13 @@
 namespace tetengo2 { namespace gui
 {
     template <typename Unit>
+    position<Unit>::position()
+    :
+    m_left(unit_type{}),
+    m_top(unit_type{})
+    {}
+
+    template <typename Unit>
     position<Unit>::position(unit_type left, unit_type top)
     :
     m_left(std::move(left)),

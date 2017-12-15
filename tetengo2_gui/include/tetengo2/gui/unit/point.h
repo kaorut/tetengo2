@@ -79,6 +79,11 @@ namespace tetengo2 { namespace gui { namespace unit
         // constructors and destructor
 
         /*!
+            \brief Creates a point unit with zero.
+        */
+        basic_point();
+
+        /*!
             \brief Creates a point unit.
 
             \param value A value.

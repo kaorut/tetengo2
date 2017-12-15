@@ -305,7 +305,7 @@ BOOST_AUTO_TEST_SUITE(inner_item)
         concrete_custom_control custom_control{ parent };
         const concrete_inner_item inner_item{ custom_control };
 
-        BOOST_TEST(!inner_item.call_inside(position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } }));
+        BOOST_TEST(!inner_item.call_inside(position_type{}));
         BOOST_TEST(inner_item.call_inside(position_type{ position_unit_type{ 42 }, position_unit_type{ 24 } }));
         BOOST_TEST(inner_item.call_inside(position_type{ position_unit_type{ 50 }, position_unit_type{ 50 } }));
         BOOST_TEST(!inner_item.call_inside(position_type{ position_unit_type{ 100 }, position_unit_type{ 100 } }));

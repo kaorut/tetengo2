@@ -243,8 +243,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using position_type = typename base_type::position_type;
 
-        using position_unit_type = typename position_type::unit_type;
-
         using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
 
 
@@ -273,17 +271,9 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             if (m_p_picture)
-            {
-                canvas.paint_picture(
-                    *m_p_picture,
-                    position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } },
-                    this->client_dimension()
-                );
-            }
+                canvas.paint_picture(*m_p_picture, position_type{}, this->client_dimension());
             else if (m_p_icon)
-            {
-                canvas.paint_icon(*m_p_icon, position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } });
-            }
+                canvas.paint_icon(*m_p_icon, position_type{});
         }
 
 

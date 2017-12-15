@@ -52,6 +52,11 @@ namespace tetengo2 { namespace gui { namespace unit
         // constructors and destructor
 
         /*!
+            \brief Creates a pixel unit with zero.
+        */
+        basic_pixel();
+
+        /*!
             \brief Creates a pixel unit.
 
             \param value A value in pixels.

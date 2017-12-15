@@ -126,7 +126,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         void fit_to_content(dimension_unit_type max_width)
         {
-            if (this->text().empty() || max_width == dimension_unit_type{ 0 })
+            if (this->text().empty() || max_width == dimension_unit_type{})
                 return;
 
             auto one_line_dimension = calc_text_dimension();
@@ -148,8 +148,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
 
-        using position_unit_type = typename position_type::unit_type;
-
         class paint_background
         {
         public:
@@ -165,9 +163,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     return false;
 
                 canvas.set_background(m_self.background()->clone());
-                canvas.fill_rectangle(
-                    position_type{ position_unit_type{ 0 }, position_unit_type{ 0 } }, m_self.client_dimension()
-                );
+                canvas.fill_rectangle(position_type{}, m_self.client_dimension());
 
                 return true;
             }

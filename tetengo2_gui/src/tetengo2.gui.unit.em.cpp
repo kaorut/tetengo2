@@ -23,6 +23,12 @@
 namespace tetengo2 { namespace gui { namespace unit
 {
     template <typename Value, typename UnitDetails>
+    basic_em<Value, UnitDetails>::basic_em()
+    :
+    m_value(0)
+    {}
+
+    template <typename Value, typename UnitDetails>
     basic_em<Value, UnitDetails>::basic_em(value_type value)
     :
     m_value(std::move(value))
