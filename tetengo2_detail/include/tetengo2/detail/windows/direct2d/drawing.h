@@ -624,12 +624,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const auto chunks = split_to_vertical_text_chunks(text, encoder);
 
             using dimension_unit_type = typename Dimension::unit_type;
-            dimension_unit_type max_width{ 0 };
-            dimension_unit_type total_height{ 0 };
+            dimension_unit_type max_width{};
+            dimension_unit_type total_height{};
             for (const auto& chunk: chunks)
             {
                 const auto chunk_dimension =
-                    calc_text_dimension<Dimension>(canvas, font, chunk, encoder, dimension_unit_type{ 0 });
+                    calc_text_dimension<Dimension>(canvas, font, chunk, encoder, dimension_unit_type{});
                 const auto& chunk_width = chunk_dimension.width();
                 const auto& chunk_height = chunk_dimension.height();
                 if (character_rotation(chunk, encoder) % 2 == 0)
@@ -756,7 +756,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             for (const auto& chunk: chunks)
             {
                 const auto chunk_dimension =
-                    calc_text_dimension<Dimension>(canvas, font, chunk, encoder, dimension_unit_type{ 0 });
+                    calc_text_dimension<Dimension>(canvas, font, chunk, encoder, dimension_unit_type{});
                 const auto& chunk_width = chunk_dimension.width();
                 const auto& chunk_height = chunk_dimension.height();
 
@@ -788,7 +788,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
                 
                 draw_text<Font, String, Encoder, Position, dimension_unit_type, Color>(
-                    canvas, font, chunk, encoder, chunk_position, dimension_unit_type{ 0 }, color, angle
+                    canvas, font, chunk, encoder, chunk_position, dimension_unit_type{}, color, angle
                 );
 
                 next_chunk_top +=
@@ -1093,7 +1093,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             const auto encoded_text = encoder.encode(text);
             const ::FLOAT max_width_in_dip =
-                max_width == DimensionUnit{ 0 } ?
+                max_width == DimensionUnit{} ?
                 std::numeric_limits< ::FLOAT>::max() : to_dip_x(gui::to_pixels< ::FLOAT>(max_width));
             ::IDWriteTextLayout* rp_layout = nullptr;
             const auto create_layout_hr =

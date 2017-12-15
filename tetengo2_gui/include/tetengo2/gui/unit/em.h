@@ -79,6 +79,11 @@ namespace tetengo2 { namespace gui { namespace unit
         // constructors and destructor
 
         /*!
+            \brief Creates an EM height unit with zero.
+        */
+        basic_em();
+
+        /*!
             \brief Creates an EM height unit.
 
             \param value A value.
