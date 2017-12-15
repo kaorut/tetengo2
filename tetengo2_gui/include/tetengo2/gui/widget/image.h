@@ -243,8 +243,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using position_type = typename base_type::position_type;
 
-        using position_unit_type = typename position_type::unit_type;
-
         using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
 
 

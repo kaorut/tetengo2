@@ -143,8 +143,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         using position_type = typename base_type::position_type;
 
-        using position_unit_type = typename position_type::unit_type;
-
         class paint_background
         {
         public:
