@@ -80,11 +80,6 @@ BOOST_AUTO_TEST_SUITE(basic_point)
             BOOST_CHECK(unit1 == difference_rational_type{ 12 });
         }
         {
-            const unit_type unit1{ 12 };
-
-            BOOST_CHECK(unit1 == static_cast<difference_rational_type::int_type>(12));
-        }
-        {
             const unit_type unit1{ 34 };
 
             BOOST_CHECK(unit1 != difference_rational_type{ 12 });
@@ -100,11 +95,6 @@ BOOST_AUTO_TEST_SUITE(basic_point)
 
             BOOST_CHECK(unit1 < difference_rational_type{ 34 });
         }
-        {
-            const unit_type unit1{ 12 };
-
-            BOOST_CHECK(unit1 < static_cast<difference_rational_type::int_type>(34));
-        }
     }
 
     BOOST_AUTO_TEST_CASE(operator_greater_than)
@@ -115,11 +105,6 @@ BOOST_AUTO_TEST_SUITE(basic_point)
             const unit_type unit1{ 34 };
 
             BOOST_CHECK(unit1 > difference_rational_type{ 12 });
-        }
-        {
-            const unit_type unit1{ 34 };
-
-            BOOST_CHECK(unit1 > static_cast<difference_rational_type::int_type>(12));
         }
     }
 

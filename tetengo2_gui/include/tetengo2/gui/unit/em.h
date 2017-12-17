@@ -96,8 +96,7 @@ namespace tetengo2 { namespace gui { namespace unit
         /*!
             \brief Checks whether one EM height unit is equal to another.
 
-            \tparam V1 A value #1 type.
-            \tparam V2 A value #2 type.
+            \tparam V  A value type.
             \tparam UD A unit details_type.
 
             \param one     One EM height unit.
@@ -106,14 +105,13 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        template <typename V1, typename V2, typename UD>
-        friend bool operator==(const basic_em<V1, UD>& one, const V2& another);
+        template <typename V, typename UD>
+        friend bool operator==(const basic_em<V, UD>& one, const V& another);
 
         /*!
             \brief Checks whether one EM height unit is less than another.
 
-            \tparam V1 A value #1 type.
-            \tparam V2 A value #2 type.
+            \tparam V  A value type.
             \tparam UD A unit details_type.
 
             \param one     One EM height unit.
@@ -122,14 +120,13 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval true  When the one is less than the other.
             \retval false Otherwise.
         */
-        template <typename V1, typename V2, typename UD>
-        friend bool operator<(const basic_em<V1, UD>& one, const V2& another);
+        template <typename V, typename UD>
+        friend bool operator<(const basic_em<V, UD>& one, const V& another);
 
         /*!
             \brief Checks whether one EM height unit is greater than another.
 
-            \tparam V1 A value #1 type.
-            \tparam V2 A value #2 type.
+            \tparam V  A value type.
             \tparam UD A unit details_type.
 
             \param one     One EM height unit.
@@ -138,8 +135,8 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval true  When the one is greater than the other.
             \retval false Otherwise.
         */
-        template <typename V1, typename V2, typename UD>
-        friend bool operator>(const basic_em<V1, UD>& one, const V2& another);
+        template <typename V, typename UD>
+        friend bool operator>(const basic_em<V, UD>& one, const V& another);
 
         /*!
             \brief Adds another value in EM height unit.

@@ -69,8 +69,7 @@ namespace tetengo2 { namespace gui { namespace unit
         /*!
             \brief Checks whether one  pixel unit is equal to another.
 
-            \tparam V1 A value #1 type.
-            \tparam V2 A value #2 type.
+            \tparam V A value type.
 
             \param one     One pixel unit.
             \param another Another value in pixel unit.
@@ -78,14 +77,13 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        template <typename V1, typename V2>
-        friend bool operator==(const basic_pixel<V1>& one, const V2& another);
+        template <typename V>
+        friend bool operator==(const basic_pixel<V>& one, const V& another);
 
         /*!
             \brief Checks whether one pixel unit is less than another.
 
-            \tparam V1 A value #1 type.
-            \tparam V2 A value #2 type.
+            \tparam V A value type.
 
             \param one     One pixel unit.
             \param another Another value in pixel unit.
@@ -93,14 +91,13 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval true  When the one is less than the other.
             \retval false Otherwise.
         */
-        template <typename V1, typename V2>
-        friend bool operator<(const basic_pixel<V1>& one, const V2& another);
+        template <typename V>
+        friend bool operator<(const basic_pixel<V>& one, const V& another);
 
         /*!
             \brief Checks whether one pixel unit is greater than another.
 
-            \tparam V1 A value #1 type.
-            \tparam V2 A value #2 type.
+            \tparam V A value type.
 
             \param one     One pixel unit.
             \param another Another value in pixel unit.
@@ -108,8 +105,8 @@ namespace tetengo2 { namespace gui { namespace unit
             \retval true  When the one is greater than the other.
             \retval false Otherwise.
         */
-        template <typename V1, typename V2>
-        friend bool operator>(const basic_pixel<V1>& one, const V2& another);
+        template <typename V>
+        friend bool operator>(const basic_pixel<V>& one, const V& another);
 
         /*!
             \brief Adds another value in pixel unit.

@@ -80,11 +80,6 @@ BOOST_AUTO_TEST_SUITE(basic_em)
             BOOST_CHECK(unit1 == difference_rational_type{ 123 });
         }
         {
-            const unit_type unit1{ 123 };
-
-            BOOST_CHECK(unit1 == static_cast<difference_rational_type::int_type>(123) );
-        }
-        {
             const unit_type unit1{ 456 };
 
             BOOST_CHECK(unit1 != difference_rational_type{ 123 });
@@ -98,11 +93,6 @@ BOOST_AUTO_TEST_SUITE(basic_em)
         {
             const unit_type unit1{ 123 };
 
-            BOOST_CHECK(unit1 < static_cast<difference_rational_type::int_type>(456) );
-        }
-        {
-            const unit_type unit1{ 123 };
-
             BOOST_CHECK(unit1 < difference_rational_type{ 456 });
         }
     }
@@ -111,11 +101,6 @@ BOOST_AUTO_TEST_SUITE(basic_em)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            const unit_type unit1{ 456 };
-
-            BOOST_CHECK(unit1 > static_cast<difference_rational_type::int_type>(123) );
-        }
         {
             const unit_type unit1{ 456 };
 
