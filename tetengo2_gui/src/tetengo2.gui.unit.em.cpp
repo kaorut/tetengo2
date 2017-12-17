@@ -34,20 +34,20 @@ namespace tetengo2 { namespace gui { namespace unit
     m_value(std::move(value))
     {}
 
-    template <typename V1, typename V2, typename UD>
-    bool operator==(const basic_em<V1, UD>& one, const V2& another)
+    template <typename V, typename UD>
+    bool operator==(const basic_em<V, UD>& one, const V& another)
     {
         return one.value() == another;
     }
 
-    template <typename V1, typename V2, typename UD>
-    bool operator<(const basic_em<V1, UD>& one, const V2& another)
+    template <typename V, typename UD>
+    bool operator<(const basic_em<V, UD>& one, const V& another)
     {
         return one.value() < another;
     }
 
-    template <typename V1, typename V2, typename UD>
-    bool operator>(const basic_em<V1, UD>& one, const V2& another)
+    template <typename V, typename UD>
+    bool operator>(const basic_em<V, UD>& one, const V& another)
     {
         return one.value() > another;
     }
@@ -143,18 +143,8 @@ namespace tetengo2 { namespace gui { namespace unit
     );
 
     template bool operator==(
-        const basic_em<size_rational_type, detail::stub::unit>& one,
-        const size_rational_type::int_type&                     another
-    );
-
-    template bool operator==(
         const basic_em<difference_rational_type, detail::stub::unit>& one,
         const difference_rational_type&                               another
-    );
-
-    template bool operator==(
-        const basic_em<difference_rational_type, detail::stub::unit>& one,
-        const difference_rational_type::int_type&                     another
     );
 
     template bool operator<(
@@ -163,38 +153,18 @@ namespace tetengo2 { namespace gui { namespace unit
     );
 
     template bool operator<(
-        const basic_em<size_rational_type, detail::stub::unit>& one,
-        const size_rational_type::int_type&                     another
-    );
-
-    template bool operator<(
         const basic_em<difference_rational_type, detail::stub::unit>& one,
         const difference_rational_type&                               another
-    );
-
-    template bool operator<(
-        const basic_em<difference_rational_type, detail::stub::unit>& one,
-        const difference_rational_type::int_type&                     another
     );
 
     template bool operator>(
         const basic_em<size_rational_type, detail::stub::unit>& one,
         const size_rational_type&                               another
-    );
-
-    template bool operator>(
-        const basic_em<size_rational_type, detail::stub::unit>& one,
-        const size_rational_type::int_type&                     another
     );
 
     template bool operator>(
         const basic_em<difference_rational_type, detail::stub::unit>& one, 
         const difference_rational_type&                               another
-    );
-
-    template bool operator>(
-        const basic_em<difference_rational_type, detail::stub::unit>& one,
-        const difference_rational_type::int_type&                     another
     );
 
 #if BOOST_OS_WINDOWS
@@ -208,18 +178,8 @@ namespace tetengo2 { namespace gui { namespace unit
     );
 
     template bool operator==(
-        const basic_em<size_rational_type, detail::windows::unit>& one,
-        const size_rational_type::int_type&                        another
-    );
-
-    template bool operator==(
         const basic_em<difference_rational_type, detail::windows::unit>& one,
         const difference_rational_type&                                  another
-    );
-
-    template bool operator==(
-        const basic_em<difference_rational_type, detail::windows::unit>& one,
-        const difference_rational_type::int_type&                        another
     );
 
     template bool operator<(
@@ -228,38 +188,18 @@ namespace tetengo2 { namespace gui { namespace unit
     );
 
     template bool operator<(
-        const basic_em<size_rational_type, detail::windows::unit>& one,
-        const size_rational_type::int_type&                        another
-    );
-
-    template bool operator<(
         const basic_em<difference_rational_type, detail::windows::unit>& one,
         const difference_rational_type&                                  another
-    );
-
-    template bool operator<(
-        const basic_em<difference_rational_type, detail::windows::unit>& one,
-        const difference_rational_type::int_type&                        another
     );
 
     template bool operator>(
         const basic_em<size_rational_type, detail::windows::unit>& one,
         const size_rational_type&                                  another
-    );
-
-    template bool operator>(
-        const basic_em<size_rational_type, detail::windows::unit>& one,
-        const size_rational_type::int_type&                        another
     );
 
     template bool operator>(
         const basic_em<difference_rational_type, detail::windows::unit>& one, 
         const difference_rational_type&                                  another
-    );
-
-    template bool operator>(
-        const basic_em<difference_rational_type, detail::windows::unit>& one,
-        const difference_rational_type::int_type&                        another
     );
 #endif
 

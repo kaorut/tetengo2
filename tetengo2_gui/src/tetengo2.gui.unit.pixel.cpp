@@ -29,20 +29,20 @@ namespace tetengo2 { namespace gui { namespace unit
     m_value(std::move(value))
     {}
 
-    template <typename V1, typename V2>
-    bool operator==(const basic_pixel<V1>& one, const V2& another)
+    template <typename V>
+    bool operator==(const basic_pixel<V>& one, const V& another)
     {
         return one.value() == another;
     }
 
-    template <typename V1, typename V2>
-    bool operator<(const basic_pixel<V1>& one, const V2& another)
+    template <typename V>
+    bool operator<(const basic_pixel<V>& one, const V& another)
     {
         return one.value() < another;
     }
 
-    template <typename V1, typename V2>
-    bool operator>(const basic_pixel<V1>& one, const V2& another)
+    template <typename V>
+    bool operator>(const basic_pixel<V>& one, const V& another)
     {
         return one.value() > another;
     }
@@ -126,36 +126,15 @@ namespace tetengo2 { namespace gui { namespace unit
 
     template bool operator==(const basic_pixel<size_rational_type>& one, const size_rational_type& another);
 
-    template bool operator==(const basic_pixel<size_rational_type>& one, const size_rational_type::int_type& another);
-
     template bool operator==(const basic_pixel<difference_rational_type>& one, const difference_rational_type& another);
-
-    template bool operator==(
-        const basic_pixel<difference_rational_type>&    one,
-        const difference_rational_type::int_type& another
-    );
 
     template bool operator<(const basic_pixel<size_rational_type>& one, const size_rational_type& another);
 
-    template bool operator<(const basic_pixel<size_rational_type>& one, const size_rational_type::int_type& another);
-
     template bool operator<(const basic_pixel<difference_rational_type>& one, const difference_rational_type& another);
-
-    template bool operator<(
-        const basic_pixel<difference_rational_type>&    one,
-        const difference_rational_type::int_type& another
-    );
 
     template bool operator>(const basic_pixel<size_rational_type>& one, const size_rational_type& another);
 
-    template bool operator>(const basic_pixel<size_rational_type>& one, const size_rational_type::int_type& another);
-
     template bool operator>(const basic_pixel<difference_rational_type>& one, const difference_rational_type& another);
-
-    template bool operator>(
-        const basic_pixel<difference_rational_type>&    one,
-        const difference_rational_type::int_type& another
-    );
 
 
 }}}
