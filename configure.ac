@@ -71,7 +71,7 @@ AC_ARG_WITH(
 )
 AC_CHECK_PROG(DOXYGEN, doxygen, doxygen)
 test -z $DOXYGEN && \
-    AC_MSG_WARN([You cannot generate documentation for lack of Doxygen.])
+    AC_MSG_WARN([You cannot generate documents for lack of Doxygen.])
 
 #### Checks for libraries ####
 AC_CHECK_FUNC(sem_open, , [AC_CHECK_LIB(rt, sem_open)])
