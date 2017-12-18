@@ -23,6 +23,10 @@ lint-test-cases:
 lint-type-list-type-duplication:
 	$(top_srcdir)/tools/check_type_list_type_duplication.sh $(top_srcdir)
 
+.PHONY: lint-iwyu
+lint-iwyu:
+	for d in tetengo2; do (cd $$d && $(MAKE) lint-iwyu); done
+
 .PHONY: doc
 doc:
 	cd $(top_srcdir) && $(DOXYGEN) Doxyfile

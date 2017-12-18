@@ -69,6 +69,13 @@ clean-local:
 	-chmod -R u+w $(top_builddir)/tetengo2/test/messages.test
 	-rm -rf $(top_builddir)/tetengo2/test/messages.test
 
+lint-iwyu:
+	for f in $(headers) $(extra_headers) $(sources) $(extra_sources); \
+	do \
+	    echo $$f; \
+	    iwyu -x c++ $(CPPFLAGS) $(tetengo2_test_CPPFLAGS) $(CXXFLAGS) $$f; \
+	done
+
 $(top_builddir)/precompiled/precompiled.h.$(PRECOMPILE_EXT): $(top_srcdir)/precompiled/precompiled.h
 	pushd $(top_builddir)/precompiled; \
 	$(MAKE) all; \

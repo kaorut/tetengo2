@@ -8,3 +8,16 @@ headers = \
     tetengo2.h
 
 include_HEADERS = $(headers)
+
+iwyu_CPPFLAGS = \
+    -I$(top_srcdir)/tetengo2/include \
+    -I$(top_srcdir)/tetengo2_detail/include
+
+lint-iwyu:
+	for d in $(SUBDIRS); do (cd $$d && $(MAKE) lint-iwyu); done
+	for f in $(headers); \
+	do \
+	    echo $$f; \
+	    iwyu -x c++ $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $$f; \
+	done
+
