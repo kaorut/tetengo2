@@ -66,8 +66,8 @@ AC_ARG_WITH(
     IWYU=$withval
 )
 AC_CHECK_PROG(IWYU, include-what-you-use, include-what-you-use)
-test -z $DOXYGEN && \
-    AC_MSG_WARN([You cannot check the #includes for lack of include-what-you-use.])
+test -z $IWYU && \
+    AC_MSG_WARN([You cannot check the includes for lack of include-what-you-use.])
 AC_ARG_WITH(
     doxygen,
     AS_HELP_STRING([--with-doxygen=COMMAND], [Specify the Doxygen command. Or uses `doxygen'.]),
