@@ -114,6 +114,13 @@ tetengo2_gui_test_LDADD = \
     $(UNITTEST_LIBS)
 tetengo2_gui_test_SOURCES = $(headers) $(sources)
 
+lint-iwyu:
+	for f in $(headers) $(extra_headers) $(sources) $(extra_sources); \
+	do \
+	    echo $$f; \
+	    iwyu -x c++ $(CPPFLAGS) $(tetengo2_test_CPPFLAGS) $(CXXFLAGS) $$f; \
+	done
+
 $(top_builddir)/precompiled/precompiled.h.$(PRECOMPILE_EXT): $(top_srcdir)/precompiled/precompiled.h
 	pushd $(top_builddir)/precompiled; \
 	$(MAKE) all; \

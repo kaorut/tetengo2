@@ -2,12 +2,17 @@
 # Copyright (C) 2007-2017 kaoru
 # $Id$
 
+SOURCE_SUBDIRS = \
+    tetengo2 \
+    tetengo2_detail \
+    tetengo2_gui
+
 SUBDIRS = \
-     docsrc \
-     precompiled \
-     tetengo2 tetengo2_detail tetengo2_gui \
-     tools \
-     vsprops
+    docsrc \
+    precompiled \
+    $(SOURCE_SUBDIRS) \
+    tools \
+    vsprops
 
 EXTRA_DIST = tetengo2.sln tetengo2_config.h-original TODO Doxyfile
 
@@ -25,7 +30,7 @@ lint-type-list-type-duplication:
 
 .PHONY: lint-iwyu
 lint-iwyu:
-	for d in tetengo2; do (cd $$d && $(MAKE) lint-iwyu); done
+	for d in $(SOURCE_SUBDIRS); do (cd $$d && $(MAKE) lint-iwyu); done
 
 .PHONY: doc
 doc:

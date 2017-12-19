@@ -81,3 +81,15 @@ extra_headers = \
 
 nobase_pkginclude_HEADERS = $(pkg_headers)
 EXTRA_DIST = $(extra_headers)
+
+iwyu_CPPFLAGS = \
+    -I$(top_srcdir)/tetengo2/include \
+    -I$(top_srcdir)/tetengo2_detail/include \
+    -I$(top_srcdir)/tetengo2_gui/include
+
+lint-iwyu:
+	for f in $(pkg_headers) $(extra_headers); \
+	do \
+	    echo $$f; \
+	    iwyu -x c++ $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $$f; \
+	done
