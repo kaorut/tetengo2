@@ -102,8 +102,8 @@ iwyu_CPPFLAGS = \
     -I$(top_srcdir)/tetengo2_gui/include
 
 lint-iwyu:
-	for f in $(pkg_headers) $(extra_headers); \
+	for f in $(pkg_headers); \
 	do \
-	    echo $$f; \
+	    echo "iwyu: "$$f; \
 	    iwyu -x c++ $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $$f; \
 	done

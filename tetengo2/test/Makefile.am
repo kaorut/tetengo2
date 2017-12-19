@@ -70,9 +70,9 @@ clean-local:
 	-rm -rf $(top_builddir)/tetengo2/test/messages.test
 
 lint-iwyu:
-	for f in $(headers) $(extra_headers) $(sources) $(extra_sources); \
+	for f in $(headers) $(sources); \
 	do \
-	    echo $$f; \
+	    echo "iwyu: "$$f; \
 	    iwyu -x c++ $(CPPFLAGS) $(tetengo2_test_CPPFLAGS) $(CXXFLAGS) $$f; \
 	done
 

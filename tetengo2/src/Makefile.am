@@ -41,13 +41,13 @@ libtetengo2_a_CPPFLAGS = \
 libtetengo2_a_SOURCES = $(headers) $(sources)
 
 lint-iwyu:
-	for f in $(headers) $(extra_headers) $(sources) $(extra_sources); \
+	for f in $(headers) $(sources); \
 	do \
-	    echo $$f; \
+	    echo "iwyu: "$$f; \
 	    iwyu -x c++ $(CPPFLAGS) $(libtetengo2_a_CPPFLAGS) $(CXXFLAGS) $$f; \
 	done
 
-$(top_builddir)/precompiled/precompiled.h..$(PRECOMPILE_EXT): $(top_srcdir)/precompiled/precompiled.h
+$(top_builddir)/precompiled/precompiled.h.$(PRECOMPILE_EXT): $(top_srcdir)/precompiled/precompiled.h
 	pushd $(top_builddir)/precompiled; \
 	$(MAKE) all; \
 	popd
