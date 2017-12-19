@@ -17,6 +17,6 @@ lint-iwyu:
 	for f in $(headers); \
 	do \
 	    echo "iwyu: "$$f; \
-	    iwyu -x c++ $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $$f; \
+	    $(IWYU) -x c++ $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $$f; \
 	done
 	for d in $(SUBDIRS); do (cd $$d && $(MAKE) lint-iwyu); done

@@ -91,5 +91,5 @@ lint-iwyu:
 	for f in $(pkg_headers); \
 	do \
 	    echo "iwyu: "$$f; \
-	    iwyu -x c++ $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $$f; \
+	    $(IWYU) -x c++ $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $$f; \
 	done

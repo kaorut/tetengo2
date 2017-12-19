@@ -52,7 +52,7 @@ lint-iwyu:
 	for f in $(headers) $(sources); \
 	do \
 	    echo "iwyu: "$$f; \
-	    iwyu -x c++ $(CPPFLAGS) $(libtetengo2_detail_a_CPPFLAGS) $(CXXFLAGS) $$f; \
+	    $(IWYU) -x c++ $(CPPFLAGS) $(libtetengo2_detail_a_CPPFLAGS) $(CXXFLAGS) $$f; \
 	done
 
 $(top_builddir)/precompiled/precompiled.h.$(PRECOMPILE_EXT): $(top_srcdir)/precompiled/precompiled.h
