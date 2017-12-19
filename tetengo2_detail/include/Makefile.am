@@ -18,6 +18,6 @@ lint-iwyu:
 	for f in $(headers); \
 	do \
 	    echo "iwyu: "$$f; \
-	    $(IWYU) -x c++ $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $$f; \
+	    $(IWYU) -Xiwyu --mapping_file=$(top_srcdir)/tools/iwyu_mappings.imp -Xiwyu --max_line_length=1024 -x c++ $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $$f; \
 	done; \
 	for d in $(SUBDIRS); do (cd $$d && $(MAKE) lint-iwyu); done

@@ -1,0 +1,17 @@
+[
+  { include: ["<bits/uses_allocator.h>", "private", "<memory>", "public"] },
+
+  { include: ["@<boost/algorithm/string/.+>",                         "private", "<boost/algorithm/string.hpp>",                  "public"] },
+  { include: ["<boost/core/explicit_operator_bool.hpp>",              "private", "<boost/optional.hpp>",                          "public"] },
+  { include: ["@<boost/exception/.+>",                                "private", "<boost/exception/all.hpp>",                     "public"] },
+  { include: ["@<boost/filesystem/.+>",                               "private", "<boost/filesystem.hpp>",                        "public"] },
+  { include: ["@<boost/range/iterator_range.+>",                      "private", "<boost/range/iterator_range.hpp>",              "public"] },
+  { include: ["@<boost/optional/.+>",                                 "private", "<boost/optional.hpp>",                          "public"] },
+  { include: ["@<boost/predef/.+>",                                   "private", "<boost/predef.h>",                              "public"] },
+  { include: ["@<boost/preprocessor/.+>",                             "private", "<boost/preprocessor.hpp>",                      "public"] },
+  { include: ["@<boost/signals2/.+>",                                 "private", "<boost/signals2.hpp>",                          "public"] },
+  { include: ["@<boost/spirit/home/qi/.+>",                           "private", "<boost/spirit/include/qi.hpp>",                 "public"] },
+  { include: ["<boost/spirit/home/support/iterators/multi_pass.hpp>", "private", "<boost/spirit/include/support_multi_pass.hpp>", "public"] },
+  { include: ["@<boost/test/.+>",                                     "private", "<boost/test/unit_test.hpp>",                    "public"] },
+  { include: ["@<boost/variant/.+>",                                  "private", "<boost/variant.hpp>",                           "public"] }
+]
