@@ -69,11 +69,13 @@ clean-local:
 	-chmod -R u+w $(top_builddir)/tetengo2/test/messages.test
 	-rm -rf $(top_builddir)/tetengo2/test/messages.test
 
+IWYU_OPTS += -Xiwyu --mapping_file=$(top_srcdir)/$(IWYU_IMP_PATH)
+
 lint-iwyu:
 	for f in $(headers) $(sources); \
 	do \
 	    echo "iwyu: "$$f; \
-	    $(IWYU) -Xiwyu --mapping_file=$(top_srcdir)/tools/iwyu_mappings.imp -Xiwyu --max_line_length=1024 -x c++ $(CPPFLAGS) $(tetengo2_test_CPPFLAGS) $(CXXFLAGS) $$f; \
+	    $(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(tetengo2_test_CPPFLAGS) $(CXXFLAGS) $$f || test $$? -eq 2; \
 	done
 
 $(top_builddir)/precompiled/precompiled.h.$(PRECOMPILE_EXT): $(top_srcdir)/precompiled/precompiled.h
