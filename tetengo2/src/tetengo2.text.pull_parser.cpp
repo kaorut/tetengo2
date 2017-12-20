@@ -16,6 +16,7 @@
 #include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
+#include <boost/shared_ptr.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/variant.hpp>
 

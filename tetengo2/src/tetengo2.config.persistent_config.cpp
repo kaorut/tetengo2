@@ -6,13 +6,14 @@
     $Id$
 */
 
+#include <memory>
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/predef.h>
 
-#include <tetengo2/config/config_base.h>
+#include <tetengo2/config/persistent_config.h>
 #include <tetengo2/detail/base/config.h>
 #if BOOST_OS_WINDOWS
 #   include <tetengo2/detail/windows/config.h>
@@ -22,9 +23,6 @@
 #   error Unsupported platform.
 #endif
 #include <tetengo2/stdalt.h>
-#include <tetengo2/type_list.h>
-
-#include <tetengo2/config/persistent_config.h>
 
 
 namespace tetengo2 { namespace config

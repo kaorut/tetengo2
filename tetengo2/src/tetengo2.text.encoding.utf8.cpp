@@ -12,6 +12,7 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/text/encoding/encoding.h>
 #include <tetengo2/text/encoding/utf8.h>
 
 

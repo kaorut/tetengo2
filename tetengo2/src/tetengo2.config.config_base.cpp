@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <memory>
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>

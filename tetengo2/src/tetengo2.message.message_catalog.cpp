@@ -7,6 +7,7 @@
 */
 
 #include <locale>
+#include <memory>
 
 #include <boost/core/noncopyable.hpp>
 

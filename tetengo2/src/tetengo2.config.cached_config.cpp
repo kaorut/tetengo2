@@ -12,6 +12,7 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/optional.hpp>
 
+#include <tetengo2/config/config_base.h>
 #include <tetengo2/config/cached_config.h>
 #include <tetengo2/config/temporary_config.h>
 #include <tetengo2/stdalt.h>

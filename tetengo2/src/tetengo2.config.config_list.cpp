@@ -8,14 +8,16 @@
 
 #include <algorithm>
 #include <memory>
-#include <utility>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/none.hpp>
 #include <boost/optional.hpp>
 
+#include <tetengo2/config/config_base.h>
 #include <tetengo2/config/config_list.h>
 #include <tetengo2/stdalt.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2 { namespace config
