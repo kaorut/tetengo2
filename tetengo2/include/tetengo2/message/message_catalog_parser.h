@@ -10,7 +10,6 @@
 #define TETENGO2_MESSAGE_MESSAGECATALOGPARSER_H
 
 #include <memory>
-#include <stdexcept>
 #include <string>
 #include <utility>
 

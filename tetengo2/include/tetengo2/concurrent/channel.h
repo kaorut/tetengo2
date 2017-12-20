@@ -15,14 +15,19 @@
 #include <mutex>
 #include <queue>
 #include <stdexcept>
-#include <utility>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/optional.hpp>
+#include <boost/none.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/variant.hpp>
 
 #include <tetengo2/type_list.h>
+
+namespace boost
+{
+    template <typename T>
+    class optional;
+}
 
 
 namespace tetengo2 { namespace concurrent

@@ -10,7 +10,6 @@
 #define TETENGO2_TEXT_ENCODING_ENCODING_H
 
 #include <memory>
-#include <stdexcept>
 #include <string>
 
 #include <tetengo2/detail/base/encoding.h>

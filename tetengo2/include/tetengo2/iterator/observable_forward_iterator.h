@@ -11,7 +11,6 @@
 
 #include <functional>
 #include <iterator>
-#include <utility>
 
 #include <boost/iterator/iterator_facade.hpp>
 
