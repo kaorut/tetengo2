@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
 #include <boost/rational.hpp>
 

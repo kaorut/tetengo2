@@ -11,20 +11,23 @@
 #include <ios>
 #include <iterator>
 #include <map>
+#include <memory>
 #include <ostream>
 #include <stack>
 #include <string>
+#include <unordered_map>
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
-#include <boost/filesystem/fstream.hpp>
+#include <boost/none.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/signals2.hpp>
 #include <boost/optional.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/variant.hpp>
 
-#include <tetengo2/detail/base/config.h>
 #include <tetengo2/detail/unixos/config.h>
 #include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/stdalt.h>

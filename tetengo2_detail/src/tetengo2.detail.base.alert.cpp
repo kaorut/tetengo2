@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/base/alert.h>
