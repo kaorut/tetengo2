@@ -10,7 +10,6 @@
 #define TETENGO2_DETAIL_STUB_COMMONDIALOG_H
 
 #include <memory>
-#include <system_error>
 #include <utility>
 
 #include <boost/core/ignore_unused.hpp>

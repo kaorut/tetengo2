@@ -11,8 +11,6 @@
 
 #include <cstddef>
 #include <memory>
-#include <stdexcept>
-#include <system_error>
 #include <utility>
 
 #include <boost/core/ignore_unused.hpp>

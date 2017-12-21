@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_DETAIL_BASE_GUIFIXTURE_H)
 #define TETENGO2_DETAIL_BASE_GUIFIXTURE_H
 
-#include <system_error>
-
 #include <boost/core/noncopyable.hpp>
 
 

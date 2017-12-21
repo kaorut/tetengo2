@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_DETAIL_STUB_MESSAGELOOP_H)
 #define TETENGO2_DETAIL_STUB_MESSAGELOOP_H
 
-#include <system_error>
-
 #include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 

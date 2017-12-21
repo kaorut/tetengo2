@@ -11,8 +11,6 @@
 
 #include <boost/predef.h>
 
-#include <tetengo2/detail/base/impl_set.h>
-#include <tetengo2/detail/stub/impl_set.h>
 #if BOOST_OS_WINDOWS
 #   include <tetengo2/detail/windows/impl_set.h>
 #elif BOOST_OS_LINUX

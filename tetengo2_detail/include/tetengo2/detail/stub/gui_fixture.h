@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_DETAIL_STUB_GUIFIXTURE_H)
 #define TETENGO2_DETAIL_STUB_GUIFIXTURE_H
 
-#include <system_error>
-
 #include <tetengo2/detail/base/gui_fixture.h>
 
 

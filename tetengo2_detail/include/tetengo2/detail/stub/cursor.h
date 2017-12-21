@@ -12,7 +12,6 @@
 #include <memory>
 
 #include <tetengo2/detail/base/cursor.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace detail { namespace stub
