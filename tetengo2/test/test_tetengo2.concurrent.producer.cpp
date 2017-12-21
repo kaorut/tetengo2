@@ -8,6 +8,7 @@
 
 #include <stdexcept>
 
+#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/throw_exception.hpp>
 
