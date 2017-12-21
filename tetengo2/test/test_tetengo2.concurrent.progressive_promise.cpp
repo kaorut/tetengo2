@@ -10,13 +10,16 @@
 #include <exception>
 #include <future>
 #include <memory>
+#include <ratio>
 #include <stdexcept>
 #include <string>
 #include <thread>
 #include <utility>
 
+#include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/concurrent/progressive_future.h>
 #include <tetengo2/concurrent/progressive_promise.h>
 
 

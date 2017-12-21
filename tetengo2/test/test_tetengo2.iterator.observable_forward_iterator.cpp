@@ -8,6 +8,8 @@
 
 #include <forward_list>
 
+#include <boost/iterator/iterator_facade.hpp>
+#include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/iterator/observable_forward_iterator.h>

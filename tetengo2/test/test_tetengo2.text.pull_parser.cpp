@@ -10,8 +10,10 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
+#include <unordered_map>
 #include <utility>
 
+#include <boost/preprocessor.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>

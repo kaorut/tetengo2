@@ -7,13 +7,18 @@
 */
 
 #include <iterator>
+#include <memory>
 #include <sstream>
 #include <string>
 #include <utility>
 #include <vector>
 
 #include <boost/core/ignore_unused.hpp>
+#include <boost/none.hpp>
 #include <boost/optional.hpp>
+#include <boost/preprocessor.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/signals2.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>

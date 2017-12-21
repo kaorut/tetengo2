@@ -11,6 +11,7 @@
 #include <string>
 
 #include <boost/predef.h>
+#include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/text.h>

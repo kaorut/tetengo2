@@ -8,6 +8,8 @@
 
 #include <string>
 
+#include <boost/operators.hpp>
+#include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/iterator/polymorphic_forward_iterator.h>

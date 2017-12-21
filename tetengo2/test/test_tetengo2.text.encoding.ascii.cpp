@@ -9,9 +9,11 @@
 #include <stdexcept>
 #include <string>
 
+#include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/text/encoding/ascii.h>
+#include <tetengo2/text/encoding/encoding.h>
 
 
 namespace

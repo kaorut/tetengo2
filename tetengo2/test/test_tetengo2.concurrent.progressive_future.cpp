@@ -8,10 +8,12 @@
 
 #include <chrono>
 #include <future>
+#include <ratio>
 #include <stdexcept>
 #include <string>
 #include <utility>
 
+#include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/concurrent/progressive_future.h>

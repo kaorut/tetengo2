@@ -12,6 +12,7 @@
 #include <utility>
 
 #include <boost/core/ignore_unused.hpp>
+#include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/stdalt.h>

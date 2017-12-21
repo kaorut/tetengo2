@@ -13,10 +13,14 @@
 #include <vector>
 
 #include <boost/core/ignore_unused.hpp>
+#include <boost/preprocessor.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/signals2.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/text/grammar/grammar.h>
 #include <tetengo2/text/grammar/json.h>
 
 
