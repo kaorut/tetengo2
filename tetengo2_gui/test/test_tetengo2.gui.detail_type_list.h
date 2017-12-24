@@ -9,8 +9,6 @@
 #if !defined(TESTTETENGO2_GUI_DETAILTYPELIST_H)
 #define TESTTETENGO2_GUI_DETAILTYPELIST_H
 
-#include <boost/predef.h>
-
 #include <tetengo2/detail/stub/common_dialog.h>
 #include <tetengo2/detail/stub/cursor.h>
 #include <tetengo2/detail/stub/drawing.h>
@@ -25,11 +23,6 @@
 #include <tetengo2/detail/stub/timer.h>
 #include <tetengo2/detail/stub/virtual_key.h>
 #include <tetengo2/detail/stub/widget.h>
-#if BOOST_COMP_MSVC
-#   include <tetengo2/detail/windows/encoding.h>
-#else
-#   include <tetengo2/detail/unixos/encoding.h>
-#endif
 
 
 namespace test_tetengo2 { namespace gui { namespace type_list

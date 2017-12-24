@@ -7,4 +7,4 @@
 */
 
 #define BOOST_TEST_MODULE test_tetengo2_gui
-#include <boost/test/unit_test.hpp>
+#include <boost/test/unit_test.hpp> // IWYU pragma: keep

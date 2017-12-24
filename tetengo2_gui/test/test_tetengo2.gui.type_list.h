@@ -21,8 +21,6 @@
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
 
-#include "test_tetengo2.gui.detail_type_list.h"
-
 
 namespace test_tetengo2 { namespace gui { namespace type_list
 {

@@ -133,11 +133,6 @@ $(top_builddir)/tetengo2/src/libtetengo2.a:
 	$(MAKE) all; \
 	popd
 
-$(top_builddir)/tetengo2/src/libtetengo2_detail.a:
-	pushd $(top_builddir)/tetengo2_detail/src; \
-	$(MAKE) all; \
-	popd
-
 $(top_builddir)/tetengo2/src/libtetengo2_gui.a:
 	pushd $(top_builddir)/tetengo2_gui/src; \
 	$(MAKE) all; \
