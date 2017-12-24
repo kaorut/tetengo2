@@ -14,9 +14,13 @@
 #include <stdexcept>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/exception/all.hpp>
 
 #include <tetengo2/detail/base/alert.h>
+
+namespace boost
+{
+    class exception;
+}
 
 
 namespace tetengo2 { namespace gui

@@ -11,7 +11,6 @@
 
 #include <memory>
 #include <stdexcept>
-#include <utility>
 
 #include <boost/predef.h>
 #include <boost/throw_exception.hpp>

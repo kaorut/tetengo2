@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_WIDGET_LISTBOX_H
 
 #include <stdexcept>
-#include <utility>
 
 #include <boost/optional.hpp>
 #include <boost/predef.h>

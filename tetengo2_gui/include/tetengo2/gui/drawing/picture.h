@@ -11,7 +11,6 @@
 
 #include <cassert>
 #include <stdexcept>
-#include <utility>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>

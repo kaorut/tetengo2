@@ -12,14 +12,29 @@
 #include <type_traits>
 
 #include <boost/predef.h>
-#include <boost/rational.hpp>
 
-#include <tetengo2/detail/stub/unit.h>
-#if BOOST_OS_WINDOWS
-#   include <tetengo2/detail/windows/unit.h>
-#endif
 #include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/type_list.h>
+
+namespace boost
+{
+    template <typename IntType>
+    class rational;
+}
+
+namespace tetengo2 { namespace detail
+{
+    namespace stub
+    {
+        class unit;
+    }
+#if BOOST_OS_WINDOWS
+    namespace windows
+    {
+        class unit;
+    }
+#endif
+}}
 
 
 namespace tetengo2 { namespace gui { namespace unit

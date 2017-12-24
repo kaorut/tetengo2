@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_WIDGET_LABEL_H
 
 #include <cstddef>
-#include <utility>
 
 #include <boost/predef.h>
 

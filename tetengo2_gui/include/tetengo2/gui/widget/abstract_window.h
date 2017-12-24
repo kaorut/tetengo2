@@ -11,7 +11,6 @@
 
 #include <memory>
 #include <stdexcept>
-#include <utility>
 
 #include <boost/optional.hpp>
 #include <boost/predef.h>

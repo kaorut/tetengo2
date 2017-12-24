@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_GUI_DRAWING_FONT_H)
 #define TETENGO2_GUI_DRAWING_FONT_H
 
-#include <utility>
-
 #include <boost/operators.hpp>
 
 

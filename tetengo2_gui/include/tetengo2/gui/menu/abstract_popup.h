@@ -11,13 +11,11 @@
 
 #include <memory>
 #include <stdexcept>
-#include <utility>
 #include <vector>
 
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/menu/menu_base.h>
-#include <tetengo2/gui/menu/recursive_iterator.h>
 
 
 namespace tetengo2 { namespace gui { namespace menu

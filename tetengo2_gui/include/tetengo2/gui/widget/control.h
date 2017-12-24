@@ -12,6 +12,7 @@
 #include <cassert>
 #include <utility>
 
+#include <boost/none.hpp>
 #include <boost/optional.hpp>
 #include <boost/predef.h>
 

@@ -9,16 +9,15 @@
 #if !defined(TETENGO2_GUI_WIDGET_SIDEBAR_H)
 #define TETENGO2_GUI_WIDGET_SIDEBAR_H
 
-#include <algorithm>
 #include <cassert>
 #include <chrono>
 #include <cmath>
 #include <cstddef>
 #include <memory>
-#include <utility>
 #include <vector>
 
 #include <boost/math/constants/constants.hpp>
+#include <boost/none.hpp>
 #include <boost/optional.hpp>
 
 #include <tetengo2/detail/base/cursor.h>
