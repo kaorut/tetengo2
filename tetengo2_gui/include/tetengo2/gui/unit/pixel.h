@@ -9,14 +9,10 @@
 #if !defined(TETENGO2_GUI_UNIT_PIXEL_H)
 #define TETENGO2_GUI_UNIT_PIXEL_H
 
+#include <boost/rational.hpp>
+
 #include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/type_list.h>
-
-namespace boost
-{
-    template <typename IntType>
-    class rational;
-}
 
 
 namespace tetengo2 { namespace gui { namespace unit

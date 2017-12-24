@@ -12,15 +12,10 @@
 #include <type_traits>
 
 #include <boost/predef.h>
+#include <boost/rational.hpp>
 
 #include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/type_list.h>
-
-namespace boost
-{
-    template <typename IntType>
-    class rational;
-}
 
 namespace tetengo2 { namespace detail
 {
