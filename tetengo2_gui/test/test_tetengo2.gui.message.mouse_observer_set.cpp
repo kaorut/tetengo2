@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <boost/preprocessor.hpp>
+#include <boost/shared_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/message/mouse_observer_set.h>

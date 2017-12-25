@@ -6,10 +6,18 @@
     $Id$
 */
 
+#include <memory>
+
+#include <boost/preprocessor.hpp>
+#include <boost/shared_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/gui/menu/abstract_popup.h>
+#include <tetengo2/gui/menu/menu_bar.h>
 #include <tetengo2/gui/message/message_loop.h>
 #include <tetengo2/gui/widget/abstract_window.h>
+#include <tetengo2/gui/widget/widget.h>
+#include <tetengo2/stdalt.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
