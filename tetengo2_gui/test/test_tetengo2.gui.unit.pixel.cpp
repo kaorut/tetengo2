@@ -8,10 +8,13 @@
 
 #include <utility>
 
+#include <boost/operators.hpp>
+#include <boost/preprocessor.hpp>
 #include <boost/rational.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/unit/pixel.h>
+#include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/type_list.h>
 
 

@@ -8,8 +8,10 @@
 
 #include <utility>
 
+#include <boost/core/swap.hpp>
+#include <boost/operators.hpp>
+#include <boost/preprocessor.hpp>
 #include <boost/rational.hpp>
-#include <boost/swap.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/unit/unit.h>

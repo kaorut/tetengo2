@@ -9,6 +9,8 @@
 #include <cstddef>
 #include <utility>
 
+#include <boost/operators.hpp>
+#include <boost/preprocessor.hpp>
 #include <boost/rational.hpp>
 #include <boost/test/unit_test.hpp>
 
