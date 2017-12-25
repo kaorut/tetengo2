@@ -10,6 +10,7 @@
 
 #include <tetengo2/gui/message/mouse_observer_set.h>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 

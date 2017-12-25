@@ -12,6 +12,7 @@
 #include <tetengo2/gui/widget/side_bar.h>
 #include <tetengo2/gui/widget/window.h>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 

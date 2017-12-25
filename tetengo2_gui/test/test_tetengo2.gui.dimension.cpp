@@ -6,11 +6,13 @@
     $Id$
 */
 
+#include <boost/operators.hpp>
+#include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/unit/em.h>
-#include <tetengo2/type_list.h>
+#include <tetengo2/gui/unit/unit.h>
 
 
 namespace
