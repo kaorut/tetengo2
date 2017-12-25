@@ -12,6 +12,8 @@
 #include <vector>
 
 #include <boost/iterator/indirect_iterator.hpp>
+#include <boost/iterator/iterator_facade.hpp>
+#include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/menu/menu_base.h>
@@ -19,6 +21,7 @@
 #include <tetengo2/gui/menu/shortcut_key_table.h>
 #include <tetengo2/gui/virtual_key.h>
 #include <tetengo2/stdalt.h>
+#include <tetengo2/text.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
