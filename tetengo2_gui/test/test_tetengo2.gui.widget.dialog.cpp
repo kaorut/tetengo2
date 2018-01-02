@@ -6,8 +6,13 @@
     $Id$
 */
 
+#include <boost/preprocessor.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/gui/menu/abstract_popup.h>
+#include <tetengo2/gui/menu/menu_bar.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/gui/widget/dialog.h>
 #include <tetengo2/gui/widget/window.h>

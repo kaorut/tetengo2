@@ -9,17 +9,29 @@
 #include <cstddef>
 #include <memory>
 #include <stdexcept>
+#include <string>
 #include <utility>
 #include <vector>
 
+#include <boost/none.hpp>
 #include <boost/optional.hpp>
+#include <boost/preprocessor.hpp>
+#include <boost/shared_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/detail/stub/cursor.h>
+#include <tetengo2/detail/stub/widget.h>
+#include <tetengo2/gui/cursor/cursor_base.h>
 #include <tetengo2/gui/cursor/system.h>
+#include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/background.h>
+#include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/transparent_background.h>
 #include <tetengo2/gui/drawing/font.h>
+#include <tetengo2/gui/message/focus_observer_set.h>
+#include <tetengo2/gui/position.h>
+#include <tetengo2/gui/unit/pixel.h>
+#include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>

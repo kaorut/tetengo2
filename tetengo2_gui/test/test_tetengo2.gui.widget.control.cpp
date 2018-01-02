@@ -6,8 +6,12 @@
     $Id$
 */
 
+#include <boost/optional.hpp>
+#include <boost/preprocessor.hpp>
+#include <boost/shared_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/stdalt.h>

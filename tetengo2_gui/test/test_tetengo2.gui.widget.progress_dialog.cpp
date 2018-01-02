@@ -8,12 +8,26 @@
 
 #include <chrono>
 #include <future>
+#include <memory>
+#include <ratio>
 
+#include <boost/lexical_cast.hpp>
+#include <boost/preprocessor.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/concurrent/progressive_future.h>
+#include <tetengo2/gui/drawing/solid_background.h>
+#include <tetengo2/gui/menu/abstract_popup.h>
+#include <tetengo2/gui/menu/menu_bar.h>
 #include <tetengo2/gui/widget/abstract_window.h>
+#include <tetengo2/gui/widget/control.h>
+#include <tetengo2/gui/widget/dialog.h>
 #include <tetengo2/gui/widget/progress_dialog.h>
 #include <tetengo2/gui/widget/window.h>
+#include <tetengo2/text.h>
+#include <tetengo2/text/encoding/locale.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"

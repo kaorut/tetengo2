@@ -3,6 +3,7 @@
 
   { include: ["@<boost/algorithm/string/.+>",                         "private", "<boost/algorithm/string.hpp>",                  "public"] },
   { include: ["<boost/core/explicit_operator_bool.hpp>",              "private", "<boost/optional.hpp>",                          "public"] },
+  { include: ["<boost/detail/basic_pointerbuf.hpp>",                  "private", "<boost/lexical_cast.hpp>",                      "public"] },
   { include: ["@<boost/exception/.+>",                                "private", "<boost/exception/all.hpp>",                     "public"] },
   { include: ["@<boost/filesystem/.+>",                               "private", "<boost/filesystem.hpp>",                        "public"] },
   { include: ["<boost/iostreams/detail/error.hpp>",                   "private", "<boost/iostreams/checked_operations.hpp>",      "public"] },

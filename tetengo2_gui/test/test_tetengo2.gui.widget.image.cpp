@@ -11,14 +11,23 @@
 #include <utility>
 
 #include <boost/filesystem.hpp>
+#include <boost/preprocessor.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/drawing/picture_reader.h>
 #include <tetengo2/gui/icon.h>
+#include <tetengo2/gui/menu/abstract_popup.h>
+#include <tetengo2/gui/menu/menu_bar.h>
+#include <tetengo2/gui/unit/pixel.h>
+#include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/image.h>
 #include <tetengo2/gui/widget/window.h>
 #include <tetengo2/stdalt.h>
+#include <tetengo2/text.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"

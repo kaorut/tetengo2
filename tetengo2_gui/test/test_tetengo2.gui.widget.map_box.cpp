@@ -6,12 +6,29 @@
     $Id$
 */
 
+#include <memory>
 #include <stdexcept>
+#include <string>
+#include <utility>
 
+#include <boost/operators.hpp>
+#include <boost/optional.hpp>
+#include <boost/preprocessor.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/stub/cursor.h>            // for cursor
+#include <tetengo2/gui/dimension.h>                 // for dimension
+#include <tetengo2/gui/drawing/solid_background.h>  // for solid_background<>::details_type
+#include <tetengo2/gui/menu/abstract_popup.h>       // for abstract_popup<>::const_iterator, abstract_popup<>::const_recursive_iterator_type, abstract_popup<>::iterator, abstract_popup<>::recursive_iterator_type
+#include <tetengo2/gui/menu/menu_bar.h>             // for menu_bar<>::style_type
+#include <tetengo2/gui/unit/pixel.h>                // for operator==
+#include <tetengo2/gui/unit/unit.h>                 // for operator<, operator==, operator-
+#include <tetengo2/gui/widget/control.h>            // for control<>::details_type
 #include <tetengo2/gui/widget/map_box.h>
 #include <tetengo2/gui/widget/window.h>
+#include <tetengo2/text.h>                          // for TETENGO2_TEXT, text_value_holder
 
 #include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
