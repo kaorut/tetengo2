@@ -12,7 +12,7 @@
 #include <type_traits>
 
 #include <boost/predef.h>
-#include <boost/rational.hpp>
+#include <boost/rational.hpp> // IWYU pragma: keep
 
 #include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/type_list.h>
