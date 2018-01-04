@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h" />
-    <ClInclude Include="include\tetengo2.gui.h" />
     <ClInclude Include="include\tetengo2\gui\0namespace.dox" />
     <ClInclude Include="include\tetengo2\gui\alert.h" />
     <ClInclude Include="include\tetengo2\gui\common_dialog\0namespace.dox" />

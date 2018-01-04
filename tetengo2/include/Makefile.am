@@ -4,8 +4,7 @@
 
 SUBDIRS = tetengo2
 
-headers = \
-    tetengo2.h
+headers =
 
 include_HEADERS = $(headers)
 

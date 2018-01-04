@@ -99,7 +99,6 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h" />
-    <ClInclude Include="include\tetengo2.h" />
     <ClInclude Include="include\tetengo2\0namespace.dox" />
     <ClInclude Include="include\tetengo2\concurrent\0namespace.dox" />
     <ClInclude Include="include\tetengo2\concurrent\channel.h" />

@@ -54,9 +54,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\tetengo2.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2\0namespace.dox">
       <Filter>headers\tetengo2</Filter>
     </ClInclude>
