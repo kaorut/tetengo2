@@ -9,21 +9,21 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_COMMONDIALOG_H)
 #define TETENGO2_DETAIL_WINDOWS_COMMONDIALOG_H
 
-#include <algorithm>
+#include <algorithm> // IWYU pragma: keep
 #include <cassert>
 #include <cstddef>
-#include <iterator>
-#include <memory>
-#include <stdexcept>
+#include <iterator> // IWYU pragma: keep
+#include <memory> // IWYU pragma: keep
 #include <string>
-#include <system_error>
+#include <system_error> // IWYU pragma: keep
 #include <type_traits>
 #include <utility>
-#include <vector>
+#include <vector> // IWYU pragma: keep
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/optional.hpp>
+#include <boost/preprocessor.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -40,8 +40,8 @@
 #include <ShObjIdl.h>
 #include <ShTypes.h>
 
-#include <tetengo2/detail/windows/com_ptr.h>
-#include <tetengo2/detail/windows/error_category.h>
+#include <tetengo2/detail/windows/com_ptr.h> // IWYU pragma: keep
+#include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 

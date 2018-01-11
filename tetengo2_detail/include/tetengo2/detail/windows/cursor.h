@@ -12,7 +12,6 @@
 #include <memory>
 
 #include <tetengo2/detail/base/cursor.h>
-#include <tetengo2/detail/windows/error_category.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows
