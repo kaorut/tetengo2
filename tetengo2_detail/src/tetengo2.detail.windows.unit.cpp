@@ -15,11 +15,11 @@
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
 
-//#pragma warning (push)
-//#pragma warning (disable: 4005)
+#pragma warning (push)
+#pragma warning (disable: 4005)
 #include <intsafe.h>
 #include <stdint.h>
-//#pragma warning(pop)
+#pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
