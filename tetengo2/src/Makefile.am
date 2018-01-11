@@ -49,6 +49,13 @@ lint-iwyu:
 	    $(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(libtetengo2_a_CPPFLAGS) $(CXXFLAGS) $$f || test $$? -eq 2; \
 	done
 
+lint-iwyu-extra:
+	for f in $(extra_headers) $(extra_sources); \
+	do \
+	    echo "iwyu: "$$f; \
+	    $(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(libtetengo2_a_CPPFLAGS) $(CXXFLAGS) $$f || test $$? -eq 2; \
+	done
+
 $(top_builddir)/precompiled/precompiled.h.$(PRECOMPILE_EXT): $(top_srcdir)/precompiled/precompiled.h
 	pushd $(top_builddir)/precompiled; \
 	$(MAKE) all; \

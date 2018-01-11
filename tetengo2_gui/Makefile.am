@@ -12,3 +12,6 @@ EXTRA_DIST = \
 
 lint-iwyu:
 	for d in $(SOURCE_SUBDIRS); do (cd $$d && $(MAKE) lint-iwyu); done
+
+lint-iwyu-extra:
+	for d in $(SOURCE_SUBDIRS); do (cd $$d && $(MAKE) lint-iwyu-extra); done

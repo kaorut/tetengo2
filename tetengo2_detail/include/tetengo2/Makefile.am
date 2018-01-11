@@ -94,3 +94,10 @@ lint-iwyu:
 	    echo "iwyu: "$$f; \
 	    $(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $$f || test $$? -eq 2; \
 	done
+
+lint-iwyu-extra:
+	for f in $(extra_headers); \
+	do \
+	    echo "iwyu: "$$f; \
+	    $(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $$f || test $$? -eq 2; \
+	done
