@@ -9,8 +9,8 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_PICTURE_H)
 #define TETENGO2_DETAIL_WINDOWS_PICTURE_H
 
-#include <system_error>
-#include <utility>
+#include <system_error> // IWYU pragma: keep
+#include <utility> // IWYU pragma: keep
 
 #include <boost/filesystem.hpp>
 #include <boost/throw_exception.hpp>
@@ -26,8 +26,8 @@
 #include <ObjBase.h>
 #include <wincodec.h>
 
-#include <tetengo2/detail/windows/com_ptr.h>
-#include <tetengo2/detail/windows/error_category.h>
+#include <tetengo2/detail/windows/com_ptr.h> // IWYU pragma: keep
+#include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
 
 #if !defined(DOCUMENTATION)
     // Use the older version of WIC with the Windows SDK 8.0 for the time being.

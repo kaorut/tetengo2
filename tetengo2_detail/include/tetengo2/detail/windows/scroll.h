@@ -11,9 +11,8 @@
 
 #include <cassert>
 #include <cstddef>
-#include <memory>
-#include <stdexcept>
-#include <system_error>
+#include <memory> // IWYU pragma: keep
+#include <system_error> // IWYU pragma: keep
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
@@ -28,7 +27,7 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include <tetengo2/detail/windows/error_category.h>
+#include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
 #include <tetengo2/stdalt.h>
 
 

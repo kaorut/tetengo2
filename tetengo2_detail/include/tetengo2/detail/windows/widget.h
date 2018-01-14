@@ -9,22 +9,23 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_WIDGET_H)
 #define TETENGO2_DETAIL_WINDOWS_WIDGET_H
 
-#include <algorithm>
+#include <algorithm> // IWYU pragma: keep
 #include <cassert>
-#include <exception>
-#include <functional>
-#include <memory>
+#include <exception> // IWYU pragma: keep
+#include <memory> // IWYU pragma: keep
 #include <stdexcept>
 #include <string>
-#include <system_error>
-#include <type_traits>
-#include <utility>
-#include <vector>
+#include <system_error> // IWYU pragma: keep
+#include <type_traits> // IWYU pragma: keep
+#include <utility> // IWYU pragma: keep
+#include <vector> // IWYU pragma: keep
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/exception/all.hpp>
+#include <boost/exception/all.hpp> // IWYU pragma: keep
+#include <boost/none.hpp>
 #include <boost/optional.hpp>
 #include <boost/predef.h>
+#include <boost/preprocessor.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -37,11 +38,11 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include <tetengo2/detail/windows/alert.h>
-#include <tetengo2/detail/windows/error_category.h>
-#include <tetengo2/gui/alert.h>
-#include <tetengo2/gui/measure.h>
-#include <tetengo2/stdalt.h>
+#include <tetengo2/detail/windows/alert.h> // IWYU pragma: keep
+#include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
+#include <tetengo2/gui/alert.h> // IWYU pragma: keep
+#include <tetengo2/gui/measure.h> // IWYU pragma: keep
+#include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
 namespace tetengo2 { namespace detail { namespace windows

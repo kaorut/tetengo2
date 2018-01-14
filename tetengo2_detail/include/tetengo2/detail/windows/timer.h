@@ -12,10 +12,10 @@
 #include <cassert>
 #include <chrono>
 #include <functional>
-#include <system_error>
-#include <utility>
+#include <system_error> // IWYU pragma: keep
+#include <utility> // IWYU pragma: keep
 
-#include <boost/core/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp> // IWYU pragma: keep
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -28,7 +28,7 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include <tetengo2/detail/windows/error_category.h>
+#include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
 
 
 namespace tetengo2 { namespace detail { namespace windows
