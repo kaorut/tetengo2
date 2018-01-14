@@ -10,11 +10,12 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_PICTUREBOX_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_PICTUREBOX_H
 
-#include <memory>
-#include <system_error>
+#include <memory> // IWYU pragma: keep
+#include <system_error> // IWYU pragma: keep
 
-#include <boost/core/ignore_unused.hpp>
-#include <boost/optional.hpp>
+#include <boost/core/ignore_unused.hpp> // IWYU pragma: keep
+#include <boost/optional.hpp> // IWYU pragma: keep
+#include <boost/preprocessor.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
 

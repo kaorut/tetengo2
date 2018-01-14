@@ -10,10 +10,10 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_CONTROL_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_CONTROL_H
 
-#include <system_error>
+#include <system_error> // IWYU pragma: keep
 
-#include <boost/core/ignore_unused.hpp>
-#include <boost/optional.hpp>
+#include <boost/core/ignore_unused.hpp> // IWYU pragma: keep
+#include <boost/optional.hpp> // IWYU pragma: keep
 #include <boost/throw_exception.hpp>
 
 #pragma warning (push)

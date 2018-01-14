@@ -11,13 +11,13 @@
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_ABSTRACTWINDOW_H
 
 #include <algorithm>
-#include <string>
-#include <system_error>
-#include <vector>
+#include <string> // IWYU pragma: keep
+#include <system_error> // IWYU pragma: keep
+#include <vector> // IWYU pragma: keep
 
-#include <boost/core/ignore_unused.hpp>
-#include <boost/filesystem.hpp>
-#include <boost/optional.hpp>
+#include <boost/core/ignore_unused.hpp> // IWYU pragma: keep
+#include <boost/filesystem.hpp> // IWYU pragma: keep
+#include <boost/optional.hpp> // IWYU pragma: keep
 #include <boost/throw_exception.hpp>
 
 #pragma warning (push)
