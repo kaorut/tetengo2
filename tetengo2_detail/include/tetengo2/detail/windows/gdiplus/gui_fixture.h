@@ -10,7 +10,6 @@
 #define TETENGO2_DETAIL_WINDOWS_GDIPLUS_GUIFIXTURE_H
 
 #include <memory>
-#include <system_error>
 
 #include <tetengo2/detail/base/gui_fixture.h>
 
