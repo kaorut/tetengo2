@@ -7,8 +7,8 @@
 */
 
 #include <cassert>
-#include <utility>
-#include <vector>
+#include <utility> // IWYU pragma: keep
+#include <vector> // IWYU pragma: keep
 
 #include <boost/core/noncopyable.hpp>
 
@@ -22,8 +22,8 @@
 #include <Windows.h>
 
 #include <tetengo2/detail/windows/encoding.h>
-#include <tetengo2/detail/windows/windows_version.h>
-#include <tetengo2/stdalt.h>
+#include <tetengo2/detail/windows/windows_version.h> // IWYU pragma: keep
+#include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
 namespace tetengo2 { namespace detail { namespace windows

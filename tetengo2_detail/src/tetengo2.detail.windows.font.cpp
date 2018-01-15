@@ -6,7 +6,7 @@
     $Id$
 */
 
-#include <system_error>
+#include <system_error> // IWYU pragma: keep
 
 #include <boost/throw_exception.hpp>
 
@@ -19,9 +19,9 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include <tetengo2/detail/windows/error_category.h>
-#include <tetengo2/detail/windows/font.h>
-#include <tetengo2/detail/windows/windows_version.h>
+#include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
+#include <tetengo2/detail/windows/font.h> // IWYU pragma: keep
+#include <tetengo2/detail/windows/windows_version.h> // IWYU pragma: keep
 
 
 namespace tetengo2 { namespace detail { namespace windows

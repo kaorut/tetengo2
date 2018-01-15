@@ -7,10 +7,11 @@
 */
 
 #include <cassert>
-#include <system_error>
+#include <system_error> // IWYU pragma: keep
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/preprocessor.hpp>
 #include <boost/rational.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
@@ -24,10 +25,10 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include <tetengo2/detail/windows/error_category.h>
+#include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/font.h>
 #include <tetengo2/detail/windows/unit.h>
-#include <tetengo2/stdalt.h>
+#include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
 namespace tetengo2 { namespace detail { namespace windows
