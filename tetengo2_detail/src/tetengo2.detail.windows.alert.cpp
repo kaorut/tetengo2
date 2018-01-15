@@ -6,17 +6,17 @@
     $Id$
 */
 
-#include <iomanip>
-#include <sstream>
+#include <sstream> // IWYU pragma: keep
 #include <string>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/preprocessor.hpp>
 #include <boost/scope_exit.hpp>
 
 #pragma warning (push)
 #pragma warning (disable: 4005)
 #include <intsafe.h>
-#include <stdint.h>
+#include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE
@@ -24,10 +24,11 @@
 #include <CommCtrl.h>
 
 #include <tetengo2/detail/windows/alert.h>
-#include <tetengo2/stdalt.h>
+#include <tetengo2/stdalt.h> // IWYU pragma: keep
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
-#include <tetengo2/text/encoding/locale.h>
+#include <tetengo2/text/encoding/locale.h> // IWYU pragma: keep
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows

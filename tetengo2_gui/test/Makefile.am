@@ -114,6 +114,22 @@ tetengo2_gui_test_LDADD = \
     $(UNITTEST_LIBS)
 tetengo2_gui_test_SOURCES = $(headers) $(sources)
 
+IWYU_OPTS += -Xiwyu --mapping_file=$(top_srcdir)/$(IWYU_IMP_PATH)
+
+lint-iwyu:
+	for f in $(headers) $(sources); \
+	do \
+	    echo "iwyu: "$$f; \
+	    $(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(tetengo2_gui_test_CPPFLAGS) $(CXXFLAGS) $$f || test $$? -eq 2; \
+	done
+
+lint-iwyu-extra:
+	for f in $(extra_headers) $(extra_sources); \
+	do \
+	    echo "iwyu: "$$f; \
+	    $(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(tetengo2_gui_test_CPPFLAGS) $(CXXFLAGS) $$f || test $$? -eq 2; \
+	done
+
 $(top_builddir)/precompiled/precompiled.h.$(PRECOMPILE_EXT): $(top_srcdir)/precompiled/precompiled.h
 	pushd $(top_builddir)/precompiled; \
 	$(MAKE) all; \
@@ -121,11 +137,6 @@ $(top_builddir)/precompiled/precompiled.h.$(PRECOMPILE_EXT): $(top_srcdir)/preco
 
 $(top_builddir)/tetengo2/src/libtetengo2.a:
 	pushd $(top_builddir)/tetengo2/src; \
-	$(MAKE) all; \
-	popd
-
-$(top_builddir)/tetengo2/src/libtetengo2_detail.a:
-	pushd $(top_builddir)/tetengo2_detail/src; \
 	$(MAKE) all; \
 	popd
 

@@ -12,7 +12,6 @@
 #include <cassert>
 #include <memory>
 #include <stdexcept>
-#include <utility>
 #include <vector>
 
 #include <boost/core/ignore_unused.hpp>

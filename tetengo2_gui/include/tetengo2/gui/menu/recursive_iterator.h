@@ -14,8 +14,12 @@
 #include <stack>
 #include <utility>
 
-#include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
+
+namespace boost { namespace iterators
+{
+    struct forward_traversal_tag;
+}}
 
 
 namespace tetengo2 { namespace gui { namespace menu

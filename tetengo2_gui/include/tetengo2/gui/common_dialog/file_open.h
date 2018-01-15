@@ -16,7 +16,6 @@
 #include <boost/filesystem.hpp>
 
 #include <tetengo2/gui/widget/abstract_window.h>
-#include <tetengo2/text.h>
 
 
 namespace tetengo2 { namespace gui { namespace common_dialog

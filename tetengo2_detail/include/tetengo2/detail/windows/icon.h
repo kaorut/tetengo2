@@ -10,9 +10,9 @@
 #define TETENGO2_DETAIL_WINDOWS_ICON_H
 
 #include <cassert>
-#include <ios>
-#include <memory>
-#include <type_traits>
+#include <ios> // IWYU pragma: keep
+#include <memory> // IWYU pragma: keep
+#include <type_traits> // IWYU pragma: keep
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
@@ -22,14 +22,14 @@
 #pragma warning (push)
 #pragma warning (disable: 4005)
 #include <intsafe.h>
-#include <stdint.h>
+#include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
 
 #include <tetengo2/gui/measure.h>
-#include <tetengo2/stdalt.h>
+#include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
 namespace tetengo2 { namespace detail { namespace windows

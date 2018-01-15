@@ -10,7 +10,13 @@
 
 #include <tetengo2/detail/base/gui_fixture.h>
 #include <tetengo2/detail/base/impl_set.h>
-#include <tetengo2/stdalt.h>
+
+namespace tetengo2 { namespace detail { namespace base
+{
+    class alert;
+    class cursor;
+    class unit;
+}}}
 
 
 namespace tetengo2 { namespace detail { namespace base

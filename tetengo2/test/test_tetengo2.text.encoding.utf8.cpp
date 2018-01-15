@@ -6,9 +6,13 @@
     $Id$
 */
 
+#include <string>
+
 #include <boost/predef.h>
+#include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/text/encoding/encoding.h>
 #include <tetengo2/text/encoding/utf8.h>
 
 

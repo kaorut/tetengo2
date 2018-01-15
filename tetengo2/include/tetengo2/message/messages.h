@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_MESSAGE_MESSAGES_H)
 #define TETENGO2_MESSAGE_MESSAGES_H
 
-#include <ios>
 #include <locale>
 #include <memory>
 #include <string>
@@ -17,7 +16,6 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 
-#include <tetengo2/text.h>
 #include <tetengo2/type_list.h>
 
 

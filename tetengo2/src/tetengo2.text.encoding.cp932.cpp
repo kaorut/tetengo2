@@ -13,6 +13,7 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/text/encoding/cp932.h>
+#include <tetengo2/text/encoding/encoding.h>
 
 
 namespace tetengo2 { namespace text { namespace encoding

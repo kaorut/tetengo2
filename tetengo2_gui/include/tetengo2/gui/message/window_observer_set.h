@@ -10,6 +10,7 @@
 #define TETENGO2_GUI_MESSAGE_WINDOWOBSERVERSET_H
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
 
 

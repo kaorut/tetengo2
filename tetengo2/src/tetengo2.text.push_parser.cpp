@@ -18,6 +18,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
+#include <boost/iterator/iterator_facade.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
@@ -27,6 +28,7 @@
 #include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
+#include <tetengo2/text/grammar/grammar.h>
 #include <tetengo2/text/push_parser.h>
 
 

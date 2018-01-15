@@ -6,11 +6,14 @@
     $Id$
 */
 
+#include <memory>
 #include <unordered_map>
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/none.hpp>
 #include <boost/optional.hpp>
+#include <boost/variant.hpp>
 
 #include <tetengo2/config/temporary_config.h>
 #include <tetengo2/stdalt.h>

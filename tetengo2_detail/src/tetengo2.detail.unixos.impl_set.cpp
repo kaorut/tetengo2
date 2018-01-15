@@ -10,7 +10,16 @@
 #include <memory>
 #include <stdexcept>
 
+#include <tetengo2/detail/base/impl_set.h>
 #include <tetengo2/detail/unixos/impl_set.h>
+
+namespace tetengo2 { namespace detail { namespace base
+{
+    class alert;
+    class cursor;
+    class gui_fixture;
+    class unit;
+}}}
 
 
 namespace tetengo2 { namespace detail { namespace unixos

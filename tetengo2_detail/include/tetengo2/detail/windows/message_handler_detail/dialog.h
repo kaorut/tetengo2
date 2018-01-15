@@ -12,13 +12,13 @@
 
 #include <cassert>
 
-#include <boost/core/ignore_unused.hpp>
-#include <boost/optional.hpp>
+#include <boost/core/ignore_unused.hpp> // IWYU pragma: keep
+#include <boost/optional.hpp> // IWYU pragma: keep
 
 #pragma warning (push)
 #pragma warning (disable: 4005)
 #include <intsafe.h>
-#include <stdint.h>
+#include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE

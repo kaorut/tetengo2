@@ -9,12 +9,10 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_FONT_H)
 #define TETENGO2_DETAIL_WINDOWS_FONT_H
 
-#include <system_error>
-
 #pragma warning (push)
 #pragma warning (disable: 4005)
 #include <intsafe.h>
-#include <stdint.h>
+#include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE

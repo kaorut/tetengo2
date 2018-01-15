@@ -6,11 +6,10 @@
     $Id$
 */
 
+#include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/message/file_drop_observer_set.h>
-
-#include "test_tetengo2.gui.type_list.h"
 
 
 namespace

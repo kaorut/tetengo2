@@ -8,7 +8,6 @@
 
 #include <iterator>
 #include <string>
-#include <utility>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>

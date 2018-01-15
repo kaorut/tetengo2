@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <memory>
+
 #include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 

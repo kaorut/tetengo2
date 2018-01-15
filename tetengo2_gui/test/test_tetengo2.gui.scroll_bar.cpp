@@ -7,11 +7,15 @@
 */
 
 #include <stdexcept>
+#include <utility>
 
+#include <boost/preprocessor.hpp>
+#include <boost/shared_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/scroll_bar.h>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 

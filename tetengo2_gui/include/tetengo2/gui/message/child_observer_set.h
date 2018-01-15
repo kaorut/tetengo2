@@ -12,8 +12,6 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/signals2.hpp>
 
-#include <tetengo2/stdalt.h>
-
 
 namespace tetengo2 { namespace gui { namespace message
 {

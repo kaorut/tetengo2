@@ -10,9 +10,14 @@
 #define TETENGO2_GUI_COMMONDIALOG_COLOR_H
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/optional.hpp>
 
 #include <tetengo2/gui/widget/abstract_window.h>
+
+namespace boost
+{
+    template <typename T>
+    class optional;
+}
 
 
 namespace tetengo2 { namespace gui { namespace common_dialog

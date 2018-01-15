@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/gui/cursor/cursor_base.h>

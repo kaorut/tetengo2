@@ -6,10 +6,14 @@
     $Id$
 */
 
+#include <string>
+
 #include <boost/predef.h>
+#include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/text/encoding/cp932.h>
+#include <tetengo2/text/encoding/encoding.h>
 
 
 namespace

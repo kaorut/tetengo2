@@ -9,7 +9,6 @@
 #include <algorithm>
 #include <functional>
 #include <ios>
-#include <istream>
 #include <iterator>
 #include <locale>
 #include <memory>
@@ -23,7 +22,8 @@
 #include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
-#include <boost/filesystem/fstream.hpp>
+#include <boost/iterator/iterator_facade.hpp>
+#include <boost/none.hpp>
 #include <boost/optional.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>
@@ -35,8 +35,10 @@
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
+#include <tetengo2/text/encoding/polymorphic.h>
 #include <tetengo2/text/encoding/utf8.h>
 #include <tetengo2/text/grammar/json.h>
+#include <tetengo2/text/push_parser.h>
 
 
 namespace tetengo2 { namespace message

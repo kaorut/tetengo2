@@ -8,16 +8,20 @@
 
 #include <ios>
 #include <locale>
+#include <memory>
 #include <stdexcept>
 #include <string>
 
 #include <boost/filesystem.hpp>
 #include <boost/predef.h>
+#include <boost/preprocessor.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/message/messages.h>
 #include <tetengo2/stdalt.h>
+#include <tetengo2/text.h>
+#include <tetengo2/text/encoding/locale.h>
 
 
 namespace

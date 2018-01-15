@@ -11,6 +11,7 @@
 #include <string>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/throw_exception.hpp>
 

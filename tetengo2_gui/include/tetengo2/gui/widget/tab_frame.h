@@ -14,7 +14,6 @@
 #include <iterator>
 #include <memory>
 #include <stdexcept>
-#include <utility>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>

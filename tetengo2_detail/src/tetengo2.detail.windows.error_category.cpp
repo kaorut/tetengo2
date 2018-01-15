@@ -9,12 +9,12 @@
 #include <cstddef>
 #include <string>
 #include <system_error>
-#include <vector>
+#include <vector> // IWYU pragma: keep
 
 #pragma warning (push)
 #pragma warning (disable: 4005)
 #include <intsafe.h>
-#include <stdint.h>
+#include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE
@@ -23,8 +23,8 @@
 
 #include <tetengo2/detail/windows/error_category.h>
 #include <tetengo2/text/encoder.h>
-#include <tetengo2/text/encoding/locale.h>
-#include <tetengo2/text/encoding/utf8.h>
+#include <tetengo2/text/encoding/locale.h> // IWYU pragma: keep
+#include <tetengo2/text/encoding/utf8.h> // IWYU pragma: keep
 
 
 namespace tetengo2 { namespace detail { namespace windows

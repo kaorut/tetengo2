@@ -14,7 +14,6 @@
 #include <future>
 #include <memory>
 #include <thread>
-#include <utility>
 
 #include <boost/lexical_cast.hpp>
 #include <boost/rational.hpp>

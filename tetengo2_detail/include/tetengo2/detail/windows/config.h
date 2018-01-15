@@ -15,6 +15,7 @@
 #include <boost/variant.hpp>
 
 #include <tetengo2/detail/base/config.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows

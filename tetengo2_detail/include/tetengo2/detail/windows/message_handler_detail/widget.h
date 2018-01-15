@@ -10,28 +10,29 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_WIDGET_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_WIDGET_H
 
-#include <algorithm>
+#include <algorithm> // IWYU pragma: keep
 #include <cassert>
 #include <stdexcept>
-#include <system_error>
+#include <system_error> // IWYU pragma: keep
 
 #include <boost/core/ignore_unused.hpp>
-#include <boost/optional.hpp>
+#include <boost/optional.hpp> // IWYU pragma: keep
+#include <boost/preprocessor.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
 
 #pragma warning (push)
 #pragma warning (disable: 4005)
 #include <intsafe.h>
-#include <stdint.h>
+#include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
 #include <windowsx.h>
 
-#include <tetengo2/detail/windows/cursor.h>
-#include <tetengo2/gui/measure.h>
+#include <tetengo2/detail/windows/cursor.h> // IWYU pragma: keep
+#include <tetengo2/gui/measure.h> // IWYU pragma: keep
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail

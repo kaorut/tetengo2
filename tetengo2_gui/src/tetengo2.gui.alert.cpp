@@ -7,9 +7,11 @@
 */
 
 #include <exception>
+#include <memory>
 #include <stdexcept>
 #include <string>
 #include <system_error>
+#include <typeinfo>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/exception/all.hpp>

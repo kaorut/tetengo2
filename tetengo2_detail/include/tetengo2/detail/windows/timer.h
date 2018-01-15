@@ -12,23 +12,23 @@
 #include <cassert>
 #include <chrono>
 #include <functional>
-#include <system_error>
-#include <utility>
+#include <system_error> // IWYU pragma: keep
+#include <utility> // IWYU pragma: keep
 
-#include <boost/core/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp> // IWYU pragma: keep
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
-//#pragma warning (push)
-//#pragma warning (disable: 4005)
+#pragma warning (push)
+#pragma warning (disable: 4005)
 #include <intsafe.h>
-#include <stdint.h>
-//#pragma warning(pop)
+#include <stdint.h> // IWYU pragma: keep
+#pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include <tetengo2/detail/windows/error_category.h>
+#include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
 
 
 namespace tetengo2 { namespace detail { namespace windows

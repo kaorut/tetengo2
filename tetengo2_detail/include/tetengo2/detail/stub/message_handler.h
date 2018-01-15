@@ -17,8 +17,6 @@
 #include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 
-#include <tetengo2/detail/stub/widget.h>
-
 
 namespace tetengo2 { namespace detail { namespace stub
 {

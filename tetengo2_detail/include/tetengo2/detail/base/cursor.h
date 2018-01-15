@@ -11,7 +11,6 @@
 
 #include <functional>
 #include <memory>
-#include <system_error>
 
 #include <boost/core/noncopyable.hpp>
 

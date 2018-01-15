@@ -41,7 +41,7 @@ AC_ARG_ENABLE(
         [
             enables precompilation.
             When EXT given, it will be used for the extension of the precompiled header file.
-            Otherwise, ``gch'' is used for the extension of the precompiled header file.
+            Otherwise, `gch' is used for the extension of the precompiled header file.
         ]
     ),
     test "X$enableval" = "Xyes" && PRECOMPILE_EXT="gch";
@@ -59,15 +59,21 @@ AC_PROG_CC
 AC_PROG_CPP
 AC_PROG_RANLIB
 AC_ARG_WITH(
-    doxygen,
+    iwyu,
     AS_HELP_STRING(
-        [--with-doxygen=DIR],
-        [
-            Specify the directory of Doxygen. If set, ``$DIR/doxygen'' is
-            used. Otherwise, ``doxygen'' is used.
-        ]
+        [--with-iwyu=COMMAND], [Specify the include-what-you-use command. Or uses `include-what-you-use'.]
     ),
-    DOXYGEN=$withval/doxygen
+    IWYU=$withval
+)
+AC_CHECK_PROG(IWYU, include-what-you-use, include-what-you-use)
+test -z $IWYU && \
+    AC_MSG_WARN([You cannot check the includes for lack of include-what-you-use.])
+AC_SUBST([IWYU_OPTS], "-Xiwyu --max_line_length=1024 -x c++")
+AC_SUBST([IWYU_IMP_PATH], "tools/iwyu_mappings.imp")
+AC_ARG_WITH(
+    doxygen,
+    AS_HELP_STRING([--with-doxygen=COMMAND], [Specify the Doxygen command. Or uses `doxygen'.]),
+    DOXYGEN=$withval
 )
 AC_CHECK_PROG(DOXYGEN, doxygen, doxygen)
 test -z $DOXYGEN && \

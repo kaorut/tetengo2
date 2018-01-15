@@ -15,10 +15,10 @@
 #include <mutex>
 #include <queue>
 #include <stdexcept>
-#include <utility>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/optional.hpp>
+#include <boost/none.hpp>
+#include <boost/optional.hpp> // IWYU pragma: keep
 #include <boost/throw_exception.hpp>
 #include <boost/variant.hpp>
 

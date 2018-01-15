@@ -11,24 +11,23 @@
 
 #include <cassert>
 #include <cstddef>
-#include <memory>
-#include <stdexcept>
-#include <system_error>
+#include <memory> // IWYU pragma: keep
+#include <system_error> // IWYU pragma: keep
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
-//#pragma warning (push)
-//#pragma warning (disable: 4005)
+#pragma warning (push)
+#pragma warning (disable: 4005)
 #include <intsafe.h>
-#include <stdint.h>
-//#pragma warning(pop)
+#include <stdint.h> // IWYU pragma: keep
+#pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include <tetengo2/detail/windows/error_category.h>
+#include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
 #include <tetengo2/stdalt.h>
 
 

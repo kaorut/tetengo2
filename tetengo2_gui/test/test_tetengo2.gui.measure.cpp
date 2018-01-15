@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <boost/preprocessor.hpp>
 #include <boost/rational.hpp>
 #include <boost/test/unit_test.hpp>
 

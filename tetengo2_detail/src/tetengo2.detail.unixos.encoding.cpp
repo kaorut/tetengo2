@@ -11,6 +11,7 @@
 #include <cassert>
 #include <cerrno>
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 #include <string>
 #include <utility>

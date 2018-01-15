@@ -8,6 +8,10 @@
 
 #include <memory>
 
+#include <tetengo2/detail/base/alert.h>
+#include <tetengo2/detail/base/cursor.h>
+#include <tetengo2/detail/base/gui_fixture.h>
+#include <tetengo2/detail/base/unit.h>
 #include <tetengo2/detail/windows/alert.h>
 #include <tetengo2/detail/windows/cursor.h>
 #include <tetengo2/detail/windows/gui_fixture.h>

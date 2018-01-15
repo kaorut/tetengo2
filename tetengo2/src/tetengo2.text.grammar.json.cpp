@@ -11,14 +11,21 @@
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/proto/operators.hpp>
 #include <boost/spirit/include/qi.hpp>
+#include <boost/spirit/include/support.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 
 #include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
+#include <tetengo2/text/grammar/grammar.h>
 #include <tetengo2/text/grammar/json.h>
+
+namespace boost { namespace spirit {
+    struct unused_type;
+}}
 
 
 namespace tetengo2 { namespace text { namespace grammar

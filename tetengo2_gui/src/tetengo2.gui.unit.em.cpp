@@ -6,15 +6,13 @@
     $Id$
 */
 
-#include <utility>
-
+#include <boost/core/swap.hpp>
 #include <boost/predef.h>
 #include <boost/rational.hpp>
-#include <boost/swap.hpp>
 
-#include <tetengo2/detail/stub/unit.h>
+#include <tetengo2/detail/stub/unit.h> // IWYU pragma: keep
 #if BOOST_OS_WINDOWS
-#   include <tetengo2/detail/windows/unit.h>
+#   include <tetengo2/detail/windows/unit.h> // IWYU pragma: keep
 #endif
 #include <tetengo2/gui/unit/em.h>
 #include <tetengo2/type_list.h>

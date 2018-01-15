@@ -17,16 +17,17 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
-#include <system_error>
 #include <utility>
 #include <vector>
 
 #include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
+#include <boost/none.hpp>
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/measure.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace detail { namespace stub

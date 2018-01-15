@@ -273,9 +273,6 @@
     <ClInclude Include="include\tetengo2\gui\message\window_observer_set.h">
       <Filter>headers\tetengo2::gui\message</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2\gui\message\menu_observer_set.h">
       <Filter>headers\tetengo2::gui\message</Filter>
     </ClInclude>

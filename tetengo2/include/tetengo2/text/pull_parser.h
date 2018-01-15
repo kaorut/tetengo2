@@ -10,7 +10,6 @@
 #define TETENGO2_JSON_PULLPARSER_H
 
 #include <memory>
-#include <stdexcept>
 #include <string>
 
 #include <boost/core/noncopyable.hpp>

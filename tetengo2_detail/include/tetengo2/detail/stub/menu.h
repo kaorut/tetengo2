@@ -10,7 +10,6 @@
 #define TETENGO2_DETAIL_STUB_MENU_H
 
 #include <memory>
-#include <system_error>
 
 #include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>

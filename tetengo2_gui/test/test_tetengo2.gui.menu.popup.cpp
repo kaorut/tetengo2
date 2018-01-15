@@ -6,11 +6,15 @@
     $Id$
 */
 
+#include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/gui/menu/popup.h>
+#include <tetengo2/text.h>
 
+#include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
 
 

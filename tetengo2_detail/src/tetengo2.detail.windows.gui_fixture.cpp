@@ -6,8 +6,8 @@
     $Id$
 */
 
-#include <memory>
-#include <system_error>
+#include <memory> // IWYU pragma: keep
+#include <system_error> // IWYU pragma: keep
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
@@ -15,7 +15,7 @@
 #pragma warning (push)
 #pragma warning (disable: 4005)
 #include <intsafe.h>
-#include <stdint.h>
+#include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE
@@ -23,11 +23,11 @@
 #include <CommCtrl.h>
 #include <ObjBase.h>
 
-#include <tetengo2/detail/windows/error_category.h>
-#include <tetengo2/detail/windows/gdiplus/gui_fixture.h>
+#include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
+#include <tetengo2/detail/windows/gdiplus/gui_fixture.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/gui_fixture.h>
 #include <tetengo2/detail/windows/windows_version.h>
-#include <tetengo2/stdalt.h>
+#include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
 namespace tetengo2 { namespace detail { namespace windows

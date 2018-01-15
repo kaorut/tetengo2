@@ -12,6 +12,7 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/stub/cursor.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace detail { namespace stub

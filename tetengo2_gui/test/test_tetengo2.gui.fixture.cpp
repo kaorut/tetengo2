@@ -6,9 +6,11 @@
     $Id$
 */
 
+#include <memory>
 #include <utility>
 
 #include <boost/core/ignore_unused.hpp>
+#include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/detail/stub/gui_fixture.h>

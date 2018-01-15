@@ -9,36 +9,35 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLER_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLER_H
 
-#include <functional>
-#include <unordered_map>
-#include <utility>
-#include <vector>
+#include <functional> // IWYU pragma: keep
+#include <unordered_map> // IWYU pragma: keep
+#include <utility> // IWYU pragma: keep
+#include <vector> // IWYU pragma: keep
 
 #include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
-#include <boost/optional.hpp>
+#include <boost/optional.hpp> // IWYU pragma: keep
 
-//#pragma warning (push)
-//#pragma warning (disable: 4005)
+#pragma warning (push)
+#pragma warning (disable: 4005)
 #include <intsafe.h>
-#include <stdint.h>
-//#pragma warning(pop)
+#include <stdint.h> // IWYU pragma: keep
+#pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include <tetengo2/detail/windows/error_category.h>
-#include <tetengo2/detail/windows/message_handler_detail/abstra.h>
-#include <tetengo2/detail/windows/message_handler_detail/button.h>
-#include <tetengo2/detail/windows/message_handler_detail/contro.h>
-#include <tetengo2/detail/windows/message_handler_detail/custom.h>
-#include <tetengo2/detail/windows/message_handler_detail/dialog.h>
-#include <tetengo2/detail/windows/message_handler_detail/dropdo.h>
-#include <tetengo2/detail/windows/message_handler_detail/messag.h>
-#include <tetengo2/detail/windows/message_handler_detail/list_b.h>
-#include <tetengo2/detail/windows/message_handler_detail/pictur.h>
-#include <tetengo2/detail/windows/message_handler_detail/text_b.h>
-#include <tetengo2/detail/windows/message_handler_detail/widget.h>
+#include <tetengo2/detail/windows/message_handler_detail/abstra.h> // IWYU pragma: keep
+#include <tetengo2/detail/windows/message_handler_detail/button.h> // IWYU pragma: keep
+#include <tetengo2/detail/windows/message_handler_detail/contro.h> // IWYU pragma: keep
+#include <tetengo2/detail/windows/message_handler_detail/custom.h> // IWYU pragma: keep
+#include <tetengo2/detail/windows/message_handler_detail/dialog.h> // IWYU pragma: keep
+#include <tetengo2/detail/windows/message_handler_detail/dropdo.h> // IWYU pragma: keep
+#include <tetengo2/detail/windows/message_handler_detail/messag.h> // IWYU pragma: keep
+#include <tetengo2/detail/windows/message_handler_detail/list_b.h> // IWYU pragma: keep
+#include <tetengo2/detail/windows/message_handler_detail/pictur.h> // IWYU pragma: keep
+#include <tetengo2/detail/windows/message_handler_detail/text_b.h> // IWYU pragma: keep
+#include <tetengo2/detail/windows/message_handler_detail/widget.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/widget.h>
 
 

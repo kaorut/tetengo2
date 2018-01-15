@@ -9,28 +9,29 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_GDIPLUS_DRAWING_H)
 #define TETENGO2_DETAIL_WINDOWS_GDIPLUS_DRAWING_H
 
-#include <algorithm>
+#include <algorithm> // IWYU pragma: keep
 #include <cassert>
-#include <cstddef>
-#include <iterator>
-#include <limits>
-#include <memory>
-#include <stdexcept>
-#include <system_error>
-#include <type_traits>
-#include <utility>
-#include <vector>
+#include <cstddef> // IWYU pragma: keep
+#include <iterator> // IWYU pragma: keep
+#include <limits> // IWYU pragma: keep
+#include <memory> // IWYU pragma: keep
+#include <stdexcept> // IWYU pragma: keep
+#include <system_error> // IWYU pragma: keep
+#include <type_traits> // IWYU pragma: keep
+#include <utility> // IWYU pragma: keep
+#include <vector> // IWYU pragma: keep
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
-#include <boost/math/constants/constants.hpp>
+#include <boost/math/constants/constants.hpp> // IWYU pragma: keep
+#include <boost/preprocessor.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
 
 #pragma warning (push)
 #pragma warning (disable: 4005)
 #include <intsafe.h>
-#include <stdint.h>
+#include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE
@@ -46,12 +47,11 @@
 #undef max
 #include <wincodec.h>
 
-#include <tetengo2/detail/windows/com_ptr.h>
-#include <tetengo2/detail/windows/error_category.h>
+#include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/font.h>
-#include <tetengo2/detail/windows/gdiplus/error_category.h>
+#include <tetengo2/detail/windows/gdiplus/error_category.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/picture.h>
-#include <tetengo2/gui/measure.h>
+#include <tetengo2/gui/measure.h> // IWYU pragma: keep
 #include <tetengo2/stdalt.h>
 
 

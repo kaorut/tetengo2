@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <memory>
 #include <mutex>
 #include <utility>
 

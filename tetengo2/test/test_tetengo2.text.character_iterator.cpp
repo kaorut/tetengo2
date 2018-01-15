@@ -10,10 +10,11 @@
 #include <string>
 #include <utility>
 
+#include <boost/iterator/iterator_facade.hpp>
+#include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/text/character_iterator.h>
-#include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/polymorphic.h>
 #include <tetengo2/text/encoding/utf8.h>
 

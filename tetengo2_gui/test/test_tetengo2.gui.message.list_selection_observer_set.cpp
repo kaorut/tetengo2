@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/message/list_selection_observer_set.h>

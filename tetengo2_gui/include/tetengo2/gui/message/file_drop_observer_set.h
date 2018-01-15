@@ -12,8 +12,13 @@
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/filesystem.hpp>
+#include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
+
+namespace boost { namespace filesystem
+{
+    class path;
+}}
 
 
 namespace tetengo2 { namespace gui { namespace message

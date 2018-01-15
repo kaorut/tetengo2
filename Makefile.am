@@ -2,20 +2,29 @@
 # Copyright (C) 2007-2017 kaoru
 # $Id$
 
+SOURCE_SUBDIRS = \
+    tetengo2 \
+    tetengo2_detail \
+    tetengo2_gui
+
 SUBDIRS = \
-     docsrc \
-     precompiled \
-     tetengo2 tetengo2_detail tetengo2_gui \
-     tools \
-     vsprops
+    docsrc \
+    precompiled \
+    $(SOURCE_SUBDIRS) \
+    tools \
+    vsprops
 
 EXTRA_DIST = tetengo2.sln tetengo2_config.h-original TODO Doxyfile
 
 .PHONY: lint
-lint: lint-includes lint-test-cases lint-type-list-type-duplication
+lint: lint-test-cases lint-type-list-type-duplication lint-iwyu
 
-lint-includes:
-	$(top_srcdir)/tools/check_includes.sh $(top_srcdir)
+lint-iwyu:
+	for d in $(SOURCE_SUBDIRS); do (cd $$d && $(MAKE) lint-iwyu); done
+
+.PHONY: lint-iwyu-extra
+lint-iwyu-extra:
+	for d in $(SOURCE_SUBDIRS); do (cd $$d && $(MAKE) lint-iwyu-extra); done
 
 lint-test-cases:
 	$(top_srcdir)/tools/check_test_cases.sh $(top_srcdir) silent

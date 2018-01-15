@@ -6,16 +6,12 @@
     $Id$
 */
 
-#include <utility>
-
 #include <boost/predef.h>
 
 #include <tetengo2/gui/position.h>
 #include <tetengo2/gui/unit/em.h>
 #include <tetengo2/gui/unit/pixel.h>
 #include <tetengo2/gui/unit/point.h>
-#include <tetengo2/type_list.h>
-
 
 
 namespace tetengo2 { namespace gui

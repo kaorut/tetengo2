@@ -11,7 +11,6 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
-#include <utility>
 
 #include <boost/throw_exception.hpp>
 

@@ -10,7 +10,6 @@
 #define TETENGO2_TEXT_ENCODING_POLYMORPHIC_H
 
 #include <memory>
-#include <stdexcept>
 #include <string>
 #include <utility>
 
