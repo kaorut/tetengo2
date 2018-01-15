@@ -17,8 +17,8 @@ iwyu_CPPFLAGS = \
 lint-iwyu:
 	for f in $(headers); \
 	do \
-	    echo "iwyu: "$$f; \
-	    $(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $$f || test $$? -eq 2; \
+	    echo "iwyu: "$(srcdir)/$$f; \
+	    $(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $(srcdir)/$$f || test $$? -eq 2; \
 	done; \
 	for d in $(SUBDIRS); do (cd $$d && $(MAKE) lint-iwyu); done
 
