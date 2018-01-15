@@ -17,25 +17,20 @@ SUBDIRS = \
 EXTRA_DIST = tetengo2.sln tetengo2_config.h-original TODO Doxyfile
 
 .PHONY: lint
-lint: lint-includes lint-test-cases lint-type-list-type-duplication
+lint: lint-test-cases lint-type-list-type-duplication lint-iwyu
 
-lint-includes:
-	$(top_srcdir)/tools/check_includes.sh $(top_srcdir)
+lint-iwyu:
+	for d in $(SOURCE_SUBDIRS); do (cd $$d && $(MAKE) lint-iwyu); done
+
+.PHONY: lint-iwyu-extra
+lint-iwyu-extra:
+	for d in $(SOURCE_SUBDIRS); do (cd $$d && $(MAKE) lint-iwyu-extra); done
 
 lint-test-cases:
 	$(top_srcdir)/tools/check_test_cases.sh $(top_srcdir) silent
 
 lint-type-list-type-duplication:
 	$(top_srcdir)/tools/check_type_list_type_duplication.sh $(top_srcdir)
-
-.PHONY: lint-iwyu
-lint-iwyu:
-	for d in $(SOURCE_SUBDIRS); do (cd $$d && $(MAKE) lint-iwyu); done
-
-
-.PHONY: lint-iwyu-extra
-lint-iwyu-extra:
-	for d in $(SOURCE_SUBDIRS); do (cd $$d && $(MAKE) lint-iwyu-extra); done
 
 .PHONY: doc
 doc:

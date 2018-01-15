@@ -3,19 +3,18 @@
 # $Id$
 
 EXTRA_DIST = \
-    check_includes.sh \
     check_test_cases.sh \
     check_type_list_type_duplication.sh \
     codesign.bat \
     copy_boost_dlls.js \
     get_solution_config.bat \
+    iwyu_mappings.imp \
     make_precompiled_h.sh \
     make_stdlib_headers_txt.sh \
     paths.sh \
     precompiled.template.h \
     stdlib_headers.txt \
     test_case_check_ignore.txt \
-    zzz_check_includes.pl \
     zzz_check_test_cases.pl \
     zzz_check_type_list_type_duplication.pl \
     zzz_codesign.bat-skeleton \
