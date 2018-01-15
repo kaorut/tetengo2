@@ -80,7 +80,7 @@
 #pragma warning (push)
 #pragma warning (disable: 4005)
 #include <intsafe.h>
-#include <stdint.h> // IWYU pragma: keep
+#include <stdint.h>
 #pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE
