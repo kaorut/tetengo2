@@ -68,7 +68,7 @@ AC_ARG_WITH(
 AC_CHECK_PROG(IWYU, include-what-you-use, include-what-you-use)
 test -z $IWYU && \
     AC_MSG_WARN([You cannot check the includes for lack of include-what-you-use.])
-AC_SUBST([IWYU_OPTS], "-Xiwyu --max_line_length=1024 -x c++")
+AC_SUBST([IWYU_OPTS], "-Xiwyu --max_line_length=1024 -x c++ -std=c++11")
 AC_SUBST([IWYU_IMP_PATH], "tools/iwyu_mappings.imp")
 AC_ARG_WITH(
     doxygen,
