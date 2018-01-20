@@ -6,7 +6,7 @@
     $Id$
 */
 
-#include <cstddef>
+#include <sstream>
 
 #include <boost/filesystem.hpp>
 #include <boost/preprocessor.hpp>

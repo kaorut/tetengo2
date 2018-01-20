@@ -6,7 +6,7 @@
     $Id$
 */
 
-#include <cstddef>
+#include <sstream>
 #include <utility>
 
 #include <boost/operators.hpp>

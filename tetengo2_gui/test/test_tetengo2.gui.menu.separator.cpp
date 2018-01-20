@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <sstream>
+
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 

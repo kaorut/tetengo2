@@ -6,9 +6,9 @@
     $Id$
 */
 
-#include <ios>
 #include <locale>
 #include <memory>
+#include <sstream>
 #include <stdexcept>
 #include <string>
 

@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <sstream>
+
 #include <boost/preprocessor.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
