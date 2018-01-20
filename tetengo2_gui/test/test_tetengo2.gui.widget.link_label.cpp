@@ -7,6 +7,7 @@
 */
 
 #include <memory>
+#include <sstream>
 #include <string>
 
 #include <boost/preprocessor.hpp>

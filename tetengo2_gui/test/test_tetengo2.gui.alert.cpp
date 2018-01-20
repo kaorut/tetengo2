@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <sstream>
 #include <stdexcept>
 
 #include <boost/exception/all.hpp>

@@ -7,6 +7,7 @@
 */
 
 #include <memory>
+#include <sstream>
 
 #include <boost/preprocessor.hpp>
 #include <boost/shared_ptr.hpp>

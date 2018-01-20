@@ -10,6 +10,7 @@
 #include <future>
 #include <memory>
 #include <ratio>
+#include <sstream>
 
 #include <boost/lexical_cast.hpp>
 #include <boost/preprocessor.hpp>

@@ -7,6 +7,7 @@
 */
 
 #include <memory>
+#include <sstream>
 #include <utility>
 
 #include <boost/core/ignore_unused.hpp>

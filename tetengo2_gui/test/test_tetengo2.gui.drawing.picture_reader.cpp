@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <sstream>
 #include <utility>
 
 #include <boost/filesystem.hpp>

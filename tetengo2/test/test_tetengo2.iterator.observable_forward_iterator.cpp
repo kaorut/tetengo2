@@ -7,6 +7,7 @@
 */
 
 #include <forward_list>
+#include <sstream>
 
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/preprocessor.hpp>
