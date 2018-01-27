@@ -1,6 +1,6 @@
 #/bin/sh
 # Makes stdlib_headers.txt.
-# Copyright (C) 2007-2017 kaoru
+# Copyright (C) 2007-2018 kaoru
 # $Id$
 
 TOOLS_DIR=`dirname $0`

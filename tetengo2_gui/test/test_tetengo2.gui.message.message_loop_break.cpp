@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class tetengo2::gui::message::message_loop_break.
 
-    Copyright (C) 2007-2017 kaoru
+    Copyright (C) 2007-2018 kaoru
 
     $Id$
 */
