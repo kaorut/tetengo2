@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of custom messages for tetengo2::detail::windows::message_handler_detail.
 
-    Copyright (C) 2007-2017 kaoru
+    Copyright (C) 2007-2018 kaoru
 
     $Id$
 */

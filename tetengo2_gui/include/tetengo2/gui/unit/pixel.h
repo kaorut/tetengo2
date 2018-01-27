@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of tetengo2::gui::unit::basic_pixel.
 
-    Copyright (C) 2007-2017 kaoru
+    Copyright (C) 2007-2018 kaoru
 
     $Id$
 */

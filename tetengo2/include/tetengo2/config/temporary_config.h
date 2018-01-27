@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of tetengo2::config::temporary_config.
 
-    Copyright (C) 2007-2017 kaoru
+    Copyright (C) 2007-2018 kaoru
 
     $Id$
 */

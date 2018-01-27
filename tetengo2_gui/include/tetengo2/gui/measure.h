@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of measurement utilities for tetengo2::gui.
 
-    Copyright (C) 2007-2017 kaoru
+    Copyright (C) 2007-2018 kaoru
 
     $Id$
 */

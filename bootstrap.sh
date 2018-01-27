@@ -1,6 +1,6 @@
 #! /bin/sh
 # Bootstrap Script
-# Copyright (C) 2007-2017 kaoru
+# Copyright (C) 2007-2018 kaoru
 # $Id$
 
 aclocal && \
