@@ -85,7 +85,7 @@ AC_CHECK_LIB(pthread, pthread_cancel)
 AC_CHECK_LIB(bz2, BZ2_bzCompressInit)
 AC_CHECK_FUNC(iconv, , [AC_CHECK_LIB(iconv, libiconv)])
 
-AX_BOOST_BASE([1.65.1])
+AX_BOOST_BASE([1.66.0])
 AX_BOOST_CHRONO
 AX_BOOST_DATE_TIME
 AX_BOOST_FILESYSTEM
