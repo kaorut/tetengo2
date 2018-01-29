@@ -886,10 +886,10 @@ namespace tetengo2 { namespace gui { namespace widget
         bool paint_background(canvas_type& canvas)
         const
         {
-            if (!this->background())
+            if (!this->p_background())
                 return false;
 
-            canvas.set_background(this->background()->clone());
+            canvas.set_background(this->p_background()->clone());
             canvas.fill_rectangle(position_type{}, this->client_dimension());
 
             return true;

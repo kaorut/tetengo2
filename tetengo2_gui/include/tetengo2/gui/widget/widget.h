@@ -431,14 +431,14 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Returns the background.
 
-            When the system default background is used, this function returns an uninitialized value.
+            When the system default background is used, this function returns a nullptr.
 
-            \return The background or an uninitialized value.
+            \return The pointer to the background.
         */
-        boost::optional<const background_type&> background()
+        const background_type* p_background()
         const
         {
-            return boost::make_optional<const background_type&>(static_cast<bool>(m_p_background), *m_p_background);
+            return m_p_background.get();
         }
 
         /*!
@@ -477,15 +477,12 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Returns the cursor.
 
-            \return The cursor.
+            \return The pointer to the cursor.
         */
-        boost::optional<const cursor_type&> cursor()
+        const cursor_type* p_cursor()
         const
         {
-            if (!m_p_cursor)
-                return boost::none;
-
-            return *m_p_cursor;
+            return m_p_cursor.get();
         }
 
         /*!
@@ -933,9 +930,9 @@ namespace tetengo2 { namespace gui { namespace widget
             bool operator()(canvas_type& canvas)
             const
             {
-                if (!m_self.background()) return false;
+                if (!m_self.p_background()) return false;
 
-                canvas.set_background(m_self.background()->clone());
+                canvas.set_background(m_self.p_background()->clone());
                 canvas.fill_rectangle(position_type{}, m_self.client_dimension());
 
                 return true;

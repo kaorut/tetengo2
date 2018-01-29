@@ -919,14 +919,14 @@ namespace tetengo2 { namespace detail { namespace stub
             \tparam MenuBase A menu base type.
 
             \param widget A widget.
-            \param menu   A menu. It may be uninitialized to remove a menu bar.
+            \param p_menu A pointer to a menu. It may be nullptr to remove a menu bar.
 
             \throw std::system_error When a menu bar cannot be set.
         */
         template <typename Widget, typename MenuBase>
-        static void set_menu_bar(Widget& widget, const boost::optional<const MenuBase&>& menu = boost::none)
+        static void set_menu_bar(Widget& widget, const MenuBase* const p_menu = nullptr)
         {
-            boost::ignore_unused(widget, menu);
+            boost::ignore_unused(widget, p_menu);
         }
 
         /*!
@@ -1191,7 +1191,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename DropdownBox, typename Size>
         static void select_dropdown_box_value(DropdownBox& dropdown_box, const Size index)
         {
-            dropdown_box.details().selected_list_box_value_index = boost::make_optional<std::size_t>(index);
+            dropdown_box.details().selected_list_box_value_index =
+                boost::make_optional(static_cast<std::size_t>(index));
         }
 
         /*!
@@ -1350,7 +1351,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename ListBox, typename Size>
         static void select_list_box_value(ListBox& list_box, const Size index)
         {
-            list_box.details().selected_list_box_value_index = boost::make_optional<std::size_t>(index);
+            list_box.details().selected_list_box_value_index = boost::make_optional(static_cast<std::size_t>(index));
         }
 
         /*!

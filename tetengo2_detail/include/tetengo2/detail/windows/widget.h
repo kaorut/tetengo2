@@ -1653,15 +1653,15 @@ namespace tetengo2 { namespace detail { namespace windows
             \tparam MenuBase A menu base type.
 
             \param widget A widget.
-            \param menu   A menu. It may be uninitialized to remove a menu bar.
+            \param p_menu A pointer to a menu. It may be nullptr to remove a menu bar.
 
             \throw std::system_error When a menu bar cannot be set.
         */
         template <typename Widget, typename MenuBase>
-        static void set_menu_bar(Widget& widget, const boost::optional<const MenuBase&>& menu = boost::none)
+        static void set_menu_bar(Widget& widget, const MenuBase* const p_menu = nullptr)
         {
             const auto result =
-                ::SetMenu(widget.details().handle.get(), menu ? menu->details().handle.get() : nullptr);
+                ::SetMenu(widget.details().handle.get(), p_menu ? p_menu->details().handle.get() : nullptr);
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION((
@@ -1672,7 +1672,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 ));
             }
 
-            if (menu && ::DrawMenuBar(widget.details().handle.get()) == 0)
+            if (p_menu && ::DrawMenuBar(widget.details().handle.get()) == 0)
             {
                 BOOST_THROW_EXCEPTION((
                     std::system_error{
