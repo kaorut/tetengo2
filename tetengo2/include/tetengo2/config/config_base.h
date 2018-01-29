@@ -58,9 +58,9 @@ namespace tetengo2 { namespace config
 
             \param key A key.
 
-            \return The value.
+            \return The pointer to the value. Or nullptr when no corresponding value to the key.
         */
-        boost::optional<value_type> get(const string_type& key)
+        const value_type* get(const string_type& key)
         const;
 
         /*!
@@ -90,7 +90,7 @@ namespace tetengo2 { namespace config
 
         // virtual functions
 
-        virtual boost::optional<value_type> get_impl(const string_type& key)
+        virtual const value_type* get_impl(const string_type& key)
         const = 0;
 
         virtual void set_impl(const string_type& key, value_type value)
