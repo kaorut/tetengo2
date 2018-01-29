@@ -267,7 +267,7 @@ namespace tetengo2 { namespace detail { namespace unixos
 
     // virtual functions
 
-    boost::optional<config::value_type> config::get_impl(const string_type& group_name, const string_type& key)
+    const config::value_type* config::get_impl(const string_type& group_name, const string_type& key)
     const
     {
         return m_p_impl->get_impl(group_name, key);
