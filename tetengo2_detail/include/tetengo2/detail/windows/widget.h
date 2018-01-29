@@ -2053,8 +2053,8 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Size, typename DropdownBox>
         static boost::optional<Size> selected_dropdown_box_value_index(const DropdownBox& dropdown_box)
         {
-            const auto index = ::SendMessageW(dropdown_box.details().handle.get(), CB_GETCURSEL, 0, 0);
-            return boost::make_optional<Size>(index != CB_ERR, index);
+            auto index = ::SendMessageW(dropdown_box.details().handle.get(), CB_GETCURSEL, 0, 0);
+            return boost::make_optional<Size>(index != CB_ERR, std::move(index));
         }
 
         /*!
