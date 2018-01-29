@@ -2277,8 +2277,8 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Size, typename ListBox>
         static boost::optional<Size> selected_list_box_value_index(const ListBox& list_box)
         {
-            const auto index = ::SendMessageW(list_box.details().handle.get(), LB_GETCURSEL, 0, 0);
-            return boost::make_optional<Size>(index != LB_ERR, index);
+            auto index = ::SendMessageW(list_box.details().handle.get(), LB_GETCURSEL, 0, 0);
+            return boost::make_optional<Size>(index != LB_ERR, std::move(index));
         }
 
         /*!
