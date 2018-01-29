@@ -12,7 +12,6 @@
 #include <memory>
 #include <stdexcept>
 
-#include <boost/optional.hpp>
 #include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
@@ -249,12 +248,12 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         void set_menu_bar(std::unique_ptr<menu_bar_type> p_menu_bar)
         {
-            widget_details_type::set_menu_bar(*this, boost::optional<const menu_bar_type&>());
+            widget_details_type::set_menu_bar(*this, static_cast<const menu_bar_type*>(nullptr));
 
             if (p_menu_bar)
             {
                 p_menu_bar->update_shortcut_key_table();
-                widget_details_type::set_menu_bar(*this, boost::make_optional<const menu_bar_type&>(*p_menu_bar));
+                widget_details_type::set_menu_bar(*this, p_menu_bar.get());
             }
             m_p_menu_bar = std::move(p_menu_bar);
         }

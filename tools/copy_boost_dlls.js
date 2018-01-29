@@ -26,7 +26,7 @@ function getDllNames(boostLibsStream, version, debug)
     var dllNames = new Array;
     for (i = 0; i < libNames.length; ++i)
     {
-        dllNames.push(libNames[i] + "-*-mt-" + (debug ? "gd-" : "") + version + ".dll");
+        dllNames.push(libNames[i] + "-*-mt-" + (debug ? "gd-" : "") + "*-" + version + ".dll");
     }
     
     return dllNames;

@@ -38,7 +38,7 @@ Building on Windows
 You need the following tools in order to build Tetengo2:
 
 - [Visual Studio 2017](http://www.microsoft.com/)
-- [Boost C++ Libraries 1.65.1](http://www.boost.org/)
+- [Boost C++ Libraries 1.66.0](http://www.boost.org/)
 - [Doxygen 1.8.13](http://www.doxygen.org) (to generate API documents)
 - [Graphviz](http://www.graphviz.org) (to generate API documents)
 
@@ -76,7 +76,7 @@ You need the following tools in order to build Tetengo2 libraries:
 
 - [GCC 6.3.0](http://www.gnu.org/) or [Clang 3.8](http://clang.llvm.org/)
 - [GNU Make](http://www.gnu.org/)
-- [Boost C++ Libraries 1.65.1](http://www.boost.org/)
+- [Boost C++ Libraries 1.66.0](http://www.boost.org/)
 - [Doxygen 1.8.13](http://www.doxygen.org) (to generate API documents)
 - [Graphviz](http://www.graphviz.org) (to generate API documents)
 

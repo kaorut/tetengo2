@@ -15,7 +15,6 @@
 #include <boost/algorithm/string.hpp> // IWYU pragma: keep
 #include <boost/core/ignore_unused.hpp> // IWYU pragma: keep
 #include <boost/core/noncopyable.hpp>
-#include <boost/optional.hpp>
 
 #pragma warning (push)
 #pragma warning (disable: 4005)
@@ -55,34 +54,34 @@ namespace tetengo2 { namespace detail { namespace windows
 
         // virtual functions
 
-        virtual boost::optional<value_type> get_impl(const string_type& group_name, const string_type& key)
+        virtual const value_type* get_impl(const string_type& group_name, const string_type& key)
         const
         {
             const auto registry_key_and_value_name = build_registry_key_and_value_name(group_name, key);
 
             const registry_type handle{ registry_key_and_value_name.first, KEY_READ };
             if (!handle.get())
-                return boost::none;
+                return nullptr;
 
             const auto type = query_value_kind(handle.get(), registry_key_and_value_name.second);
 
             switch (type.first)
             {
             case value_kind_type::string:
-                return
-                    boost::make_optional(
-                        value_type{
-                            get_string(handle.get(), registry_key_and_value_name.second, type.second)
-                        }
-                    );
+                {
+                    static value_type value;
+                    value = value_type{ get_string(handle.get(), registry_key_and_value_name.second, type.second) };
+                    return &value;
+                }
             case value_kind_type::dword:
-                return
-                    boost::make_optional(
-                        value_type{ get_dword(handle.get(), registry_key_and_value_name.second) }
-                    );
+                {
+                    static value_type value;
+                    value = { get_dword(handle.get(), registry_key_and_value_name.second) };
+                    return &value;
+                }
             default:
                 assert(type.first == value_kind_type::unknown);
-                return boost::none;
+                return nullptr;
             }
         }
 
@@ -343,7 +342,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
     // virtual functions
 
-    boost::optional<config::value_type> config::get_impl(const string_type& group_name, const string_type& key)
+    const config::value_type* config::get_impl(const string_type& group_name, const string_type& key)
     const
     {
         return m_p_impl->get_impl(group_name, key);

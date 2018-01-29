@@ -767,9 +767,9 @@ namespace tetengo2 { namespace gui { namespace widget
                 {
                     canvas.begin_transaction(tab_frame_.client_dimension());
 
-                    if (tab_frame_.background())
+                    if (tab_frame_.p_background())
                     {
-                        canvas.set_background(tab_frame_.background()->clone());
+                        canvas.set_background(tab_frame_.p_background()->clone());
                         const position_type position{ position_unit_type{ -1 }, position_unit_type{ -1 } };
                         const auto client_dimension = tab_frame_.client_dimension();
                         const dimension_type dimension{

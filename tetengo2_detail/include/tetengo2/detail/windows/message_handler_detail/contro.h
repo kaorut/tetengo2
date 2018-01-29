@@ -35,7 +35,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         {
             boost::ignore_unused(l_param);
 
-            if (!control.background() && !control.text_color())
+            if (!control.p_background() && !control.text_color())
                 return boost::none;
 
             const auto device_context = reinterpret_cast< ::HDC>(w_param);

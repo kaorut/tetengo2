@@ -9,7 +9,6 @@
 #include <string>
 
 #include <boost/core/ignore_unused.hpp>
-#include <boost/optional.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>
@@ -37,13 +36,12 @@ namespace
         {}
 
     private:
-        virtual boost::optional<value_type> get_impl(const string_type& key)
+        virtual const value_type* get_impl(const string_type& key)
         const override
         {
-            return
-                key == string_type{ TETENGO2_TEXT("foo") } ?
-                boost::make_optional(value_type{ string_type{ TETENGO2_TEXT("hoge") } }) :
-                boost::make_optional(value_type{ 42 });
+            static const value_type value1{ string_type{ TETENGO2_TEXT("hoge") } };
+            static const value_type value2{ 42 };
+            return key == string_type{ TETENGO2_TEXT("foo") } ? &value1 : &value2;
         }
 
         virtual void set_impl(const string_type& key, value_type value)
@@ -80,16 +78,16 @@ BOOST_AUTO_TEST_SUITE(config_base)
         {
             const concrete_config config{};
 
-            const auto value = config.get(string_type{ TETENGO2_TEXT("foo") });
-            BOOST_TEST_REQUIRE(value.is_initialized());
-            BOOST_CHECK(boost::get<string_type>(*value) == string_type{ TETENGO2_TEXT("hoge") });
+            const auto p_value = config.get(string_type{ TETENGO2_TEXT("foo") });
+            BOOST_TEST_REQUIRE(p_value);
+            BOOST_CHECK(boost::get<string_type>(*p_value) == string_type{ TETENGO2_TEXT("hoge") });
         }
         {
             const concrete_config config{};
 
-            const auto value = config.get(string_type{ TETENGO2_TEXT("bar") });
-            BOOST_TEST_REQUIRE(value.is_initialized());
-            BOOST_TEST(boost::get<uint_type>(*value) == 42U);
+            const auto p_value = config.get(string_type{ TETENGO2_TEXT("bar") });
+            BOOST_TEST_REQUIRE(p_value);
+            BOOST_TEST(boost::get<uint_type>(*p_value) == 42U);
         }
     }
 

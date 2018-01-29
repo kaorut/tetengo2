@@ -14,7 +14,6 @@
 #include <vector>
 
 #include <boost/none.hpp>
-#include <boost/optional.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/test/unit_test.hpp>
@@ -457,7 +456,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_CHECK(widget.text() == string_type{ TETENGO2_TEXT("Tetengo") });
     }
 
-    BOOST_AUTO_TEST_CASE(background)
+    BOOST_AUTO_TEST_CASE(p_background)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -467,7 +466,7 @@ BOOST_AUTO_TEST_SUITE(widget)
             std::unique_ptr<background_type> p_background{};
             widget.set_background(std::move(p_background));
 
-            BOOST_TEST(!widget.background().is_initialized());
+            BOOST_TEST(!widget.p_background());
         }
         {
             concrete_widget widget{};
@@ -475,7 +474,7 @@ BOOST_AUTO_TEST_SUITE(widget)
             auto p_background = tetengo2::stdalt::make_unique<transparent_background_type>();
             widget.set_background(std::move(p_background));
 
-            BOOST_TEST(widget.background().is_initialized());
+            BOOST_TEST(widget.p_background());
         }
     }
 
@@ -521,13 +520,13 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_CHECK(widget.font() == font);
     }
 
-    BOOST_AUTO_TEST_CASE(cursor)
+    BOOST_AUTO_TEST_CASE(p_cursor)
     {
         BOOST_TEST_PASSPOINT();
 
         const concrete_widget widget{};
 
-        BOOST_TEST(!widget.cursor());
+        BOOST_TEST(!widget.p_cursor());
     }
 
     BOOST_AUTO_TEST_CASE(set_cursor)
@@ -542,9 +541,11 @@ BOOST_AUTO_TEST_SUITE(widget)
             );
         widget.set_cursor(std::move(p_cursor));
 
-        const auto cursor = widget.cursor();
-        BOOST_TEST_REQUIRE(cursor.is_initialized());
-        BOOST_CHECK(dynamic_cast<const system_cursor_type&>(*cursor).style() == system_cursor_type::style_type::hand);
+        const auto p_cursor_regot = widget.p_cursor();
+        BOOST_TEST_REQUIRE(p_cursor_regot);
+        BOOST_CHECK(
+            dynamic_cast<const system_cursor_type&>(*p_cursor_regot).style() == system_cursor_type::style_type::hand
+        );
     }
 
     BOOST_AUTO_TEST_CASE(has_vertical_scroll_bar)

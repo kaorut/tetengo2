@@ -309,11 +309,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         {
             boost::ignore_unused(w_param, l_param);
 
-            if (!widget.cursor())
+            if (!widget.p_cursor())
                 return boost::none;
 
             ::SetCursor(
-                reinterpret_cast< ::HCURSOR>(const_cast<cursor::cursor_details_type*>(&widget.cursor()->details()))
+                reinterpret_cast< ::HCURSOR>(const_cast<cursor::cursor_details_type*>(&widget.p_cursor()->details()))
             );
 
             return boost::make_optional< ::LRESULT>(FALSE);

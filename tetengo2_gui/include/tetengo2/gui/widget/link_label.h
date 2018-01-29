@@ -153,10 +153,10 @@ namespace tetengo2 { namespace gui { namespace widget
             bool operator()(canvas_type& canvas)
             const
             {
-                if (!m_self.background())
+                if (!m_self.p_background())
                     return false;
 
-                canvas.set_background(m_self.background()->clone());
+                canvas.set_background(m_self.p_background()->clone());
                 canvas.fill_rectangle(position_type{}, m_self.client_dimension());
                 if (m_self.focused())
                     canvas.draw_focus_indication(position_type{}, m_self.client_dimension());
