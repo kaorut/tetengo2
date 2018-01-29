@@ -13,9 +13,7 @@
 #include <unordered_map>
 #include <utility>
 
-#include <boost/none.hpp>
 #include <boost/operators.hpp>
-#include <boost/optional.hpp>
 
 
 namespace tetengo2 { namespace gui

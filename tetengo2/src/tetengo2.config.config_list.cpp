@@ -11,8 +11,6 @@
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/none.hpp>
-#include <boost/optional.hpp>
 
 #include <tetengo2/config/config_base.h>
 #include <tetengo2/config/config_list.h>

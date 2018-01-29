@@ -20,10 +20,8 @@
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
-#include <boost/none.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
-#include <boost/optional.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/variant.hpp>

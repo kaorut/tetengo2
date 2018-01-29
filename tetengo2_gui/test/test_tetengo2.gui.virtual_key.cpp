@@ -10,7 +10,6 @@
 #include <string>
 
 #include <boost/operators.hpp>
-#include <boost/optional.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 

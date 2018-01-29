@@ -10,7 +10,6 @@
 #define TETENGO2_DETAIL_BASE_CONFIG_H
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/optional.hpp>
 #include <boost/variant.hpp>
 
 #include <tetengo2/type_list.h>

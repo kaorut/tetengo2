@@ -15,7 +15,6 @@
 #include <boost/algorithm/string.hpp> // IWYU pragma: keep
 #include <boost/core/ignore_unused.hpp> // IWYU pragma: keep
 #include <boost/core/noncopyable.hpp>
-#include <boost/optional.hpp>
 
 #pragma warning (push)
 #pragma warning (disable: 4005)

@@ -11,8 +11,6 @@
 
 #include <memory>
 
-#include <boost/optional.hpp>
-
 #include <tetengo2/config/config_base.h>
 #include <tetengo2/type_list.h>
 
