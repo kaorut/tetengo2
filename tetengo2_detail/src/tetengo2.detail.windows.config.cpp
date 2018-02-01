@@ -54,7 +54,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         // virtual functions
 
-        virtual const value_type* get_impl(const string_type& group_name, const string_type& key)
+        virtual boost::optional<value_type> get_impl(const string_type& group_name, const string_type& key)
         const
         {
             const auto registry_key_and_value_name = build_registry_key_and_value_name(group_name, key);
@@ -68,20 +68,15 @@ namespace tetengo2 { namespace detail { namespace windows
             switch (type.first)
             {
             case value_kind_type::string:
-                {
-                    static value_type value;
-                    value = value_type{ get_string(handle.get(), registry_key_and_value_name.second, type.second) };
-                    return &value;
-                }
+                return
+                    boost::make_optional(
+                        value_type{ get_string(handle.get(), registry_key_and_value_name.second, type.second) }
+                    );
             case value_kind_type::dword:
-                {
-                    static value_type value;
-                    value = { get_dword(handle.get(), registry_key_and_value_name.second) };
-                    return &value;
-                }
+                return boost::make_optional(value_type{ get_dword(handle.get(), registry_key_and_value_name.second) });
             default:
                 assert(type.first == value_kind_type::unknown);
-                return nullptr;
+                return boost::none;
             }
         }
 
@@ -342,7 +337,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
     // virtual functions
 
-    const config::value_type* config::get_impl(const string_type& group_name, const string_type& key)
+    boost::optional<config::value_type> config::get_impl(const string_type& group_name, const string_type& key)
     const
     {
         return m_p_impl->get_impl(group_name, key);

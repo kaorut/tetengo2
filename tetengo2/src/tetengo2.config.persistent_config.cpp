@@ -50,7 +50,7 @@ namespace tetengo2 { namespace config
 
         // functions
 
-        const value_type* get_impl(const string_type& key)
+        boost::optional<value_type> get_impl(const string_type& key)
         const
         {
             return details().get(m_group_name, key);
@@ -103,7 +103,7 @@ namespace tetengo2 { namespace config
     persistent_config::~persistent_config()
     = default;
 
-    const persistent_config::value_type* persistent_config::get_impl(const string_type& key)
+    boost::optional<persistent_config::value_type> persistent_config::get_impl(const string_type& key)
     const
     {
         return m_p_impl->get_impl(key);

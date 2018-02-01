@@ -12,6 +12,7 @@
 #include <memory>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/optional.hpp>
 #include <boost/variant.hpp>
 
 #include <tetengo2/type_list.h>
@@ -57,9 +58,9 @@ namespace tetengo2 { namespace config
 
             \param key A key.
 
-            \return The pointer to the value. Or nullptr when no corresponding value to the key.
+            \return The value or boost::none when no corresponding value to the key.
         */
-        const value_type* get(const string_type& key)
+        boost::optional<value_type> get(const string_type& key)
         const;
 
         /*!
@@ -89,7 +90,7 @@ namespace tetengo2 { namespace config
 
         // virtual functions
 
-        virtual const value_type* get_impl(const string_type& key)
+        virtual boost::optional<value_type> get_impl(const string_type& key)
         const = 0;
 
         virtual void set_impl(const string_type& key, value_type value)

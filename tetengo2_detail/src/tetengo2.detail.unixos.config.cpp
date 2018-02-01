@@ -59,14 +59,14 @@ namespace tetengo2 { namespace detail { namespace unixos
 
         // functions
 
-        virtual const value_type* get_impl(const string_type& group_name, const string_type& key)
+        virtual boost::optional<value_type> get_impl(const string_type& group_name, const string_type& key)
         const
         {
             value_map_type value_map{};
             load_from_file(group_name, value_map);
 
             const auto found = value_map.find(key);
-            return found != value_map.end() ? &found->second : nullptr;
+            return found != value_map.end() ? boost::make_optional(found->second) : boost::none;
         }
 
         virtual void set_impl(const string_type& group_name, const string_type& key, value_type value)
@@ -265,7 +265,7 @@ namespace tetengo2 { namespace detail { namespace unixos
 
     // virtual functions
 
-    const config::value_type* config::get_impl(const string_type& group_name, const string_type& key)
+    boost::optional<config::value_type> config::get_impl(const string_type& group_name, const string_type& key)
     const
     {
         return m_p_impl->get_impl(group_name, key);

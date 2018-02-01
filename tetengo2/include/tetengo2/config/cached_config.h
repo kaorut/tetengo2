@@ -66,7 +66,7 @@ namespace tetengo2 { namespace config
 
         // virtual functions
 
-        virtual const value_type* get_impl(const string_type& key)
+        virtual boost::optional<value_type> get_impl(const string_type& key)
         const override;
 
         virtual void set_impl(const string_type& key, value_type value)
