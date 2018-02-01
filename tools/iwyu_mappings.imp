@@ -21,5 +21,6 @@
   { include: ["<boost/spirit/home/support/common_terminals.hpp>",     "private", "<boost/spirit/include/support.hpp>",            "public"] },
   { include: ["<boost/spirit/home/support/terminal.hpp>",             "private", "<boost/spirit/include/support.hpp>",            "public"] },
   { include: ["@<boost/test/.+>",                                     "private", "<boost/test/unit_test.hpp>",                    "public"] },
+  { include: ["@<boost/type_traits/.+>",                              "private", "<boost/type_traits.hpp>",                       "public"] },
   { include: ["@<boost/variant/.+>",                                  "private", "<boost/variant.hpp>",                           "public"] }
 ]

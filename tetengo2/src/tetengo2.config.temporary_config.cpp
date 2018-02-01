@@ -11,6 +11,9 @@
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/none.hpp>
+#include <boost/optional.hpp>
+#include <boost/type_traits.hpp>
 
 #include <tetengo2/config/temporary_config.h>
 #include <tetengo2/stdalt.h>
@@ -42,11 +45,11 @@ namespace tetengo2 { namespace config
 
         // functions
 
-        const value_type* get_impl(const string_type& key)
+        boost::optional<value_type> get_impl(const string_type& key)
         const
         {
             const auto found = m_values.find(key);
-            return found != m_values.end() ? &found->second : nullptr;
+            return found != m_values.end() ? boost::make_optional(found->second) : boost::none;
         }
 
         void set_impl(const string_type& key, value_type value)
@@ -82,7 +85,7 @@ namespace tetengo2 { namespace config
     temporary_config::~temporary_config()
     = default;
 
-    const temporary_config::value_type* temporary_config::get_impl(const string_type& key)
+    boost::optional<temporary_config::value_type> temporary_config::get_impl(const string_type& key)
     const
     {
         return m_p_impl->get_impl(key);

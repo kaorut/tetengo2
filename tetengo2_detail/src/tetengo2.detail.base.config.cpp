@@ -8,6 +8,8 @@
 
 #include <utility>
 
+#include <boost/optional.hpp>
+
 #include <tetengo2/detail/base/config.h>
 
 
@@ -19,7 +21,7 @@ namespace tetengo2 { namespace detail { namespace base
     config::config()
     = default;
 
-    const config::value_type* config::get(const string_type& group_name, const string_type& key)
+    boost::optional<config::value_type> config::get(const string_type& group_name, const string_type& key)
     const
     {
         return get_impl(group_name, key);

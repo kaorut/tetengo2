@@ -8,6 +8,7 @@
 
 #include <string>
 
+#include <boost/optional.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>
@@ -53,8 +54,8 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
         persistent_config_type config{ string_type{ TETENGO2_TEXT("test_tetengo2") } };
 
         {
-            const auto p_value = config.get(string_type{ TETENGO2_TEXT("foo") });
-            BOOST_TEST(!p_value);
+            const auto value = config.get(string_type{ TETENGO2_TEXT("foo") });
+            BOOST_TEST(!value);
         }
 
         config.clear();
@@ -71,9 +72,9 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
             config.set(string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 });
             config.set(string_type{ TETENGO2_TEXT("foo") }, value_type{ 4242 });
 
-            const auto p_value = config.get(string_type{ TETENGO2_TEXT("foo") });
-            BOOST_TEST_REQUIRE(p_value);
-            BOOST_TEST(boost::get<uint_type>(*p_value) == 4242U);
+            const auto value = config.get(string_type{ TETENGO2_TEXT("foo") });
+            BOOST_TEST_REQUIRE(value.is_initialized());
+            BOOST_TEST(boost::get<uint_type>(*value) == 4242U);
 
             config.clear();
         }
@@ -84,9 +85,9 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
             config.set(string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 });
             config.set(string_type{ TETENGO2_TEXT("baz") }, value_type{ string_type{ TETENGO2_TEXT("fuga") } });
 
-            const auto p_value = config.get(string_type{ TETENGO2_TEXT("baz") });
-            BOOST_TEST_REQUIRE(p_value);
-            BOOST_CHECK(boost::get<string_type>(*p_value) == string_type{ TETENGO2_TEXT("fuga") });
+            const auto value = config.get(string_type{ TETENGO2_TEXT("baz") });
+            BOOST_TEST_REQUIRE(value.is_initialized());
+            BOOST_CHECK(boost::get<string_type>(*value) == string_type{ TETENGO2_TEXT("fuga") });
 
             config.clear();
         }
@@ -104,8 +105,8 @@ BOOST_AUTO_TEST_SUITE(persistent_config)
 
             config.clear();
 
-            BOOST_TEST(!config.get(string_type{ TETENGO2_TEXT("foo") }));
-            BOOST_TEST(!config.get(string_type{ TETENGO2_TEXT("bar") }));
+            BOOST_TEST(!config.get(string_type{ TETENGO2_TEXT("foo") }).is_initialized());
+            BOOST_TEST(!config.get(string_type{ TETENGO2_TEXT("bar") }).is_initialized());
 
             config.clear();
         }
