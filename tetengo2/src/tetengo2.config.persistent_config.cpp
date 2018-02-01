@@ -10,6 +10,7 @@
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/optional.hpp>
 #include <boost/predef.h>
 
 #include <tetengo2/config/persistent_config.h>

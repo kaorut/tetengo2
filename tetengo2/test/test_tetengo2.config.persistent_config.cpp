@@ -8,6 +8,7 @@
 
 #include <string>
 
+#include <boost/optional.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>

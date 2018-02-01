@@ -8,6 +8,8 @@
 
 #include <utility>
 
+#include <boost/optional.hpp>
+
 #include <tetengo2/detail/base/config.h>
 
 
