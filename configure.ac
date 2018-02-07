@@ -5,7 +5,7 @@
 #### General ####
 AC_PREREQ([2.69])
 AC_INIT([Tetengo2], [0.0.0], [kaorut@mc.pikara.ne.jp])
-AM_INIT_AUTOMAKE([gnu dist-bzip2 dist-zip])
+AM_INIT_AUTOMAKE([gnu dist-bzip2 dist-zip --warnings=no-portability])
 AC_CONFIG_SRCDIR([tetengo2_config.h-original])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([
