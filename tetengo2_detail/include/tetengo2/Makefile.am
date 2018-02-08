@@ -88,11 +88,16 @@ iwyu_CPPFLAGS = \
     -I$(top_srcdir)/tetengo2_detail/include \
     -I$(top_srcdir)/tetengo2_gui/include
 
-lint-iwyu: $(addsuffix .iwyuout, $(pkg_headers))
+lint-iwyu: $(subst config.h,config_.h, $(addsuffix .iwyuout, $(pkg_headers)))
 
-lint-iwyu-extra: $(addsuffix .iwyuout, $(extra_headers))
+lint-iwyu-extra: $(subst config.h,config_.h, $(addsuffix .iwyuout, $(extra_headers)))
 
 %.iwyuout: %
+	mkdir -p $(dir $@)
+	$(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $< 2> $(addsuffix .tmp, $@) || test $$? -eq 2
+	mv $(addsuffix .tmp, $@) $@
+
+%_.h.iwyuout: %.h
 	mkdir -p $(dir $@)
 	$(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $< 2> $(addsuffix .tmp, $@) || test $$? -eq 2
 	mv $(addsuffix .tmp, $@) $@
