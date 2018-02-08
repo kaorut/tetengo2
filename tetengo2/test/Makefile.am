@@ -65,25 +65,21 @@ tetengo2_test_SOURCES = $(headers) $(sources)
 messages.test:
 	cp -r $(top_srcdir)/tetengo2/res.test/messages.test $(top_builddir)/tetengo2/test
 
-clean-local:
-	-chmod -R u+w $(top_builddir)/tetengo2/test/messages.test
-	-rm -rf $(top_builddir)/tetengo2/test/messages.test
-
 IWYU_OPTS += -Xiwyu --mapping_file=$(top_srcdir)/$(IWYU_IMP_PATH)
 
-lint-iwyu:
-	for f in $(headers) $(sources); \
-	do \
-	    echo "iwyu: "$(srcdir)/$$f; \
-	    $(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(tetengo2_test_CPPFLAGS) $(CXXFLAGS) $(srcdir)/$$f || test $$? -eq 2; \
-	done
+lint-iwyu: $(addsuffix .iwyuout, $(headers) $(sources))
 
-lint-iwyu-extra:
-	for f in $(extra_headers) $(extra_sources); \
-	do \
-	    echo "iwyu: "$(srcdir)/$$f; \
-	    $(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(tetengo2_test_CPPFLAGS) $(CXXFLAGS) $(srcdir)/$$f || test $$? -eq 2; \
-	done
+lint-iwyu-extra: $(addsuffix .iwyuout, $(extra_headers) $(extra_sources))
+
+%.iwyuout: %
+	$(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(tetengo2_test_CPPFLAGS) $(CXXFLAGS) $< 2> $(addsuffix .tmp, $@) || test $$? -eq 2
+	mv $(addsuffix .tmp, $@) $@
+
+clean-local:
+	-test ! -d $(top_builddir)/tetengo2/test/messages.test || chmod -R u+w $(top_builddir)/tetengo2/test/messages.test
+	-test ! -d $(top_builddir)/tetengo2/test/messages.test || rm -rf $(top_builddir)/tetengo2/test/messages.test
+	-rm -f *.iwyuout.tmp
+	-rm -f *.iwyuout
 
 $(top_builddir)/precompiled/precompiled.h.$(PRECOMPILE_EXT): $(top_srcdir)/precompiled/precompiled.h
 	pushd $(top_builddir)/precompiled; \

@@ -52,16 +52,15 @@ iwyu_CPPFLAGS = \
     -I$(top_srcdir)/tetengo2/include \
     -I$(top_srcdir)/tetengo2_detail/include
 
-lint-iwyu:
-	for f in $(pkg_headers); \
-	do \
-	    echo "iwyu: "$(srcdir)/$$f; \
-	    $(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $(srcdir)/$$f || test $$? -eq 2; \
-	done
+lint-iwyu: $(addsuffix .iwyuout, $(pkg_headers))
 
-lint-iwyu-extra:
-	for f in $(extra_headers); \
-	do \
-	    echo "iwyu: "$(srcdir)/$$f; \
-	    $(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $(srcdir)/$$f || test $$? -eq 2; \
-	done
+lint-iwyu-extra: $(addsuffix .iwyuout, $(extra_headers))
+
+%.iwyuout: %
+	mkdir -p $(dir $@)
+	$(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $< 2> $(addsuffix .tmp, $@) || test $$? -eq 2
+	mv $(addsuffix .tmp, $@) $@
+
+clean-local:
+	-find -name "*.iwyuout.tmp" | xargs rm -f
+	-find -name "*.iwyuout" | xargs rm -f
