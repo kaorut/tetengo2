@@ -41,8 +41,8 @@ lint-iwyu-extra: $(addsuffix .iwyuout, $(extra_headers) $(extra_sources))
 	mv $(addsuffix .tmp, $@) $@
 
 clean-local:
-	-rm -f "*.iwyuout.tmp"
-	-rm -f "*.iwyuout"
+	-rm -f *.iwyuout.tmp
+	-rm -f *.iwyuout
 
 $(top_builddir)/precompiled/precompiled.h.$(PRECOMPILE_EXT): $(top_srcdir)/precompiled/precompiled.h
 	pushd $(top_builddir)/precompiled; \

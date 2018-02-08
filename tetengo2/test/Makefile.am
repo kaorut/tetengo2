@@ -76,10 +76,10 @@ lint-iwyu-extra: $(addsuffix .iwyuout, $(extra_headers) $(extra_sources))
 	mv $(addsuffix .tmp, $@) $@
 
 clean-local:
-	-chmod -R u+w $(top_builddir)/tetengo2/test/messages.test
-	-rm -rf $(top_builddir)/tetengo2/test/messages.test
-	-rm -f "*.iwyuout.tmp"
-	-rm -f "*.iwyuout"
+	-test ! -d $(top_builddir)/tetengo2/test/messages.test || chmod -R u+w $(top_builddir)/tetengo2/test/messages.test
+	-test ! -d $(top_builddir)/tetengo2/test/messages.test || rm -rf $(top_builddir)/tetengo2/test/messages.test
+	-rm -f *.iwyuout.tmp
+	-rm -f *.iwyuout
 
 $(top_builddir)/precompiled/precompiled.h.$(PRECOMPILE_EXT): $(top_srcdir)/precompiled/precompiled.h
 	pushd $(top_builddir)/precompiled; \
