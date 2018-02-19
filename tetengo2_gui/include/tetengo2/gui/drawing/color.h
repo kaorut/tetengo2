@@ -119,6 +119,39 @@ namespace tetengo2 { namespace gui { namespace drawing
             return m_alpha;
         }
 
+        /*!
+            \brief Mixes a color.
+
+            \param another Another color.
+            \param weight  The weight of another color. It must be between 0.0 and 1.0.
+
+            \return The mixed color.
+        */
+        basic_color mix(const basic_color& another, const double weight)
+        const
+        {
+            if (weight < 0 || 1.0 < weight)
+                throw std::invalid_argument("Invalid weight value.");
+
+            const auto mixed_red =
+                static_cast<unsigned char>(
+                    static_cast<double>(m_red) * (1.0 - weight) + static_cast<double>(another.m_red) * weight
+                );
+            const auto mixed_green =
+                static_cast<unsigned char>(
+                    static_cast<double>(m_green) * (1.0 - weight) + static_cast<double>(another.m_green) * weight
+                );
+            const auto mixed_blue =
+                static_cast<unsigned char>(
+                    static_cast<double>(m_blue) * (1.0 - weight) + static_cast<double>(another.m_blue) * weight
+                );
+            const auto mixed_alpha =
+                static_cast<unsigned char>(
+                    static_cast<double>(m_alpha) * (1.0 - weight) + static_cast<double>(another.m_alpha) * weight
+                );
+            return basic_color{ mixed_red, mixed_green, mixed_blue, mixed_alpha };
+        }
+
 
     private:
         // variables
