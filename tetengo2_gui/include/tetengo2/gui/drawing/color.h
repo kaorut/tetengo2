@@ -126,6 +126,8 @@ namespace tetengo2 { namespace gui { namespace drawing
             \param weight  The weight of another color. It must be between 0.0 and 1.0.
 
             \return The mixed color.
+
+            \throw std::invalid_argument When weight is less than 0.0 or greater than 1.0.
         */
         basic_color mix(const basic_color& another, const double weight)
         const
