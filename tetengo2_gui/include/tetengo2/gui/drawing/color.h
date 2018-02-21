@@ -10,6 +10,7 @@
 #define TETENGO2_GUI_DRAWING_COLOR_H
 
 #include <limits>
+#include <stdexcept>
 
 #include <boost/operators.hpp>
 

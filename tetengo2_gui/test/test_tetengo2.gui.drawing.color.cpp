@@ -7,6 +7,7 @@
 */
 
 #include <sstream>
+#include <stdexcept>
 
 #include <boost/operators.hpp>
 #include <boost/preprocessor.hpp>
