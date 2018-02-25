@@ -32,6 +32,10 @@ lint-iwyu:
 lint-iwyu-extra:
 	for d in $(SOURCE_SUBDIRS); do (cd $$d && $(MAKE) lint-iwyu-extra); done
 
+.PHONY: format
+format:
+	for d in $(SOURCE_SUBDIRS); do (cd $$d && $(MAKE) format); done
+
 .PHONY: doc
 doc:
 	cd $(top_srcdir) && $(DOXYGEN) Doxyfile

@@ -71,6 +71,17 @@ test -z $IWYU && \
 AC_SUBST([IWYU_OPTS], "-Xiwyu --max_line_length=1024 -x c++ -std=c++11")
 AC_SUBST([IWYU_IMP_PATH], "tools/iwyu_mappings.imp")
 AC_ARG_WITH(
+    clang-format,
+    AS_HELP_STRING(
+        [--with-clang-format=COMMAND], [Specify the clang-format command. Or uses `clang-format'.]
+    ),
+    CLANGFORMAT=$withval
+)
+AC_CHECK_PROG(CLANGFORMAT, clang-format, clang-format)
+test -z $CLANGFORMAT && \
+    AC_MSG_WARN([You cannot format the source files for lack of clang-format.])
+AC_SUBST([CLANGFORMAT_OPTS], "-i -style=file")
+AC_ARG_WITH(
     doxygen,
     AS_HELP_STRING([--with-doxygen=COMMAND], [Specify the Doxygen command. Or uses `doxygen'.]),
     DOXYGEN=$withval

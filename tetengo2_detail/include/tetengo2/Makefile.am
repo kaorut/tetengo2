@@ -102,6 +102,9 @@ lint-iwyu-extra: $(subst config.h,config_.h, $(addsuffix .iwyuout, $(extra_heade
 	$(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $< 2> $(addsuffix .tmp, $@) || test $$? -eq 2
 	mv $(addsuffix .tmp, $@) $@
 
+format:
+	$(CLANGFORMAT) $(CLANGFORMAT_OPTS) $(pkg_headers) $(extra_headers)
+
 clean-local:
 	-find -name "*.iwyuout.tmp" | xargs rm -f
 	-find -name "*.iwyuout" | xargs rm -f
