@@ -51,7 +51,10 @@ lint-iwyu-extra: $(addsuffix .iwyuout, $(extra_headers) $(extra_sources))
 	mv $(addsuffix .tmp, $@) $@
 
 format:
-	$(CLANGFORMAT) $(CLANGFORMAT_OPTS) $(headers) $(sources) $(extra_headers) $(extra_sources)
+	for f in $(headers) $(sources) $(extra_headers) $(extra_sources); \
+	do \
+	    $(top_srcdir)/tools/call_clang-format.sh $(CLANGFORMAT) $f; \
+	done
 
 clean-local:
 	-rm -f *.iwyuout.tmp

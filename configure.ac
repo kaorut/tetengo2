@@ -80,7 +80,6 @@ AC_ARG_WITH(
 AC_CHECK_PROG(CLANGFORMAT, clang-format, clang-format)
 test -z $CLANGFORMAT && \
     AC_MSG_WARN([You cannot format the source files for lack of clang-format.])
-AC_SUBST([CLANGFORMAT_OPTS], "-i -style=file")
 AC_ARG_WITH(
     doxygen,
     AS_HELP_STRING([--with-doxygen=COMMAND], [Specify the Doxygen command. Or uses `doxygen'.]),
