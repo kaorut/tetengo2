@@ -105,7 +105,7 @@ lint-iwyu-extra: $(subst config.h,config_.h, $(addsuffix .iwyuout, $(extra_heade
 format:
 	for f in $(pkg_headers) $(extra_headers); \
 	do \
-	    $(top_srcdir)/tools/call_clang-format.sh $(CLANGFORMAT) $f; \
+	    $(top_srcdir)/tools/call_clang-format.sh $(CLANGFORMAT) $$f; \
 	done
 
 clean-local:

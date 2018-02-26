@@ -16,5 +16,6 @@ mv -f "$FILE.tmp" "$FILE"
 CLANGFORMAT=$1
 FILE=$2
 
+echo formatting $FILE ...
 "$CLANGFORMAT" -style=file "$FILE" > "$FILE.tmp"
 mv -f "$FILE.tmp" "$FILE"

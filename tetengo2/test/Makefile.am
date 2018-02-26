@@ -78,7 +78,7 @@ lint-iwyu-extra: $(addsuffix .iwyuout, $(extra_headers) $(extra_sources))
 format:
 	for f in $(headers) $(sources) $(extra_headers) $(extra_sources); \
 	do \
-	    $(top_srcdir)/tools/call_clang-format.sh $(CLANGFORMAT) $f; \
+	    $(top_srcdir)/tools/call_clang-format.sh $(CLANGFORMAT) $$f; \
 	done
 
 clean-local:

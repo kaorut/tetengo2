@@ -27,7 +27,7 @@ lint-iwyu-extra:
 format:
 	for f in $(headers); \
 	do \
-	    $(top_srcdir)/tools/call_clang-format.sh $(CLANGFORMAT) $f; \
+	    $(top_srcdir)/tools/call_clang-format.sh $(CLANGFORMAT) $$f; \
 	done
 	for d in $(SUBDIRS); do (cd $$d && $(MAKE) format); done
 
