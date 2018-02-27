@@ -10,7 +10,8 @@ CORE_COUNT=`grep -c '^processor' /proc/cpuinfo`
 
 function call_clangformat_iter()
 {
-    FILE=$1
+    CLANGFORMAT=$1
+    FILE=$2
     
     echo "formatting $FILE ... "
     "$CLANGFORMAT" -style=file > "$FILE.tmp"
@@ -18,5 +19,5 @@ function call_clangformat_iter()
 }
 export -f call_clangformat_iter
 
-echo $FILES | tr ' ' '\n' | xargs -P $CORE_COUNT -n 1 -I {} bash -c "call_clangformat_iter {}"
+echo $FILES | tr ' ' '\n' | xargs -P $CORE_COUNT -n 1 -I {} bash -c "call_clangformat_iter $CLANGFORMAT {}"
 
