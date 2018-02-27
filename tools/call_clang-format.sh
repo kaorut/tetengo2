@@ -13,7 +13,6 @@ function call_clangformat_iter()
     CLANGFORMAT=$1
     FILE=$2
     
-    echo "formatting $FILE ... "
     "$CLANGFORMAT" -style=file > "$FILE.tmp"
     mv -f "$FILE.tmp" "$FILE"
 }
