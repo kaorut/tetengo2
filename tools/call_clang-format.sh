@@ -14,7 +14,7 @@ function call_clangformat_iter()
     FILE=$2
     
     "$CLANGFORMAT" -style=file "$FILE" > "$FILE.tmp"
-    mv -f "$FILE.tmp" "$FILE"
+    test $? -eq 0 && mv -f "$FILE.tmp" "$FILE"
 }
 export -f call_clangformat_iter
 
