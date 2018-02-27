@@ -24,10 +24,7 @@ lint-iwyu-extra:
 	mv $(addsuffix .tmp, $@) $@
 
 format:
-	for f in $(headers); \
-	do \
-	    $(top_srcdir)/tools/call_clang-format.sh $(CLANGFORMAT) $$f; \
-	done
+	$(top_srcdir)/tools/call_clang-format.sh $(CLANGFORMAT) $(headers)
 	for d in $(SUBDIRS); do (cd $$d && $(MAKE) format); done
 
 clean-local:

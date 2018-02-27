@@ -76,10 +76,7 @@ lint-iwyu-extra: $(addsuffix .iwyuout, $(extra_headers) $(extra_sources))
 	mv $(addsuffix .tmp, $@) $@
 
 format:
-	for f in $(headers) $(sources) $(extra_headers) $(extra_sources); \
-	do \
-	    $(top_srcdir)/tools/call_clang-format.sh $(CLANGFORMAT) $$f; \
-	done
+	$(top_srcdir)/tools/call_clang-format.sh $(CLANGFORMAT) $(headers) $(sources) $(extra_headers) $(extra_sources)
 
 clean-local:
 	-test ! -d $(top_builddir)/tetengo2/test/messages.test || chmod -R u+w $(top_builddir)/tetengo2/test/messages.test
