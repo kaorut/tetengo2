@@ -73,8 +73,8 @@ IndentCaseLabels: false
 IndentWidth: 4
 IndentWrappedFunctionNames: false
 KeepEmptyLinesAtTheStartOfBlocks: false
-MacroBlockBegin: ''
-MacroBlockEnd: ''
+MacroBlockBegin: '^BOOST_AUTO_TEST_SUITE$'
+MacroBlockEnd: '^BOOST_AUTO_TEST_SUITE_END$'
 MaxEmptyLinesToKeep: 2
 NamespaceIndentation: Inner
 ObjCBlockIndentWidth: 4
