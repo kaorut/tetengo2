@@ -25,7 +25,7 @@ lint-iwyu-extra:
 	mv $(addsuffix .tmp, $@) $@
 
 format:
-	$(top_srcdir)/tools/call_clang-format.sh $(CLANGFORMAT) $(headers)
+	$(top_srcdir)/tools/call_clang-format.sh $(UNIX2DOS) $(CLANGFORMAT) $(headers)
 	for d in $(SUBDIRS); do (cd $$d && $(MAKE) format); done
 
 clean-local:
