@@ -25,45 +25,45 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using string_type = common_type_list_type::string_type;
+    using string_type = common_type_list_type::string_type;
 
-using virtual_key_details_type = detail_type_list_type::virtual_key_type;
+    using virtual_key_details_type = detail_type_list_type::virtual_key_type;
 
-using virtual_key_type = tetengo2::gui::virtual_key<string_type, virtual_key_details_type>;
+    using virtual_key_type = tetengo2::gui::virtual_key<string_type, virtual_key_details_type>;
 
-using shortcut_key_type = tetengo2::gui::menu::shortcut_key<string_type, virtual_key_details_type>;
+    using shortcut_key_type = tetengo2::gui::menu::shortcut_key<string_type, virtual_key_details_type>;
 
-using menu_details_type = detail_type_list_type::menu_type;
+    using menu_details_type = detail_type_list_type::menu_type;
 
-using menu_base_type = tetengo2::gui::menu::
-    menu_base<string_type, common_type_list_type::ui_encoder_type, menu_details_type, virtual_key_details_type>;
+    using menu_base_type = tetengo2::gui::menu::
+        menu_base<string_type, common_type_list_type::ui_encoder_type, menu_details_type, virtual_key_details_type>;
 
-class concrete_menu : public menu_base_type
-{
-public:
-    // constructors and destructor
-
-    concrete_menu(string_type text) : menu_base_type(std::move(text), menu_details_type::create_menu()) {}
-
-    concrete_menu(string_type text, shortcut_key_type shortcut_key_type)
-    : menu_base_type(std::move(text), std::move(shortcut_key_type), menu_details_type::create_menu())
-    {}
-
-
-private:
-    // virtual functions
-
-    virtual const style_type& style_impl() const override
+    class concrete_menu : public menu_base_type
     {
-        return menu_details_type::menu_command_style<menu_base_type>();
-    }
-};
+    public:
+        // constructors and destructor
+
+        concrete_menu(string_type text) : menu_base_type(std::move(text), menu_details_type::create_menu()) {}
+
+        concrete_menu(string_type text, shortcut_key_type shortcut_key_type)
+        : menu_base_type(std::move(text), std::move(shortcut_key_type), menu_details_type::create_menu())
+        {}
+
+
+    private:
+        // virtual functions
+
+        virtual const style_type& style_impl() const override
+        {
+            return menu_details_type::menu_command_style<menu_base_type>();
+        }
+    };
 }
 
 

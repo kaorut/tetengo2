@@ -18,88 +18,88 @@
 
 
 namespace {
-// types
+    // types
 
-using encoding_type = tetengo2::text::encoding::cp932;
+    using encoding_type = tetengo2::text::encoding::cp932;
 
-using pivot_type = encoding_type::pivot_type;
+    using pivot_type = encoding_type::pivot_type;
 
-using string_type = encoding_type::string_type;
-
-
-// functions
-
-string_type::value_type tc(const unsigned char c)
-{
-    return static_cast<string_type::value_type>(c);
-}
+    using string_type = encoding_type::string_type;
 
 
-    // data
+    // functions
 
-#if BOOST_OS_WINDOWS
-#pragma warning(push)
-#pragma warning(disable : 4592)
-const pivot_type pivot{
-    0x304F, // KU in fullwidth hiragana
-    0x307E, // MA in fullwidth hiragana
-    0xFF93, // MO in halfwidth katakana
-    0xFF9D, // N  in halfwidth katakana
-}; // in UTF-16
-#pragma warning(pop)
-#else
-const pivot_type pivot{
-    tc(0xE3), tc(0x81), tc(0x8F), // KU in fullwidth hiragana
-    tc(0xE3), tc(0x81), tc(0xBE), // MA in fullwidth hiragana
-    tc(0xEF), tc(0xBE), tc(0x93), // MO in halfwidth katakana
-    tc(0xEF), tc(0xBE), tc(0x9D), // N  in halfwidth katakana
-}; // in UTF-8
-#endif
+    string_type::value_type tc(const unsigned char c)
+    {
+        return static_cast<string_type::value_type>(c);
+    }
 
-const pivot_type empty_pivot{};
+
+        // data
 
 #if BOOST_OS_WINDOWS
 #pragma warning(push)
 #pragma warning(disable : 4592)
-const pivot_type unconvertible_pivot{
-    0x68EE, // MORI in kanji
-    0x9DD7, // OU in kanji
-    0x5916, // GAI in kanji
-    0xD842, 0xDF9F, // SHIKARU in kanji
-}; // in UTF-16
+    const pivot_type pivot{
+        0x304F, // KU in fullwidth hiragana
+        0x307E, // MA in fullwidth hiragana
+        0xFF93, // MO in halfwidth katakana
+        0xFF9D, // N  in halfwidth katakana
+    }; // in UTF-16
 #pragma warning(pop)
 #else
-const pivot_type unconvertible_pivot{
-    tc(0xE6), tc(0xA3), tc(0xAE), // MORI in kanji
-    tc(0xE9), tc(0xB7), tc(0x97), // OU in kanji
-    tc(0xE5), tc(0xA4), tc(0x96), // GAI in kanji
-    tc(0xF0), tc(0xA0), tc(0xAE), tc(0x9F), // SHIKARU in kanji
-}; // in UTF-8
+    const pivot_type pivot{
+        tc(0xE3), tc(0x81), tc(0x8F), // KU in fullwidth hiragana
+        tc(0xE3), tc(0x81), tc(0xBE), // MA in fullwidth hiragana
+        tc(0xEF), tc(0xBE), tc(0x93), // MO in halfwidth katakana
+        tc(0xEF), tc(0xBE), tc(0x9D), // N  in halfwidth katakana
+    }; // in UTF-8
 #endif
 
-const string_type cp932_{
-    tc(0x82), tc(0xAD), // KU in fullwidth hiragana
-    tc(0x82), tc(0xDC), // MA in fullwidth hiragana
-    tc(0xD3), // MO in halfwidth katakana
-    tc(0xDD), // N  in halfwidth katakana
-}; // in CP932
-
-const string_type empty_cp932_{};
+    const pivot_type empty_pivot{};
 
 #if BOOST_OS_WINDOWS
-const string_type unconvertible_cp932_{
-    tc(0x90), tc(0x58), // MORI in kanji
-    tc(0x3F), // OU in kanji
-    tc(0x8A), tc(0x4F), // GAI in kanji
-    tc(0x3F), tc(0x3F), // SHIKARU in kanji
-}; // in CP932
+#pragma warning(push)
+#pragma warning(disable : 4592)
+    const pivot_type unconvertible_pivot{
+        0x68EE, // MORI in kanji
+        0x9DD7, // OU in kanji
+        0x5916, // GAI in kanji
+        0xD842, 0xDF9F, // SHIKARU in kanji
+    }; // in UTF-16
+#pragma warning(pop)
 #else
-const string_type unconvertible_cp932_{
-    tc(0x90), tc(0x58), // MORI in kanji
-    tc(0x3F), tc(0x3F), tc(0x3F), // OU in kanji
-    tc(0x8A), tc(0x4F), // GAI in kanji
-    tc(0x3F), tc(0x3F), tc(0x3F), tc(0x3F), // SHIKARU in kanji
-}; // in CP932
+    const pivot_type unconvertible_pivot{
+        tc(0xE6), tc(0xA3), tc(0xAE), // MORI in kanji
+        tc(0xE9), tc(0xB7), tc(0x97), // OU in kanji
+        tc(0xE5), tc(0xA4), tc(0x96), // GAI in kanji
+        tc(0xF0), tc(0xA0), tc(0xAE), tc(0x9F), // SHIKARU in kanji
+    }; // in UTF-8
+#endif
+
+    const string_type cp932_{
+        tc(0x82), tc(0xAD), // KU in fullwidth hiragana
+        tc(0x82), tc(0xDC), // MA in fullwidth hiragana
+        tc(0xD3), // MO in halfwidth katakana
+        tc(0xDD), // N  in halfwidth katakana
+    }; // in CP932
+
+    const string_type empty_cp932_{};
+
+#if BOOST_OS_WINDOWS
+    const string_type unconvertible_cp932_{
+        tc(0x90), tc(0x58), // MORI in kanji
+        tc(0x3F), // OU in kanji
+        tc(0x8A), tc(0x4F), // GAI in kanji
+        tc(0x3F), tc(0x3F), // SHIKARU in kanji
+    }; // in CP932
+#else
+    const string_type unconvertible_cp932_{
+        tc(0x90), tc(0x58), // MORI in kanji
+        tc(0x3F), tc(0x3F), tc(0x3F), // OU in kanji
+        tc(0x8A), tc(0x4F), // GAI in kanji
+        tc(0x3F), tc(0x3F), tc(0x3F), tc(0x3F), // SHIKARU in kanji
+    }; // in CP932
 #endif
 }
 

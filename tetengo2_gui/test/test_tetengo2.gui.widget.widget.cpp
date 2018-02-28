@@ -40,100 +40,100 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using size_type = common_type_list_type::size_type;
+    using size_type = common_type_list_type::size_type;
 
-using string_type = common_type_list_type::string_type;
+    using string_type = common_type_list_type::string_type;
 
-using details_font_type = detail_type_list_type::widget_type::details_font_type;
+    using details_font_type = detail_type_list_type::widget_type::details_font_type;
 
-using position_type = common_type_list_type::position_type;
+    using position_type = common_type_list_type::position_type;
 
-using position_unit_type = position_type::unit_type;
+    using position_unit_type = position_type::unit_type;
 
-using dimension_type = common_type_list_type::dimension_type;
+    using dimension_type = common_type_list_type::dimension_type;
 
-using dimension_unit_type = dimension_type::unit_type;
+    using dimension_unit_type = dimension_type::unit_type;
 
-using drawing_details_type = detail_type_list_type::drawing_type;
+    using drawing_details_type = detail_type_list_type::drawing_type;
 
-using background_type = tetengo2::gui::drawing::background<drawing_details_type>;
+    using background_type = tetengo2::gui::drawing::background<drawing_details_type>;
 
-using transparent_background_type = tetengo2::gui::drawing::transparent_background<drawing_details_type>;
+    using transparent_background_type = tetengo2::gui::drawing::transparent_background<drawing_details_type>;
 
-using font_type = tetengo2::gui::drawing::font<string_type, size_type, drawing_details_type>;
+    using font_type = tetengo2::gui::drawing::font<string_type, size_type, drawing_details_type>;
 
-using system_cursor_type = tetengo2::gui::cursor::system;
+    using system_cursor_type = tetengo2::gui::cursor::system;
 
-using cursor_details_type = tetengo2::detail::stub::cursor;
+    using cursor_details_type = tetengo2::detail::stub::cursor;
 
-using widget_type = tetengo2::gui::widget::
-    widget<common_type_list_type::widget_traits_type, common_type_list_type::widget_details_traits_type>;
+    using widget_type = tetengo2::gui::widget::
+        widget<common_type_list_type::widget_traits_type, common_type_list_type::widget_details_traits_type>;
 
-class concrete_widget : public widget_type
-{
-public:
-    static const encoder_type& test_encoder()
+    class concrete_widget : public widget_type
     {
-        return encoder();
+    public:
+        static const encoder_type& test_encoder()
+        {
+            return encoder();
+        }
+
+        explicit concrete_widget(
+            widget_type* const                       p_parent = nullptr,
+            const widget_type::scroll_bar_style_type scroll_bar_style = widget_type::scroll_bar_style_type::none)
+        : widget_type(scroll_bar_style, message_handler_map_type{}),
+          m_p_details(tetengo2::stdalt::make_unique<widget_details_type::widget_details_type>(
+              p_parent,
+              true,
+              true,
+              0,
+              std::make_pair(0, 0),
+              std::make_pair(1, 1),
+              string_type{},
+              details_font_type{ string_type{}, 12, false, false, false, false },
+              std::vector<void*>{},
+              false,
+              false,
+              std::vector<string_type>{},
+              boost::none,
+              100,
+              0,
+              0))
+        {
+            widget_type::initialize(this);
+        }
+
+        virtual ~concrete_widget() = default;
+
+
+    private:
+        std::unique_ptr<details_type> m_p_details;
+
+        virtual const details_type& details_impl() const override
+        {
+            return *m_p_details;
+        }
+
+        virtual details_type& details_impl() override
+        {
+            return *m_p_details;
+        }
+    };
+
+    position_type make_position(const std::ptrdiff_t left, const std::ptrdiff_t top)
+    {
+        return { position_unit_type{ left }, position_unit_type{ top } };
     }
 
-    explicit concrete_widget(
-        widget_type* const                       p_parent = nullptr,
-        const widget_type::scroll_bar_style_type scroll_bar_style = widget_type::scroll_bar_style_type::none)
-    : widget_type(scroll_bar_style, message_handler_map_type{}),
-      m_p_details(tetengo2::stdalt::make_unique<widget_details_type::widget_details_type>(
-          p_parent,
-          true,
-          true,
-          0,
-          std::make_pair(0, 0),
-          std::make_pair(1, 1),
-          string_type{},
-          details_font_type{ string_type{}, 12, false, false, false, false },
-          std::vector<void*>{},
-          false,
-          false,
-          std::vector<string_type>{},
-          boost::none,
-          100,
-          0,
-          0))
+    dimension_type make_dimension(const std::size_t width, const std::size_t height)
     {
-        widget_type::initialize(this);
+        return { dimension_unit_type{ width }, dimension_unit_type{ height } };
     }
-
-    virtual ~concrete_widget() = default;
-
-
-private:
-    std::unique_ptr<details_type> m_p_details;
-
-    virtual const details_type& details_impl() const override
-    {
-        return *m_p_details;
-    }
-
-    virtual details_type& details_impl() override
-    {
-        return *m_p_details;
-    }
-};
-
-position_type make_position(const std::ptrdiff_t left, const std::ptrdiff_t top)
-{
-    return { position_unit_type{ left }, position_unit_type{ top } };
-}
-
-dimension_type make_dimension(const std::size_t width, const std::size_t height)
-{
-    return { dimension_unit_type{ width }, dimension_unit_type{ height } };
-}
 }
 
 

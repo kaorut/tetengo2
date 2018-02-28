@@ -21,30 +21,30 @@
 
 
 namespace {
-// types
+    // types
 
-using channel_type = tetengo2::concurrent::channel<int>;
+    using channel_type = tetengo2::concurrent::channel<int>;
 
-struct test_exception : public std::runtime_error
-{
-    test_exception() : std::runtime_error("fuga") {}
-};
+    struct test_exception : public std::runtime_error
+    {
+        test_exception() : std::runtime_error("fuga") {}
+    };
 
 
-// functions
+    // functions
 
-void produce(channel_type* const p_channel)
-{
-    std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
-    p_channel->insert(12);
-    std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
-    p_channel->insert(34);
-    std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
-    p_channel->insert(56);
+    void produce(channel_type* const p_channel)
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
+        p_channel->insert(12);
+        std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
+        p_channel->insert(34);
+        std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
+        p_channel->insert(56);
 
-    std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
-    p_channel->close();
-}
+        std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
+        p_channel->close();
+    }
 }
 
 

@@ -30,64 +30,64 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using icon_type = tetengo2::gui::icon<common_type_list_type::dimension_type, detail_type_list_type::icon_type>;
+    using icon_type = tetengo2::gui::icon<common_type_list_type::dimension_type, detail_type_list_type::icon_type>;
 
-using menu_details_type = detail_type_list_type::menu_type;
+    using menu_details_type = detail_type_list_type::menu_type;
 
-using string_type = common_type_list_type::string_type;
+    using string_type = common_type_list_type::string_type;
 
-using ui_encoder_type = common_type_list_type::ui_encoder_type;
+    using ui_encoder_type = common_type_list_type::ui_encoder_type;
 
-using virtual_key_details_type = detail_type_list_type::virtual_key_type;
+    using virtual_key_details_type = detail_type_list_type::virtual_key_type;
 
-using shortcut_key_table_type =
-    tetengo2::gui::menu::shortcut_key_table<string_type, ui_encoder_type, menu_details_type, virtual_key_details_type>;
+    using shortcut_key_table_type = tetengo2::gui::menu::
+        shortcut_key_table<string_type, ui_encoder_type, menu_details_type, virtual_key_details_type>;
 
-using menu_bar_type = tetengo2::gui::menu::
-    menu_bar<string_type, shortcut_key_table_type, ui_encoder_type, menu_details_type, virtual_key_details_type>;
+    using menu_bar_type = tetengo2::gui::menu::
+        menu_bar<string_type, shortcut_key_table_type, ui_encoder_type, menu_details_type, virtual_key_details_type>;
 
-using abstract_window_type = tetengo2::gui::widget::abstract_window<
-    common_type_list_type::widget_traits_type,
-    common_type_list_type::widget_details_traits_type,
-    menu_details_type>;
+    using abstract_window_type = tetengo2::gui::widget::abstract_window<
+        common_type_list_type::widget_traits_type,
+        common_type_list_type::widget_details_traits_type,
+        menu_details_type>;
 
-class concrete_window : public abstract_window_type
-{
-public:
-    using details_ptr_type = abstract_window_type::details_ptr_type;
-
-    concrete_window(const bool file_droppable = false)
-    : abstract_window_type(
-          abstract_window_type::scroll_bar_style_type::none,
-          file_droppable,
-          message_handler_map_type{}),
-      m_p_details(tetengo2::stdalt::make_unique<details_type>())
+    class concrete_window : public abstract_window_type
     {
-        base_type::initialize(this);
-    }
+    public:
+        using details_ptr_type = abstract_window_type::details_ptr_type;
 
-    virtual ~concrete_window() = default;
+        concrete_window(const bool file_droppable = false)
+        : abstract_window_type(
+              abstract_window_type::scroll_bar_style_type::none,
+              file_droppable,
+              message_handler_map_type{}),
+          m_p_details(tetengo2::stdalt::make_unique<details_type>())
+        {
+            base_type::initialize(this);
+        }
+
+        virtual ~concrete_window() = default;
 
 
-private:
-    details_ptr_type m_p_details;
+    private:
+        details_ptr_type m_p_details;
 
-    virtual const details_type& details_impl() const override
-    {
-        return *m_p_details;
-    }
+        virtual const details_type& details_impl() const override
+        {
+            return *m_p_details;
+        }
 
-    virtual details_type& details_impl() override
-    {
-        return *m_p_details;
-    }
-};
+        virtual details_type& details_impl() override
+        {
+            return *m_p_details;
+        }
+    };
 }
 
 

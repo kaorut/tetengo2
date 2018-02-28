@@ -18,9 +18,9 @@
 
 
 namespace {
-using unit_type = tetengo2::gui::unit::uem_for_test;
+    using unit_type = tetengo2::gui::unit::uem_for_test;
 
-using dimension_type = tetengo2::gui::dimension<unit_type>;
+    using dimension_type = tetengo2::gui::dimension<unit_type>;
 }
 
 

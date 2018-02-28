@@ -16,11 +16,11 @@
 
 
 namespace {
-// types
+    // types
 
-using cursor_type = tetengo2::gui::cursor::system;
+    using cursor_type = tetengo2::gui::cursor::system;
 
-using cursor_details_type = tetengo2::detail::stub::cursor;
+    using cursor_details_type = tetengo2::detail::stub::cursor;
 }
 
 

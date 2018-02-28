@@ -25,122 +25,122 @@
 
 
 namespace {
-// types
+    // types
 
-using grammar_type = tetengo2::text::grammar::json<std::string::const_iterator>;
+    using grammar_type = tetengo2::text::grammar::json<std::string::const_iterator>;
 
-using structure_attribute_type = tetengo2::text::grammar::structure_attribute<std::string>;
+    using structure_attribute_type = tetengo2::text::grammar::structure_attribute<std::string>;
 
-using value_type_type = structure_attribute_type::value_type_type;
+    using value_type_type = structure_attribute_type::value_type_type;
 
 
-// functions
+    // functions
 
-template <typename ForwardIterator, typename Parser>
-bool full_match(const ForwardIterator first, const ForwardIterator last, const Parser& parser)
-{
-    auto       mutable_first = first;
-    const auto result = boost::spirit::qi::parse(mutable_first, last, parser);
-    return result && mutable_first == last;
-}
-
-void structure_attribute_passed(std::string& output, const structure_attribute_type& structure_attribute);
-
-bool structure_begun(
-    std::string&                                 output,
-    const std::string&                           type,
-    const std::vector<structure_attribute_type>& structure_attributes)
-{
-    if (type == "object")
+    template <typename ForwardIterator, typename Parser>
+    bool full_match(const ForwardIterator first, const ForwardIterator last, const Parser& parser)
     {
-        output += "OB, ";
-    }
-    else if (type == "member")
-    {
-        output += "MB, ";
-        std::for_each(
-            structure_attributes.begin(),
-            structure_attributes.end(),
-            [&output](const structure_attribute_type& structure_attribute) {
-                structure_attribute_passed(output, structure_attribute);
-            });
-    }
-    else if (type == "array")
-    {
-        output += "AB, ";
-    }
-    else
-    {
-        assert(false);
-        BOOST_THROW_EXCEPTION((std::logic_error{ "Must not come here." }));
+        auto       mutable_first = first;
+        const auto result = boost::spirit::qi::parse(mutable_first, last, parser);
+        return result && mutable_first == last;
     }
 
-    return true;
-}
+    void structure_attribute_passed(std::string& output, const structure_attribute_type& structure_attribute);
 
-bool structure_ended(std::string& output, const std::string& type)
-{
-    if (type == "object")
+    bool structure_begun(
+        std::string&                                 output,
+        const std::string&                           type,
+        const std::vector<structure_attribute_type>& structure_attributes)
     {
-        output += "OE, ";
-    }
-    else if (type == "member")
-    {
-        output += "ME, ";
-    }
-    else if (type == "array")
-    {
-        output += "AE, ";
-    }
-    else
-    {
-        assert(false);
-        BOOST_THROW_EXCEPTION((std::logic_error{ "Must not come here." }));
-    }
+        if (type == "object")
+        {
+            output += "OB, ";
+        }
+        else if (type == "member")
+        {
+            output += "MB, ";
+            std::for_each(
+                structure_attributes.begin(),
+                structure_attributes.end(),
+                [&output](const structure_attribute_type& structure_attribute) {
+                    structure_attribute_passed(output, structure_attribute);
+                });
+        }
+        else if (type == "array")
+        {
+            output += "AB, ";
+        }
+        else
+        {
+            assert(false);
+            BOOST_THROW_EXCEPTION((std::logic_error{ "Must not come here." }));
+        }
 
-    return true;
-}
-
-bool value_passed(std::string& output, const value_type_type type, const std::string& parsed)
-{
-    switch (type)
-    {
-    case value_type_type::string:
-    {
-        output += "S:";
-        break;
-    }
-    case value_type_type::number:
-    {
-        output += "N:";
-        break;
-    }
-    case value_type_type::boolean:
-    {
-        output += "B:";
-        break;
-    }
-    case value_type_type::null:
-    {
-        output += "L:";
-        break;
-    }
-    default:
-    {
-        assert(false);
-        BOOST_THROW_EXCEPTION((std::logic_error{ "Must not come here." }));
-    }
+        return true;
     }
 
-    output += parsed + ", ";
+    bool structure_ended(std::string& output, const std::string& type)
+    {
+        if (type == "object")
+        {
+            output += "OE, ";
+        }
+        else if (type == "member")
+        {
+            output += "ME, ";
+        }
+        else if (type == "array")
+        {
+            output += "AE, ";
+        }
+        else
+        {
+            assert(false);
+            BOOST_THROW_EXCEPTION((std::logic_error{ "Must not come here." }));
+        }
 
-    return true;
-}
+        return true;
+    }
 
-void structure_attribute_passed(std::string& output, const structure_attribute_type& structure_attribute)
-{
-    value_passed(output, structure_attribute.value_type(), structure_attribute.attribute());
-}
+    bool value_passed(std::string& output, const value_type_type type, const std::string& parsed)
+    {
+        switch (type)
+        {
+        case value_type_type::string:
+        {
+            output += "S:";
+            break;
+        }
+        case value_type_type::number:
+        {
+            output += "N:";
+            break;
+        }
+        case value_type_type::boolean:
+        {
+            output += "B:";
+            break;
+        }
+        case value_type_type::null:
+        {
+            output += "L:";
+            break;
+        }
+        default:
+        {
+            assert(false);
+            BOOST_THROW_EXCEPTION((std::logic_error{ "Must not come here." }));
+        }
+        }
+
+        output += parsed + ", ";
+
+        return true;
+    }
+
+    void structure_attribute_passed(std::string& output, const structure_attribute_type& structure_attribute)
+    {
+        value_passed(output, structure_attribute.value_type(), structure_attribute.attribute());
+    }
 }
 
 

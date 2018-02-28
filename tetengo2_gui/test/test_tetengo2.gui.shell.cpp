@@ -20,17 +20,17 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using string_type = common_type_list_type::string_type;
+    using string_type = common_type_list_type::string_type;
 
-using encoder_type = common_type_list_type::ui_encoder_type;
+    using encoder_type = common_type_list_type::ui_encoder_type;
 
-using shell_type = tetengo2::gui::shell<string_type, encoder_type, detail_type_list_type::shell_type>;
+    using shell_type = tetengo2::gui::shell<string_type, encoder_type, detail_type_list_type::shell_type>;
 }
 
 

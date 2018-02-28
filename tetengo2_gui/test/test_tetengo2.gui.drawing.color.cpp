@@ -17,9 +17,9 @@
 
 
 namespace {
-// types
+    // types
 
-using color_type = tetengo2::gui::drawing::color;
+    using color_type = tetengo2::gui::drawing::color;
 }
 
 

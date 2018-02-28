@@ -16,13 +16,13 @@
 
 
 namespace {
-// types
+    // types
 
-using value_type = int;
+    using value_type = int;
 
-using channel_type = tetengo2::concurrent::channel<value_type>;
+    using channel_type = tetengo2::concurrent::channel<value_type>;
 
-using consumer_type = tetengo2::concurrent::consumer<value_type>;
+    using consumer_type = tetengo2::concurrent::consumer<value_type>;
 }
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)

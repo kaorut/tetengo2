@@ -17,81 +17,81 @@
 
 
 namespace {
-// types
+    // types
 
-using encoding_type = tetengo2::text::encoding::encoding<std::string>;
+    using encoding_type = tetengo2::text::encoding::encoding<std::string>;
 
-class concrete_encoding : public encoding_type
-{
-public:
-    void call_details() const
+    class concrete_encoding : public encoding_type
     {
-        details();
-    }
+    public:
+        void call_details() const
+        {
+            details();
+        }
 
-private:
-    virtual const std::string& name_impl() const
-    {
-        static const std::string singleton{ "test_concrete" };
-        return singleton;
-    }
+    private:
+        virtual const std::string& name_impl() const
+        {
+            static const std::string singleton{ "test_concrete" };
+            return singleton;
+        }
 
-    virtual string_type from_pivot_impl(pivot_type pivot) const
-    {
-        boost::ignore_unused(pivot);
-        return string_type{};
-    }
+        virtual string_type from_pivot_impl(pivot_type pivot) const
+        {
+            boost::ignore_unused(pivot);
+            return string_type{};
+        }
 
-    virtual pivot_type to_pivot_impl(string_type string) const
-    {
-        boost::ignore_unused(string);
-        return pivot_type{};
-    }
-};
+        virtual pivot_type to_pivot_impl(string_type string) const
+        {
+            boost::ignore_unused(string);
+            return pivot_type{};
+        }
+    };
 
-class another_concrete_encoding : public encoding_type
-{
-private:
-    virtual const std::string& name_impl() const
+    class another_concrete_encoding : public encoding_type
     {
-        static const std::string singleton{ "test_another" };
-        return singleton;
-    }
+    private:
+        virtual const std::string& name_impl() const
+        {
+            static const std::string singleton{ "test_another" };
+            return singleton;
+        }
 
-    virtual string_type from_pivot_impl(pivot_type pivot) const
-    {
-        boost::ignore_unused(pivot);
-        return string_type{};
-    }
+        virtual string_type from_pivot_impl(pivot_type pivot) const
+        {
+            boost::ignore_unused(pivot);
+            return string_type{};
+        }
 
-    virtual pivot_type to_pivot_impl(string_type string) const
-    {
-        boost::ignore_unused(string);
-        return pivot_type{};
-    }
-};
+        virtual pivot_type to_pivot_impl(string_type string) const
+        {
+            boost::ignore_unused(string);
+            return pivot_type{};
+        }
+    };
 
-class wide_concrete_encoding : public tetengo2::text::encoding::encoding<std::wstring>
-{
-private:
-    virtual const std::string& name_impl() const
+    class wide_concrete_encoding : public tetengo2::text::encoding::encoding<std::wstring>
     {
-        static const std::string singleton{ "test_wide" };
-        return singleton;
-    }
+    private:
+        virtual const std::string& name_impl() const
+        {
+            static const std::string singleton{ "test_wide" };
+            return singleton;
+        }
 
-    virtual string_type from_pivot_impl(pivot_type pivot) const
-    {
-        boost::ignore_unused(pivot);
-        return string_type{};
-    }
+        virtual string_type from_pivot_impl(pivot_type pivot) const
+        {
+            boost::ignore_unused(pivot);
+            return string_type{};
+        }
 
-    virtual pivot_type to_pivot_impl(string_type string) const
-    {
-        boost::ignore_unused(string);
-        return pivot_type{};
-    }
-};
+        virtual pivot_type to_pivot_impl(string_type string) const
+        {
+            boost::ignore_unused(string);
+            return pivot_type{};
+        }
+    };
 }
 
 

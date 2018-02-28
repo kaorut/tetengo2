@@ -15,9 +15,9 @@
 
 
 namespace {
-// types
+    // types
 
-using menu_observer_set_type = tetengo2::gui::message::menu_observer_set;
+    using menu_observer_set_type = tetengo2::gui::message::menu_observer_set;
 }
 
 

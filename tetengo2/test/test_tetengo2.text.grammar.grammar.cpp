@@ -15,24 +15,24 @@
 
 
 namespace {
-// types
+    // types
 
-using structure_attribute_type = tetengo2::text::grammar::structure_attribute<std::string>;
+    using structure_attribute_type = tetengo2::text::grammar::structure_attribute<std::string>;
 
-using value_type_type = structure_attribute_type::value_type_type;
+    using value_type_type = structure_attribute_type::value_type_type;
 
-using grammar_type = tetengo2::text::grammar::grammar<std::string::const_iterator>;
+    using grammar_type = tetengo2::text::grammar::grammar<std::string::const_iterator>;
 
-class concrete_grammar : public grammar_type
-{
-public:
-    using rule_type = grammar_type::rule_type;
+    class concrete_grammar : public grammar_type
+    {
+    public:
+        using rule_type = grammar_type::rule_type;
 
-    concrete_grammar() : grammar_type(m_rule), m_rule{} {}
+        concrete_grammar() : grammar_type(m_rule), m_rule{} {}
 
-private:
-    rule_type m_rule;
-};
+    private:
+        rule_type m_rule;
+    };
 }
 
 

@@ -15,9 +15,9 @@
 
 
 namespace {
-// types
+    // types
 
-using list_selection_observer_set_type = tetengo2::gui::message::list_selection_observer_set;
+    using list_selection_observer_set_type = tetengo2::gui::message::list_selection_observer_set;
 }
 
 

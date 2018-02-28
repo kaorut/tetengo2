@@ -18,15 +18,15 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using system_color_details_type = detail_type_list_type::system_color_type;
+    using system_color_details_type = detail_type_list_type::system_color_type;
 
-using system_color_set_type = tetengo2::gui::drawing::system_color_set<system_color_details_type>;
+    using system_color_set_type = tetengo2::gui::drawing::system_color_set<system_color_details_type>;
 }
 
 

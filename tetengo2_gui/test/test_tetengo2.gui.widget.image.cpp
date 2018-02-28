@@ -35,33 +35,34 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using widget_traits_type = common_type_list_type::widget_traits_type;
+    using widget_traits_type = common_type_list_type::widget_traits_type;
 
-using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
+    using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
 
-using menu_details_type = detail_type_list_type::menu_type;
+    using menu_details_type = detail_type_list_type::menu_type;
 
-using window_type = tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
+    using window_type =
+        tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
 
-using drawing_details_type = detail_type_list_type::drawing_type;
+    using drawing_details_type = detail_type_list_type::drawing_type;
 
-using dimension_type = common_type_list_type::dimension_type;
+    using dimension_type = common_type_list_type::dimension_type;
 
-using dimension_unit_type = dimension_type::unit_type;
+    using dimension_unit_type = dimension_type::unit_type;
 
-using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
+    using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
 
-using picture_reader_type = tetengo2::gui::drawing::picture_reader<dimension_type, drawing_details_type>;
+    using picture_reader_type = tetengo2::gui::drawing::picture_reader<dimension_type, drawing_details_type>;
 
-using icon_type = tetengo2::gui::icon<dimension_type, detail_type_list_type::icon_type>;
+    using icon_type = tetengo2::gui::icon<dimension_type, detail_type_list_type::icon_type>;
 
-using image_type = tetengo2::gui::widget::image<widget_traits_type, widget_details_traits_type>;
+    using image_type = tetengo2::gui::widget::image<widget_traits_type, widget_details_traits_type>;
 }
 
 

@@ -18,35 +18,35 @@
 
 
 namespace {
-// types
+    // types
 
-using encoding_type = tetengo2::text::encoding::ascii;
+    using encoding_type = tetengo2::text::encoding::ascii;
 
-using pivot_type = encoding_type::pivot_type;
+    using pivot_type = encoding_type::pivot_type;
 
 
-// variables
+    // variables
 
-// "\n 0Aa~[DEL]"
-const unsigned char pivot_ascii[]{ 0x0A, 0x20, 0x30, 0x41, 0x61, 0x7E, 0x7F, 0x00 };
+    // "\n 0Aa~[DEL]"
+    const unsigned char pivot_ascii[]{ 0x0A, 0x20, 0x30, 0x41, 0x61, 0x7E, 0x7F, 0x00 };
 
-// "\n 0Aa~[DEL]"
-const unsigned char ascii_ascii[]{ 0x0A, 0x20, 0x30, 0x41, 0x61, 0x7E, 0x7F, 0x00 };
+    // "\n 0Aa~[DEL]"
+    const unsigned char ascii_ascii[]{ 0x0A, 0x20, 0x30, 0x41, 0x61, 0x7E, 0x7F, 0x00 };
 
-// Empty characters
-const unsigned char pivot_empty[]{ 0x00 };
+    // Empty characters
+    const unsigned char pivot_empty[]{ 0x00 };
 
-// Empty characters
-const unsigned char ascii_empty[]{ 0x00 };
+    // Empty characters
+    const unsigned char ascii_empty[]{ 0x00 };
 
-// Non-ASCII characters
-const unsigned char pivot_nonascii[]{ 0x80, 0xFF, 0x00 };
+    // Non-ASCII characters
+    const unsigned char pivot_nonascii[]{ 0x80, 0xFF, 0x00 };
 
-// Non-ASCII characters
-const unsigned char ascii_nonascii[]{ 0x3F, 0x3F, 0x00 };
+    // Non-ASCII characters
+    const unsigned char ascii_nonascii[]{ 0x3F, 0x3F, 0x00 };
 
-// Non-ASCII characters
-const unsigned char nonascii[]{ 0x80, 0xFF, 0x00 };
+    // Non-ASCII characters
+    const unsigned char nonascii[]{ 0x80, 0xFF, 0x00 };
 }
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)

@@ -34,32 +34,36 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using widget_traits_type = common_type_list_type::widget_traits_type;
+    using widget_traits_type = common_type_list_type::widget_traits_type;
 
-using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
+    using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
 
-using menu_details_type = detail_type_list_type::menu_type;
+    using menu_details_type = detail_type_list_type::menu_type;
 
-using window_type = tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
+    using window_type =
+        tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
 
-using mouse_capture_details_type = detail_type_list_type::mouse_capture_type;
+    using mouse_capture_details_type = detail_type_list_type::mouse_capture_type;
 
-using system_color_details_type = detail_type_list_type::system_color_type;
+    using system_color_details_type = detail_type_list_type::system_color_type;
 
-using tab_frame_type = tetengo2::gui::widget::
-    tab_frame<widget_traits_type, widget_details_traits_type, mouse_capture_details_type, system_color_details_type>;
+    using tab_frame_type = tetengo2::gui::widget::tab_frame<
+        widget_traits_type,
+        widget_details_traits_type,
+        mouse_capture_details_type,
+        system_color_details_type>;
 
-using tab_type = tab_frame_type::tab_type;
+    using tab_type = tab_frame_type::tab_type;
 
-using string_type = tab_frame_type::string_type;
+    using string_type = tab_frame_type::string_type;
 
-using label_type = tetengo2::gui::widget::label<widget_traits_type, widget_details_traits_type>;
+    using label_type = tetengo2::gui::widget::label<widget_traits_type, widget_details_traits_type>;
 }
 
 

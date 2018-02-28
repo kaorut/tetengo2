@@ -28,22 +28,22 @@
 
 
 namespace {
-// types
+    // types
 
-using integer_type = tetengo2::type_list::integer_type;
+    using integer_type = tetengo2::type_list::integer_type;
 
-using string_type = std::string;
+    using string_type = std::string;
 
-using input_stream_iterator_type = tetengo2::iterator::observable_forward_iterator<
-    boost::spirit::multi_pass<std::istreambuf_iterator<string_type::value_type>>>;
+    using input_stream_iterator_type = tetengo2::iterator::observable_forward_iterator<
+        boost::spirit::multi_pass<std::istreambuf_iterator<string_type::value_type>>>;
 
-using grammar_type = tetengo2::text::grammar::json<input_stream_iterator_type>;
+    using grammar_type = tetengo2::text::grammar::json<input_stream_iterator_type>;
 
-using push_parser_type = tetengo2::text::push_parser<input_stream_iterator_type>;
+    using push_parser_type = tetengo2::text::push_parser<input_stream_iterator_type>;
 
-using structure_kind_type = tetengo2::text::structure_kind;
+    using structure_kind_type = tetengo2::text::structure_kind;
 
-using pull_parser_type = tetengo2::text::pull_parser<input_stream_iterator_type>;
+    using pull_parser_type = tetengo2::text::pull_parser<input_stream_iterator_type>;
 }
 
 

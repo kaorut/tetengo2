@@ -27,42 +27,44 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using string_type = common_type_list_type::string_type;
+    using string_type = common_type_list_type::string_type;
 
-using ui_encoder_type = common_type_list_type::ui_encoder_type;
+    using ui_encoder_type = common_type_list_type::ui_encoder_type;
 
-using menu_details_type = detail_type_list_type::menu_type;
+    using menu_details_type = detail_type_list_type::menu_type;
 
-using virtual_key_details_type = detail_type_list_type::virtual_key_type;
+    using virtual_key_details_type = detail_type_list_type::virtual_key_type;
 
-using menu_base_type =
-    tetengo2::gui::menu::menu_base<string_type, ui_encoder_type, menu_details_type, virtual_key_details_type>;
+    using menu_base_type =
+        tetengo2::gui::menu::menu_base<string_type, ui_encoder_type, menu_details_type, virtual_key_details_type>;
 
-using popup_menu_type =
-    tetengo2::gui::menu::popup<string_type, ui_encoder_type, menu_details_type, virtual_key_details_type>;
+    using popup_menu_type =
+        tetengo2::gui::menu::popup<string_type, ui_encoder_type, menu_details_type, virtual_key_details_type>;
 
-using iterator_type = tetengo2::gui::menu::recursive_iterator<menu_base_type>;
+    using iterator_type = tetengo2::gui::menu::recursive_iterator<menu_base_type>;
 
 
-// functions
+    // functions
 
-std::unique_ptr<menu_base_type> create_menu()
-{
-    auto p_menu = tetengo2::stdalt::make_unique<popup_menu_type>(string_type{ TETENGO2_TEXT("0") });
+    std::unique_ptr<menu_base_type> create_menu()
+    {
+        auto p_menu = tetengo2::stdalt::make_unique<popup_menu_type>(string_type{ TETENGO2_TEXT("0") });
 
-    p_menu->insert(p_menu->end(), tetengo2::stdalt::make_unique<popup_menu_type>(string_type{ TETENGO2_TEXT("1") }));
-    p_menu->begin()->insert(
-        p_menu->begin()->end(), tetengo2::stdalt::make_unique<popup_menu_type>(string_type{ TETENGO2_TEXT("2") }));
-    p_menu->insert(p_menu->end(), tetengo2::stdalt::make_unique<popup_menu_type>(string_type{ TETENGO2_TEXT("3") }));
+        p_menu->insert(
+            p_menu->end(), tetengo2::stdalt::make_unique<popup_menu_type>(string_type{ TETENGO2_TEXT("1") }));
+        p_menu->begin()->insert(
+            p_menu->begin()->end(), tetengo2::stdalt::make_unique<popup_menu_type>(string_type{ TETENGO2_TEXT("2") }));
+        p_menu->insert(
+            p_menu->end(), tetengo2::stdalt::make_unique<popup_menu_type>(string_type{ TETENGO2_TEXT("3") }));
 
-    return std::move(p_menu);
-}
+        return std::move(p_menu);
+    }
 }
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)

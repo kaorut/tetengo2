@@ -19,36 +19,36 @@
 
 
 namespace {
-// types
+    // types
 
-using config_base_type = tetengo2::config::config_base;
+    using config_base_type = tetengo2::config::config_base;
 
-using string_type = config_base_type::string_type;
+    using string_type = config_base_type::string_type;
 
-using uint_type = config_base_type::uint_type;
+    using uint_type = config_base_type::uint_type;
 
-using value_type = config_base_type::value_type;
+    using value_type = config_base_type::value_type;
 
-class concrete_config : public config_base_type
-{
-public:
-    concrete_config() {}
-
-private:
-    virtual boost::optional<value_type> get_impl(const string_type& key) const override
+    class concrete_config : public config_base_type
     {
-        static const boost::optional<value_type> value1{ value_type{ string_type{ TETENGO2_TEXT("hoge") } } };
-        static const boost::optional<value_type> value2{ value_type{ 42 } };
-        return key == string_type{ TETENGO2_TEXT("foo") } ? value1 : value2;
-    }
+    public:
+        concrete_config() {}
 
-    virtual void set_impl(const string_type& key, value_type value) override
-    {
-        boost::ignore_unused(key, value);
-    }
+    private:
+        virtual boost::optional<value_type> get_impl(const string_type& key) const override
+        {
+            static const boost::optional<value_type> value1{ value_type{ string_type{ TETENGO2_TEXT("hoge") } } };
+            static const boost::optional<value_type> value2{ value_type{ 42 } };
+            return key == string_type{ TETENGO2_TEXT("foo") } ? value1 : value2;
+        }
 
-    virtual void clear_impl() override {}
-};
+        virtual void set_impl(const string_type& key, value_type value) override
+        {
+            boost::ignore_unused(key, value);
+        }
+
+        virtual void clear_impl() override {}
+    };
 }
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)

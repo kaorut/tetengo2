@@ -27,44 +27,44 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using string_type = common_type_list_type::string_type;
+    using string_type = common_type_list_type::string_type;
 
-using ui_encoder_type = common_type_list_type::ui_encoder_type;
+    using ui_encoder_type = common_type_list_type::ui_encoder_type;
 
-using menu_details_type = detail_type_list_type::menu_type;
+    using menu_details_type = detail_type_list_type::menu_type;
 
-using virtual_key_details_type = detail_type_list_type::virtual_key_type;
+    using virtual_key_details_type = detail_type_list_type::virtual_key_type;
 
-using menu_base_type =
-    tetengo2::gui::menu::menu_base<string_type, ui_encoder_type, menu_details_type, virtual_key_details_type>;
+    using menu_base_type =
+        tetengo2::gui::menu::menu_base<string_type, ui_encoder_type, menu_details_type, virtual_key_details_type>;
 
-using abstract_popup_menu_type =
-    tetengo2::gui::menu::abstract_popup<string_type, ui_encoder_type, menu_details_type, virtual_key_details_type>;
+    using abstract_popup_menu_type =
+        tetengo2::gui::menu::abstract_popup<string_type, ui_encoder_type, menu_details_type, virtual_key_details_type>;
 
-class concrete_popup_menu : public abstract_popup_menu_type
-{
-public:
-    // constructors and destructor
-
-    concrete_popup_menu(string_type text)
-    : abstract_popup_menu_type(std::move(text), menu_details_type::create_popup_menu())
-    {}
-
-
-private:
-    // virtual functions
-
-    virtual const style_type& style_impl() const override
+    class concrete_popup_menu : public abstract_popup_menu_type
     {
-        return menu_details_type::popup_menu_style<menu_base_type>();
-    }
-};
+    public:
+        // constructors and destructor
+
+        concrete_popup_menu(string_type text)
+        : abstract_popup_menu_type(std::move(text), menu_details_type::create_popup_menu())
+        {}
+
+
+    private:
+        // virtual functions
+
+        virtual const style_type& style_impl() const override
+        {
+            return menu_details_type::popup_menu_style<menu_base_type>();
+        }
+    };
 }
 
 

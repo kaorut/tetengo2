@@ -17,29 +17,29 @@
 
 
 namespace {
-// types
+    // types
 
-using value_type = int;
+    using value_type = int;
 
-using channel_type = tetengo2::concurrent::channel<value_type>;
+    using channel_type = tetengo2::concurrent::channel<value_type>;
 
-using producer_type = tetengo2::concurrent::producer<value_type>;
+    using producer_type = tetengo2::concurrent::producer<value_type>;
 
-void generate(channel_type& channel)
-{
-    for (int count = 0;; ++count)
+    void generate(channel_type& channel)
     {
-        if (count > 4)
-            return;
+        for (int count = 0;; ++count)
+        {
+            if (count > 4)
+                return;
 
-        channel.insert(count * 10 + 10);
+            channel.insert(count * 10 + 10);
+        }
     }
-}
 
-void throw_exception(channel_type&)
-{
-    BOOST_THROW_EXCEPTION((std::runtime_error{ "test exception" }));
-}
+    void throw_exception(channel_type&)
+    {
+        BOOST_THROW_EXCEPTION((std::runtime_error{ "test exception" }));
+    }
 }
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)

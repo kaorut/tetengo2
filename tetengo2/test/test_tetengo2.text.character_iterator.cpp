@@ -21,60 +21,60 @@
 
 
 namespace {
-// types
+    // types
 
-using string_type = std::string;
+    using string_type = std::string;
 
-using character_iterator_type = tetengo2::text::character_iterator<string_type>;
-
-
-// functions
-
-tetengo2::text::encoding::polymorphic<string_type> make_encoding()
-{
-    return tetengo2::text::encoding::make_polymorphic<tetengo2::text::encoding::utf8>();
-}
-
-string_type::value_type tc(const unsigned char c)
-{
-    return static_cast<string_type::value_type>(c);
-}
+    using character_iterator_type = tetengo2::text::character_iterator<string_type>;
 
 
-// data
+    // functions
 
-const string_type test_string{
-    tc(0xE6), tc(0xA3), tc(0xAE), // MORI in kanji
-    tc(0x41), // A
-    tc(0x42), // B
-    tc(0xF0), tc(0xA0), tc(0xAE), tc(0x9F), // SHIKARU in kanji
-    tc(0x34), // 4
-};
+    tetengo2::text::encoding::polymorphic<string_type> make_encoding()
+    {
+        return tetengo2::text::encoding::make_polymorphic<tetengo2::text::encoding::utf8>();
+    }
 
-const string_type string_mori{
-    tc(0xE6),
-    tc(0xA3),
-    tc(0xAE), // MORI in kanji
-};
+    string_type::value_type tc(const unsigned char c)
+    {
+        return static_cast<string_type::value_type>(c);
+    }
 
-const string_type string_a{
-    tc(0x41), // A
-};
 
-const string_type string_b{
-    tc(0x42), // B
-};
+    // data
 
-const string_type string_shikaru{
-    tc(0xF0),
-    tc(0xA0),
-    tc(0xAE),
-    tc(0x9F), // SHIKARU in kanji
-};
+    const string_type test_string{
+        tc(0xE6), tc(0xA3), tc(0xAE), // MORI in kanji
+        tc(0x41), // A
+        tc(0x42), // B
+        tc(0xF0), tc(0xA0), tc(0xAE), tc(0x9F), // SHIKARU in kanji
+        tc(0x34), // 4
+    };
 
-const string_type string_4{
-    tc(0x34), // 4
-};
+    const string_type string_mori{
+        tc(0xE6),
+        tc(0xA3),
+        tc(0xAE), // MORI in kanji
+    };
+
+    const string_type string_a{
+        tc(0x41), // A
+    };
+
+    const string_type string_b{
+        tc(0x42), // B
+    };
+
+    const string_type string_shikaru{
+        tc(0xF0),
+        tc(0xA0),
+        tc(0xAE),
+        tc(0x9F), // SHIKARU in kanji
+    };
+
+    const string_type string_4{
+        tc(0x34), // 4
+    };
 }
 
 

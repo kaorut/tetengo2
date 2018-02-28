@@ -21,27 +21,27 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using size_type = common_type_list_type::size_type;
+    using size_type = common_type_list_type::size_type;
 
-using canvas_traits_type = tetengo2::gui::drawing::canvas_traits<
-    size_type,
-    common_type_list_type::string_type,
-    common_type_list_type::position_type,
-    common_type_list_type::dimension_type,
-    common_type_list_type::ui_encoder_type>;
+    using canvas_traits_type = tetengo2::gui::drawing::canvas_traits<
+        size_type,
+        common_type_list_type::string_type,
+        common_type_list_type::position_type,
+        common_type_list_type::dimension_type,
+        common_type_list_type::ui_encoder_type>;
 
-using drawing_details_type = detail_type_list_type::drawing_type;
+    using drawing_details_type = detail_type_list_type::drawing_type;
 
-using canvas_type =
-    tetengo2::gui::drawing::canvas<canvas_traits_type, drawing_details_type, detail_type_list_type::icon_type>;
+    using canvas_type =
+        tetengo2::gui::drawing::canvas<canvas_traits_type, drawing_details_type, detail_type_list_type::icon_type>;
 
-using paint_observer_set_type = tetengo2::gui::message::paint_observer_set<canvas_type>;
+    using paint_observer_set_type = tetengo2::gui::message::paint_observer_set<canvas_type>;
 }
 
 

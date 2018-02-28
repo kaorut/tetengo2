@@ -26,24 +26,25 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using widget_traits_type = common_type_list_type::widget_traits_type;
+    using widget_traits_type = common_type_list_type::widget_traits_type;
 
-using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
+    using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
 
-using menu_details_type = detail_type_list_type::menu_type;
+    using menu_details_type = detail_type_list_type::menu_type;
 
-using window_type = tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
+    using window_type =
+        tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
 
-using fast_drawing_details_type = detail_type_list_type::drawing_type;
+    using fast_drawing_details_type = detail_type_list_type::drawing_type;
 
-using picture_box_type =
-    tetengo2::gui::widget::picture_box<widget_traits_type, widget_details_traits_type, fast_drawing_details_type>;
+    using picture_box_type =
+        tetengo2::gui::widget::picture_box<widget_traits_type, widget_details_traits_type, fast_drawing_details_type>;
 }
 
 

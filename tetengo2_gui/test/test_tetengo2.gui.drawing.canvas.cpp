@@ -37,77 +37,77 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using size_type = common_type_list_type::size_type;
+    using size_type = common_type_list_type::size_type;
 
-using string_type = common_type_list_type::string_type;
+    using string_type = common_type_list_type::string_type;
 
-using position_type = common_type_list_type::position_type;
+    using position_type = common_type_list_type::position_type;
 
-using position_unit_type = position_type::unit_type;
+    using position_unit_type = position_type::unit_type;
 
-using dimension_type = common_type_list_type::dimension_type;
+    using dimension_type = common_type_list_type::dimension_type;
 
-using dimension_unit_type = dimension_type::unit_type;
+    using dimension_unit_type = dimension_type::unit_type;
 
-using color_type = tetengo2::gui::drawing::color;
+    using color_type = tetengo2::gui::drawing::color;
 
-using drawing_details_type = detail_type_list_type::drawing_type;
+    using drawing_details_type = detail_type_list_type::drawing_type;
 
-using background_type = tetengo2::gui::drawing::background<drawing_details_type>;
+    using background_type = tetengo2::gui::drawing::background<drawing_details_type>;
 
-using solid_background_type = tetengo2::gui::drawing::solid_background<drawing_details_type>;
+    using solid_background_type = tetengo2::gui::drawing::solid_background<drawing_details_type>;
 
-using transparent_background_type = tetengo2::gui::drawing::transparent_background<drawing_details_type>;
+    using transparent_background_type = tetengo2::gui::drawing::transparent_background<drawing_details_type>;
 
-using font_type = tetengo2::gui::drawing::font<string_type, size_type, drawing_details_type>;
+    using font_type = tetengo2::gui::drawing::font<string_type, size_type, drawing_details_type>;
 
-using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
+    using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
 
-using icon_details_type = detail_type_list_type::icon_type;
+    using icon_details_type = detail_type_list_type::icon_type;
 
-using icon_type = tetengo2::gui::icon<dimension_type, icon_details_type>;
+    using icon_type = tetengo2::gui::icon<dimension_type, icon_details_type>;
 
-using canvas_details_type = drawing_details_type::canvas_details_type;
+    using canvas_details_type = drawing_details_type::canvas_details_type;
 
-using canvas_details_ptr_type = drawing_details_type::canvas_details_ptr_type;
+    using canvas_details_ptr_type = drawing_details_type::canvas_details_ptr_type;
 
-using encoder_type = common_type_list_type::ui_encoder_type;
+    using encoder_type = common_type_list_type::ui_encoder_type;
 
-using canvas_traits_type =
-    tetengo2::gui::drawing::canvas_traits<size_type, string_type, position_type, dimension_type, encoder_type>;
+    using canvas_traits_type =
+        tetengo2::gui::drawing::canvas_traits<size_type, string_type, position_type, dimension_type, encoder_type>;
 
-using canvas_type = tetengo2::gui::drawing::canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
+    using canvas_type = tetengo2::gui::drawing::canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
 
-struct concrete_canvas : public canvas_type
-{
-    concrete_canvas() : canvas_type(tetengo2::stdalt::make_unique<canvas_details_type>()) {}
-};
+    struct concrete_canvas : public canvas_type
+    {
+        concrete_canvas() : canvas_type(tetengo2::stdalt::make_unique<canvas_details_type>()) {}
+    };
 
-struct concrete_canvas0 : public canvas_type
-{
-    concrete_canvas0() : canvas_type(canvas_details_ptr_type{}) {}
-};
+    struct concrete_canvas0 : public canvas_type
+    {
+        concrete_canvas0() : canvas_type(canvas_details_ptr_type{}) {}
+    };
 
 
-// functions
+    // functions
 
-template <typename Int>
-position_type make_position(const Int x, const Int y)
-{
-    return { position_unit_type{ x }, position_unit_type{ y } };
-}
+    template <typename Int>
+    position_type make_position(const Int x, const Int y)
+    {
+        return { position_unit_type{ x }, position_unit_type{ y } };
+    }
 
-template <typename Int>
-dimension_type make_dimension(const Int w, const Int h)
-{
-    return { dimension_unit_type{ w }, dimension_unit_type{ h } };
-}
+    template <typename Int>
+    dimension_type make_dimension(const Int w, const Int h)
+    {
+        return { dimension_unit_type{ w }, dimension_unit_type{ h } };
+    }
 }
 
 

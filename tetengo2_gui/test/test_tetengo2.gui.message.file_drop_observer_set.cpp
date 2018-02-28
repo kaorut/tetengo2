@@ -15,9 +15,9 @@
 
 
 namespace {
-// types
+    // types
 
-using file_drop_observer_set_type = tetengo2::gui::message::file_drop_observer_set;
+    using file_drop_observer_set_type = tetengo2::gui::message::file_drop_observer_set;
 }
 
 

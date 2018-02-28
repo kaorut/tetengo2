@@ -19,79 +19,79 @@
 
 
 namespace {
-// types
+    // types
 
-class concrete_encoding : public tetengo2::text::encoding::encoding<std::string>
-{
-public:
-    void call_details() const
+    class concrete_encoding : public tetengo2::text::encoding::encoding<std::string>
     {
-        details();
-    }
+    public:
+        void call_details() const
+        {
+            details();
+        }
 
-private:
-    virtual const std::string& name_impl() const
+    private:
+        virtual const std::string& name_impl() const
+        {
+            static const std::string singleton{ "test_concrete" };
+            return singleton;
+        }
+
+        virtual string_type from_pivot_impl(pivot_type pivot) const
+        {
+            return string_type(pivot.begin(), pivot.end()) + string_type{ TETENGO2_TEXT("+ConcreteFromPivot") };
+        }
+
+        virtual pivot_type to_pivot_impl(string_type string) const
+        {
+            return pivot_type(string.begin(), string.end()) + pivot_type{ TETENGO2_TEXT("+ConcreteToPivot") };
+        }
+    };
+
+    class another_concrete_encoding : public tetengo2::text::encoding::encoding<std::string>
     {
-        static const std::string singleton{ "test_concrete" };
-        return singleton;
-    }
+    private:
+        virtual const std::string& name_impl() const
+        {
+            static const std::string singleton{ "test_another" };
+            return singleton;
+        }
 
-    virtual string_type from_pivot_impl(pivot_type pivot) const
+        virtual string_type from_pivot_impl(pivot_type pivot) const
+        {
+            return string_type(pivot.begin(), pivot.end()) + string_type{ TETENGO2_TEXT("+AnotherFromPivot") };
+        }
+
+        virtual pivot_type to_pivot_impl(string_type string) const
+        {
+            return pivot_type(string.begin(), string.end()) + pivot_type{ TETENGO2_TEXT("+AnotherToPivot") };
+        }
+    };
+
+    class wide_concrete_encoding : public tetengo2::text::encoding::encoding<std::wstring>
     {
-        return string_type(pivot.begin(), pivot.end()) + string_type{ TETENGO2_TEXT("+ConcreteFromPivot") };
-    }
+    private:
+        virtual const std::string& name_impl() const
+        {
+            static const std::string singleton{ "test_wide" };
+            return singleton;
+        }
 
-    virtual pivot_type to_pivot_impl(string_type string) const
-    {
-        return pivot_type(string.begin(), string.end()) + pivot_type{ TETENGO2_TEXT("+ConcreteToPivot") };
-    }
-};
+        virtual string_type from_pivot_impl(pivot_type pivot) const
+        {
+            return string_type(pivot.begin(), pivot.end()) + string_type{ TETENGO2_TEXT("+WideFromPivot") };
+        }
 
-class another_concrete_encoding : public tetengo2::text::encoding::encoding<std::string>
-{
-private:
-    virtual const std::string& name_impl() const
-    {
-        static const std::string singleton{ "test_another" };
-        return singleton;
-    }
+        virtual pivot_type to_pivot_impl(string_type string) const
+        {
+            return pivot_type(string.begin(), string.end()) + pivot_type{ TETENGO2_TEXT("+WideToPivot") };
+        }
+    };
 
-    virtual string_type from_pivot_impl(pivot_type pivot) const
-    {
-        return string_type(pivot.begin(), pivot.end()) + string_type{ TETENGO2_TEXT("+AnotherFromPivot") };
-    }
+    using encoder_type = tetengo2::text::encoder<concrete_encoding, concrete_encoding>;
 
-    virtual pivot_type to_pivot_impl(string_type string) const
-    {
-        return pivot_type(string.begin(), string.end()) + pivot_type{ TETENGO2_TEXT("+AnotherToPivot") };
-    }
-};
+    using another_encoder_type = tetengo2::text::encoder<concrete_encoding, another_concrete_encoding>;
 
-class wide_concrete_encoding : public tetengo2::text::encoding::encoding<std::wstring>
-{
-private:
-    virtual const std::string& name_impl() const
-    {
-        static const std::string singleton{ "test_wide" };
-        return singleton;
-    }
-
-    virtual string_type from_pivot_impl(pivot_type pivot) const
-    {
-        return string_type(pivot.begin(), pivot.end()) + string_type{ TETENGO2_TEXT("+WideFromPivot") };
-    }
-
-    virtual pivot_type to_pivot_impl(string_type string) const
-    {
-        return pivot_type(string.begin(), string.end()) + pivot_type{ TETENGO2_TEXT("+WideToPivot") };
-    }
-};
-
-using encoder_type = tetengo2::text::encoder<concrete_encoding, concrete_encoding>;
-
-using another_encoder_type = tetengo2::text::encoder<concrete_encoding, another_concrete_encoding>;
-
-using wide_encoder_type = tetengo2::text::encoder<concrete_encoding, wide_concrete_encoding>;
+    using wide_encoder_type = tetengo2::text::encoder<concrete_encoding, wide_concrete_encoding>;
 }
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)

@@ -19,51 +19,51 @@
 
 
 namespace {
-// types
+    // types
 
-using multibyte_encoding_type = tetengo2::text::encoding::locale<std::string>;
+    using multibyte_encoding_type = tetengo2::text::encoding::locale<std::string>;
 
-using wide_encoding_type = tetengo2::text::encoding::locale<std::wstring>;
+    using wide_encoding_type = tetengo2::text::encoding::locale<std::wstring>;
 
 
-// functions
+    // functions
 
-bool locale_supported()
-{
-    try
+    bool locale_supported()
     {
-        std::locale locale{ "" };
-        return true;
+        try
+        {
+            std::locale locale{ "" };
+            return true;
+        }
+        catch (const std::runtime_error&)
+        {
+            return false;
+        }
     }
-    catch (const std::runtime_error&)
-    {
-        return false;
-    }
-}
 
-std::locale make_locale(const std::string& name)
-{
-    try
+    std::locale make_locale(const std::string& name)
     {
-        return std::locale{ name.c_str() };
+        try
+        {
+            return std::locale{ name.c_str() };
+        }
+        catch (const std::runtime_error&)
+        {
+            return std::locale::classic();
+        }
     }
-    catch (const std::runtime_error&)
-    {
-        return std::locale::classic();
-    }
-}
 
 
-    // data
+        // data
 
 #if BOOST_OS_WINDOWS
-const std::locale locale_en = make_locale("English");
+    const std::locale locale_en = make_locale("English");
 
-const std::locale locale_ja = make_locale("Japanese_Japan");
+    const std::locale locale_ja = make_locale("Japanese_Japan");
 #else
-const std::locale locale_en = make_locale("en_US");
+    const std::locale locale_en = make_locale("en_US");
 
-const std::locale locale_ja = make_locale("ja_JP.UTF-8");
+    const std::locale locale_ja = make_locale("ja_JP.UTF-8");
 #endif
 }
 

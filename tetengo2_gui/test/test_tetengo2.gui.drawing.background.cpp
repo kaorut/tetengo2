@@ -19,37 +19,37 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using drawing_details_type = detail_type_list_type::drawing_type;
+    using drawing_details_type = detail_type_list_type::drawing_type;
 
-using background_type = tetengo2::gui::drawing::background<drawing_details_type>;
+    using background_type = tetengo2::gui::drawing::background<drawing_details_type>;
 
-struct concrete_background : public background_type
-{
-    concrete_background() : background_type(), m_details() {}
-
-
-private:
-    background_type::details_type m_details;
-
-    virtual std::unique_ptr<background_type> clone_impl() const override
+    struct concrete_background : public background_type
     {
-        return tetengo2::stdalt::make_unique<concrete_background>();
-    }
+        concrete_background() : background_type(), m_details() {}
 
-    virtual const background_type::details_type& details_impl() const override
-    {
-        return m_details;
-    }
 
-    virtual background_type::details_type& details_impl() override
-    {
-        return m_details;
-    }
-};
+    private:
+        background_type::details_type m_details;
+
+        virtual std::unique_ptr<background_type> clone_impl() const override
+        {
+            return tetengo2::stdalt::make_unique<concrete_background>();
+        }
+
+        virtual const background_type::details_type& details_impl() const override
+        {
+            return m_details;
+        }
+
+        virtual background_type::details_type& details_impl() override
+        {
+            return m_details;
+        }
+    };
 }
 
 

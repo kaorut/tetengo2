@@ -20,11 +20,11 @@
 
 
 namespace {
-// types
+    // types
 
-using fixture_type = tetengo2::gui::fixture;
+    using fixture_type = tetengo2::gui::fixture;
 
-using fixture_details_type = tetengo2::detail::stub::gui_fixture;
+    using fixture_details_type = tetengo2::detail::stub::gui_fixture;
 }
 
 

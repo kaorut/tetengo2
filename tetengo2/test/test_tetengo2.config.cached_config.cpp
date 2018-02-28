@@ -24,17 +24,17 @@
 
 
 namespace {
-// types
+    // types
 
-using string_type = tetengo2::type_list::string_type;
+    using string_type = tetengo2::type_list::string_type;
 
-using uint_type = tetengo2::type_list::size_type;
+    using uint_type = tetengo2::type_list::size_type;
 
-using cached_config_type = tetengo2::config::cached_config;
+    using cached_config_type = tetengo2::config::cached_config;
 
-using value_type = cached_config_type::value_type;
+    using value_type = cached_config_type::value_type;
 
-using temporary_config_type = tetengo2::config::temporary_config;
+    using temporary_config_type = tetengo2::config::temporary_config;
 }
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)

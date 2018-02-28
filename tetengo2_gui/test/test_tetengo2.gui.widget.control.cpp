@@ -23,32 +23,32 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using color_type = tetengo2::gui::drawing::color;
+    using color_type = tetengo2::gui::drawing::color;
 
-using control_type = tetengo2::gui::widget::
-    control<common_type_list_type::widget_traits_type, common_type_list_type::widget_details_traits_type>;
+    using control_type = tetengo2::gui::widget::
+        control<common_type_list_type::widget_traits_type, common_type_list_type::widget_details_traits_type>;
 
-class concrete_control : public control_type
-{
-public:
-    concrete_control()
-    : control_type(
-          control_type::scroll_bar_style_type::none,
-          message_handler_map_type{},
-          widget_details_type::widget_details_ptr_type(
-              tetengo2::stdalt::make_unique<widget_details_type::widget_details_type>()))
+    class concrete_control : public control_type
     {
-        base_type::initialize(this);
-    }
+    public:
+        concrete_control()
+        : control_type(
+              control_type::scroll_bar_style_type::none,
+              message_handler_map_type{},
+              widget_details_type::widget_details_ptr_type(
+                  tetengo2::stdalt::make_unique<widget_details_type::widget_details_type>()))
+        {
+            base_type::initialize(this);
+        }
 
-    virtual ~concrete_control() = default;
-};
+        virtual ~concrete_control() = default;
+    };
 }
 
 

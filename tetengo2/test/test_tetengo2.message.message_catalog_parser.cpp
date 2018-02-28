@@ -32,89 +32,89 @@
 
 
 namespace {
-// types
+    // types
 
-using input_stream_iterator_type =
-    tetengo2::iterator::observable_forward_iterator<boost::spirit::multi_pass<std::istreambuf_iterator<char>>>;
+    using input_stream_iterator_type =
+        tetengo2::iterator::observable_forward_iterator<boost::spirit::multi_pass<std::istreambuf_iterator<char>>>;
 
-using input_encoding_type = tetengo2::text::encoding::polymorphic<std::string>;
+    using input_encoding_type = tetengo2::text::encoding::polymorphic<std::string>;
 
-using grammar_type = tetengo2::text::grammar::json<input_stream_iterator_type>;
+    using grammar_type = tetengo2::text::grammar::json<input_stream_iterator_type>;
 
-using push_parser_type = tetengo2::text::push_parser<input_stream_iterator_type>;
+    using push_parser_type = tetengo2::text::push_parser<input_stream_iterator_type>;
 
-using pull_parser_type = tetengo2::text::pull_parser<input_stream_iterator_type>;
+    using pull_parser_type = tetengo2::text::pull_parser<input_stream_iterator_type>;
 
-using message_catalog_parser_type = tetengo2::message::message_catalog_parser<input_stream_iterator_type>;
+    using message_catalog_parser_type = tetengo2::message::message_catalog_parser<input_stream_iterator_type>;
 
-using string_type = message_catalog_parser_type::string_type;
-
-
-// data
-
-const std::string catalog0{ "" };
-
-const std::string catalog1{
-    "{\n"
-    "    \"header\":\n"
-    "    {\n"
-    "        \"Key1\": \"Value1\"\n"
-    "    }\n"
-    "}\n"
-};
-
-const std::string catalog2{
-    "{\n"
-    "    \"body\":\n"
-    "    {\n"
-    "    }\n"
-    "}\n"
-};
-
-const std::string catalog3{
-    "{\n"
-    "    \"body\":\n"
-    "    {\n"
-    "        \"Key1\": \"Value1\"\n"
-    "    }\n"
-    "}\n"
-};
-
-const std::string catalog4{
-    "{\n"
-    "    \"header\":\n"
-    "    {\n"
-    "        \"Key1\": \"Value1\",\n"
-    "        \"Key2\": [12, 34, 56]\n"
-    "    },\n"
-    "    \"body\":\n"
-    "    {\n"
-    "        \"Key1\": \"Value1\",\n"
-    "        \"Key2\": \"Value2\"\n"
-    "    }\n"
-    "}\n"
-};
+    using string_type = message_catalog_parser_type::string_type;
 
 
-// functions
+    // data
 
-std::unique_ptr<pull_parser_type> create_pull_parser(std::istream& input)
-{
-    auto p_grammar = tetengo2::stdalt::make_unique<grammar_type>();
+    const std::string catalog0{ "" };
 
-    const auto first = tetengo2::iterator::make_observable_forward_iterator(
-        boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input }));
-    const auto last = tetengo2::iterator::make_observable_forward_iterator(
-        boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{}));
-    auto p_push_parser = tetengo2::stdalt::make_unique<push_parser_type>(first, last, std::move(p_grammar));
+    const std::string catalog1{
+        "{\n"
+        "    \"header\":\n"
+        "    {\n"
+        "        \"Key1\": \"Value1\"\n"
+        "    }\n"
+        "}\n"
+    };
 
-    return tetengo2::stdalt::make_unique<pull_parser_type>(std::move(p_push_parser), 3);
-}
+    const std::string catalog2{
+        "{\n"
+        "    \"body\":\n"
+        "    {\n"
+        "    }\n"
+        "}\n"
+    };
 
-input_encoding_type make_input_encoding()
-{
-    return tetengo2::text::encoding::make_polymorphic<tetengo2::text::encoding::locale<std::string>>();
-}
+    const std::string catalog3{
+        "{\n"
+        "    \"body\":\n"
+        "    {\n"
+        "        \"Key1\": \"Value1\"\n"
+        "    }\n"
+        "}\n"
+    };
+
+    const std::string catalog4{
+        "{\n"
+        "    \"header\":\n"
+        "    {\n"
+        "        \"Key1\": \"Value1\",\n"
+        "        \"Key2\": [12, 34, 56]\n"
+        "    },\n"
+        "    \"body\":\n"
+        "    {\n"
+        "        \"Key1\": \"Value1\",\n"
+        "        \"Key2\": \"Value2\"\n"
+        "    }\n"
+        "}\n"
+    };
+
+
+    // functions
+
+    std::unique_ptr<pull_parser_type> create_pull_parser(std::istream& input)
+    {
+        auto p_grammar = tetengo2::stdalt::make_unique<grammar_type>();
+
+        const auto first = tetengo2::iterator::make_observable_forward_iterator(
+            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input }));
+        const auto last = tetengo2::iterator::make_observable_forward_iterator(
+            boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{}));
+        auto p_push_parser = tetengo2::stdalt::make_unique<push_parser_type>(first, last, std::move(p_grammar));
+
+        return tetengo2::stdalt::make_unique<pull_parser_type>(std::move(p_push_parser), 3);
+    }
+
+    input_encoding_type make_input_encoding()
+    {
+        return tetengo2::text::encoding::make_polymorphic<tetengo2::text::encoding::locale<std::string>>();
+    }
 }
 
 

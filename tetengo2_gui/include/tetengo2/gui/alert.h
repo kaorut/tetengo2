@@ -18,7 +18,7 @@
 #include <tetengo2/detail/base/alert.h>
 
 namespace boost {
-class exception;
+    class exception;
 }
 
 

@@ -30,30 +30,31 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using string_type = common_type_list_type::string_type;
+    using string_type = common_type_list_type::string_type;
 
-using widget_traits_type = common_type_list_type::widget_traits_type;
+    using widget_traits_type = common_type_list_type::widget_traits_type;
 
-using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
+    using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
 
-using menu_details_type = detail_type_list_type::menu_type;
+    using menu_details_type = detail_type_list_type::menu_type;
 
-using window_type = tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
+    using window_type =
+        tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
 
-using system_color_details_type = detail_type_list_type::system_color_type;
+    using system_color_details_type = detail_type_list_type::system_color_type;
 
-using shell_details_type = detail_type_list_type::shell_type;
+    using shell_details_type = detail_type_list_type::shell_type;
 
-using link_label_type = tetengo2::gui::widget::
-    link_label<widget_traits_type, widget_details_traits_type, system_color_details_type, shell_details_type>;
+    using link_label_type = tetengo2::gui::widget::
+        link_label<widget_traits_type, widget_details_traits_type, system_color_details_type, shell_details_type>;
 
-using cursor_details_type = tetengo2::detail::stub::cursor;
+    using cursor_details_type = tetengo2::detail::stub::cursor;
 }
 
 

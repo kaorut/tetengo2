@@ -29,82 +29,83 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using widget_traits_type = common_type_list_type::widget_traits_type;
+    using widget_traits_type = common_type_list_type::widget_traits_type;
 
-using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
+    using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
 
-using menu_details_type = detail_type_list_type::menu_type;
+    using menu_details_type = detail_type_list_type::menu_type;
 
-using window_type = tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
+    using window_type =
+        tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
 
-using mouse_capture_details_type = detail_type_list_type::mouse_capture_type;
+    using mouse_capture_details_type = detail_type_list_type::mouse_capture_type;
 
-using custom_control_type =
-    tetengo2::gui::widget::custom_control<widget_traits_type, widget_details_traits_type, mouse_capture_details_type>;
+    using custom_control_type = tetengo2::gui::widget::
+        custom_control<widget_traits_type, widget_details_traits_type, mouse_capture_details_type>;
 
-using mouse_button_type = custom_control_type::mouse_button_type;
+    using mouse_button_type = custom_control_type::mouse_button_type;
 
-using position_type = custom_control_type::position_type;
+    using position_type = custom_control_type::position_type;
 
-using position_unit_type = position_type::unit_type;
+    using position_unit_type = position_type::unit_type;
 
-using dimension_type = custom_control_type::dimension_type;
+    using dimension_type = custom_control_type::dimension_type;
 
-using dimension_unit_type = dimension_type::unit_type;
+    using dimension_unit_type = dimension_type::unit_type;
 
-using inner_item_type = custom_control_type::inner_item_type;
+    using inner_item_type = custom_control_type::inner_item_type;
 
-class concrete_custom_control : public custom_control_type
-{
-public:
-    explicit concrete_custom_control(window_type& parent)
-    : custom_control_type(parent, false, custom_control_type::scroll_bar_style_type::none)
-    {}
-};
-
-class concrete_inner_item : public inner_item_type
-{
-public:
-    concrete_inner_item(custom_control_type& parent)
-    : inner_item_type(
-          parent,
-          position_type{ position_unit_type{ 42 }, position_unit_type{ 24 } },
-          dimension_type{ dimension_unit_type{ 12 }, dimension_unit_type{ 34 } })
-    {}
-
-    const custom_control_type& call_parent() const
+    class concrete_custom_control : public custom_control_type
     {
-        return parent();
-    }
+    public:
+        explicit concrete_custom_control(window_type& parent)
+        : custom_control_type(parent, false, custom_control_type::scroll_bar_style_type::none)
+        {}
+    };
 
-    custom_control_type& call_parent()
+    class concrete_inner_item : public inner_item_type
     {
-        return parent();
-    }
+    public:
+        concrete_inner_item(custom_control_type& parent)
+        : inner_item_type(
+              parent,
+              position_type{ position_unit_type{ 42 }, position_unit_type{ 24 } },
+              dimension_type{ dimension_unit_type{ 12 }, dimension_unit_type{ 34 } })
+        {}
 
-    template <typename T>
-    const T& call_parent_to() const
-    {
-        return parent_to<T>();
-    }
+        const custom_control_type& call_parent() const
+        {
+            return parent();
+        }
 
-    template <typename T>
-    T& call_parent_to()
-    {
-        return parent_to<T>();
-    }
+        custom_control_type& call_parent()
+        {
+            return parent();
+        }
 
-    bool call_inside(const position_type& position) const
-    {
-        return inside(position);
-    }
-};
+        template <typename T>
+        const T& call_parent_to() const
+        {
+            return parent_to<T>();
+        }
+
+        template <typename T>
+        T& call_parent_to()
+        {
+            return parent_to<T>();
+        }
+
+        bool call_inside(const position_type& position) const
+        {
+            return inside(position);
+        }
+    };
 }
 
 

@@ -22,25 +22,25 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using dimension_type = common_type_list_type::dimension_type;
+    using dimension_type = common_type_list_type::dimension_type;
 
-using dimension_unit_type = dimension_type::unit_type;
+    using dimension_unit_type = dimension_type::unit_type;
 
-using icon_type = tetengo2::gui::icon<dimension_type, detail_type_list_type::icon_type>;
+    using icon_type = tetengo2::gui::icon<dimension_type, detail_type_list_type::icon_type>;
 
 
-// functions
+    // functions
 
-dimension_type make_dimension(const std::size_t width, const std::size_t height)
-{
-    return { dimension_unit_type{ width }, dimension_unit_type{ height } };
-}
+    dimension_type make_dimension(const std::size_t width, const std::size_t height)
+    {
+        return { dimension_unit_type{ width }, dimension_unit_type{ height } };
+    }
 }
 
 

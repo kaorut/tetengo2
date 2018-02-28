@@ -21,15 +21,15 @@
 
 
 namespace {
-// types
+    // types
 
-using string_type = tetengo2::type_list::string_type;
+    using string_type = tetengo2::type_list::string_type;
 
-using uint_type = tetengo2::type_list::size_type;
+    using uint_type = tetengo2::type_list::size_type;
 
-using temporary_config_type = tetengo2::config::temporary_config;
+    using temporary_config_type = tetengo2::config::temporary_config;
 
-using value_type = temporary_config_type::value_type;
+    using value_type = temporary_config_type::value_type;
 }
 
 

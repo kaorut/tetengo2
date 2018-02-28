@@ -15,9 +15,9 @@
 
 
 namespace {
-// types
+    // types
 
-using focus_observer_set_type = tetengo2::gui::message::focus_observer_set;
+    using focus_observer_set_type = tetengo2::gui::message::focus_observer_set;
 }
 
 

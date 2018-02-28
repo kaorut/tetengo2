@@ -31,56 +31,57 @@
 
 
 namespace {
-// types
+    // types
 
-using integer_type = tetengo2::type_list::integer_type;
+    using integer_type = tetengo2::type_list::integer_type;
 
-using float_type = tetengo2::type_list::float_type;
+    using float_type = tetengo2::type_list::float_type;
 
-using input_stream_iterator_type =
-    tetengo2::iterator::observable_forward_iterator<boost::spirit::multi_pass<std::istreambuf_iterator<char>>>;
+    using input_stream_iterator_type =
+        tetengo2::iterator::observable_forward_iterator<boost::spirit::multi_pass<std::istreambuf_iterator<char>>>;
 
-using grammar_type = tetengo2::text::grammar::json<input_stream_iterator_type>;
+    using grammar_type = tetengo2::text::grammar::json<input_stream_iterator_type>;
 
-using push_parser_type = tetengo2::text::push_parser<input_stream_iterator_type>;
+    using push_parser_type = tetengo2::text::push_parser<input_stream_iterator_type>;
 
-using attribute_map_type = push_parser_type::attribute_map_type;
+    using attribute_map_type = push_parser_type::attribute_map_type;
 
-using parsed_structure_type = std::pair<std::string, boost::optional<push_parser_type::value_type>>;
+    using parsed_structure_type = std::pair<std::string, boost::optional<push_parser_type::value_type>>;
 
 
-// functions
+    // functions
 
-bool structure_observer0(const std::string& structure, const attribute_map_type& attribute_map)
-{
-    boost::ignore_unused(structure, attribute_map);
+    bool structure_observer0(const std::string& structure, const attribute_map_type& attribute_map)
+    {
+        boost::ignore_unused(structure, attribute_map);
 
-    return true;
-}
+        return true;
+    }
 
-bool structure_observer1(
-    const std::string&                  structure,
-    const attribute_map_type&           attribute_map,
-    std::vector<parsed_structure_type>& parsed_structures)
-{
-    boost::ignore_unused(attribute_map);
+    bool structure_observer1(
+        const std::string&                  structure,
+        const attribute_map_type&           attribute_map,
+        std::vector<parsed_structure_type>& parsed_structures)
+    {
+        boost::ignore_unused(attribute_map);
 
-    parsed_structures.emplace_back(structure, boost::none);
-    return true;
-}
+        parsed_structures.emplace_back(structure, boost::none);
+        return true;
+    }
 
-bool value_observer0(const push_parser_type::value_type& value)
-{
-    boost::ignore_unused(value);
+    bool value_observer0(const push_parser_type::value_type& value)
+    {
+        boost::ignore_unused(value);
 
-    return true;
-}
+        return true;
+    }
 
-bool value_observer1(const push_parser_type::value_type& value, std::vector<parsed_structure_type>& parsed_structures)
-{
-    parsed_structures.emplace_back("value", boost::make_optional(value));
-    return true;
-}
+    bool
+    value_observer1(const push_parser_type::value_type& value, std::vector<parsed_structure_type>& parsed_structures)
+    {
+        parsed_structures.emplace_back("value", boost::make_optional(value));
+        return true;
+    }
 }
 
 

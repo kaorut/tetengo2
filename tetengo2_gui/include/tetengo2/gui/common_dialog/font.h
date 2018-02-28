@@ -14,8 +14,8 @@
 #include <tetengo2/gui/widget/abstract_window.h>
 
 namespace boost {
-template <typename T>
-class optional;
+    template <typename T>
+    class optional;
 }
 
 

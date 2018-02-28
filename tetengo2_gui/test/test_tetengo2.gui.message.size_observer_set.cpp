@@ -15,9 +15,9 @@
 
 
 namespace {
-// types
+    // types
 
-using size_observer_set_type = tetengo2::gui::message::size_observer_set;
+    using size_observer_set_type = tetengo2::gui::message::size_observer_set;
 }
 
 

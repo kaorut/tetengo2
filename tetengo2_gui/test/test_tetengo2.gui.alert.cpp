@@ -18,15 +18,15 @@
 
 
 namespace {
-// types
+    // types
 
-using alert_type = tetengo2::gui::alert;
+    using alert_type = tetengo2::gui::alert;
 
-using alert_details_type = tetengo2::detail::stub::alert;
+    using alert_details_type = tetengo2::detail::stub::alert;
 
-struct boost_exception : public boost::exception
-{
-};
+    struct boost_exception : public boost::exception
+    {
+    };
 }
 
 

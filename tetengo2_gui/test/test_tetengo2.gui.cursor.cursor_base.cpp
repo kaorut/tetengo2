@@ -15,28 +15,28 @@
 
 
 namespace {
-// types
+    // types
 
-using cursor_type = tetengo2::gui::cursor::cursor_base;
+    using cursor_type = tetengo2::gui::cursor::cursor_base;
 
-class concrete_cursor_type : public cursor_type
-{
-public:
-    concrete_cursor_type() {}
-
-private:
-    virtual const details_type& details_impl() const override
+    class concrete_cursor_type : public cursor_type
     {
-        static const details_type singleton{};
-        return singleton;
-    }
+    public:
+        concrete_cursor_type() {}
 
-    virtual details_type& details_impl() override
-    {
-        static details_type singleton{};
-        return singleton;
-    }
-};
+    private:
+        virtual const details_type& details_impl() const override
+        {
+            static const details_type singleton{};
+            return singleton;
+        }
+
+        virtual details_type& details_impl() override
+        {
+            static details_type singleton{};
+            return singleton;
+        }
+    };
 }
 
 

@@ -17,67 +17,67 @@
 
 
 namespace {
-// types
+    // types
 
-using base_type = tetengo2::iterator::polymorphic_forward_iterator<std::string>;
+    using base_type = tetengo2::iterator::polymorphic_forward_iterator<std::string>;
 
-class concrete_iterator : public base_type
-{
-public:
-    explicit concrete_iterator(const int first) : m_value(first, 'a') {}
-
-
-private:
-    std::string m_value;
-
-    virtual reference dereference() override
+    class concrete_iterator : public base_type
     {
-        return m_value;
-    }
+    public:
+        explicit concrete_iterator(const int first) : m_value(first, 'a') {}
 
-    virtual bool equal(const base_type& another) const override
+
+    private:
+        std::string m_value;
+
+        virtual reference dereference() override
+        {
+            return m_value;
+        }
+
+        virtual bool equal(const base_type& another) const override
+        {
+            const concrete_iterator* const p_another = dynamic_cast<const concrete_iterator*>(&another);
+            if (!p_another)
+                return false;
+
+            return m_value == p_another->m_value;
+        }
+
+        virtual void increment() override
+        {
+            m_value += "a";
+        }
+    };
+
+    class other_concrete_iterator : public base_type
     {
-        const concrete_iterator* const p_another = dynamic_cast<const concrete_iterator*>(&another);
-        if (!p_another)
-            return false;
-
-        return m_value == p_another->m_value;
-    }
-
-    virtual void increment() override
-    {
-        m_value += "a";
-    }
-};
-
-class other_concrete_iterator : public base_type
-{
-public:
-    explicit other_concrete_iterator(const int first) : m_value(first, 'a') {}
+    public:
+        explicit other_concrete_iterator(const int first) : m_value(first, 'a') {}
 
 
-private:
-    std::string m_value;
+    private:
+        std::string m_value;
 
-    virtual reference dereference() override
-    {
-        return m_value;
-    }
+        virtual reference dereference() override
+        {
+            return m_value;
+        }
 
-    virtual bool equal(const base_type& another) const override
-    {
-        const other_concrete_iterator* const p_another = dynamic_cast<const other_concrete_iterator*>(&another);
-        if (!p_another)
-            return false;
+        virtual bool equal(const base_type& another) const override
+        {
+            const other_concrete_iterator* const p_another = dynamic_cast<const other_concrete_iterator*>(&another);
+            if (!p_another)
+                return false;
 
-        return m_value == p_another->m_value;
-    }
+            return m_value == p_another->m_value;
+        }
 
-    virtual void increment() override
-    {
-        m_value += "a";
-    }
-};
+        virtual void increment() override
+        {
+            m_value += "a";
+        }
+    };
 }
 
 

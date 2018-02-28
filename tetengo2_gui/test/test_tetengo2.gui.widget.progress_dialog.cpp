@@ -35,54 +35,55 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using string_type = common_type_list_type::string_type;
+    using string_type = common_type_list_type::string_type;
 
-using widget_traits_type = common_type_list_type::widget_traits_type;
+    using widget_traits_type = common_type_list_type::widget_traits_type;
 
-using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
+    using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
 
-using menu_details_type = detail_type_list_type::menu_type;
+    using menu_details_type = detail_type_list_type::menu_type;
 
-using abstract_window_type =
-    tetengo2::gui::widget::abstract_window<widget_traits_type, widget_details_traits_type, menu_details_type>;
+    using abstract_window_type =
+        tetengo2::gui::widget::abstract_window<widget_traits_type, widget_details_traits_type, menu_details_type>;
 
-using window_type = tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
+    using window_type =
+        tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
 
-using message_loop_details_type = detail_type_list_type::message_loop_type;
+    using message_loop_details_type = detail_type_list_type::message_loop_type;
 
-using timer_details_type = detail_type_list_type::timer_type;
+    using timer_details_type = detail_type_list_type::timer_type;
 
-using system_color_details_type = detail_type_list_type::system_color_type;
+    using system_color_details_type = detail_type_list_type::system_color_type;
 
-using message_catalog_type = common_type_list_type::message_catalog_type;
+    using message_catalog_type = common_type_list_type::message_catalog_type;
 
-using dialog_type = tetengo2::gui::widget::progress_dialog<
-    widget_traits_type,
-    int,
-    message_catalog_type,
-    widget_details_traits_type,
-    menu_details_type,
-    message_loop_details_type,
-    timer_details_type,
-    system_color_details_type>;
+    using dialog_type = tetengo2::gui::widget::progress_dialog<
+        widget_traits_type,
+        int,
+        message_catalog_type,
+        widget_details_traits_type,
+        menu_details_type,
+        message_loop_details_type,
+        timer_details_type,
+        system_color_details_type>;
 
-using promise_type = dialog_type::promise_type;
+    using promise_type = dialog_type::promise_type;
 
-using future_type = dialog_type::future_type;
+    using future_type = dialog_type::future_type;
 
 
-// functions
+    // functions
 
-void task(promise_type& promise)
-{
-    promise.set_value(42);
-}
+    void task(promise_type& promise)
+    {
+        promise.set_value(42);
+    }
 }
 
 

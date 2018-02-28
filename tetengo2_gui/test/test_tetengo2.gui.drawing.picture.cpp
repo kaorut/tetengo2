@@ -22,19 +22,19 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using drawing_details_type = detail_type_list_type::drawing_type;
+    using drawing_details_type = detail_type_list_type::drawing_type;
 
-using dimension_type = common_type_list_type::dimension_type;
+    using dimension_type = common_type_list_type::dimension_type;
 
-using dimension_unit_type = dimension_type::unit_type;
+    using dimension_unit_type = dimension_type::unit_type;
 
-using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
+    using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
 }
 
 

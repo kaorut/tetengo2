@@ -21,18 +21,18 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using drawing_details_type = detail_type_list_type::drawing_type;
+    using drawing_details_type = detail_type_list_type::drawing_type;
 
-using font_type = tetengo2::gui::drawing::
-    font<common_type_list_type::string_type, common_type_list_type::size_type, drawing_details_type>;
+    using font_type = tetengo2::gui::drawing::
+        font<common_type_list_type::string_type, common_type_list_type::size_type, drawing_details_type>;
 
-using string_type = font_type::string_type;
+    using string_type = font_type::string_type;
 }
 
 

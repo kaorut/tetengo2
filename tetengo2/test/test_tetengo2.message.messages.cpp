@@ -25,75 +25,76 @@
 
 
 namespace {
-// types
+    // types
 
-using messages_type = tetengo2::message::messages;
+    using messages_type = tetengo2::message::messages;
 
-using string_type = messages_type::string_type;
+    using string_type = messages_type::string_type;
 
-using internal_encoding_type = tetengo2::text::encoding::locale<string_type>;
+    using internal_encoding_type = tetengo2::text::encoding::locale<string_type>;
 
-using std_messages_type = std::messages<string_type::value_type>;
+    using std_messages_type = std::messages<string_type::value_type>;
 
-struct set_global_locale
-{
-    const std::locale m_initial_locale;
-
-    explicit set_global_locale(const std::locale& locale)
-    : m_initial_locale(std::locale::global(std::locale{
-          locale,
-          tetengo2::stdalt::make_unique<messages_type>(boost::filesystem::path{ "messages.test" }, locale).release() }))
-    {}
-
-    ~set_global_locale() noexcept
+    struct set_global_locale
     {
-        std::locale::global(m_initial_locale);
-    }
-};
+        const std::locale m_initial_locale;
+
+        explicit set_global_locale(const std::locale& locale)
+        : m_initial_locale(std::locale::global(std::locale{
+              locale,
+              tetengo2::stdalt::make_unique<messages_type>(boost::filesystem::path{ "messages.test" }, locale)
+                  .release() }))
+        {}
+
+        ~set_global_locale() noexcept
+        {
+            std::locale::global(m_initial_locale);
+        }
+    };
 
 
-// functions
+    // functions
 
-bool locale_supported()
-{
-    try
+    bool locale_supported()
     {
-        std::locale locale{ "" };
-        return true;
+        try
+        {
+            std::locale locale{ "" };
+            return true;
+        }
+        catch (const std::runtime_error&)
+        {
+            return false;
+        }
     }
-    catch (const std::runtime_error&)
-    {
-        return false;
-    }
-}
 
-std::locale make_locale(const std::string& name)
-{
-    try
+    std::locale make_locale(const std::string& name)
     {
-        return std::locale{ name.c_str() };
+        try
+        {
+            return std::locale{ name.c_str() };
+        }
+        catch (const std::runtime_error&)
+        {
+            return std::locale::classic();
+        }
     }
-    catch (const std::runtime_error&)
-    {
-        return std::locale::classic();
-    }
-}
 
 
-    // data
+        // data
 
 #if BOOST_OS_WINDOWS
-const std::locale locale_en = make_locale("English");
+    const std::locale locale_en = make_locale("English");
 
-const std::locale locale_ja = make_locale("Japanese_Japan");
+    const std::locale locale_ja = make_locale("Japanese_Japan");
 
-const std::locale locale_zh = make_locale("Chinese");
+    const std::locale locale_zh = make_locale("Chinese");
 #else
-const std::locale locale_en = make_locale("en_US");
+    const std::locale locale_en = make_locale("en_US");
 
-const std::locale locale_ja = make_locale("ja_JP.UTF-8");
+    const std::locale locale_ja = make_locale("ja_JP.UTF-8");
 
-const std::locale locale_zh = make_locale("zh_CN");
+    const std::locale locale_zh = make_locale("zh_CN");
 #endif
 }
 

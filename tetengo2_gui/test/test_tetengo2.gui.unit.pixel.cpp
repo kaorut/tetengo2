@@ -20,11 +20,11 @@
 
 
 namespace {
-// types
+    // types
 
-using difference_rational_type = boost::rational<tetengo2::type_list::difference_type>;
+    using difference_rational_type = boost::rational<tetengo2::type_list::difference_type>;
 
-using unit_type = tetengo2::gui::unit::pixel;
+    using unit_type = tetengo2::gui::unit::pixel;
 }
 
 

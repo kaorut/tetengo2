@@ -15,9 +15,9 @@
 
 
 namespace {
-// types
+    // types
 
-using text_box_observer_set_type = tetengo2::gui::message::text_box_observer_set;
+    using text_box_observer_set_type = tetengo2::gui::message::text_box_observer_set;
 }
 
 

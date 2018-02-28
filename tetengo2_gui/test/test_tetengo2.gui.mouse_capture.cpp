@@ -25,27 +25,29 @@
 
 
 namespace {
-// types
+    // types
 
-using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-using widget_traits_type = common_type_list_type::widget_traits_type;
+    using widget_traits_type = common_type_list_type::widget_traits_type;
 
-using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
+    using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
 
-using widget_type = tetengo2::gui::widget::widget<widget_traits_type, widget_details_traits_type>;
+    using widget_type = tetengo2::gui::widget::widget<widget_traits_type, widget_details_traits_type>;
 
-using menu_details_type = detail_type_list_type::menu_type;
+    using menu_details_type = detail_type_list_type::menu_type;
 
-using window_type = tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
+    using window_type =
+        tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
 
-using mouse_button_type = tetengo2::gui::message::
-    mouse_observer_set<common_type_list_type::position_type, common_type_list_type::difference_type>::mouse_button_type;
+    using mouse_button_type = tetengo2::gui::message::mouse_observer_set<
+        common_type_list_type::position_type,
+        common_type_list_type::difference_type>::mouse_button_type;
 
-using mouse_capture_type =
-    tetengo2::gui::mouse_capture<widget_type, mouse_button_type, detail_type_list_type::mouse_capture_type>;
+    using mouse_capture_type =
+        tetengo2::gui::mouse_capture<widget_type, mouse_button_type, detail_type_list_type::mouse_capture_type>;
 }
 
 

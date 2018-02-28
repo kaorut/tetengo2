@@ -20,114 +20,114 @@
 
 
 namespace {
-// types
-
-template <typename Value>
-class concrete_unit : public tetengo2::gui::unit::unit<concrete_unit<Value>, Value>
-{
-public:
     // types
 
-    using value_type = Value;
-
-
-    // static functions
-
-    template <typename PV>
-    static concrete_unit from_pixels(const PV value)
+    template <typename Value>
+    class concrete_unit : public tetengo2::gui::unit::unit<concrete_unit<Value>, Value>
     {
-        return concrete_unit(value / 7);
-    }
+    public:
+        // types
+
+        using value_type = Value;
 
 
-    // constructors and destructor
+        // static functions
 
-    explicit concrete_unit(value_type value) : m_value(std::move(value)) {}
-
-
-    // functions
-
-    friend bool operator==(const concrete_unit& one, const value_type& another)
-    {
-        return one.m_value == another;
-    }
-
-    friend bool operator<(const concrete_unit& one, const value_type& another)
-    {
-        return one.m_value < another;
-    }
-
-    friend bool operator>(const concrete_unit& one, const value_type& another)
-    {
-        return one.m_value > another;
-    }
-
-    concrete_unit& add(const value_type& another)
-    {
-        concrete_unit temp{ *this };
-
-        temp.m_value += another;
-
-        boost::swap(temp, *this);
-        return *this;
-    }
-
-    concrete_unit& subtract(const value_type& another)
-    {
-        concrete_unit temp{ *this };
-
-        temp.m_value -= another;
-
-        boost::swap(temp, *this);
-        return *this;
-    }
-
-    concrete_unit& multiply(const value_type& another)
-    {
-        concrete_unit temp{ *this };
-
-        temp.m_value *= another;
-
-        boost::swap(temp, *this);
-        return *this;
-    }
-
-    concrete_unit& divide_by(const value_type& another)
-    {
-        concrete_unit temp{ *this };
-
-        temp.m_value /= another;
-
-        boost::swap(temp, *this);
-        return *this;
-    }
-
-    value_type divide_by(const concrete_unit& another) const
-    {
-        return value() / another.value();
-    }
-
-    const value_type& value() const
-    {
-        return m_value;
-    }
-
-    template <typename PV>
-    PV to_pixels() const
-    {
-        return boost::rational_cast<PV>(m_value) * 7;
-    }
+        template <typename PV>
+        static concrete_unit from_pixels(const PV value)
+        {
+            return concrete_unit(value / 7);
+        }
 
 
-private:
-    // variables
+        // constructors and destructor
 
-    value_type m_value;
-};
+        explicit concrete_unit(value_type value) : m_value(std::move(value)) {}
 
-using unit_type = concrete_unit<boost::rational<tetengo2::type_list::difference_type>>;
 
-using another_unit_type = concrete_unit<boost::rational<tetengo2::type_list::size_type>>;
+        // functions
+
+        friend bool operator==(const concrete_unit& one, const value_type& another)
+        {
+            return one.m_value == another;
+        }
+
+        friend bool operator<(const concrete_unit& one, const value_type& another)
+        {
+            return one.m_value < another;
+        }
+
+        friend bool operator>(const concrete_unit& one, const value_type& another)
+        {
+            return one.m_value > another;
+        }
+
+        concrete_unit& add(const value_type& another)
+        {
+            concrete_unit temp{ *this };
+
+            temp.m_value += another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        concrete_unit& subtract(const value_type& another)
+        {
+            concrete_unit temp{ *this };
+
+            temp.m_value -= another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        concrete_unit& multiply(const value_type& another)
+        {
+            concrete_unit temp{ *this };
+
+            temp.m_value *= another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        concrete_unit& divide_by(const value_type& another)
+        {
+            concrete_unit temp{ *this };
+
+            temp.m_value /= another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        value_type divide_by(const concrete_unit& another) const
+        {
+            return value() / another.value();
+        }
+
+        const value_type& value() const
+        {
+            return m_value;
+        }
+
+        template <typename PV>
+        PV to_pixels() const
+        {
+            return boost::rational_cast<PV>(m_value) * 7;
+        }
+
+
+    private:
+        // variables
+
+        value_type m_value;
+    };
+
+    using unit_type = concrete_unit<boost::rational<tetengo2::type_list::difference_type>>;
+
+    using another_unit_type = concrete_unit<boost::rational<tetengo2::type_list::size_type>>;
 }
 
 

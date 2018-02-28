@@ -18,9 +18,9 @@
 
 
 namespace {
-using unit_type = tetengo2::gui::unit::em_for_test;
+    using unit_type = tetengo2::gui::unit::em_for_test;
 
-using position_type = tetengo2::gui::position<unit_type>;
+    using position_type = tetengo2::gui::position<unit_type>;
 }
 
 

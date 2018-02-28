@@ -19,15 +19,15 @@
 
 
 namespace {
-// types
+    // types
 
-using string_type = tetengo2::type_list::string_type;
+    using string_type = tetengo2::type_list::string_type;
 
-using uint_type = tetengo2::type_list::size_type;
+    using uint_type = tetengo2::type_list::size_type;
 
-using persistent_config_type = tetengo2::config::persistent_config;
+    using persistent_config_type = tetengo2::config::persistent_config;
 
-using value_type = persistent_config_type::value_type;
+    using value_type = persistent_config_type::value_type;
 }
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
