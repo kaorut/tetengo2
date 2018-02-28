@@ -33,8 +33,11 @@ lint-iwyu-extra:
 	for d in $(SOURCE_SUBDIRS); do (cd $$d && $(MAKE) lint-iwyu-extra); done
 
 .PHONY: format
-format:
+format: $(top_srcdir)/.clang-format
 	for d in $(SOURCE_SUBDIRS); do (cd $$d && $(MAKE) format); done
+
+$(top_srcdir)/.clang-format: $(top_srcdir)/tools/clang-format
+	cp -f $(top_srcdir)/tools/clang-format $(top_srcdir)/.clang-format
 
 .PHONY: doc
 doc:
