@@ -76,7 +76,7 @@ KeepEmptyLinesAtTheStartOfBlocks: false
 MacroBlockBegin: '^BOOST_AUTO_TEST_SUITE$'
 MacroBlockEnd: '^BOOST_AUTO_TEST_SUITE_END$'
 MaxEmptyLinesToKeep: 2
-NamespaceIndentation: Inner
+NamespaceIndentation: All
 ObjCBlockIndentWidth: 4
 ObjCSpaceAfterProperty: false
 ObjCSpaceBeforeProtocolList: true
