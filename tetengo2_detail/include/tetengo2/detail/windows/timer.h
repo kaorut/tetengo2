@@ -19,8 +19,8 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
-#pragma warning (push)
-#pragma warning (disable: 4005)
+#pragma warning(push)
+#pragma warning(disable : 4005)
 #include <intsafe.h>
 #include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
@@ -31,8 +31,7 @@
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
 
 
-namespace tetengo2 { namespace detail { namespace windows
-{
+namespace tetengo2 { namespace detail { namespace windows {
     /*!
         \brief The class for a detail implementation of a timer.
     */
@@ -54,38 +53,27 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         timer(
             const Widget&                    widget,
-            std::function<void (bool&)>      procedure,
+            std::function<void(bool&)>       procedure,
             const std::chrono::milliseconds& interval,
-            const bool                       once_only
-        )
-        :
-        m_window_handle(widget.details().handle.get()),
-        m_procedure(std::move(procedure)),
-        m_once_only(once_only),
-        m_id(
-            ::SetTimer(
-                m_window_handle,
-                reinterpret_cast< ::UINT_PTR>(this),
-                static_cast< ::UINT>(interval.count()),
-                timer_proc
-            )
-        )
+            const bool                       once_only)
+        : m_window_handle(widget.details().handle.get()), m_procedure(std::move(procedure)), m_once_only(once_only),
+          m_id(::SetTimer(
+              m_window_handle,
+              reinterpret_cast<::UINT_PTR>(this),
+              static_cast<::UINT>(interval.count()),
+              timer_proc))
         {
             if (stopped())
             {
-                BOOST_THROW_EXCEPTION((
-                    std::system_error{
-                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() }, "Can't start timer."
-                    }
-                ));
+                BOOST_THROW_EXCEPTION((std::system_error{
+                    std::error_code{ static_cast<int>(::GetLastError()), win32_category() }, "Can't start timer." }));
             }
         }
 
         /*!
             \brief Destroys the detail implementation of a timer.
         */
-        ~timer()
-        noexcept
+        ~timer() noexcept
         {
             stop();
         }
@@ -98,8 +86,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return The stopped status.
         */
-        bool stopped()
-        const
+        bool stopped() const
         {
             return m_id == 0;
         }
@@ -117,12 +104,8 @@ namespace tetengo2 { namespace detail { namespace windows
     private:
         // static functions
 
-        static void CALLBACK timer_proc(
-            const ::HWND     window_handle,
-            const ::UINT     message,
-            const ::UINT_PTR id,
-            const ::DWORD    elapsed_time
-        )
+        static void CALLBACK
+                    timer_proc(const ::HWND window_handle, const ::UINT message, const ::UINT_PTR id, const ::DWORD elapsed_time)
         {
             boost::ignore_unused(window_handle, message, elapsed_time);
 
@@ -143,13 +126,11 @@ namespace tetengo2 { namespace detail { namespace windows
 
         const ::HWND m_window_handle;
 
-        const std::function<void (bool&)> m_procedure;
+        const std::function<void(bool&)> m_procedure;
 
         const bool m_once_only;
 
         ::UINT_PTR m_id;
-
-
     };
 
 

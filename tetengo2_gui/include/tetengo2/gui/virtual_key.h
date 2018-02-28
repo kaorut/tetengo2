@@ -16,8 +16,7 @@
 #include <boost/operators.hpp>
 
 
-namespace tetengo2 { namespace gui
-{
+namespace tetengo2 { namespace gui {
     /*!
         \brief The class template for virtual keys.
 
@@ -25,8 +24,7 @@ namespace tetengo2 { namespace gui
         \tparam Details A detail implementation type.
     */
     template <typename String, typename Details>
-    class virtual_key :
-        private boost::equality_comparable<virtual_key<String, Details>>
+    class virtual_key : private boost::equality_comparable<virtual_key<String, Details>>
     {
     public:
         // types
@@ -672,8 +670,7 @@ namespace tetengo2 { namespace gui
 
             \return The code.
         */
-        code_type code()
-        const
+        code_type code() const
         {
             return m_code;
         }
@@ -683,8 +680,7 @@ namespace tetengo2 { namespace gui
 
             \return The string representation.
         */
-        const string_type& to_string()
-        const
+        const string_type& to_string() const
         {
             return m_string;
         }
@@ -697,7 +693,7 @@ namespace tetengo2 { namespace gui
 
         using key_map_type = std::unordered_map<code_type, virtual_key>;
 
-        
+
         // static functions
 
         static const key_map_type& key_map()
@@ -790,19 +786,15 @@ namespace tetengo2 { namespace gui
         // constructors
 
         explicit virtual_key(code_and_string_type code_and_string)
-        :
-        m_code(code_and_string.first),
-        m_string(std::move(code_and_string.second))
+        : m_code(code_and_string.first), m_string(std::move(code_and_string.second))
         {}
-        
+
 
         // variables
 
         code_type m_code;
 
         string_type m_string;
-
-
     };
 
 

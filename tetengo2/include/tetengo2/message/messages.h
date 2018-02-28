@@ -19,8 +19,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace message
-{
+namespace tetengo2 { namespace message {
     /*!
         \brief The class for a messages facet.
 
@@ -81,16 +80,12 @@ namespace tetengo2 { namespace message
 
         // virtual functions
 
-        virtual catalog do_open(const std::string& catalog_name, const std::locale& locale)
-        const override;
+        virtual catalog do_open(const std::string& catalog_name, const std::locale& locale) const override;
 
-        virtual string_type do_get(catalog catalog_id, int set, int message, const string_type& default_message)
-        const override;
+        virtual string_type
+        do_get(catalog catalog_id, int set, int message, const string_type& default_message) const override;
 
-        virtual void do_close(catalog catalog_id)
-        const override;
-
-
+        virtual void do_close(catalog catalog_id) const override;
     };
 
 

@@ -13,8 +13,7 @@
 #include <boost/core/noncopyable.hpp>
 
 
-namespace tetengo2 { namespace detail { namespace stub
-{
+namespace tetengo2 { namespace detail { namespace stub {
     /*!
         \brief The class for a detail implementation of a message loop.
     */
@@ -75,10 +74,7 @@ namespace tetengo2 { namespace detail { namespace stub
     private:
         // forbidden operations
 
-        message_loop()
-        = delete;
-
-
+        message_loop() = delete;
     };
 
 

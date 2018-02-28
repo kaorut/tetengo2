@@ -14,20 +14,13 @@
 #include <tetengo2/gui/unit/point.h>
 
 
-namespace tetengo2 { namespace gui
-{
+namespace tetengo2 { namespace gui {
     template <typename Unit>
-    position<Unit>::position()
-    :
-    m_left(unit_type{}),
-    m_top(unit_type{})
+    position<Unit>::position() : m_left(unit_type{}), m_top(unit_type{})
     {}
 
     template <typename Unit>
-    position<Unit>::position(unit_type left, unit_type top)
-    :
-    m_left(std::move(left)),
-    m_top(std::move(top))
+    position<Unit>::position(unit_type left, unit_type top) : m_left(std::move(left)), m_top(std::move(top))
     {}
 
     template <typename U>
@@ -37,22 +30,19 @@ namespace tetengo2 { namespace gui
     }
 
     template <typename Unit>
-    const typename position<Unit>::unit_type& position<Unit>::left()
-    const
+    const typename position<Unit>::unit_type& position<Unit>::left() const
     {
         return m_left;
     }
 
     template <typename Unit>
-    const typename position<Unit>::unit_type& position<Unit>::top()
-    const
+    const typename position<Unit>::unit_type& position<Unit>::top() const
     {
         return m_top;
     }
 
 
-    namespace
-    {
+    namespace {
         using em_stub_unit_type = gui::unit::em_for_test;
 
         using pixel_unit_type = gui::unit::pixel;
@@ -64,7 +54,6 @@ namespace tetengo2 { namespace gui
 
         using point_windows_unit_type = gui::unit::point;
 #endif
-
     }
 
     template class position<em_stub_unit_type>;
@@ -82,17 +71,12 @@ namespace tetengo2 { namespace gui
 #if BOOST_OS_WINDOWS
     template class position<em_windows_unit_type>;
 
-    template bool operator==(
-        const position<em_windows_unit_type>& one,
-        const position<em_windows_unit_type>& another
-    );
+    template bool operator==(const position<em_windows_unit_type>& one, const position<em_windows_unit_type>& another);
 
     template class position<point_windows_unit_type>;
 
-    template bool operator==(
-        const position<point_windows_unit_type>& one,
-        const position<point_windows_unit_type>& another
-    );
+    template bool
+    operator==(const position<point_windows_unit_type>& one, const position<point_windows_unit_type>& another);
 #endif
 
 

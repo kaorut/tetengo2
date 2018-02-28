@@ -20,8 +20,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget
-{
+namespace tetengo2 { namespace gui { namespace widget {
     /*!
         \brief The class template for a picture box.
 
@@ -66,8 +65,7 @@ namespace tetengo2 { namespace gui { namespace widget
         using canvas_traits_type = typename base_type::canvas_traits_type;
 
         //! The fast canvas type.
-        using fast_canvas_type =
-            gui::drawing::canvas<canvas_traits_type, fast_drawing_details_type, icon_details_type>;
+        using fast_canvas_type = gui::drawing::canvas<canvas_traits_type, fast_drawing_details_type, icon_details_type>;
 
         //! The fast widget canvas type.
         using fast_widget_canvas_type =
@@ -88,33 +86,30 @@ namespace tetengo2 { namespace gui { namespace widget
         picture_box(widget_type& parent, const scroll_bar_style_type scroll_bar_style)
         :
 #if BOOST_COMP_MSVC
-#   pragma warning(push)
-#   pragma warning(disable: 4355)
+#pragma warning(push)
+#pragma warning(disable : 4355)
 #endif
-        base_type(
-            scroll_bar_style,
-            message_handler_details_type::make_picture_box_message_handler_map(*this, message_handler_map_type{}),
-            widget_details_type::create_picture_box(parent, scroll_bar_style)
-        ),
+          base_type(
+              scroll_bar_style,
+              message_handler_details_type::make_picture_box_message_handler_map(*this, message_handler_map_type{}),
+              widget_details_type::create_picture_box(parent, scroll_bar_style)),
 #if BOOST_COMP_MSVC
-#   pragma warning(pop)
+#pragma warning(pop)
 #endif
-        m_fast_paint_observer_set()
+          m_fast_paint_observer_set()
         {
             base_type::initialize(this);
 
             parent.child_observer_set().created()(*this);
 
             this->paint_observer_set().paint_background().connect(
-                [](typename base_type::canvas_type&) { return true; }
-            );
+                [](typename base_type::canvas_type&) { return true; });
         }
 
         /*!
             \brief Destroys the picture box.
         */
-        virtual ~picture_box()
-        noexcept
+        virtual ~picture_box() noexcept
         {
             try
             {
@@ -122,7 +117,8 @@ namespace tetengo2 { namespace gui { namespace widget
                     this->parent().child_observer_set().destroying()(*this);
             }
             catch (...)
-            {}
+            {
+            }
         }
 
 
@@ -133,8 +129,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The unique pointer to a fast canvas.
         */
-        std::unique_ptr<fast_canvas_type> create_fast_canvas()
-        const
+        std::unique_ptr<fast_canvas_type> create_fast_canvas() const
         {
             return stdalt::make_unique<fast_widget_canvas_type>(this->details());
         }
@@ -144,8 +139,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The fast paint observer set.
         */
-        const fast_paint_observer_set_type& fast_paint_observer_set()
-        const
+        const fast_paint_observer_set_type& fast_paint_observer_set() const
         {
             return m_fast_paint_observer_set;
         }
@@ -170,8 +164,6 @@ namespace tetengo2 { namespace gui { namespace widget
         // variables
 
         fast_paint_observer_set_type m_fast_paint_observer_set;
-
-
     };
 
 

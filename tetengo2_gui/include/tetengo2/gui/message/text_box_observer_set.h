@@ -14,8 +14,7 @@
 #include <boost/signals2.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace message
-{
+namespace tetengo2 { namespace gui { namespace message {
     /*!
         \brief The class for a text box observer set.
     */
@@ -27,7 +26,7 @@ namespace tetengo2 { namespace gui { namespace message
         /*!
             \brief The observer type of a change.
         */
-        using changed_type = void ();
+        using changed_type = void();
 
         //! The signal type of a change.
         using changed_signal_type = boost::signals2::signal<changed_type>;
@@ -40,8 +39,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a text is changed.
         */
-        const changed_signal_type& changed()
-        const
+        const changed_signal_type& changed() const
         {
             return m_changed;
         }
@@ -61,8 +59,6 @@ namespace tetengo2 { namespace gui { namespace message
         // variables
 
         changed_signal_type m_changed;
-
-
     };
 
 

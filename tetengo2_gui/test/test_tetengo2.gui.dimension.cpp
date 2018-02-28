@@ -17,82 +17,79 @@
 #include <tetengo2/gui/unit/unit.h>
 
 
-namespace
-{
-    using unit_type = tetengo2::gui::unit::uem_for_test;
+namespace {
+using unit_type = tetengo2::gui::unit::uem_for_test;
 
-    using dimension_type = tetengo2::gui::dimension<unit_type>;
-
-
+using dimension_type = tetengo2::gui::dimension<unit_type>;
 }
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
-BOOST_AUTO_TEST_SUITE(gui)
-BOOST_AUTO_TEST_SUITE(dimension)
-    // test cases
+    BOOST_AUTO_TEST_SUITE(gui)
+        BOOST_AUTO_TEST_SUITE(dimension)
+            // test cases
 
-    BOOST_AUTO_TEST_CASE(construction)
-    {
-        BOOST_TEST_PASSPOINT();
+            BOOST_AUTO_TEST_CASE(construction)
+            {
+                BOOST_TEST_PASSPOINT();
 
-        {
-            const dimension_type dimension{};
-        }
-        {
-            const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
-        }
-    }
+                {
+                    const dimension_type dimension{};
+                }
+                {
+                    const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
+                }
+            }
 
-    BOOST_AUTO_TEST_CASE(operator_equal)
-    {
-        BOOST_TEST_PASSPOINT();
+            BOOST_AUTO_TEST_CASE(operator_equal)
+            {
+                BOOST_TEST_PASSPOINT();
 
-        const dimension_type dimension1{ unit_type{ 42 }, unit_type{ 24 } };
-        const dimension_type dimension2{ unit_type{ 42 }, unit_type{ 24 } };
-        const dimension_type dimension3{ unit_type{ 42 }, unit_type{ 42 } };
-        const dimension_type dimension4{ unit_type{ 24 }, unit_type{ 42 } };
-        const dimension_type dimension5{ unit_type{ 24 }, unit_type{ 24 } };
+                const dimension_type dimension1{ unit_type{ 42 }, unit_type{ 24 } };
+                const dimension_type dimension2{ unit_type{ 42 }, unit_type{ 24 } };
+                const dimension_type dimension3{ unit_type{ 42 }, unit_type{ 42 } };
+                const dimension_type dimension4{ unit_type{ 24 }, unit_type{ 42 } };
+                const dimension_type dimension5{ unit_type{ 24 }, unit_type{ 24 } };
 
-        BOOST_CHECK(dimension1 == dimension2);
-        BOOST_CHECK(dimension1 != dimension3);
-        BOOST_CHECK(dimension1 != dimension4);
-        BOOST_CHECK(dimension1 != dimension5);
-    }
+                BOOST_CHECK(dimension1 == dimension2);
+                BOOST_CHECK(dimension1 != dimension3);
+                BOOST_CHECK(dimension1 != dimension4);
+                BOOST_CHECK(dimension1 != dimension5);
+            }
 
-    BOOST_AUTO_TEST_CASE(width)
-    {
-        BOOST_TEST_PASSPOINT();
+            BOOST_AUTO_TEST_CASE(width)
+            {
+                BOOST_TEST_PASSPOINT();
 
-        {
-            const dimension_type dimension{};
+                {
+                    const dimension_type dimension{};
 
-            BOOST_CHECK((dimension.width() == unit_type{}));
-        }
-        {
-            const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
+                    BOOST_CHECK((dimension.width() == unit_type{}));
+                }
+                {
+                    const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
 
-            BOOST_CHECK((dimension.width() == unit_type{ 42 }));
-        }
-    }
+                    BOOST_CHECK((dimension.width() == unit_type{ 42 }));
+                }
+            }
 
-    BOOST_AUTO_TEST_CASE(height)
-    {
-        BOOST_TEST_PASSPOINT();
+            BOOST_AUTO_TEST_CASE(height)
+            {
+                BOOST_TEST_PASSPOINT();
 
-        {
-            const dimension_type dimension{};
+                {
+                    const dimension_type dimension{};
 
-            BOOST_CHECK((dimension.height() == unit_type{}));
-        }
-        {
-            const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
+                    BOOST_CHECK((dimension.height() == unit_type{}));
+                }
+                {
+                    const dimension_type dimension{ unit_type{ 42 }, unit_type{ 24 } };
 
-            BOOST_CHECK((dimension.height() == unit_type{ 24 }));
-        }
-    }
+                    BOOST_CHECK((dimension.height() == unit_type{ 24 }));
+                }
+            }
 
 
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
+        BOOST_AUTO_TEST_SUITE_END()
+    BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

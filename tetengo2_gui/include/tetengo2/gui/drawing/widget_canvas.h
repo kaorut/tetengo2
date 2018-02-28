@@ -12,8 +12,7 @@
 #include <tetengo2/gui/drawing/canvas.h>
 
 
-namespace tetengo2 { namespace gui { namespace drawing
-{
+namespace tetengo2 { namespace gui { namespace drawing {
     /*!
         \brief The class template for a widget canvas.
 
@@ -42,17 +41,13 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         template <typename HandleOrWidgetDetails>
         explicit widget_canvas(const HandleOrWidgetDetails& handle_or_widget_details)
-        :
-        base_type(base_type::drawing_details_type::create_canvas(handle_or_widget_details))
+        : base_type(base_type::drawing_details_type::create_canvas(handle_or_widget_details))
         {}
 
         /*!
             \brief Destroys the widget canvas.
         */
-        virtual ~widget_canvas()
-        = default;
-
-
+        virtual ~widget_canvas() = default;
     };
 
 

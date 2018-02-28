@@ -26,106 +26,100 @@
 #include "test_tetengo2.gui.type_list.h"
 
 
-namespace
-{
-    // types
+namespace {
+// types
 
-    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-    using widget_traits_type = common_type_list_type::widget_traits_type;
+using widget_traits_type = common_type_list_type::widget_traits_type;
 
-    using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
+using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
 
-    using menu_details_type = detail_type_list_type::menu_type;
+using menu_details_type = detail_type_list_type::menu_type;
 
-    using window_type =
-        tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
+using window_type = tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
 
-    using color_type = tetengo2::gui::drawing::color;
+using color_type = tetengo2::gui::drawing::color;
 
-    using common_dialog_details_type = detail_type_list_type::common_dialog_type;
+using common_dialog_details_type = detail_type_list_type::common_dialog_type;
 
-    using color_dialog_type =
-        tetengo2::gui::common_dialog::color<
-            color_type, widget_traits_type, common_dialog_details_type, widget_details_traits_type, menu_details_type
-        >;
-
-
+using color_dialog_type = tetengo2::gui::common_dialog::
+    color<color_type, widget_traits_type, common_dialog_details_type, widget_details_traits_type, menu_details_type>;
 }
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
-BOOST_AUTO_TEST_SUITE(gui)
-BOOST_AUTO_TEST_SUITE(common_dialog)
-BOOST_AUTO_TEST_SUITE(color)
-    // test cases
+    BOOST_AUTO_TEST_SUITE(gui)
+        BOOST_AUTO_TEST_SUITE(common_dialog)
+            BOOST_AUTO_TEST_SUITE(color)
+                // test cases
 
-    BOOST_AUTO_TEST_CASE(construction)
-    {
-        BOOST_TEST_PASSPOINT();
+                BOOST_AUTO_TEST_CASE(construction)
+                {
+                    BOOST_TEST_PASSPOINT();
 
-        {
-            window_type parent{};
-            const color_dialog_type color{ boost::none, parent };
-        }
-        {
-            window_type parent{};
-            const color_dialog_type color{ boost::make_optional(color_type{ 12, 34, 56 }), parent };
-        }
-    }
+                    {
+                        window_type             parent{};
+                        const color_dialog_type color{ boost::none, parent };
+                    }
+                    {
+                        window_type             parent{};
+                        const color_dialog_type color{ boost::make_optional(color_type{ 12, 34, 56 }), parent };
+                    }
+                }
 
-    BOOST_AUTO_TEST_CASE(result)
-    {
-        BOOST_TEST_PASSPOINT();
+                BOOST_AUTO_TEST_CASE(result)
+                {
+                    BOOST_TEST_PASSPOINT();
 
-        {
-            window_type parent{};
-            const color_dialog_type color{ boost::none, parent };
+                    {
+                        window_type             parent{};
+                        const color_dialog_type color{ boost::none, parent };
 
-            BOOST_CHECK((color.result() == color_type{ 0, 0, 0 }));
-        }
-        {
-            window_type parent{};
-            color_dialog_type color{ boost::none, parent };
+                        BOOST_CHECK((color.result() == color_type{ 0, 0, 0 }));
+                    }
+                    {
+                        window_type       parent{};
+                        color_dialog_type color{ boost::none, parent };
 
-            color.do_modal();
+                        color.do_modal();
 
-            BOOST_CHECK((color.result() != color_type{ 0, 0, 0 }));
-        }
-    }
+                        BOOST_CHECK((color.result() != color_type{ 0, 0, 0 }));
+                    }
+                }
 
-    BOOST_AUTO_TEST_CASE(do_modal)
-    {
-        BOOST_TEST_PASSPOINT();
+                BOOST_AUTO_TEST_CASE(do_modal)
+                {
+                    BOOST_TEST_PASSPOINT();
 
-        window_type parent{};
-        color_dialog_type color{ boost::none, parent };
+                    window_type       parent{};
+                    color_dialog_type color{ boost::none, parent };
 
-        color.do_modal();
-    }
+                    color.do_modal();
+                }
 
-    BOOST_AUTO_TEST_CASE(details)
-    {
-        BOOST_TEST_PASSPOINT();
+                BOOST_AUTO_TEST_CASE(details)
+                {
+                    BOOST_TEST_PASSPOINT();
 
-        {
-            window_type parent{};
-            const color_dialog_type color{ boost::none, parent };
+                    {
+                        window_type             parent{};
+                        const color_dialog_type color{ boost::none, parent };
 
-            color.details();
-        }
-        {
-            window_type parent{};
-            color_dialog_type color{ boost::none, parent };
+                        color.details();
+                    }
+                    {
+                        window_type       parent{};
+                        color_dialog_type color{ boost::none, parent };
 
-            color.details();
-        }
-    }
+                        color.details();
+                    }
+                }
 
 
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
+            BOOST_AUTO_TEST_SUITE_END()
+        BOOST_AUTO_TEST_SUITE_END()
+    BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

@@ -19,8 +19,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace drawing
-{
+namespace tetengo2 { namespace gui { namespace drawing {
     /*!
         \brief The class template for a picture reader.
 
@@ -50,10 +49,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \param path A path.
         */
-        explicit picture_reader(boost::filesystem::path path)
-        :
-        m_path(std::move(path))
-        {}
+        explicit picture_reader(boost::filesystem::path path) : m_path(std::move(path)) {}
 
 
         // functions
@@ -79,8 +75,6 @@ namespace tetengo2 { namespace gui { namespace drawing
         // variables
 
         const boost::filesystem::path m_path;
-
-
     };
 
 

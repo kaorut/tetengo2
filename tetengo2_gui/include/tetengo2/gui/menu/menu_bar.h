@@ -16,8 +16,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace menu
-{
+namespace tetengo2 { namespace gui { namespace menu {
     /*!
         \brief The class template for a menu bar.
 
@@ -32,8 +31,7 @@ namespace tetengo2 { namespace gui { namespace menu
         typename ShortcutKeyTable,
         typename Encoder,
         typename MenuDetails,
-        typename VirtualKeyDetails
-    >
+        typename VirtualKeyDetails>
     class menu_bar : public abstract_popup<String, Encoder, MenuDetails, VirtualKeyDetails>
     {
     public:
@@ -64,16 +62,14 @@ namespace tetengo2 { namespace gui { namespace menu
             \brief Creates a menu bar.
         */
         menu_bar()
-        :
-        base_type(string_type{}, menu_details_type::create_menu_bar()),
-        m_p_shortcut_key_table(stdalt::make_unique<shortcut_key_table_type>())
+        : base_type(string_type{}, menu_details_type::create_menu_bar()),
+          m_p_shortcut_key_table(stdalt::make_unique<shortcut_key_table_type>())
         {}
 
         /*!
             \brief Destroys the menu bar.
         */
-        virtual ~menu_bar()
-        = default;
+        virtual ~menu_bar() = default;
 
 
         // functions
@@ -83,8 +79,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The shortcut key table.
         */
-        const shortcut_key_table_type& shortcut_key_table()
-        const
+        const shortcut_key_table_type& shortcut_key_table() const
         {
             assert(m_p_shortcut_key_table);
             return *m_p_shortcut_key_table;
@@ -113,13 +108,10 @@ namespace tetengo2 { namespace gui { namespace menu
 
         // virtual functions
 
-        virtual const style_type& style_impl()
-        const override
+        virtual const style_type& style_impl() const override
         {
             return menu_details_type::template menu_bar_style<typename base_type::base_type>();
         }
-
-
     };
 
 

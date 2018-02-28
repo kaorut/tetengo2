@@ -16,8 +16,7 @@
 #include <tetengo2/gui/widget/abstract_window.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget
-{
+namespace tetengo2 { namespace gui { namespace widget {
     /*!
         \brief The class template for a window.
 
@@ -69,15 +68,12 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         explicit window(
             const scroll_bar_style_type scroll_bar_style = base_type::scroll_bar_style_type::none,
-            const bool file_droppable = false
-        )
-        :
-        base_type(scroll_bar_style, file_droppable, message_handler_map_type{}),
-        m_p_details(
-            widget_details_type::template create_window<typename base_type::base_type>(
-                nullptr, scroll_bar_style, file_droppable
-            )
-        )
+            const bool                  file_droppable = false)
+        : base_type(scroll_bar_style, file_droppable, message_handler_map_type{}),
+          m_p_details(widget_details_type::template create_window<typename base_type::base_type>(
+              nullptr,
+              scroll_bar_style,
+              file_droppable))
         {
             initialize_window();
         }
@@ -92,22 +88,20 @@ namespace tetengo2 { namespace gui { namespace widget
         window(base_type& parent, const scroll_bar_style_type scroll_bar_style, const bool file_droppable)
         :
 #if BOOST_COMP_MSVC
-#   pragma warning(push)
-#   pragma warning(disable: 4355)
+#pragma warning(push)
+#pragma warning(disable : 4355)
 #endif
-        base_type(
-            scroll_bar_style,
-            file_droppable,
-            message_handler_details_type::make_window_message_handler_map(*this, message_handler_map_type{})
-        ),
+          base_type(
+              scroll_bar_style,
+              file_droppable,
+              message_handler_details_type::make_window_message_handler_map(*this, message_handler_map_type{})),
 #if BOOST_COMP_MSVC
-#   pragma warning(pop)
+#pragma warning(pop)
 #endif
-        m_p_details(
-            widget_details_type::template create_window<typename base_type::base_type>(
-                &parent, scroll_bar_style, file_droppable
-            )
-        )
+          m_p_details(widget_details_type::template create_window<typename base_type::base_type>(
+              &parent,
+              scroll_bar_style,
+              file_droppable))
         {
             initialize_window();
 
@@ -117,8 +111,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Destroys the window.
         */
-        virtual ~window()
-        noexcept
+        virtual ~window() noexcept
         {
             try
             {
@@ -126,7 +119,8 @@ namespace tetengo2 { namespace gui { namespace widget
                     this->parent().child_observer_set().destroying()(*this);
             }
             catch (...)
-            {}
+            {
+            }
         }
 
 
@@ -143,15 +137,13 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // virtual functions
 
-        virtual const details_type& details_impl()
-        const override
+        virtual const details_type& details_impl() const override
         {
             assert(m_p_details);
             return *m_p_details;
         }
 
-        virtual details_type& details_impl()
-        override
+        virtual details_type& details_impl() override
         {
             assert(m_p_details);
             return *m_p_details;
@@ -164,8 +156,6 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             base_type::initialize(this);
         }
-
-
     };
 
 

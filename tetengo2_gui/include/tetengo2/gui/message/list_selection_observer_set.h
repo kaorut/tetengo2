@@ -14,8 +14,7 @@
 #include <boost/signals2.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace message
-{
+namespace tetengo2 { namespace gui { namespace message {
     /*!
         \brief The class for a list selection observer set.
     */
@@ -27,7 +26,7 @@ namespace tetengo2 { namespace gui { namespace message
         /*!
             \brief The observer type of a selection change.
         */
-        using selection_changed_type = void ();
+        using selection_changed_type = void();
 
         //! The signal type of a selection change.
         using selection_changed_signal_type = boost::signals2::signal<selection_changed_type>;
@@ -40,8 +39,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a selection is changed.
         */
-        const selection_changed_signal_type& selection_changed()
-        const
+        const selection_changed_signal_type& selection_changed() const
         {
             return m_selection_changed;
         }
@@ -61,8 +59,6 @@ namespace tetengo2 { namespace gui { namespace message
         // variables
 
         selection_changed_signal_type m_selection_changed;
-
-
     };
 
 

@@ -20,8 +20,7 @@
 #include <tetengo2/gui/menu/shortcut_key.h>
 
 
-namespace tetengo2 { namespace gui { namespace menu
-{
+namespace tetengo2 { namespace gui { namespace menu {
     /*!
         \brief The class template for a shortcut key table.
 
@@ -73,9 +72,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \brief Creates an empty shortcut key table.
         */
         shortcut_key_table()
-        :
-        m_entries(),
-        m_p_details(menu_details_type::template create_shortcut_key_table<entry_type>())
+        : m_entries(), m_p_details(menu_details_type::template create_shortcut_key_table<entry_type>())
         {}
 
         /*!
@@ -88,12 +85,10 @@ namespace tetengo2 { namespace gui { namespace menu
         */
         template <typename ForwardIterator>
         shortcut_key_table(const ForwardIterator first, const ForwardIterator last)
-        :
-        m_entries(build_entries(first, last)),
-        m_p_details(menu_details_type::create_shortcut_key_table(first, last))
+        : m_entries(build_entries(first, last)), m_p_details(menu_details_type::create_shortcut_key_table(first, last))
         {}
 
-        
+
         // functions
 
         /*!
@@ -101,8 +96,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The first immutable iterator.
         */
-        iterator begin()
-        const
+        iterator begin() const
         {
             return m_entries.begin();
         }
@@ -112,8 +106,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The last immutable iterator.
         */
-        iterator end()
-        const
+        iterator end() const
         {
             return m_entries.end();
         }
@@ -123,8 +116,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The detail implementation.
         */
-        const details_type& details()
-        const
+        const details_type& details() const
         {
             assert(m_p_details);
             return *m_p_details;
@@ -153,7 +145,8 @@ namespace tetengo2 { namespace gui { namespace menu
 
             for (ForwardIterator i = first; i != last; ++i)
             {
-                if (!i->has_shortcut_key()) continue;
+                if (!i->has_shortcut_key())
+                    continue;
 
                 entries.emplace_back(i->get_shortcut_key(), &*i);
             }
@@ -167,8 +160,6 @@ namespace tetengo2 { namespace gui { namespace menu
         std::vector<entry_type> m_entries;
 
         details_ptr_type m_p_details;
-
-
     };
 
 

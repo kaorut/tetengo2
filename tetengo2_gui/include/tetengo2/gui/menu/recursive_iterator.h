@@ -16,22 +16,20 @@
 
 #include <boost/iterator/iterator_facade.hpp>
 
-namespace boost { namespace iterators
-{
+namespace boost { namespace iterators {
     struct forward_traversal_tag;
 }}
 
 
-namespace tetengo2 { namespace gui { namespace menu
-{
+namespace tetengo2 { namespace gui { namespace menu {
     /*!
         \brief The class template for a recursive iterator.
 
         \tparam MenuBase A menu base type.
     */
     template <typename MenuBase>
-    class recursive_iterator :
-        public boost::iterator_facade<recursive_iterator<MenuBase>, MenuBase, boost::forward_traversal_tag>
+    class recursive_iterator
+    : public boost::iterator_facade<recursive_iterator<MenuBase>, MenuBase, boost::forward_traversal_tag>
     {
     public:
         // types
@@ -45,10 +43,7 @@ namespace tetengo2 { namespace gui { namespace menu
         /*!
             \brief Creates a recursive iterator.
         */
-        recursive_iterator()
-        :
-        m_p_menu(nullptr),
-        m_parents()
+        recursive_iterator() : m_p_menu(nullptr), m_parents()
         {
             m_parents.emplace(nullptr, 0);
         }
@@ -58,10 +53,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \param p_menu A pointer to a menu.
         */
-        explicit recursive_iterator(menu_base_type* const p_menu)
-        :
-        m_p_menu(p_menu),
-        m_parents()
+        explicit recursive_iterator(menu_base_type* const p_menu) : m_p_menu(p_menu), m_parents()
         {
             m_parents.emplace(nullptr, 0);
         }
@@ -74,8 +66,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The value.
         */
-        menu_base_type& dereference()
-        const
+        menu_base_type& dereference() const
         {
             return *m_p_menu;
         }
@@ -88,8 +79,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \retval true  When this iterator is equal to another.
             \retval false Otherwise.
         */
-        bool equal(const recursive_iterator& another)
-        const
+        bool equal(const recursive_iterator& another) const
         {
             return m_p_menu == another.m_p_menu;
         }
@@ -135,8 +125,6 @@ namespace tetengo2 { namespace gui { namespace menu
         menu_base_type* m_p_menu;
 
         std::stack<parent_and_index_type> m_parents;
-
-
     };
 
 

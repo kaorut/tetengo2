@@ -15,8 +15,7 @@
 #include <tetengo2/text/encoding/locale.h>
 
 
-namespace tetengo2 { namespace type_list
-{
+namespace tetengo2 { namespace type_list {
     //! The type for integer.
     using integer_type = int;
 

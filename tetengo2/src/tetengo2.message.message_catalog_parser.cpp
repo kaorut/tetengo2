@@ -27,8 +27,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace message
-{
+namespace tetengo2 { namespace message {
     template <typename ForwardIterator>
     class message_catalog_parser<ForwardIterator>::impl : private boost::noncopyable
     {
@@ -51,24 +50,19 @@ namespace tetengo2 { namespace message
         // constructors and destructor
 
         impl(std::unique_ptr<pull_parser_type> p_pull_parser, input_encoding_type input_encoding)
-        :
-        m_p_pull_parser(std::move(p_pull_parser)),
-        m_input_encoder(make_input_encoder(std::move(input_encoding))),
-        m_p_preread_entry(),
-        m_preamble_read_succeeded()
+        : m_p_pull_parser(std::move(p_pull_parser)), m_input_encoder(make_input_encoder(std::move(input_encoding))),
+          m_p_preread_entry(), m_preamble_read_succeeded()
         {}
 
 
         // functions
 
-        bool has_next()
-        const
+        bool has_next() const
         {
             return preread();
         }
 
-        const entry_type& peek()
-        const
+        const entry_type& peek() const
         {
             if (!has_next())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "No next entry." }));
@@ -120,10 +114,10 @@ namespace tetengo2 { namespace message
 
         // functions
 
-        bool preread()
-        const
+        bool preread() const
         {
-            if (m_p_preread_entry) return true;
+            if (m_p_preread_entry)
+                return true;
 
             if (!m_preamble_read_succeeded)
                 skip_preamble();
@@ -138,8 +132,7 @@ namespace tetengo2 { namespace message
             return true;
         }
 
-        void skip_preamble()
-        const
+        void skip_preamble() const
         {
             if (!next_is<structure_begin_type>(input_string_type{ TETENGO2_TEXT("object") }))
             {
@@ -148,20 +141,14 @@ namespace tetengo2 { namespace message
             }
             m_p_pull_parser->next();
 
-            if (
-                next_is<structure_begin_type>(
-                    input_string_type{ TETENGO2_TEXT("member") }, input_string_type{ TETENGO2_TEXT("header") }
-                )
-            )
+            if (next_is<structure_begin_type>(
+                    input_string_type{ TETENGO2_TEXT("member") }, input_string_type{ TETENGO2_TEXT("header") }))
             {
                 m_p_pull_parser->skip_next();
             }
 
-            if (
-                !next_is<structure_begin_type>(
-                    input_string_type{ TETENGO2_TEXT("member") }, input_string_type{ TETENGO2_TEXT("body") }
-                )
-            )
+            if (!next_is<structure_begin_type>(
+                    input_string_type{ TETENGO2_TEXT("member") }, input_string_type{ TETENGO2_TEXT("body") }))
             {
                 m_preamble_read_succeeded = boost::make_optional(false);
                 return;
@@ -179,8 +166,7 @@ namespace tetengo2 { namespace message
             return;
         }
 
-        std::unique_ptr<entry_type> next_entry()
-        const
+        std::unique_ptr<entry_type> next_entry() const
         {
             input_string_type key{};
             input_string_type value{};
@@ -228,8 +214,7 @@ namespace tetengo2 { namespace message
         }
 
         template <typename Structure>
-        bool next_is(const input_string_type& name, const input_string_type& attribute = input_string_type{})
-        const
+        bool next_is(const input_string_type& name, const input_string_type& attribute = input_string_type{}) const
         {
             if (!m_p_pull_parser->has_next())
                 return false;
@@ -250,57 +235,48 @@ namespace tetengo2 { namespace message
             return true;
         }
 
-        bool is_structure(const element_type& element, const structure_begin_type* const)
-        const
+        bool is_structure(const element_type& element, const structure_begin_type* const) const
         {
             return element.which() == 0;
         }
 
-        bool is_structure(const element_type& element, const structure_end_type* const)
-        const
+        bool is_structure(const element_type& element, const structure_end_type* const) const
         {
             return element.which() == 1;
         }
 
-        input_string_type get_attribute(const structure_begin_type& structure)
-        const
+        input_string_type get_attribute(const structure_begin_type& structure) const
         {
             const auto found = structure.attribute_map().find(input_string_type{ TETENGO2_TEXT("name") });
             if (found == structure.attribute_map().end())
                 return {};
             if (found->second.which() != 4)
                 return {};
-            
+
             return boost::get<input_string_type>(found->second);
         }
-
-
     };
 
 
     template <typename ForwardIterator>
     message_catalog_parser<ForwardIterator>::message_catalog_parser(
         std::unique_ptr<pull_parser_type> p_pull_parser,
-        input_encoding_type input_encoding
-    )
-    :
-    m_p_impl(stdalt::make_unique<impl>(std::move(p_pull_parser), std::move(input_encoding)))
+        input_encoding_type               input_encoding)
+    : m_p_impl(stdalt::make_unique<impl>(std::move(p_pull_parser), std::move(input_encoding)))
     {}
 
     template <typename ForwardIterator>
-    message_catalog_parser<ForwardIterator>::~message_catalog_parser()
-    = default;
+    message_catalog_parser<ForwardIterator>::~message_catalog_parser() = default;
 
     template <typename ForwardIterator>
-    bool message_catalog_parser<ForwardIterator>::has_next()
-    const
+    bool message_catalog_parser<ForwardIterator>::has_next() const
     {
         return m_p_impl->has_next();
     }
 
     template <typename ForwardIterator>
-    const typename message_catalog_parser<ForwardIterator>::entry_type& message_catalog_parser<ForwardIterator>::peek()
-    const
+    const typename message_catalog_parser<ForwardIterator>::entry_type&
+    message_catalog_parser<ForwardIterator>::peek() const
     {
         return m_p_impl->peek();
     }
@@ -312,21 +288,15 @@ namespace tetengo2 { namespace message
     }
 
 
-    namespace
-    {
-        namespace application
-        {
+    namespace {
+        namespace application {
             using input_stream_iterator_type =
                 iterator::observable_forward_iterator<boost::spirit::multi_pass<std::istreambuf_iterator<char>>>;
-
         }
 
-        namespace test
-        {
+        namespace test {
             using input_stream_iterator_type = std::string::const_iterator;
-
         }
-
     }
 
     template class message_catalog_parser<application::input_stream_iterator_type>;

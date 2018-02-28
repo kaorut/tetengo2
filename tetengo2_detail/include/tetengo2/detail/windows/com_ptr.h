@@ -11,50 +11,44 @@
 
 #include <memory>
 
-#pragma warning (push)
-#pragma warning (disable: 4005)
+#pragma warning(push)
+#pragma warning(disable : 4005)
 #include <intsafe.h>
 #include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE
-#include <Windows.h>
 #include <Unknwn.h>
+#include <Windows.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows
-{
+namespace tetengo2 { namespace detail {
+    namespace windows {
 #if !defined(DOCUMENTATION)
-    namespace detail
-    {
-        // types
+        namespace detail {
+            // types
 
-        struct release_unknown
-        {
-            void operator()(::IUnknown* const p_unknown)
-            const
+            struct release_unknown
             {
-                if (p_unknown)
-                    p_unknown->Release();
-            }
-
-        };
-
-
-    }
+                void operator()(::IUnknown* const p_unknown) const
+                {
+                    if (p_unknown)
+                        p_unknown->Release();
+                }
+            };
+        }
 #endif
 
 
-    /*!
-        \brief The meta function for a unique COM pointer.
+        /*!
+            \brief The meta function for a unique COM pointer.
 
-        \tparam T A type.
-    */
-    template <typename T>
-    using unique_com_ptr = std::unique_ptr<T, detail::release_unknown>;
-
-
-}}}
+            \tparam T A type.
+        */
+        template <typename T>
+        using unique_com_ptr = std::unique_ptr<T, detail::release_unknown>;
+    }
+}}
 
 
 #endif

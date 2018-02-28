@@ -10,8 +10,8 @@
 #include <string>
 #include <system_error>
 
-#pragma warning (push)
-#pragma warning (disable: 4005)
+#pragma warning(push)
+#pragma warning(disable : 4005)
 #include <intsafe.h>
 #include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
@@ -19,10 +19,10 @@
 #define OEMRESOURCE
 #include <Windows.h>
 #if !defined(min) && !defined(DOCUMENTATION)
-#   define min(a, b) ((a) < (b) ? (a) : (b))
+#define min(a, b) ((a) < (b) ? (a) : (b))
 #endif
 #if !defined(max) && !defined(DOCUMENTATION)
-#   define max(a, b) ((a) > (b) ? (a) : (b))
+#define max(a, b) ((a) > (b) ? (a) : (b))
 #endif
 #include <GdiPlus.h>
 #undef min
@@ -31,33 +31,25 @@
 #include <tetengo2/detail/windows/gdiplus/error_category.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
-{
-    error_category::error_category()
-    :
-    std::error_category()
-    {}
+namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus {
+    error_category::error_category() : std::error_category() {}
 
-    error_category::~error_category()
-    = default;
+    error_category::~error_category() = default;
 
-    const char* error_category::name()
-    const noexcept
+    const char* error_category::name() const noexcept
     {
         return "gdiplus";
     }
 
-    std::string error_category::message(const int error_value)
-    const
+    std::string error_category::message(const int error_value) const
     {
         switch (error_value)
         {
         case Gdiplus::Ok:
             return "The method call was successful.";
         case Gdiplus::GenericError:
-            return
-                "There was an error on the method call, which is identified as something other than those defined by "
-                "the other elements of this enumeration.";
+            return "There was an error on the method call, which is identified as something other than those defined by "
+                   "the other elements of this enumeration.";
         case Gdiplus::InvalidParameter:
             return "One of the arguments passed to the method was not valid.";
         case Gdiplus::OutOfMemory:
@@ -65,9 +57,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         case Gdiplus::ObjectBusy:
             return "One of the arguments specified in the API call is already in use in another thread.";
         case Gdiplus::InsufficientBuffer:
-            return
-                "A buffer specified as an argument in the API call is not large enough to hold the data to be "
-                "received.";
+            return "A buffer specified as an argument in the API call is not large enough to hold the data to be "
+                   "received.";
         case Gdiplus::NotImplemented:
             return "The method is not implemented.";
         case Gdiplus::Win32Error:
@@ -85,21 +76,18 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         case Gdiplus::UnknownImageFormat:
             return "The specified image file format is not known.";
         case Gdiplus::FontFamilyNotFound:
-            return
-                "The specified font family cannot be found. Either the font family name is incorrect or the font "
-                "family is not installed.";
+            return "The specified font family cannot be found. Either the font family name is incorrect or the font "
+                   "family is not installed.";
         case Gdiplus::FontStyleNotFound:
             return "The specified style is not available for the specified font family.";
         case Gdiplus::NotTrueTypeFont:
             return "The font retrieved from an HDC or LOGFONT is not a TrueType font and cannot be used with GDI+.";
         case Gdiplus::UnsupportedGdiplusVersion:
-            return
-                "The version of GDI+ that is installed on the system is incompatible with the version with which the "
-                "application was compiled.";
+            return "The version of GDI+ that is installed on the system is incompatible with the version with which the "
+                   "application was compiled.";
         case Gdiplus::GdiplusNotInitialized:
-            return
-                "The GDI+API is not in an initialized state. To function, all GDI+ objects require that GDI+ be in an "
-                "initialized state. Initialize GDI+ by calling GdiplusStartup.";
+            return "The GDI+API is not in an initialized state. To function, all GDI+ objects require that GDI+ be in an "
+                   "initialized state. Initialize GDI+ by calling GdiplusStartup.";
         case Gdiplus::PropertyNotFound:
             return "The specified property does not exist in the image.";
         case Gdiplus::PropertyNotSupported:

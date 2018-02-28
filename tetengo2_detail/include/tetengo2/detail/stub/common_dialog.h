@@ -21,8 +21,7 @@
 #include <tetengo2/text.h>
 
 
-namespace tetengo2 { namespace detail { namespace stub
-{
+namespace tetengo2 { namespace detail { namespace stub {
     /*!
         \brief The class for a detail implementation of dialogs.
     */
@@ -34,58 +33,68 @@ namespace tetengo2 { namespace detail { namespace stub
         //! The message box button style type.
         enum class message_box_button_style_type
         {
-            ok,     //!< With OK button.
+            ok, //!< With OK button.
             yes_no, //!< With Yes and No buttons.
         };
 
         //! The message box icon style type.
         enum class message_box_icon_style_type
         {
-            error,       //!< Error.
-            warning,     //!< Warning.
+            error, //!< Error.
+            warning, //!< Warning.
             information, //!< Information.
         };
 
         //! The message box button ID type.
         enum class message_box_button_id_type
         {
-            ok,     //!< OK button.
-            yes,    //!< Yes button.
-            no,     //!< No button.
+            ok, //!< OK button.
+            yes, //!< Yes button.
+            no, //!< No button.
             cancel, //!< Cancel button.
         };
 
         //! The message box details type.
-        struct message_box_details_type {};
+        struct message_box_details_type
+        {
+        };
 
         //! The message box details pointer type.
         using message_box_details_ptr_type = std::unique_ptr<message_box_details_type>;
 
         //! The file open dialog details type.
-        struct file_open_dialog_details_type {};
+        struct file_open_dialog_details_type
+        {
+        };
 
         //! The file open dialog details pointer type.
         using file_open_dialog_details_ptr_type = std::unique_ptr<file_open_dialog_details_type>;
 
         //! The file save dialog details type.
-        struct file_save_dialog_details_type {};
+        struct file_save_dialog_details_type
+        {
+        };
 
         //! The file save dialog details pointer type.
         using file_save_dialog_details_ptr_type = std::unique_ptr<file_save_dialog_details_type>;
 
         //! The font dialog details type.
-        struct font_dialog_details_type {};
+        struct font_dialog_details_type
+        {
+        };
 
         //! The font dialog details pointer type.
         using font_dialog_details_ptr_type = std::unique_ptr<font_dialog_details_type>;
 
         //! The color dialog details type.
-        struct color_dialog_details_type {};
+        struct color_dialog_details_type
+        {
+        };
 
         //! The color dialog details pointer type.
         using color_dialog_details_ptr_type = std::unique_ptr<color_dialog_details_type>;
 
-        
+
         // static functions
 
         /*!
@@ -119,8 +128,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const message_box_icon_style_type          icon_style,
             boost::optional<String>                    custom_ok_button_label,
             boost::optional<std::pair<String, String>> custom_yes_no_button_labels,
-            const Encoder&                             encoder
-        )
+            const Encoder&                             encoder)
         {
             boost::ignore_unused(
                 parent,
@@ -132,8 +140,7 @@ namespace tetengo2 { namespace detail { namespace stub
                 icon_style,
                 custom_ok_button_label,
                 custom_yes_no_button_labels,
-                encoder
-            );
+                encoder);
 
             return stdalt::make_unique<message_box_details_type>();
         }
@@ -172,12 +179,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the file open dialog cannot be created.
         */
         template <typename AbstractWindow, typename String, typename Filters, typename Encoder>
-        static file_open_dialog_details_ptr_type create_file_open_dialog(
-            AbstractWindow& parent,
-            String          title,
-            const Filters&  filters,
-            const Encoder&  encoder
-        )
+        static file_open_dialog_details_ptr_type
+        create_file_open_dialog(AbstractWindow& parent, String title, const Filters& filters, const Encoder& encoder)
         {
             boost::ignore_unused(parent, title, filters, encoder);
 
@@ -197,10 +200,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the file open dialog cannot be shown.
         */
         template <typename Encoder>
-        static boost::optional<boost::filesystem::path> show_file_open_dialog(
-            file_open_dialog_details_type& dialog,
-            const Encoder&                 encoder
-        )
+        static boost::optional<boost::filesystem::path>
+        show_file_open_dialog(file_open_dialog_details_type& dialog, const Encoder& encoder)
         {
             boost::ignore_unused(dialog, encoder);
 
@@ -232,8 +233,7 @@ namespace tetengo2 { namespace detail { namespace stub
             String              title,
             const OptionalPath& path,
             const Filters&      filters,
-            const Encoder&      encoder
-        )
+            const Encoder&      encoder)
         {
             boost::ignore_unused(parent, title, path, filters, encoder);
 
@@ -253,10 +253,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the file save dialog cannot be shown.
         */
         template <typename Encoder>
-        static boost::optional<boost::filesystem::path> show_file_save_dialog(
-            file_save_dialog_details_type& dialog,
-            const Encoder&                 encoder
-        )
+        static boost::optional<boost::filesystem::path>
+        show_file_save_dialog(file_save_dialog_details_type& dialog, const Encoder& encoder)
         {
             boost::ignore_unused(dialog, encoder);
 
@@ -279,11 +277,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the font dialog cannot be created.
         */
         template <typename AbstractWindow, typename OptionalFont, typename Encoder>
-        static font_dialog_details_ptr_type create_font_dialog(
-            AbstractWindow&     parent,
-            const OptionalFont& font,
-            const Encoder&      encoder
-        )
+        static font_dialog_details_ptr_type
+        create_font_dialog(AbstractWindow& parent, const OptionalFont& font, const Encoder& encoder)
         {
             boost::ignore_unused(parent, font, encoder);
             return stdalt::make_unique<font_dialog_details_type>();
@@ -307,12 +302,8 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             boost::ignore_unused(dialog, encoder);
 
-            return
-                boost::make_optional(
-                    Font{
-                        typename Font::string_type{ TETENGO2_TEXT("font_dialog_font") }, 42, false, true, false, true
-                    }
-                );
+            return boost::make_optional(
+                Font{ typename Font::string_type{ TETENGO2_TEXT("font_dialog_font") }, 42, false, true, false, true });
         }
 
         /*!
@@ -354,8 +345,6 @@ namespace tetengo2 { namespace detail { namespace stub
 
             return boost::make_optional(Color{ 0xAB, 0xCD, 0xEF });
         }
-
-
     };
 
 

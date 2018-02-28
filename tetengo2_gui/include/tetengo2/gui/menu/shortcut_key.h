@@ -16,8 +16,7 @@
 #include <tetengo2/gui/virtual_key.h>
 
 
-namespace tetengo2 { namespace gui { namespace menu
-{
+namespace tetengo2 { namespace gui { namespace menu {
     /*!
         \brief The class template for a shortcut key.
 
@@ -51,14 +50,10 @@ namespace tetengo2 { namespace gui { namespace menu
             \param meta    True when a meta key is required.
         */
         shortcut_key(const virtual_key_type& key, const bool shift, const bool control, const bool meta)
-        :
-        m_p_key(&key),
-        m_shift(shift),
-        m_control(control),
-        m_meta(meta)
+        : m_p_key(&key), m_shift(shift), m_control(control), m_meta(meta)
         {}
 
-        
+
         // functions
 
         /*!
@@ -72,11 +67,8 @@ namespace tetengo2 { namespace gui { namespace menu
         */
         friend bool operator==(const shortcut_key& one, const shortcut_key& another)
         {
-            return
-                one.m_p_key == another.m_p_key &&
-                one.m_shift == another.m_shift &&
-                one.m_control == another.m_control &&
-                one.m_meta == another.m_meta;
+            return one.m_p_key == another.m_p_key && one.m_shift == another.m_shift &&
+                   one.m_control == another.m_control && one.m_meta == another.m_meta;
         }
 
         /*!
@@ -84,8 +76,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The key.
         */
-        const virtual_key_type& key()
-        const
+        const virtual_key_type& key() const
         {
             return *m_p_key;
         }
@@ -96,8 +87,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \retval true  When a shift key is required.
             \retval false Otherwise.
         */
-        bool shift()
-        const
+        bool shift() const
         {
             return m_shift;
         }
@@ -108,8 +98,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \retval true  When a control key is required.
             \retval false Otherwise.
         */
-        bool control()
-        const
+        bool control() const
         {
             return m_control;
         }
@@ -120,8 +109,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \retval true  When a meta key is required.
             \retval false Otherwise.
         */
-        bool meta()
-        const
+        bool meta() const
         {
             return m_meta;
         }
@@ -131,11 +119,10 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The string representation.
         */
-        string_type to_string()
-        const
+        string_type to_string() const
         {
             std::vector<const virtual_key_type*> keys{};
-            
+
             if (m_shift)
                 keys.push_back(&virtual_key_type::shift());
             if (m_control)
@@ -158,8 +145,6 @@ namespace tetengo2 { namespace gui { namespace menu
         bool m_control;
 
         bool m_meta;
-
-
     };
 
 

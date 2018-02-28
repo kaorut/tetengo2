@@ -12,16 +12,16 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
-#pragma warning (push)
-#pragma warning (disable: 4005)
+#pragma warning(push)
+#pragma warning(disable : 4005)
 #include <intsafe.h>
 #include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE
-#include <Windows.h>
 #include <CommCtrl.h>
 #include <ObjBase.h>
+#include <Windows.h>
 
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/gdiplus/gui_fixture.h> // IWYU pragma: keep
@@ -30,16 +30,13 @@
 #include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
-namespace tetengo2 { namespace detail { namespace windows
-{
+namespace tetengo2 { namespace detail { namespace windows {
     class gui_fixture::impl : private boost::noncopyable
     {
     public:
         // constructors and destructor
 
-        impl()
-        :
-        m_p_gdiplus_gui_fixture()
+        impl() : m_p_gdiplus_gui_fixture()
         {
             check_platform();
             setup_common_controls();
@@ -55,12 +52,8 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             if (!on_windows_vista_or_later())
             {
-                BOOST_THROW_EXCEPTION((
-                    std::system_error{
-                        std::error_code{ ERROR_OLD_WIN_VERSION, win32_category() },
-                        "This program can't run on this platform."
-                    }
-                ));
+                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ ERROR_OLD_WIN_VERSION, win32_category() },
+                                                          "This program can't run on this platform." }));
             }
         }
 
@@ -68,22 +61,13 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             ::INITCOMMONCONTROLSEX enabled_common_controls{};
             enabled_common_controls.dwSize = sizeof(::INITCOMMONCONTROLSEX);
-            enabled_common_controls.dwICC =
-                ICC_WIN95_CLASSES |
-                ICC_DATE_CLASSES |
-                ICC_COOL_CLASSES |
-                ICC_INTERNET_CLASSES |
-                ICC_PAGESCROLLER_CLASS |
-                ICC_NATIVEFNTCTL_CLASS |
-                ICC_STANDARD_CLASSES |
-                ICC_LINK_CLASS;
+            enabled_common_controls.dwICC = ICC_WIN95_CLASSES | ICC_DATE_CLASSES | ICC_COOL_CLASSES |
+                                            ICC_INTERNET_CLASSES | ICC_PAGESCROLLER_CLASS | ICC_NATIVEFNTCTL_CLASS |
+                                            ICC_STANDARD_CLASSES | ICC_LINK_CLASS;
             if (::InitCommonControlsEx(&enabled_common_controls) == FALSE)
             {
-                BOOST_THROW_EXCEPTION((
-                    std::system_error{
-                        std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "Can't initialize common controls!"
-                    }
-                ));
+                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ ERROR_FUNCTION_FAILED, win32_category() },
+                                                          "Can't initialize common controls!" }));
             }
         }
 
@@ -92,9 +76,8 @@ namespace tetengo2 { namespace detail { namespace windows
             const auto result = ::CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
             if (result != S_OK)
             {
-                BOOST_THROW_EXCEPTION((
-                    std::system_error{ std::error_code{ result, win32_category() }, "Can't initlaize COM." }
-                ));
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ result, win32_category() }, "Can't initlaize COM." }));
             }
         }
 
@@ -110,18 +93,12 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             m_p_gdiplus_gui_fixture = stdalt::make_unique<gdiplus::gui_fixture>();
         }
-
-
     };
 
 
-    gui_fixture::gui_fixture()
-    :
-    m_p_impl(stdalt::make_unique<impl>())
-    {}
+    gui_fixture::gui_fixture() : m_p_impl(stdalt::make_unique<impl>()) {}
 
-    gui_fixture::~gui_fixture()
-    = default;
+    gui_fixture::~gui_fixture() = default;
 
 
 }}}

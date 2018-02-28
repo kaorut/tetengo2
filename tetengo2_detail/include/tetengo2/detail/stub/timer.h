@@ -16,8 +16,7 @@
 #include <boost/core/noncopyable.hpp>
 
 
-namespace tetengo2 { namespace detail { namespace stub
-{
+namespace tetengo2 { namespace detail { namespace stub {
     /*!
         \brief The class for a detail implementation of a timer.
     */
@@ -39,10 +38,9 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         timer(
             const Widget&                    widget,
-            std::function<void (bool&)>      procedure,
+            std::function<void(bool&)>       procedure,
             const std::chrono::milliseconds& interval,
-            const bool                       once_only
-        )
+            const bool                       once_only)
         {
             boost::ignore_unused(widget, procedure, interval, once_only);
         }
@@ -55,8 +53,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \return The stopped status.
         */
-        bool stopped()
-        const
+        bool stopped() const
         {
             return true;
         }
@@ -64,10 +61,7 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Stops the timer.
         */
-        void stop()
-        {}
-
-
+        void stop() {}
     };
 
 

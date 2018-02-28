@@ -18,8 +18,8 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
-#pragma warning (push)
-#pragma warning (disable: 4005)
+#pragma warning(push)
+#pragma warning(disable : 4005)
 #include <intsafe.h>
 #include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
@@ -31,8 +31,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows
-{
+namespace tetengo2 { namespace detail { namespace windows {
     /*!
         \brief The class for a detail implementation of a scroll.
     */
@@ -52,17 +51,13 @@ namespace tetengo2 { namespace detail { namespace windows
         {
 #if !defined(DOCUMENTATION)
             ::HWND window_handle;
-            int native_style;
-            bool enabled;
+            int    native_style;
+            bool   enabled;
 
             scroll_bar_details_type(const ::HWND window_handle, const int native_style, const bool enabled)
-            :
-            window_handle(window_handle),
-            native_style(native_style),
-            enabled(enabled)
+            : window_handle(window_handle), native_style(native_style), enabled(enabled)
             {}
 #endif
-
         };
 
         //! The scroll bar details pointer type.
@@ -71,7 +66,7 @@ namespace tetengo2 { namespace detail { namespace windows
         //! The style type.
         enum class style_type
         {
-            vertical,   //!< The vertical style.
+            vertical, //!< The vertical style.
             horizontal, //!< The horizontal style.
         };
 
@@ -86,20 +81,16 @@ namespace tetengo2 { namespace detail { namespace windows
             \param widget_details A detail implementation of a widget.
             \param style          A style.
 
-            \return A unique pointer to a scroll bar. 
+            \return A unique pointer to a scroll bar.
 
             \throw std::system_error When a system cursor cannot be created.
         */
         template <typename WidgetDetails>
-        static scroll_bar_details_ptr_type create_scroll_bar(
-            const WidgetDetails& widget_details,
-            const style_type     style
-        )
+        static scroll_bar_details_ptr_type
+        create_scroll_bar(const WidgetDetails& widget_details, const style_type style)
         {
             auto p_scroll_bar_details =
-                stdalt::make_unique<scroll_bar_details_type>(
-                    widget_details.handle.get(), to_native_style(style), true
-                );
+                stdalt::make_unique<scroll_bar_details_type>(widget_details.handle.get(), to_native_style(style), true);
 
             set_enabled(*p_scroll_bar_details, true);
 
@@ -110,7 +101,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \brief Returns the position.
 
             \param details A detail implementation of a scroll bar.
-            
+
             \return The position.
 
             \throw std::system_error When the scroll information cannot be obtained.
@@ -120,15 +111,12 @@ namespace tetengo2 { namespace detail { namespace windows
             ::SCROLLINFO info{};
             info.cbSize = sizeof(::SCROLLINFO);
             info.fMask = SIF_POS;
-            
+
             if (::GetScrollInfo(details.window_handle, details.native_style, &info) == 0)
             {
-                BOOST_THROW_EXCEPTION((
-                    std::system_error{
-                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
-                        "Can't obtain scroll information."
-                    }
-                ));
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't obtain scroll information." }));
             }
 
             return info.nPos;
@@ -156,7 +144,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \brief Returns the range.
 
             \param details A detail implementation of a scroll bar.
-            
+
             \return The range.
 
             \throw std::system_error When the scroll information cannot be obtained.
@@ -166,15 +154,12 @@ namespace tetengo2 { namespace detail { namespace windows
             ::SCROLLINFO info{};
             info.cbSize = sizeof(::SCROLLINFO);
             info.fMask = SIF_RANGE;
-            
+
             if (::GetScrollInfo(details.window_handle, details.native_style, &info) == 0)
             {
-                BOOST_THROW_EXCEPTION((
-                    std::system_error{
-                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
-                        "Can't obtain scroll information."
-                    }
-                ));
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't obtain scroll information." }));
             }
 
             return { info.nMin, info.nMax };
@@ -203,7 +188,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \brief Returns the page size.
 
             \param details A detail implementation of a scroll bar.
-            
+
             \return The page size.
 
             \throw std::system_error When the scroll information cannot be obtained.
@@ -213,15 +198,12 @@ namespace tetengo2 { namespace detail { namespace windows
             ::SCROLLINFO info{};
             info.cbSize = sizeof(::SCROLLINFO);
             info.fMask = SIF_PAGE;
-            
+
             if (::GetScrollInfo(details.window_handle, details.native_style, &info) == 0)
             {
-                BOOST_THROW_EXCEPTION((
-                    std::system_error{
-                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
-                        "Can't obtain scroll information."
-                    }
-                ));
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't obtain scroll information." }));
             }
 
             return info.nPage;
@@ -240,7 +222,7 @@ namespace tetengo2 { namespace detail { namespace windows
             ::SCROLLINFO info{};
             info.cbSize = sizeof(::SCROLLINFO);
             info.fMask = SIF_PAGE | SIF_DISABLENOSCROLL;
-            info.nPage = static_cast< ::UINT>(page_size);
+            info.nPage = static_cast<::UINT>(page_size);
 
             ::SetScrollInfo(details.window_handle, details.native_style, &info, TRUE);
         }
@@ -267,8 +249,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static void set_enabled(scroll_bar_details_type& details, const bool enabled)
         {
             ::EnableScrollBar(
-                details.window_handle, details.native_style, enabled ? ESB_ENABLE_BOTH : ESB_DISABLE_BOTH
-            );
+                details.window_handle, details.native_style, enabled ? ESB_ENABLE_BOTH : ESB_DISABLE_BOTH);
             details.enabled = enabled;
         }
 
@@ -293,10 +274,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         // forbidden operations
 
-        scroll()
-        = delete;
-
-
+        scroll() = delete;
     };
 
 

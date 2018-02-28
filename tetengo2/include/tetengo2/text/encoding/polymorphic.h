@@ -17,8 +17,7 @@
 #include <tetengo2/text/encoding/encoding.h>
 
 
-namespace tetengo2 { namespace text { namespace encoding
-{
+namespace tetengo2 { namespace text { namespace encoding {
     /*!
         \brief The class template for a polymorphic encoding holder.
 
@@ -75,16 +74,11 @@ namespace tetengo2 { namespace text { namespace encoding
 
         // virtual functions
 
-        virtual const std::string& name_impl()
-        const override;
+        virtual const std::string& name_impl() const override;
 
-        virtual string_type from_pivot_impl(pivot_type pivot)
-        const override;
+        virtual string_type from_pivot_impl(pivot_type pivot) const override;
 
-        virtual pivot_type to_pivot_impl(string_type string)
-        const override;
-
-
+        virtual pivot_type to_pivot_impl(string_type string) const override;
     };
 
 

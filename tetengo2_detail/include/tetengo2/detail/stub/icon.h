@@ -18,8 +18,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace detail { namespace stub
-{
+namespace tetengo2 { namespace detail { namespace stub {
     /*!
         \brief The class for a detail implementation of an icon.
     */
@@ -30,7 +29,8 @@ namespace tetengo2 { namespace detail { namespace stub
 
         //! The icon details type.
         struct icon_details_type
-        {};
+        {
+        };
 
         //! The icon details pointer type.
         using icon_details_ptr_type = std::unique_ptr<icon_details_type>;
@@ -42,7 +42,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \brief Returns the default dimension.
 
             \tparam Dimension A dimension type.
-            
+
             \return The default dimension.
         */
         template <typename Dimension>
@@ -68,8 +68,6 @@ namespace tetengo2 { namespace detail { namespace stub
             boost::ignore_unused(path, dimension);
             return stdalt::make_unique<icon_details_type>();
         }
-
-
     };
 
 

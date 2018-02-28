@@ -16,8 +16,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace config
-{
+namespace tetengo2 { namespace config {
     class config_base::impl : private boost::noncopyable
     {
     public:
@@ -31,9 +30,8 @@ namespace tetengo2 { namespace config
 
 
         // functions
-        
-        boost::optional<value_type> get(const string_type& key, const config_base& base)
-        const
+
+        boost::optional<value_type> get(const string_type& key, const config_base& base) const
         {
             return base.get_impl(key);
         }
@@ -47,21 +45,14 @@ namespace tetengo2 { namespace config
         {
             base.clear_impl();
         }
-
-
     };
 
 
-    config_base::config_base()
-    :
-    m_p_impl(stdalt::make_unique<impl>())
-    {}
+    config_base::config_base() : m_p_impl(stdalt::make_unique<impl>()) {}
 
-    config_base::~config_base()
-    = default;
+    config_base::~config_base() = default;
 
-    boost::optional<config_base::value_type> config_base::get(const string_type& key)
-    const
+    boost::optional<config_base::value_type> config_base::get(const string_type& key) const
     {
         return m_p_impl->get(key, *this);
     }

@@ -12,8 +12,7 @@
 #include <tetengo2/gui/menu/menu_base.h>
 
 
-namespace tetengo2 { namespace gui { namespace menu
-{
+namespace tetengo2 { namespace gui { namespace menu {
     /*!
         \brief The class template for a menu command.
 
@@ -54,10 +53,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \param text A text.
         */
-        explicit command(string_type text)
-        :
-        base_type(std::move(text), menu_details_type::create_menu())
-        {}
+        explicit command(string_type text) : base_type(std::move(text), menu_details_type::create_menu()) {}
 
         /*!
             \brief Creates a menu command with a shortcut key.
@@ -66,15 +62,13 @@ namespace tetengo2 { namespace gui { namespace menu
             \param shortcut_key A shortcut key.
         */
         command(string_type text, shortcut_key_type shortcut_key)
-        :
-        base_type(std::move(text), std::move(shortcut_key), menu_details_type::create_menu())
+        : base_type(std::move(text), std::move(shortcut_key), menu_details_type::create_menu())
         {}
 
         /*!
             \brief Destroys the menu command.
         */
-        virtual ~command()
-        = default;
+        virtual ~command() = default;
 
 
     private:
@@ -85,13 +79,10 @@ namespace tetengo2 { namespace gui { namespace menu
 
         // virtual functions
 
-        virtual const style_type& style_impl()
-        const override
+        virtual const style_type& style_impl() const override
         {
             return menu_details_type::template menu_command_style<base_type>();
         }
-
-
     };
 
 

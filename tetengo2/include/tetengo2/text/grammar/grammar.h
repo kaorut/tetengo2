@@ -18,8 +18,7 @@
 #include <boost/spirit/include/qi.hpp>
 
 
-namespace tetengo2 { namespace text { namespace grammar
-{
+namespace tetengo2 { namespace text { namespace grammar {
     /*!
         \brief The structure attribute.
 
@@ -37,10 +36,10 @@ namespace tetengo2 { namespace text { namespace grammar
         //! The value type type.
         enum class value_type_type
         {
-            string,  //!< A string.
-            number,  //!< A number.
+            string, //!< A string.
+            number, //!< A number.
             boolean, //!< A boolean.
-            null,    //!< A null.
+            null, //!< A null.
         };
 
 
@@ -63,24 +62,21 @@ namespace tetengo2 { namespace text { namespace grammar
 
             \return The name.
         */
-        const string_type& name()
-        const;
+        const string_type& name() const;
 
         /*!
             \brief Returns the value type.
 
             \return The value type.
         */
-        value_type_type value_type()
-        const;
+        value_type_type value_type() const;
 
         /*!
             \brief Returns the attribute.
 
             \return The attribute.
         */
-        const string_type& attribute()
-        const;
+        const string_type& attribute() const;
 
     private:
         // variables
@@ -90,7 +86,6 @@ namespace tetengo2 { namespace text { namespace grammar
         value_type_type m_value_type;
 
         const string_type& m_attribute;
-
     };
 
 
@@ -100,8 +95,8 @@ namespace tetengo2 { namespace text { namespace grammar
         \tparam ForwardIterator A forward iterator type.
     */
     template <typename ForwardIterator>
-    class grammar :
-        public boost::spirit::qi::grammar<ForwardIterator, std::basic_string<typename ForwardIterator::value_type> ()>
+    class grammar
+    : public boost::spirit::qi::grammar<ForwardIterator, std::basic_string<typename ForwardIterator::value_type>()>
     {
     public:
         // types
@@ -131,25 +126,20 @@ namespace tetengo2 { namespace text { namespace grammar
             {
                 return std::all_of(first, last, [](bool b) { return b; });
             }
-
         };
 
         //! The structure signal type.
-        using structure_signal_type =
-            boost::signals2::signal<
-                bool (const std::string&, const std::vector<structure_attribute<string_type>>&),
-                signal_result_combiner_type
-            >;
+        using structure_signal_type = boost::signals2::signal<
+            bool(const std::string&, const std::vector<structure_attribute<string_type>>&),
+            signal_result_combiner_type>;
 
         //! The value signal type.
-        using value_signal_type =
-            boost::signals2::signal<
-                bool (typename structure_attribute<string_type>::value_type_type, const string_type&),
-                signal_result_combiner_type
-            >;
+        using value_signal_type = boost::signals2::signal<
+            bool(typename structure_attribute<string_type>::value_type_type, const string_type&),
+            signal_result_combiner_type>;
 
         //! The rule type.
-        using rule_type = boost::spirit::qi::rule<iterator, string_type ()>;
+        using rule_type = boost::spirit::qi::rule<iterator, string_type()>;
 
 
         // constructors and destructor
@@ -161,7 +151,7 @@ namespace tetengo2 { namespace text { namespace grammar
 
 
         // functions
-        
+
         /*!
             \brief Returns the structure begin signal.
 
@@ -170,8 +160,7 @@ namespace tetengo2 { namespace text { namespace grammar
 
             \return The structure signal.
         */
-        const structure_signal_type& on_structure_begin()
-        const;
+        const structure_signal_type& on_structure_begin() const;
 
         /*!
             \brief Returns the structure begin signal.
@@ -191,8 +180,7 @@ namespace tetengo2 { namespace text { namespace grammar
 
             \return The structure signal.
         */
-        const structure_signal_type& on_structure_end()
-        const;
+        const structure_signal_type& on_structure_end() const;
 
         /*!
             \brief Returns the structure end signal.
@@ -211,8 +199,7 @@ namespace tetengo2 { namespace text { namespace grammar
 
             \return The value signal.
         */
-        const value_signal_type& on_value()
-        const;
+        const value_signal_type& on_value() const;
 
         /*!
             \brief Returns the value signal.
@@ -244,8 +231,6 @@ namespace tetengo2 { namespace text { namespace grammar
         // variables
 
         const std::unique_ptr<impl> m_p_impl;
-
-
     };
 
 

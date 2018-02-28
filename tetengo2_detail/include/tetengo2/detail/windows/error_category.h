@@ -13,8 +13,7 @@
 #include <system_error>
 
 
-namespace tetengo2 { namespace detail { namespace windows
-{
+namespace tetengo2 { namespace detail { namespace windows {
     /*!
         \brief The class for a detail implementation of an error category.
     */
@@ -36,8 +35,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return The name.
         */
-        virtual const char* name()
-        const noexcept override;
+        virtual const char* name() const noexcept override;
 
         /*!
             \brief Returns the message.
@@ -46,10 +44,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return The message.
         */
-        virtual std::string message(int error_value)
-        const override;
-
-
+        virtual std::string message(int error_value) const override;
     };
 
     /*!
@@ -57,7 +52,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
         \return The error category.
     */
-    ;const std::error_category& win32_category();
+    ;
+    const std::error_category& win32_category();
 
     /*!
         \brief The class for a detail implementation of an error category of WIC.
@@ -80,8 +76,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return The name.
         */
-        virtual const char* name()
-        const noexcept override;
+        virtual const char* name() const noexcept override;
 
         /*!
             \brief Returns the message.
@@ -90,10 +85,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return The message.
         */
-        virtual std::string message(int error_value)
-        const override;
-
-
+        virtual std::string message(int error_value) const override;
     };
 
     /*!

@@ -17,8 +17,7 @@
 #include <tetengo2/gui/widget/control.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget
-{
+namespace tetengo2 { namespace gui { namespace widget {
     /*!
         \brief The class template for a label.
 
@@ -72,16 +71,15 @@ namespace tetengo2 { namespace gui { namespace widget
         explicit label(widget_type& parent)
         :
 #if BOOST_COMP_MSVC
-#   pragma warning(push)
-#   pragma warning(disable: 4355)
+#pragma warning(push)
+#pragma warning(disable : 4355)
 #endif
-        base_type(
-            base_type::scroll_bar_style_type::none,
-            message_handler_details_type::make_label_message_handler_map(*this, message_handler_map_type{}),
-            widget_details_type::create_label(parent)
-        )
+          base_type(
+              base_type::scroll_bar_style_type::none,
+              message_handler_details_type::make_label_message_handler_map(*this, message_handler_map_type{}),
+              widget_details_type::create_label(parent))
 #if BOOST_COMP_MSVC
-#   pragma warning(pop)
+#pragma warning(pop)
 #endif
         {
             initialize_label(this);
@@ -92,8 +90,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Destroys the label.
         */
-        virtual ~label()
-        noexcept
+        virtual ~label() noexcept
         {
             try
             {
@@ -101,7 +98,8 @@ namespace tetengo2 { namespace gui { namespace widget
                     this->parent().child_observer_set().destroying()(*this);
             }
             catch (...)
-            {}
+            {
+            }
         }
 
 
@@ -128,7 +126,7 @@ namespace tetengo2 { namespace gui { namespace widget
             if (this->text().empty() || max_width == dimension_unit_type{})
                 return;
 
-            auto one_line_dimension = calc_text_dimension();
+            auto       one_line_dimension = calc_text_dimension();
             const auto line_count = dimension_unit_type{ one_line_dimension.width() / max_width };
             if (line_count <= dimension_unit_type{ 1 })
             {
@@ -137,7 +135,7 @@ namespace tetengo2 { namespace gui { namespace widget
             }
 
             const auto int_line_count = ceil<std::size_t>(line_count);
-            auto height = one_line_dimension.height() * int_line_count;
+            auto       height = one_line_dimension.height() * int_line_count;
             this->set_client_dimension(dimension_type{ std::move(max_width), std::move(height) });
         }
 
@@ -150,13 +148,9 @@ namespace tetengo2 { namespace gui { namespace widget
         class paint_background
         {
         public:
-            paint_background(label& self)
-            :
-            m_self(self)
-            {}
+            paint_background(label& self) : m_self(self) {}
 
-            bool operator()(canvas_type& canvas)
-            const
+            bool operator()(canvas_type& canvas) const
             {
                 if (!m_self.p_background())
                     return false;
@@ -169,7 +163,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         private:
             label& m_self;
-
         };
 
 
@@ -186,16 +179,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // functions
 
-        dimension_type calc_text_dimension()
-        const
+        dimension_type calc_text_dimension() const
         {
-            return
-                widget_details_type::template use_canvas<dimension_type>(
-                    *this, [this](const canvas_type& canvas) { return canvas.calc_text_dimension(this->text()); }
-                );
+            return widget_details_type::template use_canvas<dimension_type>(
+                *this, [this](const canvas_type& canvas) { return canvas.calc_text_dimension(this->text()); });
         }
-
-
     };
 
 

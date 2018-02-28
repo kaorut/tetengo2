@@ -12,8 +12,7 @@
 #include <boost/operators.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace drawing
-{
+namespace tetengo2 { namespace gui { namespace drawing {
     /*!
         \brief The class template for a font.
 
@@ -71,15 +70,9 @@ namespace tetengo2 { namespace gui { namespace drawing
             const bool      bold,
             const bool      italic,
             const bool      underline,
-            const bool      strikeout
-        )
-        :
-        m_family(std::move(family)),
-        m_size(size),
-        m_bold(bold),
-        m_italic(italic),
-        m_underline(underline),
-        m_strikeout(strikeout)
+            const bool      strikeout)
+        : m_family(std::move(family)), m_size(size), m_bold(bold), m_italic(italic), m_underline(underline),
+          m_strikeout(strikeout)
         {}
 
 
@@ -96,13 +89,9 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         friend bool operator==(const font& one, const font& another)
         {
-            return
-                one.m_family == another.m_family &&
-                one.m_size == another.m_size &&
-                one.m_bold == another.m_bold &&
-                one.m_italic == another.m_italic &&
-                one.m_underline == another.m_underline &&
-                one.m_strikeout == another.m_strikeout;
+            return one.m_family == another.m_family && one.m_size == another.m_size && one.m_bold == another.m_bold &&
+                   one.m_italic == another.m_italic && one.m_underline == another.m_underline &&
+                   one.m_strikeout == another.m_strikeout;
         }
 
         /*!
@@ -110,8 +99,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The family.
         */
-        const string_type& family()
-        const
+        const string_type& family() const
         {
             return m_family;
         }
@@ -121,8 +109,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The size.
         */
-        size_type size()
-        const
+        size_type size() const
         {
             return m_size;
         }
@@ -133,8 +120,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             \retval true  When this font is bold.
             \retval false Otherwise.
         */
-        bool bold()
-        const
+        bool bold() const
         {
             return m_bold;
         }
@@ -145,8 +131,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             \retval true  When this font is italic.
             \retval false Otherwise.
         */
-        bool italic()
-        const
+        bool italic() const
         {
             return m_italic;
         }
@@ -157,8 +142,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             \retval true  When this font is underlined.
             \retval false Otherwise.
         */
-        bool underline()
-        const
+        bool underline() const
         {
             return m_underline;
         }
@@ -169,8 +153,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             \retval true  When this font is striked out.
             \retval false Otherwise.
         */
-        bool strikeout()
-        const
+        bool strikeout() const
         {
             return m_strikeout;
         }
@@ -190,8 +173,6 @@ namespace tetengo2 { namespace gui { namespace drawing
         bool m_underline;
 
         bool m_strikeout;
-
-
     };
 
 

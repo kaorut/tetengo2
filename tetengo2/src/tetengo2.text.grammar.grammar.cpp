@@ -17,33 +17,29 @@
 #include <tetengo2/text/grammar/grammar.h>
 
 
-namespace tetengo2 { namespace text { namespace grammar
-{
+namespace tetengo2 { namespace text { namespace grammar {
     template <typename String>
-    structure_attribute<String>::structure_attribute(string_type name, const value_type_type value_type, const string_type& attribute)
-    :
-    m_name(std::move(name)),
-    m_value_type(value_type),
-    m_attribute(attribute)
+    structure_attribute<String>::structure_attribute(
+        string_type           name,
+        const value_type_type value_type,
+        const string_type&    attribute)
+    : m_name(std::move(name)), m_value_type(value_type), m_attribute(attribute)
     {}
 
     template <typename String>
-    const typename structure_attribute<String>::string_type& structure_attribute<String>::name()
-    const
+    const typename structure_attribute<String>::string_type& structure_attribute<String>::name() const
     {
         return m_name;
     }
 
     template <typename String>
-    typename structure_attribute<String>::value_type_type structure_attribute<String>::value_type()
-    const
+    typename structure_attribute<String>::value_type_type structure_attribute<String>::value_type() const
     {
         return m_value_type;
     }
 
     template <typename String>
-    const typename structure_attribute<String>::string_type& structure_attribute<String>::attribute()
-    const
+    const typename structure_attribute<String>::string_type& structure_attribute<String>::attribute() const
     {
         return m_attribute;
     }
@@ -70,18 +66,12 @@ namespace tetengo2 { namespace text { namespace grammar
 
         // constructors and destructor
 
-        impl()
-        :
-        m_on_structure_begin(),
-        m_on_structure_end(),
-        m_on_value()
-        {}
+        impl() : m_on_structure_begin(), m_on_structure_end(), m_on_value() {}
 
 
         // functions
 
-        const structure_signal_type& on_structure_begin()
-        const
+        const structure_signal_type& on_structure_begin() const
         {
             return m_on_structure_begin;
         }
@@ -91,8 +81,7 @@ namespace tetengo2 { namespace text { namespace grammar
             return m_on_structure_begin;
         }
 
-        const structure_signal_type& on_structure_end()
-        const
+        const structure_signal_type& on_structure_end() const
         {
             return m_on_structure_end;
         }
@@ -102,8 +91,7 @@ namespace tetengo2 { namespace text { namespace grammar
             return m_on_structure_end;
         }
 
-        const value_signal_type& on_value()
-        const
+        const value_signal_type& on_value() const
         {
             return m_on_value;
         }
@@ -114,7 +102,6 @@ namespace tetengo2 { namespace text { namespace grammar
         }
 
 
-
     private:
         // variables
 
@@ -123,25 +110,19 @@ namespace tetengo2 { namespace text { namespace grammar
         structure_signal_type m_on_structure_end;
 
         value_signal_type m_on_value;
-
-
     };
 
 
     template <typename ForwardIterator>
-    grammar<ForwardIterator>::~grammar()
-    = default;
+    grammar<ForwardIterator>::~grammar() = default;
 
     template <typename ForwardIterator>
     grammar<ForwardIterator>::grammar(rule_type& root_rule)
-    :
-    grammar::base_type(root_rule),
-    m_p_impl(stdalt::make_unique<impl>())
+    : grammar::base_type(root_rule), m_p_impl(stdalt::make_unique<impl>())
     {}
 
     template <typename ForwardIterator>
-    const typename grammar<ForwardIterator>::structure_signal_type& grammar<ForwardIterator>::on_structure_begin()
-    const
+    const typename grammar<ForwardIterator>::structure_signal_type& grammar<ForwardIterator>::on_structure_begin() const
     {
         return m_p_impl->on_structure_begin();
     }
@@ -153,8 +134,7 @@ namespace tetengo2 { namespace text { namespace grammar
     }
 
     template <typename ForwardIterator>
-    const typename grammar<ForwardIterator>::structure_signal_type& grammar<ForwardIterator>::on_structure_end()
-    const
+    const typename grammar<ForwardIterator>::structure_signal_type& grammar<ForwardIterator>::on_structure_end() const
     {
         return m_p_impl->on_structure_end();
     }
@@ -166,8 +146,7 @@ namespace tetengo2 { namespace text { namespace grammar
     }
 
     template <typename ForwardIterator>
-    const typename grammar<ForwardIterator>::value_signal_type& grammar<ForwardIterator>::on_value()
-    const
+    const typename grammar<ForwardIterator>::value_signal_type& grammar<ForwardIterator>::on_value() const
     {
         return m_p_impl->on_value();
     }
@@ -179,21 +158,15 @@ namespace tetengo2 { namespace text { namespace grammar
     }
 
 
-    namespace
-    {
-        namespace application
-        {
+    namespace {
+        namespace application {
             using input_stream_iterator_type =
                 iterator::observable_forward_iterator<boost::spirit::multi_pass<std::istreambuf_iterator<char>>>;
-
         }
 
-        namespace test
-        {
+        namespace test {
             using input_stream_iterator_type = std::string::const_iterator;
-
         }
-
     }
 
     template class structure_attribute<std::string>;

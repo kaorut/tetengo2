@@ -19,15 +19,14 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace text
-{
+namespace tetengo2 { namespace text {
     /*!
         \brief The pull parser structure kind type.
     */
     enum class structure_kind
     {
         begin, //!< The structure kind begin.
-        end,   //!< The structure kind end.
+        end, //!< The structure kind end.
     };
 
 
@@ -79,16 +78,14 @@ namespace tetengo2 { namespace text
 
             \return The name.
         */
-        const string_type& name()
-        const;
+        const string_type& name() const;
 
         /*!
             \brief Returns the attribute map.
 
             \return The attribute map.
         */
-        const attribute_map_type& attribute_map()
-        const;
+        const attribute_map_type& attribute_map() const;
 
 
     private:
@@ -97,10 +94,8 @@ namespace tetengo2 { namespace text
         string_type m_name;
 
         attribute_map_type m_attribute_map;
-
-
     };
-    
+
 
     /*!
         \brief The class template for a pull parser.
@@ -167,8 +162,7 @@ namespace tetengo2 { namespace text
             \retval true  When the parser has a next element.
             \retval false Otherwise.
         */
-        bool has_next()
-        const;
+        bool has_next() const;
 
         /*!
             \brief Peeks the next element.
@@ -179,8 +173,7 @@ namespace tetengo2 { namespace text
 
             \throw std::logic_error When the parser has no more element.
         */
-        const element_type& peek()
-        const;
+        const element_type& peek() const;
 
         /*!
             \brief Removes the next element.
@@ -206,8 +199,6 @@ namespace tetengo2 { namespace text
         // variables
 
         const std::unique_ptr<impl> m_p_impl;
-
-        
     };
 
 

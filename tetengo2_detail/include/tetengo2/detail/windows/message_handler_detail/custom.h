@@ -11,16 +11,14 @@
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_CUSTOMCONTROL_H
 
 
-namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail
-{
-    namespace custom_control
-    {
+namespace tetengo2 {
+    namespace detail {
+        namespace windows {
+            namespace message_handler_detail {
+                namespace custom_control {
 
 
-    }
-
-
-}}}}
+}}}}}
 
 
 #endif

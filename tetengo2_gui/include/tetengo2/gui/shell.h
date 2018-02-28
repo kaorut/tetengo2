@@ -17,8 +17,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui
-{
+namespace tetengo2 { namespace gui {
     /*!
         \brief The class template for a shell.
 
@@ -66,8 +65,7 @@ namespace tetengo2 { namespace gui
             \retval true  When the command is executed successfully.
             \retval false Otherwise.
         */
-        bool execute(const string_type& command)
-        const
+        bool execute(const string_type& command) const
         {
             static const std::vector<string_type> empty_parameters;
             return execute(command, empty_parameters.begin(), empty_parameters.end());
@@ -86,12 +84,9 @@ namespace tetengo2 { namespace gui
             \retval false Otherwise.
         */
         template <typename InputIterator>
-        bool execute(
-            const string_type&  command,
-            const InputIterator parameter_first,
-            const InputIterator parameter_last
-        )
-        const
+        bool
+        execute(const string_type& command, const InputIterator parameter_first, const InputIterator parameter_last)
+            const
         {
             static const encoder_type encoder{};
             return m_p_shell_details->execute(command, parameter_first, parameter_last, encoder);
@@ -106,12 +101,7 @@ namespace tetengo2 { namespace gui
 
         // constructors
 
-        shell()
-        :
-        m_p_shell_details(stdalt::make_unique<shell_details_type>())
-        {}
-
-
+        shell() : m_p_shell_details(stdalt::make_unique<shell_details_type>()) {}
     };
 
 

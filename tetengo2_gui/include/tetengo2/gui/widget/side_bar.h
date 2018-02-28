@@ -28,8 +28,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget
-{
+namespace tetengo2 { namespace gui { namespace widget {
     /*!
         \brief The class template for a side bar.
 
@@ -44,8 +43,7 @@ namespace tetengo2 { namespace gui { namespace widget
         typename DetailsTraits,
         typename MouseCaptureDetails,
         typename SystemColorDetails,
-        typename TimerDetails
-    >
+        typename TimerDetails>
     class side_bar : public custom_control<Traits, DetailsTraits, MouseCaptureDetails>
     {
     public:
@@ -115,13 +113,8 @@ namespace tetengo2 { namespace gui { namespace widget
             \param cursor_details A cursor detail implementation.
         */
         side_bar(widget_type& parent, const cursor_details_type& cursor_details)
-        :
-        base_type(parent, false, scroll_bar_style_type::none),
-        m_cursor_details(cursor_details),
-        m_p_caption(),
-        m_p_splitter(),
-        m_preferred_width(dimension_unit_type{}),
-        m_minimized(false)
+        : base_type(parent, false, scroll_bar_style_type::none), m_cursor_details(cursor_details), m_p_caption(),
+          m_p_splitter(), m_preferred_width(dimension_unit_type{}), m_minimized(false)
         {
             initialize_side_bar(*this);
         }
@@ -129,8 +122,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Destroys the side bar.
         */
-        virtual ~side_bar()
-        = default;
+        virtual ~side_bar() = default;
 
 
         // functions
@@ -193,8 +185,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The minimized status.
         */
-        bool minimized()
-        const
+        bool minimized() const
         {
             return m_minimized;
         }
@@ -224,17 +215,13 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The child control area position.
         */
-        position_type child_control_area_position()
-        const
+        position_type child_control_area_position() const
         {
             const auto& caption_dimension = m_p_caption->dimension();
             const auto& splitter_dimension = m_p_splitter->dimension();
 
-            return
-                {
-                    position_unit_type::from(splitter_dimension.width()),
-                    position_unit_type::from(caption_dimension.height())
-                };
+            return { position_unit_type::from(splitter_dimension.width()),
+                     position_unit_type::from(caption_dimension.height()) };
         }
 
         /*!
@@ -242,10 +229,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The child control area dimension.
         */
-        dimension_type child_control_area_dimension()
-        const
+        dimension_type child_control_area_dimension() const
         {
-            const auto client_dimension = this->client_dimension();
+            const auto  client_dimension = this->client_dimension();
             const auto& client_width = client_dimension.width();
             const auto& client_height = client_dimension.height();
             const auto& caption_dimension = m_p_caption->dimension();
@@ -281,11 +267,8 @@ namespace tetengo2 { namespace gui { namespace widget
             // constructors and destructor
 
             explicit state_button(side_bar& side_bar_)
-            :
-            inner_item_type(side_bar_, position_type{}, dimension_type{}),
-            m_p_current_background_color(&background_color()),
-            m_p_timer(),
-            m_animation_step(0)
+            : inner_item_type(side_bar_, position_type{}, dimension_type{}),
+              m_p_current_background_color(&background_color()), m_p_timer(), m_animation_step(0)
             {}
 
 
@@ -313,34 +296,25 @@ namespace tetengo2 { namespace gui { namespace widget
             static color_type make_background_color()
             {
                 const color_type& base_color = system_color_set_type::title_bar_background();
-                return
-                    {
-                        static_cast<unsigned char>((0xFF * 3 + base_color.red() * 1) / 4),
-                        static_cast<unsigned char>((0xFF * 3 + base_color.green() * 1) / 4),
-                        static_cast<unsigned char>((0xFF * 3 + base_color.blue() * 1) / 4)
-                    };
+                return { static_cast<unsigned char>((0xFF * 3 + base_color.red() * 1) / 4),
+                         static_cast<unsigned char>((0xFF * 3 + base_color.green() * 1) / 4),
+                         static_cast<unsigned char>((0xFF * 3 + base_color.blue() * 1) / 4) };
             }
 
             static color_type make_background_color_hovered()
             {
                 const color_type& base_color = system_color_set_type::title_bar_background();
-                return
-                    {
-                        static_cast<unsigned char>((0xFF * 7 + base_color.red() * 1) / 8),
-                        static_cast<unsigned char>((0xFF * 7 + base_color.green() * 1) / 8),
-                        static_cast<unsigned char>((0xFF * 7 + base_color.blue() * 1) / 8)
-                    };
+                return { static_cast<unsigned char>((0xFF * 7 + base_color.red() * 1) / 8),
+                         static_cast<unsigned char>((0xFF * 7 + base_color.green() * 1) / 8),
+                         static_cast<unsigned char>((0xFF * 7 + base_color.blue() * 1) / 8) };
             }
 
             static color_type make_border_color()
             {
                 const color_type& base_color = system_color_set_type::title_bar_background();
-                return
-                    {
-                        static_cast<unsigned char>(base_color.red() / 2), 
-                        static_cast<unsigned char>(base_color.green() / 2),
-                        static_cast<unsigned char>(base_color.blue() / 2)
-                    };
+                return { static_cast<unsigned char>(base_color.red() / 2),
+                         static_cast<unsigned char>(base_color.green() / 2),
+                         static_cast<unsigned char>(base_color.blue() / 2) };
             }
 
             static const std::chrono::milliseconds& animation_duration()
@@ -363,17 +337,13 @@ namespace tetengo2 { namespace gui { namespace widget
             static position_type triangle_vertex_position(const std::size_t animation_step, const std::size_t vertex)
             {
                 const double angle =
-                    (
-                        static_cast<double>(animation_step) / max_animation_step() + (2.0 / 3.0) * vertex
-                    ) * boost::math::constants::pi<double>();
+                    (static_cast<double>(animation_step) / max_animation_step() + (2.0 / 3.0) * vertex) *
+                    boost::math::constants::pi<double>();
 
                 const double x = std::cos(angle);
                 const double y = std::sin(angle);
-                return
-                    {
-                        position_unit_type{ static_cast<std::ptrdiff_t>(x * 256) } / 256,
-                        position_unit_type{ static_cast<std::ptrdiff_t>(y * 256) } / 256
-                    };
+                return { position_unit_type{ static_cast<std::ptrdiff_t>(x * 256) } / 256,
+                         position_unit_type{ static_cast<std::ptrdiff_t>(y * 256) } / 256 };
             }
 
 
@@ -388,8 +358,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             // virtual functions
 
-            virtual void paint_impl(canvas_type& canvas)
-            const override
+            virtual void paint_impl(canvas_type& canvas) const override
             {
                 auto original_color = canvas.get_color();
                 auto original_line_width = canvas.line_width();
@@ -407,8 +376,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 canvas.set_color(std::move(original_color));
             }
 
-            virtual void mouse_released_impl(const position_type& cursor_position)
-            override
+            virtual void mouse_released_impl(const position_type& cursor_position) override
             {
                 if (!this->inside(cursor_position))
                     return;
@@ -416,28 +384,24 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (m_animation_step > 0)
                     return;
 
-                m_p_timer =
-                    stdalt::make_unique<timer_type>(
-                        this->parent(),
-                        [this](bool& stop) { this->timer_proc(stop); },
-                        animation_duration() / max_animation_step(),
-                        false
-                    );
+                m_p_timer = stdalt::make_unique<timer_type>(
+                    this->parent(),
+                    [this](bool& stop) { this->timer_proc(stop); },
+                    animation_duration() / max_animation_step(),
+                    false);
                 {
                     bool dummy_stop = false;
                     timer_proc(dummy_stop);
                 }
             }
 
-            virtual void mouse_entered_impl()
-            override
+            virtual void mouse_entered_impl() override
             {
                 m_p_current_background_color = &background_color_hovered();
                 this->parent().repaint_partially(this->position(), this->dimension());
             }
 
-            virtual void mouse_left_impl()
-            override
+            virtual void mouse_left_impl() override
             {
                 m_p_current_background_color = &background_color();
                 this->parent().repaint_partially(this->position(), this->dimension());
@@ -454,10 +418,8 @@ namespace tetengo2 { namespace gui { namespace widget
                     this->parent().repaint_partially(this->position(), this->dimension());
                     return;
                 }
-                if (
-                    m_animation_step <
-                    max_animation_step() + animation_finish_wait_duration().count() / max_animation_step()
-                )
+                if (m_animation_step <
+                    max_animation_step() + animation_finish_wait_duration().count() / max_animation_step())
                 {
                     ++m_animation_step;
                     return;
@@ -468,8 +430,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 stop = true;
             }
 
-            std::vector<position_type> make_triangle()
-            const
+            std::vector<position_type> make_triangle() const
             {
                 const auto& left = this->position().left();
                 const auto& top = this->position().top();
@@ -485,21 +446,15 @@ namespace tetengo2 { namespace gui { namespace widget
                             (m_animation_step < max_animation_step() ? max_animation_step() - m_animation_step : 0) :
                             (m_animation_step < max_animation_step() ? m_animation_step : max_animation_step());
                     const position_type vertex_position = triangle_vertex_position(step_, i);
-                    position_unit_type vertex_left =
-                        left +
-                        (vertex_position.left() + position_unit_type{ 1 }) * position_unit_type::from(width).value() /
-                            2;
-                    position_unit_type vertex_top =
-                        top +
-                        (vertex_position.top() + position_unit_type{ 1 }) * position_unit_type::from(height).value() /
-                            2;
+                    position_unit_type  vertex_left = left + (vertex_position.left() + position_unit_type{ 1 }) *
+                                                                position_unit_type::from(width).value() / 2;
+                    position_unit_type vertex_top = top + (vertex_position.top() + position_unit_type{ 1 }) *
+                                                              position_unit_type::from(height).value() / 2;
                     positions.emplace_back(std::move(vertex_left), std::move(vertex_top));
                 }
 
                 return positions;
             }
-
-
         };
 
         class caption : public inner_item_type
@@ -508,13 +463,10 @@ namespace tetengo2 { namespace gui { namespace widget
             // constructors and destructor
 
             explicit caption(side_bar& side_bar_)
-            :
-            inner_item_type(side_bar_, position_type{}, dimension_type{}),
-            m_text_position()
+            : inner_item_type(side_bar_, position_type{}, dimension_type{}), m_text_position()
             {}
 
-            virtual ~caption()
-            = default;
+            virtual ~caption() = default;
 
 
             // functions
@@ -534,31 +486,28 @@ namespace tetengo2 { namespace gui { namespace widget
 
             // virtual functions
 
-            virtual void resized_impl()
-            override
+            virtual void resized_impl() override
             {
                 m_text_position = boost::none;
 
                 ensure_dimension_calculated();
             }
 
-            virtual void paint_impl(canvas_type& canvas)
-            const override
+            virtual void paint_impl(canvas_type& canvas) const override
             {
                 auto original_color = canvas.get_color();
                 auto p_original_background = canvas.get_background().clone();
                 canvas.set_color(system_color_set_type::title_bar_text());
                 canvas.set_background(
-                    stdalt::make_unique<solid_background_type>(system_color_set_type::title_bar_background())
-                );
+                    stdalt::make_unique<solid_background_type>(system_color_set_type::title_bar_background()));
 
                 canvas.fill_rectangle(this->position(), this->dimension());
 
                 canvas.draw_text(
                     this->parent().text(),
                     *m_text_position,
-                    this->template parent_to<side_bar>().m_minimized ? boost::math::constants::pi<double>() / 2.0 : 0.0
-                );
+                    this->template parent_to<side_bar>().m_minimized ? boost::math::constants::pi<double>() / 2.0 :
+                                                                       0.0);
 
                 canvas.set_background(std::move(p_original_background));
                 canvas.set_color(std::move(original_color));
@@ -582,7 +531,7 @@ namespace tetengo2 { namespace gui { namespace widget
                     return;
 
                 static const auto padding = dimension_unit_type{ 1 } / 4;
-                const auto text_dimension = canvas.calc_text_dimension(this->parent().text());
+                const auto        text_dimension = canvas.calc_text_dimension(this->parent().text());
                 this->set_dimension(calculate_dimension(padding, text_dimension));
 
                 this->template parent_to<side_bar>().m_p_state_button->set_position(state_button_position(padding));
@@ -590,15 +539,12 @@ namespace tetengo2 { namespace gui { namespace widget
                 m_text_position = boost::make_optional(text_position(padding, text_dimension));
             }
 
-            dimension_type calculate_dimension(
-                const dimension_unit_type& padding,
-                const dimension_type&      text_dimension
-            )
-            const
+            dimension_type
+            calculate_dimension(const dimension_unit_type& padding, const dimension_type& text_dimension) const
             {
                 const dimension_type client_dimension = this->parent().client_dimension();
-                const auto& client_width = client_dimension.width();
-                const auto& client_height = client_dimension.height();
+                const auto&          client_width = client_dimension.width();
+                const auto&          client_height = client_dimension.height();
 
                 const auto& text_height = text_dimension.height();
 
@@ -609,23 +555,21 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 if (this->template parent_to<side_bar>().m_minimized)
                 {
-                    const auto& width = std::max(dimension_unit_type::from(text_height), state_button_width); 
+                    const auto& width = std::max(dimension_unit_type::from(text_height), state_button_width);
                     return { width + dimension_unit_type::from(padding) * 2, client_height };
                 }
                 else
                 {
-                    const auto& height = std::max(text_height, state_button_height); 
+                    const auto& height = std::max(text_height, state_button_height);
                     return { client_width, height + padding * 2 };
                 }
             }
 
-            position_type text_position(const dimension_unit_type& padding, const dimension_type& text_dimension)
-            const
+            position_type text_position(const dimension_unit_type& padding, const dimension_type& text_dimension) const
             {
                 const auto& state_button_left =
                     this->template parent_to<side_bar>().m_p_state_button->position().left();
-                const auto& state_button_top =
-                    this->template parent_to<side_bar>().m_p_state_button->position().top();
+                const auto& state_button_top = this->template parent_to<side_bar>().m_p_state_button->position().top();
                 const auto& state_button_width =
                     this->template parent_to<side_bar>().m_p_state_button->dimension().width();
                 const auto& state_button_height =
@@ -635,30 +579,26 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 if (this->template parent_to<side_bar>().m_minimized)
                 {
-                    auto left =
-                        dimension_unit_type::from(text_height) < state_button_width ?
-                        position_unit_type::from((state_button_width - dimension_unit_type::from(text_height)) / 2) +
-                        position_unit_type::from(padding) +
-                        position_unit_type::from(text_height) :
-                        position_unit_type::from(padding) +
-                        position_unit_type::from(text_height);
+                    auto left = dimension_unit_type::from(text_height) < state_button_width ?
+                                    position_unit_type::from(
+                                        (state_button_width - dimension_unit_type::from(text_height)) / 2) +
+                                        position_unit_type::from(padding) + position_unit_type::from(text_height) :
+                                    position_unit_type::from(padding) + position_unit_type::from(text_height);
                     auto top = state_button_top + position_unit_type::from(state_button_width + padding);
                     return { std::move(left), std::move(top) };
                 }
                 else
                 {
                     auto left = state_button_left + position_unit_type::from(state_button_width + padding);
-                    auto top =
-                        text_height < state_button_height ?
-                        position_unit_type::from((state_button_height - text_height) / 2) +
-                            position_unit_type::from(padding) :
-                        position_unit_type::from(padding);
+                    auto top = text_height < state_button_height ?
+                                   position_unit_type::from((state_button_height - text_height) / 2) +
+                                       position_unit_type::from(padding) :
+                                   position_unit_type::from(padding);
                     return { std::move(left), std::move(top) };
                 }
             }
 
-            position_type state_button_position(const dimension_unit_type& padding)
-            const
+            position_type state_button_position(const dimension_unit_type& padding) const
             {
                 const auto& caption_width = this->dimension().width();
                 const auto& caption_height = this->dimension().height();
@@ -669,31 +609,21 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 if (this->template parent_to<side_bar>().m_minimized)
                 {
-                    auto left =
-                        std::max(
-                            (position_unit_type::from(caption_width) - position_unit_type::from(state_button_width)) /
-                                2,
-                            position_unit_type{}
-                        );
+                    auto left = std::max(
+                        (position_unit_type::from(caption_width) - position_unit_type::from(state_button_width)) / 2,
+                        position_unit_type{});
                     auto top = position_unit_type::from(padding);
                     return { std::move(left), std::move(top) };
                 }
                 else
                 {
                     auto left = position_unit_type::from(padding);
-                    auto top =
-                        std::max(
-                            (
-                                position_unit_type::from(caption_height) -
-                                position_unit_type::from(state_button_height)
-                            ) / 2,
-                            position_unit_type{}
-                        );
+                    auto top = std::max(
+                        (position_unit_type::from(caption_height) - position_unit_type::from(state_button_height)) / 2,
+                        position_unit_type{});
                     return { std::move(left), std::move(top) };
                 }
             }
-
-
         };
 
         class splitter : public inner_item_type
@@ -702,10 +632,8 @@ namespace tetengo2 { namespace gui { namespace widget
             // constructors and destructor
 
             explicit splitter(side_bar& side_bar_)
-            :
-            inner_item_type(side_bar_, position_type{}, dimension_type{}),
-            m_need_size_recalculation(true),
-            m_pressed_position(position_type{})
+            : inner_item_type(side_bar_, position_type{}, dimension_type{}), m_need_size_recalculation(true),
+              m_pressed_position(position_type{})
             {}
 
 
@@ -719,32 +647,28 @@ namespace tetengo2 { namespace gui { namespace widget
 
             // virtual functions
 
-            virtual void resized_impl()
-            override
+            virtual void resized_impl() override
             {
                 m_need_size_recalculation = true;
 
                 calculate_position_and_dimension();
             }
 
-            virtual void paint_impl(canvas_type& canvas)
-            const override
+            virtual void paint_impl(canvas_type& canvas) const override
             {
                 if (this->template parent_to<side_bar>().m_minimized)
                     return;
 
                 auto original_background = canvas.get_background().clone();
                 canvas.set_background(
-                    stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
-                );
+                    stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background()));
 
                 canvas.fill_rectangle(this->position(), this->dimension());
 
                 canvas.set_background(std::move(original_background));
             }
 
-            virtual void mouse_pressed_impl(const position_type& cursor_position)
-            override
+            virtual void mouse_pressed_impl(const position_type& cursor_position) override
             {
                 if (this->template parent_to<side_bar>().m_minimized)
                     return;
@@ -752,8 +676,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 m_pressed_position = cursor_position;
             }
 
-            virtual void mouse_released_impl(const position_type& cursor_position)
-            override
+            virtual void mouse_released_impl(const position_type& cursor_position) override
             {
                 if (this->template parent_to<side_bar>().m_minimized)
                     return;
@@ -761,8 +684,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 resize_side_bar(cursor_position);
             }
 
-            virtual void mouse_moved_impl(const position_type& cursor_position)
-            override
+            virtual void mouse_moved_impl(const position_type& cursor_position) override
             {
                 if (this->template parent_to<side_bar>().m_minimized)
                     return;
@@ -772,22 +694,18 @@ namespace tetengo2 { namespace gui { namespace widget
                 resize_side_bar(cursor_position);
             }
 
-            virtual void mouse_entered_impl()
-            override
+            virtual void mouse_entered_impl() override
             {
                 if (this->template parent_to<side_bar>().m_minimized)
                     return;
 
-                auto p_cursor =
-                    stdalt::make_unique<system_cursor_type>(
-                        system_cursor_type::style_type::horizontal_resize,
-                        this->template parent_to<side_bar>().m_cursor_details
-                    );
+                auto p_cursor = stdalt::make_unique<system_cursor_type>(
+                    system_cursor_type::style_type::horizontal_resize,
+                    this->template parent_to<side_bar>().m_cursor_details);
                 this->template parent_to<side_bar>().set_cursor(std::move(p_cursor));
             }
 
-            virtual void mouse_left_impl()
-            override
+            virtual void mouse_left_impl() override
             {
                 if (this->template parent_to<side_bar>().m_minimized)
                     return;
@@ -811,18 +729,12 @@ namespace tetengo2 { namespace gui { namespace widget
                 else
                 {
                     const auto& client_height = this->parent().client_dimension().height();
-                    const auto& caption_height =
-                        this->template parent_to<side_bar>().m_p_caption->dimension().height();
+                    const auto& caption_height = this->template parent_to<side_bar>().m_p_caption->dimension().height();
 
-                    this->set_position(
-                        position_type{ position_unit_type{}, position_unit_type::from(caption_height) }
-                    );
-                    this->set_dimension(
-                        dimension_type{
-                            dimension_unit_type{ 1 } / 2,
-                            client_height > caption_height ? client_height - caption_height : dimension_unit_type{}
-                        }
-                    );
+                    this->set_position(position_type{ position_unit_type{}, position_unit_type::from(caption_height) });
+                    this->set_dimension(dimension_type{
+                        dimension_unit_type{ 1 } / 2,
+                        client_height > caption_height ? client_height - caption_height : dimension_unit_type{} });
                 }
 
                 m_need_size_recalculation = false;
@@ -837,15 +749,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 const auto& pressed_left = m_pressed_position.left();
                 const auto& current_left = current_position.left();
-                auto new_width =
-                    dimension_unit_type::from(
-                        std::max(position_unit_type::from(width) + (pressed_left - current_left), position_unit_type{})
-                    );
+                auto        new_width = dimension_unit_type::from(
+                    std::max(position_unit_type::from(width) + (pressed_left - current_left), position_unit_type{}));
 
                 this->template parent_to<side_bar>().set_width(std::move(new_width));
             }
-
-
         };
 
 
@@ -855,14 +763,13 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             side_bar_.set_dimension(dimension_type{ dimension_unit_type{ 16 }, dimension_unit_type{ 16 } });
             side_bar_.set_background(
-                stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
-            );
+                stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background()));
 
             create_items(side_bar_);
 
             set_observers(side_bar_);
 
-            side_bar_.m_preferred_width= side_bar_.dimension().width();
+            side_bar_.m_preferred_width = side_bar_.dimension().width();
         }
 
         static void create_items(side_bar& side_bar_)
@@ -878,62 +785,45 @@ namespace tetengo2 { namespace gui { namespace widget
             assert(side_bar_.m_p_caption);
             assert(side_bar_.m_p_splitter);
 
-            side_bar_.size_observer_set().resized().connect(
-                [&side_bar_]()
-                {
-                    side_bar_.m_p_state_button->resized();
-                    side_bar_.m_p_caption->resized();
-                    side_bar_.m_p_splitter->resized();
-                }
-            );
+            side_bar_.size_observer_set().resized().connect([&side_bar_]() {
+                side_bar_.m_p_state_button->resized();
+                side_bar_.m_p_caption->resized();
+                side_bar_.m_p_splitter->resized();
+            });
 
             side_bar_.paint_observer_set().paint_background().disconnect_all_slots();
-            side_bar_.paint_observer_set().paint_background().connect(
-                [](canvas_type&)
-                {
-                    return true;
-                }
-            );
-            side_bar_.paint_observer_set().paint().connect(
-                [&side_bar_](canvas_type& canvas)
-                {
-                    canvas.begin_transaction(side_bar_.client_dimension());
+            side_bar_.paint_observer_set().paint_background().connect([](canvas_type&) { return true; });
+            side_bar_.paint_observer_set().paint().connect([&side_bar_](canvas_type& canvas) {
+                canvas.begin_transaction(side_bar_.client_dimension());
 
-                    side_bar_.m_p_caption->paint(canvas);
-                    side_bar_.m_p_state_button->paint(canvas);
-                    side_bar_.m_p_splitter->paint(canvas);
+                side_bar_.m_p_caption->paint(canvas);
+                side_bar_.m_p_state_button->paint(canvas);
+                side_bar_.m_p_splitter->paint(canvas);
 
-                    canvas.end_transaction();
-                }
-            );
+                canvas.end_transaction();
+            });
 
             side_bar_.mouse_observer_set().pressed().connect(
-                [&side_bar_](const mouse_button_type button, const position_type& position, bool, bool, bool)
-                {
+                [&side_bar_](const mouse_button_type button, const position_type& position, bool, bool, bool) {
                     if (button != mouse_button_type::left)
                         return;
 
                     side_bar_.m_p_state_button->mouse_pressed(button, position);
                     side_bar_.m_p_splitter->mouse_pressed(button, position);
-                }
-            );
+                });
             side_bar_.mouse_observer_set().released().connect(
-                [&side_bar_](const mouse_button_type button, const position_type& position, bool, bool, bool)
-                {
+                [&side_bar_](const mouse_button_type button, const position_type& position, bool, bool, bool) {
                     if (button != mouse_button_type::left)
                         return;
 
                     side_bar_.m_p_state_button->mouse_released(button, position);
                     side_bar_.m_p_splitter->mouse_released(button, position);
-                }
-            );
+                });
             side_bar_.mouse_observer_set().moved().connect(
-                [&side_bar_](const position_type& position, bool, bool, bool)
-                {
+                [&side_bar_](const position_type& position, bool, bool, bool) {
                     side_bar_.m_p_state_button->mouse_moved(position);
                     side_bar_.m_p_splitter->mouse_moved(position);
-                }
-            );
+                });
         }
 
 
@@ -976,8 +866,6 @@ namespace tetengo2 { namespace gui { namespace widget
                     width = std::move(min_width);
             }
         }
-
-
     };
 
 

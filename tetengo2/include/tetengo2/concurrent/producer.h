@@ -18,8 +18,7 @@
 #include <tetengo2/concurrent/channel.h>
 
 
-namespace tetengo2 { namespace concurrent
-{
+namespace tetengo2 { namespace concurrent {
     /*!
         \brief The class template for a producer.
 
@@ -38,7 +37,7 @@ namespace tetengo2 { namespace concurrent
         using channel_type = channel<value_type>;
 
         //! The generator type.
-        using generator_type = std::function<void (channel_type&)>;
+        using generator_type = std::function<void(channel_type&)>;
 
 
         // constructors and destructor
@@ -52,24 +51,22 @@ namespace tetengo2 { namespace concurrent
         producer(const generator_type generator, channel_type& channel)
         :
 #if !defined(DOCUMENTATION) // Doxygen warning suppression
-        m_thread_procedure_impl([generator, &channel]() { generator(channel); }),
-        m_channel(channel),
-        m_thread([this, &channel]() { thread_procedure(this->m_thread_procedure_impl, channel); })
+          m_thread_procedure_impl([generator, &channel]() { generator(channel); }), m_channel(channel),
+          m_thread([this, &channel]() { thread_procedure(this->m_thread_procedure_impl, channel); })
 #endif
         {}
 
         /*!
             \brief Destroys the producer.
         */
-        ~producer()
-        noexcept
+        ~producer() noexcept
         {
             join();
         }
 
 
         // functions
-        
+
         /*!
             \brief Joins the producing thread.
         */
@@ -84,7 +81,7 @@ namespace tetengo2 { namespace concurrent
     private:
         // static functions
 
-        static void thread_procedure(const std::function<void ()> thread_procedure_impl, channel_type& channel)
+        static void thread_procedure(const std::function<void()> thread_procedure_impl, channel_type& channel)
         {
             try
             {
@@ -101,13 +98,11 @@ namespace tetengo2 { namespace concurrent
 
         // variables
 
-        std::function<void ()> m_thread_procedure_impl;
+        std::function<void()> m_thread_procedure_impl;
 
         channel_type& m_channel;
 
         std::thread m_thread;
-
-
     };
 
 

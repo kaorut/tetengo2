@@ -10,8 +10,8 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_MESSAGE_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_MESSAGE_H
 
-#pragma warning (push)
-#pragma warning (disable: 4005)
+#pragma warning(push)
+#pragma warning(disable : 4005)
 #include <intsafe.h>
 #include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
@@ -20,8 +20,7 @@
 #include <Windows.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail
-{
+namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail {
     enum class custom_message_type : ::UINT
     {
         command = WM_APP + 1,

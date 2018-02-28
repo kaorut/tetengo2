@@ -21,11 +21,10 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace concurrent
-{
+namespace tetengo2 {
+namespace concurrent {
 #if !defined(DOCUMENTATION)
-    namespace detail
-    {
+    namespace detail {
         class progress_state : private boost::noncopyable
         {
         public:
@@ -43,13 +42,11 @@ namespace tetengo2 { namespace concurrent
 
             // functions
 
-            const progress_type& get()
-            const;
+            const progress_type& get() const;
 
             void set(progress_type progress);
 
-            bool abort_requested()
-            const;
+            bool abort_requested() const;
 
             void request_abort();
 
@@ -63,11 +60,7 @@ namespace tetengo2 { namespace concurrent
             // variables
 
             const std::unique_ptr<impl> m_p_impl;
-
-
         };
-
-
     }
 #endif
 
@@ -98,33 +91,20 @@ namespace tetengo2 { namespace concurrent
         /*!
             \brief Creates an empty progressive future base.
         */
-        progressive_future_base()
-        noexcept
-        :
-        m_future(),
-        m_p_state()
-        {}
+        progressive_future_base() noexcept : m_future(), m_p_state() {}
 
         /*!
             \brief Moves a progressive future base.
 
             \param another Another progressive future base.
         */
-        progressive_future_base(progressive_future_base&& another)
-        noexcept
-        :
-        m_future(std::move(another.m_future)),
-        m_p_state(std::move(another.m_p_state))
+        progressive_future_base(progressive_future_base&& another) noexcept
+        : m_future(std::move(another.m_future)), m_p_state(std::move(another.m_p_state))
         {}
 
 #if !defined(DOCUMENTATION)
-        progressive_future_base(
-            future_type&&                                  future,
-            const std::shared_ptr<detail::progress_state>& p_state
-        )
-        :
-        m_future(std::move(future)),
-        m_p_state(p_state)
+        progressive_future_base(future_type&& future, const std::shared_ptr<detail::progress_state>& p_state)
+        : m_future(std::move(future)), m_p_state(p_state)
         {}
 #endif
 
@@ -138,8 +118,7 @@ namespace tetengo2 { namespace concurrent
 
             \return This object.
         */
-        progressive_future_base& operator=(progressive_future_base&& another)
-        noexcept
+        progressive_future_base& operator=(progressive_future_base&& another) noexcept
         {
             m_future = std::move(another.m_future);
             m_p_state = std::move(another.m_p_state);
@@ -153,8 +132,7 @@ namespace tetengo2 { namespace concurrent
             \retval true  When this future has a shared state.
             \retval false Otherwise.
         */
-        bool valid()
-        const noexcept
+        bool valid() const noexcept
         {
             return m_future.valid() && m_p_state;
         }
@@ -162,8 +140,7 @@ namespace tetengo2 { namespace concurrent
         /*!
             \brief Waits for the task.
         */
-        void wait()
-        const
+        void wait() const
         {
             m_future.wait();
         }
@@ -179,8 +156,7 @@ namespace tetengo2 { namespace concurrent
             \return A future status.
         */
         template <typename Rep, typename Period>
-        std::future_status wait_for(const std::chrono::duration<Rep, Period>& rel_time)
-        const
+        std::future_status wait_for(const std::chrono::duration<Rep, Period>& rel_time) const
         {
             return m_future.wait_for(rel_time);
         }
@@ -196,8 +172,7 @@ namespace tetengo2 { namespace concurrent
             \return A future status.
         */
         template <typename Clock, typename Duration>
-        std::future_status wait_until(const std::chrono::time_point<Clock, Duration>& abs_time)
-        const
+        std::future_status wait_until(const std::chrono::time_point<Clock, Duration>& abs_time) const
         {
             return m_future.wait_until(abs_time);
         }
@@ -209,8 +184,7 @@ namespace tetengo2 { namespace concurrent
 
             \throw std::logic_error When this future is not valid.
         */
-        const progress_type& progress()
-        const
+        const progress_type& progress() const
         {
             if (!valid())
                 throw std::logic_error{ "This future is not valid." };
@@ -238,8 +212,7 @@ namespace tetengo2 { namespace concurrent
 
             \return The future.
         */
-        const future_type& get_future()
-        const
+        const future_type& get_future() const
         {
             return m_future;
         }
@@ -261,8 +234,6 @@ namespace tetengo2 { namespace concurrent
         future_type m_future;
 
         std::shared_ptr<detail::progress_state> m_p_state;
-
-        
     };
 
 
@@ -295,27 +266,18 @@ namespace tetengo2 { namespace concurrent
         /*!
             \brief Creates an empty progressive future.
         */
-        progressive_future()
-        noexcept
-        :
-        base_type()
-        {}
+        progressive_future() noexcept : base_type() {}
 
         /*!
             \brief Moves a progressive future.
 
             \param another Another progressive future.
         */
-        progressive_future(progressive_future&& another)
-        noexcept
-        :
-        base_type(std::move(another))
-        {}
+        progressive_future(progressive_future&& another) noexcept : base_type(std::move(another)) {}
 
 #if !defined(DOCUMENTATION)
         progressive_future(future_type&& future, const std::shared_ptr<detail::progress_state>& p_state)
-        :
-        base_type(std::move(future), p_state)
+        : base_type(std::move(future), p_state)
         {}
 #endif
 
@@ -329,8 +291,7 @@ namespace tetengo2 { namespace concurrent
 
             \return This object.
         */
-        progressive_future& operator=(progressive_future&& another)
-        noexcept
+        progressive_future& operator=(progressive_future&& another) noexcept
         {
             base_type::operator=(std::move(another));
             return *this;
@@ -345,8 +306,6 @@ namespace tetengo2 { namespace concurrent
         {
             return this->get_future().get();
         }
-
-
     };
 
 
@@ -368,28 +327,18 @@ namespace tetengo2 { namespace concurrent
 
         // constructors and destructor
 
-        progressive_future()
-        noexcept
-        :
-        base_type()
-        {}
+        progressive_future() noexcept : base_type() {}
 
-        progressive_future(progressive_future&& another)
-        noexcept
-        :
-        base_type(std::move(another))
-        {}
+        progressive_future(progressive_future&& another) noexcept : base_type(std::move(another)) {}
 
         progressive_future(future_type&& future, const std::shared_ptr<detail::progress_state>& p_state)
-        :
-        base_type(std::move(future), p_state)
+        : base_type(std::move(future), p_state)
         {}
 
 
         // functions
 
-        progressive_future& operator=(progressive_future&& another)
-        noexcept
+        progressive_future& operator=(progressive_future&& another) noexcept
         {
             base_type::operator=(std::move(another));
             return *this;
@@ -399,8 +348,6 @@ namespace tetengo2 { namespace concurrent
         {
             return this->get_future().get();
         }
-
-
     };
 
 
@@ -421,29 +368,18 @@ namespace tetengo2 { namespace concurrent
 
         // constructors and destructor
 
-        progressive_future()
-        noexcept
-        :
-        base_type()
-        {}
+        progressive_future() noexcept : base_type() {}
 
-        progressive_future(progressive_future&& another)
-        noexcept
-        :
-        base_type(std::move(another))
-        {}
+        progressive_future(progressive_future&& another) noexcept : base_type(std::move(another)) {}
 
-        progressive_future(future_type&& future, const std::shared_ptr<detail::progress_state>& p_state)
-        noexcept
-        :
-        base_type(std::move(future), p_state)
+        progressive_future(future_type&& future, const std::shared_ptr<detail::progress_state>& p_state) noexcept
+        : base_type(std::move(future), p_state)
         {}
 
 
         // functions
 
-        progressive_future& operator=(progressive_future&& another)
-        noexcept
+        progressive_future& operator=(progressive_future&& another) noexcept
         {
             base_type::operator=(std::move(another));
             return *this;
@@ -453,13 +389,10 @@ namespace tetengo2 { namespace concurrent
         {
             this->get_future().get();
         }
-
-
     };
 #endif
-
-
-}}
+}
+}
 
 
 #endif

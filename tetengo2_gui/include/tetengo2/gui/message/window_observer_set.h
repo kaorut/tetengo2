@@ -14,8 +14,7 @@
 #include <boost/signals2.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace message
-{
+namespace tetengo2 { namespace gui { namespace message {
     /*!
         \brief The class for a window observer set.
     */
@@ -29,7 +28,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \param cancel Set true to cancel the window closing.
         */
-        using closing_type = void (bool& cancel);
+        using closing_type = void(bool& cancel);
 
         //! The signal type of closing.
         using closing_signal_type = boost::signals2::signal<closing_type>;
@@ -37,7 +36,7 @@ namespace tetengo2 { namespace gui { namespace message
         /*!
             \brief The observer type of destroyed.
         */
-        using destroyed_type = void ();
+        using destroyed_type = void();
 
         //! The signal type of destroyed.
         using destroyed_signal_type = boost::signals2::signal<destroyed_type>;
@@ -50,8 +49,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a window is closing.
         */
-        const closing_signal_type& closing()
-        const
+        const closing_signal_type& closing() const
         {
             return m_closing;
         }
@@ -71,8 +69,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a window is destroyed.
         */
-        const destroyed_signal_type& destroyed()
-        const
+        const destroyed_signal_type& destroyed() const
         {
             return m_destroyed;
         }
@@ -94,8 +91,6 @@ namespace tetengo2 { namespace gui { namespace message
         closing_signal_type m_closing;
 
         destroyed_signal_type m_destroyed;
-
-
     };
 
 

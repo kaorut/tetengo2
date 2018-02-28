@@ -15,18 +15,18 @@
 /* make_unique ****************************************************************/
 
 #if !defined(DOCUMENTATION)
-#   if BOOST_COMP_MSVC >= BOOST_VERSION_NUMBER(12, 0, 0)
-#       define TETENGO2_STDALT_STD_MAKE_UNIQUE_SUPPORTED 1
-#   else
-#       define TETENGO2_STDALT_STD_MAKE_UNIQUE_SUPPORTED 0
-#   endif
+#if BOOST_COMP_MSVC >= BOOST_VERSION_NUMBER(12, 0, 0)
+#define TETENGO2_STDALT_STD_MAKE_UNIQUE_SUPPORTED 1
+#else
+#define TETENGO2_STDALT_STD_MAKE_UNIQUE_SUPPORTED 0
+#endif
 #endif
 
-#include <utility>
 #include <memory>
+#include <utility>
 
-namespace tetengo2 { namespace stdalt
-{
+namespace tetengo2 {
+namespace stdalt {
 #if TETENGO2_STDALT_STD_MAKE_UNIQUE_SUPPORTED || defined(DOCUMENTATION)
     /*!
         \brief Makes a unique pointer.
@@ -50,9 +50,8 @@ namespace tetengo2 { namespace stdalt
         return std::unique_ptr<T>{ new T(std::forward<A>(args)...) };
     }
 #endif
-
-
-}}
+}
+}
 
 
 #endif

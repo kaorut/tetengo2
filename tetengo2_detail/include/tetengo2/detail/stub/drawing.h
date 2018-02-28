@@ -22,8 +22,7 @@
 #include <tetengo2/text.h>
 
 
-namespace tetengo2 { namespace detail { namespace stub
-{
+namespace tetengo2 { namespace detail { namespace stub {
     /*!
         \brief The class for a detail implementation of a drawing.
     */
@@ -33,7 +32,9 @@ namespace tetengo2 { namespace detail { namespace stub
         // types
 
         //! The background details type.
-        struct background_details_type {};
+        struct background_details_type
+        {
+        };
 
         //! The background details pointer type.
         using background_details_ptr_type = std::unique_ptr<background_details_type>;
@@ -49,18 +50,14 @@ namespace tetengo2 { namespace detail { namespace stub
                 \param width A width.
                 \param height A height.
             */
-            picture_details_type(const std::size_t width, const std::size_t height)
-            :
-            m_dimension(width, height)
-            {}
+            picture_details_type(const std::size_t width, const std::size_t height) : m_dimension(width, height) {}
 
             /*!
                 \brief Returns the dimension.
 
                 \return The dimension.
             */
-            const std::pair<std::size_t, std::size_t>& dimension()
-            const
+            const std::pair<std::size_t, std::size_t>& dimension() const
             {
                 return m_dimension;
             }
@@ -70,15 +67,15 @@ namespace tetengo2 { namespace detail { namespace stub
             // variables
 
             std::pair<std::size_t, std::size_t> m_dimension;
-
-
         };
 
         //! The picture details pointer type.
         using picture_details_ptr_type = std::unique_ptr<picture_details_type>;
 
         //! The canvas details type.
-        struct canvas_details_type {};
+        struct canvas_details_type
+        {
+        };
 
         //! The canvas details pointer type.
         using canvas_details_ptr_type = std::unique_ptr<canvas_details_type>;
@@ -96,15 +93,13 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A unique pointer to a canvas.
         */
         template <typename HandleOrWidgetDetails>
-        static std::unique_ptr<canvas_details_type> create_canvas(
-            const HandleOrWidgetDetails& handle_or_widget_details
-        )
+        static std::unique_ptr<canvas_details_type> create_canvas(const HandleOrWidgetDetails& handle_or_widget_details)
         {
             boost::ignore_unused(handle_or_widget_details);
 
             return stdalt::make_unique<canvas_details_type>();
         }
-        
+
         /*!
             \brief Begins a transaction.
 
@@ -178,10 +173,8 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             const auto& width = dimension.width();
             const auto& height = dimension.height();
-            return
-                stdalt::make_unique<picture_details_type>(
-                    gui::to_pixels<std::size_t>(width), gui::to_pixels<std::size_t>(height)
-                );
+            return stdalt::make_unique<picture_details_type>(
+                gui::to_pixels<std::size_t>(width), gui::to_pixels<std::size_t>(height));
         }
 
         /*!
@@ -212,11 +205,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension>
         static Dimension picture_dimension(const picture_details_type& picture)
         {
-            return
-                {
-                    gui::to_unit<typename Dimension::unit_type>(picture.dimension().first),
-                    gui::to_unit<typename Dimension::unit_type>(picture.dimension().second)
-                };
+            return { gui::to_unit<typename Dimension::unit_type>(picture.dimension().first),
+                     gui::to_unit<typename Dimension::unit_type>(picture.dimension().second) };
         }
 
         /*!
@@ -240,8 +230,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Position&      to,
             const Size           width,
             const int            style,
-            const Color&         color
-        )
+            const Color&         color)
         {
             boost::ignore_unused(canvas, from, to, width, style, color);
         }
@@ -259,11 +248,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the focus indication cannot be drawn.
         */
         template <typename Position, typename Dimension>
-        static void draw_focus_indication(
-            canvas_details_type& canvas,
-            const Position&      position,
-            const Dimension&     dimension
-        )
+        static void
+        draw_focus_indication(canvas_details_type& canvas, const Position& position, const Dimension& dimension)
         {
             boost::ignore_unused(canvas, position, dimension);
         }
@@ -292,8 +278,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Dimension&     dimension,
             const Size           width,
             const int            style,
-            const Color&         color
-        )
+            const Color&         color)
         {
             boost::ignore_unused(canvas, position, dimension, width, style, color);
         }
@@ -317,8 +302,7 @@ namespace tetengo2 { namespace detail { namespace stub
             canvas_details_type& canvas,
             const Position&      position,
             const Dimension&     dimension,
-            const Background&    background
-        )
+            const Background&    background)
         {
             boost::ignore_unused(canvas, position, dimension, background);
         }
@@ -346,8 +330,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const PositionIterator position_last,
             const Size             width,
             const int              style,
-            const Color&           color
-        )
+            const Color&           color)
         {
             boost::ignore_unused(canvas, position_first, position_last, width, style, color);
         }
@@ -370,8 +353,7 @@ namespace tetengo2 { namespace detail { namespace stub
             canvas_details_type&   canvas,
             const PositionIterator position_first,
             const PositionIterator position_last,
-            const Background&      background
-        )
+            const Background&      background)
         {
             boost::ignore_unused(canvas, position_first, position_last, background);
         }
@@ -413,16 +395,14 @@ namespace tetengo2 { namespace detail { namespace stub
             const Font&                          font,
             const String&                        text,
             const Encoder&                       encoder,
-            const typename Dimension::unit_type& max_width
-        )
+            const typename Dimension::unit_type& max_width)
         {
             boost::ignore_unused(canvas, font, text, encoder, max_width);
 
             using dimension_unit_type = typename Dimension::unit_type;
-            return
-                max_width == dimension_unit_type{} || max_width >= dimension_unit_type{ 123 } ?
-                    Dimension{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } } :
-                    Dimension{ dimension_unit_type{ 46 }, dimension_unit_type{ 890 } };
+            return max_width == dimension_unit_type{} || max_width >= dimension_unit_type{ 123 } ?
+                       Dimension{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } } :
+                       Dimension{ dimension_unit_type{ 46 }, dimension_unit_type{ 890 } };
         }
 
         /*!
@@ -447,8 +427,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const canvas_details_type& canvas,
             const Font&                font,
             const String&              text,
-            const Encoder&             encoder
-        )
+            const Encoder&             encoder)
         {
             boost::ignore_unused(canvas, font, text, encoder);
 
@@ -483,8 +462,7 @@ namespace tetengo2 { namespace detail { namespace stub
             typename Encoder,
             typename Position,
             typename DimensionUnit,
-            typename Color
-        >
+            typename Color>
         static void draw_text(
             canvas_details_type& canvas,
             const Font&          font,
@@ -493,8 +471,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Position&      position,
             const DimensionUnit& max_width,
             const Color&         color,
-            const double         angle
-        )
+            const double         angle)
         {
             boost::ignore_unused(canvas, font, text, encoder, position, max_width, color, angle);
         }
@@ -524,16 +501,14 @@ namespace tetengo2 { namespace detail { namespace stub
             typename Encoder,
             typename Position,
             typename Dimension,
-            typename Color
-        >
+            typename Color>
         static void draw_vertical_text(
             canvas_details_type& canvas,
             const Font&          font,
             const String&        text,
             const Encoder&       encoder,
             const Position&      position,
-            const Color&         color
-        )
+            const Color&         color)
         {
             boost::ignore_unused(canvas, font, text, encoder, position, color);
         }
@@ -557,8 +532,7 @@ namespace tetengo2 { namespace detail { namespace stub
             canvas_details_type& canvas,
             const Picture&       picture,
             const Position&      position,
-            const Dimension&     dimension
-        )
+            const Dimension&     dimension)
         {
             boost::ignore_unused(canvas, picture, position, dimension);
         }
@@ -585,10 +559,7 @@ namespace tetengo2 { namespace detail { namespace stub
     private:
         // forbidden operations
 
-        drawing()
-        = delete;
-
-
+        drawing() = delete;
     };
 
 

@@ -15,8 +15,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace detail { namespace stub
-{
+namespace tetengo2 { namespace detail { namespace stub {
     class cursor::impl : private boost::noncopyable
     {
     public:
@@ -40,8 +39,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
         // functions
 
-        cursor_details_ptr_type create_system_cursor_impl(const system_cursor_style_type style)
-        const
+        cursor_details_ptr_type create_system_cursor_impl(const system_cursor_style_type style) const
         {
             boost::ignore_unused(style);
 
@@ -57,8 +55,6 @@ namespace tetengo2 { namespace detail { namespace stub
             static const std::default_delete<cursor_details_type> deleter{};
             deleter(p_details);
         }
-
-
     };
 
 
@@ -67,19 +63,14 @@ namespace tetengo2 { namespace detail { namespace stub
         return impl::instance();
     }
 
-    cursor::~cursor()
-    = default;
+    cursor::~cursor() = default;
 
-    cursor::cursor()
-    :
-    m_p_impl(stdalt::make_unique<impl>())
-    {}
+    cursor::cursor() : m_p_impl(stdalt::make_unique<impl>()) {}
 
-    cursor::cursor_details_ptr_type cursor::create_system_cursor_impl(const system_cursor_style_type style)
-    const
+    cursor::cursor_details_ptr_type cursor::create_system_cursor_impl(const system_cursor_style_type style) const
     {
         return m_p_impl->create_system_cursor_impl(style);
     }
-    
+
 
 }}}

@@ -23,8 +23,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace concurrent
-{
+namespace tetengo2 { namespace concurrent {
     /*!
         \brief The class template for a progressive promise base.
 
@@ -57,9 +56,7 @@ namespace tetengo2 { namespace concurrent
             \param initial_progress An initial progress.
         */
         explicit progressive_promise_base(progress_type initial_progress)
-        :
-        m_promise(),
-        m_p_state(std::make_shared<detail::progress_state>(std::move(initial_progress)))
+        : m_promise(), m_p_state(std::make_shared<detail::progress_state>(std::move(initial_progress)))
         {}
 
         /*!
@@ -75,11 +72,9 @@ namespace tetengo2 { namespace concurrent
         progressive_promise_base(
             progress_type        initial_progress,
             std::allocator_arg_t allocator_arg,
-            const Allocator&     allocator
-        )
-        :
-        m_promise(std::move(allocator_arg), allocator),
-        m_p_state(std::make_shared<detail::progress_state>(std::move(initial_progress)))
+            const Allocator&     allocator)
+        : m_promise(std::move(allocator_arg), allocator),
+          m_p_state(std::make_shared<detail::progress_state>(std::move(initial_progress)))
         {}
 
         /*!
@@ -87,11 +82,8 @@ namespace tetengo2 { namespace concurrent
 
             \param another Another progressive promise base.
         */
-        progressive_promise_base(progressive_promise_base&& another)
-        noexcept
-        :
-        m_promise(std::move(another.m_promise)),
-        m_p_state(std::move(another.m_p_state))
+        progressive_promise_base(progressive_promise_base&& another) noexcept
+        : m_promise(std::move(another.m_promise)), m_p_state(std::move(another.m_p_state))
         {}
 
 
@@ -104,8 +96,7 @@ namespace tetengo2 { namespace concurrent
 
             \return This object.
         */
-        progressive_promise_base& operator=(progressive_promise_base&& another)
-        noexcept
+        progressive_promise_base& operator=(progressive_promise_base&& another) noexcept
         {
             progressive_promise_base{ std::move(another) }.swap(*this);
             return *this;
@@ -116,8 +107,7 @@ namespace tetengo2 { namespace concurrent
 
             \param another Another promise.
         */
-        void swap(progressive_promise_base& another)
-        noexcept
+        void swap(progressive_promise_base& another) noexcept
         {
             m_promise.swap(another.m_promise);
             m_p_state.swap(another.m_p_state);
@@ -170,8 +160,7 @@ namespace tetengo2 { namespace concurrent
             \retval true  When a task abort is requested.
             \retval false Otherwise.
         */
-        bool abort_requested()
-        const
+        bool abort_requested() const
         {
             assert(m_p_state);
             return m_p_state->abort_requested();
@@ -186,8 +175,7 @@ namespace tetengo2 { namespace concurrent
 
             \return The promise.
         */
-        const promise_type& get_promise()
-        const
+        const promise_type& get_promise() const
         {
             return m_promise;
         }
@@ -209,8 +197,6 @@ namespace tetengo2 { namespace concurrent
         promise_type m_promise;
 
         std::shared_ptr<detail::progress_state> m_p_state;
-
-
     };
 
 
@@ -248,10 +234,7 @@ namespace tetengo2 { namespace concurrent
 
             \param initial_progress An initial progress.
         */
-        explicit progressive_promise(progress_type initial_progress)
-        :
-        base_type(std::move(initial_progress))
-        {}
+        explicit progressive_promise(progress_type initial_progress) : base_type(std::move(initial_progress)) {}
 
         /*!
             \brief Creates a progressive promise.
@@ -266,10 +249,8 @@ namespace tetengo2 { namespace concurrent
         progressive_promise(
             progress_type        initial_progress,
             std::allocator_arg_t allocator_arg,
-            const Allocator&     allocator
-        )
-        :
-        base_type(std::move(initial_progress), std::move(allocator_arg), allocator)
+            const Allocator&     allocator)
+        : base_type(std::move(initial_progress), std::move(allocator_arg), allocator)
         {}
 
         /*!
@@ -277,11 +258,7 @@ namespace tetengo2 { namespace concurrent
 
             \param another Another progressive promise.
         */
-        progressive_promise(progressive_promise&& another)
-        noexcept
-        :
-        base_type(std::move(another))
-        {}
+        progressive_promise(progressive_promise&& another) noexcept : base_type(std::move(another)) {}
 
 
         // functions
@@ -293,8 +270,7 @@ namespace tetengo2 { namespace concurrent
 
             \return This object.
         */
-        progressive_promise& operator=(progressive_promise&& another)
-        noexcept
+        progressive_promise& operator=(progressive_promise&& another) noexcept
         {
             base_type::operator=(std::move(another));
             return *this;
@@ -305,8 +281,7 @@ namespace tetengo2 { namespace concurrent
 
             \param another Another promise.
         */
-        void swap(progressive_promise& another)
-        noexcept
+        void swap(progressive_promise& another) noexcept
         {
             base_type::swap(another);
         }
@@ -333,7 +308,7 @@ namespace tetengo2 { namespace concurrent
 
 #if !( \
     BOOST_OS_LINUX && \
-    (BOOST_COMP_CLANG >= BOOST_VERSION_NUMBER(3, 5, 0) && BOOST_COMP_CLANG < BOOST_VERSION_NUMBER(3, 6, 0)) \
+    (BOOST_COMP_CLANG >= BOOST_VERSION_NUMBER(3, 5, 0) && BOOST_COMP_CLANG < BOOST_VERSION_NUMBER(3, 6, 0))\
 )
         /*!
             \brief Sets a result value when the thread finishes.
@@ -355,8 +330,6 @@ namespace tetengo2 { namespace concurrent
             this->get_promise().set_value_at_thread_exit(std::move(result));
         }
 #endif
-
-
     };
 
 
@@ -380,39 +353,28 @@ namespace tetengo2 { namespace concurrent
 
         // constructors and destructor
 
-        explicit progressive_promise(progress_type initial_progress)
-        :
-        base_type(std::move(initial_progress))
-        {}
+        explicit progressive_promise(progress_type initial_progress) : base_type(std::move(initial_progress)) {}
 
         template <typename Allocator>
         progressive_promise(
             progress_type        initial_progress,
             std::allocator_arg_t allocator_arg,
-            const Allocator&     allocator
-        )
-        :
-        base_type(std::move(initial_progress), std::move(allocator_arg), allocator)
+            const Allocator&     allocator)
+        : base_type(std::move(initial_progress), std::move(allocator_arg), allocator)
         {}
 
-        progressive_promise(progressive_promise&& another)
-        noexcept
-        :
-        base_type(std::move(another))
-        {}
+        progressive_promise(progressive_promise&& another) noexcept : base_type(std::move(another)) {}
 
 
         // functions
 
-        progressive_promise& operator=(progressive_promise&& another)
-        noexcept
+        progressive_promise& operator=(progressive_promise&& another) noexcept
         {
             base_type::operator=(std::move(another));
             return *this;
         }
 
-        void swap(progressive_promise& another)
-        noexcept
+        void swap(progressive_promise& another) noexcept
         {
             base_type::swap(another);
         }
@@ -424,15 +386,13 @@ namespace tetengo2 { namespace concurrent
 
 #if !( \
     BOOST_OS_LINUX && \
-    (BOOST_COMP_CLANG >= BOOST_VERSION_NUMBER(3, 5, 0) && BOOST_COMP_CLANG < BOOST_VERSION_NUMBER(3, 6, 0)) \
+    (BOOST_COMP_CLANG >= BOOST_VERSION_NUMBER(3, 5, 0) && BOOST_COMP_CLANG < BOOST_VERSION_NUMBER(3, 6, 0))\
 )
         void set_value_at_thread_exit(result_type& result)
         {
             this->get_promise().set_value_at_thread_exit(result);
         }
 #endif
-
-
     };
 
 
@@ -455,39 +415,28 @@ namespace tetengo2 { namespace concurrent
 
         // constructors and destructor
 
-        explicit progressive_promise(progress_type initial_progress)
-        :
-        base_type(std::move(initial_progress))
-        {}
+        explicit progressive_promise(progress_type initial_progress) : base_type(std::move(initial_progress)) {}
 
         template <typename Allocator>
         progressive_promise(
             progress_type        initial_progress,
             std::allocator_arg_t allocator_arg,
-            const Allocator&     allocator
-        )
-        :
-        base_type(std::move(initial_progress), std::move(allocator_arg), allocator)
+            const Allocator&     allocator)
+        : base_type(std::move(initial_progress), std::move(allocator_arg), allocator)
         {}
 
-        progressive_promise(progressive_promise&& another)
-        noexcept
-        :
-        base_type(std::move(another))
-        {}
+        progressive_promise(progressive_promise&& another) noexcept : base_type(std::move(another)) {}
 
 
         // functions
 
-        progressive_promise& operator=(progressive_promise&& another)
-        noexcept
+        progressive_promise& operator=(progressive_promise&& another) noexcept
         {
             base_type::operator=(std::move(another));
             return *this;
         }
 
-        void swap(progressive_promise& another)
-        noexcept
+        void swap(progressive_promise& another) noexcept
         {
             base_type::swap(another);
         }
@@ -501,8 +450,6 @@ namespace tetengo2 { namespace concurrent
         {
             this->get_promise().set_value_at_thread_exit();
         }
-
-
     };
 #endif
 
@@ -510,27 +457,22 @@ namespace tetengo2 { namespace concurrent
 }}
 
 
-namespace std
+namespace std {
+/*!
+    \brief Swaps promises.
+
+    \tparam T A type.
+
+    \param one     One promise.
+    \param another Another promise.
+*/
+template <typename T>
+void swap(
+    tetengo2::concurrent::progressive_promise<T>& one,
+    tetengo2::concurrent::progressive_promise<T>& another) noexcept
 {
-    /*!
-        \brief Swaps promises.
-
-        \tparam T A type.
-
-        \param one     One promise.
-        \param another Another promise.
-    */
-    template <typename T>
-    void swap(
-        tetengo2::concurrent::progressive_promise<T>& one,
-        tetengo2::concurrent::progressive_promise<T>& another
-    )
-    noexcept
-    {
-        one.swap(another);
-    }
-
-
+    one.swap(another);
+}
 }
 
 

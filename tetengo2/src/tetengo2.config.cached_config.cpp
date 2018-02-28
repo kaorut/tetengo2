@@ -12,14 +12,13 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/optional.hpp>
 
-#include <tetengo2/config/config_base.h>
 #include <tetengo2/config/cached_config.h>
+#include <tetengo2/config/config_base.h>
 #include <tetengo2/config/temporary_config.h>
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace config
-{
+namespace tetengo2 { namespace config {
     class cached_config::impl : private boost::noncopyable
     {
     public:
@@ -36,17 +35,12 @@ namespace tetengo2 { namespace config
 
         // constructors and destructor
 
-        explicit impl(std::unique_ptr<base_type> p_config)
-        :
-        m_p_config(std::move(p_config)),
-        m_cache()
-        {}
+        explicit impl(std::unique_ptr<base_type> p_config) : m_p_config(std::move(p_config)), m_cache() {}
 
 
         // functions
 
-        boost::optional<value_type> get_impl(const string_type& key)
-        const
+        boost::optional<value_type> get_impl(const string_type& key) const
         {
             auto cached_value = m_cache.get(key);
             if (cached_value.is_initialized())
@@ -83,21 +77,16 @@ namespace tetengo2 { namespace config
         const std::unique_ptr<base_type> m_p_config;
 
         mutable cache_type m_cache;
-
-
     };
 
 
     cached_config::cached_config(std::unique_ptr<base_type> p_config)
-    :
-    m_p_impl(stdalt::make_unique<impl>(std::move(p_config)))
+    : m_p_impl(stdalt::make_unique<impl>(std::move(p_config)))
     {}
 
-    cached_config::~cached_config()
-    = default;
+    cached_config::~cached_config() = default;
 
-    boost::optional<cached_config::value_type> cached_config::get_impl(const string_type& key)
-    const
+    boost::optional<cached_config::value_type> cached_config::get_impl(const string_type& key) const
     {
         return m_p_impl->get_impl(key);
     }

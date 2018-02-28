@@ -16,8 +16,7 @@
 #include <boost/core/noncopyable.hpp>
 
 
-namespace tetengo2 { namespace gui
-{
+namespace tetengo2 { namespace gui {
     /*!
         \brief The class template for a timer.
 
@@ -41,7 +40,7 @@ namespace tetengo2 { namespace gui
 
             \param stop Assign true to stop the timer.
         */
-        using procedure_type = std::function<void (bool& stop)>;
+        using procedure_type = std::function<void(bool& stop)>;
 
         //! The interval type.
         using inteval_type = std::chrono::milliseconds;
@@ -58,8 +57,7 @@ namespace tetengo2 { namespace gui
             \param once_only Set true to execute the procedure once only.
         */
         timer(const widget_type& widget, procedure_type procedure, const inteval_type& interval, const bool once_only)
-        :
-        m_timer_details(widget, std::move(procedure), interval, once_only)
+        : m_timer_details(widget, std::move(procedure), interval, once_only)
         {}
 
 
@@ -70,8 +68,7 @@ namespace tetengo2 { namespace gui
 
             \return The stopped status.
         */
-        bool stopped()
-        const
+        bool stopped() const
         {
             return m_timer_details.stopped();
         }
@@ -89,8 +86,6 @@ namespace tetengo2 { namespace gui
         // variables
 
         timer_details_type m_timer_details;
-
-
     };
 
 

@@ -16,8 +16,7 @@
 #include <tetengo2/text/encoding/encoding.h>
 
 
-namespace tetengo2 { namespace text { namespace encoding
-{
+namespace tetengo2 { namespace text { namespace encoding {
     class cp932::impl : private boost::noncopyable
     {
     public:
@@ -32,51 +31,39 @@ namespace tetengo2 { namespace text { namespace encoding
 
         // functions
 
-        const std::string& name_impl()
-        const
+        const std::string& name_impl() const
         {
             static const std::string singleton{ "CP932" };
             return singleton;
         }
 
-        string_type from_pivot_impl(pivot_type pivot)
-        const
+        string_type from_pivot_impl(pivot_type pivot) const
         {
             return cp932::details().pivot_to_cp932(std::move(pivot));
         }
 
-        typename base_type::pivot_type to_pivot_impl(const string_type& string)
-        const
+        typename base_type::pivot_type to_pivot_impl(const string_type& string) const
         {
             return cp932::details().cp932_to_pivot(std::move(string));
         }
-
-
     };
 
 
-    cp932::cp932()
-    :
-    m_p_impl(std::make_shared<impl>())
-    {}
+    cp932::cp932() : m_p_impl(std::make_shared<impl>()) {}
 
-    cp932::~cp932()
-    = default;
+    cp932::~cp932() = default;
 
-    const std::string& cp932::name_impl()
-    const
+    const std::string& cp932::name_impl() const
     {
         return m_p_impl->name_impl();
     }
 
-    cp932::string_type cp932::from_pivot_impl(pivot_type pivot)
-    const
+    cp932::string_type cp932::from_pivot_impl(pivot_type pivot) const
     {
         return m_p_impl->from_pivot_impl(pivot);
     }
 
-    typename cp932::base_type::pivot_type cp932::to_pivot_impl(string_type string)
-    const
+    typename cp932::base_type::pivot_type cp932::to_pivot_impl(string_type string) const
     {
         return m_p_impl->to_pivot_impl(string);
     }

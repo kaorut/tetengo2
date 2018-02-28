@@ -19,8 +19,7 @@
 #include <tetengo2/gui/message/scroll_bar_observer_set.h>
 
 
-namespace tetengo2 { namespace gui
-{
+namespace tetengo2 { namespace gui {
     /*!
         \brief The class template for a scroll bar.
 
@@ -51,7 +50,7 @@ namespace tetengo2 { namespace gui
         //! The style type.
         enum class style_type
         {
-            vertical,   //!< The vertical style.
+            vertical, //!< The vertical style.
             horizontal, //!< The horizontal style.
         };
 
@@ -66,10 +65,8 @@ namespace tetengo2 { namespace gui
         */
         template <typename WidgetDetails>
         scroll_bar(const WidgetDetails& widget_details, const style_type style)
-        :
-        m_p_details(details_type::create_scroll_bar(widget_details, to_details_style(style))),
-        m_scroll_bar_observer_set(),
-        m_tracking_position()
+        : m_p_details(details_type::create_scroll_bar(widget_details, to_details_style(style))),
+          m_scroll_bar_observer_set(), m_tracking_position()
         {
             set_observers();
         }
@@ -82,8 +79,7 @@ namespace tetengo2 { namespace gui
 
             \return The position.
         */
-        size_type position()
-        const
+        size_type position() const
         {
             return details_type::position(*m_p_details);
         }
@@ -111,8 +107,7 @@ namespace tetengo2 { namespace gui
 
             \return The tracking position.
         */
-        size_type tracking_position()
-        const
+        size_type tracking_position() const
         {
             return m_tracking_position;
         }
@@ -122,8 +117,7 @@ namespace tetengo2 { namespace gui
 
             \return The range.
         */
-        const range_type range()
-        const
+        const range_type range() const
         {
             return details_type::range(*m_p_details);
         }
@@ -151,8 +145,7 @@ namespace tetengo2 { namespace gui
 
             \return The page size.
         */
-        size_type page_size()
-        const
+        size_type page_size() const
         {
             return details_type::page_size(*m_p_details);
         }
@@ -175,8 +168,7 @@ namespace tetengo2 { namespace gui
             \retval true  When the scroll bar is enabled.
             \retval false Otherwise.
         */
-        bool enabled()
-        const
+        bool enabled() const
         {
             return details_type::enabled(*m_p_details);
         }
@@ -196,8 +188,7 @@ namespace tetengo2 { namespace gui
 
             \return The scroll bar observer set.
         */
-        const scroll_bar_observer_set_type& scroll_bar_observer_set()
-        const
+        const scroll_bar_observer_set_type& scroll_bar_observer_set() const
         {
             return m_scroll_bar_observer_set;
         }
@@ -245,19 +236,15 @@ namespace tetengo2 { namespace gui
         void set_observers()
         {
             m_scroll_bar_observer_set.scrolling().connect(
-                [this](const size_type new_position) { this->set_tracking_position(new_position); }
-            );
+                [this](const size_type new_position) { this->set_tracking_position(new_position); });
             m_scroll_bar_observer_set.scrolled().connect(
-                [this](const size_type new_position) { this->set_tracking_position(new_position); }
-            );
+                [this](const size_type new_position) { this->set_tracking_position(new_position); });
         }
 
         void set_tracking_position(const size_type new_position)
         {
             m_tracking_position = new_position;
         }
-
-
     };
 
 

@@ -15,8 +15,7 @@
 #include <tetengo2/gui/widget/control.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget
-{
+namespace tetengo2 { namespace gui { namespace widget {
     /*!
         \brief The class template for a text box.
 
@@ -65,18 +64,17 @@ namespace tetengo2 { namespace gui { namespace widget
         text_box(widget_type& parent, const scroll_bar_style_type scroll_bar_style)
         :
 #if BOOST_COMP_MSVC
-#   pragma warning(push)
-#   pragma warning(disable: 4355)
+#pragma warning(push)
+#pragma warning(disable : 4355)
 #endif
-        base_type(
-            scroll_bar_style,
-            message_handler_details_type::make_text_box_message_handler_map(*this, message_handler_map_type{}),
-            widget_details_type::create_text_box(parent, scroll_bar_style)
-        ),
+          base_type(
+              scroll_bar_style,
+              message_handler_details_type::make_text_box_message_handler_map(*this, message_handler_map_type{}),
+              widget_details_type::create_text_box(parent, scroll_bar_style)),
 #if BOOST_COMP_MSVC
-#   pragma warning(pop)
+#pragma warning(pop)
 #endif
-        m_text_box_observer_set()
+          m_text_box_observer_set()
         {
             base_type::initialize(this);
 
@@ -86,8 +84,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Destroys the text box.
         */
-        virtual ~text_box()
-        noexcept
+        virtual ~text_box() noexcept
         {
             try
             {
@@ -95,7 +92,8 @@ namespace tetengo2 { namespace gui { namespace widget
                     this->parent().child_observer_set().destroying()(*this);
             }
             catch (...)
-            {}
+            {
+            }
         }
 
 
@@ -107,8 +105,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \retval true  When the text box is read-only.
             \retval false Otherwise.
         */
-        bool read_only()
-        const
+        bool read_only() const
         {
             return widget_details_type::read_only(*this);
         }
@@ -128,8 +125,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The text box observer set.
         */
-        const text_box_observer_set_type& text_box_observer_set()
-        const
+        const text_box_observer_set_type& text_box_observer_set() const
         {
             return m_text_box_observer_set;
         }
@@ -154,8 +150,6 @@ namespace tetengo2 { namespace gui { namespace widget
         // variables
 
         text_box_observer_set_type m_text_box_observer_set;
-
-
     };
 
 

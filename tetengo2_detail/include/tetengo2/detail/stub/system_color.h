@@ -17,8 +17,7 @@
 #include <boost/throw_exception.hpp>
 
 
-namespace tetengo2 { namespace detail { namespace stub
-{
+namespace tetengo2 { namespace detail { namespace stub {
     /*!
         \brief The class for a detail implementation of a GUI fixture.
     */
@@ -30,14 +29,14 @@ namespace tetengo2 { namespace detail { namespace stub
         //! The system color index type.
         enum class system_color_index_type
         {
-            title_bar_text,       //!< Title bar text.
+            title_bar_text, //!< Title bar text.
             title_bar_background, //!< Title bar background.
-            dialog_background,    //!< Dialog background.
-            control_background,   //!< Control background.
-            control_text,         //!< Control text.
-            selected_background,  //!< Selected background.
-            selected_text,        //!< Selected text.
-            hyperlink_text,       //!< Hyperlink text.
+            dialog_background, //!< Dialog background.
+            control_background, //!< Control background.
+            control_text, //!< Control text.
+            selected_background, //!< Selected background.
+            selected_text, //!< Selected text.
+            hyperlink_text, //!< Hyperlink text.
         };
 
 
@@ -72,7 +71,7 @@ namespace tetengo2 { namespace detail { namespace stub
             case system_color_index_type::selected_text:
                 return { 255, 255, 255 };
             case system_color_index_type::hyperlink_text:
-                return { 0, 0,255 };
+                return { 0, 0, 255 };
             default:
                 assert(false);
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "Invalid system color index." }));
@@ -83,10 +82,7 @@ namespace tetengo2 { namespace detail { namespace stub
     private:
         // forbidden operations
 
-        system_color()
-        = delete;
-
-    
+        system_color() = delete;
     };
 
 

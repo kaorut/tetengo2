@@ -14,8 +14,7 @@
 #include <boost/core/noncopyable.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace drawing
-{
+namespace tetengo2 { namespace gui { namespace drawing {
     /*!
         \brief The class template for a background.
 
@@ -42,8 +41,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Destroys the background.
         */
-        virtual ~background()
-        = default;
+        virtual ~background() = default;
 
 
         // functions
@@ -53,8 +51,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return A unique pointer to a clone.
         */
-        std::unique_ptr<background> clone()
-        const
+        std::unique_ptr<background> clone() const
         {
             return clone_impl();
         }
@@ -64,8 +61,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The detail implementation.
         */
-        const details_type& details()
-        const
+        const details_type& details() const
         {
             return details_impl();
         }
@@ -87,23 +83,17 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Creates a background.
         */
-        background()
-        {}
+        background() {}
 
 
     private:
         // virtual functions
 
-        virtual std::unique_ptr<background> clone_impl()
-        const = 0;
+        virtual std::unique_ptr<background> clone_impl() const = 0;
 
-        virtual const details_type& details_impl()
-        const = 0;
+        virtual const details_type& details_impl() const = 0;
 
-        virtual details_type& details_impl()
-        = 0;
-
-
+        virtual details_type& details_impl() = 0;
     };
 
 

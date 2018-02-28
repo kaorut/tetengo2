@@ -26,8 +26,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace drawing
-{
+namespace tetengo2 { namespace gui { namespace drawing {
     /*!
         \brief The class template for a canvas.
 
@@ -95,9 +94,9 @@ namespace tetengo2 { namespace gui { namespace drawing
         //! The line style type.
         enum class line_style_type
         {
-            solid,      //!< Solid.
-            dashed,     //!< Dashed.
-            dotted,     //!< Dotted.
+            solid, //!< Solid.
+            dashed, //!< Dashed.
+            dotted, //!< Dotted.
             dot_dashed, //!< Dot-Dashed.
         };
 
@@ -107,12 +106,11 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Destroys the canvas.
         */
-        virtual ~canvas()
-        = default;
+        virtual ~canvas() = default;
 
 
         // functions
-        
+
         /*!
             \brief Begins a transaction.
 
@@ -122,7 +120,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         {
             drawing_details_type::begin_transaction(*m_p_details, dimension);
         }
-            
+
         /*!
             \brief Ends a transaction.
         */
@@ -130,14 +128,13 @@ namespace tetengo2 { namespace gui { namespace drawing
         {
             drawing_details_type::end_transaction(*m_p_details);
         }
-            
+
         /*!
             \brief Returns the color.
 
             \return The color.
         */
-        const color_type& get_color()
-        const
+        const color_type& get_color() const
         {
             return m_color;
         }
@@ -157,8 +154,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The background.
         */
-        const background_type& get_background()
-        const
+        const background_type& get_background() const
         {
             assert(m_p_background);
             return *m_p_background;
@@ -179,8 +175,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The line_width.
         */
-        const dimension_unit_type& line_width()
-        const
+        const dimension_unit_type& line_width() const
         {
             return m_line_width;
         }
@@ -200,8 +195,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The line_width.
         */
-        line_style_type line_style()
-        const
+        line_style_type line_style() const
         {
             return m_line_style;
         }
@@ -223,8 +217,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The font.
         */
-        const font_type& get_font()
-        const
+        const font_type& get_font() const
         {
             return m_font;
         }
@@ -250,8 +243,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         void draw_line(const position_type& from, const position_type& to)
         {
             drawing_details_type::draw_line(
-                *m_p_details, from, to, m_line_width, static_cast<int>(m_line_style), m_color
-            );
+                *m_p_details, from, to, m_line_width, static_cast<int>(m_line_style), m_color);
         }
 
         /*!
@@ -275,8 +267,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         {
             assert(m_p_background);
             drawing_details_type::draw_rectangle(
-                *m_p_details, position, dimension, m_line_width, static_cast<int>(m_line_style), m_color
-            );
+                *m_p_details, position, dimension, m_line_width, static_cast<int>(m_line_style), m_color);
         }
 
         /*!
@@ -303,8 +294,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         void draw_polygon(const PositionIterator position_first, const PositionIterator position_last)
         {
             drawing_details_type::draw_polygon(
-                *m_p_details, position_first, position_last, m_line_width, static_cast<int>(m_line_style), m_color
-            );
+                *m_p_details, position_first, position_last, m_line_width, static_cast<int>(m_line_style), m_color);
         }
 
         /*!
@@ -331,8 +321,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The dimension of the text.
         */
-        dimension_type calc_text_dimension(const string_type& text)
-        const
+        dimension_type calc_text_dimension(const string_type& text) const
         {
             return calc_text_dimension(text, dimension_unit_type{});
         }
@@ -345,13 +334,10 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The dimension of the text.
         */
-        dimension_type calc_text_dimension(const string_type& text, const dimension_unit_type& max_width)
-        const
+        dimension_type calc_text_dimension(const string_type& text, const dimension_unit_type& max_width) const
         {
-            return
-                drawing_details_type::template calc_text_dimension<dimension_type>(
-                    *m_p_details, m_font, text, encoder(), max_width
-                );
+            return drawing_details_type::template calc_text_dimension<dimension_type>(
+                *m_p_details, m_font, text, encoder(), max_width);
         }
 
         /*!
@@ -361,13 +347,10 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The dimension of the vertical text.
         */
-        dimension_type calc_vertical_text_dimension(const string_type& text)
-        const
+        dimension_type calc_vertical_text_dimension(const string_type& text) const
         {
-            return
-                drawing_details_type::template calc_vertical_text_dimension<dimension_type>(
-                    *m_p_details, m_font, text, encoder()
-                );
+            return drawing_details_type::template calc_vertical_text_dimension<dimension_type>(
+                *m_p_details, m_font, text, encoder());
         }
 
         /*!
@@ -397,15 +380,12 @@ namespace tetengo2 { namespace gui { namespace drawing
             \param angle     A clockwise angle in radians.
         */
         void draw_text(
-            const string_type&          text,
-            const position_type&        position,
+            const string_type&         text,
+            const position_type&       position,
             const dimension_unit_type& max_width,
-            const double                angle = 0.0
-        )
+            const double               angle = 0.0)
         {
-            drawing_details_type::draw_text(
-                *m_p_details, m_font, text, encoder(), position, max_width, m_color, angle
-            );
+            drawing_details_type::draw_text(*m_p_details, m_font, text, encoder(), position, max_width, m_color, angle);
         }
 
         /*!
@@ -418,9 +398,9 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         void draw_vertical_text(const string_type& text, const position_type& position)
         {
-            drawing_details_type::template draw_vertical_text<
-                font_type, string_type, encoder_type, position_type, dimension_type
-            >(*m_p_details, m_font, text, encoder(), position, m_color);
+            drawing_details_type::
+                template draw_vertical_text<font_type, string_type, encoder_type, position_type, dimension_type>(
+                    *m_p_details, m_font, text, encoder(), position, m_color);
         }
 
         /*!
@@ -430,11 +410,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             \param position  A position where the picture is painted.
             \param dimension A dimension in which the picture is painted.
         */
-        void paint_picture(
-            const picture_type&   picture,
-            const position_type&  position,
-            const dimension_type& dimension
-        )
+        void paint_picture(const picture_type& picture, const position_type& position, const dimension_type& dimension)
         {
             drawing_details_type::paint_picture(*m_p_details, picture, position, dimension);
         }
@@ -466,8 +442,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The detail implementation.
         */
-        const details_type& details()
-        const
+        const details_type& details() const
         {
             assert(m_p_details);
             return *m_p_details;
@@ -500,13 +475,9 @@ namespace tetengo2 { namespace gui { namespace drawing
             \throw std::invalid_argument When p_details is nullptr.
         */
         explicit canvas(details_ptr_type p_details)
-        :
-        m_p_details(std::move(p_details)),
-        m_color(0, 0, 0, 255),
-        m_p_background(stdalt::make_unique<const solid_background_type>(color_type{ 255, 255, 255, 255 })),
-        m_line_width(dimension_unit_type{ 1 }),
-        m_line_style(line_style_type::solid),
-        m_font(font_type::dialog_font())
+        : m_p_details(std::move(p_details)), m_color(0, 0, 0, 255),
+          m_p_background(stdalt::make_unique<const solid_background_type>(color_type{ 255, 255, 255, 255 })),
+          m_line_width(dimension_unit_type{ 1 }), m_line_style(line_style_type::solid), m_font(font_type::dialog_font())
         {
             if (!m_p_details)
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "The detail implementation is nullptr." }));
@@ -536,8 +507,6 @@ namespace tetengo2 { namespace gui { namespace drawing
         line_style_type m_line_style;
 
         font_type m_font;
-
-
     };
 
 

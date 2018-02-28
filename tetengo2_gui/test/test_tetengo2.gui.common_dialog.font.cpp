@@ -28,115 +28,110 @@
 #include "test_tetengo2.gui.type_list.h"
 
 
-namespace
-{
-    // types
+namespace {
+// types
 
-    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-    using size_type = common_type_list_type::size_type;
+using size_type = common_type_list_type::size_type;
 
-    using string_type = common_type_list_type::string_type;
+using string_type = common_type_list_type::string_type;
 
-    using widget_traits_type = common_type_list_type::widget_traits_type;
+using widget_traits_type = common_type_list_type::widget_traits_type;
 
-    using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
+using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
 
-    using menu_details_type = detail_type_list_type::menu_type;
+using menu_details_type = detail_type_list_type::menu_type;
 
-    using window_type =
-        tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
+using window_type = tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
 
-    using drawing_details_type = detail_type_list_type::drawing_type;
+using drawing_details_type = detail_type_list_type::drawing_type;
 
-    using font_type = tetengo2::gui::drawing::font<string_type, size_type, drawing_details_type>;
+using font_type = tetengo2::gui::drawing::font<string_type, size_type, drawing_details_type>;
 
-    using common_dialog_details_type = detail_type_list_type::common_dialog_type;
+using common_dialog_details_type = detail_type_list_type::common_dialog_type;
 
-    using font_dialog_type =
-        tetengo2::gui::common_dialog::font<
-            font_type, widget_traits_type, common_dialog_details_type, widget_details_traits_type, menu_details_type
-        >;
-
-
+using font_dialog_type = tetengo2::gui::common_dialog::
+    font<font_type, widget_traits_type, common_dialog_details_type, widget_details_traits_type, menu_details_type>;
 }
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
-BOOST_AUTO_TEST_SUITE(gui)
-BOOST_AUTO_TEST_SUITE(common_dialog)
-BOOST_AUTO_TEST_SUITE(font)
-    // test cases
+    BOOST_AUTO_TEST_SUITE(gui)
+        BOOST_AUTO_TEST_SUITE(common_dialog)
+            BOOST_AUTO_TEST_SUITE(font)
+                // test cases
 
-    BOOST_AUTO_TEST_CASE(construction)
-    {
-        BOOST_TEST_PASSPOINT();
+                BOOST_AUTO_TEST_CASE(construction)
+                {
+                    BOOST_TEST_PASSPOINT();
 
-        {
-            window_type parent{};
-            const font_dialog_type font{ boost::none, parent };
-        }
-        {
-            window_type parent{};
-            const font_dialog_type font{
-                boost::make_optional(font_type{ string_type{ TETENGO2_TEXT("fuga") }, 42, false, true, false, true }),
-                parent
-            };
-        }
-    }
+                    {
+                        window_type            parent{};
+                        const font_dialog_type font{ boost::none, parent };
+                    }
+                    {
+                        window_type            parent{};
+                        const font_dialog_type font{
+                            boost::make_optional(
+                                font_type{ string_type{ TETENGO2_TEXT("fuga") }, 42, false, true, false, true }),
+                            parent
+                        };
+                    }
+                }
 
-    BOOST_AUTO_TEST_CASE(result)
-    {
-        BOOST_TEST_PASSPOINT();
+                BOOST_AUTO_TEST_CASE(result)
+                {
+                    BOOST_TEST_PASSPOINT();
 
-        {
-            window_type parent{};
-            const font_dialog_type font{ boost::none, parent };
+                    {
+                        window_type            parent{};
+                        const font_dialog_type font{ boost::none, parent };
 
-            BOOST_CHECK(font.result() == font_type::dialog_font());
-        }
-        {
-            window_type parent{};
-            font_dialog_type font{ boost::none, parent };
+                        BOOST_CHECK(font.result() == font_type::dialog_font());
+                    }
+                    {
+                        window_type      parent{};
+                        font_dialog_type font{ boost::none, parent };
 
-            font.do_modal();
+                        font.do_modal();
 
-            BOOST_CHECK(font.result() != font_type::dialog_font());
-        }
-    }
+                        BOOST_CHECK(font.result() != font_type::dialog_font());
+                    }
+                }
 
-    BOOST_AUTO_TEST_CASE(do_modal)
-    {
-        BOOST_TEST_PASSPOINT();
+                BOOST_AUTO_TEST_CASE(do_modal)
+                {
+                    BOOST_TEST_PASSPOINT();
 
-        window_type parent{};
-        font_dialog_type font{ boost::none, parent };
+                    window_type      parent{};
+                    font_dialog_type font{ boost::none, parent };
 
-        font.do_modal();
-    }
+                    font.do_modal();
+                }
 
-    BOOST_AUTO_TEST_CASE(details)
-    {
-        BOOST_TEST_PASSPOINT();
+                BOOST_AUTO_TEST_CASE(details)
+                {
+                    BOOST_TEST_PASSPOINT();
 
-        {
-            window_type parent{};
-            const font_dialog_type font{ boost::none, parent };
+                    {
+                        window_type            parent{};
+                        const font_dialog_type font{ boost::none, parent };
 
-            font.details();
-        }
-        {
-            window_type parent{};
-            font_dialog_type font{ boost::none, parent };
+                        font.details();
+                    }
+                    {
+                        window_type      parent{};
+                        font_dialog_type font{ boost::none, parent };
 
-            font.details();
-        }
-    }
+                        font.details();
+                    }
+                }
 
 
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
+            BOOST_AUTO_TEST_SUITE_END()
+        BOOST_AUTO_TEST_SUITE_END()
+    BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

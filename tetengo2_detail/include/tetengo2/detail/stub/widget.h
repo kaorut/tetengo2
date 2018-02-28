@@ -30,8 +30,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace detail { namespace stub
-{
+namespace tetengo2 { namespace detail { namespace stub {
     /*!
         \brief The class for a detail implementation of a widget.
     */
@@ -48,20 +47,12 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             string_type family;
             std::size_t size;
-            bool bold;
-            bool italic;
-            bool underline;
-            bool strikeout;
+            bool        bold;
+            bool        italic;
+            bool        underline;
+            bool        strikeout;
 
-            details_font_type()
-            :
-            family(),
-            size(),
-            bold(),
-            italic(),
-            underline(),
-            strikeout()
-            {}
+            details_font_type() : family(), size(), bold(), italic(), underline(), strikeout() {}
 
             details_font_type(
                 string_type       family,
@@ -69,17 +60,10 @@ namespace tetengo2 { namespace detail { namespace stub
                 const bool        bold,
                 const bool        italic,
                 const bool        underline,
-                const bool        strikeout
-            )
-            :
-            family(std::move(family)),
-            size(size),
-            bold(bold),
-            italic(italic),
-            underline(underline),
-            strikeout(strikeout)
+                const bool        strikeout)
+            : family(std::move(family)), size(size), bold(bold), italic(italic), underline(underline),
+              strikeout(strikeout)
             {}
-
         };
 #endif
 
@@ -87,41 +71,27 @@ namespace tetengo2 { namespace detail { namespace stub
         struct widget_details_type
         {
 #if !defined(DOCUMENTATION)
-            void* p_parent;
-            bool enabled;
-            bool visible;
-            int window_state;
+            void*                                     p_parent;
+            bool                                      enabled;
+            bool                                      visible;
+            int                                       window_state;
             std::pair<std::ptrdiff_t, std::ptrdiff_t> position;
-            std::pair<std::size_t, std::size_t> dimension;
-            string_type text;
-            details_font_type font;
-            std::vector<void*> children;
-            bool focusable;
-            bool read_only;
-            std::vector<string_type> list_box_values;
-            boost::optional<std::size_t> selected_list_box_value_index;
-            std::size_t progress_bar_goal;
-            std::size_t progress_bar_progress;
-            int progress_bar_state;
+            std::pair<std::size_t, std::size_t>       dimension;
+            string_type                               text;
+            details_font_type                         font;
+            std::vector<void*>                        children;
+            bool                                      focusable;
+            bool                                      read_only;
+            std::vector<string_type>                  list_box_values;
+            boost::optional<std::size_t>              selected_list_box_value_index;
+            std::size_t                               progress_bar_goal;
+            std::size_t                               progress_bar_progress;
+            int                                       progress_bar_state;
 
             widget_details_type()
-            :
-            p_parent(),
-            enabled(),
-            visible(),
-            window_state(),
-            position(),
-            dimension(),
-            text(),
-            font(),
-            children(),
-            focusable(),
-            read_only(),
-            list_box_values(),
-            selected_list_box_value_index(),
-            progress_bar_goal(),
-            progress_bar_progress(),
-            progress_bar_state()
+            : p_parent(), enabled(), visible(), window_state(), position(), dimension(), text(), font(), children(),
+              focusable(), read_only(), list_box_values(), selected_list_box_value_index(), progress_bar_goal(),
+              progress_bar_progress(), progress_bar_state()
             {}
 
             widget_details_type(
@@ -140,28 +110,16 @@ namespace tetengo2 { namespace detail { namespace stub
                 boost::optional<std::size_t>              selected_list_box_value_index,
                 const std::size_t                         progress_bar_goal,
                 const std::size_t                         progress_bar_progress,
-                const int                                 progress_bar_state
-            )
-            :
-            p_parent(p_parent),
-            enabled(enabled),
-            visible(visible),
-            window_state(window_state),
-            position(std::move(position)),
-            dimension(std::move(dimension)),
-            text(std::move(text)),
-            font(std::move(font)),
-            children(std::move(children)),
-            focusable(focusable),
-            read_only(read_only),
-            list_box_values(std::move(list_box_values)),
-            selected_list_box_value_index(std::move(selected_list_box_value_index)),
-            progress_bar_goal(progress_bar_goal),
-            progress_bar_progress(progress_bar_progress),
-            progress_bar_state(progress_bar_state)
+                const int                                 progress_bar_state)
+            : p_parent(p_parent), enabled(enabled), visible(visible), window_state(window_state),
+              position(std::move(position)), dimension(std::move(dimension)), text(std::move(text)),
+              font(std::move(font)), children(std::move(children)), focusable(focusable), read_only(read_only),
+              list_box_values(std::move(list_box_values)),
+              selected_list_box_value_index(std::move(selected_list_box_value_index)),
+              progress_bar_goal(progress_bar_goal), progress_bar_progress(progress_bar_progress),
+              progress_bar_state(progress_bar_state)
             {}
 #endif
-
         };
 
         //! The widget details pointer type.
@@ -210,8 +168,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static widget_details_ptr_type create_custom_control(
             Widget&                                      parent,
             const bool                                   border,
-            const typename Widget::scroll_bar_style_type scroll_bar_style
-        )
+            const typename Widget::scroll_bar_style_type scroll_bar_style)
         {
             boost::ignore_unused(border, scroll_bar_style);
 
@@ -302,10 +259,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When a list box cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_list_box(
-            Widget&                                      parent,
-            const typename Widget::scroll_bar_style_type scroll_bar_style
-        )
+        static widget_details_ptr_type
+        create_list_box(Widget& parent, const typename Widget::scroll_bar_style_type scroll_bar_style)
         {
             boost::ignore_unused(scroll_bar_style);
 
@@ -325,10 +280,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When a picture box cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_picture_box(
-            Widget&                                      parent,
-            const typename Widget::scroll_bar_style_type scroll_bar_style
-        )
+        static widget_details_ptr_type
+        create_picture_box(Widget& parent, const typename Widget::scroll_bar_style_type scroll_bar_style)
         {
             boost::ignore_unused(scroll_bar_style);
 
@@ -365,10 +318,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When a text box cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_text_box(
-            Widget&                                      parent,
-            const typename Widget::scroll_bar_style_type scroll_bar_style
-        )
+        static widget_details_ptr_type
+        create_text_box(Widget& parent, const typename Widget::scroll_bar_style_type scroll_bar_style)
         {
             boost::ignore_unused(scroll_bar_style);
 
@@ -392,8 +343,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static widget_details_ptr_type create_window(
             Widget* const                                p_parent,
             const typename Widget::scroll_bar_style_type scroll_bar_style,
-            const bool                                   file_droppable
-        )
+            const bool                                   file_droppable)
         {
             boost::ignore_unused(scroll_bar_style, file_droppable);
 
@@ -576,14 +526,10 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget, typename Position, typename Dimension>
         static void move(Widget& widget, const Position& position, const Dimension& dimension)
         {
-            widget.details().position =
-                std::make_pair(
-                    gui::to_pixels<std::size_t>(position.left()), gui::to_pixels<std::size_t>(position.top())
-                );
-            widget.details().dimension =
-                std::make_pair(
-                    gui::to_pixels<std::size_t>(dimension.width()), gui::to_pixels<std::size_t>(dimension.height())
-                );
+            widget.details().position = std::make_pair(
+                gui::to_pixels<std::size_t>(position.left()), gui::to_pixels<std::size_t>(position.top()));
+            widget.details().dimension = std::make_pair(
+                gui::to_pixels<std::size_t>(dimension.width()), gui::to_pixels<std::size_t>(dimension.height()));
         }
 
         /*!
@@ -601,11 +547,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Position, typename Widget>
         static Position position(const Widget& widget)
         {
-            return
-                {
-                    gui::to_unit<typename Position::unit_type>(widget.details().position.first),
-                    gui::to_unit<typename Position::unit_type>(widget.details().position.second)
-                };
+            return { gui::to_unit<typename Position::unit_type>(widget.details().position.first),
+                     gui::to_unit<typename Position::unit_type>(widget.details().position.second) };
         }
 
         /*!
@@ -645,11 +588,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension, typename Widget>
         static Dimension dimension(const Widget& widget)
         {
-            return
-                Dimension{
-                    gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.first),
-                    gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.second)
-                };
+            return Dimension{ gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.first),
+                              gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.second) };
         }
 
         /*!
@@ -667,11 +607,9 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Position, typename Widget, typename Dimension>
         static void set_client_dimension(Widget& widget, const Dimension& client_dimension)
         {
-            widget.details().dimension =
-                std::make_pair(
-                    gui::to_pixels<std::size_t>(client_dimension.width()),
-                    gui::to_pixels<std::size_t>(client_dimension.height())
-                );
+            widget.details().dimension = std::make_pair(
+                gui::to_pixels<std::size_t>(client_dimension.width()),
+                gui::to_pixels<std::size_t>(client_dimension.height()));
         }
 
         /*!
@@ -689,11 +627,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension, typename Widget>
         static Dimension client_dimension(const Widget& widget)
         {
-            return
-                Dimension{
-                    gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.first),
-                    gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.second)
-                };
+            return Dimension{ gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.first),
+                              gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.second) };
         }
 
         /*!
@@ -711,11 +646,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Dimension, typename Widget>
         static Dimension normal_dimension(const Widget& widget)
         {
-            return
-                Dimension{
-                    gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.first),
-                    gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.second)
-                };
+            return Dimension{ gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.first),
+                              gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.second) };
         }
 
         /*!
@@ -771,15 +703,12 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget, typename Font, typename Encoder>
         static void set_font(Widget& widget, const Font& font, const Encoder& encoder)
         {
-            widget.details().font =
-                details_font_type{
-                    encoder.encode(font.family()),
-                    font.size(),
-                    font.bold(),
-                    font.italic(),
-                    font.underline(),
-                    font.strikeout()
-                };
+            widget.details().font = details_font_type{ encoder.encode(font.family()),
+                                                       font.size(),
+                                                       font.bold(),
+                                                       font.italic(),
+                                                       font.underline(),
+                                                       font.strikeout() };
         }
 
         /*!
@@ -800,8 +729,9 @@ namespace tetengo2 { namespace detail { namespace stub
         static Font font(const Widget& widget, const Encoder& encoder)
         {
             const auto& font = widget.details().font;
-            return
-                Font{ encoder.decode(font.family), font.size, font.bold, font.italic, font.underline, font.strikeout };
+            return Font{
+                encoder.decode(font.family), font.size, font.bold, font.italic, font.underline, font.strikeout
+            };
         }
 
         /*!
@@ -817,13 +747,12 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Child, typename Widget>
         static std::vector<std::reference_wrapper<Child>> children(Widget& widget)
         {
-            const auto& children_as_void = widget.details().children;
+            const auto&                                children_as_void = widget.details().children;
             std::vector<std::reference_wrapper<Child>> children{};
             children.reserve(children_as_void.size());
 
             std::transform(
-                children_as_void.begin(), children_as_void.end(), std::back_inserter(children), as_child<Child>
-            );
+                children_as_void.begin(), children_as_void.end(), std::back_inserter(children), as_child<Child>);
 
             return children;
         }
@@ -1079,12 +1008,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the value cannot be set.
         */
         template <typename DropdownBox, typename Size, typename String, typename Encoder>
-        static void set_dropdown_box_value(
-            DropdownBox&   dropdown_box,
-            const Size     index,
-            String         value,
-            const Encoder& encoder
-        )
+        static void
+        set_dropdown_box_value(DropdownBox& dropdown_box, const Size index, String value, const Encoder& encoder)
         {
             dropdown_box.details().list_box_values[index] = encoder.encode(std::move(value));
         }
@@ -1105,16 +1030,11 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the value cannot be inserted.
         */
         template <typename DropdownBox, typename Size, typename String, typename Encoder>
-        static void insert_dropdown_box_value(
-            DropdownBox&   dropdown_box,
-            const Size     index,
-            String         value,
-            const Encoder& encoder
-        )
+        static void
+        insert_dropdown_box_value(DropdownBox& dropdown_box, const Size index, String value, const Encoder& encoder)
         {
             dropdown_box.details().list_box_values.insert(
-                std::next(dropdown_box.details().list_box_values.begin(), index), encoder.encode(std::move(value))
-            );
+                std::next(dropdown_box.details().list_box_values.begin(), index), encoder.encode(std::move(value)));
         }
 
         /*!
@@ -1132,12 +1052,9 @@ namespace tetengo2 { namespace detail { namespace stub
         static void erase_dropdown_box_value(DropdownBox& dropdown_box, const Size index)
         {
             dropdown_box.details().list_box_values.erase(
-                std::next(dropdown_box.details().list_box_values.begin(), index)
-            );
-            if (
-                dropdown_box.details().selected_list_box_value_index &&
-                *dropdown_box.details().selected_list_box_value_index >= dropdown_box.details().list_box_values.size()
-            )
+                std::next(dropdown_box.details().list_box_values.begin(), index));
+            if (dropdown_box.details().selected_list_box_value_index &&
+                *dropdown_box.details().selected_list_box_value_index >= dropdown_box.details().list_box_values.size())
             {
                 dropdown_box.details().selected_list_box_value_index = boost::none;
             }
@@ -1275,8 +1192,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static void insert_list_box_value(ListBox& list_box, const Size index, String value, const Encoder& encoder)
         {
             list_box.details().list_box_values.insert(
-                std::next(list_box.details().list_box_values.begin(), index), encoder.encode(std::move(value))
-            );
+                std::next(list_box.details().list_box_values.begin(), index), encoder.encode(std::move(value)));
         }
 
         /*!
@@ -1294,10 +1210,8 @@ namespace tetengo2 { namespace detail { namespace stub
         static void erase_list_box_value(ListBox& list_box, const Size index)
         {
             list_box.details().list_box_values.erase(std::next(list_box.details().list_box_values.begin(), index));
-            if (
-                list_box.details().selected_list_box_value_index &&
-                *list_box.details().selected_list_box_value_index >= list_box.details().list_box_values.size()
-            )
+            if (list_box.details().selected_list_box_value_index &&
+                *list_box.details().selected_list_box_value_index >= list_box.details().list_box_values.size())
             {
                 list_box.details().selected_list_box_value_index = boost::none;
             }
@@ -1484,26 +1398,23 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static widget_details_ptr_type create_details(Widget* const p_parent)
         {
-            widget_details_ptr_type p_details{
-                stdalt::make_unique<widget_details_type>(
-                    p_parent,
-                    true,
-                    true,
-                    0,
-                    std::make_pair(0, 0),
-                    std::make_pair(1, 1),
-                    string_type{},
-                    details_font_type{ string_type{}, 12, false, false, false, false },
-                    std::vector<void*>{},
-                    false,
-                    false,
-                    std::vector<string_type>{},
-                    boost::none,
-                    100,
-                    0,
-                    0
-                )
-            };
+            widget_details_ptr_type p_details{ stdalt::make_unique<widget_details_type>(
+                p_parent,
+                true,
+                true,
+                0,
+                std::make_pair(0, 0),
+                std::make_pair(1, 1),
+                string_type{},
+                details_font_type{ string_type{}, 12, false, false, false, false },
+                std::vector<void*>{},
+                false,
+                false,
+                std::vector<string_type>{},
+                boost::none,
+                100,
+                0,
+                0) };
 
             return p_details;
         }
@@ -1517,10 +1428,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
         // forbidden operations
 
-        widget()
-        = delete;
-
-
+        widget() = delete;
     };
 
 

@@ -18,8 +18,7 @@
 #include <tetengo2/gui/menu/menu_base.h>
 
 
-namespace tetengo2 { namespace gui { namespace menu
-{
+namespace tetengo2 { namespace gui { namespace menu {
     /*!
         \brief The base class template for an abstract popup menu.
 
@@ -81,16 +80,13 @@ namespace tetengo2 { namespace gui { namespace menu
             \param p_details A unique pointer to a detail implementation.
         */
         abstract_popup(string_type text, details_ptr_type p_details)
-        :
-        base_type(std::move(text), std::move(p_details)),
-        m_children()
+        : base_type(std::move(text), std::move(p_details)), m_children()
         {}
 
         /*!
             \brief Destroys the abstract_popup.
         */
-        virtual ~abstract_popup()
-        = default;
+        virtual ~abstract_popup() = default;
 
 
     private:
@@ -110,56 +106,47 @@ namespace tetengo2 { namespace gui { namespace menu
 
         // virtual functions
 
-        virtual const_iterator begin_impl()
-        const override
+        virtual const_iterator begin_impl() const override
         {
             return { m_children.begin() };
         }
 
-        virtual iterator begin_impl()
-        override
+        virtual iterator begin_impl() override
         {
             return { m_children.begin() };
         }
 
-        virtual const_iterator end_impl()
-        const override
+        virtual const_iterator end_impl() const override
         {
             return { m_children.end() };
         }
 
-        virtual iterator end_impl()
-        override
+        virtual iterator end_impl() override
         {
             return { m_children.end() };
         }
 
-        virtual const_recursive_iterator_type recursive_begin_impl()
-        const override
+        virtual const_recursive_iterator_type recursive_begin_impl() const override
         {
             return const_recursive_iterator_type{ this };
         }
 
-        virtual recursive_iterator_type recursive_begin_impl()
-        override
+        virtual recursive_iterator_type recursive_begin_impl() override
         {
             return recursive_iterator_type{ this };
         }
 
-        virtual const_recursive_iterator_type recursive_end_impl()
-        const override
+        virtual const_recursive_iterator_type recursive_end_impl() const override
         {
             return {};
         }
 
-        virtual recursive_iterator_type recursive_end_impl()
-        override
+        virtual recursive_iterator_type recursive_end_impl() override
         {
             return {};
         }
 
-        virtual void insert_impl(const iterator offset, std::unique_ptr<base_type> p_menu)
-        override
+        virtual void insert_impl(const iterator offset, std::unique_ptr<base_type> p_menu) override
         {
             if (!p_menu)
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "The unique pointer to a menu is nullptr." }));
@@ -169,15 +156,12 @@ namespace tetengo2 { namespace gui { namespace menu
             m_children.insert(offset.base(), std::move(p_menu));
         }
 
-        virtual void erase_impl(const iterator first, const iterator last)
-        override
+        virtual void erase_impl(const iterator first, const iterator last) override
         {
             menu_details_type::erase_menus(*this, first, last);
 
             m_children.erase(first.base(), last.base());
         }
-
-
     };
 
 

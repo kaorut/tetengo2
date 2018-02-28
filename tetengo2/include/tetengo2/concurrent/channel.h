@@ -25,8 +25,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace concurrent
-{
+namespace tetengo2 { namespace concurrent {
     /*!
         \brief The class template for a channel.
 
@@ -55,12 +54,7 @@ namespace tetengo2 { namespace concurrent
             \throw std::invalid_argument When capacity is equal to 0.
         */
         explicit channel(const size_type capacity)
-        :
-        m_mutex(),
-        m_condition_variable(),
-        m_queue(),
-        m_capacity(capacity),
-        m_close_requested(false)
+        : m_mutex(), m_condition_variable(), m_queue(), m_capacity(capacity), m_close_requested(false)
         {
             if (capacity == 0)
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "Capacity is zero." }));
@@ -68,7 +62,7 @@ namespace tetengo2 { namespace concurrent
 
 
         // functions
-        
+
         /*!
             \brief Inserts a value.
 
@@ -103,8 +97,7 @@ namespace tetengo2 { namespace concurrent
             \throw unspecified      An exception inserted with insert_exception().
             \throw std::logic_error When the channel is already closed.
         */
-        const value_type& peek()
-        const
+        const value_type& peek() const
         {
             std::unique_lock<mutex_type> lock{ m_mutex };
             m_condition_variable.wait(lock, [this]() { return this->can_take(); });
@@ -120,7 +113,7 @@ namespace tetengo2 { namespace concurrent
                 assert(m_queue.front()->which() == 1);
 
                 std::rethrow_exception(boost::get<std::exception_ptr>(*m_queue.front()));
-                
+
                 assert(false);
                 BOOST_THROW_EXCEPTION((std::logic_error{ "Must not come here." }));
             }
@@ -149,8 +142,7 @@ namespace tetengo2 { namespace concurrent
             \retval true  When the channel close is requested.
             \retval false Otherwise.
         */
-        bool close_requested()
-        const
+        bool close_requested() const
         {
             std::unique_lock<mutex_type> lock{ m_mutex };
             return m_close_requested;
@@ -189,8 +181,7 @@ namespace tetengo2 { namespace concurrent
             \retval true  When the channel is closed.
             \retval false Otherwise.
         */
-        bool closed()
-        const
+        bool closed() const
         {
             std::unique_lock<mutex_type> lock{ m_mutex };
             m_condition_variable.wait(lock, [this]() { return this->can_take(); });
@@ -225,8 +216,7 @@ namespace tetengo2 { namespace concurrent
 
         // functions
 
-        bool closed_impl()
-        const
+        bool closed_impl() const
         {
             return !m_queue.empty() && !m_queue.front();
         }
@@ -246,19 +236,15 @@ namespace tetengo2 { namespace concurrent
             m_condition_variable.notify_all();
         }
 
-        bool can_insert()
-        const
+        bool can_insert() const
         {
             return m_queue.size() < m_capacity;
         }
 
-        bool can_take()
-        const
+        bool can_take() const
         {
             return !m_queue.empty();
         }
-
-
     };
 
 

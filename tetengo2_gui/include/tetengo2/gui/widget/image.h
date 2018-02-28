@@ -20,8 +20,7 @@
 #include <tetengo2/gui/widget/control.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget
-{
+namespace tetengo2 { namespace gui { namespace widget {
     /*!
         \brief The class template for an image.
 
@@ -63,7 +62,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The picture type.
         using picture_type = gui::drawing::picture<dimension_type, drawing_details_type>;
-        
+
         //! The icon type.
         using icon_type = gui::icon<dimension_type, icon_details_type>;
 
@@ -78,19 +77,17 @@ namespace tetengo2 { namespace gui { namespace widget
         explicit image(widget_type& parent)
         :
 #if BOOST_COMP_MSVC
-#   pragma warning(push)
-#   pragma warning(disable: 4355)
+#pragma warning(push)
+#pragma warning(disable : 4355)
 #endif
-        base_type(
-            base_type::scroll_bar_style_type::none,
-            message_handler_details_type::make_image_message_handler_map(*this, message_handler_map_type{}),
-            widget_details_type::create_image(parent)
-        ),
+          base_type(
+              base_type::scroll_bar_style_type::none,
+              message_handler_details_type::make_image_message_handler_map(*this, message_handler_map_type{}),
+              widget_details_type::create_image(parent)),
 #if BOOST_COMP_MSVC
-#   pragma warning(pop)
+#pragma warning(pop)
 #endif
-        m_p_picture(),
-        m_p_icon()
+          m_p_picture(), m_p_icon()
         {
             initialize_image(this);
 
@@ -100,8 +97,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Destroys the image.
         */
-        virtual ~image()
-        noexcept
+        virtual ~image() noexcept
         {
             try
             {
@@ -109,7 +105,8 @@ namespace tetengo2 { namespace gui { namespace widget
                     this->parent().child_observer_set().destroying()(*this);
             }
             catch (...)
-            {}
+            {
+            }
         }
 
 
@@ -121,8 +118,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \retval true  When a picture is set.
             \retval false Otherwise.
         */
-        bool has_picture()
-        const
+        bool has_picture() const
         {
             return static_cast<bool>(m_p_picture);
         }
@@ -134,8 +130,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::logic_error When no picture is set.
         */
-        const picture_type& picture()
-        const
+        const picture_type& picture() const
         {
             if (!m_p_picture)
                 BOOST_THROW_EXCEPTION((std::logic_error{ "No picture is set." }));
@@ -175,8 +170,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \retval true  When an icon is set.
             \retval false Otherwise.
         */
-        bool has_icon()
-        const
+        bool has_icon() const
         {
             return static_cast<bool>(m_p_icon);
         }
@@ -188,8 +182,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::logic_error When no icon is set.
         */
-        const icon_type& icon()
-        const
+        const icon_type& icon() const
         {
             if (!m_p_icon)
                 BOOST_THROW_EXCEPTION((std::logic_error{ "No icon is set." }));
@@ -252,8 +245,7 @@ namespace tetengo2 { namespace gui { namespace widget
             p_image->initialize(p_image);
 
             p_image->paint_observer_set().paint().connect(
-                [p_image](canvas_type& canvas) { p_image->paint_image(canvas); }
-            );
+                [p_image](canvas_type& canvas) { p_image->paint_image(canvas); });
         }
 
 
@@ -266,16 +258,13 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // functions
 
-        void paint_image(canvas_type& canvas)
-        const
+        void paint_image(canvas_type& canvas) const
         {
             if (m_p_picture)
                 canvas.paint_picture(*m_p_picture, position_type{}, this->client_dimension());
             else if (m_p_icon)
                 canvas.paint_icon(*m_p_icon, position_type{});
         }
-
-
     };
 
 

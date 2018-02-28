@@ -23,8 +23,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace detail { namespace unixos
-{
+namespace tetengo2 { namespace detail { namespace unixos {
     class encoding::impl : private boost::noncopyable
     {
     public:
@@ -48,32 +47,27 @@ namespace tetengo2 { namespace detail { namespace unixos
 
         // constructors
 
-        impl()
-        = default;
+        impl() = default;
 
 
         // functions
 
-        utf8_string_type pivot_to_utf8_impl(pivot_type pivot)
-        const
+        utf8_string_type pivot_to_utf8_impl(pivot_type pivot) const
         {
             return pivot;
         }
 
-        pivot_type utf8_to_pivot_impl(utf8_string_type string)
-        const
+        pivot_type utf8_to_pivot_impl(utf8_string_type string) const
         {
             return string;
         }
 
-        cp932_string_type pivot_to_cp932_impl(pivot_type pivot)
-        const
+        cp932_string_type pivot_to_cp932_impl(pivot_type pivot) const
         {
             return utf8_to_cp932().convert(std::move(pivot));
         }
 
-        pivot_type cp932_to_pivot_impl(cp932_string_type string)
-        const
+        pivot_type cp932_to_pivot_impl(cp932_string_type string) const
         {
             return cp932_to_utf8().convert(std::move(string));
         }
@@ -86,10 +80,9 @@ namespace tetengo2 { namespace detail { namespace unixos
         {
         public:
             iconv_converter(const char* const from, const char* const to)
-            :
-            m_conversion_descriptor(::iconv_open(to, from))
+            : m_conversion_descriptor(::iconv_open(to, from))
             {
-                if (m_conversion_descriptor == reinterpret_cast< ::iconv_t>(-1))
+                if (m_conversion_descriptor == reinterpret_cast<::iconv_t>(-1))
                     throw std::runtime_error("Can't open iconv.");
             }
 
@@ -98,20 +91,19 @@ namespace tetengo2 { namespace detail { namespace unixos
                 ::iconv_close(m_conversion_descriptor);
             }
 
-            std::string convert(const std::string& input)
-            const
+            std::string convert(const std::string& input) const
             {
                 std::string converted{};
 
-                char* p_in = const_cast<char*>(input.c_str());
+                char*             p_in = const_cast<char*>(input.c_str());
                 const std::size_t in_length = input.length();
-                std::size_t in_left = in_length;
+                std::size_t       in_left = in_length;
                 for (;;)
                 {
                     static const std::size_t outbuf_capacity = 10;
-                    std::vector<char> outbuf(outbuf_capacity, 0);
-                    char* p_out = &outbuf[0];
-                    std::size_t out_left = outbuf_capacity;
+                    std::vector<char>        outbuf(outbuf_capacity, 0);
+                    char*                    p_out = &outbuf[0];
+                    std::size_t              out_left = outbuf_capacity;
 
                     errno = 0;
                     const std::size_t result = ::iconv(m_conversion_descriptor, &p_in, &in_left, &p_out, &out_left);
@@ -137,7 +129,6 @@ namespace tetengo2 { namespace detail { namespace unixos
 
         private:
             iconv_t m_conversion_descriptor;
-
         };
 
 
@@ -154,8 +145,6 @@ namespace tetengo2 { namespace detail { namespace unixos
             static const iconv_converter singleton{ "CP932", "UTF-8" };
             return singleton;
         }
-
-
     };
 
 
@@ -164,34 +153,26 @@ namespace tetengo2 { namespace detail { namespace unixos
         return impl::instance();
     }
 
-    encoding::~encoding()
-    = default;
+    encoding::~encoding() = default;
 
-    encoding::encoding()
-    :
-    m_p_impl(stdalt::make_unique<impl>())
-    {}
+    encoding::encoding() : m_p_impl(stdalt::make_unique<impl>()) {}
 
-    encoding::utf8_string_type encoding::pivot_to_utf8_impl(pivot_type pivot)
-    const
+    encoding::utf8_string_type encoding::pivot_to_utf8_impl(pivot_type pivot) const
     {
         return m_p_impl->pivot_to_utf8_impl(std::move(pivot));
     }
 
-    encoding::pivot_type encoding::utf8_to_pivot_impl(utf8_string_type string)
-    const
+    encoding::pivot_type encoding::utf8_to_pivot_impl(utf8_string_type string) const
     {
         return m_p_impl->utf8_to_pivot_impl(std::move(string));
     }
 
-    encoding::cp932_string_type encoding::pivot_to_cp932_impl(pivot_type pivot)
-    const
+    encoding::cp932_string_type encoding::pivot_to_cp932_impl(pivot_type pivot) const
     {
         return m_p_impl->pivot_to_cp932_impl(std::move(pivot));
     }
 
-    encoding::pivot_type encoding::cp932_to_pivot_impl(cp932_string_type string)
-    const
+    encoding::pivot_type encoding::cp932_to_pivot_impl(cp932_string_type string) const
     {
         return m_p_impl->cp932_to_pivot_impl(std::move(string));
     }

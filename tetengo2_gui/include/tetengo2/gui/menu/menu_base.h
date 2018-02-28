@@ -25,8 +25,7 @@
 #include <tetengo2/gui/message/menu_observer_set.h>
 
 
-namespace tetengo2 { namespace gui { namespace menu
-{
+namespace tetengo2 { namespace gui { namespace menu {
     /*!
         \brief The base class template for a menu base.
 
@@ -84,9 +83,9 @@ namespace tetengo2 { namespace gui { namespace menu
         //! The state type.
         enum class state_type
         {
-            default_,  //!< Default state.
-            checked,   //!< Checked state.
-            selected,  //!< Selected state.
+            default_, //!< Default state.
+            checked, //!< Checked state.
+            selected, //!< Selected state.
         };
 
 
@@ -95,8 +94,7 @@ namespace tetengo2 { namespace gui { namespace menu
         /*!
             \brief Destroys the menu base.
         */
-        virtual ~menu_base()
-        = default;
+        virtual ~menu_base() = default;
 
 
         // functions
@@ -106,8 +104,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The text.
         */
-        const string_type& text()
-        const
+        const string_type& text() const
         {
             return m_text;
         }
@@ -117,19 +114,17 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The style.
         */
-        const style_type& style()
-        const
+        const style_type& style() const
         {
             return style_impl();
         }
-        
+
         /*!
             \brief Returns the enabled status.
 
             \return The enabled status.
         */
-        bool enabled()
-        const
+        bool enabled() const
         {
             return m_enabled;
         }
@@ -150,8 +145,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The state.
         */
-        state_type state()
-        const
+        state_type state() const
         {
             return m_state;
         }
@@ -172,8 +166,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \retval true  When the menu has a shortcut key.
         */
-        bool has_shortcut_key()
-        const
+        bool has_shortcut_key() const
         {
             return static_cast<bool>(m_shortcut_key);
         }
@@ -185,8 +178,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \throw std::logic_error When the menu has no shortcut key.
         */
-        const shortcut_key_type& get_shortcut_key()
-        const
+        const shortcut_key_type& get_shortcut_key() const
         {
             if (!has_shortcut_key())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "This menu has no shortcut key." }));
@@ -207,8 +199,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The menu observer set.
         */
-        const menu_observer_set_type& menu_observer_set()
-        const
+        const menu_observer_set_type& menu_observer_set() const
         {
             return m_menu_observer_set;
         }
@@ -228,8 +219,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The first immutable iterator.
         */
-        const_iterator begin()
-        const
+        const_iterator begin() const
         {
             return begin_impl();
         }
@@ -249,8 +239,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The last immutable iterator.
         */
-        const_iterator end()
-        const
+        const_iterator end() const
         {
             return end_impl();
         }
@@ -272,8 +261,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The recursive first immutable iterator.
         */
-        const_recursive_iterator_type recursive_begin()
-        const
+        const_recursive_iterator_type recursive_begin() const
         {
             return recursive_begin_impl();
         }
@@ -295,8 +283,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The recursive last immutable iterator.
         */
-        const_recursive_iterator_type recursive_end()
-        const
+        const_recursive_iterator_type recursive_end() const
         {
             return recursive_end_impl();
         }
@@ -340,8 +327,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The detail implementation.
         */
-        const details_type& details()
-        const
+        const details_type& details() const
         {
             assert(m_p_details);
             return *m_p_details;
@@ -369,13 +355,8 @@ namespace tetengo2 { namespace gui { namespace menu
             \param p_details A unique pointer to a detail implementation.
         */
         menu_base(string_type text, details_ptr_type p_details)
-        :
-        m_text(std::move(text)),
-        m_enabled(true),
-        m_state(state_type::default_),
-        m_shortcut_key(),
-        m_menu_observer_set(),
-        m_p_details(std::move(p_details))
+        : m_text(std::move(text)), m_enabled(true), m_state(state_type::default_), m_shortcut_key(),
+          m_menu_observer_set(), m_p_details(std::move(p_details))
         {
             set_enabled(true);
             set_state(state_type::default_);
@@ -389,13 +370,8 @@ namespace tetengo2 { namespace gui { namespace menu
             \param p_details    A unique pointer to a detail implementation.
         */
         menu_base(string_type text, shortcut_key_type shortcut_key, details_ptr_type p_details)
-        :
-        m_text(std::move(text)),
-        m_enabled(true),
-        m_state(state_type::default_),
-        m_shortcut_key(std::move(shortcut_key)),
-        m_menu_observer_set(),
-        m_p_details(std::move(p_details))
+        : m_text(std::move(text)), m_enabled(true), m_state(state_type::default_),
+          m_shortcut_key(std::move(shortcut_key)), m_menu_observer_set(), m_p_details(std::move(p_details))
         {
             set_enabled(true);
             set_state(state_type::default_);
@@ -430,11 +406,9 @@ namespace tetengo2 { namespace gui { namespace menu
 
         // virtual functions
 
-        virtual const style_type& style_impl()
-        const = 0;
+        virtual const style_type& style_impl() const = 0;
 
-        virtual const_iterator begin_impl()
-        const
+        virtual const_iterator begin_impl() const
         {
             return { empty_children().begin() };
         }
@@ -444,8 +418,7 @@ namespace tetengo2 { namespace gui { namespace menu
             return { empty_children().begin() };
         }
 
-        virtual const_iterator end_impl()
-        const
+        virtual const_iterator end_impl() const
         {
             return { empty_children().end() };
         }
@@ -455,8 +428,7 @@ namespace tetengo2 { namespace gui { namespace menu
             return { empty_children().end() };
         }
 
-        virtual const_recursive_iterator_type recursive_begin_impl()
-        const
+        virtual const_recursive_iterator_type recursive_begin_impl() const
         {
             return {};
         }
@@ -466,8 +438,7 @@ namespace tetengo2 { namespace gui { namespace menu
             return {};
         }
 
-        virtual const_recursive_iterator_type recursive_end_impl()
-        const
+        virtual const_recursive_iterator_type recursive_end_impl() const
         {
             return {};
         }
@@ -490,8 +461,6 @@ namespace tetengo2 { namespace gui { namespace menu
 
             BOOST_THROW_EXCEPTION((std::logic_error{ "Can't erase any menus." }));
         }
-
-
     };
 
 

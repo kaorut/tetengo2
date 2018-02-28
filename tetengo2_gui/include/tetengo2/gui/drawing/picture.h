@@ -16,8 +16,7 @@
 #include <boost/throw_exception.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace drawing
-{
+namespace tetengo2 { namespace gui { namespace drawing {
     /*!
         \brief The class template for a picture.
 
@@ -50,9 +49,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \param dimension A dimension.
         */
-        explicit picture(const dimension_type& dimension)
-        :
-        m_p_details(drawing_details_type::create_picture(dimension))
+        explicit picture(const dimension_type& dimension) : m_p_details(drawing_details_type::create_picture(dimension))
         {}
 
         /*!
@@ -62,9 +59,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \throw std::invalid_argument When p_details is nullptr.
         */
-        explicit picture(details_ptr_type p_details)
-        :
-        m_p_details(std::move(p_details))
+        explicit picture(details_ptr_type p_details) : m_p_details(std::move(p_details))
         {
             if (!m_p_details)
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "The detail implementation is nullptr." }));
@@ -78,8 +73,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The dimension.
         */
-        dimension_type dimension()
-        const
+        dimension_type dimension() const
         {
             return drawing_details_type::template picture_dimension<dimension_type>(*m_p_details);
         }
@@ -89,8 +83,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The detail implementation.
         */
-        const details_type& details()
-        const
+        const details_type& details() const
         {
             assert(m_p_details);
             return *m_p_details;
@@ -112,8 +105,6 @@ namespace tetengo2 { namespace gui { namespace drawing
         // variables
 
         const details_ptr_type m_p_details;
-
-
     };
 
 

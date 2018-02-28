@@ -20,40 +20,33 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows
-{
+namespace tetengo2 { namespace detail { namespace windows {
     const impl_set& impl_set::instance()
     {
         static const impl_set singleton;
         return singleton;
     }
 
-    impl_set::~impl_set()
-    = default;
+    impl_set::~impl_set() = default;
 
-    impl_set::impl_set()
-    = default;
+    impl_set::impl_set() = default;
 
-    const base::alert& impl_set::alert_impl()
-    const
+    const base::alert& impl_set::alert_impl() const
     {
         return alert::instance();
     }
 
-    const base::cursor& impl_set::cursor_impl()
-    const
+    const base::cursor& impl_set::cursor_impl() const
     {
         return cursor::instance();
     }
 
-    std::unique_ptr<base::gui_fixture> impl_set::create_gui_fixture_impl()
-    const
+    std::unique_ptr<base::gui_fixture> impl_set::create_gui_fixture_impl() const
     {
         return tetengo2::stdalt::make_unique<gui_fixture>();
     }
 
-    const base::unit& impl_set::unit_impl()
-    const
+    const base::unit& impl_set::unit_impl() const
     {
         return unit::instance();
     }

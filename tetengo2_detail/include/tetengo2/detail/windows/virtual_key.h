@@ -13,8 +13,8 @@
 
 #include <boost/core/noncopyable.hpp>
 
-#pragma warning (push)
-#pragma warning (disable: 4005)
+#pragma warning(push)
+#pragma warning(disable : 4005)
 #include <intsafe.h>
 #include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
@@ -25,8 +25,7 @@
 #include <tetengo2/text.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows
-{
+namespace tetengo2 { namespace detail { namespace windows {
     /*!
         \brief The class for a detail implementation of virtual keys.
     */
@@ -663,10 +662,7 @@ namespace tetengo2 { namespace detail { namespace windows
     private:
         // forbidden operations
 
-        virtual_key()
-        = delete;
-
-    
+        virtual_key() = delete;
     };
 
 

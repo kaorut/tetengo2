@@ -9,13 +9,10 @@
 #include <tetengo2/detail/base/gui_fixture.h>
 
 
-namespace tetengo2 { namespace detail { namespace base
-{
-    gui_fixture::gui_fixture()
-    {}
+namespace tetengo2 { namespace detail { namespace base {
+    gui_fixture::gui_fixture() {}
 
-    gui_fixture::~gui_fixture()
-    = default;
+    gui_fixture::~gui_fixture() = default;
 
 
 }}}

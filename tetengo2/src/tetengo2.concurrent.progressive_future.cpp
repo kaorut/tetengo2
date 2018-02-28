@@ -16,11 +16,10 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace concurrent
-{
+namespace tetengo2 {
+namespace concurrent {
 #if !defined(DOCUMENTATION)
-    namespace detail
-    {
+    namespace detail {
         class progress_state::impl : private boost::noncopyable
         {
         public:
@@ -32,18 +31,14 @@ namespace tetengo2 { namespace concurrent
             // constructors and destructor
 
             explicit impl(progress_type initial_progress)
-            :
-            m_progress(std::move(initial_progress)),
-            m_abort_requested(false),
-            m_progress_mutex(),
-            m_abort_request_mutex()
+            : m_progress(std::move(initial_progress)), m_abort_requested(false), m_progress_mutex(),
+              m_abort_request_mutex()
             {}
 
 
             // functions
 
-            const progress_type& get()
-            const
+            const progress_type& get() const
             {
                 std::lock_guard<std::mutex> lock{ m_progress_mutex };
                 return m_progress;
@@ -55,8 +50,7 @@ namespace tetengo2 { namespace concurrent
                 m_progress = std::move(progress);
             }
 
-            bool abort_requested()
-            const
+            bool abort_requested() const
             {
                 std::lock_guard<std::mutex> lock{ m_abort_request_mutex };
                 return m_abort_requested;
@@ -79,21 +73,16 @@ namespace tetengo2 { namespace concurrent
             mutable std::mutex m_progress_mutex;
 
             mutable std::mutex m_abort_request_mutex;
-
-
         };
 
 
         progress_state::progress_state(progress_type initial_progress)
-        :
-        m_p_impl(stdalt::make_unique<impl>(std::move(initial_progress)))
+        : m_p_impl(stdalt::make_unique<impl>(std::move(initial_progress)))
         {}
 
-        progress_state::~progress_state()
-        = default;
+        progress_state::~progress_state() = default;
 
-        const progress_state::progress_type& progress_state::get()
-        const
+        const progress_state::progress_type& progress_state::get() const
         {
             return m_p_impl->get();
         }
@@ -103,8 +92,7 @@ namespace tetengo2 { namespace concurrent
             m_p_impl->set(std::move(progress));
         }
 
-        bool progress_state::abort_requested()
-        const
+        bool progress_state::abort_requested() const
         {
             return m_p_impl->abort_requested();
         }
@@ -113,10 +101,7 @@ namespace tetengo2 { namespace concurrent
         {
             m_p_impl->request_abort();
         }
-
-
     }
 #endif
-
-
-}}
+}
+}

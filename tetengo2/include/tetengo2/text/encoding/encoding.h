@@ -15,8 +15,7 @@
 #include <tetengo2/detail/base/encoding.h>
 
 
-namespace tetengo2 { namespace text { namespace encoding
-{
+namespace tetengo2 { namespace text { namespace encoding {
     /*!
         \brief The class template for a encoding.
 
@@ -53,8 +52,7 @@ namespace tetengo2 { namespace text { namespace encoding
 
             \return The encoding name.
         */
-        const std::string& name()
-        const;
+        const std::string& name() const;
 
         /*!
             \brief Checks whether one encoding is equal to another.
@@ -95,8 +93,7 @@ namespace tetengo2 { namespace text { namespace encoding
 
             \throw std::invalid_argument When the string cannot be translated.
         */
-        string_type from_pivot(pivot_type pivot)
-        const;
+        string_type from_pivot(pivot_type pivot) const;
 
         /*!
             \brief Translates a string to the pivot encoding.
@@ -107,8 +104,7 @@ namespace tetengo2 { namespace text { namespace encoding
 
             \throw std::invalid_argument When the string cannot be translated.
         */
-        pivot_type to_pivot(string_type string)
-        const;
+        pivot_type to_pivot(string_type string) const;
 
 
     protected:
@@ -138,21 +134,16 @@ namespace tetengo2 { namespace text { namespace encoding
 
         // variables
 
-        std::shared_ptr<impl> m_p_impl; 
+        std::shared_ptr<impl> m_p_impl;
 
 
         // virtual functions
 
-        virtual const std::string& name_impl()
-        const = 0;
+        virtual const std::string& name_impl() const = 0;
 
-        virtual string_type from_pivot_impl(pivot_type pivot)
-        const = 0;
+        virtual string_type from_pivot_impl(pivot_type pivot) const = 0;
 
-        virtual pivot_type to_pivot_impl(string_type string)
-        const = 0;
-
-
+        virtual pivot_type to_pivot_impl(string_type string) const = 0;
     };
 
 

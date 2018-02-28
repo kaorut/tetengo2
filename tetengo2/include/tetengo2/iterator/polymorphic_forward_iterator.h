@@ -13,17 +13,15 @@
 
 #include <boost/operators.hpp>
 
-namespace tetengo2 { namespace iterator
-{
+namespace tetengo2 { namespace iterator {
     /*!
         \brief The class template for a polymorphic forward iterator.
 
         \tparam T A type.
     */
     template <typename T>
-    class polymorphic_forward_iterator :
-        public std::iterator<std::forward_iterator_tag, T>,
-        private boost::equality_comparable<polymorphic_forward_iterator<T>>
+    class polymorphic_forward_iterator : public std::iterator<std::forward_iterator_tag, T>,
+                                         private boost::equality_comparable<polymorphic_forward_iterator<T>>
     {
     public:
         // types
@@ -51,8 +49,7 @@ namespace tetengo2 { namespace iterator
 
             \return The reference to the value.
         */
-        reference operator*()
-        const
+        reference operator*() const
         {
             return const_cast<polymorphic_forward_iterator*>(this)->dereference();
         }
@@ -62,15 +59,14 @@ namespace tetengo2 { namespace iterator
 
             \return The reference to the value.
         */
-        pointer operator->()
-        const
+        pointer operator->() const
         {
             return &const_cast<polymorphic_forward_iterator*>(this)->dereference();
         }
 
         /*!
             \brief Increments the iterator.
-            
+
             \return THis iterator.
         */
         polymorphic_forward_iterator& operator++()
@@ -110,8 +106,7 @@ namespace tetengo2 { namespace iterator
         /*!
             \brief Creates a polymorphic forward iterator.
         */
-        polymorphic_forward_iterator()
-        {}
+        polymorphic_forward_iterator() {}
 
 
     private:
@@ -120,16 +115,11 @@ namespace tetengo2 { namespace iterator
 
         // virtual functions
 
-        virtual reference dereference()
-        = 0;
+        virtual reference dereference() = 0;
 
-        virtual bool equal(const polymorphic_forward_iterator& another)
-        const = 0;
+        virtual bool equal(const polymorphic_forward_iterator& another) const = 0;
 
-        virtual void increment()
-        = 0;
-
-
+        virtual void increment() = 0;
     };
 
 

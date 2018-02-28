@@ -12,8 +12,7 @@
 #include <tetengo2/gui/menu/menu_base.h>
 
 
-namespace tetengo2 { namespace gui { namespace menu
-{
+namespace tetengo2 { namespace gui { namespace menu {
     /*!
         \brief The class template for a menu separator.
 
@@ -51,16 +50,12 @@ namespace tetengo2 { namespace gui { namespace menu
         /*!
             \brief Creates a menu separator.
         */
-        separator()
-        :
-        base_type(string_type{}, menu_details_type::create_menu())
-        {}
+        separator() : base_type(string_type{}, menu_details_type::create_menu()) {}
 
         /*!
             \brief Destroys the menu separator.
         */
-        virtual ~separator()
-        = default;
+        virtual ~separator() = default;
 
 
     private:
@@ -71,13 +66,10 @@ namespace tetengo2 { namespace gui { namespace menu
 
         // virtual functions
 
-        virtual const style_type& style_impl()
-        const override
+        virtual const style_type& style_impl() const override
         {
             return menu_details_type::template menu_separator_style<base_type>();
         }
-
-
     };
 
 

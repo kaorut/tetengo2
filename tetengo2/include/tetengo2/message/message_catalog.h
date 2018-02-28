@@ -17,8 +17,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace message
-{
+namespace tetengo2 { namespace message {
     /*!
         \brief The class for a message catalog.
     */
@@ -59,8 +58,7 @@ namespace tetengo2 { namespace message
 
             \return The localized text.
         */
-        string_type get(const string_type& key)
-        const;
+        string_type get(const string_type& key) const;
 
         /*!
             \brief Returns the localized text.
@@ -72,8 +70,7 @@ namespace tetengo2 { namespace message
 
             \return The localized text.
         */
-        string_type get(const string_type::value_type* p_key)
-        const;
+        string_type get(const string_type::value_type* p_key) const;
 
 
     private:
@@ -85,8 +82,6 @@ namespace tetengo2 { namespace message
         // variables
 
         const std::unique_ptr<impl> m_p_impl;
-
-
     };
 
 

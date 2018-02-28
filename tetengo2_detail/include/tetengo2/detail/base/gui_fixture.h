@@ -12,8 +12,7 @@
 #include <boost/core/noncopyable.hpp>
 
 
-namespace tetengo2 { namespace detail { namespace base
-{
+namespace tetengo2 { namespace detail { namespace base {
     /*!
         \brief The class for a detail implementation of a GUI fixture.
     */
@@ -33,8 +32,6 @@ namespace tetengo2 { namespace detail { namespace base
             \brief Destroy the detail implementation of a GUI fixture.
         */
         virtual ~gui_fixture();
-
-
     };
 
 

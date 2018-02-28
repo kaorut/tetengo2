@@ -15,8 +15,8 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
-#pragma warning (push)
-#pragma warning (disable: 4005)
+#pragma warning(push)
+#pragma warning(disable : 4005)
 #include <intsafe.h>
 #include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
@@ -25,8 +25,7 @@
 #include <Windows.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows
-{
+namespace tetengo2 { namespace detail { namespace windows {
     /*!
         \brief The class for a detail implementation of a system color.
     */
@@ -38,14 +37,14 @@ namespace tetengo2 { namespace detail { namespace windows
         //! The system color index type.
         enum class system_color_index_type
         {
-            title_bar_text,       //!< Title bar text.
+            title_bar_text, //!< Title bar text.
             title_bar_background, //!< Title bar background.
-            dialog_background,    //!< Dialog background.
-            control_background,   //!< Control background.
-            control_text,         //!< Control text.
-            selected_background,  //!< Selected background.
-            selected_text,        //!< Selected text.
-            hyperlink_text,       //!< Hyperlink text.
+            dialog_background, //!< Dialog background.
+            control_background, //!< Control background.
+            control_text, //!< Control text.
+            selected_background, //!< Selected background.
+            selected_text, //!< Selected text.
+            hyperlink_text, //!< Hyperlink text.
         };
 
 
@@ -101,10 +100,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         // forbidden operations
 
-        system_color()
-        = delete;
-
-
+        system_color() = delete;
     };
 
 

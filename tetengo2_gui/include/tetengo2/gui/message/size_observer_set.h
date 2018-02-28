@@ -14,8 +14,7 @@
 #include <boost/signals2.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace message
-{
+namespace tetengo2 { namespace gui { namespace message {
     /*!
         \brief The class for a size observer set.
     */
@@ -27,7 +26,7 @@ namespace tetengo2 { namespace gui { namespace message
         /*!
             \brief The observer type of resized
         */
-        using resized_type = void ();
+        using resized_type = void();
 
         //! The signal type of resized.
         using resized_signal_type = boost::signals2::signal<resized_type>;
@@ -40,8 +39,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a widget is resized.
         */
-        const resized_signal_type& resized()
-        const
+        const resized_signal_type& resized() const
         {
             return m_resized;
         }
@@ -61,8 +59,6 @@ namespace tetengo2 { namespace gui { namespace message
         // variables
 
         resized_signal_type m_resized;
-
-
     };
 
 

@@ -12,8 +12,7 @@
 #include <boost/operators.hpp>
 
 
-namespace tetengo2 { namespace gui
-{
+namespace tetengo2 { namespace gui {
     /*!
         \brief The class for a position.
 
@@ -66,16 +65,14 @@ namespace tetengo2 { namespace gui
 
             \return The left.
         */
-        const unit_type& left()
-        const;
+        const unit_type& left() const;
 
         /*!
             \brief Returns the top.
 
             \return The top.
         */
-        const unit_type& top()
-        const;
+        const unit_type& top() const;
 
 
     private:
@@ -84,8 +81,6 @@ namespace tetengo2 { namespace gui
         unit_type m_left;
 
         unit_type m_top;
-
-
     };
 
 

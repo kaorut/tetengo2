@@ -13,8 +13,7 @@
 #include <tetengo2/detail/base/impl_set.h>
 #include <tetengo2/detail/unixos/impl_set.h>
 
-namespace tetengo2 { namespace detail { namespace base
-{
+namespace tetengo2 { namespace detail { namespace base {
     class alert;
     class cursor;
     class gui_fixture;
@@ -22,43 +21,36 @@ namespace tetengo2 { namespace detail { namespace base
 }}}
 
 
-namespace tetengo2 { namespace detail { namespace unixos
-{
+namespace tetengo2 { namespace detail { namespace unixos {
     const impl_set& impl_set::instance()
     {
         static const impl_set singleton;
         return singleton;
     }
 
-    impl_set::~impl_set()
-    = default;
+    impl_set::~impl_set() = default;
 
-    impl_set::impl_set()
-    = default;
+    impl_set::impl_set() = default;
 
-    const base::alert& impl_set::alert_impl()
-    const
+    const base::alert& impl_set::alert_impl() const
     {
         assert(false);
         throw std::logic_error("No implementation.");
     }
 
-    const base::cursor& impl_set::cursor_impl()
-    const
+    const base::cursor& impl_set::cursor_impl() const
     {
         assert(false);
         throw std::logic_error("No implementation.");
     }
 
-    std::unique_ptr<base::gui_fixture> impl_set::create_gui_fixture_impl()
-    const
+    std::unique_ptr<base::gui_fixture> impl_set::create_gui_fixture_impl() const
     {
         assert(false);
         throw std::logic_error("No implementation.");
     }
 
-    const base::unit& impl_set::unit_impl()
-    const
+    const base::unit& impl_set::unit_impl() const
     {
         assert(false);
         throw std::logic_error("No implementation.");

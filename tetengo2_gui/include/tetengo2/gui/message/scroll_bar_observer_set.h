@@ -13,8 +13,7 @@
 #include <boost/signals2.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace message
-{
+namespace tetengo2 { namespace gui { namespace message {
     /*!
         \brief The class template for a scroll bar observer set.
 
@@ -34,7 +33,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \param new_position A new position.
         */
-        using scrolling_type = void (typename scroll_bar_observer_set::size_type new_position);
+        using scrolling_type = void(typename scroll_bar_observer_set::size_type new_position);
 
         //! The signal type of scrolling.
         using scrolling_signal_type = boost::signals2::signal<scrolling_type>;
@@ -44,7 +43,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \param new_position A new position.
         */
-        using scrolled_type = void (typename scroll_bar_observer_set::size_type new_position);
+        using scrolled_type = void(typename scroll_bar_observer_set::size_type new_position);
 
         //! The signal type of scrolled.
         using scrolled_signal_type = boost::signals2::signal<scrolled_type>;
@@ -57,8 +56,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a scroll bar is being scrolled.
         */
-        const scrolled_signal_type& scrolling()
-        const
+        const scrolled_signal_type& scrolling() const
         {
             return m_scrolling;
         }
@@ -78,8 +76,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a scroll bar is scrolled.
         */
-        const scrolled_signal_type& scrolled()
-        const
+        const scrolled_signal_type& scrolled() const
         {
             return m_scrolled;
         }
@@ -101,8 +98,6 @@ namespace tetengo2 { namespace gui { namespace message
         scrolling_signal_type m_scrolling;
 
         scrolled_signal_type m_scrolled;
-
-
     };
 
 

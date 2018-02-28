@@ -13,8 +13,7 @@
 #include <boost/core/noncopyable.hpp>
 
 
-namespace tetengo2 { namespace detail { namespace stub
-{
+namespace tetengo2 { namespace detail { namespace stub {
     /*!
         \brief The class for a detail implementation of a mouse capture.
     */
@@ -35,8 +34,6 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             boost::ignore_unused(widget);
         }
-
-
     };
 
 

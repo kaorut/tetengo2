@@ -14,40 +14,37 @@
 #include <tetengo2/gui/message/menu_observer_set.h>
 
 
-namespace
-{
-    // types
+namespace {
+// types
 
-    using menu_observer_set_type = tetengo2::gui::message::menu_observer_set;
-
-
+using menu_observer_set_type = tetengo2::gui::message::menu_observer_set;
 }
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
-BOOST_AUTO_TEST_SUITE(gui)
-BOOST_AUTO_TEST_SUITE(message)
-BOOST_AUTO_TEST_SUITE(menu_observer_set)
-    // test cases
+    BOOST_AUTO_TEST_SUITE(gui)
+        BOOST_AUTO_TEST_SUITE(message)
+            BOOST_AUTO_TEST_SUITE(menu_observer_set)
+                // test cases
 
-    BOOST_AUTO_TEST_CASE(selected)
-    {
-        BOOST_TEST_PASSPOINT();
+                BOOST_AUTO_TEST_CASE(selected)
+                {
+                    BOOST_TEST_PASSPOINT();
 
-        {
-            const menu_observer_set_type observer_set{};
+                    {
+                        const menu_observer_set_type observer_set{};
 
-            observer_set.selected();
-        }
-        {
-            menu_observer_set_type observer_set{};
+                        observer_set.selected();
+                    }
+                    {
+                        menu_observer_set_type observer_set{};
 
-            observer_set.selected();
-        }
-    }
+                        observer_set.selected();
+                    }
+                }
 
 
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
+            BOOST_AUTO_TEST_SUITE_END()
+        BOOST_AUTO_TEST_SUITE_END()
+    BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

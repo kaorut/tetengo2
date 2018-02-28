@@ -42,8 +42,7 @@
 #include <tetengo2/text/push_parser.h>
 
 
-namespace tetengo2 { namespace message
-{
+namespace tetengo2 { namespace message {
     class messages::impl : private boost::noncopyable
     {
     public:
@@ -62,7 +61,7 @@ namespace tetengo2 { namespace message
                 return key;
 
             auto start = key.length() - 2;
-            for(;;)
+            for (;;)
             {
                 const auto offset = key.rfind(TETENGO2_TEXT(':'), start);
                 if (offset == string_type::npos)
@@ -71,8 +70,7 @@ namespace tetengo2 { namespace message
                 {
                     string_type ns_removed = key.substr(offset + 1);
                     boost::replace_all(
-                        ns_removed, string_type{ TETENGO2_TEXT("\\:") }, string_type{ TETENGO2_TEXT(":") }
-                    );
+                        ns_removed, string_type{ TETENGO2_TEXT("\\:") }, string_type{ TETENGO2_TEXT(":") });
                     return ns_removed;
                 }
                 if (offset == 1)
@@ -86,35 +84,28 @@ namespace tetengo2 { namespace message
         // constructors and destructor
 
         impl(const boost::filesystem::path& path, const std::locale& locale)
-        :
-        m_open(false),
-        m_message_catalog(load_message_catalog(path, locale))
+        : m_open(false), m_message_catalog(load_message_catalog(path, locale))
         {}
 
 
         // functions
 
-        catalog do_open(const std::string& catalog_name, const std::locale& locale)
-        const
+        catalog do_open(const std::string& catalog_name, const std::locale& locale) const
         {
             boost::ignore_unused(catalog_name, locale);
 
             if (m_open)
                 BOOST_THROW_EXCEPTION((std::runtime_error{ "A message catalog is already open." }));
 
-            if (!m_message_catalog) return -1;
+            if (!m_message_catalog)
+                return -1;
 
             m_open = true;
             return 1;
         }
 
-        string_type do_get(
-            const catalog      catalog_id,
-            const int          set,
-            const int          message,
-            const string_type& default_message
-        )
-        const
+        string_type
+        do_get(const catalog catalog_id, const int set, const int message, const string_type& default_message) const
         {
             boost::ignore_unused(set, message);
 
@@ -129,10 +120,10 @@ namespace tetengo2 { namespace message
             return found != m_message_catalog->end() ? found->second : remove_namespace(default_message);
         }
 
-        void do_close(const catalog catalog_id)
-        const
+        void do_close(const catalog catalog_id) const
         {
-            if (catalog_id < 0) return;
+            if (catalog_id < 0)
+                return;
 
             if (!m_open)
                 BOOST_THROW_EXCEPTION((std::runtime_error{ "The message catalog is not open." }));
@@ -164,13 +155,9 @@ namespace tetengo2 { namespace message
         {
             const std::locale& m_locale;
 
-            matches_locale_type(const std::locale& locale)
-            :
-            m_locale(locale)
-            {}
+            matches_locale_type(const std::locale& locale) : m_locale(locale) {}
 
-            bool operator()(const catalog_file_mappings_type::value_type& mapping)
-            const
+            bool operator()(const catalog_file_mappings_type::value_type& mapping) const
             {
                 const auto locale_name = locale_name_encoder().encode(mapping.first);
                 try
@@ -182,7 +169,6 @@ namespace tetengo2 { namespace message
                     return false;
                 }
             }
-
         };
 
         using pull_parser_type = message_catalog_parser_type::pull_parser_type;
@@ -219,10 +205,8 @@ namespace tetengo2 { namespace message
             return boost::make_optional(std::move(message_catalog));
         }
 
-        static const boost::optional<boost::filesystem::path> select_catalog_file(
-            const boost::filesystem::path& path,
-            const std::locale&             locale
-        )
+        static const boost::optional<boost::filesystem::path>
+        select_catalog_file(const boost::filesystem::path& path, const std::locale& locale)
         {
             if (!boost::filesystem::exists(path))
                 BOOST_THROW_EXCEPTION((std::ios_base::failure{ "Path does not exist." }));
@@ -234,8 +218,7 @@ namespace tetengo2 { namespace message
                 directory_iterator_type{ path },
                 directory_iterator_type{},
                 std::back_inserter(catalog_files),
-                [](const directory_entry_type& entry) { return entry.path(); }
-            );
+                [](const directory_entry_type& entry) { return entry.path(); });
             std::sort(catalog_files.begin(), catalog_files.end(), std::greater<boost::filesystem::path>{});
 
             const auto catalog_file_mappings = read_catalog_file_mappings(path);
@@ -248,22 +231,18 @@ namespace tetengo2 { namespace message
             return boost::none;
         }
 
-        static catalog_file_mappings_type read_catalog_file_mappings(
-            const boost::filesystem::path& message_catalog_directory
-        )
+        static catalog_file_mappings_type
+        read_catalog_file_mappings(const boost::filesystem::path& message_catalog_directory)
         {
             catalog_file_mappings_type mappings{};
 
-            boost::filesystem::ifstream input_stream{
-                boost::filesystem::path{ message_catalog_directory / catalog_file_mappings_filename() }
-            };
+            boost::filesystem::ifstream input_stream{ boost::filesystem::path{ message_catalog_directory /
+                                                                               catalog_file_mappings_filename() } };
             if (!input_stream.is_open())
                 BOOST_THROW_EXCEPTION((std::ios_base::failure{ "Can't open the message catalog file mappings." }));
 
-            message_catalog_parser_type parser{
-                create_pull_parser(input_stream),
-                text::encoding::make_polymorphic<text::encoding::utf8>()
-            };
+            message_catalog_parser_type parser{ create_pull_parser(input_stream),
+                                                text::encoding::make_polymorphic<text::encoding::utf8>() };
             while (parser.has_next())
             {
                 mappings.insert(parser.peek());
@@ -273,19 +252,15 @@ namespace tetengo2 { namespace message
             return mappings;
         }
 
-        static void read_message_catalog(
-            const boost::filesystem::path& catalog_file,
-            message_catalog_type&          message_catalog
-        )
+        static void
+        read_message_catalog(const boost::filesystem::path& catalog_file, message_catalog_type& message_catalog)
         {
             boost::filesystem::ifstream input_stream{ catalog_file };
             if (!input_stream.is_open())
                 BOOST_THROW_EXCEPTION((std::ios_base::failure{ "Can't open a message catalog." }));
 
-            message_catalog_parser_type parser{
-                create_pull_parser(input_stream),
-                text::encoding::make_polymorphic<text::encoding::utf8>()
-            };
+            message_catalog_parser_type parser{ create_pull_parser(input_stream),
+                                                text::encoding::make_polymorphic<text::encoding::utf8>() };
             while (parser.has_next())
             {
                 message_catalog.insert(parser.peek());
@@ -296,15 +271,11 @@ namespace tetengo2 { namespace message
         static std::unique_ptr<pull_parser_type> create_pull_parser(std::istream& input_stream)
         {
             auto p_grammar = stdalt::make_unique<grammar_type>();
-            
-            const auto first =
-                tetengo2::iterator::make_observable_forward_iterator(
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input_stream })
-                );
-            const auto last =
-                tetengo2::iterator::make_observable_forward_iterator(
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
-                );
+
+            const auto first = tetengo2::iterator::make_observable_forward_iterator(
+                boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input_stream }));
+            const auto last = tetengo2::iterator::make_observable_forward_iterator(
+                boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{}));
             auto p_push_parser = stdalt::make_unique<push_parser_type>(first, last, std::move(p_grammar));
 
             return stdalt::make_unique<pull_parser_type>(std::move(p_push_parser), 5);
@@ -316,8 +287,6 @@ namespace tetengo2 { namespace message
         mutable bool m_open;
 
         const boost::optional<message_catalog_type> m_message_catalog;
-
-
     };
 
 
@@ -327,32 +296,24 @@ namespace tetengo2 { namespace message
     }
 
     messages::messages(const boost::filesystem::path& path, const std::locale& locale)
-    :
-    m_p_impl(stdalt::make_unique<impl>(path, locale))
+    : m_p_impl(stdalt::make_unique<impl>(path, locale))
     {}
 
-    messages::~messages()
-    = default;
+    messages::~messages() = default;
 
-    messages::catalog messages::do_open(const std::string& catalog_name, const std::locale& locale)
-    const
+    messages::catalog messages::do_open(const std::string& catalog_name, const std::locale& locale) const
     {
         return m_p_impl->do_open(catalog_name, locale);
     }
 
-    messages::string_type messages::do_get(
-        const catalog      catalog_id,
-        const int          set,
-        const int          message,
-        const string_type& default_message
-    )
-    const
+    messages::string_type
+    messages::do_get(const catalog catalog_id, const int set, const int message, const string_type& default_message)
+        const
     {
         return m_p_impl->do_get(catalog_id, set, message, default_message);
     }
 
-    void messages::do_close(catalog catalog_id)
-    const
+    void messages::do_close(catalog catalog_id) const
     {
         return m_p_impl->do_close(catalog_id);
     }

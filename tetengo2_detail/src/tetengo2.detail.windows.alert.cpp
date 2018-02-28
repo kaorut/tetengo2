@@ -13,15 +13,15 @@
 #include <boost/preprocessor.hpp>
 #include <boost/scope_exit.hpp>
 
-#pragma warning (push)
-#pragma warning (disable: 4005)
+#pragma warning(push)
+#pragma warning(disable : 4005)
 #include <intsafe.h>
 #include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE
-#include <Windows.h>
 #include <CommCtrl.h>
+#include <Windows.h>
 
 #include <tetengo2/detail/windows/alert.h>
 #include <tetengo2/stdalt.h> // IWYU pragma: keep
@@ -31,8 +31,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows
-{
+namespace tetengo2 { namespace detail { namespace windows {
     class alert::impl : private boost::noncopyable
     {
     public:
@@ -56,25 +55,17 @@ namespace tetengo2 { namespace detail { namespace windows
 
         // constructors and destructor
 
-        impl()
-        :
-        m_encoder(type_list::internal_encoding_type{}, text::encoding::locale<std::wstring>{})
-        {}
+        impl() : m_encoder(type_list::internal_encoding_type{}, text::encoding::locale<std::wstring>{}) {}
 
 
         // functions
 
-        widget_handle_type root_ancestor_widget_handle_impl(const widget_handle_type widget_handle)
-        const
+        widget_handle_type root_ancestor_widget_handle_impl(const widget_handle_type widget_handle) const
         {
             const auto root_handle = ::GetAncestor(to_hwnd(widget_handle), GA_ROOT);
 
-            if (
-                !root_handle ||
-                ::IsWindow(root_handle) == 0 ||
-                ::IsWindowVisible(root_handle) == 0 ||
-                ::IsWindowEnabled(root_handle) == 0
-            )
+            if (!root_handle || ::IsWindow(root_handle) == 0 || ::IsWindowVisible(root_handle) == 0 ||
+                ::IsWindowEnabled(root_handle) == 0)
             {
                 return from_hwnd(HWND_DESKTOP);
             }
@@ -88,31 +79,23 @@ namespace tetengo2 { namespace detail { namespace windows
             const string_type&       text1,
             const string_type&       text2,
             const string_type&       source_file_name,
-            const integer_type       source_file_line
-        )
-        const
+            const integer_type       source_file_line) const
         {
 #if defined(NDEBUG)
             show_task_dialog_impl(
-                widget_handle, m_encoder.encode(caption), m_encoder.encode(text1), m_encoder.encode(text2)
-            );
+                widget_handle, m_encoder.encode(caption), m_encoder.encode(text1), m_encoder.encode(text2));
 #else
             std::basic_ostringstream<string_type::value_type> stream{};
-            stream <<
-                std::endl <<
-                std::endl <<
-                TETENGO2_TEXT("in ") <<
-                source_file_name <<
-                TETENGO2_TEXT(" (") <<
-                source_file_line <<
-                TETENGO2_TEXT(")");
+            stream << std::endl
+                   << std::endl
+                   << TETENGO2_TEXT("in ") << source_file_name << TETENGO2_TEXT(" (") << source_file_line
+                   << TETENGO2_TEXT(")");
 
             show_task_dialog_impl(
                 widget_handle,
                 m_encoder.encode(caption),
                 m_encoder.encode(text1),
-                m_encoder.encode(text2 + stream.str())
-            );
+                m_encoder.encode(text2 + stream.str()));
 #endif
         }
 
@@ -132,22 +115,22 @@ namespace tetengo2 { namespace detail { namespace windows
 
         static ::HWND to_hwnd(const widget_handle_type handle)
         {
-            return reinterpret_cast< ::HWND>(handle);
+            return reinterpret_cast<::HWND>(handle);
         }
 
         static void show_task_dialog_impl(
             const widget_handle_type widget_handle,
             const std::wstring&      caption,
             const std::wstring&      text1,
-            const std::wstring&      text2
-        )
+            const std::wstring&      text2)
         {
             const auto handle = ::LoadLibraryW(L"COMCTL32.DLL");
             BOOST_SCOPE_EXIT((handle))
             {
                 if (handle)
                     ::FreeLibrary(handle);
-            } BOOST_SCOPE_EXIT_END;
+            }
+            BOOST_SCOPE_EXIT_END;
             if (!handle)
             {
                 show_message_box(widget_handle, caption, text1, text2);
@@ -170,16 +153,14 @@ namespace tetengo2 { namespace detail { namespace windows
                 text2.c_str(),
                 TDCBF_OK_BUTTON,
                 TD_ERROR_ICON,
-                nullptr
-            );
+                nullptr);
         }
 
         static void show_message_box(
             const widget_handle_type widget_handle,
             const std::wstring&      caption,
             const std::wstring&      text1,
-            const std::wstring&      text2
-        )
+            const std::wstring&      text2)
         {
             const auto text = text1 + L"\n\n" + text2;
             ::MessageBoxW(to_hwnd(widget_handle), text.c_str(), caption.c_str(), MB_OK | MB_ICONERROR);
@@ -189,8 +170,6 @@ namespace tetengo2 { namespace detail { namespace windows
         // variables
 
         const encoder_type m_encoder;
-
-
     };
 
 
@@ -199,16 +178,11 @@ namespace tetengo2 { namespace detail { namespace windows
         return impl::instance();
     }
 
-    alert::~alert()
-    = default;
+    alert::~alert() = default;
 
-    alert::alert()
-    :
-    m_p_impl(stdalt::make_unique<impl>())
-    {}
+    alert::alert() : m_p_impl(stdalt::make_unique<impl>()) {}
 
-    alert::widget_handle_type alert::root_ancestor_widget_handle_impl(const widget_handle_type widget_handle)
-    const
+    alert::widget_handle_type alert::root_ancestor_widget_handle_impl(const widget_handle_type widget_handle) const
     {
         return m_p_impl->root_ancestor_widget_handle_impl(widget_handle);
     }
@@ -219,9 +193,7 @@ namespace tetengo2 { namespace detail { namespace windows
         const string_type&       text1,
         const string_type&       text2,
         const string_type&       source_file_name,
-        const integer_type       source_file_line
-    )
-    const
+        const integer_type       source_file_line) const
     {
         m_p_impl->show_task_dialog_impl(widget_handle, caption, text1, text2, source_file_name, source_file_line);
     }

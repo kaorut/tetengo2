@@ -9,8 +9,8 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_WINDOWSVERSION_H)
 #define TETENGO2_DETAIL_WINDOWS_WINDOWSVERSION_H
 
-#pragma warning (push)
-#pragma warning (disable: 4005)
+#pragma warning(push)
+#pragma warning(disable : 4005)
 #include <intsafe.h>
 #include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
@@ -19,8 +19,7 @@
 #include <Windows.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows
-{
+namespace tetengo2 { namespace detail { namespace windows {
     /*!
         \brief Verifies the Windows version.
 
@@ -36,8 +35,7 @@ namespace tetengo2 { namespace detail { namespace windows
         const ::DWORD major,
         const ::DWORD minor,
         const ::WORD  service_pack_major,
-        const ::WORD  service_pack_minor
-    )
+        const ::WORD  service_pack_minor)
     {
         ::OSVERSIONINFOEXW info{};
         info.dwOSVersionInfoSize = sizeof(::OSVERSIONINFOEXW);
@@ -47,16 +45,16 @@ namespace tetengo2 { namespace detail { namespace windows
         info.wServicePackMinor = service_pack_minor;
 
         ::DWORDLONG condition = 0;
-        const int op = VER_GREATER_EQUAL;
+        const int   op = VER_GREATER_EQUAL;
         VER_SET_CONDITION(condition, VER_MAJORVERSION, op);
         VER_SET_CONDITION(condition, VER_MINORVERSION, op);
         VER_SET_CONDITION(condition, VER_SERVICEPACKMAJOR, op);
         VER_SET_CONDITION(condition, VER_SERVICEPACKMINOR, op);
 
-        return
-            ::VerifyVersionInfoW(
-                &info, VER_MAJORVERSION | VER_MINORVERSION | VER_SERVICEPACKMAJOR | VER_SERVICEPACKMINOR, condition
-            ) != 0;
+        return ::VerifyVersionInfoW(
+                   &info,
+                   VER_MAJORVERSION | VER_MINORVERSION | VER_SERVICEPACKMAJOR | VER_SERVICEPACKMINOR,
+                   condition) != 0;
     }
 
     /*!

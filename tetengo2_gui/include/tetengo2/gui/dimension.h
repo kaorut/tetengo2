@@ -12,8 +12,7 @@
 #include <boost/operators.hpp>
 
 
-namespace tetengo2 { namespace gui
-{
+namespace tetengo2 { namespace gui {
     /*!
         \brief The class template for a dimension.
 
@@ -66,16 +65,14 @@ namespace tetengo2 { namespace gui
 
             \return The width.
         */
-        const unit_type& width()
-        const;
+        const unit_type& width() const;
 
         /*!
             \brief Returns the height.
 
             \return The height.
         */
-        const unit_type& height()
-        const;
+        const unit_type& height() const;
 
 
     private:
@@ -84,8 +81,6 @@ namespace tetengo2 { namespace gui
         unit_type m_width;
 
         unit_type m_height;
-
-
     };
 
 

@@ -15,8 +15,7 @@
 #include <tetengo2/text.h>
 
 
-namespace tetengo2 { namespace detail { namespace stub
-{
+namespace tetengo2 { namespace detail { namespace stub {
     /*!
         \brief The class for a detail implementation of a shell.
     */
@@ -28,8 +27,7 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Creates a shell.
         */
-        shell()
-        {}
+        shell() {}
 
 
         // functions
@@ -54,16 +52,12 @@ namespace tetengo2 { namespace detail { namespace stub
             const String&       command,
             const InputIterator parameter_first,
             const InputIterator parameter_last,
-            const Encoder&      encoder
-        )
-        const
+            const Encoder&      encoder) const
         {
             boost::ignore_unused(parameter_first, parameter_last, encoder);
 
             return command.find(TETENGO2_TEXT("fail")) == String::npos;
         }
-
-
     };
 
 

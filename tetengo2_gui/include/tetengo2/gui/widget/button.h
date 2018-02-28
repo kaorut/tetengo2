@@ -14,8 +14,7 @@
 #include <tetengo2/gui/widget/control.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget
-{
+namespace tetengo2 { namespace gui { namespace widget {
     /*!
         \brief The class template for a button.
 
@@ -49,9 +48,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The style type.
         enum class style_type
         {
-            normal,   //!< A normal button.
+            normal, //!< A normal button.
             default_, //!< A default button.
-            cancel    //!< A cancel button.
+            cancel //!< A cancel button.
         };
 
 
@@ -70,18 +69,17 @@ namespace tetengo2 { namespace gui { namespace widget
         explicit button(widget_type& parent, const style_type style = style_type::normal)
         :
 #if BOOST_COMP_MSVC
-#   pragma warning(push)
-#   pragma warning(disable: 4355)
+#pragma warning(push)
+#pragma warning(disable : 4355)
 #endif
-        base_type(
-            base_type::scroll_bar_style_type::none,
-            message_handler_details_type::make_button_message_handler_map(*this, message_handler_map_type{}),
-            widget_details_type::create_button(parent, style == style_type::default_, style == style_type::cancel)
-        ),
+          base_type(
+              base_type::scroll_bar_style_type::none,
+              message_handler_details_type::make_button_message_handler_map(*this, message_handler_map_type{}),
+              widget_details_type::create_button(parent, style == style_type::default_, style == style_type::cancel)),
 #if BOOST_COMP_MSVC
-#   pragma warning(pop)
+#pragma warning(pop)
 #endif
-        m_style(style)
+          m_style(style)
         {
             base_type::initialize(this);
 
@@ -91,8 +89,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Destroys the button.
         */
-        virtual ~button()
-        noexcept
+        virtual ~button() noexcept
         {
             try
             {
@@ -100,7 +97,8 @@ namespace tetengo2 { namespace gui { namespace widget
                     this->parent().child_observer_set().destroying()(*this);
             }
             catch (...)
-            {}
+            {
+            }
         }
 
 
@@ -111,8 +109,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The style.
         */
-        style_type style()
-        const
+        style_type style() const
         {
             return m_style;
         }
@@ -127,8 +124,6 @@ namespace tetengo2 { namespace gui { namespace widget
         // variables
 
         const style_type m_style;
-
-
     };
 
 
