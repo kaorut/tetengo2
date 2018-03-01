@@ -13,8 +13,8 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
-#pragma warning (push)
-#pragma warning (disable: 4005)
+#pragma warning(push)
+#pragma warning(disable : 4005)
 #include <intsafe.h>
 #include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
@@ -27,8 +27,7 @@
 #include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
-namespace tetengo2 { namespace detail { namespace windows
-{
+namespace tetengo2 { namespace detail { namespace windows {
     class cursor::impl : private boost::noncopyable
     {
     public:
@@ -52,30 +51,21 @@ namespace tetengo2 { namespace detail { namespace windows
 
         // functions
 
-        cursor_details_ptr_type create_system_cursor_impl(const system_cursor_style_type style)
-        const
+        cursor_details_ptr_type create_system_cursor_impl(const system_cursor_style_type style) const
         {
-            cursor_details_ptr_type p_cursor{
-                reinterpret_cast<cursor_details_type*>(
-                    ::LoadImageW(
-                    0,
-                    MAKEINTRESOURCEW(translate_style(style)),
-                    IMAGE_CURSOR,
-                    0,
-                    0,
-                    LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
-                    )
-                ),
-                delete_details
-            };
+            cursor_details_ptr_type p_cursor{ reinterpret_cast<cursor_details_type*>(::LoadImageW(
+                                                  0,
+                                                  MAKEINTRESOURCEW(translate_style(style)),
+                                                  IMAGE_CURSOR,
+                                                  0,
+                                                  0,
+                                                  LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR)),
+                                              delete_details };
             if (!p_cursor)
             {
-                BOOST_THROW_EXCEPTION((
-                    std::system_error{
-                        std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
-                        "Can't create a system cursor."
-                    }
-                ));
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't create a system cursor." }));
             }
 
             return std::move(p_cursor);
@@ -104,8 +94,6 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             boost::ignore_unused(p_details);
         }
-
-
     };
 
 
@@ -114,19 +102,14 @@ namespace tetengo2 { namespace detail { namespace windows
         return impl::instance();
     }
 
-    cursor::~cursor()
-    = default;
+    cursor::~cursor() = default;
 
-    cursor::cursor()
-    :
-    m_p_impl(stdalt::make_unique<impl>())
-    {}
+    cursor::cursor() : m_p_impl(stdalt::make_unique<impl>()) {}
 
-    cursor::cursor_details_ptr_type cursor::create_system_cursor_impl(const system_cursor_style_type style)
-    const
+    cursor::cursor_details_ptr_type cursor::create_system_cursor_impl(const system_cursor_style_type style) const
     {
         return m_p_impl->create_system_cursor_impl(style);
     }
-    
+
 
 }}}

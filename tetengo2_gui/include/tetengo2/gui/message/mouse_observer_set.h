@@ -15,8 +15,7 @@
 #include <boost/signals2.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace message
-{
+namespace tetengo2 { namespace gui { namespace message {
     /*!
         \brief The class template for a mouse observer set.
 
@@ -38,7 +37,7 @@ namespace tetengo2 { namespace gui { namespace message
         /*!
             \brief The observer type of clicked.
         */
-        using clicked_type = void ();
+        using clicked_type = void();
 
         //! The signal type of clicked.
         using clicked_signal_type = boost::signals2::signal<clicked_type>;
@@ -46,7 +45,7 @@ namespace tetengo2 { namespace gui { namespace message
         /*!
             \brief The observer type of double-clicked.
         */
-        using doubleclicked_type = void ();
+        using doubleclicked_type = void();
 
         //! The signal type of double-clicked.
         using doubleclicked_signal_type = boost::signals2::signal<doubleclicked_type>;
@@ -54,7 +53,7 @@ namespace tetengo2 { namespace gui { namespace message
         //! The mouse button kind type.
         enum class mouse_button_type
         {
-            left,  //!< Left button.
+            left, //!< Left button.
             right, //!< Right button.
         };
 
@@ -67,14 +66,12 @@ namespace tetengo2 { namespace gui { namespace message
             \param control  True when control key is pressed.
             \param meta     True when meta key is pressed.
         */
-        using pressed_type =
-            void (
-                typename mouse_observer_set::mouse_button_type button,
-                const position_type&                           position,
-                bool                                           shift,
-                bool                                           control,
-                bool                                           meta
-            );
+        using pressed_type = void(
+            typename mouse_observer_set::mouse_button_type button,
+            const position_type&                           position,
+            bool                                           shift,
+            bool                                           control,
+            bool                                           meta);
 
         //! The signal type of pressed.
         using pressed_signal_type = boost::signals2::signal<pressed_type>;
@@ -88,14 +85,12 @@ namespace tetengo2 { namespace gui { namespace message
             \param control  True when control key is pressed.
             \param meta     True when meta key is pressed.
         */
-        using released_type =
-            void (
-                typename mouse_observer_set::mouse_button_type button,
-                const position_type&                           position,
-                bool                                           shift,
-                bool                                           control,
-                bool                                           meta
-            );
+        using released_type = void(
+            typename mouse_observer_set::mouse_button_type button,
+            const position_type&                           position,
+            bool                                           shift,
+            bool                                           control,
+            bool                                           meta);
 
         //! The signal type of pressed.
         using released_signal_type = boost::signals2::signal<released_type>;
@@ -106,7 +101,7 @@ namespace tetengo2 { namespace gui { namespace message
         //! The mouse wheel direction type.
         enum class direction_type
         {
-            vertical,   //!< Vertical.
+            vertical, //!< Vertical.
             horizontal, //!< Horizontal.
         };
 
@@ -118,7 +113,7 @@ namespace tetengo2 { namespace gui { namespace message
             \param control  True when control key is pressed.
             \param meta     True when meta key is pressed.
         */
-        using moved_type = void (const position_type& position, bool shift, bool control, bool meta);
+        using moved_type = void(const position_type& position, bool shift, bool control, bool meta);
 
         //! The signal type of pressed.
         using moved_signal_type = boost::signals2::signal<moved_type>;
@@ -133,7 +128,7 @@ namespace tetengo2 { namespace gui { namespace message
             \param meta      True when meta key is pressed.
         */
         using wheeled_type =
-            void (const delta_type& delta, direction_type direction, bool shift, bool control, bool meta);
+            void(const delta_type& delta, direction_type direction, bool shift, bool control, bool meta);
 
         //! The signal type of wheeled.
         using wheeled_signal_type = boost::signals2::signal<wheeled_type>;
@@ -146,8 +141,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a mouse button is clicked.
         */
-        const clicked_signal_type& clicked()
-        const
+        const clicked_signal_type& clicked() const
         {
             return m_clicked;
         }
@@ -167,8 +161,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a mouse button is double-clicked.
         */
-        const doubleclicked_signal_type& doubleclicked()
-        const
+        const doubleclicked_signal_type& doubleclicked() const
         {
             return m_doubleclicked;
         }
@@ -188,8 +181,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a mouse button is pressed.
         */
-        const pressed_signal_type& pressed()
-        const
+        const pressed_signal_type& pressed() const
         {
             return m_pressed;
         }
@@ -209,8 +201,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a mouse button is released.
         */
-        const released_signal_type& released()
-        const
+        const released_signal_type& released() const
         {
             return m_released;
         }
@@ -230,8 +221,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a mouse is moved.
         */
-        const moved_signal_type& moved()
-        const
+        const moved_signal_type& moved() const
         {
             return m_moved;
         }
@@ -251,8 +241,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a mouse wheel is wheeled.
         */
-        const wheeled_signal_type& wheeled()
-        const
+        const wheeled_signal_type& wheeled() const
         {
             return m_wheeled;
         }
@@ -282,8 +271,6 @@ namespace tetengo2 { namespace gui { namespace message
         released_signal_type m_released;
 
         wheeled_signal_type m_wheeled;
-
-
     };
 
 

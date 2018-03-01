@@ -18,8 +18,7 @@
 #include <tetengo2/text/encoding/ascii.h>
 
 
-namespace tetengo2 { namespace text { namespace encoding
-{
+namespace tetengo2 { namespace text { namespace encoding {
     class ascii::impl : private boost::noncopyable
     {
     public:
@@ -34,31 +33,22 @@ namespace tetengo2 { namespace text { namespace encoding
 
         // functions
 
-        const std::string& name_impl()
-        const
+        const std::string& name_impl() const
         {
             static const std::string singleton{ "ASCII" };
             return singleton;
         }
 
-        string_type from_pivot_impl(pivot_type pivot)
-        const
+        string_type from_pivot_impl(pivot_type pivot) const
         {
-            return
-                {
-                    boost::make_transform_iterator(pivot.begin(), to_ascii),
-                    boost::make_transform_iterator(pivot.end(), to_ascii)
-                };
+            return { boost::make_transform_iterator(pivot.begin(), to_ascii),
+                     boost::make_transform_iterator(pivot.end(), to_ascii) };
         }
 
-        pivot_type to_pivot_impl(string_type string)
-        const
+        pivot_type to_pivot_impl(string_type string) const
         {
-            return
-                {
-                    boost::make_transform_iterator(string.begin(), from_ascii),
-                    boost::make_transform_iterator(string.end(), from_ascii)
-                };
+            return { boost::make_transform_iterator(string.begin(), from_ascii),
+                     boost::make_transform_iterator(string.end(), from_ascii) };
         }
 
 
@@ -100,33 +90,24 @@ namespace tetengo2 { namespace text { namespace encoding
 
             return ascii_char;
         }
-
-
     };
 
 
-    ascii::ascii()
-    :
-    m_p_impl(std::make_shared<impl>())
-    {}
+    ascii::ascii() : m_p_impl(std::make_shared<impl>()) {}
 
-    ascii::~ascii()
-    = default;
+    ascii::~ascii() = default;
 
-    const std::string& ascii::name_impl()
-    const
+    const std::string& ascii::name_impl() const
     {
         return m_p_impl->name_impl();
     }
 
-    ascii::string_type ascii::from_pivot_impl(pivot_type pivot)
-    const
+    ascii::string_type ascii::from_pivot_impl(pivot_type pivot) const
     {
         return m_p_impl->from_pivot_impl(pivot);
     }
 
-    typename ascii::pivot_type ascii::to_pivot_impl(string_type string)
-    const
+    typename ascii::pivot_type ascii::to_pivot_impl(string_type string) const
     {
         return m_p_impl->to_pivot_impl(string);
     }

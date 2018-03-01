@@ -20,8 +20,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace message
-{
+namespace tetengo2 { namespace message {
     /*!
         \brief The class template for a message catalog parser.
 
@@ -76,8 +75,7 @@ namespace tetengo2 { namespace message
             \retval true  A next entry exists.
             \retval false Otherwise.
         */
-        bool has_next()
-        const;
+        bool has_next() const;
 
         /*!
             \brief Peeks the next entry.
@@ -86,8 +84,7 @@ namespace tetengo2 { namespace message
 
             \throw std::logic_error No next entry exists.
         */
-        const entry_type& peek()
-        const;
+        const entry_type& peek() const;
 
         /*!
             \brief Removes the next entry.
@@ -99,15 +96,13 @@ namespace tetengo2 { namespace message
 
     private:
         // types
-        
+
         class impl;
 
 
         // variables
 
         const std::unique_ptr<impl> m_p_impl;
-
-
     };
 
 

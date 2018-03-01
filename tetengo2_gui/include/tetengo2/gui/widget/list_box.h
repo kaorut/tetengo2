@@ -19,8 +19,7 @@
 #include <tetengo2/gui/widget/control.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget
-{
+namespace tetengo2 { namespace gui { namespace widget {
     /*!
         \brief The class template for a list box.
 
@@ -75,18 +74,17 @@ namespace tetengo2 { namespace gui { namespace widget
         list_box(widget_type& parent, const scroll_bar_style_type scroll_bar_style)
         :
 #if BOOST_COMP_MSVC
-#   pragma warning(push)
-#   pragma warning(disable: 4355)
+#pragma warning(push)
+#pragma warning(disable : 4355)
 #endif
-        base_type(
-            scroll_bar_style,
-            message_handler_details_type::make_list_box_message_handler_map(*this, message_handler_map_type{}),
-            widget_details_type::create_list_box(parent, scroll_bar_style)
-        ),
+          base_type(
+              scroll_bar_style,
+              message_handler_details_type::make_list_box_message_handler_map(*this, message_handler_map_type{}),
+              widget_details_type::create_list_box(parent, scroll_bar_style)),
 #if BOOST_COMP_MSVC
-#   pragma warning(pop)
+#pragma warning(pop)
 #endif
-        m_list_selection_observer_set()
+          m_list_selection_observer_set()
         {
             base_type::initialize(this);
 
@@ -96,8 +94,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Destroys the list box.
         */
-        virtual ~list_box()
-        noexcept
+        virtual ~list_box() noexcept
         {
             try
             {
@@ -105,7 +102,8 @@ namespace tetengo2 { namespace gui { namespace widget
                     this->parent().child_observer_set().destroying()(*this);
             }
             catch (...)
-            {}
+            {
+            }
         }
 
 
@@ -116,8 +114,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The value count.
         */
-        size_type value_count()
-        const
+        size_type value_count() const
         {
             return widget_details_type::template list_box_value_count<size_type>(*this);
         }
@@ -131,8 +128,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When index is out of the range.
         */
-        string_type value(const size_type index)
-        const
+        string_type value(const size_type index) const
         {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
@@ -200,8 +196,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The selected value index. Or boost::none when no value is selected.
         */
-        boost::optional<size_type> selected_value_index()
-        const
+        boost::optional<size_type> selected_value_index() const
         {
             return widget_details_type::template selected_list_box_value_index<size_type>(*this);
         }
@@ -226,8 +221,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The list selection observer set.
         */
-        const list_selection_observer_set_type& list_selection_observer_set()
-        const
+        const list_selection_observer_set_type& list_selection_observer_set() const
         {
             return m_list_selection_observer_set;
         }
@@ -252,8 +246,6 @@ namespace tetengo2 { namespace gui { namespace widget
         // variables
 
         list_selection_observer_set_type m_list_selection_observer_set;
-
-
     };
 
 

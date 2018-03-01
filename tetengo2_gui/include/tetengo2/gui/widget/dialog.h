@@ -18,8 +18,7 @@
 #include <tetengo2/gui/widget/abstract_window.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget
-{
+namespace tetengo2 { namespace gui { namespace widget {
     /*!
         \brief The class template for a modal dialog.
 
@@ -74,8 +73,8 @@ namespace tetengo2 { namespace gui { namespace widget
         enum class result_type
         {
             undecided, //!< The result is not decided yet.
-            accepted,  //!< The settings are accepted.
-            canceled,  //!< The settings are canceled.
+            accepted, //!< The settings are accepted.
+            canceled, //!< The settings are canceled.
         };
 
 
@@ -90,21 +89,19 @@ namespace tetengo2 { namespace gui { namespace widget
         explicit dialog(base_type& parent, const bool file_droppable = false)
         :
 #if BOOST_COMP_MSVC
-#   pragma warning(push)
-#   pragma warning(disable: 4355)
+#pragma warning(push)
+#pragma warning(disable : 4355)
 #endif
-        base_type(
-            base_type::scroll_bar_style_type::none,
-            file_droppable,
-            message_handler_details_type::make_dialog_message_handler_map(*this, message_handler_map_type{})
-        ),
+          base_type(
+              base_type::scroll_bar_style_type::none,
+              file_droppable,
+              message_handler_details_type::make_dialog_message_handler_map(*this, message_handler_map_type{})),
 #if BOOST_COMP_MSVC
-#   pragma warning(pop)
+#pragma warning(pop)
 #endif
-        m_result(result_type::undecided),
-        m_p_details(
-            widget_details_type::template create_dialog<typename base_type::base_type>(&parent, file_droppable)
-        )
+          m_result(result_type::undecided),
+          m_p_details(
+              widget_details_type::template create_dialog<typename base_type::base_type>(&parent, file_droppable))
         {
             initialize_dialog();
 
@@ -114,8 +111,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Destroys the dialog.
         */
-        virtual ~dialog()
-        noexcept
+        virtual ~dialog() noexcept
         {
             try
             {
@@ -123,7 +119,8 @@ namespace tetengo2 { namespace gui { namespace widget
                     this->parent().child_observer_set().destroying()(*this);
             }
             catch (...)
-            {}
+            {
+            }
         }
 
 
@@ -134,8 +131,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The result.
         */
-        result_type result()
-        const
+        result_type result() const
         {
             return m_result;
         }
@@ -189,7 +185,6 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
 
-
     private:
         // types
 
@@ -205,30 +200,23 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // virtual functions
 
-        virtual void set_result_impl()
-        {}
+        virtual void set_result_impl() {}
 
-        virtual void do_modal_impl()
-        {}
+        virtual void do_modal_impl() {}
 
-        virtual void on_close_impl(bool&)
-        {}
+        virtual void on_close_impl(bool&) {}
 
-        virtual const details_type& details_impl()
-        const override
+        virtual const details_type& details_impl() const override
         {
             assert(m_p_details);
             return *m_p_details;
         }
 
-        virtual details_type& details_impl()
-        override
+        virtual details_type& details_impl() override
         {
             assert(m_p_details);
             return *m_p_details;
         }
-
-
     };
 
 

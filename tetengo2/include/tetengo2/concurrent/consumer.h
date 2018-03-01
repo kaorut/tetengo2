@@ -17,8 +17,7 @@
 #include <tetengo2/concurrent/channel.h>
 
 
-namespace tetengo2 { namespace concurrent
-{
+namespace tetengo2 { namespace concurrent {
     /*!
         \brief The class template for a consumer.
 
@@ -44,16 +43,12 @@ namespace tetengo2 { namespace concurrent
 
             \param channel A channel.
         */
-        explicit consumer(channel_type& channel)
-        :
-        m_channel(channel)
-        {}
+        explicit consumer(channel_type& channel) : m_channel(channel) {}
 
         /*!
             \brief Destroys the consumer.
         */
-        ~consumer()
-        noexcept
+        ~consumer() noexcept
         {
             try
             {
@@ -62,20 +57,20 @@ namespace tetengo2 { namespace concurrent
                     take();
             }
             catch (...)
-            {}
+            {
+            }
         }
 
 
         // functions
-        
+
         /*!
             \brief Checks whether the channel is closed.
 
             \retval true  When the channel is closed.
             \retval false Otherwise.
         */
-        bool closed()
-        const
+        bool closed() const
         {
             return m_channel.closed();
         }
@@ -89,8 +84,7 @@ namespace tetengo2 { namespace concurrent
 
             \throw std::logic_error When the channel is closed.
         */
-        const value_type& peek()
-        const
+        const value_type& peek() const
         {
             if (closed())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "The channel is already closed." }));
@@ -118,8 +112,6 @@ namespace tetengo2 { namespace concurrent
         // variables
 
         channel_type& m_channel;
-
-
     };
 
 

@@ -18,8 +18,7 @@
 #include <tetengo2/text.h>
 
 
-namespace
-{
+namespace {
     // types
 
     using config_base_type = tetengo2::config::config_base;
@@ -33,93 +32,85 @@ namespace
     class concrete_config : public config_base_type
     {
     public:
-        concrete_config()
-        {}
+        concrete_config() {}
 
     private:
-        virtual boost::optional<value_type> get_impl(const string_type& key)
-        const override
+        virtual boost::optional<value_type> get_impl(const string_type& key) const override
         {
             static const boost::optional<value_type> value1{ value_type{ string_type{ TETENGO2_TEXT("hoge") } } };
             static const boost::optional<value_type> value2{ value_type{ 42 } };
             return key == string_type{ TETENGO2_TEXT("foo") } ? value1 : value2;
         }
 
-        virtual void set_impl(const string_type& key, value_type value)
-        override
+        virtual void set_impl(const string_type& key, value_type value) override
         {
             boost::ignore_unused(key, value);
         }
 
-        virtual void clear_impl()
-        override
-        {}
-
+        virtual void clear_impl() override {}
     };
-
-
 }
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
-BOOST_AUTO_TEST_SUITE(config)
-BOOST_AUTO_TEST_SUITE(config_base)
-    // test cases
+    BOOST_AUTO_TEST_SUITE(config)
+        BOOST_AUTO_TEST_SUITE(config_base)
+            // test cases
 
-    BOOST_AUTO_TEST_CASE(construction)
-    {
-        BOOST_TEST_PASSPOINT();
+            BOOST_AUTO_TEST_CASE(construction)
+            {
+                BOOST_TEST_PASSPOINT();
 
-        const concrete_config config{};
-    }
+                const concrete_config config{};
+            }
 
-    BOOST_AUTO_TEST_CASE(get)
-    {
-        BOOST_TEST_PASSPOINT();
+            BOOST_AUTO_TEST_CASE(get)
+            {
+                BOOST_TEST_PASSPOINT();
 
-        {
-            const concrete_config config{};
+                {
+                    const concrete_config config{};
 
-            const auto value = config.get(string_type{ TETENGO2_TEXT("foo") });
-            BOOST_TEST_REQUIRE(value.is_initialized());
-            BOOST_CHECK(boost::get<string_type>(*value) == string_type{ TETENGO2_TEXT("hoge") });
-        }
-        {
-            const concrete_config config{};
+                    const auto value = config.get(string_type{ TETENGO2_TEXT("foo") });
+                    BOOST_TEST_REQUIRE(value.is_initialized());
+                    BOOST_CHECK(boost::get<string_type>(*value) == string_type{ TETENGO2_TEXT("hoge") });
+                }
+                {
+                    const concrete_config config{};
 
-            const auto value = config.get(string_type{ TETENGO2_TEXT("bar") });
-            BOOST_TEST_REQUIRE(value.is_initialized());
-            BOOST_TEST(boost::get<uint_type>(*value) == 42U);
-        }
-    }
+                    const auto value = config.get(string_type{ TETENGO2_TEXT("bar") });
+                    BOOST_TEST_REQUIRE(value.is_initialized());
+                    BOOST_TEST(boost::get<uint_type>(*value) == 42U);
+                }
+            }
 
-    BOOST_AUTO_TEST_CASE(set)
-    {
-        BOOST_TEST_PASSPOINT();
+            BOOST_AUTO_TEST_CASE(set)
+            {
+                BOOST_TEST_PASSPOINT();
 
-        {
-            concrete_config config{};
+                {
+                    concrete_config config{};
 
-            config.set(string_type{ TETENGO2_TEXT("foo") }, string_type{ TETENGO2_TEXT("hoge") });
-        }
-        {
-            concrete_config config{};
+                    config.set(string_type{ TETENGO2_TEXT("foo") }, string_type{ TETENGO2_TEXT("hoge") });
+                }
+                {
+                    concrete_config config{};
 
-            config.set(string_type{ TETENGO2_TEXT("bar") }, 42);
-        }
-    }
+                    config.set(string_type{ TETENGO2_TEXT("bar") }, 42);
+                }
+            }
 
-    BOOST_AUTO_TEST_CASE(clear)
-    {
-        BOOST_TEST_PASSPOINT();
+            BOOST_AUTO_TEST_CASE(clear)
+            {
+                BOOST_TEST_PASSPOINT();
 
-        {
-            concrete_config config{};
+                {
+                    concrete_config config{};
 
-            config.clear();
-        }
-    }
+                    config.clear();
+                }
+            }
 
 
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
+        BOOST_AUTO_TEST_SUITE_END()
+    BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

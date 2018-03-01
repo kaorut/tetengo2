@@ -20,8 +20,7 @@
 #include <tetengo2/text/encoding/utf8.h>
 
 
-namespace tetengo2 { namespace text
-{
+namespace tetengo2 { namespace text {
     template <typename String>
     class character_iterator<String>::impl
     {
@@ -36,42 +35,32 @@ namespace tetengo2 { namespace text
         // constructors and destructor
 
         impl()
-        :
-        m_p_string(nullptr),
-        m_utf8_encoder(encoding_type{}, encoding::utf8{}),
-        m_utf8_string(utf8_string_type{}),
-        m_next_offset(0),
-        m_current_character(string_type{})
+        : m_p_string(nullptr), m_utf8_encoder(encoding_type{}, encoding::utf8{}), m_utf8_string(utf8_string_type{}),
+          m_next_offset(0), m_current_character(string_type{})
         {}
 
         impl(const string_type& string, encoding_type encoding)
-        :
-        m_p_string(&string),
-        m_utf8_encoder(encoding, encoding::utf8{}),
-        m_utf8_string(m_utf8_encoder.encode(*m_p_string)),
-        m_next_offset(0),
-        m_current_character(extract_current_character(m_utf8_string, m_next_offset, m_utf8_encoder))
+        : m_p_string(&string), m_utf8_encoder(encoding, encoding::utf8{}),
+          m_utf8_string(m_utf8_encoder.encode(*m_p_string)), m_next_offset(0),
+          m_current_character(extract_current_character(m_utf8_string, m_next_offset, m_utf8_encoder))
         {}
 
 
         // functions
 
-        const string_type& dereference()
-        const
+        const string_type& dereference() const
         {
             return m_current_character;
         }
 
-        bool equal(const character_iterator& another)
-        const
+        bool equal(const character_iterator& another) const
         {
             if (m_current_character.empty() && another.m_p_impl->m_current_character.empty())
                 return true;
 
-            return
-                m_p_string == another.m_p_impl->m_p_string &&
-                m_current_character == another.m_p_impl->m_current_character &&
-                m_next_offset == another.m_p_impl->m_next_offset;
+            return m_p_string == another.m_p_impl->m_p_string &&
+                   m_current_character == another.m_p_impl->m_current_character &&
+                   m_next_offset == another.m_p_impl->m_next_offset;
         }
 
         void increment()
@@ -108,15 +97,14 @@ namespace tetengo2 { namespace text
         static string_type extract_current_character(
             const utf8_string_type&  utf8_string,
             size_type&               next_offset,
-            const utf8_encoder_type& utf8_encoder
-        )
+            const utf8_encoder_type& utf8_encoder)
         {
             const unsigned char head = static_cast<unsigned char>(utf8_string[next_offset]);
             if (head == 0x00)
                 return string_type{};
 
             size_type byte_length = 0;
-            if      ((head & 0x80) == 0x00)
+            if ((head & 0x80) == 0x00)
             {
                 byte_length = 1;
             }
@@ -157,49 +145,39 @@ namespace tetengo2 { namespace text
         size_type m_next_offset;
 
         string_type m_current_character;
-
-
     };
 
 
     template <typename String>
-    character_iterator<String>::character_iterator()
-    :
-    m_p_impl(std::make_shared<impl>())
+    character_iterator<String>::character_iterator() : m_p_impl(std::make_shared<impl>())
     {}
 
     template <typename String>
     character_iterator<String>::character_iterator(const string_type& string, encoding_type encoding)
-    :
-    m_p_impl(std::make_shared<impl>(string, std::move(encoding)))
+    : m_p_impl(std::make_shared<impl>(string, std::move(encoding)))
     {}
 
     template <typename String>
     character_iterator<String>::character_iterator(const character_iterator& another)
-    :
-    m_p_impl(std::make_shared<impl>(*another.m_p_impl))
+    : m_p_impl(std::make_shared<impl>(*another.m_p_impl))
     {}
 
     template <typename String>
     character_iterator<String>::character_iterator(character_iterator&& another)
-    :
-    m_p_impl(std::make_shared<impl>(std::move(*another.m_p_impl)))
+    : m_p_impl(std::make_shared<impl>(std::move(*another.m_p_impl)))
     {}
 
     template <typename String>
-    character_iterator<String>::~character_iterator()
-    = default;
+    character_iterator<String>::~character_iterator() = default;
 
     template <typename String>
-    const typename character_iterator<String>::string_type& character_iterator<String>::dereference()
-    const
+    const typename character_iterator<String>::string_type& character_iterator<String>::dereference() const
     {
         return m_p_impl->dereference();
     }
 
     template <typename String>
-    bool character_iterator<String>::equal(const character_iterator& another)
-    const
+    bool character_iterator<String>::equal(const character_iterator& another) const
     {
         return m_p_impl->equal(another);
     }
@@ -232,15 +210,11 @@ namespace tetengo2 { namespace text
 
     template character_iterator<std::wstring> make_character_iterator();
 
-    template character_iterator<std::string> make_character_iterator(
-        const std::string&                 string,
-        encoding::polymorphic<std::string> encoding
-    );
+    template character_iterator<std::string>
+    make_character_iterator(const std::string& string, encoding::polymorphic<std::string> encoding);
 
-    template character_iterator<std::wstring> make_character_iterator(
-        const std::wstring&                 string,
-        encoding::polymorphic<std::wstring> encoding
-    );
+    template character_iterator<std::wstring>
+    make_character_iterator(const std::wstring& string, encoding::polymorphic<std::wstring> encoding);
 
 
 }}

@@ -14,8 +14,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace cursor
-{
+namespace tetengo2 { namespace gui { namespace cursor {
     class cursor_base::impl : private boost::noncopyable
     {
     public:
@@ -30,8 +29,7 @@ namespace tetengo2 { namespace gui { namespace cursor
 
         // functions
 
-        const details_type& details(const cursor_base& base)
-        const
+        const details_type& details(const cursor_base& base) const
         {
             return base.details_impl();
         }
@@ -40,16 +38,12 @@ namespace tetengo2 { namespace gui { namespace cursor
         {
             return base.details_impl();
         }
-
-
     };
 
 
-    cursor_base::~cursor_base()
-    = default;
+    cursor_base::~cursor_base() = default;
 
-    const cursor_base::details_type& cursor_base::details()
-    const
+    const cursor_base::details_type& cursor_base::details() const
     {
         return m_p_impl->details(*this);
     }
@@ -59,10 +53,7 @@ namespace tetengo2 { namespace gui { namespace cursor
         return m_p_impl->details(*this);
     }
 
-    cursor_base::cursor_base()
-    :
-    m_p_impl(stdalt::make_unique<impl>())
-    {}
+    cursor_base::cursor_base() : m_p_impl(stdalt::make_unique<impl>()) {}
 
 
 }}}

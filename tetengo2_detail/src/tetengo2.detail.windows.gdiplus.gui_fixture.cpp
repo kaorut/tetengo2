@@ -11,8 +11,8 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
-#pragma warning (push)
-#pragma warning (disable: 4005)
+#pragma warning(push)
+#pragma warning(disable : 4005)
 #include <intsafe.h>
 #include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
@@ -20,10 +20,10 @@
 #define OEMRESOURCE
 #include <Windows.h>
 #if !defined(min) && !defined(DOCUMENTATION)
-#   define min(a, b) ((a) < (b) ? (a) : (b))
+#define min(a, b) ((a) < (b) ? (a) : (b))
 #endif
 #if !defined(max) && !defined(DOCUMENTATION)
-#   define max(a, b) ((a) > (b) ? (a) : (b))
+#define max(a, b) ((a) > (b) ? (a) : (b))
 #endif
 #include <GdiPlus.h>
 #undef min
@@ -34,20 +34,15 @@
 #include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
-namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
-{
+namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus {
     class gui_fixture::impl : private boost::noncopyable
     {
     public:
         // constructors and destructor
 
-        impl()
-        :
-        m_gdiplus_token(setup_gdiplus())
-        {}
+        impl() : m_gdiplus_token(setup_gdiplus()) {}
 
-        ~impl()
-        noexcept
+        ~impl() noexcept
         {
             teardown_gdiplus(m_gdiplus_token);
         }
@@ -59,21 +54,19 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         static ::ULONG_PTR setup_gdiplus()
         {
             const Gdiplus::GdiplusStartupInput input;
-            ::ULONG_PTR token = 0;
+            ::ULONG_PTR                        token = 0;
 
             const auto status = Gdiplus::GdiplusStartup(&token, &input, nullptr);
             if (status != Gdiplus::Ok)
             {
-                BOOST_THROW_EXCEPTION((
-                    std::system_error{ std::error_code{ status, gdiplus_category() }, "Can't start up GDI+!" }
-                ));
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ status, gdiplus_category() }, "Can't start up GDI+!" }));
             }
 
             return token;
         }
 
-        static void teardown_gdiplus(const ::ULONG_PTR gdiplus_token)
-        noexcept
+        static void teardown_gdiplus(const ::ULONG_PTR gdiplus_token) noexcept
         {
             Gdiplus::GdiplusShutdown(gdiplus_token);
         }
@@ -82,18 +75,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         // variables
 
         const ::ULONG_PTR m_gdiplus_token;
-
-
     };
 
 
-    gui_fixture::gui_fixture()
-    :
-    m_p_impl(stdalt::make_unique<impl>())
-    {}
+    gui_fixture::gui_fixture() : m_p_impl(stdalt::make_unique<impl>()) {}
 
-    gui_fixture::~gui_fixture()
-    = default;
+    gui_fixture::~gui_fixture() = default;
 
 
 }}}}

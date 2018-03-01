@@ -15,20 +15,17 @@
 #include <boost/iterator/iterator_facade.hpp>
 
 
-namespace tetengo2 { namespace iterator
-{
+namespace tetengo2 { namespace iterator {
     /*!
         \brief The class template for an observable forward iterator.
 
         \tparam ForwardIterator A forward iterator type.
     */
     template <typename ForwardIterator>
-    class observable_forward_iterator :
-        public boost::iterator_facade<
-            observable_forward_iterator<ForwardIterator>,
-            typename ForwardIterator::value_type,
-            std::forward_iterator_tag
-        >
+    class observable_forward_iterator : public boost::iterator_facade<
+                                            observable_forward_iterator<ForwardIterator>,
+                                            typename ForwardIterator::value_type,
+                                            std::forward_iterator_tag>
     {
     public:
         // types
@@ -37,7 +34,7 @@ namespace tetengo2 { namespace iterator
         using iterator = ForwardIterator;
 
         //! The increment observer signature type.
-        using increment_observer_signature_type = void (observable_forward_iterator current);
+        using increment_observer_signature_type = void(observable_forward_iterator current);
 
         //! The increment observer type.
         using increment_observer_type = std::function<increment_observer_signature_type>;
@@ -51,9 +48,7 @@ namespace tetengo2 { namespace iterator
             \param forward_iterator A forward iterator.
         */
         explicit observable_forward_iterator(iterator forward_iterator)
-        :
-        m_forward_iterator(forward_iterator),
-        m_increment_observer([](const observable_forward_iterator&) {})
+        : m_forward_iterator(forward_iterator), m_increment_observer([](const observable_forward_iterator&) {})
         {}
 
 
@@ -64,8 +59,7 @@ namespace tetengo2 { namespace iterator
 
             \return The dereferenced value.
         */
-        typename observable_forward_iterator::reference dereference()
-        const
+        typename observable_forward_iterator::reference dereference() const
         {
             return *m_forward_iterator;
         }
@@ -78,8 +72,7 @@ namespace tetengo2 { namespace iterator
             \retval true  When the iterator is equal to another iterator.
             \retval false Otherwise.
         */
-        bool equal(const observable_forward_iterator& another)
-        const
+        bool equal(const observable_forward_iterator& another) const
         {
             return m_forward_iterator == another.m_forward_iterator;
         }
@@ -100,15 +93,11 @@ namespace tetengo2 { namespace iterator
 
             \return The distance.
         */
-        typename std::iterator_traits<observable_forward_iterator>::difference_type distance_to(
-            observable_forward_iterator another
-        )
-        const
+        typename std::iterator_traits<observable_forward_iterator>::difference_type
+        distance_to(observable_forward_iterator another) const
         {
-            return
-                static_cast<typename std::iterator_traits<observable_forward_iterator>::difference_type>(
-                    std::distance(m_forward_iterator, another.m_forward_iterator)
-                );
+            return static_cast<typename std::iterator_traits<observable_forward_iterator>::difference_type>(
+                std::distance(m_forward_iterator, another.m_forward_iterator));
         }
 
         /*!
@@ -128,8 +117,6 @@ namespace tetengo2 { namespace iterator
         iterator m_forward_iterator;
 
         increment_observer_type m_increment_observer;
-
-
     };
 
 

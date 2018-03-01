@@ -16,8 +16,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace drawing
-{
+namespace tetengo2 { namespace gui { namespace drawing {
     /*!
         \brief The class template for a transparent background.
 
@@ -39,16 +38,13 @@ namespace tetengo2 { namespace gui { namespace drawing
             \brief Creates a transparent background.
         */
         transparent_background()
-        :
-        base_type(),
-        m_p_details(base_type::drawing_details_type::create_transparent_background())
+        : base_type(), m_p_details(base_type::drawing_details_type::create_transparent_background())
         {}
 
         /*!
             \brief Destroys the background.
         */
-        virtual ~transparent_background()
-        = default;
+        virtual ~transparent_background() = default;
 
 
     private:
@@ -66,27 +62,22 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         // virtual functions
 
-        virtual std::unique_ptr<base_type> clone_impl()
-        const override
+        virtual std::unique_ptr<base_type> clone_impl() const override
         {
             return stdalt::make_unique<transparent_background>();
         }
 
-        virtual const details_type& details_impl()
-        const override
+        virtual const details_type& details_impl() const override
         {
             assert(m_p_details);
             return *m_p_details;
         }
 
-        virtual details_type& details_impl()
-        override
+        virtual details_type& details_impl() override
         {
             assert(m_p_details);
             return *m_p_details;
         }
-
-
     };
 
 

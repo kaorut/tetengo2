@@ -32,8 +32,7 @@
 #include <tetengo2/text/push_parser.h>
 
 
-namespace tetengo2 { namespace text
-{
+namespace tetengo2 { namespace text {
     template <typename ForwardIterator>
     class push_parser<ForwardIterator>::impl : private boost::noncopyable
     {
@@ -64,13 +63,8 @@ namespace tetengo2 { namespace text
         // constructors and destructor
 
         impl(const iterator first, const iterator last, std::unique_ptr<grammar_type> p_grammar)
-        :
-        m_first(first),
-        m_last(last),
-        m_p_grammar(std::move(p_grammar)),
-        m_on_structure_begin(),
-        m_on_structure_end(),
-        m_on_value()
+        : m_first(first), m_last(last), m_p_grammar(std::move(p_grammar)), m_on_structure_begin(), m_on_structure_end(),
+          m_on_value()
         {
             if (!m_p_grammar)
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "The grammar is nullptr." }));
@@ -78,36 +72,26 @@ namespace tetengo2 { namespace text
             m_p_grammar->on_structure_begin().connect(
                 [this](
                     const string_type&                           structure_name,
-                    const std::vector<structure_attribute_type>& structure_attributes
-                )
-                {
+                    const std::vector<structure_attribute_type>& structure_attributes) {
                     return this->observe_structure_begin(structure_name, structure_attributes);
-                }
-            );
+                });
             m_p_grammar->on_structure_end().connect(
                 [this](
                     const string_type&                           structure_name,
-                    const std::vector<structure_attribute_type>& structure_attributes
-                )
-                {
+                    const std::vector<structure_attribute_type>& structure_attributes) {
                     boost::ignore_unused(structure_attributes);
 
                     return this->observe_structure_end(structure_name);
-                }
-            );
-            m_p_grammar->on_value().connect(
-                [this](const value_type_type value_type, const string_type& value)
-                {
-                    return this->observe_value(value_type, value);
-                }
-            );
+                });
+            m_p_grammar->on_value().connect([this](const value_type_type value_type, const string_type& value) {
+                return this->observe_value(value_type, value);
+            });
         }
 
 
         // functions
-        
-        const structure_signal_type& on_structure_begin()
-        const
+
+        const structure_signal_type& on_structure_begin() const
         {
             return m_on_structure_begin;
         }
@@ -117,8 +101,7 @@ namespace tetengo2 { namespace text
             return m_on_structure_begin;
         }
 
-        const structure_signal_type& on_structure_end()
-        const
+        const structure_signal_type& on_structure_end() const
         {
             return m_on_structure_end;
         }
@@ -128,8 +111,7 @@ namespace tetengo2 { namespace text
             return m_on_structure_end;
         }
 
-        const value_signal_type& on_value()
-        const
+        const value_signal_type& on_value() const
         {
             return m_on_value;
         }
@@ -139,10 +121,9 @@ namespace tetengo2 { namespace text
             return m_on_value;
         }
 
-        bool parse()
-        const
+        bool parse() const
         {
-            auto first = m_first;
+            auto       first = m_first;
             const auto result = boost::spirit::qi::parse(first, m_last, *m_p_grammar);
             return result && first == m_last;
         }
@@ -162,21 +143,16 @@ namespace tetengo2 { namespace text
         {
             attribute_map_type attribute_map{};
 
-            for (const auto& sa: structure_attributes)
+            for (const auto& sa : structure_attributes)
                 attribute_map.insert(to_attribute(sa));
 
             return attribute_map;
         }
 
-        static typename attribute_map_type::value_type to_attribute(
-            const structure_attribute_type& structure_attribute
-        )
+        static typename attribute_map_type::value_type to_attribute(const structure_attribute_type& structure_attribute)
         {
-            return
-                {
-                    structure_attribute.name(),
-                    to_value(structure_attribute.value_type(), structure_attribute.attribute())
-                };
+            return { structure_attribute.name(),
+                     to_value(structure_attribute.value_type(), structure_attribute.attribute()) };
         }
 
         static value_type to_value(const value_type_type value_type, const string_type& string_value)
@@ -240,10 +216,8 @@ namespace tetengo2 { namespace text
             }
         }
 
-        static boost::variant<float_type> to_number_exp(
-            const string_type&                    string_value,
-            const typename string_type::size_type exp_index
-        )
+        static boost::variant<float_type>
+        to_number_exp(const string_type& string_value, const typename string_type::size_type exp_index)
         {
             try
             {
@@ -253,7 +227,7 @@ namespace tetengo2 { namespace text
             }
             catch (const boost::bad_lexical_cast&)
             {
-                return{ 0 };
+                return { 0 };
             }
         }
 
@@ -261,8 +235,7 @@ namespace tetengo2 { namespace text
         {
             assert(
                 string_value == string_type{ TETENGO2_TEXT("true") } ||
-                string_value == string_type{ TETENGO2_TEXT("false") }
-            );
+                string_value == string_type{ TETENGO2_TEXT("false") });
 
             return string_value == string_type{ TETENGO2_TEXT("true") };
         }
@@ -296,8 +269,7 @@ namespace tetengo2 { namespace text
 
         bool observe_structure_begin(
             const string_type&                           structure_name,
-            const std::vector<structure_attribute_type>& structure_attributes
-        )
+            const std::vector<structure_attribute_type>& structure_attributes)
         {
             return m_on_structure_begin(structure_name, to_attribute_map(structure_attributes));
         }
@@ -311,8 +283,6 @@ namespace tetengo2 { namespace text
         {
             return m_on_value(to_value(value_type, value));
         }
-
-
     };
 
 
@@ -320,20 +290,16 @@ namespace tetengo2 { namespace text
     push_parser<ForwardIterator>::push_parser(
         const iterator                first,
         const iterator                last,
-        std::unique_ptr<grammar_type> p_grammar
-    )
-    :
-    m_p_impl(stdalt::make_unique<impl>(first, last, std::move(p_grammar)))
+        std::unique_ptr<grammar_type> p_grammar)
+    : m_p_impl(stdalt::make_unique<impl>(first, last, std::move(p_grammar)))
     {}
 
     template <typename ForwardIterator>
-    push_parser<ForwardIterator>::~push_parser()
-    = default;
+    push_parser<ForwardIterator>::~push_parser() = default;
 
     template <typename ForwardIterator>
     const typename push_parser<ForwardIterator>::structure_signal_type&
-    push_parser<ForwardIterator>::on_structure_begin()
-    const
+    push_parser<ForwardIterator>::on_structure_begin() const
     {
         return m_p_impl->on_structure_begin();
     }
@@ -346,8 +312,7 @@ namespace tetengo2 { namespace text
 
     template <typename ForwardIterator>
     const typename push_parser<ForwardIterator>::structure_signal_type&
-    push_parser<ForwardIterator>::on_structure_end()
-    const
+    push_parser<ForwardIterator>::on_structure_end() const
     {
         return m_p_impl->on_structure_end();
     }
@@ -359,8 +324,7 @@ namespace tetengo2 { namespace text
     }
 
     template <typename ForwardIterator>
-    const typename push_parser<ForwardIterator>::value_signal_type& push_parser<ForwardIterator>::on_value()
-    const
+    const typename push_parser<ForwardIterator>::value_signal_type& push_parser<ForwardIterator>::on_value() const
     {
         return m_p_impl->on_value();
     }
@@ -372,28 +336,21 @@ namespace tetengo2 { namespace text
     }
 
     template <typename ForwardIterator>
-    bool push_parser<ForwardIterator>::parse()
-    const
+    bool push_parser<ForwardIterator>::parse() const
     {
         return m_p_impl->parse();
     }
 
 
-    namespace
-    {
-        namespace application
-        {
+    namespace {
+        namespace application {
             using input_stream_iterator_type =
                 iterator::observable_forward_iterator<boost::spirit::multi_pass<std::istreambuf_iterator<char>>>;
-
         }
 
-        namespace test
-        {
+        namespace test {
             using input_stream_iterator_type = std::string::const_iterator;
-
         }
-
     }
 
     template class push_parser<application::input_stream_iterator_type>;

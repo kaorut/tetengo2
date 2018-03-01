@@ -15,8 +15,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace detail { namespace stub
-{
+namespace tetengo2 { namespace detail { namespace stub {
     class alert::impl : private boost::noncopyable
     {
     public:
@@ -40,8 +39,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
         // functions
 
-        widget_handle_type root_ancestor_widget_handle_impl(const widget_handle_type widget_handle)
-        const
+        widget_handle_type root_ancestor_widget_handle_impl(const widget_handle_type widget_handle) const
         {
             boost::ignore_unused(widget_handle);
 
@@ -54,14 +52,10 @@ namespace tetengo2 { namespace detail { namespace stub
             const string_type&       text1,
             const string_type&       text2,
             const string_type&       source_file_name,
-            const integer_type       source_file_line
-        )
-        const
+            const integer_type       source_file_line) const
         {
             boost::ignore_unused(widget_handle, caption, text1, text2, source_file_name, source_file_line);
         }
-
-
     };
 
 
@@ -70,16 +64,11 @@ namespace tetengo2 { namespace detail { namespace stub
         return impl::instance();
     }
 
-    alert::~alert()
-    = default;
+    alert::~alert() = default;
 
-    alert::alert()
-    :
-    m_p_impl(stdalt::make_unique<impl>())
-    {}
+    alert::alert() : m_p_impl(stdalt::make_unique<impl>()) {}
 
-    alert::widget_handle_type alert::root_ancestor_widget_handle_impl(const widget_handle_type widget_handle)
-    const
+    alert::widget_handle_type alert::root_ancestor_widget_handle_impl(const widget_handle_type widget_handle) const
     {
         return m_p_impl->root_ancestor_widget_handle_impl(widget_handle);
     }
@@ -90,9 +79,7 @@ namespace tetengo2 { namespace detail { namespace stub
         const string_type&       text1,
         const string_type&       text2,
         const string_type&       source_file_name,
-        const integer_type       source_file_line
-    )
-    const
+        const integer_type       source_file_line) const
     {
         m_p_impl->show_task_dialog_impl(widget_handle, caption, text1, text2, source_file_name, source_file_line);
     }

@@ -14,8 +14,7 @@
 #include <boost/signals2.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace message
-{
+namespace tetengo2 { namespace gui { namespace message {
     /*!
         \brief The class for a focus observer set.
     */
@@ -35,7 +34,7 @@ namespace tetengo2 { namespace gui { namespace message
         /*!
             \brief The observer type of lost-focus.
         */
-        using lost_focus_type = void ();
+        using lost_focus_type = void();
 
         //! The signal type of lost-focus.
         using lost_focus_signal_type = boost::signals2::signal<lost_focus_type>;
@@ -48,8 +47,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a widget got a focus.
         */
-        const got_focus_signal_type& got_focus()
-        const
+        const got_focus_signal_type& got_focus() const
         {
             return m_got_focus;
         }
@@ -69,8 +67,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a widget lost a focus.
         */
-        const lost_focus_signal_type& lost_focus()
-        const
+        const lost_focus_signal_type& lost_focus() const
         {
             return m_lost_focus;
         }
@@ -92,8 +89,6 @@ namespace tetengo2 { namespace gui { namespace message
         got_focus_signal_type m_got_focus;
 
         lost_focus_signal_type m_lost_focus;
-
-
     };
 
 

@@ -14,17 +14,16 @@
 #include <boost/predef.h>
 
 #if BOOST_OS_WINDOWS
-#   include <tetengo2/detail/windows/encoding.h>
+#include <tetengo2/detail/windows/encoding.h>
 #elif BOOST_OS_LINUX
-#   include <tetengo2/detail/unixos/encoding.h>
+#include <tetengo2/detail/unixos/encoding.h>
 #else
-#   error Unsupported platform.
+#error Unsupported platform.
 #endif
 #include <tetengo2/text/encoding/encoding.h>
 
 
-namespace tetengo2 { namespace text { namespace encoding
-{
+namespace tetengo2 { namespace text { namespace encoding {
     template <typename String>
     class encoding<String>::impl : private boost::noncopyable
     {
@@ -45,42 +44,35 @@ namespace tetengo2 { namespace text { namespace encoding
 #elif BOOST_OS_LINUX
             return detail::unixos::encoding::instance();
 #else
-#   error Unsupported platform.
+#error Unsupported platform.
 #endif
         }
 
 
         // functions
 
-        const std::string& name(const encoding<String>& base)
-        const
+        const std::string& name(const encoding<String>& base) const
         {
             return base.name_impl();
         }
 
-        string_type from_pivot(pivot_type pivot, const encoding<String>& base)
-        const
+        string_type from_pivot(pivot_type pivot, const encoding<String>& base) const
         {
             return base.from_pivot_impl(std::move(pivot));
         }
 
-        pivot_type to_pivot(string_type string, const encoding<String>& base)
-        const
+        pivot_type to_pivot(string_type string, const encoding<String>& base) const
         {
             return base.to_pivot_impl(std::move(string));
         }
-
-
     };
 
 
     template <typename String>
-    encoding<String>::~encoding()
-    = default;
+    encoding<String>::~encoding() = default;
 
     template <typename String>
-    const std::string& encoding<String>::name()
-    const
+    const std::string& encoding<String>::name() const
     {
         return m_p_impl->name(*this);
     }
@@ -104,21 +96,17 @@ namespace tetengo2 { namespace text { namespace encoding
     }
 
     template <typename String>
-    encoding<String>::encoding()
-    :
-    m_p_impl(std::make_shared<impl>())
+    encoding<String>::encoding() : m_p_impl(std::make_shared<impl>())
     {}
 
     template <typename String>
-    typename encoding<String>::string_type encoding<String>::from_pivot(pivot_type pivot)
-    const
+    typename encoding<String>::string_type encoding<String>::from_pivot(pivot_type pivot) const
     {
         return m_p_impl->from_pivot(std::move(pivot), *this);
     }
 
     template <typename String>
-    typename encoding<String>::pivot_type encoding<String>::to_pivot(string_type string)
-    const
+    typename encoding<String>::pivot_type encoding<String>::to_pivot(string_type string) const
     {
         return m_p_impl->to_pivot(std::move(string), *this);
     }

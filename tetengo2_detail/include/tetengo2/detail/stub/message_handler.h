@@ -18,8 +18,7 @@
 #include <boost/core/noncopyable.hpp>
 
 
-namespace tetengo2 { namespace detail { namespace stub
-{
+namespace tetengo2 { namespace detail { namespace stub {
     /*!
         \brief The class for a detail implementation of a message handler.
     */
@@ -29,7 +28,7 @@ namespace tetengo2 { namespace detail { namespace stub
         // types
 
         //! The message handler type.
-        using message_handler_type = std::function<void ()>;
+        using message_handler_type = std::function<void()>;
 
         //! The message handler map type.
         using message_handler_map_type = std::unordered_map<int, std::vector<message_handler_type>>;
@@ -50,8 +49,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename AbstractWindow>
         static message_handler_map_type make_abstract_window_message_handler_map(
             AbstractWindow&            abstract_window,
-            message_handler_map_type&& initial_map
-        )
+            message_handler_map_type&& initial_map)
         {
             boost::ignore_unused(abstract_window);
 
@@ -69,10 +67,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A message handler map.
         */
         template <typename Button>
-        static message_handler_map_type make_button_message_handler_map(
-            Button&                    button,
-            message_handler_map_type&& initial_map
-        )
+        static message_handler_map_type
+        make_button_message_handler_map(Button& button, message_handler_map_type&& initial_map)
         {
             boost::ignore_unused(button);
 
@@ -90,10 +86,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A message handler map.
         */
         template <typename Control>
-        static message_handler_map_type make_control_message_handler_map(
-            Control&                   control,
-            message_handler_map_type&& initial_map
-        )
+        static message_handler_map_type
+        make_control_message_handler_map(Control& control, message_handler_map_type&& initial_map)
         {
             boost::ignore_unused(control);
 
@@ -111,10 +105,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A message handler map.
         */
         template <typename CustomControl>
-        static message_handler_map_type make_custom_control_message_handler_map(
-            CustomControl&             custom_control,
-            message_handler_map_type&& initial_map
-        )
+        static message_handler_map_type
+        make_custom_control_message_handler_map(CustomControl& custom_control, message_handler_map_type&& initial_map)
         {
             boost::ignore_unused(custom_control);
 
@@ -132,10 +124,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A message handler map.
         */
         template <typename Dialog>
-        static message_handler_map_type make_dialog_message_handler_map(
-            Dialog&                    dialog,
-            message_handler_map_type&& initial_map
-        )
+        static message_handler_map_type
+        make_dialog_message_handler_map(Dialog& dialog, message_handler_map_type&& initial_map)
         {
             boost::ignore_unused(dialog);
 
@@ -153,10 +143,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A message handler map.
         */
         template <typename DropdownBox>
-        static message_handler_map_type make_dropdown_box_message_handler_map(
-            DropdownBox&               dropdown_box,
-            message_handler_map_type&& initial_map
-        )
+        static message_handler_map_type
+        make_dropdown_box_message_handler_map(DropdownBox& dropdown_box, message_handler_map_type&& initial_map)
         {
             boost::ignore_unused(dropdown_box);
 
@@ -174,10 +162,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A message handler map.
         */
         template <typename Image>
-        static message_handler_map_type make_image_message_handler_map(
-            Image&                     image,
-            message_handler_map_type&& initial_map
-        )
+        static message_handler_map_type
+        make_image_message_handler_map(Image& image, message_handler_map_type&& initial_map)
         {
             boost::ignore_unused(image);
 
@@ -195,10 +181,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A message handler map.
         */
         template <typename Label>
-        static message_handler_map_type make_label_message_handler_map(
-            Label&                     label,
-            message_handler_map_type&& initial_map
-        )
+        static message_handler_map_type
+        make_label_message_handler_map(Label& label, message_handler_map_type&& initial_map)
         {
             boost::ignore_unused(label);
 
@@ -216,10 +200,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A message handler map.
         */
         template <typename ListBox>
-        static message_handler_map_type make_list_box_message_handler_map(
-            ListBox&                   list_box,
-            message_handler_map_type&& initial_map
-        )
+        static message_handler_map_type
+        make_list_box_message_handler_map(ListBox& list_box, message_handler_map_type&& initial_map)
         {
             boost::ignore_unused(list_box);
 
@@ -237,10 +219,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A message handler map.
         */
         template <typename PictureBox>
-        static message_handler_map_type make_picture_box_message_handler_map(
-            PictureBox&                picture_box,
-            message_handler_map_type&& initial_map
-        )
+        static message_handler_map_type
+        make_picture_box_message_handler_map(PictureBox& picture_box, message_handler_map_type&& initial_map)
         {
             boost::ignore_unused(picture_box);
 
@@ -258,10 +238,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A message handler map.
         */
         template <typename TextBox>
-        static message_handler_map_type make_text_box_message_handler_map(
-            TextBox&                   text_box,
-            message_handler_map_type&& initial_map
-        )
+        static message_handler_map_type
+        make_text_box_message_handler_map(TextBox& text_box, message_handler_map_type&& initial_map)
         {
             boost::ignore_unused(text_box);
 
@@ -279,10 +257,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A message handler map.
         */
         template <typename Widget>
-        static message_handler_map_type make_widget_message_handler_map(
-            Widget&                    widget,
-            message_handler_map_type&& initial_map
-        )
+        static message_handler_map_type
+        make_widget_message_handler_map(Widget& widget, message_handler_map_type&& initial_map)
         {
             boost::ignore_unused(widget);
 
@@ -300,10 +276,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A message handler map.
         */
         template <typename Window>
-        static message_handler_map_type make_window_message_handler_map(
-            Window&                    window,
-            message_handler_map_type&& initial_map
-        )
+        static message_handler_map_type
+        make_window_message_handler_map(Window& window, message_handler_map_type&& initial_map)
         {
             boost::ignore_unused(window);
 
@@ -314,10 +288,7 @@ namespace tetengo2 { namespace detail { namespace stub
     private:
         // forbidden operations
 
-        message_handler()
-        = delete;
-
-
+        message_handler() = delete;
     };
 
 

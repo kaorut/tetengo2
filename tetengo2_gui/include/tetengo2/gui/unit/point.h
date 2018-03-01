@@ -17,23 +17,19 @@
 #include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/type_list.h>
 
-namespace tetengo2 { namespace detail
-{
-    namespace stub
-    {
+namespace tetengo2 { namespace detail {
+    namespace stub {
         class unit;
     }
 #if BOOST_OS_WINDOWS
-    namespace windows
-    {
+    namespace windows {
         class unit;
     }
 #endif
 }}
 
 
-namespace tetengo2 { namespace gui { namespace unit
-{
+namespace tetengo2 { namespace gui { namespace unit {
     /*!
         \brief The class template for a point unit.
 
@@ -191,16 +187,14 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return A value.
         */
-        value_type divide_by(const basic_point& another)
-        const;
+        value_type divide_by(const basic_point& another) const;
 
         /*!
             \brief Returns the value.
 
             \return The value.
         */
-        const value_type& value()
-        const;
+        const value_type& value() const;
 
         /*!
             \brief Returns the value in pixels.
@@ -210,8 +204,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \return The value in pixels.
         */
         template <typename PixelValue>
-        PixelValue to_pixels()
-        const
+        PixelValue to_pixels() const
         {
             return static_cast<PixelValue>(to_pixels_impl(m_value));
         }
@@ -221,10 +214,7 @@ namespace tetengo2 { namespace gui { namespace unit
         // static functions
 
         template <typename To, typename From>
-        static To cast(
-            const From from,
-            typename std::enable_if<std::is_convertible<From, To>::value>::type* = nullptr
-        )
+        static To cast(const From from, typename std::enable_if<std::is_convertible<From, To>::value>::type* = nullptr)
         {
             return static_cast<To>(from);
         }
@@ -232,11 +222,8 @@ namespace tetengo2 { namespace gui { namespace unit
         template <typename To, typename FromInteger>
         static To cast(const boost::rational<FromInteger>& from)
         {
-            return
-                To{
-                    static_cast<typename To::int_type>(from.numerator()),
-                    static_cast<typename To::int_type>(from.denominator())
-                };
+            return To{ static_cast<typename To::int_type>(from.numerator()),
+                       static_cast<typename To::int_type>(from.denominator()) };
         }
 
         static basic_point from_pixels_impl(const typename value_type::int_type value);
@@ -247,8 +234,6 @@ namespace tetengo2 { namespace gui { namespace unit
         // variables
 
         value_type m_value;
-
-
     };
 
 

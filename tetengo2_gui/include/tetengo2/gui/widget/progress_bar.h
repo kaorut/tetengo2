@@ -14,8 +14,7 @@
 #include <tetengo2/gui/widget/control.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget
-{
+namespace tetengo2 { namespace gui { namespace widget {
     /*!
         \brief The class template for a progress bar.
 
@@ -54,7 +53,7 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             running, //!< The running state.
             pausing, //!< The pausing state.
-            error,   //!< The error state.
+            error, //!< The error state.
         };
 
 
@@ -68,16 +67,15 @@ namespace tetengo2 { namespace gui { namespace widget
         explicit progress_bar(widget_type& parent)
         :
 #if BOOST_COMP_MSVC
-#   pragma warning(push)
-#   pragma warning(disable: 4355)
+#pragma warning(push)
+#pragma warning(disable : 4355)
 #endif
-        base_type(
-            base_type::scroll_bar_style_type::none,
-            message_handler_details_type::make_button_message_handler_map(*this, message_handler_map_type{}),
-            widget_details_type::create_progress_bar(parent)
-        )
+          base_type(
+              base_type::scroll_bar_style_type::none,
+              message_handler_details_type::make_button_message_handler_map(*this, message_handler_map_type{}),
+              widget_details_type::create_progress_bar(parent))
 #if BOOST_COMP_MSVC
-#   pragma warning(pop)
+#pragma warning(pop)
 #endif
         {
             base_type::initialize(this);
@@ -88,8 +86,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Destroys the progress bar.
         */
-        virtual ~progress_bar()
-        noexcept
+        virtual ~progress_bar() noexcept
         {
             try
             {
@@ -97,7 +94,8 @@ namespace tetengo2 { namespace gui { namespace widget
                     this->parent().child_observer_set().destroying()(*this);
             }
             catch (...)
-            {}
+            {
+            }
         }
 
 
@@ -108,8 +106,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The goal.
         */
-        size_type goal()
-        const
+        size_type goal() const
         {
             return widget_details_type::template progress_bar_goal<size_type>(*this);
         }
@@ -129,8 +126,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The progress.
         */
-        size_type progress()
-        const
+        size_type progress() const
         {
             return widget_details_type::template progress_bar_progress<size_type>(*this);
         }
@@ -150,8 +146,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The state.
         */
-        state_type state()
-        const
+        state_type state() const
         {
             return widget_details_type::progress_bar_state(*this);
         }
@@ -171,8 +166,6 @@ namespace tetengo2 { namespace gui { namespace widget
         // types
 
         using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
-
-
     };
 
 

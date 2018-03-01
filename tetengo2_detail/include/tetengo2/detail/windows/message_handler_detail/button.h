@@ -13,8 +13,8 @@
 #include <boost/core/ignore_unused.hpp> // IWYU pragma: keep
 #include <boost/optional.hpp> // IWYU pragma: keep
 
-#pragma warning (push)
-#pragma warning (disable: 4005)
+#pragma warning(push)
+#pragma warning(disable : 4005)
 #include <intsafe.h>
 #include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
@@ -23,25 +23,19 @@
 #include <Windows.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail
-{
-    namespace button
+namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail { namespace button {
+    template <typename Button>
+    boost::optional<::LRESULT> on_tetengo2_command(Button& button, const ::WPARAM w_param, const ::LPARAM l_param)
     {
-        template <typename Button>
-        boost::optional< ::LRESULT> on_tetengo2_command(Button& button, const ::WPARAM w_param, const ::LPARAM l_param)
-        {
-            boost::ignore_unused(w_param, l_param);
+        boost::ignore_unused(w_param, l_param);
 
-            button.mouse_observer_set().clicked()();
+        button.mouse_observer_set().clicked()();
 
-            return boost::make_optional< ::LRESULT>(0);
-        }
-
-
+        return boost::make_optional<::LRESULT>(0);
     }
 
 
-}}}}
+}}}}}
 
 
 #endif

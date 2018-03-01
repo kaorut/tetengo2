@@ -14,8 +14,7 @@
 #include <boost/signals2.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace message
-{
+namespace tetengo2 { namespace gui { namespace message {
     /*!
         \brief The class for a menu observer set.
     */
@@ -27,7 +26,7 @@ namespace tetengo2 { namespace gui { namespace message
         /*!
             \brief The observer type of selected.
         */
-        using selected_type = void ();
+        using selected_type = void();
 
         //! The signal type of selected.
         using selected_signal_type = boost::signals2::signal<selected_type>;
@@ -40,8 +39,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a menu item is selected.
         */
-        const selected_signal_type& selected()
-        const
+        const selected_signal_type& selected() const
         {
             return m_selected;
         }
@@ -61,8 +59,6 @@ namespace tetengo2 { namespace gui { namespace message
         // variables
 
         selected_signal_type m_selected;
-
-
     };
 
 

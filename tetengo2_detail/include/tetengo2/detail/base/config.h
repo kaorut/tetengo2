@@ -16,8 +16,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace detail { namespace base
-{
+namespace tetengo2 { namespace detail { namespace base {
     /*!
         \brief The class for a detail implementation of a configuration.
     */
@@ -54,8 +53,7 @@ namespace tetengo2 { namespace detail { namespace base
 
             \return The pointer to the value. Or nullptr when no corresponding value to the key.
         */
-        boost::optional<value_type> get(const string_type& group_name, const string_type& key)
-        const;
+        boost::optional<value_type> get(const string_type& group_name, const string_type& key) const;
 
         /*!
             \brief Sets a configuration value.
@@ -64,16 +62,14 @@ namespace tetengo2 { namespace detail { namespace base
             \param key        A key.
             \param value      A value.
         */
-        void set(const string_type& group_name, const string_type& key, value_type value)
-        const;
+        void set(const string_type& group_name, const string_type& key, value_type value) const;
 
         /*!
             \brief Clears the configuration.
 
             \param group_name A group_name.
         */
-        void clear(const string_type& group_name)
-        const;
+        void clear(const string_type& group_name) const;
 
 
     protected:
@@ -88,16 +84,11 @@ namespace tetengo2 { namespace detail { namespace base
     private:
         // virtual functions
 
-        virtual boost::optional<value_type> get_impl(const string_type& group_name, const string_type& key)
-        const = 0;
+        virtual boost::optional<value_type> get_impl(const string_type& group_name, const string_type& key) const = 0;
 
-        virtual void set_impl(const string_type& group_name, const string_type& key, value_type value)
-        const = 0;
+        virtual void set_impl(const string_type& group_name, const string_type& key, value_type value) const = 0;
 
-        virtual void clear_impl(const string_type& group_name)
-        const = 0;
-
-
+        virtual void clear_impl(const string_type& group_name) const = 0;
     };
 
 

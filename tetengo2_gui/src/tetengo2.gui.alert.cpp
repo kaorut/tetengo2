@@ -24,8 +24,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace gui
-{
+namespace tetengo2 { namespace gui {
     class alert::impl : private boost::noncopyable
     {
     public:
@@ -39,44 +38,38 @@ namespace tetengo2 { namespace gui
         // constructors and destructor
 
         impl(const widget_handle_type widget_handle, const alert_details_type& alert_details)
-        :
-        m_widget_handle(alert_details.root_ancestor_widget_handle(widget_handle)),
-        m_alert_details(alert_details)
+        : m_widget_handle(alert_details.root_ancestor_widget_handle(widget_handle)), m_alert_details(alert_details)
         {}
 
         explicit impl(const alert_details_type& alert_details)
-        :
-        m_widget_handle(alert_details.root_ancestor_widget_handle(nullptr)),
-        m_alert_details(alert_details)
+        : m_widget_handle(alert_details.root_ancestor_widget_handle(nullptr)), m_alert_details(alert_details)
         {}
 
 
         // functions
 
-        void operator_paren(const boost::exception& exception)
-        const
+        void operator_paren(const boost::exception& exception) const
         {
             try
             {
-                const char* const* const p_file = boost::get_error_info<boost::throw_file>(exception);
+                const char* const* const  p_file = boost::get_error_info<boost::throw_file>(exception);
                 const integer_type* const p_line = boost::get_error_info<boost::throw_line>(exception);
 
                 const std::system_error* const p_system_error = dynamic_cast<const std::system_error*>(&exception);
                 if (p_system_error)
                 {
                     const std::string what{ p_system_error->std::runtime_error::what() };
-                    auto message = p_system_error->code().message();
+                    auto              message = p_system_error->code().message();
                     if (!what.empty())
-                        message += std::string{ ": " } +what;
+                        message += std::string{ ": " } + what;
                     m_alert_details.show_task_dialog(
                         m_widget_handle,
                         string_type{ TETENGO2_TEXT("Alert") },
                         string_type{ TETENGO2_TEXT("std::system_error") },
                         exception_encoder().decode(message),
-                        p_file ?
-                            exception_encoder().decode(*p_file) : string_type{ TETENGO2_TEXT("Unknown Source File") },
-                        p_line ? *p_line : 0
-                    );
+                        p_file ? exception_encoder().decode(*p_file) :
+                                 string_type{ TETENGO2_TEXT("Unknown Source File") },
+                        p_line ? *p_line : 0);
                     return;
                 }
 
@@ -88,10 +81,9 @@ namespace tetengo2 { namespace gui
                         string_type{ TETENGO2_TEXT("Alert") },
                         exception_encoder().decode(typeid(*p_std_exception).name()),
                         exception_encoder().decode(p_std_exception->what()),
-                        p_file ?
-                            exception_encoder().decode(*p_file) : string_type{ TETENGO2_TEXT("Unknown Source File") },
-                        p_line ? *p_line : 0
-                    );
+                        p_file ? exception_encoder().decode(*p_file) :
+                                 string_type{ TETENGO2_TEXT("Unknown Source File") },
+                        p_line ? *p_line : 0);
                     return;
                 }
 
@@ -100,17 +92,15 @@ namespace tetengo2 { namespace gui
                     string_type{ TETENGO2_TEXT("Alert") },
                     exception_encoder().decode(typeid(exception).name()),
                     exception_encoder().decode(boost::diagnostic_information(exception)),
-                    p_file ?
-                        exception_encoder().decode(*p_file) : string_type{ TETENGO2_TEXT("Unknown Source File") },
-                    p_line ? *p_line : 0
-                );
+                    p_file ? exception_encoder().decode(*p_file) : string_type{ TETENGO2_TEXT("Unknown Source File") },
+                    p_line ? *p_line : 0);
             }
             catch (...)
-            {}
+            {
+            }
         }
 
-        void operator_paren(const std::exception& exception)
-        const
+        void operator_paren(const std::exception& exception) const
         {
             try
             {
@@ -120,11 +110,11 @@ namespace tetengo2 { namespace gui
                     exception_encoder().decode(typeid(exception).name()),
                     exception_encoder().decode(exception.what()),
                     string_type{ TETENGO2_TEXT("Unknown Source File") },
-                    0
-                );
+                    0);
             }
             catch (...)
-            {}
+            {
+            }
         }
 
 
@@ -143,9 +133,8 @@ namespace tetengo2 { namespace gui
 
         static const exception_encoder_type& exception_encoder()
         {
-            static const exception_encoder_type singleton{
-                type_list::internal_encoding_type{}, text::encoding::locale<std::string>{}
-            };
+            static const exception_encoder_type singleton{ type_list::internal_encoding_type{},
+                                                           text::encoding::locale<std::string>{} };
             return singleton;
         }
 
@@ -155,32 +144,23 @@ namespace tetengo2 { namespace gui
         const widget_handle_type m_widget_handle;
 
         const alert_details_type& m_alert_details;
-
-
     };
 
 
     alert::alert(const widget_handle_type widget_handle, const alert_details_type& alert_details)
-    :
-    m_p_impl(stdalt::make_unique<impl>(widget_handle, alert_details))
+    : m_p_impl(stdalt::make_unique<impl>(widget_handle, alert_details))
     {}
 
-    alert::alert(const alert_details_type& alert_details)
-    :
-    m_p_impl(stdalt::make_unique<impl>(alert_details))
-    {}
+    alert::alert(const alert_details_type& alert_details) : m_p_impl(stdalt::make_unique<impl>(alert_details)) {}
 
-    alert::~alert()
-    = default;
+    alert::~alert() = default;
 
-    void alert::operator()(const boost::exception& exception)
-    const
+    void alert::operator()(const boost::exception& exception) const
     {
         m_p_impl->operator_paren(exception);
     }
 
-    void alert::operator()(const std::exception& exception /* = std::runtime_error("Unknown Error!") */)
-    const
+    void alert::operator()(const std::exception& exception /* = std::runtime_error("Unknown Error!") */) const
     {
         m_p_impl->operator_paren(exception);
     }

@@ -17,14 +17,12 @@
 
 #include <tetengo2/detail/base/alert.h>
 
-namespace boost
-{
+namespace boost {
     class exception;
 }
 
 
-namespace tetengo2 { namespace gui
-{
+namespace tetengo2 { namespace gui {
     /*!
         \brief The class for an alert.
     */
@@ -70,16 +68,14 @@ namespace tetengo2 { namespace gui
 
             \param exception An exception.
         */
-        void operator()(const boost::exception& exception)
-        const;
+        void operator()(const boost::exception& exception) const;
 
         /*!
             \brief Alerts a fatal error.
 
             \param exception An exception.
         */
-        void operator()(const std::exception& exception = std::runtime_error("Unknown Error!"))
-        const;
+        void operator()(const std::exception& exception = std::runtime_error("Unknown Error!")) const;
 
 
     private:
@@ -91,8 +87,6 @@ namespace tetengo2 { namespace gui
         // variables
 
         const std::unique_ptr<impl> m_p_impl;
-
-
     };
 
 

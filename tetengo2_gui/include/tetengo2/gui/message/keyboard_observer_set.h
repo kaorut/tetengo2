@@ -13,8 +13,7 @@
 #include <boost/signals2.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace message
-{
+namespace tetengo2 { namespace gui { namespace message {
     /*!
         \brief The class template for a keyboard observer set.
 
@@ -41,7 +40,7 @@ namespace tetengo2 { namespace gui { namespace message
             \param control     True when control key is pressed.
             \param meta        True when meta key is pressed.
         */
-        using key_down_type = void (const virtual_key_type& virtual_key, bool shift, bool control, bool meta);
+        using key_down_type = void(const virtual_key_type& virtual_key, bool shift, bool control, bool meta);
 
         //! The signal type of key down.
         using key_down_signal_type = boost::signals2::signal<key_down_type>;
@@ -54,7 +53,7 @@ namespace tetengo2 { namespace gui { namespace message
             \param control     True when control key is pressed.
             \param meta        True when meta key is pressed.
         */
-        using key_up_type = void (const virtual_key_type& virtual_key, bool shift, bool control, bool meta);
+        using key_up_type = void(const virtual_key_type& virtual_key, bool shift, bool control, bool meta);
 
         //! The signal type of key up.
         using key_up_signal_type = boost::signals2::signal<key_up_type>;
@@ -64,7 +63,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \param character A character.
         */
-        using character_input_type = void (typename keyboard_observer_set::char_type character);
+        using character_input_type = void(typename keyboard_observer_set::char_type character);
 
         //! The signal type of character input.
         using character_input_signal_type = boost::signals2::signal<character_input_type>;
@@ -77,8 +76,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a key is pushed down.
         */
-        const key_down_signal_type& key_down()
-        const
+        const key_down_signal_type& key_down() const
         {
             return m_key_down;
         }
@@ -98,8 +96,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a key is released up.
         */
-        const key_up_signal_type& key_up()
-        const
+        const key_up_signal_type& key_up() const
         {
             return m_key_up;
         }
@@ -119,8 +116,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a character is input.
         */
-        const character_input_signal_type& character_input()
-        const
+        const character_input_signal_type& character_input() const
         {
             return m_character_input;
         }
@@ -144,8 +140,6 @@ namespace tetengo2 { namespace gui { namespace message
         key_up_signal_type m_key_up;
 
         character_input_signal_type m_character_input;
-
-
     };
 
 

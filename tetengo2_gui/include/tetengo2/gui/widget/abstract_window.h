@@ -18,13 +18,12 @@
 #include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/menu/menu_bar.h>
 #include <tetengo2/gui/menu/shortcut_key_table.h>
-#include <tetengo2/gui/message/window_observer_set.h>
 #include <tetengo2/gui/message/file_drop_observer_set.h>
+#include <tetengo2/gui/message/window_observer_set.h>
 #include <tetengo2/gui/widget/widget.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget
-{
+namespace tetengo2 { namespace gui { namespace widget {
     /*!
         \brief The class template for an abstract window.
 
@@ -82,10 +81,8 @@ namespace tetengo2 { namespace gui { namespace widget
             gui::menu::shortcut_key_table<string_type, encoder_type, menu_details_type, virtual_key_details_type>;
 
         //! The menu bar type.
-        using menu_bar_type =
-            gui::menu::menu_bar<
-                string_type, shortcut_key_table_type, encoder_type, menu_details_type, virtual_key_details_type
-            >;
+        using menu_bar_type = gui::menu::
+            menu_bar<string_type, shortcut_key_table_type, encoder_type, menu_details_type, virtual_key_details_type>;
 
         //! The window observer set type.
         using window_observer_set_type = gui::message::window_observer_set;
@@ -96,7 +93,7 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The window state type.
         enum class window_state_type
         {
-            normal,    //!< Normal state.
+            normal, //!< Normal state.
             maximized, //!< Maximized state.
             minimized, //!< Minimized state.
         };
@@ -117,8 +114,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The window state.
         */
-        window_state_type window_state()
-        const
+        window_state_type window_state() const
         {
             return widget_details_type::template window_state<window_state_type>(*this);
         }
@@ -138,8 +134,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The normal dimension.
         */
-        dimension_type normal_dimension()
-        const
+        dimension_type normal_dimension() const
         {
             return widget_details_type::template normal_dimension<dimension_type>(*this);
         }
@@ -150,8 +145,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \retval true  When the abstract window has an icon.
             \retval false Otherwise.
         */
-        bool has_icon()
-        const
+        bool has_icon() const
         {
             return static_cast<bool>(m_p_icon);
         }
@@ -161,8 +155,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The icon.
         */
-        const icon_type& icon()
-        const
+        const icon_type& icon() const
         {
             if (!has_icon())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "This abstract window has no icon." }));
@@ -200,8 +193,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \retval true  When the abstract window has a menu bar.
             \retval false Otherwise.
         */
-        bool has_menu_bar()
-        const
+        bool has_menu_bar() const
         {
             return static_cast<bool>(m_p_menu_bar);
         }
@@ -213,10 +205,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::logic_error When the abstract window does not have a main menu.
         */
-        const menu_bar_type& menu_bar()
-        const
+        const menu_bar_type& menu_bar() const
         {
-            if(!has_menu_bar())
+            if (!has_menu_bar())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "The abstract window does not have a menu bar." }));
 
             return *m_p_menu_bar;
@@ -231,7 +222,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         menu_bar_type& menu_bar()
         {
-            if(!has_menu_bar())
+            if (!has_menu_bar())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "The abstract window does not have a menu bar." }));
 
             return *m_p_menu_bar;
@@ -264,8 +255,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \retval true  When a file drop is enabled.
             \retval false Otherwise.
         */
-        bool file_droppable()
-        const
+        bool file_droppable() const
         {
             return m_file_droppable;
         }
@@ -275,8 +265,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The window observer set.
         */
-        const window_observer_set_type& window_observer_set()
-        const
+        const window_observer_set_type& window_observer_set() const
         {
             return m_window_observer_set;
         }
@@ -296,8 +285,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The file drop observer set.
         */
-        const file_drop_observer_set_type& file_drop_observer_set()
-        const
+        const file_drop_observer_set_type& file_drop_observer_set() const
         {
             return m_file_drop_observer_set;
         }
@@ -340,34 +328,28 @@ namespace tetengo2 { namespace gui { namespace widget
         abstract_window(
             const scroll_bar_style_type scroll_bar_style,
             const bool                  file_droppable,
-            message_handler_map_type&&  message_handler_map
-        )
+            message_handler_map_type&&  message_handler_map)
         :
 #if BOOST_COMP_MSVC
-#   pragma warning(push)
-#   pragma warning(disable: 4355)
+#pragma warning(push)
+#pragma warning(disable : 4355)
 #endif
-        base_type(
-            scroll_bar_style,
-            message_handler_details_type::make_abstract_window_message_handler_map(
-                *this, std::move(message_handler_map)
-            )
-        ),
+          base_type(
+              scroll_bar_style,
+              message_handler_details_type::make_abstract_window_message_handler_map(
+                  *this,
+                  std::move(message_handler_map))),
 #if BOOST_COMP_MSVC
-#   pragma warning(pop)
+#pragma warning(pop)
 #endif
-        m_file_droppable(file_droppable),
-        m_p_icon(),
-        m_p_menu_bar(),
-        m_window_observer_set(),
-        m_file_drop_observer_set()
+          m_file_droppable(file_droppable), m_p_icon(), m_p_menu_bar(), m_window_observer_set(),
+          m_file_drop_observer_set()
         {}
 
         /*!
             \brief Destroys the abstract window.
         */
-        virtual ~abstract_window()
-        noexcept
+        virtual ~abstract_window() noexcept
         {
             if (!this->destroyed())
                 set_icon(std::unique_ptr<icon_type>{});
@@ -386,8 +368,6 @@ namespace tetengo2 { namespace gui { namespace widget
         window_observer_set_type m_window_observer_set;
 
         file_drop_observer_set_type m_file_drop_observer_set;
-
-
     };
 
 

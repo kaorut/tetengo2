@@ -21,8 +21,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget
-{
+namespace tetengo2 { namespace gui { namespace widget {
     template <typename CustomControl>
     class inner_item;
 
@@ -98,19 +97,17 @@ namespace tetengo2 { namespace gui { namespace widget
         custom_control(widget_type& parent, const bool border, const scroll_bar_style_type scroll_bar_style)
         :
 #if BOOST_COMP_MSVC
-#   pragma warning(push)
-#   pragma warning(disable: 4355)
+#pragma warning(push)
+#pragma warning(disable : 4355)
 #endif
-        base_type(
-            scroll_bar_style,
-            message_handler_details_type::make_custom_control_message_handler_map(*this, message_handler_map_type{}),
-            widget_details_type::create_custom_control(parent, border, scroll_bar_style)
-        ),
+          base_type(
+              scroll_bar_style,
+              message_handler_details_type::make_custom_control_message_handler_map(*this, message_handler_map_type{}),
+              widget_details_type::create_custom_control(parent, border, scroll_bar_style)),
 #if BOOST_COMP_MSVC
-#   pragma warning(pop)
+#pragma warning(pop)
 #endif
-        m_p_mouse_capture(),
-        m_p_mouse_captured_item(nullptr)
+          m_p_mouse_capture(), m_p_mouse_captured_item(nullptr)
         {
             base_type::initialize(this);
 
@@ -120,8 +117,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Destroys the custom control.
         */
-        virtual ~custom_control()
-        noexcept
+        virtual ~custom_control() noexcept
         {
             try
             {
@@ -129,7 +125,8 @@ namespace tetengo2 { namespace gui { namespace widget
                     this->parent().child_observer_set().destroying()(*this);
             }
             catch (...)
-            {}
+            {
+            }
         }
 
 
@@ -145,8 +142,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \retval true  When the mouse is captured by the inner item.
             \retval false Otherwise.
         */
-        bool mouse_captured(const inner_item_type* const p_inner_item)
-        const
+        bool mouse_captured(const inner_item_type* const p_inner_item) const
         {
             return static_cast<bool>(m_p_mouse_capture) && (!p_inner_item || m_p_mouse_captured_item == p_inner_item);
         }
@@ -162,18 +158,15 @@ namespace tetengo2 { namespace gui { namespace widget
             \retval true  When the mouse is captured by the inner item.
             \retval false Otherwise.
         */
-        bool mouse_captured(const mouse_button_type mouse_button, const inner_item_type* const p_inner_item)
-        const
+        bool mouse_captured(const mouse_button_type mouse_button, const inner_item_type* const p_inner_item) const
         {
-            return
-                static_cast<bool>(m_p_mouse_capture) &&
-                m_p_mouse_capture->button() == mouse_button &&
-                (!p_inner_item || m_p_mouse_captured_item == p_inner_item);
+            return static_cast<bool>(m_p_mouse_capture) && m_p_mouse_capture->button() == mouse_button &&
+                   (!p_inner_item || m_p_mouse_captured_item == p_inner_item);
         }
 
         /*!
             \brief Sets a mouse capture to the specified inner item.
-            
+
             \param mouse_button A mouse button.
             \param p_inner_item A pointer to an inner item.
 
@@ -212,8 +205,6 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<mouse_capture_type> m_p_mouse_capture;
 
         const inner_item_type* m_p_mouse_captured_item;
-
-
     };
 
 
@@ -252,8 +243,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Destroys the inner item.
         */
-        virtual ~inner_item()
-        = default;
+        virtual ~inner_item() = default;
 
 
         // functions
@@ -263,8 +253,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The position.
         */
-        const position_type& position()
-        const
+        const position_type& position() const
         {
             return m_position;
         }
@@ -284,8 +273,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The dimension.
         */
-        const dimension_type& dimension()
-        const
+        const dimension_type& dimension() const
         {
             return m_dimension;
         }
@@ -313,8 +301,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param canvas A canvas.
         */
-        void paint(canvas_type& canvas)
-        const
+        void paint(canvas_type& canvas) const
         {
             paint_impl(canvas);
         }
@@ -359,7 +346,6 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         void mouse_moved(const position_type& cursor_position)
         {
-
             if (this->parent().mouse_captured(this) || inside(cursor_position))
             {
                 mouse_moved_impl(cursor_position);
@@ -391,11 +377,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \param dimension A dimension.
         */
         inner_item(custom_control_type& parent, position_type&& position, dimension_type&& dimension)
-        :
-        m_parent(parent),
-        m_position(std::move(position)),
-        m_dimension(std::move(dimension)),
-        m_mouse_inside(false)
+        : m_parent(parent), m_position(std::move(position)), m_dimension(std::move(dimension)), m_mouse_inside(false)
         {}
 
 
@@ -406,8 +388,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The parent.
         */
-        const custom_control_type& parent()
-        const
+        const custom_control_type& parent() const
         {
             return m_parent;
         }
@@ -430,8 +411,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \return The parent as the specified type.
         */
         template <typename T>
-        const T& parent_to()
-        const
+        const T& parent_to() const
         {
             assert(dynamic_cast<const T*>(&m_parent));
             return dynamic_cast<const T&>(m_parent);
@@ -459,13 +439,12 @@ namespace tetengo2 { namespace gui { namespace widget
             \retval true  When the position is inside the inner item.
             \retval false Otherwise.
         */
-        bool inside(const position_type& position)
-        const
+        bool inside(const position_type& position) const
         {
             const auto& left = m_position.left();
-            const auto right = left + position_unit_type::from(m_dimension.width());
+            const auto  right = left + position_unit_type::from(m_dimension.width());
             const auto& top = m_position.top();
-            const auto bottom = top + position_unit_type::from(m_dimension.height());
+            const auto  bottom = top + position_unit_type::from(m_dimension.height());
 
             const auto& cursor_left = position.left();
             const auto& cursor_top = position.top();
@@ -488,11 +467,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // virtual functions
 
-        virtual void resized_impl()
-        {}
+        virtual void resized_impl() {}
 
-        virtual void paint_impl(canvas_type& canvas)
-        const
+        virtual void paint_impl(canvas_type& canvas) const
         {
             boost::ignore_unused(canvas);
         }
@@ -512,13 +489,9 @@ namespace tetengo2 { namespace gui { namespace widget
             boost::ignore_unused(cursor_position);
         }
 
-        virtual void mouse_entered_impl()
-        {}
+        virtual void mouse_entered_impl() {}
 
-        virtual void mouse_left_impl()
-        {}
-
-
+        virtual void mouse_left_impl() {}
     };
 
 

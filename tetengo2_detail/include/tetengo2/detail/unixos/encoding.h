@@ -14,8 +14,7 @@
 #include <tetengo2/detail/base/encoding.h>
 
 
-namespace tetengo2 { namespace detail { namespace unixos
-{
+namespace tetengo2 { namespace detail { namespace unixos {
     /*!
         \brief The class for a detail implementation of an encoding.
     */
@@ -70,19 +69,13 @@ namespace tetengo2 { namespace detail { namespace unixos
 
         // virtual functions
 
-        virtual utf8_string_type pivot_to_utf8_impl(pivot_type pivot)
-        const override;
+        virtual utf8_string_type pivot_to_utf8_impl(pivot_type pivot) const override;
 
-        virtual pivot_type utf8_to_pivot_impl(utf8_string_type string)
-        const override;
+        virtual pivot_type utf8_to_pivot_impl(utf8_string_type string) const override;
 
-        virtual cp932_string_type pivot_to_cp932_impl(pivot_type pivot)
-        const override;
+        virtual cp932_string_type pivot_to_cp932_impl(pivot_type pivot) const override;
 
-        virtual pivot_type cp932_to_pivot_impl(cp932_string_type string)
-        const override;
-
-
+        virtual pivot_type cp932_to_pivot_impl(cp932_string_type string) const override;
     };
 
 

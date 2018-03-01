@@ -13,8 +13,7 @@
 #include <utility>
 
 
-namespace tetengo2 { namespace text
-{
+namespace tetengo2 { namespace text {
     /*!
         \brief The class template for an encoder.
 
@@ -45,11 +44,7 @@ namespace tetengo2 { namespace text
         /*!
             \brief Creates an encoder.
         */
-        encoder()
-        :
-        m_internal_encoding(),
-        m_external_encoding()
-        {}
+        encoder() : m_internal_encoding(), m_external_encoding() {}
 
         /*!
             \brief Creates an encoder.
@@ -58,9 +53,7 @@ namespace tetengo2 { namespace text
             \param external_encoding An external encoding.
         */
         explicit encoder(internal_encoding_type internal_encoding, external_encoding_type external_encoding)
-        :
-        m_internal_encoding(std::move(internal_encoding)),
-        m_external_encoding(std::move(external_encoding))
+        : m_internal_encoding(std::move(internal_encoding)), m_external_encoding(std::move(external_encoding))
         {}
 
 
@@ -71,8 +64,7 @@ namespace tetengo2 { namespace text
 
             \return The internal encoding.
         */
-        const internal_encoding_type& internal_encoding()
-        const
+        const internal_encoding_type& internal_encoding() const
         {
             return m_internal_encoding;
         }
@@ -82,8 +74,7 @@ namespace tetengo2 { namespace text
 
             \return The external encoding.
         */
-        const external_encoding_type& external_encoding()
-        const
+        const external_encoding_type& external_encoding() const
         {
             return m_external_encoding;
         }
@@ -95,8 +86,7 @@ namespace tetengo2 { namespace text
 
             \return An encoded string.
         */
-        external_string_type encode(internal_string_type string)
-        const
+        external_string_type encode(internal_string_type string) const
         {
             return encode_impl<external_string_type>(std::move(string));
         }
@@ -108,8 +98,7 @@ namespace tetengo2 { namespace text
 
             \return A decoded string.
         */
-        internal_string_type decode(external_string_type string)
-        const
+        internal_string_type decode(external_string_type string) const
         {
             return decode_impl<internal_string_type>(std::move(string));
         }
@@ -126,8 +115,7 @@ namespace tetengo2 { namespace text
         // functions
 
         template <typename ES, typename IS>
-        ES encode_impl(IS string, typename std::enable_if<std::is_convertible<IS, ES>::value>::type* = nullptr)
-        const
+        ES encode_impl(IS string, typename std::enable_if<std::is_convertible<IS, ES>::value>::type* = nullptr) const
         {
             if (m_internal_encoding == m_external_encoding)
                 return std::move(string);
@@ -136,15 +124,13 @@ namespace tetengo2 { namespace text
         }
 
         template <typename ES, typename IS>
-        ES encode_impl(IS string, typename std::enable_if<!std::is_convertible<IS, ES>::value>::type* = nullptr)
-        const
+        ES encode_impl(IS string, typename std::enable_if<!std::is_convertible<IS, ES>::value>::type* = nullptr) const
         {
             return m_external_encoding.from_pivot(m_internal_encoding.to_pivot(std::move(string)));
         }
 
         template <typename IS, typename ES>
-        IS decode_impl(ES string, typename std::enable_if<std::is_convertible<ES, IS>::value>::type* = nullptr)
-        const
+        IS decode_impl(ES string, typename std::enable_if<std::is_convertible<ES, IS>::value>::type* = nullptr) const
         {
             if (m_internal_encoding == m_external_encoding)
                 return std::move(string);
@@ -153,13 +139,10 @@ namespace tetengo2 { namespace text
         }
 
         template <typename IS, typename ES>
-        IS decode_impl(ES string, typename std::enable_if<!std::is_convertible<ES, IS>::value>::type* = nullptr)
-        const
+        IS decode_impl(ES string, typename std::enable_if<!std::is_convertible<ES, IS>::value>::type* = nullptr) const
         {
             return m_internal_encoding.from_pivot(m_external_encoding.to_pivot(std::move(string)));
         }
-
-
     };
 
 

@@ -11,8 +11,8 @@
 #include <system_error>
 #include <vector> // IWYU pragma: keep
 
-#pragma warning (push)
-#pragma warning (disable: 4005)
+#pragma warning(push)
+#pragma warning(disable : 4005)
 #include <intsafe.h>
 #include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
@@ -27,46 +27,37 @@
 #include <tetengo2/text/encoding/utf8.h> // IWYU pragma: keep
 
 
-namespace tetengo2 { namespace detail { namespace windows
-{
-    namespace detail
-    {
-        using encoder_type = text::encoder<text::encoding::utf8, text::encoding::locale<std::wstring>> ;
+namespace tetengo2 { namespace detail { namespace windows {
+    namespace detail {
+        using encoder_type = text::encoder<text::encoding::utf8, text::encoding::locale<std::wstring>>;
 
         inline const encoder_type& encoder()
         {
             static const encoder_type singleton{};
             return singleton;
         }
-
-
     }
 
 
-    error_category::~error_category()
-    = default;
+    error_category::~error_category() = default;
 
-    const char* error_category::name()
-    const noexcept
+    const char* error_category::name() const noexcept
     {
         return "win32";
     }
 
-    std::string error_category::message(const int error_value)
-    const
+    std::string error_category::message(const int error_value) const
     {
-        const std::size_t message_capacity = 64 * 1024;
+        const std::size_t    message_capacity = 64 * 1024;
         std::vector<wchar_t> message(message_capacity, 0);
-        auto message_length =
-            ::FormatMessageW(
-                FORMAT_MESSAGE_FROM_SYSTEM,
-                nullptr,
-                error_value,
-                MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-                &message[0],
-                message_capacity,
-                nullptr
-            );
+        auto                 message_length = ::FormatMessageW(
+            FORMAT_MESSAGE_FROM_SYSTEM,
+            nullptr,
+            error_value,
+            MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+            &message[0],
+            message_capacity,
+            nullptr);
         if (message_length == 0)
             return "Unknown Error";
 
@@ -86,17 +77,14 @@ namespace tetengo2 { namespace detail { namespace windows
     }
 
 
-    wic_error_category::~wic_error_category()
-    = default;
+    wic_error_category::~wic_error_category() = default;
 
-    const char* wic_error_category::name()
-    const noexcept
+    const char* wic_error_category::name() const noexcept
     {
         return "Windows Imaging Component";
     }
 
-    std::string wic_error_category::message(const int error_value)
-    const
+    std::string wic_error_category::message(const int error_value) const
     {
         switch (error_value)
         {

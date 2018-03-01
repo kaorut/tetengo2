@@ -38,8 +38,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget
-{
+namespace tetengo2 { namespace gui { namespace widget {
     /*!
         \brief The base class template for a GUI widget.
 
@@ -99,8 +98,7 @@ namespace tetengo2 { namespace gui { namespace widget
             gui::drawing::canvas_traits<size_type, string_type, position_type, dimension_type, encoder_type>;
 
         //! The canvas type.
-        using canvas_type =
-            gui::drawing::canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
+        using canvas_type = gui::drawing::canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
 
         //! The widget canvas type.
         using widget_canvas_type =
@@ -130,10 +128,10 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The scroll bar style type.
         enum class scroll_bar_style_type
         {
-            none,       //!< The widget has no scroll bar.
-            vertical,   //!< The widget has a vertical scroll bar.
+            none, //!< The widget has no scroll bar.
+            vertical, //!< The widget has a vertical scroll bar.
             horizontal, //!< The widget has a horizontal scroll bar.
-            both,       //!< The widget has both vertiacal and horizontal scroll bars.
+            both, //!< The widget has both vertiacal and horizontal scroll bars.
         };
 
         //! The message handler map type.
@@ -170,8 +168,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Destroys the widget.
         */
-        virtual ~widget()
-        = default;
+        virtual ~widget() = default;
 
 
         // functions
@@ -182,8 +179,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \retval true  When the widget has a parent.
             \retval false Otherwise.
         */
-        bool has_parent()
-        const
+        bool has_parent() const
         {
             return widget_details_type::has_parent(*this);
         }
@@ -195,8 +191,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::logic_error When the widget has no parent.
         */
-        const widget& parent()
-        const
+        const widget& parent() const
         {
             if (!has_parent())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "Has no parent." }));
@@ -224,8 +219,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The root ancestor.
         */
-        const widget& root_ancestor()
-        const
+        const widget& root_ancestor() const
         {
             if (!has_parent())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "Has no parent." }));
@@ -251,8 +245,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The enabled status.
         */
-        bool enabled()
-        const
+        bool enabled() const
         {
             return widget_details_type::enabled(*this);
         }
@@ -272,8 +265,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The visible status.
         */
-        bool visible()
-        const
+        bool visible() const
         {
             return widget_details_type::visible(*this);
         }
@@ -293,8 +285,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The focused status.
         */
-        bool focused()
-        const
+        bool focused() const
         {
             return m_focused;
         }
@@ -312,8 +303,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The position.
         */
-        position_type position()
-        const
+        position_type position() const
         {
             return widget_details_type::template position<position_type>(*this);
         }
@@ -336,8 +326,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The dimension.
         */
-        dimension_type dimension()
-        const
+        dimension_type dimension() const
         {
             return widget_details_type::template dimension<dimension_type>(*this);
         }
@@ -360,8 +349,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The client dimension.
         */
-        dimension_type client_dimension()
-        const
+        dimension_type client_dimension() const
         {
             return widget_details_type::template client_dimension<dimension_type>(*this);
         }
@@ -378,16 +366,12 @@ namespace tetengo2 { namespace gui { namespace widget
         template <typename D>
         void set_client_dimension(const D& client_dimension)
         {
-            if (
-                client_dimension.width() == dimension_unit_type{} || client_dimension.height() == dimension_unit_type{}
-            )
+            if (client_dimension.width() == dimension_unit_type{} || client_dimension.height() == dimension_unit_type{})
             {
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "Client dimension has zero value." }));
             }
 
-            widget_details_type::template set_client_dimension<position_type>(
-                *this, client_dimension
-            );
+            widget_details_type::template set_client_dimension<position_type>(*this, client_dimension);
         }
 
         /*!
@@ -410,8 +394,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The text.
         */
-        string_type text()
-        const
+        string_type text() const
         {
             return widget_details_type::template text<string_type>(*this, encoder());
         }
@@ -433,8 +416,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The pointer to the background.
         */
-        const background_type* p_background()
-        const
+        const background_type* p_background() const
         {
             return m_p_background.get();
         }
@@ -456,8 +438,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The font.
         */
-        font_type font()
-        const
+        font_type font() const
         {
             return widget_details_type::template font<font_type>(*this, encoder());
         }
@@ -477,8 +458,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The pointer to the cursor.
         */
-        const cursor_type* p_cursor()
-        const
+        const cursor_type* p_cursor() const
         {
             return m_p_cursor.get();
         }
@@ -498,8 +478,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \retval true  The widget has a vertical scroll bar.
         */
-        bool has_vertical_scroll_bar()
-        const
+        bool has_vertical_scroll_bar() const
         {
             return static_cast<bool>(m_p_vertical_scroll_bar);
         }
@@ -511,8 +490,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::logic_error When the widget has no vertical scroll bar.
         */
-        const scroll_bar_type& vertical_scroll_bar()
-        const
+        const scroll_bar_type& vertical_scroll_bar() const
         {
             if (!has_vertical_scroll_bar())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "The widget has no vertical scroll bar." }));
@@ -540,8 +518,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \retval true  The widget has a horizontal scroll bar.
         */
-        bool has_horizontal_scroll_bar()
-        const
+        bool has_horizontal_scroll_bar() const
         {
             return static_cast<bool>(m_p_horizontal_scroll_bar);
         }
@@ -553,8 +530,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::logic_error When the widget has no horizontal scroll bar.
         */
-        const scroll_bar_type& horizontal_scroll_bar()
-        const
+        const scroll_bar_type& horizontal_scroll_bar() const
         {
             if (!has_horizontal_scroll_bar())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "The widget has no horizontal scroll bar." }));
@@ -582,8 +558,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The children.
         */
-        std::vector<std::reference_wrapper<const child_type>> children()
-        const
+        std::vector<std::reference_wrapper<const child_type>> children() const
         {
             return widget_details_type::template children<const child_type>(*this);
         }
@@ -603,8 +578,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param immediately Set true to request an immediate repaint.
         */
-        void repaint(const bool immediately = false)
-        const
+        void repaint(const bool immediately = false) const
         {
             widget_details_type::repaint(*this, immediately);
         }
@@ -615,8 +589,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \param position  The position of a region to repaint.
             \param dimension The dimension of a region to repaint.
         */
-        void repaint_partially(const position_type& position, const dimension_type& dimension)
-        const
+        void repaint_partially(const position_type& position, const dimension_type& dimension) const
         {
             widget_details_type::repaint_partially(*this, position, dimension);
         }
@@ -626,8 +599,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The unique pointer to a canvas.
         */
-        std::unique_ptr<canvas_type> create_canvas()
-        const
+        std::unique_ptr<canvas_type> create_canvas() const
         {
             return stdalt::make_unique<widget_canvas_type>(details());
         }
@@ -635,8 +607,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Clicks this widget.
         */
-        void click()
-        const
+        void click() const
         {
             m_mouse_observer_set.clicked()();
         }
@@ -654,8 +625,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The child observer set.
         */
-        const child_observer_set_type& child_observer_set()
-        const
+        const child_observer_set_type& child_observer_set() const
         {
             return m_child_observer_set;
         }
@@ -675,8 +645,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The size observer set.
         */
-        const size_observer_set_type& size_observer_set()
-        const
+        const size_observer_set_type& size_observer_set() const
         {
             return m_size_observer_set;
         }
@@ -696,8 +665,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The focus observer set.
         */
-        const focus_observer_set_type& focus_observer_set()
-        const
+        const focus_observer_set_type& focus_observer_set() const
         {
             return m_focus_observer_set;
         }
@@ -717,8 +685,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The paint observer set.
         */
-        const paint_observer_set_type& paint_observer_set()
-        const
+        const paint_observer_set_type& paint_observer_set() const
         {
             return m_paint_observer_set;
         }
@@ -733,13 +700,12 @@ namespace tetengo2 { namespace gui { namespace widget
             return m_paint_observer_set;
         }
 
-         /*!
-            \brief Returns the keyboard observer set.
+        /*!
+           \brief Returns the keyboard observer set.
 
-            \return The keyboard observer set.
-        */
-        const keyboard_observer_set_type& keyboard_observer_set()
-        const
+           \return The keyboard observer set.
+       */
+        const keyboard_observer_set_type& keyboard_observer_set() const
         {
             return m_keyboard_observer_set;
         }
@@ -754,13 +720,12 @@ namespace tetengo2 { namespace gui { namespace widget
             return m_keyboard_observer_set;
         }
 
-       /*!
-            \brief Returns the mouse observer set.
+        /*!
+             \brief Returns the mouse observer set.
 
-            \return The mouse observer set.
-        */
-        const mouse_observer_set_type& mouse_observer_set()
-        const
+             \return The mouse observer set.
+         */
+        const mouse_observer_set_type& mouse_observer_set() const
         {
             return m_mouse_observer_set;
         }
@@ -781,8 +746,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \retval true  When the widget is destroyed.
             \retval false Otherwise.
         */
-        bool destroyed()
-        const
+        bool destroyed() const
         {
             return m_destroyed;
         }
@@ -802,8 +766,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        const details_type& details()
-        const
+        const details_type& details() const
         {
             if (m_destroyed)
                 BOOST_THROW_EXCEPTION((std::runtime_error{ "This widget is destroyed." }));
@@ -831,8 +794,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The message handler map.
         */
-        const message_handler_map_type& message_handler_map()
-        const
+        const message_handler_map_type& message_handler_map() const
         {
             return m_message_handler_map;
         }
@@ -883,28 +845,17 @@ namespace tetengo2 { namespace gui { namespace widget
         widget(const scroll_bar_style_type scroll_bar_style, message_handler_map_type&& message_handler_map)
         :
 #if BOOST_COMP_MSVC
-#   pragma warning(push)
-#   pragma warning(disable: 4355)
+#pragma warning(push)
+#pragma warning(disable : 4355)
 #endif
-        m_message_handler_map(
-            message_handler_details_type::make_widget_message_handler_map(*this, std::move(message_handler_map))
-        ),
+          m_message_handler_map(
+              message_handler_details_type::make_widget_message_handler_map(*this, std::move(message_handler_map))),
 #if BOOST_COMP_MSVC
-#   pragma warning(pop)
+#pragma warning(pop)
 #endif
-        m_focused(false),
-        m_destroyed(false),
-        m_p_background(),
-        m_p_cursor(),
-        m_scroll_bar_style(scroll_bar_style),
-        m_p_vertical_scroll_bar(),
-        m_p_horizontal_scroll_bar(),
-        m_child_observer_set(),
-        m_size_observer_set(),
-        m_focus_observer_set(),
-        m_paint_observer_set(),
-        m_keyboard_observer_set(),
-        m_mouse_observer_set()
+          m_focused(false), m_destroyed(false), m_p_background(), m_p_cursor(), m_scroll_bar_style(scroll_bar_style),
+          m_p_vertical_scroll_bar(), m_p_horizontal_scroll_bar(), m_child_observer_set(), m_size_observer_set(),
+          m_focus_observer_set(), m_paint_observer_set(), m_keyboard_observer_set(), m_mouse_observer_set()
         {
             m_focus_observer_set.got_focus().connect([this]() { this->m_focused = true; });
             m_focus_observer_set.lost_focus().connect([this]() { this->m_focused = false; });
@@ -920,15 +871,12 @@ namespace tetengo2 { namespace gui { namespace widget
         class paint_background
         {
         public:
-            paint_background(widget& self)
-            :
-            m_self(self)
-            {}
+            paint_background(widget& self) : m_self(self) {}
 
-            bool operator()(canvas_type& canvas)
-            const
+            bool operator()(canvas_type& canvas) const
             {
-                if (!m_self.p_background()) return false;
+                if (!m_self.p_background())
+                    return false;
 
                 canvas.set_background(m_self.p_background()->clone());
                 canvas.fill_rectangle(position_type{}, m_self.client_dimension());
@@ -938,7 +886,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         private:
             widget& m_self;
-
         };
 
 
@@ -975,21 +922,17 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // virtual functions
 
-        virtual const details_type& details_impl()
-        const = 0;
+        virtual const details_type& details_impl() const = 0;
 
-        virtual details_type& details_impl()
-        = 0;
+        virtual details_type& details_impl() = 0;
 
 
         // functions
 
         std::unique_ptr<scroll_bar_type> create_vertical_scroll_bar()
         {
-            if (
-                m_scroll_bar_style != scroll_bar_style_type::vertical &&
-                m_scroll_bar_style != scroll_bar_style_type::both
-            )
+            if (m_scroll_bar_style != scroll_bar_style_type::vertical &&
+                m_scroll_bar_style != scroll_bar_style_type::both)
             {
                 return {};
             }
@@ -999,18 +942,14 @@ namespace tetengo2 { namespace gui { namespace widget
 
         std::unique_ptr<scroll_bar_type> create_horizontal_scroll_bar()
         {
-            if (
-                m_scroll_bar_style != scroll_bar_style_type::horizontal &&
-                m_scroll_bar_style != scroll_bar_style_type::both
-            )
+            if (m_scroll_bar_style != scroll_bar_style_type::horizontal &&
+                m_scroll_bar_style != scroll_bar_style_type::both)
             {
                 return {};
             }
 
             return stdalt::make_unique<scroll_bar_type>(details(), scroll_bar_type::style_type::horizontal);
         }
-
-
     };
 
 

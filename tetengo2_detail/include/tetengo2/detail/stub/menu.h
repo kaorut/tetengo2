@@ -17,8 +17,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace detail { namespace stub
-{
+namespace tetengo2 { namespace detail { namespace stub {
     /*!
         \brief The class for a detail implementation of a menu.
     */
@@ -28,13 +27,17 @@ namespace tetengo2 { namespace detail { namespace stub
         // types
 
         //! The menu details type.
-        struct menu_details_type {};
+        struct menu_details_type
+        {
+        };
 
         //! The menu details pointer type.
         using menu_details_ptr_type = std::unique_ptr<menu_details_type>;
 
         //! The shortcut key table details type.
-        struct shortcut_key_table_details_type {};
+        struct shortcut_key_table_details_type
+        {
+        };
 
         //! The shortcut key table details pointer type.
         using shortcut_key_table_details_ptr_type = std::unique_ptr<shortcut_key_table_details_type>;
@@ -45,7 +48,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \tparam MenuBase A menu base type.
         */
         template <typename MenuBase>
-        struct style_tag {};
+        struct style_tag
+        {
+        };
 
 
         // static functions
@@ -139,10 +144,8 @@ namespace tetengo2 { namespace detail { namespace stub
                                      created.
         */
         template <typename InputIterator>
-        static shortcut_key_table_details_ptr_type create_shortcut_key_table(
-            const InputIterator first,
-            const InputIterator last
-        )
+        static shortcut_key_table_details_ptr_type
+        create_shortcut_key_table(const InputIterator first, const InputIterator last)
         {
             boost::ignore_unused(first, last);
             return stdalt::make_unique<shortcut_key_table_details_type>();
@@ -164,12 +167,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When a menu cannot be inserted.
         */
         template <typename PopupMenu, typename ForwardIterator, typename MenuBase, typename Encoder>
-        static void insert_menu(
-            PopupMenu&            popup_menu,
-            const ForwardIterator offset,
-            MenuBase&             menu,
-            const Encoder&        encoder
-        )
+        static void
+        insert_menu(PopupMenu& popup_menu, const ForwardIterator offset, MenuBase& menu, const Encoder& encoder)
         {
             boost::ignore_unused(popup_menu, offset, menu, encoder);
         }
@@ -252,10 +251,7 @@ namespace tetengo2 { namespace detail { namespace stub
     private:
         // forbidden operations
 
-        menu()
-        = delete;
-
-
+        menu() = delete;
     };
 
 

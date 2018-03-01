@@ -15,8 +15,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace gui { namespace unit
-{
+namespace tetengo2 { namespace gui { namespace unit {
     /*!
         \brief The class template for a pixel unit.
 
@@ -152,16 +151,14 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return A value.
         */
-        value_type divide_by(const basic_pixel& another)
-        const;
+        value_type divide_by(const basic_pixel& another) const;
 
         /*!
             \brief Returns the value.
 
             \return The value.
         */
-        const value_type& value()
-        const;
+        const value_type& value() const;
 
         /*!
             \brief Returns the value in pixels.
@@ -171,8 +168,7 @@ namespace tetengo2 { namespace gui { namespace unit
             \return The value in pixels.
         */
         template <typename PixelValue>
-        PixelValue to_pixels()
-        const
+        PixelValue to_pixels() const
         {
             return static_cast<PixelValue>(to_pixels_impl(m_value));
         }
@@ -187,8 +183,6 @@ namespace tetengo2 { namespace gui { namespace unit
         // variables
 
         value_type m_value;
-
-
     };
 
 

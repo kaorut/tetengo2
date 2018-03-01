@@ -9,8 +9,8 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_FONT_H)
 #define TETENGO2_DETAIL_WINDOWS_FONT_H
 
-#pragma warning (push)
-#pragma warning (disable: 4005)
+#pragma warning(push)
+#pragma warning(disable : 4005)
 #include <intsafe.h>
 #include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
@@ -19,8 +19,7 @@
 #include <Windows.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows
-{
+namespace tetengo2 { namespace detail { namespace windows {
     /*!
         \brief Returns a nonclient metrics.
 

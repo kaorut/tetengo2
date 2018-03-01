@@ -15,8 +15,7 @@
 #include <boost/predef.h>
 
 
-namespace tetengo2 { namespace detail { namespace base
-{
+namespace tetengo2 { namespace detail { namespace base {
     /*!
         \brief The class for a detail implementation of an encoding.
     */
@@ -31,7 +30,7 @@ namespace tetengo2 { namespace detail { namespace base
 #elif BOOST_OS_LINUX
         using pivot_type = std::string;
 #else
-#   error Specify the pivot string type.
+#error Specify the pivot string type.
 #endif
 
         //! The UTF-8 string type.
@@ -58,8 +57,7 @@ namespace tetengo2 { namespace detail { namespace base
 
             \return A UTF-8 string.
         */
-        utf8_string_type pivot_to_utf8(pivot_type pivot)
-        const;
+        utf8_string_type pivot_to_utf8(pivot_type pivot) const;
 
         /*!
             \brief Converts a UTF-8 string to a pivot.
@@ -68,8 +66,7 @@ namespace tetengo2 { namespace detail { namespace base
 
             \return A pivot.
         */
-        pivot_type utf8_to_pivot(utf8_string_type string)
-        const;
+        pivot_type utf8_to_pivot(utf8_string_type string) const;
 
         /*!
             \brief Converts a pivot to a CP932 string.
@@ -78,8 +75,7 @@ namespace tetengo2 { namespace detail { namespace base
 
             \return A CP932 string.
         */
-        cp932_string_type pivot_to_cp932(pivot_type pivot)
-        const;
+        cp932_string_type pivot_to_cp932(pivot_type pivot) const;
 
         /*!
             \brief Converts a CP932 string to a pivot.
@@ -88,8 +84,7 @@ namespace tetengo2 { namespace detail { namespace base
 
             \return A pivot.
         */
-        pivot_type cp932_to_pivot(cp932_string_type string)
-        const;
+        pivot_type cp932_to_pivot(cp932_string_type string) const;
 
 
     protected:
@@ -104,21 +99,15 @@ namespace tetengo2 { namespace detail { namespace base
     private:
         // virtual functions
 
-        virtual utf8_string_type pivot_to_utf8_impl(pivot_type pivot)
-        const = 0;
+        virtual utf8_string_type pivot_to_utf8_impl(pivot_type pivot) const = 0;
 
-        virtual pivot_type utf8_to_pivot_impl(utf8_string_type string)
-        const = 0;
+        virtual pivot_type utf8_to_pivot_impl(utf8_string_type string) const = 0;
 
-        virtual cp932_string_type pivot_to_cp932_impl(pivot_type pivot)
-        const = 0;
+        virtual cp932_string_type pivot_to_cp932_impl(pivot_type pivot) const = 0;
 
-        virtual pivot_type cp932_to_pivot_impl(cp932_string_type string)
-        const = 0;
+        virtual pivot_type cp932_to_pivot_impl(cp932_string_type string) const = 0;
+    };
 
-
-   };
-    
 
 }}}
 

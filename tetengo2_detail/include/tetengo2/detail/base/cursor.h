@@ -17,8 +17,7 @@
 #include <tetengo2/gui/cursor/system_cursor_style.h>
 
 
-namespace tetengo2 { namespace detail { namespace base
-{
+namespace tetengo2 { namespace detail { namespace base {
     /*!
         \brief The class for a detail implementation of a cursor.
     */
@@ -28,11 +27,12 @@ namespace tetengo2 { namespace detail { namespace base
         // types
 
         //! The cursor details type.
-        struct cursor_details_type {};
+        struct cursor_details_type
+        {
+        };
 
         //! The cursor details pointer type.
-        using cursor_details_ptr_type =
-            std::unique_ptr<cursor_details_type, std::function<void (cursor_details_type*)>>;
+        using cursor_details_ptr_type = std::unique_ptr<cursor_details_type, std::function<void(cursor_details_type*)>>;
 
         //! The system cursor style type.
         using system_cursor_style_type = gui::cursor::system_cursor_style;
@@ -57,8 +57,7 @@ namespace tetengo2 { namespace detail { namespace base
 
             \throw std::system_error When a system cursor cannot be created.
         */
-        cursor_details_ptr_type create_system_cursor(system_cursor_style_type style)
-        const;
+        cursor_details_ptr_type create_system_cursor(system_cursor_style_type style) const;
 
 
     protected:
@@ -83,13 +82,8 @@ namespace tetengo2 { namespace detail { namespace base
 
         // virtual functions
 
-        virtual cursor_details_ptr_type create_system_cursor_impl(system_cursor_style_type style)
-        const = 0;
-
-
+        virtual cursor_details_ptr_type create_system_cursor_impl(system_cursor_style_type style) const = 0;
     };
-
-
 
 
 }}}

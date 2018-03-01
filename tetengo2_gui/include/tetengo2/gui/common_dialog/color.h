@@ -13,15 +13,13 @@
 
 #include <tetengo2/gui/widget/abstract_window.h>
 
-namespace boost
-{
+namespace boost {
     template <typename T>
     class optional;
 }
 
 
-namespace tetengo2 { namespace gui { namespace common_dialog
-{
+namespace tetengo2 { namespace gui { namespace common_dialog {
     /*!
         \brief The class template for a color dialog.
 
@@ -36,8 +34,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         typename WidgetTraits,
         typename CommonDialogDetails,
         typename WidgetDetailsTraits,
-        typename MenuDetails
-    >
+        typename MenuDetails>
     class color : private boost::noncopyable
     {
     public:
@@ -78,9 +75,8 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             \param parent A parent widget.
         */
         color(const boost::optional<color_type>& color, abstract_window_type& parent)
-        :
-        m_p_details(common_dialog_details_type::create_color_dialog(parent, color)),
-        m_result(color ? *color : color_type{ 0, 0, 0 })
+        : m_p_details(common_dialog_details_type::create_color_dialog(parent, color)),
+          m_result(color ? *color : color_type{ 0, 0, 0 })
         {}
 
 
@@ -91,8 +87,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
             \return The result.
         */
-        const color_type& result()
-        const
+        const color_type& result() const
         {
             return m_result;
         }
@@ -118,8 +113,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
             \return The detail implementation.
         */
-        const details_type& details()
-        const
+        const details_type& details() const
         {
             return *m_p_details;
         }
@@ -141,8 +135,6 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         details_ptr_type m_p_details;
 
         color_type m_result;
-
-
     };
 
 

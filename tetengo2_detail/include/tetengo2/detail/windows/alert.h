@@ -15,8 +15,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows
-{
+namespace tetengo2 { namespace detail { namespace windows {
     /*!
         \brief The class for a detail implementation of an alert.
     */
@@ -71,8 +70,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         // virtual functions
 
-        virtual widget_handle_type root_ancestor_widget_handle_impl(widget_handle_type widget_handle)
-        const override;
+        virtual widget_handle_type root_ancestor_widget_handle_impl(widget_handle_type widget_handle) const override;
 
         virtual void show_task_dialog_impl(
             widget_handle_type widget_handle,
@@ -80,11 +78,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const string_type& text1,
             const string_type& text2,
             const string_type& source_file_name,
-            integer_type       source_file_line
-        )
-        const override;
-
-
+            integer_type       source_file_line) const override;
     };
 
 

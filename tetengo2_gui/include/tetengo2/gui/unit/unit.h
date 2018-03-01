@@ -12,8 +12,7 @@
 #include <boost/operators.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace unit
-{
+namespace tetengo2 { namespace gui { namespace unit {
     /*!
         \brief The class template for a unit.
 
@@ -21,12 +20,11 @@ namespace tetengo2 { namespace gui { namespace unit
         \tparam Value        A value type.
    */
     template <typename ConcreteUnit, typename Value>
-    class unit :
-        private boost::totally_ordered<ConcreteUnit>,
-        private boost::totally_ordered<ConcreteUnit, Value>,
-        private boost::additive<ConcreteUnit>,
-        private boost::additive<ConcreteUnit, Value>,
-        private boost::multiplicative<ConcreteUnit, Value>
+    class unit : private boost::totally_ordered<ConcreteUnit>,
+                 private boost::totally_ordered<ConcreteUnit, Value>,
+                 private boost::additive<ConcreteUnit>,
+                 private boost::additive<ConcreteUnit, Value>,
+                 private boost::multiplicative<ConcreteUnit, Value>
     {
     public:
         // types
@@ -52,10 +50,8 @@ namespace tetengo2 { namespace gui { namespace unit
         template <typename U>
         static concrete_unit_type from(const unit<U, typename U::value_type>& value)
         {
-            return
-                concrete_unit_type::from_pixels(
-                    static_cast<const U&>(value).template to_pixels<typename U::value_type::int_type>()
-                );
+            return concrete_unit_type::from_pixels(
+                static_cast<const U&>(value).template to_pixels<typename U::value_type::int_type>());
         }
 
 
@@ -111,10 +107,8 @@ namespace tetengo2 { namespace gui { namespace unit
             \return A unit.
         */
         template <typename U>
-        friend concrete_unit_type operator+(
-            const concrete_unit_type&              one,
-            const unit<U, typename U::value_type>& another
-        )
+        friend concrete_unit_type
+        operator+(const concrete_unit_type& one, const unit<U, typename U::value_type>& another)
         {
             concrete_unit_type unit{ one };
             unit += another;
@@ -171,10 +165,8 @@ namespace tetengo2 { namespace gui { namespace unit
             \return A unit.
         */
         template <typename U>
-        friend concrete_unit_type operator-(
-            const concrete_unit_type&              one,
-            const unit<U, typename U::value_type>& another
-        )
+        friend concrete_unit_type
+        operator-(const concrete_unit_type& one, const unit<U, typename U::value_type>& another)
         {
             concrete_unit_type unit{ one };
             unit -= another;
@@ -322,8 +314,6 @@ namespace tetengo2 { namespace gui { namespace unit
         {
             return *static_cast<concrete_unit_type*>(this);
         }
-
-
     };
 
 

@@ -31,8 +31,7 @@
 #include <tetengo2/text.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget
-{
+namespace tetengo2 { namespace gui { namespace widget {
     /*!
         \brief The class template for a progress dialog.
 
@@ -53,8 +52,7 @@ namespace tetengo2 { namespace gui { namespace widget
         typename MenuDetails,
         typename MessageLoopDetails,
         typename TimerDetails,
-        typename SystemColorDetails
-    >
+        typename SystemColorDetails>
     class progress_dialog : public dialog<Traits, DetailsTraits, MenuDetails, MessageLoopDetails>
     {
     public:
@@ -100,7 +98,7 @@ namespace tetengo2 { namespace gui { namespace widget
         using future_type = concurrent::progressive_future<task_result_type>;
 
         //! The task type.
-        using task_type = std::function<void (promise_type& promise)>;
+        using task_type = std::function<void(promise_type& promise)>;
 
 
         // constructors and destructor
@@ -121,22 +119,10 @@ namespace tetengo2 { namespace gui { namespace widget
             string_type                 waiting_message,
             string_type                 canceling_message,
             task_type                   task,
-            const message_catalog_type& message_catalog
-        )
-        :
-        base_type(parent, false),
-        m_canceling_message(std::move(canceling_message)),
-        m_p_message_label(),
-        m_p_progress_label(),
-        m_p_progress_bar(),
-        m_p_cancel_button(),
-        m_promise(0),
-        m_future(m_promise.get_future()),
-        m_task(std::move(task)),
-        m_p_thread(),
-        m_p_timer(),
-        m_previous_progress(),
-        m_message_catalog(message_catalog)
+            const message_catalog_type& message_catalog)
+        : base_type(parent, false), m_canceling_message(std::move(canceling_message)), m_p_message_label(),
+          m_p_progress_label(), m_p_progress_bar(), m_p_cancel_button(), m_promise(0), m_future(m_promise.get_future()),
+          m_task(std::move(task)), m_p_thread(), m_p_timer(), m_previous_progress(), m_message_catalog(message_catalog)
         {
             initialize_dialog(std::move(title), std::move(waiting_message));
         }
@@ -144,8 +130,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Destroys the progress dialog.
         */
-        virtual ~progress_dialog()
-        noexcept
+        virtual ~progress_dialog() noexcept
         {
             try
             {
@@ -153,7 +138,8 @@ namespace tetengo2 { namespace gui { namespace widget
                     m_p_thread->join();
             }
             catch (...)
-            {}
+            {
+            }
         }
 
 
@@ -231,22 +217,15 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // virtual functions
 
-        virtual void do_modal_impl()
-        override
+        virtual void do_modal_impl() override
         {
             m_p_thread = stdalt::make_unique<std::thread>(m_task, std::ref(m_promise));
 
-            m_p_timer =
-                stdalt::make_unique<timer_type>(
-                    *this,
-                    [this](bool& stop) { this->timer_procedure(stop); },
-                    std::chrono::milliseconds{ 100 },
-                    false
-                );
+            m_p_timer = stdalt::make_unique<timer_type>(
+                *this, [this](bool& stop) { this->timer_procedure(stop); }, std::chrono::milliseconds{ 100 }, false);
         }
 
-        virtual void on_close_impl(bool& cancel)
-        override
+        virtual void on_close_impl(bool& cancel) override
         {
             if (m_future.wait_for(std::chrono::seconds{ 0 }) != std::future_status::ready)
             {
@@ -366,8 +345,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
             m_previous_progress = progress;
         }
-
-
     };
 
 

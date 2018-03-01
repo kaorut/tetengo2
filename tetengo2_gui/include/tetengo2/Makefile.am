@@ -111,6 +111,9 @@ lint-iwyu-extra: $(addsuffix .iwyuout, $(extra_headers))
 	$(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $< 2> $(addsuffix .tmp, $@) || test $$? -eq 2
 	mv $(addsuffix .tmp, $@) $@
 
+format:
+	$(top_srcdir)/tools/call_clang-format.sh $(UNIX2DOS) $(CLANGFORMAT) $(srcdir) $(pkg_headers) $(extra_headers)
+
 clean-local:
 	-find -name "*.iwyuout.tmp" | xargs rm -f
 	-find -name "*.iwyuout" | xargs rm -f

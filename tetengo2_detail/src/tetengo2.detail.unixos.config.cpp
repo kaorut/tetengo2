@@ -35,13 +35,12 @@
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
-#include <tetengo2/text/push_parser.h>
 #include <tetengo2/text/grammar/json.h>
+#include <tetengo2/text/push_parser.h>
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace detail { namespace unixos
-{
+namespace tetengo2 { namespace detail { namespace unixos {
     class config::impl : private boost::noncopyable
     {
     public:
@@ -56,14 +55,12 @@ namespace tetengo2 { namespace detail { namespace unixos
 
         // constructors and destructor
 
-        impl()
-        {}
+        impl() {}
 
 
         // functions
 
-        virtual boost::optional<value_type> get_impl(const string_type& group_name, const string_type& key)
-        const
+        virtual boost::optional<value_type> get_impl(const string_type& group_name, const string_type& key) const
         {
             value_map_type value_map{};
             load_from_file(group_name, value_map);
@@ -72,8 +69,7 @@ namespace tetengo2 { namespace detail { namespace unixos
             return found != value_map.end() ? boost::make_optional(found->second) : boost::none;
         }
 
-        virtual void set_impl(const string_type& group_name, const string_type& key, value_type value)
-        const
+        virtual void set_impl(const string_type& group_name, const string_type& key, value_type value) const
         {
             value_map_type value_map{};
             load_from_file(group_name, value_map);
@@ -83,8 +79,7 @@ namespace tetengo2 { namespace detail { namespace unixos
             save_to_file(group_name, value_map);
         }
 
-        virtual void clear_impl(const string_type& group_name)
-        const
+        virtual void clear_impl(const string_type& group_name) const
         {
             const auto setting_file_path = make_setting_file_path(group_name);
             if (boost::filesystem::exists(setting_file_path))
@@ -118,41 +113,35 @@ namespace tetengo2 { namespace detail { namespace unixos
 
         static const encoder_type& encoder()
         {
-            static const encoder_type singleton{
-                encoder_type::internal_encoding_type{}, encoder_type::external_encoding_type{}
-            };
+            static const encoder_type singleton{ encoder_type::internal_encoding_type{},
+                                                 encoder_type::external_encoding_type{} };
             return singleton;
         }
 
         static boost::filesystem::path make_setting_file_path(const string_type& group_name)
         {
-            const auto* const p_home_directory = std::getenv("HOME");
+            const auto* const             p_home_directory = std::getenv("HOME");
             const boost::filesystem::path base{ p_home_directory ? p_home_directory : "" };
             return base / encoder().encode(string_type(TETENGO2_TEXT(".")) + group_name);
         }
 
         static void load_from_file(const string_type& group_name, value_map_type& value_map)
         {
-            const auto setting_file_path = make_setting_file_path(group_name);
+            const auto                  setting_file_path = make_setting_file_path(group_name);
             boost::filesystem::ifstream stream{ setting_file_path };
             if (!stream)
                 return;
 
-            const auto first =
-                tetengo2::iterator::make_observable_forward_iterator(
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ stream })
-                );
-            const auto last =
-                tetengo2::iterator::make_observable_forward_iterator(
-                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{})
-                );
-            auto p_grammer = stdalt::make_unique<json_type>();
+            const auto first = tetengo2::iterator::make_observable_forward_iterator(
+                boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ stream }));
+            const auto last = tetengo2::iterator::make_observable_forward_iterator(
+                boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{}));
+            auto        p_grammer = stdalt::make_unique<json_type>();
             parser_type parser(first, last, std::move(p_grammer));
 
             std::stack<std::pair<native_string_type, native_string_type>> structure_stack{};
             parser.on_structure_begin().connect(
-                [&structure_stack](const native_string_type& name, const attribute_map_type& attributes)
-                {
+                [&structure_stack](const native_string_type& name, const attribute_map_type& attributes) {
                     if (name != "object" && name != "member")
                         BOOST_THROW_EXCEPTION(std::ios_base::failure("Wrong setting file format."));
                     if (name == "object" && !structure_stack.empty())
@@ -163,41 +152,35 @@ namespace tetengo2 { namespace detail { namespace unixos
                     structure_stack.push({ name, get_key(attributes) });
 
                     return true;
-                }
-            );
+                });
             parser.on_structure_end().connect(
-                [&structure_stack](const native_string_type& name, const attribute_map_type&)
-                {
+                [&structure_stack](const native_string_type& name, const attribute_map_type&) {
                     if (structure_stack.top().first != name)
                         BOOST_THROW_EXCEPTION(std::ios_base::failure("Wrong setting file format."));
                     structure_stack.pop();
 
                     return true;
-                }
-            );
-            parser.on_value().connect(
-                [&structure_stack, &value_map](const parser_value_type& value)
+                });
+            parser.on_value().connect([&structure_stack, &value_map](const parser_value_type& value) {
+                if (structure_stack.top().first != "member")
+                    BOOST_THROW_EXCEPTION(std::ios_base::failure("Wrong setting file format."));
+                if (value.which() == 2)
                 {
-                    if (structure_stack.top().first != "member")
-                        BOOST_THROW_EXCEPTION(std::ios_base::failure("Wrong setting file format."));
-                    if      (value.which() == 2)
-                    {
-                        value_map[encoder().decode(structure_stack.top().second)] =
-                            boost::get<type_list::integer_type>(value);
-                    }
-                    else if (value.which() == 4)
-                    {
-                        value_map[encoder().decode(structure_stack.top().second)] =
-                            encoder().decode(boost::get<native_string_type>(value));
-                    }
-                    else
-                    {
-                        BOOST_THROW_EXCEPTION(std::ios_base::failure("Wrong setting file format."));
-                    }
-
-                    return true;
+                    value_map[encoder().decode(structure_stack.top().second)] =
+                        boost::get<type_list::integer_type>(value);
                 }
-            );
+                else if (value.which() == 4)
+                {
+                    value_map[encoder().decode(structure_stack.top().second)] =
+                        encoder().decode(boost::get<native_string_type>(value));
+                }
+                else
+                {
+                    BOOST_THROW_EXCEPTION(std::ios_base::failure("Wrong setting file format."));
+                }
+
+                return true;
+            });
 
             parser.parse();
         }
@@ -214,7 +197,7 @@ namespace tetengo2 { namespace detail { namespace unixos
 
         static void save_to_file(const string_type& group_name, const value_map_type& value_map)
         {
-            const auto setting_file_path = make_setting_file_path(group_name);
+            const auto                  setting_file_path = make_setting_file_path(group_name);
             boost::filesystem::ofstream stream{ setting_file_path };
             if (!stream)
                 return;
@@ -246,8 +229,6 @@ namespace tetengo2 { namespace detail { namespace unixos
 
             stream << std::flush;
         }
-
-
     };
 
 
@@ -257,31 +238,24 @@ namespace tetengo2 { namespace detail { namespace unixos
         return singleton;
     }
 
-    config::~config()
-    = default;
+    config::~config() = default;
 
-    config::config()
-    :
-    m_p_impl(stdalt::make_unique<impl>())
-    {}
+    config::config() : m_p_impl(stdalt::make_unique<impl>()) {}
 
 
     // virtual functions
 
-    boost::optional<config::value_type> config::get_impl(const string_type& group_name, const string_type& key)
-    const
+    boost::optional<config::value_type> config::get_impl(const string_type& group_name, const string_type& key) const
     {
         return m_p_impl->get_impl(group_name, key);
     }
 
-    void config::set_impl(const string_type& group_name, const string_type& key, value_type value)
-    const
+    void config::set_impl(const string_type& group_name, const string_type& key, value_type value) const
     {
         m_p_impl->set_impl(group_name, key, std::move(value));
     }
 
-    void config::clear_impl(const string_type& group_name)
-    const
+    void config::clear_impl(const string_type& group_name) const
     {
         m_p_impl->clear_impl(group_name);
     }

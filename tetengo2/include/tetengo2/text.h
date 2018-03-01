@@ -10,8 +10,7 @@
 #define TETENGO2_TEXT_H
 
 
-namespace tetengo2
-{
+namespace tetengo2 {
     /*!
         \brief The class template for a text value holder.
 
@@ -39,10 +38,7 @@ namespace tetengo2
             \param multibyte A multibyte value.
             \param wide      A wide value.
         */
-        text_value_holder(const multibyte_type multibyte, const wide_type wide)
-        :
-        m_multibyte(multibyte),
-        m_wide(wide)
+        text_value_holder(const multibyte_type multibyte, const wide_type wide) : m_multibyte(multibyte), m_wide(wide)
         {}
 
 
@@ -53,8 +49,7 @@ namespace tetengo2
 
             \return The multibyte value.
         */
-        operator multibyte_type()
-        const
+        operator multibyte_type() const
         {
             return m_multibyte;
         }
@@ -64,8 +59,7 @@ namespace tetengo2
 
             \return The wide value.
         */
-        operator wide_type()
-        const
+        operator wide_type() const
         {
             return m_wide;
         }
@@ -77,8 +71,6 @@ namespace tetengo2
         multibyte_type m_multibyte;
 
         wide_type m_wide;
-
-
     };
 
 
@@ -98,8 +90,6 @@ namespace tetengo2
     {
         return text_value_holder<Multibyte, Wide>(multibyte, wide);
     }
-
-
 }
 
 
@@ -110,7 +100,7 @@ namespace tetengo2
 
     \return A text value holder.
 */
-#define TETENGO2_TEXT_(VALUE) tetengo2::make_text_value_holder(VALUE, L ## VALUE)
+#define TETENGO2_TEXT_(VALUE) tetengo2::make_text_value_holder(VALUE, L##VALUE)
 
 /*!
     \brief Calls tetengo2::make_text_value_holder().

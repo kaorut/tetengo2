@@ -18,8 +18,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace detail { namespace unixos
-{
+namespace tetengo2 { namespace detail { namespace unixos {
     /*!
         \brief The class for a detail implementation of a configuration.
     */
@@ -74,16 +73,12 @@ namespace tetengo2 { namespace detail { namespace unixos
 
         // virtual functions
 
-        virtual boost::optional<value_type> get_impl(const string_type& group_name, const string_type& key)
-        const override;
+        virtual boost::optional<value_type>
+        get_impl(const string_type& group_name, const string_type& key) const override;
 
-        virtual void set_impl(const string_type& group_name, const string_type& key, value_type value)
-        const override;
+        virtual void set_impl(const string_type& group_name, const string_type& key, value_type value) const override;
 
-        virtual void clear_impl(const string_type& group_name)
-        const override;
-
-
+        virtual void clear_impl(const string_type& group_name) const override;
     };
 
 

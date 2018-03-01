@@ -14,20 +14,14 @@
 #include <tetengo2/gui/unit/point.h>
 
 
-namespace tetengo2 { namespace gui
-{
+namespace tetengo2 { namespace gui {
     template <typename Unit>
-    dimension<Unit>::dimension()
-    :
-    m_width(unit_type{}),
-    m_height(unit_type{})
+    dimension<Unit>::dimension() : m_width(unit_type{}), m_height(unit_type{})
     {}
 
     template <typename Unit>
     dimension<Unit>::dimension(unit_type width, unit_type height)
-    :
-    m_width(std::move(width)),
-    m_height(std::move(height))
+    : m_width(std::move(width)), m_height(std::move(height))
     {}
 
     template <typename U>
@@ -37,22 +31,19 @@ namespace tetengo2 { namespace gui
     }
 
     template <typename Unit>
-    const typename dimension<Unit>::unit_type& dimension<Unit>::width()
-    const
+    const typename dimension<Unit>::unit_type& dimension<Unit>::width() const
     {
         return m_width;
     }
 
     template <typename Unit>
-    const typename dimension<Unit>::unit_type& dimension<Unit>::height()
-    const
+    const typename dimension<Unit>::unit_type& dimension<Unit>::height() const
     {
         return m_height;
     }
 
 
-    namespace
-    {
+    namespace {
         using em_stub_unit_type = gui::unit::uem_for_test;
 
         using pixel_unit_type = gui::unit::upixel;
@@ -64,7 +55,6 @@ namespace tetengo2 { namespace gui
 
         using point_windows_unit_type = gui::unit::upoint;
 #endif
-
     }
 
     template class dimension<em_stub_unit_type>;
@@ -77,25 +67,19 @@ namespace tetengo2 { namespace gui
 
     template class dimension<point_stub_unit_type>;
 
-    template bool operator==(
-        const dimension<point_stub_unit_type>& one,
-        const dimension<point_stub_unit_type>& another
-    );
+    template bool
+    operator==(const dimension<point_stub_unit_type>& one, const dimension<point_stub_unit_type>& another);
 
 #if BOOST_OS_WINDOWS
     template class dimension<em_windows_unit_type>;
 
-    template bool operator==(
-        const dimension<em_windows_unit_type>& one,
-        const dimension<em_windows_unit_type>& another
-    );
+    template bool
+    operator==(const dimension<em_windows_unit_type>& one, const dimension<em_windows_unit_type>& another);
 
     template class dimension<point_windows_unit_type>;
 
-    template bool operator==(
-        const dimension<point_windows_unit_type>& one,
-        const dimension<point_windows_unit_type>& another
-    );
+    template bool
+    operator==(const dimension<point_windows_unit_type>& one, const dimension<point_windows_unit_type>& another);
 #endif
 
 

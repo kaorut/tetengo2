@@ -26,8 +26,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget
-{
+namespace tetengo2 { namespace gui { namespace widget {
     /*!
         \brief The class template for a tab frame.
 
@@ -36,12 +35,7 @@ namespace tetengo2 { namespace gui { namespace widget
         \tparam MouseCaptureDetails A detail implementation type of a mouse capture.
         \tparam SystemColorDetails  A detail implementation type of system colors.
     */
-    template <
-        typename Traits,
-        typename DetailsTraits,
-        typename MouseCaptureDetails,
-        typename SystemColorDetails
-    >
+    template <typename Traits, typename DetailsTraits, typename MouseCaptureDetails, typename SystemColorDetails>
     class tab_frame : public custom_control<Traits, DetailsTraits, MouseCaptureDetails>
     {
     public:
@@ -102,17 +96,13 @@ namespace tetengo2 { namespace gui { namespace widget
                 \param index  A tab index.
                 */
             tab_label_type(tab_frame& parent, const size_type index)
-            :
-            base_type(parent, position_type{}, dimension_type{}),
-            m_index(index),
-            m_title()
+            : base_type(parent, position_type{}, dimension_type{}), m_index(index), m_title()
             {}
 
             /*!
                 \brief Destroys the tab body.
             */
-            virtual ~tab_label_type()
-            = default;
+            virtual ~tab_label_type() = default;
 
 
             // functions
@@ -122,8 +112,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 \return The index.
             */
-            size_type index()
-            const
+            size_type index() const
             {
                 return m_index;
             }
@@ -143,8 +132,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 \return The title.
             */
-            const string_type& title()
-            const
+            const string_type& title() const
             {
                 return m_title;
             }
@@ -196,65 +184,48 @@ namespace tetengo2 { namespace gui { namespace widget
 
             // virtual functions
 
-            virtual void resized_impl()
-            override
+            virtual void resized_impl() override
             {
-                this->set_position(
-                    position_type{
-                        position_unit_type{}, static_cast<const tab_frame&>(this->parent()).tab_label_top(*this)
-                    }
-                );
+                this->set_position(position_type{ position_unit_type{},
+                                                  static_cast<const tab_frame&>(this->parent()).tab_label_top(*this) });
             }
 
-            virtual void paint_impl(canvas_type& canvas)
-            const override
+            virtual void paint_impl(canvas_type& canvas) const override
             {
                 auto original_color = canvas.get_color();
                 auto p_original_background = canvas.get_background().clone();
                 auto original_line_width = canvas.line_width();
                 canvas.set_color(system_color_set_type::control_text());
                 canvas.set_background(
-                    stdalt::make_unique<solid_background_type>(system_color_set_type::control_background())
-                );
+                    stdalt::make_unique<solid_background_type>(system_color_set_type::control_background()));
                 canvas.set_line_width(dimension_unit_type{ 1 } / 8);
 
                 position_unit_type unselected_left{};
                 if (m_index != static_cast<const tab_frame&>(this->parent()).selected_tab_index())
                     unselected_left = position_unit_type{ 1 } / 12;
-                position_type label_position{ this->position().left() + unselected_left, this->position().top() };
-                dimension_type label_dimension{
-                    this->dimension().width() - dimension_unit_type::from(unselected_left), this->dimension().height()
-                };
+                position_type  label_position{ this->position().left() + unselected_left, this->position().top() };
+                dimension_type label_dimension{ this->dimension().width() - dimension_unit_type::from(unselected_left),
+                                                this->dimension().height() };
 
                 canvas.fill_rectangle(label_position, label_dimension);
                 {
                     auto original_font = canvas.get_font();
-                    auto font = m_index == static_cast<const tab_frame&>(this->parent()).selected_tab_index() ?
-                        font_type{
-                            original_font.family(),
-                            original_font.size(),
-                            true,
-                            original_font.italic(),
-                            original_font.underline(),
-                            original_font.strikeout()
-                        } :
-                        original_font;
+                    auto font =
+                        m_index == static_cast<const tab_frame&>(this->parent()).selected_tab_index() ?
+                            font_type{ original_font.family(), original_font.size(),      true,
+                                       original_font.italic(), original_font.underline(), original_font.strikeout() } :
+                            original_font;
                     canvas.set_font(std::move(font));
 
-                    const auto text_dimension = canvas.calc_text_dimension(m_title);
+                    const auto          text_dimension = canvas.calc_text_dimension(m_title);
                     const position_type text_position{
-                        label_position.left() +
-                            position_unit_type::from(label_dimension.width()) -
-                            (
-                                position_unit_type::from(label_dimension.width()) -
-                                dimension_unit_type::from(text_dimension.height()) -
-                                unselected_left
-                            ) / 2,
-                        label_position.top() +
-                            (
-                                position_unit_type::from(label_dimension.height()) -
-                                position_unit_type::from(text_dimension.width())
-                            ) / 2
+                        label_position.left() + position_unit_type::from(label_dimension.width()) -
+                            (position_unit_type::from(label_dimension.width()) -
+                             dimension_unit_type::from(text_dimension.height()) - unselected_left) /
+                                2,
+                        label_position.top() + (position_unit_type::from(label_dimension.height()) -
+                                                position_unit_type::from(text_dimension.width())) /
+                                                   2
                     };
 
                     canvas.draw_text(m_title, text_position, boost::math::constants::pi<double>() / 2);
@@ -262,14 +233,12 @@ namespace tetengo2 { namespace gui { namespace widget
                     canvas.set_font(std::move(original_font));
                 }
                 {
-                    const auto left_top = label_position;
+                    const auto          left_top = label_position;
                     const position_type left_bottom{
-                        label_position.left(),
-                        label_position.top() + position_unit_type::from(label_dimension.height())
+                        label_position.left(), label_position.top() + position_unit_type::from(label_dimension.height())
                     };
                     const position_type right_top{
-                        label_position.left() + position_unit_type::from(label_dimension.width()),
-                        label_position.top()
+                        label_position.left() + position_unit_type::from(label_dimension.width()), label_position.top()
                     };
                     const position_type right_bottom{
                         label_position.left() + position_unit_type::from(label_dimension.width()),
@@ -285,8 +254,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 canvas.set_color(std::move(original_color));
             }
 
-            virtual void mouse_released_impl(const position_type& /*cursor_position*/)
-            override
+            virtual void mouse_released_impl(const position_type& /*cursor_position*/) override
             {
                 static_cast<tab_frame&>(this->parent()).select_tab(m_index);
             }
@@ -299,30 +267,19 @@ namespace tetengo2 { namespace gui { namespace widget
                 const auto p_canvas = this->parent().create_canvas();
 
                 auto original_font = p_canvas->get_font();
-                auto font =
-                    font_type{
-                        original_font.family(),
-                        original_font.size(),
-                        true,
-                        original_font.italic(),
-                        original_font.underline(),
-                        original_font.strikeout()
-                    };
+                auto font = font_type{ original_font.family(), original_font.size(),      true,
+                                       original_font.italic(), original_font.underline(), original_font.strikeout() };
                 p_canvas->set_font(std::move(font));
 
                 const auto text_dimension = p_canvas->calc_text_dimension(m_title);
 
                 p_canvas->set_font(std::move(original_font));
 
-                this->set_dimension(
-                    dimension_type{
-                        horizontal_padding() * 2 + dimension_unit_type::from(text_dimension.height()),
-                        vertical_padding() * 2 + dimension_unit_type::from(text_dimension.width()),
-                    }
-                );
+                this->set_dimension(dimension_type{
+                    horizontal_padding() * 2 + dimension_unit_type::from(text_dimension.height()),
+                    vertical_padding() * 2 + dimension_unit_type::from(text_dimension.width()),
+                });
             }
-
-
         };
 
         //! The tab body type.
@@ -344,16 +301,13 @@ namespace tetengo2 { namespace gui { namespace widget
                 \param control A control.
             */
             tab_body_type(tab_frame& parent, control_type& control)
-            :
-            base_type(parent, position_type{}, dimension_type{}),
-            m_control(control)
+            : base_type(parent, position_type{}, dimension_type{}), m_control(control)
             {}
 
             /*!
                 \brief Destroys the tab body.
             */
-            virtual ~tab_body_type()
-            = default;
+            virtual ~tab_body_type() = default;
 
 
             // functions
@@ -366,8 +320,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 \return The control.
             */
             template <typename Control>
-            const Control& get()
-            const
+            const Control& get() const
             {
                 assert(dynamic_cast<const Control*>(&m_control));
                 return dynamic_cast<const Control&>(m_control);
@@ -403,21 +356,18 @@ namespace tetengo2 { namespace gui { namespace widget
 
             // virtual functions
 
-            virtual void resized_impl()
-            override
+            virtual void resized_impl() override
             {
                 const auto& tab_label_width = static_cast<const tab_frame&>(this->parent()).tab_label_width();
                 this->set_position(position_type{ position_unit_type::from(tab_label_width), position_unit_type{} });
                 const auto client_dimension = this->parent().client_dimension();
-                const auto width =
-                    client_dimension.width() > tab_label_width ?
-                    client_dimension.width() - tab_label_width : dimension_unit_type{};
+                const auto width = client_dimension.width() > tab_label_width ?
+                                       client_dimension.width() - tab_label_width :
+                                       dimension_unit_type{};
                 this->set_dimension(dimension_type{ width, client_dimension.height() });
 
                 m_control.set_position_and_dimension(this->position(), this->dimension());
             }
-
-
         };
 
         //! The tab type.
@@ -434,10 +384,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 \param control A control.
             */
             tab_type(tab_frame& parent, const size_type index, control_type& control)
-            :
-            m_label(parent, index),
-            m_body(parent, control),
-            m_selected(false)
+            : m_label(parent, index), m_body(parent, control), m_selected(false)
             {}
 
 
@@ -448,8 +395,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 \return The label.
             */
-            const tab_label_type& label()
-            const
+            const tab_label_type& label() const
             {
                 return m_label;
             }
@@ -469,8 +415,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 \return The body.
             */
-            const tab_body_type& body()
-            const
+            const tab_body_type& body() const
             {
                 return m_body;
             }
@@ -490,8 +435,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 \return The index.
             */
-            size_type index()
-            const
+            size_type index() const
             {
                 return m_label.index();
             }
@@ -511,8 +455,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
                 \return The selected status.
             */
-            bool selected()
-            const
+            bool selected() const
             {
                 return m_selected;
             }
@@ -544,8 +487,6 @@ namespace tetengo2 { namespace gui { namespace widget
             tab_body_type m_body;
 
             bool m_selected;
-
-
         };
 
 
@@ -557,9 +498,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \param parent A parent widget.
         */
         explicit tab_frame(widget_type& parent)
-        :
-        base_type(parent, false, base_type::scroll_bar_style_type::none),
-        m_p_tabs()
+        : base_type(parent, false, base_type::scroll_bar_style_type::none), m_p_tabs()
         {
             initialize_tab_frame(*this);
         }
@@ -567,8 +506,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Destroys the tab frame.
         */
-        virtual ~tab_frame()
-        = default;
+        virtual ~tab_frame() = default;
 
 
         // functions
@@ -578,8 +516,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The tab count.
         */
-        size_type tab_count()
-        const
+        size_type tab_count() const
         {
             return m_p_tabs.size();
         }
@@ -593,8 +530,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::out_of_range When the index is out of the range.
         */
-        const tab_type& tab_at(const size_type index)
-        const
+        const tab_type& tab_at(const size_type index) const
         {
             if (index >= m_p_tabs.size())
                 BOOST_THROW_EXCEPTION(std::out_of_range{ "index is out of the range." });
@@ -626,25 +562,18 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \throw std::logic_error When no tab is selected.
         */
-        size_type selected_tab_index()
-        const
+        size_type selected_tab_index() const
         {
             if (m_p_tabs.empty())
                 BOOST_THROW_EXCEPTION(std::logic_error{ "This tab frame has no tab." });
 
-            assert(
-                std::count_if(
-                    m_p_tabs.begin(),
-                    m_p_tabs.end(),
-                    [this](const std::unique_ptr<tab_type>& p_tab) { return p_tab->selected(); }
-                ) == 1
-            );
+            assert(std::count_if(m_p_tabs.begin(), m_p_tabs.end(), [this](const std::unique_ptr<tab_type>& p_tab) {
+                       return p_tab->selected();
+                   }) == 1);
             const auto tab_position =
-                std::find_if(
-                    m_p_tabs.begin(),
-                    m_p_tabs.end(),
-                    [this](const std::unique_ptr<tab_type>& p_tab) { return p_tab->selected(); }
-                );
+                std::find_if(m_p_tabs.begin(), m_p_tabs.end(), [this](const std::unique_ptr<tab_type>& p_tab) {
+                    return p_tab->selected();
+                });
             return std::distance(m_p_tabs.begin(), tab_position);
         }
 
@@ -729,8 +658,7 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             tab_frame_.set_dimension(dimension_type{ dimension_unit_type{ 16 }, dimension_unit_type{ 16 } });
             tab_frame_.set_background(
-                stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
-            );
+                stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background()));
 
             set_observers(tab_frame_);
         }
@@ -738,93 +666,72 @@ namespace tetengo2 { namespace gui { namespace widget
         static void set_observers(tab_frame& tab_frame_)
         {
             tab_frame_.child_observer_set().created().connect(
-                [&tab_frame_](widget_type& child) { tab_frame_.child_created(child); }
-            );
+                [&tab_frame_](widget_type& child) { tab_frame_.child_created(child); });
             tab_frame_.child_observer_set().destroying().connect(
-                [&tab_frame_](widget_type& child) { tab_frame_.child_destroying(child); }
-            );
+                [&tab_frame_](widget_type& child) { tab_frame_.child_destroying(child); });
 
-            tab_frame_.size_observer_set().resized().connect(
-                [&tab_frame_]()
+            tab_frame_.size_observer_set().resized().connect([&tab_frame_]() {
+                for (const std::unique_ptr<tab_type>& p_tab : tab_frame_.m_p_tabs)
                 {
-                    for (const std::unique_ptr<tab_type>& p_tab: tab_frame_.m_p_tabs)
-                    {
-                        p_tab->label().resized();
-                        p_tab->body().resized();
-                    }
+                    p_tab->label().resized();
+                    p_tab->body().resized();
                 }
-            );
+            });
 
             tab_frame_.paint_observer_set().paint_background().disconnect_all_slots();
-            tab_frame_.paint_observer_set().paint_background().connect(
-                [](canvas_type&)
+            tab_frame_.paint_observer_set().paint_background().connect([](canvas_type&) { return true; });
+            tab_frame_.paint_observer_set().paint().connect([&tab_frame_](canvas_type& canvas) {
+                canvas.begin_transaction(tab_frame_.client_dimension());
+
+                if (tab_frame_.p_background())
                 {
-                    return true;
+                    canvas.set_background(tab_frame_.p_background()->clone());
+                    const position_type  position{ position_unit_type{ -1 }, position_unit_type{ -1 } };
+                    const auto           client_dimension = tab_frame_.client_dimension();
+                    const dimension_type dimension{ client_dimension.width() + dimension_unit_type{ 2 },
+                                                    client_dimension.height() + dimension_unit_type{ 2 } };
+                    canvas.fill_rectangle(position, dimension);
                 }
-            );
-            tab_frame_.paint_observer_set().paint().connect(
-                [&tab_frame_](canvas_type& canvas)
+
+                for (const std::unique_ptr<tab_type>& p_tab : tab_frame_.m_p_tabs)
                 {
-                    canvas.begin_transaction(tab_frame_.client_dimension());
-
-                    if (tab_frame_.p_background())
-                    {
-                        canvas.set_background(tab_frame_.p_background()->clone());
-                        const position_type position{ position_unit_type{ -1 }, position_unit_type{ -1 } };
-                        const auto client_dimension = tab_frame_.client_dimension();
-                        const dimension_type dimension{
-                            client_dimension.width() + dimension_unit_type{ 2 },
-                            client_dimension.height() + dimension_unit_type{ 2 }
-                        };
-                        canvas.fill_rectangle(position, dimension);
-                    }
-
-                    for (const std::unique_ptr<tab_type>& p_tab: tab_frame_.m_p_tabs)
-                    {
-                        p_tab->label().paint(canvas);
-                        p_tab->body().paint(canvas);
-                    }
-
-                    canvas.end_transaction();
+                    p_tab->label().paint(canvas);
+                    p_tab->body().paint(canvas);
                 }
-            );
+
+                canvas.end_transaction();
+            });
 
             tab_frame_.mouse_observer_set().pressed().connect(
-                [&tab_frame_](const mouse_button_type button, const position_type& position, bool, bool, bool)
-                {
+                [&tab_frame_](const mouse_button_type button, const position_type& position, bool, bool, bool) {
                     if (button != mouse_button_type::left)
                         return;
 
-                    for (const std::unique_ptr<tab_type>& p_tab: tab_frame_.m_p_tabs)
+                    for (const std::unique_ptr<tab_type>& p_tab : tab_frame_.m_p_tabs)
                     {
                         p_tab->label().mouse_pressed(button, position);
                         p_tab->body().mouse_pressed(button, position);
                     }
-                }
-            );
+                });
             tab_frame_.mouse_observer_set().released().connect(
-                [&tab_frame_](const mouse_button_type button, const position_type& position, bool, bool, bool)
-                {
+                [&tab_frame_](const mouse_button_type button, const position_type& position, bool, bool, bool) {
                     if (button != mouse_button_type::left)
                         return;
 
-                    for (const std::unique_ptr<tab_type>& p_tab: tab_frame_.m_p_tabs)
+                    for (const std::unique_ptr<tab_type>& p_tab : tab_frame_.m_p_tabs)
                     {
                         p_tab->label().mouse_released(button, position);
                         p_tab->body().mouse_released(button, position);
                     }
-                }
-            );
+                });
             tab_frame_.mouse_observer_set().moved().connect(
-                [&tab_frame_](const position_type& position, bool, bool, bool)
-                {
-                    for (const std::unique_ptr<tab_type>& p_tab: tab_frame_.m_p_tabs)
+                [&tab_frame_](const position_type& position, bool, bool, bool) {
+                    for (const std::unique_ptr<tab_type>& p_tab : tab_frame_.m_p_tabs)
                     {
                         p_tab->label().mouse_moved(position);
                         p_tab->body().mouse_moved(position);
                     }
-                }
-            );
+                });
         }
 
         static bool has_same_control(const tab_type& tab, const control_type& child)
@@ -861,8 +768,7 @@ namespace tetengo2 { namespace gui { namespace widget
             const auto tab_position_to_erase = find_tab_item(*p_child);
             if (tab_position_to_erase == m_p_tabs.end())
                 return;
-            const auto index_to_erase =
-                static_cast<size_type>(std::distance(m_p_tabs.cbegin(), tab_position_to_erase));
+            const auto index_to_erase = static_cast<size_type>(std::distance(m_p_tabs.cbegin(), tab_position_to_erase));
 
             if (m_p_tabs.size() > 1)
             {
@@ -874,25 +780,17 @@ namespace tetengo2 { namespace gui { namespace widget
             m_p_tabs.erase(tab_position_to_erase);
         }
 
-        typename std::vector<std::unique_ptr<tab_type>>::const_iterator find_tab_item(const control_type& child)
-        const
+        typename std::vector<std::unique_ptr<tab_type>>::const_iterator find_tab_item(const control_type& child) const
         {
-            return
-                std::find_if(
-                    m_p_tabs.begin(),
-                    m_p_tabs.end(),
-                    [&child](const std::unique_ptr<tab_type>& p_tab)
-                    {
-                        return has_same_control(*p_tab, child);
-                    }
-                );
+            return std::find_if(m_p_tabs.begin(), m_p_tabs.end(), [&child](const std::unique_ptr<tab_type>& p_tab) {
+                return has_same_control(*p_tab, child);
+            });
         }
 
-        position_unit_type tab_label_top(const tab_label_type& tab_label)
-        const
+        position_unit_type tab_label_top(const tab_label_type& tab_label) const
         {
             position_unit_type top = position_unit_type{};
-            for (const auto& p_tab: m_p_tabs)
+            for (const auto& p_tab : m_p_tabs)
             {
                 if (&p_tab->label() == &tab_label)
                     break;
@@ -903,18 +801,14 @@ namespace tetengo2 { namespace gui { namespace widget
             return top;
         }
 
-        const dimension_unit_type& tab_label_width()
-        const
+        const dimension_unit_type& tab_label_width() const
         {
-            const auto max_width_tab =
-                std::max_element(
-                    m_p_tabs.begin(),
-                    m_p_tabs.end(),
-                    [](const std::unique_ptr<tab_type>& p_tab1, const std::unique_ptr<tab_type>& p_tab2)
-                    {
-                        return p_tab1->label().dimension().width() < p_tab2->label().dimension().width();
-                    }
-                );
+            const auto max_width_tab = std::max_element(
+                m_p_tabs.begin(),
+                m_p_tabs.end(),
+                [](const std::unique_ptr<tab_type>& p_tab1, const std::unique_ptr<tab_type>& p_tab2) {
+                    return p_tab1->label().dimension().width() < p_tab2->label().dimension().width();
+                });
             if (max_width_tab == m_p_tabs.end())
             {
                 static const dimension_unit_type zero_width{};
@@ -923,8 +817,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
             return (*max_width_tab)->label().dimension().width();
         }
-
-
     };
 
 

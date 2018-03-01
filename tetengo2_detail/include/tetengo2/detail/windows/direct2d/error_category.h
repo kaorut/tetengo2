@@ -13,8 +13,7 @@
 #include <system_error>
 
 
-namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
-{
+namespace tetengo2 { namespace detail { namespace windows { namespace direct2d {
     /*!
         \brief The class for a detail implementation of an error category.
     */
@@ -41,8 +40,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             \return The name.
         */
-        virtual const char* name()
-        const noexcept override;
+        virtual const char* name() const noexcept override;
 
         /*!
             \brief Returns the message.
@@ -51,10 +49,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             \return The message.
         */
-        virtual std::string message(int error_value)
-        const override;
-
-
+        virtual std::string message(int error_value) const override;
     };
 
 

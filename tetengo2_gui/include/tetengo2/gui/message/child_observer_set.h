@@ -13,8 +13,7 @@
 #include <boost/signals2.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace message
-{
+namespace tetengo2 { namespace gui { namespace message {
     /*!
         \brief The class template for a child observer set.
 
@@ -34,7 +33,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \param child A child.
         */
-        using created_type = void (widget_type& child);
+        using created_type = void(widget_type& child);
 
         //! The signal type of child creation.
         using created_signal_type = boost::signals2::signal<created_type>;
@@ -44,11 +43,10 @@ namespace tetengo2 { namespace gui { namespace message
 
             \param child A child.
         */
-        using destroying_type = void (widget_type& child);
+        using destroying_type = void(widget_type& child);
 
         //! The signal type of child destruction.
         using destroying_signal_type = boost::signals2::signal<destroying_type>;
-
 
 
         // functions
@@ -58,8 +56,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a child is created.
         */
-        const created_signal_type& created()
-        const
+        const created_signal_type& created() const
         {
             return m_created;
         }
@@ -79,8 +76,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The observer called when a child is about to be destroyed.
         */
-        const destroying_signal_type& destroying()
-        const
+        const destroying_signal_type& destroying() const
         {
             return m_destroying;
         }
@@ -102,8 +98,6 @@ namespace tetengo2 { namespace gui { namespace message
         created_signal_type m_created;
 
         destroying_signal_type m_destroying;
-
-
     };
 
 

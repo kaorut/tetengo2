@@ -13,6 +13,7 @@
 *.suo
 *.trs
 *.vcxproj.user
+.clang-format
 .deps
 .vs/
 aclocal.m4

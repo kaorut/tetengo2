@@ -19,8 +19,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace detail { namespace stub
-{
+namespace tetengo2 { namespace detail { namespace stub {
     /*!
         \brief The class for a detail implementation of a scroll.
     */
@@ -39,25 +38,20 @@ namespace tetengo2 { namespace detail { namespace stub
         struct scroll_bar_details_type
         {
 #if !defined(DOCUMENTATION)
-            size_type position{};
+            size_type                       position{};
             std::pair<size_type, size_type> range;
-            size_type page_size{};
-            bool enabled;
+            size_type                       page_size{};
+            bool                            enabled;
 
             scroll_bar_details_type(
                 const size_type                   position,
                 std::pair<size_type, size_type>&& range,
                 const size_type                   page_size,
-                const bool                        enabled
-            )
-            :
-            position(position),
-            range(std::forward<std::pair<size_type, size_type>>(range)),
-            page_size(page_size),
-            enabled(enabled)
+                const bool                        enabled)
+            : position(position), range(std::forward<std::pair<size_type, size_type>>(range)), page_size(page_size),
+              enabled(enabled)
             {}
 #endif
-
         };
 
         //! The scroll bar details pointer type.
@@ -66,7 +60,7 @@ namespace tetengo2 { namespace detail { namespace stub
         //! The style type.
         enum class style_type
         {
-            vertical,   //!< The vertical style.
+            vertical, //!< The vertical style.
             horizontal, //!< The horizontal style.
         };
 
@@ -81,15 +75,13 @@ namespace tetengo2 { namespace detail { namespace stub
             \param widget_details A detail implementation of a widget.
             \param style          A style type.
 
-            \return A unique pointer to a scroll bar. 
+            \return A unique pointer to a scroll bar.
 
             \throw std::system_error When a system cursor cannot be created.
         */
         template <typename WidgetDetails>
-        static scroll_bar_details_ptr_type create_scroll_bar(
-            const WidgetDetails& widget_details,
-            const style_type     style
-        )
+        static scroll_bar_details_ptr_type
+        create_scroll_bar(const WidgetDetails& widget_details, const style_type style)
         {
             boost::ignore_unused(widget_details, style);
 
@@ -100,7 +92,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \brief Returns the position.
 
             \param details A detail implementation of a scroll bar.
-            
+
             \return The position.
 
             \throw std::system_error When the scroll information cannot be obtained.
@@ -127,7 +119,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \brief Returns the range.
 
             \param details A detail implementation of a scroll bar.
-            
+
             \return The range.
 
             \throw std::system_error When the scroll information cannot be obtained.
@@ -156,7 +148,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \brief Returns the page size.
 
             \param details A detail implementation of a scroll bar.
-            
+
             \return The page size.
 
             \throw std::system_error When the scroll information cannot be obtained.
@@ -210,10 +202,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
         // forbidden operations
 
-        scroll()
-        = delete;
-
-
+        scroll() = delete;
     };
 
 

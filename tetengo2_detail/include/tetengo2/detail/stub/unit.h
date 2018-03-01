@@ -16,8 +16,7 @@
 #include <tetengo2/detail/base/unit.h>
 
 
-namespace tetengo2 { namespace detail { namespace stub
-{
+namespace tetengo2 { namespace detail { namespace stub {
     /*!
         \brief The class for a detail implementation of a unit.
     */
@@ -69,33 +68,25 @@ namespace tetengo2 { namespace detail { namespace stub
 
         // virtual functions
 
-        virtual boost::rational<size_type> pixel_size_to_em_impl(size_type pixel_size)
-        const override;
+        virtual boost::rational<size_type> pixel_size_to_em_impl(size_type pixel_size) const override;
 
-        virtual boost::rational<difference_type> pixel_difference_to_em_impl(difference_type pixel_difference)
-        const override;
+        virtual boost::rational<difference_type>
+        pixel_difference_to_em_impl(difference_type pixel_difference) const override;
 
-        virtual boost::rational<size_type> pixel_size_to_point_impl(size_type pixel_size)
-        const override;
+        virtual boost::rational<size_type> pixel_size_to_point_impl(size_type pixel_size) const override;
 
-        virtual boost::rational<difference_type> pixel_difference_to_point_impl(difference_type pixel_difference)
-        const override;
+        virtual boost::rational<difference_type>
+        pixel_difference_to_point_impl(difference_type pixel_difference) const override;
 
-        virtual size_type em_size_to_pixel_impl(const boost::rational<size_type>& em_size)
-        const override;
+        virtual size_type em_size_to_pixel_impl(const boost::rational<size_type>& em_size) const override;
 
-        virtual difference_type em_difference_to_pixel_impl(const boost::rational<difference_type>& em_difference)
-        const override;
+        virtual difference_type
+        em_difference_to_pixel_impl(const boost::rational<difference_type>& em_difference) const override;
 
-        virtual size_type point_size_to_pixel_impl(const boost::rational<size_type>& point_size)
-        const override;
+        virtual size_type point_size_to_pixel_impl(const boost::rational<size_type>& point_size) const override;
 
-        virtual difference_type point_difference_to_pixel_impl(
-            const boost::rational<difference_type>& point_difference
-        )
-        const override;
-
-
+        virtual difference_type
+        point_difference_to_pixel_impl(const boost::rational<difference_type>& point_difference) const override;
     };
 
 

@@ -15,3 +15,6 @@ lint-iwyu:
 
 lint-iwyu-extra:
 	for d in $(SOURCE_SUBDIRS); do (cd $$d && $(MAKE) lint-iwyu-extra); done
+
+format:
+	for d in $(SOURCE_SUBDIRS); do (cd $$d && $(MAKE) format); done

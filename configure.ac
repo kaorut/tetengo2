@@ -58,6 +58,7 @@ AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_CPP
 AC_PROG_RANLIB
+
 AC_ARG_WITH(
     iwyu,
     AS_HELP_STRING(
@@ -67,9 +68,29 @@ AC_ARG_WITH(
 )
 AC_CHECK_PROG(IWYU, include-what-you-use, include-what-you-use)
 test -z $IWYU && \
-    AC_MSG_WARN([You cannot check the includes for lack of include-what-you-use.])
+    AC_MSG_ERROR([You cannot check the includes for lack of include-what-you-use.])
 AC_SUBST([IWYU_OPTS], "-Xiwyu --max_line_length=1024 -x c++ -std=c++11")
 AC_SUBST([IWYU_IMP_PATH], "tools/iwyu_mappings.imp")
+
+AC_ARG_WITH(
+    unix2dos,
+    AS_HELP_STRING(
+        [--with-unix2dos=COMMAND], [Specify the unix2dos command. Or uses `unix2dos'.]
+    ),
+    UNIX2DOS=$withval
+)
+AC_CHECK_PROG(UNIX2DOS, unix2dos, unix2dos)
+AC_ARG_WITH(
+    clang-format,
+    AS_HELP_STRING(
+        [--with-clang-format=COMMAND], [Specify the clang-format command. Or uses `clang-format'.]
+    ),
+    CLANGFORMAT=$withval
+)
+AC_CHECK_PROG(CLANGFORMAT, clang-format, clang-format)
+(test -z $UNIX2DOS || test -z $CLANGFORMAT) && \
+    AC_MSG_ERROR([You cannot format the source files for lack of unix2dos and/or clang-format.])
+
 AC_ARG_WITH(
     doxygen,
     AS_HELP_STRING([--with-doxygen=COMMAND], [Specify the Doxygen command. Or uses `doxygen'.]),
@@ -77,7 +98,7 @@ AC_ARG_WITH(
 )
 AC_CHECK_PROG(DOXYGEN, doxygen, doxygen)
 test -z $DOXYGEN && \
-    AC_MSG_WARN([You cannot generate documents for lack of Doxygen.])
+    AC_MSG_ERROR([You cannot generate documents for lack of Doxygen.])
 
 #### Checks for libraries ####
 AC_CHECK_FUNC(sem_open, , [AC_CHECK_LIB(rt, sem_open)])

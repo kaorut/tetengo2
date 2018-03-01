@@ -19,8 +19,7 @@
 #include <tetengo2/gui/widget/abstract_window.h>
 
 
-namespace tetengo2 { namespace gui { namespace common_dialog
-{
+namespace tetengo2 { namespace gui { namespace common_dialog {
     /*!
         \brief The class template for a file save dialog.
 
@@ -35,8 +34,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         typename WidgetTraits,
         typename CommonDialogDetails,
         typename WidgetDetailsTraits,
-        typename MenuDetails
-    >
+        typename MenuDetails>
     class file_save : private boost::noncopyable
     {
     public:
@@ -91,15 +89,14 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             string_type                                     title,
             const boost::optional<boost::filesystem::path>& path,
             file_filters_type                               file_filters,
-            abstract_window_type&                           parent
-        )
-        :
-        m_p_details(
-            common_dialog_details_type::create_file_save_dialog(
-                parent, std::move(title), path, std::move(file_filters), encoder()
-            )
-        ),
-        m_result(path ? *path : boost::filesystem::path{})
+            abstract_window_type&                           parent)
+        : m_p_details(common_dialog_details_type::create_file_save_dialog(
+              parent,
+              std::move(title),
+              path,
+              std::move(file_filters),
+              encoder())),
+          m_result(path ? *path : boost::filesystem::path{})
         {}
 
 
@@ -110,8 +107,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
             \return The result.
         */
-        const boost::filesystem::path& result()
-        const
+        const boost::filesystem::path& result() const
         {
             return m_result;
         }
@@ -137,8 +133,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
             \return The detail implementation.
         */
-        const details_type& details()
-        const
+        const details_type& details() const
         {
             return *m_p_details;
         }
@@ -169,8 +164,6 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         details_ptr_type m_p_details;
 
         boost::filesystem::path m_result;
-
-
     };
 
 

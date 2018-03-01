@@ -17,8 +17,7 @@
 #include <tetengo2/text/encoding/polymorphic.h>
 
 
-namespace tetengo2 { namespace text
-{
+namespace tetengo2 { namespace text {
     /*!
         \brief The class template for a character iterator.
 
@@ -27,8 +26,8 @@ namespace tetengo2 { namespace text
         \tparam String A string type.
     */
     template <typename String>
-    class character_iterator :
-        public boost::iterator_facade<character_iterator<String>, const String, std::forward_iterator_tag>
+    class character_iterator
+    : public boost::iterator_facade<character_iterator<String>, const String, std::forward_iterator_tag>
     {
     public:
         // types
@@ -84,8 +83,7 @@ namespace tetengo2 { namespace text
 
             \return The dereferenced value.
         */
-        const string_type& dereference()
-        const;
+        const string_type& dereference() const;
 
         /*!
             \brief Checks whether the iterator is equal to another iterator.
@@ -95,8 +93,7 @@ namespace tetengo2 { namespace text
             \retval true  When the iterator is equal to another iterator.
             \retval false Otherwise.
         */
-        bool equal(const character_iterator& another)
-        const;
+        bool equal(const character_iterator& another) const;
 
         /*!
             \brief Increments the iterator.
@@ -113,8 +110,6 @@ namespace tetengo2 { namespace text
         // variables
 
         std::shared_ptr<impl> m_p_impl;
-
-
     };
 
 

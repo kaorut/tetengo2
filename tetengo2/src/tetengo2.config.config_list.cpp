@@ -20,8 +20,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace config
-{
+namespace tetengo2 { namespace config {
     class config_list::impl : private boost::noncopyable
     {
     public:
@@ -38,18 +37,14 @@ namespace tetengo2 { namespace config
 
         // constructors and destructor
 
-        explicit impl(std::vector<std::unique_ptr<base_type>> p_configs)
-        :
-        m_p_configs(std::move(p_configs))
-        {}
+        explicit impl(std::vector<std::unique_ptr<base_type>> p_configs) : m_p_configs(std::move(p_configs)) {}
 
 
         // functions
 
-        boost::optional<value_type> get_impl(const string_type& key)
-        const
+        boost::optional<value_type> get_impl(const string_type& key) const
         {
-            for (const std::unique_ptr<base_type>& p_config: m_p_configs)
+            for (const std::unique_ptr<base_type>& p_config : m_p_configs)
             {
                 const auto p_value = p_config->get(key);
                 if (p_value)
@@ -61,20 +56,16 @@ namespace tetengo2 { namespace config
 
         void set_impl(const string_type& key, value_type value)
         {
-            std::for_each(
-                m_p_configs.begin(),
-                m_p_configs.end(),
-                [&key, &value](std::unique_ptr<base_type>& p_config) { p_config->set(key, std::move(value)); }
-            );
+            std::for_each(m_p_configs.begin(), m_p_configs.end(), [&key, &value](std::unique_ptr<base_type>& p_config) {
+                p_config->set(key, std::move(value));
+            });
         }
 
         void clear_impl()
         {
-            std::for_each(
-                m_p_configs.begin(),
-                m_p_configs.end(),
-                [](std::unique_ptr<base_type>& p_config) { p_config->clear(); }
-            );
+            std::for_each(m_p_configs.begin(), m_p_configs.end(), [](std::unique_ptr<base_type>& p_config) {
+                p_config->clear();
+            });
         }
 
 
@@ -82,22 +73,17 @@ namespace tetengo2 { namespace config
         // variables
 
         std::vector<std::unique_ptr<base_type>> m_p_configs;
-
-
     };
 
 
     config_list::config_list(std::vector<std::unique_ptr<base_type>> p_configs)
-    :
-    m_p_impl(stdalt::make_unique<impl>(std::move(p_configs)))
+    : m_p_impl(stdalt::make_unique<impl>(std::move(p_configs)))
     {}
 
-    config_list::~config_list()
-    = default;
+    config_list::~config_list() = default;
 
 
-    boost::optional<config_list::value_type> config_list::get_impl(const string_type& key)
-    const
+    boost::optional<config_list::value_type> config_list::get_impl(const string_type& key) const
     {
         return m_p_impl->get_impl(key);
     }

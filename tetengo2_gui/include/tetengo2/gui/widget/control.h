@@ -20,8 +20,7 @@
 #include <tetengo2/gui/widget/widget.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget
-{
+namespace tetengo2 { namespace gui { namespace widget {
     /*!
         \brief The class template for a control.
 
@@ -67,8 +66,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Destroys the control.
         */
-        virtual ~control()
-        = default;
+        virtual ~control() = default;
 
 
         // functions
@@ -78,8 +76,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The text color.
         */
-        const boost::optional<color_type>& text_color()
-        const
+        const boost::optional<color_type>& text_color() const
         {
             return m_text_color;
         }
@@ -100,8 +97,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \retval true  When the control accepts a focus.
             \retval false Otherwise.
         */
-        bool focusable()
-        const
+        bool focusable() const
         {
             return widget_details_type::focusable(*this);
         }
@@ -135,23 +131,20 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         control(
             const scroll_bar_style_type scroll_bar_style,
-            message_handler_map_type&&                   message_handler_map,
-            details_ptr_type                             p_details
-        )
+            message_handler_map_type&&  message_handler_map,
+            details_ptr_type            p_details)
         :
 #if BOOST_COMP_MSVC
-#   pragma warning(push)
-#   pragma warning(disable: 4355)
+#pragma warning(push)
+#pragma warning(disable : 4355)
 #endif
-        base_type(
-            scroll_bar_style,
-            message_handler_details_type::make_control_message_handler_map(*this, std::move(message_handler_map))
-        ),
+          base_type(
+              scroll_bar_style,
+              message_handler_details_type::make_control_message_handler_map(*this, std::move(message_handler_map))),
 #if BOOST_COMP_MSVC
-#   pragma warning(pop)
+#pragma warning(pop)
 #endif
-        m_p_details(std::move(p_details)),
-        m_text_color()
+          m_p_details(std::move(p_details)), m_text_color()
         {}
 
 
@@ -165,21 +158,17 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // virtual functions
 
-        virtual const details_type& details_impl()
-        const override
+        virtual const details_type& details_impl() const override
         {
             assert(m_p_details);
             return *m_p_details;
         }
 
-        virtual details_type& details_impl()
-        override
+        virtual details_type& details_impl() override
         {
             assert(m_p_details);
             return *m_p_details;
         }
-
-
     };
 
 

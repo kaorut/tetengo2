@@ -18,8 +18,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace config
-{
+namespace tetengo2 { namespace config {
     /*!
         \brief The class for a configuration list.
     */
@@ -69,16 +68,11 @@ namespace tetengo2 { namespace config
 
         // virtual functions
 
-        virtual boost::optional<value_type> get_impl(const string_type& key)
-        const override;
+        virtual boost::optional<value_type> get_impl(const string_type& key) const override;
 
-        virtual void set_impl(const string_type& key, value_type value)
-        override;
+        virtual void set_impl(const string_type& key, value_type value) override;
 
-        virtual void clear_impl()
-        override;
-
-
+        virtual void clear_impl() override;
     };
 
 

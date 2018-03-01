@@ -22,8 +22,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace text
-{
+namespace tetengo2 { namespace text {
     /*!
         \brief The class template for a push parser.
 
@@ -75,15 +74,14 @@ namespace tetengo2 { namespace text
             {
                 return std::all_of(first, last, [](bool b) { return b; });
             }
-
         };
 
         //! The structure signal type.
         using structure_signal_type =
-            boost::signals2::signal<bool (const string_type&, const attribute_map_type&), signal_result_combiner_type>;
+            boost::signals2::signal<bool(const string_type&, const attribute_map_type&), signal_result_combiner_type>;
 
         //! The value signal type.
-        using value_signal_type = boost::signals2::signal<bool (const value_type&), signal_result_combiner_type>;
+        using value_signal_type = boost::signals2::signal<bool(const value_type&), signal_result_combiner_type>;
 
 
         // constructors and destructor
@@ -104,48 +102,45 @@ namespace tetengo2 { namespace text
 
 
         // functions
-        
-        /*!
-            \brief Returns the structure begin signal.
-            
-            \return The structure begin signal.
-        */
-        const structure_signal_type& on_structure_begin()
-        const;
 
         /*!
             \brief Returns the structure begin signal.
-            
+
+            \return The structure begin signal.
+        */
+        const structure_signal_type& on_structure_begin() const;
+
+        /*!
+            \brief Returns the structure begin signal.
+
             \return The structure begin signal.
         */
         structure_signal_type& on_structure_begin();
 
         /*!
             \brief Returns the structure end signal.
-            
+
             \return The structure end signal.
         */
-        const structure_signal_type& on_structure_end()
-        const;
+        const structure_signal_type& on_structure_end() const;
 
         /*!
             \brief Returns the structure end signal.
-            
+
             \return The structure end signal.
         */
         structure_signal_type& on_structure_end();
 
         /*!
             \brief Returns the value signal.
-            
+
             \return The value signal.
         */
-        const value_signal_type& on_value()
-        const;
+        const value_signal_type& on_value() const;
 
         /*!
             \brief Returns the value signal.
-            
+
             \return The value signal.
         */
         value_signal_type& on_value();
@@ -156,8 +151,7 @@ namespace tetengo2 { namespace text
             \retval true  When the parsing is finished successfully.
             \retval false Otherwise.
         */
-        bool parse()
-        const;
+        bool parse() const;
 
 
     private:
@@ -169,8 +163,6 @@ namespace tetengo2 { namespace text
         // variables
 
         const std::unique_ptr<impl> m_p_impl;
-
-
     };
 
 

@@ -18,8 +18,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace drawing
-{
+namespace tetengo2 { namespace gui { namespace drawing {
     /*!
         \brief The class template for a solid background.
 
@@ -46,17 +45,14 @@ namespace tetengo2 { namespace gui { namespace drawing
             \param color A color.
         */
         explicit solid_background(color_type color)
-        :
-        base_type(),
-        m_color(std::move(color)),
-        m_p_details(base_type::drawing_details_type::create_solid_background(m_color))
+        : base_type(), m_color(std::move(color)),
+          m_p_details(base_type::drawing_details_type::create_solid_background(m_color))
         {}
 
         /*!
             \brief Destroys the background.
         */
-        virtual ~solid_background()
-        = default;
+        virtual ~solid_background() = default;
 
 
         // functions
@@ -66,8 +62,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The color.
         */
-        const color_type& get_color()
-        const
+        const color_type& get_color() const
         {
             return m_color;
         }
@@ -90,27 +85,22 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         // virtual functions
 
-        virtual std::unique_ptr<base_type> clone_impl()
-        const override
+        virtual std::unique_ptr<base_type> clone_impl() const override
         {
             return stdalt::make_unique<solid_background>(m_color);
         }
 
-        virtual const details_type& details_impl()
-        const override
+        virtual const details_type& details_impl() const override
         {
             assert(m_p_details);
             return *m_p_details;
         }
 
-        virtual details_type& details_impl()
-        override
+        virtual details_type& details_impl() override
         {
             assert(m_p_details);
             return *m_p_details;
         }
-
-
     };
 
 

@@ -16,8 +16,7 @@
 #include <boost/filesystem.hpp>
 
 
-namespace tetengo2 { namespace gui
-{
+namespace tetengo2 { namespace gui {
     /*!
         \brief The class template for an icon.
 
@@ -53,10 +52,8 @@ namespace tetengo2 { namespace gui
             \param path A path.
         */
         explicit icon(boost::filesystem::path path)
-        :
-        m_path(std::move(path)),
-        m_dimension(details_type::template default_dimension<dimension_type>()),
-        m_p_icon_details(details_type::create(m_path, m_dimension))
+        : m_path(std::move(path)), m_dimension(details_type::template default_dimension<dimension_type>()),
+          m_p_icon_details(details_type::create(m_path, m_dimension))
         {}
 
         /*!
@@ -66,10 +63,8 @@ namespace tetengo2 { namespace gui
             \param dimension A dimension.
         */
         icon(boost::filesystem::path path, dimension_type dimension)
-        :
-        m_path(std::move(path)),
-        m_dimension(std::move(dimension)),
-        m_p_icon_details(details_type::create(m_path, m_dimension))
+        : m_path(std::move(path)), m_dimension(std::move(dimension)),
+          m_p_icon_details(details_type::create(m_path, m_dimension))
         {}
 
 
@@ -80,8 +75,7 @@ namespace tetengo2 { namespace gui
 
             \return The path.
         */
-        const boost::filesystem::path& path()
-        const
+        const boost::filesystem::path& path() const
         {
             return m_path;
         }
@@ -91,8 +85,7 @@ namespace tetengo2 { namespace gui
 
             \return The dimension.
         */
-        const dimension_type& dimension()
-        const
+        const dimension_type& dimension() const
         {
             return m_dimension;
         }
@@ -102,8 +95,7 @@ namespace tetengo2 { namespace gui
 
             \return The detail implementation.
         */
-        const icon_details_type& details()
-        const
+        const icon_details_type& details() const
         {
             assert(m_p_icon_details);
             return *m_p_icon_details;
@@ -129,8 +121,6 @@ namespace tetengo2 { namespace gui
         const dimension_type m_dimension;
 
         const icon_details_ptr_type m_p_icon_details;
-
-
     };
 
 

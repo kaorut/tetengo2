@@ -19,8 +19,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget
-{
+namespace tetengo2 { namespace gui { namespace widget {
     /*!
         \brief The class template for a link label.
 
@@ -96,10 +95,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \param cursor_details A cursor detail implementation.
         */
         link_label(widget_type& parent, const cursor_details_type& cursor_details)
-        :
-        base_type(parent),
-        m_target(),
-        m_mouse_button_pressing(false)
+        : base_type(parent), m_target(), m_mouse_button_pressing(false)
         {
             initialize_link_label(this, cursor_details);
         }
@@ -107,8 +103,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Destroys the link label.
         */
-        virtual ~link_label()
-        = default;
+        virtual ~link_label() = default;
 
 
         // functions
@@ -118,8 +113,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The target.
         */
-        const string_type& target()
-        const
+        const string_type& target() const
         {
             return m_target;
         }
@@ -145,13 +139,9 @@ namespace tetengo2 { namespace gui { namespace widget
         class paint_background
         {
         public:
-            paint_background(link_label& self)
-            :
-            m_self(self)
-            {}
+            paint_background(link_label& self) : m_self(self) {}
 
-            bool operator()(canvas_type& canvas)
-            const
+            bool operator()(canvas_type& canvas) const
             {
                 if (!m_self.p_background())
                     return false;
@@ -166,7 +156,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         private:
             link_label& m_self;
-
         };
 
 
@@ -177,20 +166,15 @@ namespace tetengo2 { namespace gui { namespace widget
             assert(p_link_label);
 
             p_link_label->set_background(
-                stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background())
-            );
+                stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background()));
 
             const auto original_font = p_link_label->font();
-            p_link_label->set_font(
-                font_type{
-                    original_font.family(),
-                    original_font.size(),
-                    original_font.bold(),
-                    original_font.italic(),
-                    true,
-                    original_font.strikeout()
-                }
-            );
+            p_link_label->set_font(font_type{ original_font.family(),
+                                              original_font.size(),
+                                              original_font.bold(),
+                                              original_font.italic(),
+                                              true,
+                                              original_font.strikeout() });
 
             p_link_label->set_text_color(system_color_set_type::hyperlink_text());
 
@@ -207,44 +191,36 @@ namespace tetengo2 { namespace gui { namespace widget
             p_link_label->paint_observer_set().paint_background().connect(paint_background(*p_link_label));
             using virtual_key_type = typename keyboard_observer_set_type::virtual_key_type;
             p_link_label->keyboard_observer_set().key_up().connect(
-                [p_link_label](const virtual_key_type& virtual_key, const bool, const bool, const bool)
-                {
+                [p_link_label](const virtual_key_type& virtual_key, const bool, const bool, const bool) {
                     if (virtual_key == virtual_key_type::space())
                         p_link_label->open_target();
-                }
-            );
+                });
             p_link_label->mouse_observer_set().pressed().connect(
                 [p_link_label](
                     const typename mouse_observer_set_type::mouse_button_type button,
                     const position_type&,
                     const bool,
                     const bool,
-                    const bool
-                )
-                {
+                    const bool) {
                     if (button != mouse_observer_set_type::mouse_button_type::left)
                         return;
 
                     p_link_label->m_mouse_button_pressing = true;
-                }
-            );
+                });
             p_link_label->mouse_observer_set().released().connect(
                 [p_link_label](
                     const typename mouse_observer_set_type::mouse_button_type button,
                     const position_type&,
                     const bool,
                     const bool,
-                    const bool
-                )
-                {
+                    const bool) {
                     if (button != mouse_observer_set_type::mouse_button_type::left)
                         return;
 
                     if (p_link_label->m_mouse_button_pressing)
                         p_link_label->open_target();
                     p_link_label->m_mouse_button_pressing = false;
-                }
-            );
+                });
         }
 
 
@@ -257,13 +233,10 @@ namespace tetengo2 { namespace gui { namespace widget
 
         // functions
 
-        void open_target()
-        const
+        void open_target() const
         {
             shell_type::instance().execute(m_target);
         }
-
-
     };
 
 

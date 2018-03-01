@@ -12,8 +12,7 @@
 #include <boost/core/noncopyable.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace message
-{
+namespace tetengo2 { namespace gui { namespace message {
     /*!
         \brief The class template for a message loop.
 
@@ -40,10 +39,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \param window A window.
         */
-        explicit message_loop(abstract_window_type& window)
-        :
-        m_window(window)
-        {}
+        explicit message_loop(abstract_window_type& window) : m_window(window) {}
 
 
         // functions
@@ -53,8 +49,7 @@ namespace tetengo2 { namespace gui { namespace message
 
             \return The exit status code.
         */
-        int operator()()
-        const
+        int operator()() const
         {
             return message_loop_details_type::loop(m_window);
         }
@@ -64,8 +59,6 @@ namespace tetengo2 { namespace gui { namespace message
         // variables
 
         abstract_window_type& m_window;
-
-
     };
 
 

@@ -15,8 +15,7 @@
 #include <tetengo2/gui/cursor/system_cursor_style.h>
 
 
-namespace tetengo2 { namespace gui { namespace cursor
-{
+namespace tetengo2 { namespace gui { namespace cursor {
     /*!
         \brief The class for a system cursor.
 
@@ -63,8 +62,7 @@ namespace tetengo2 { namespace gui { namespace cursor
 
             \return The style.
         */
-        style_type style()
-        const;
+        style_type style() const;
 
 
     private:
@@ -80,13 +78,9 @@ namespace tetengo2 { namespace gui { namespace cursor
 
         // virtual functions
 
-        virtual const details_type& details_impl()
-        const override;
+        virtual const details_type& details_impl() const override;
 
-        virtual details_type& details_impl()
-        override;
-
-
+        virtual details_type& details_impl() override;
     };
 
 

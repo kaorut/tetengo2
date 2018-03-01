@@ -14,8 +14,7 @@
 #include <tetengo2/detail/base/gui_fixture.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows
-{
+namespace tetengo2 { namespace detail { namespace windows {
     /*!
         \brief The class for a detail implementation of a GUI fixture.
     */
@@ -46,8 +45,6 @@ namespace tetengo2 { namespace detail { namespace windows
         // variables
 
         const std::unique_ptr<impl> m_p_impl;
-
-
     };
 
 

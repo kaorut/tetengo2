@@ -13,8 +13,8 @@
 
 #include <boost/core/noncopyable.hpp>
 
-#pragma warning (push)
-#pragma warning (disable: 4005)
+#pragma warning(push)
+#pragma warning(disable : 4005)
 #include <intsafe.h>
 #include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
@@ -25,8 +25,7 @@
 #include <tetengo2/text.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows
-{
+namespace tetengo2 { namespace detail { namespace windows {
     /*!
         \brief The class for a detail implementation of a shell.
     */
@@ -38,8 +37,7 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Creates a shell.
         */
-        shell()
-        {}
+        shell() {}
 
 
         // functions
@@ -64,20 +62,16 @@ namespace tetengo2 { namespace detail { namespace windows
             const String&       command,
             const InputIterator parameter_first,
             const InputIterator parameter_last,
-            const Encoder&      encoder
-        )
-        const
+            const Encoder&      encoder) const
         {
-            const auto result =
-                ::ShellExecuteW(
-                    nullptr,
-                    L"open",
-                    encoder.encode(command).c_str(),
-                    encoder.encode(concatenate_parameters<String>(parameter_first, parameter_last)).c_str(),
-                    nullptr,
-                    SW_SHOWNORMAL
-                );
-            return reinterpret_cast< ::UINT_PTR>(result) > 32;
+            const auto result = ::ShellExecuteW(
+                nullptr,
+                L"open",
+                encoder.encode(command).c_str(),
+                encoder.encode(concatenate_parameters<String>(parameter_first, parameter_last)).c_str(),
+                nullptr,
+                SW_SHOWNORMAL);
+            return reinterpret_cast<::UINT_PTR>(result) > 32;
         }
 
 
@@ -89,16 +83,12 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             String parameters;
 
-            std::for_each(
-                first,
-                last,
-                [&parameters](const String& parameter) { parameters += parameter + String{ TETENGO2_TEXT(" ") }; }
-            );
+            std::for_each(first, last, [&parameters](const String& parameter) {
+                parameters += parameter + String{ TETENGO2_TEXT(" ") };
+            });
 
             return parameters;
         }
-
-
     };
 
 

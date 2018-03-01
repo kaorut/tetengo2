@@ -25,8 +25,8 @@ The following features does not support UNIX-like systems yet...
 
 It's tested on the following systems:
 
-- [Windows 10](http://www.microsoft.com/)
-- [Debian GNU/Linux 9](http://www.debian.org/)
+- [Windows 10](https://www.microsoft.com/)
+- [Debian GNU/Linux 9](https://www.debian.org/)
 
 
 How to Build {#how_to_build}
@@ -37,16 +37,21 @@ Building on Windows
 
 You need the following tools in order to build Tetengo2:
 
-- [Visual Studio 2017](http://www.microsoft.com/)
-- [Boost C++ Libraries 1.66.0](http://www.boost.org/)
-- [Doxygen 1.8.14](http://www.doxygen.org) (to generate API documents)
-- [Graphviz](http://www.graphviz.org) (to generate API documents)
+- [Visual Studio 2017](https://www.microsoft.com/)
+- [Boost C++ Libraries 1.66.0](https://www.boost.org/)
+- Windows Subsystem for Linux
+  - [GNU Make](https://www.gnu.org/)
+  - [include-what-you-use](https://include-what-you-use.org/)
+  - [ClangFormat 5.0](https://clang.llvm.org/docs/ClangFormat.html)
+  - [Dos2Unix](https://waterlan.home.xs4all.nl/dos2unix.html)
+  - [Doxygen 1.8.14](http://www.doxygen.org)
+  - [Graphviz](https://www.graphviz.org)
 
 You can obtain the source code either by downloading an archive or by cloning the Git repository.
 
 ### Downloading the Source Code Archive
 
-The latest archives can be downloaded from [the web site](http://www.tetengo.org/).
+The latest archives can be downloaded from [the web site](https://www.tetengo.org/).
 
 ### Cloning the Repository
 
@@ -74,17 +79,20 @@ Building on UNIX
 
 You need the following tools in order to build Tetengo2 libraries:
 
-- [GCC 6.3.0](http://www.gnu.org/) or [Clang 3.8](http://clang.llvm.org/)
-- [GNU Make](http://www.gnu.org/)
-- [Boost C++ Libraries 1.66.0](http://www.boost.org/)
-- [Doxygen 1.8.14](http://www.doxygen.org) (to generate API documents)
-- [Graphviz](http://www.graphviz.org) (to generate API documents)
+- [GCC 6.3.0](https://www.gnu.org/) or [Clang 3.8](https://clang.llvm.org/)
+- [GNU Make](https://www.gnu.org/)
+- [Boost C++ Libraries 1.66.0](https://www.boost.org/)
+- [include-what-you-use](https://include-what-you-use.org/)
+- [ClangFormat 5.0](https://clang.llvm.org/docs/ClangFormat.html)
+- [Dos2Unix](https://waterlan.home.xs4all.nl/dos2unix.html)
+- [Doxygen 1.8.14](http://www.doxygen.org)
+- [Graphviz](https://www.graphviz.org)
 
 You can obtain the source code either by downloading an archive or by cloning the Git repository.
 
 ### Downloading the Source Code Archive
 
-The latest archives can be downloaded from [the web site](http://www.tetengo.org/).
+The latest archives can be downloaded from [the web site](https://www.tetengo.org/).
 
 ### Cloning the Repository
 
@@ -102,8 +110,8 @@ $ ./bootstrap.sh
 
 `bootstrap.sh` requires the following tools:
 
-- [Autotools (Autoconf, Automake, etc.)](http://www.gnu.org/)
-- [Autoconf Archive](http://www.gnu.org/)
+- [Autotools (Autoconf, Automake, etc.)](https://www.gnu.org/)
+- [Autoconf Archive](https://www.gnu.org/)
 
 ### Build Sequence
 
@@ -137,7 +145,7 @@ $ make doc
 
 Copyright (C) 2007-2018 kaoru
 
-<http://www.tetengo.org/>
+<https://www.tetengo.org/>
 
 $Id$
 

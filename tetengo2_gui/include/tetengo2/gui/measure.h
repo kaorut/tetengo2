@@ -15,8 +15,7 @@
 #include <boost/rational.hpp>
 
 
-namespace tetengo2 { namespace gui
-{
+namespace tetengo2 { namespace gui {
     /*!
         \brief Converts a value in a certain unit to pixels.
 
@@ -44,10 +43,7 @@ namespace tetengo2 { namespace gui
         \return The converted value in a certain unit.
     */
     template <typename Unit, typename PixelValue>
-    Unit to_unit(
-        const PixelValue value,
-        typename std::enable_if<!std::is_arithmetic<Unit>::value>::type* = nullptr
-    )
+    Unit to_unit(const PixelValue value, typename std::enable_if<!std::is_arithmetic<Unit>::value>::type* = nullptr)
     {
         return Unit::from_pixels(value);
     }
@@ -92,9 +88,7 @@ namespace tetengo2 { namespace gui
     }
 
     template <typename Unit, typename PixelValue>
-    Unit to_unit(
-        const PixelValue value,
-        typename std::enable_if<std::is_arithmetic<Unit>::value>::type* = nullptr)
+    Unit to_unit(const PixelValue value, typename std::enable_if<std::is_arithmetic<Unit>::value>::type* = nullptr)
     {
         return static_cast<Unit>(value);
     }

@@ -13,15 +13,13 @@
 
 #include <tetengo2/gui/widget/abstract_window.h>
 
-namespace boost
-{
+namespace boost {
     template <typename T>
     class optional;
 }
 
 
-namespace tetengo2 { namespace gui { namespace common_dialog
-{
+namespace tetengo2 { namespace gui { namespace common_dialog {
     /*!
         \brief The class template for a font dialog.
 
@@ -36,8 +34,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         typename WidgetTraits,
         typename CommonDialogDetails,
         typename WidgetDetailsTraits,
-        typename MenuDetails
-    >
+        typename MenuDetails>
     class font : private boost::noncopyable
     {
     public:
@@ -81,9 +78,8 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             \param parent A parent widget.
         */
         font(const boost::optional<font_type>& font, abstract_window_type& parent)
-        :
-        m_p_details(common_dialog_details_type::create_font_dialog(parent, font, encoder())),
-        m_result(font ? *font : font_type::dialog_font())
+        : m_p_details(common_dialog_details_type::create_font_dialog(parent, font, encoder())),
+          m_result(font ? *font : font_type::dialog_font())
         {}
 
 
@@ -94,8 +90,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
             \return The result.
         */
-        const font_type& result()
-        const
+        const font_type& result() const
         {
             return m_result;
         }
@@ -122,8 +117,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
             \return The detail implementation.
         */
-        const details_type& details()
-        const
+        const details_type& details() const
         {
             return *m_p_details;
         }
@@ -154,8 +148,6 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         details_ptr_type m_p_details;
 
         font_type m_result;
-
-
     };
 
 

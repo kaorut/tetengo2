@@ -19,8 +19,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace config
-{
+namespace tetengo2 { namespace config {
     class temporary_config::impl : private boost::noncopyable
     {
     public:
@@ -37,16 +36,12 @@ namespace tetengo2 { namespace config
 
         // constructors and destructor
 
-        impl()
-        :
-        m_values()
-        {}
+        impl() : m_values() {}
 
 
         // functions
 
-        boost::optional<value_type> get_impl(const string_type& key)
-        const
+        boost::optional<value_type> get_impl(const string_type& key) const
         {
             const auto found = m_values.find(key);
             return found != m_values.end() ? boost::make_optional(found->second) : boost::none;
@@ -72,21 +67,14 @@ namespace tetengo2 { namespace config
         // variables
 
         key_value_type m_values;
-
-
     };
 
 
-    temporary_config::temporary_config()
-    :
-    m_p_impl(stdalt::make_unique<impl>())
-    {}
+    temporary_config::temporary_config() : m_p_impl(stdalt::make_unique<impl>()) {}
 
-    temporary_config::~temporary_config()
-    = default;
+    temporary_config::~temporary_config() = default;
 
-    boost::optional<temporary_config::value_type> temporary_config::get_impl(const string_type& key)
-    const
+    boost::optional<temporary_config::value_type> temporary_config::get_impl(const string_type& key) const
     {
         return m_p_impl->get_impl(key);
     }

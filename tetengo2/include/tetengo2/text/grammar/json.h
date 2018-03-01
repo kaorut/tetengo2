@@ -14,8 +14,7 @@
 #include <tetengo2/text/grammar/grammar.h>
 
 
-namespace tetengo2 { namespace text { namespace grammar
-{
+namespace tetengo2 { namespace text { namespace grammar {
     /*!
         \brief The class template for a grammar of JSON.
 
@@ -54,62 +53,55 @@ namespace tetengo2 { namespace text { namespace grammar
 
 
         // functions
-        
+
         /*!
             \brief Returns the parser for a JSON text.
 
             \return The parser for a JSON text.
         */
-        const rule_type& json_text()
-        const;
+        const rule_type& json_text() const;
 
         /*!
             \brief Returns the parser for a value.
 
             \return The parser for a value.
         */
-        const rule_type& value()
-        const;
+        const rule_type& value() const;
 
         /*!
             \brief Returns the parser for an object.
 
             \return The parser for an object.
         */
-        const rule_type& object()
-        const;
+        const rule_type& object() const;
 
         /*!
             \brief Returns the parser for a member.
 
             \return The parser for a member.
         */
-        const rule_type& member()
-        const;
+        const rule_type& member() const;
 
         /*!
             \brief Returns the parser for an array.
 
             \return The parser for an array.
         */
-        const rule_type& array()
-        const;
+        const rule_type& array() const;
 
         /*!
             \brief Returns the parser for a number.
 
             \return The parser for a number.
         */
-        const rule_type& number()
-        const;
+        const rule_type& number() const;
 
         /*!
             \brief Returns the parser for a string.
 
             \return The parser for a string.
         */
-        const rule_type& string()
-        const;
+        const rule_type& string() const;
 
 
     private:
@@ -123,8 +115,6 @@ namespace tetengo2 { namespace text { namespace grammar
         rule_type m_json_text;
 
         const std::unique_ptr<impl> m_p_impl;
-
-
     };
 
 

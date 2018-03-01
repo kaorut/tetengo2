@@ -13,18 +13,13 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace gui { namespace unit
-{
+namespace tetengo2 { namespace gui { namespace unit {
     template <typename Value>
-    basic_pixel<Value>::basic_pixel()
-    :
-    m_value(0)
+    basic_pixel<Value>::basic_pixel() : m_value(0)
     {}
 
     template <typename Value>
-    basic_pixel<Value>::basic_pixel(value_type value)
-    :
-    m_value(std::move(value))
+    basic_pixel<Value>::basic_pixel(value_type value) : m_value(std::move(value))
     {}
 
     template <typename V>
@@ -90,15 +85,13 @@ namespace tetengo2 { namespace gui { namespace unit
     }
 
     template <typename Value>
-    Value basic_pixel<Value>::divide_by(const basic_pixel& another)
-    const
+    Value basic_pixel<Value>::divide_by(const basic_pixel& another) const
     {
         return value() / another.value();
     }
 
     template <typename Value>
-    const Value& basic_pixel<Value>::value()
-    const
+    const Value& basic_pixel<Value>::value() const
     {
         return m_value;
     }
@@ -110,12 +103,10 @@ namespace tetengo2 { namespace gui { namespace unit
     }
 
 
-    namespace
-    {
+    namespace {
         using size_rational_type = boost::rational<type_list::size_type>;
 
         using difference_rational_type = boost::rational<type_list::difference_type>;
-
     }
 
     template class basic_pixel<size_rational_type>;

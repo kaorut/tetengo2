@@ -12,8 +12,7 @@
 #include <functional>
 
 
-namespace tetengo2 { namespace gui { namespace message
-{
+namespace tetengo2 { namespace gui { namespace message {
     /*!
         \brief The class template for a message loop break.
 
@@ -36,13 +35,10 @@ namespace tetengo2 { namespace gui { namespace message
 
             \param exit_code An exit status code.
         */
-        void operator()(const int exit_code)
-        const
+        void operator()(const int exit_code) const
         {
             message_loop_details_type::break_loop(exit_code);
         }
-
-
     };
 
 
