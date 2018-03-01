@@ -5,7 +5,8 @@
 
 UNIX2DOS=$1
 CLANGFORMAT=$2
-FILES=${@:3}
+SRCDIR=$3
+FILES=${@:4}
 
 CORE_COUNT=`grep -c '^processor' /proc/cpuinfo`
 
@@ -26,4 +27,4 @@ function call_clangformat_iter()
 }
 export -f call_clangformat_iter
 
-echo $FILES | tr ' ' '\n' | xargs -P $CORE_COUNT -n 1 -I {} bash -c "call_clangformat_iter $UNIX2DOS $CLANGFORMAT {}"
+echo $FILES | tr ' ' '\n' | xargs -P $CORE_COUNT -n 1 -I {} bash -c "call_clangformat_iter $UNIX2DOS $CLANGFORMAT $SRCDIR/{}"
