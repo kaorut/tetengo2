@@ -262,10 +262,11 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         auto         future = promise.get_future();
                         BOOST_CHECK(future.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
 
-                        std::thread thread{ [&promise]() {
-                            const std::stringvalue{ "hoge" };
+                        auto thread_function = [&promise]() {
+                            const std::string value{ "hoge" };
                             promise.set_value_at_thread_exit(value);
-                        } };
+                        };
+                        std::thread thread{ std::move(thread_function) };
 
                         BOOST_CHECK(future.get() == "hoge");
 
