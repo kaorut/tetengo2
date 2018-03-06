@@ -20,8 +20,9 @@
 #pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE
-#include <CommCtrl.h>
 #include <Windows.h>
+#// prevent sort by ClangFormat
+#include <CommCtrl.h>
 
 #include <tetengo2/detail/windows/alert.h>
 #include <tetengo2/stdalt.h> // IWYU pragma: keep
