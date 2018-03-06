@@ -34,11 +34,12 @@
 #pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE
-#include <CommCtrl.h>
 #include <ObjBase.h>
 #include <ShObjIdl.h>
 #include <ShTypes.h>
 #include <Windows.h>
+#// prevent sort by ClangFormat
+#include <CommCtrl.h>
 
 #include <tetengo2/detail/windows/com_ptr.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
