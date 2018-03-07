@@ -267,7 +267,10 @@ namespace tetengo2 { namespace gui { namespace widget {
             // constructors and destructor
 
             explicit state_button(side_bar& side_bar_)
-            : inner_item_type(side_bar_, position_type{}, dimension_type{}),
+            : inner_item_type(
+                  side_bar_,
+                  position_type{},
+                  dimension_type{ dimension_unit_type{ 1 }, dimension_unit_type{ 1 } }),
               m_p_current_background_color(&background_color()), m_p_timer(), m_animation_step(0)
             {}
 
