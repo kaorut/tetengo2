@@ -19,7 +19,7 @@ namespace tetengo2 { namespace gui { namespace message {
         \tparam MessageLoopDetails The message loop details type.
     */
     template <typename MessageLoopDetails>
-    class message_loop_break : public std::unary_function<int, void>
+    class message_loop_break
     {
     public:
         // types

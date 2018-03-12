@@ -332,7 +332,7 @@ namespace tetengo2 { namespace detail { namespace windows {
                 const Position&      from,
                 const Position&      to,
                 const Size           width,
-                const int            style,
+                [[maybe_unused]] const int            style,
                 const Color&         color)
             {
                 const Gdiplus::Pen    pen{ Gdiplus::Color{ color.alpha(), color.red(), color.green(), color.blue() },
@@ -461,7 +461,7 @@ namespace tetengo2 { namespace detail { namespace windows {
                 const PositionIterator position_first,
                 const PositionIterator position_last,
                 const Size             width,
-                const int              style,
+                [[maybe_unused]] const int              style,
                 const Color&           color)
             {
                 const Gdiplus::Pen pen{ Gdiplus::Color{ color.alpha(), color.red(), color.green(), color.blue() },

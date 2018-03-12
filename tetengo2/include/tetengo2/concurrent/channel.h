@@ -113,9 +113,6 @@ namespace tetengo2 { namespace concurrent {
                 assert(m_queue.front()->which() == 1);
 
                 std::rethrow_exception(boost::get<std::exception_ptr>(*m_queue.front()));
-
-                assert(false);
-                BOOST_THROW_EXCEPTION((std::logic_error{ "Must not come here." }));
             }
         }
 
