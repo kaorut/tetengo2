@@ -306,10 +306,6 @@ namespace tetengo2 { namespace concurrent {
             this->get_promise().set_value(std::move(result));
         }
 
-#if !( \
-    BOOST_OS_LINUX && \
-    (BOOST_COMP_CLANG >= BOOST_VERSION_NUMBER(3, 5, 0) && BOOST_COMP_CLANG < BOOST_VERSION_NUMBER(3, 6, 0))\
-)
         /*!
             \brief Sets a result value when the thread finishes.
 
@@ -329,7 +325,6 @@ namespace tetengo2 { namespace concurrent {
         {
             this->get_promise().set_value_at_thread_exit(std::move(result));
         }
-#endif
     };
 
 
@@ -384,15 +379,10 @@ namespace tetengo2 { namespace concurrent {
             this->get_promise().set_value(result);
         }
 
-#if !( \
-    BOOST_OS_LINUX && \
-    (BOOST_COMP_CLANG >= BOOST_VERSION_NUMBER(3, 5, 0) && BOOST_COMP_CLANG < BOOST_VERSION_NUMBER(3, 6, 0))\
-)
         void set_value_at_thread_exit(result_type& result)
         {
             this->get_promise().set_value_at_thread_exit(result);
         }
-#endif
     };
 
 
