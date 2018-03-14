@@ -75,12 +75,12 @@ namespace tetengo2 { namespace detail { namespace windows {
         }
 
         virtual void show_task_dialog_impl(
-            const widget_handle_type widget_handle,
-            const string_type&       caption,
-            const string_type&       text1,
-            const string_type&       text2,
-            [[maybe_unused]] const string_type&       source_file_name,
-            [[maybe_unused]] const integer_type       source_file_line) const
+            const widget_handle_type            widget_handle,
+            const string_type&                  caption,
+            const string_type&                  text1,
+            const string_type&                  text2,
+            [[maybe_unused]] const string_type& source_file_name,
+            [[maybe_unused]] const integer_type source_file_line) const
         {
 #if defined(NDEBUG)
             show_task_dialog_impl(
