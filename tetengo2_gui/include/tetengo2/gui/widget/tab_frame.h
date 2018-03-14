@@ -567,11 +567,11 @@ namespace tetengo2 { namespace gui { namespace widget {
             if (m_p_tabs.empty())
                 BOOST_THROW_EXCEPTION(std::logic_error{ "This tab frame has no tab." });
 
-            assert(std::count_if(m_p_tabs.begin(), m_p_tabs.end(), [this](const std::unique_ptr<tab_type>& p_tab) {
+            assert(std::count_if(m_p_tabs.begin(), m_p_tabs.end(), [](const std::unique_ptr<tab_type>& p_tab) {
                        return p_tab->selected();
                    }) == 1);
             const auto tab_position =
-                std::find_if(m_p_tabs.begin(), m_p_tabs.end(), [this](const std::unique_ptr<tab_type>& p_tab) {
+                std::find_if(m_p_tabs.begin(), m_p_tabs.end(), [](const std::unique_ptr<tab_type>& p_tab) {
                     return p_tab->selected();
                 });
             return std::distance(m_p_tabs.begin(), tab_position);
