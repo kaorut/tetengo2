@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_GUI_MESSAGE_MESSAGELOOPBREAK_H)
 #define TETENGO2_GUI_MESSAGE_MESSAGELOOPBREAK_H
 
-#include <functional>
-
 
 namespace tetengo2 { namespace gui { namespace message {
     /*!
