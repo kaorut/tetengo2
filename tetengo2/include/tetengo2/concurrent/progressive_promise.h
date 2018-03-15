@@ -56,7 +56,7 @@ namespace tetengo2 { namespace concurrent {
             \param initial_progress An initial progress.
         */
         explicit progressive_promise_base(progress_type initial_progress)
-        : m_promise(), m_p_state(std::make_shared<detail::progress_state>(std::move(initial_progress)))
+        : m_promise{}, m_p_state{ std::make_shared<detail::progress_state>(std::move(initial_progress)) }
         {}
 
         /*!
@@ -73,8 +73,8 @@ namespace tetengo2 { namespace concurrent {
             progress_type        initial_progress,
             std::allocator_arg_t allocator_arg,
             const Allocator&     allocator)
-        : m_promise(std::move(allocator_arg), allocator),
-          m_p_state(std::make_shared<detail::progress_state>(std::move(initial_progress)))
+        : m_promise{ std::move(allocator_arg), allocator }, m_p_state{ std::make_shared<detail::progress_state>(
+                                                                std::move(initial_progress)) }
         {}
 
         /*!
@@ -83,7 +83,7 @@ namespace tetengo2 { namespace concurrent {
             \param another Another progressive promise base.
         */
         progressive_promise_base(progressive_promise_base&& another) noexcept
-        : m_promise(std::move(another.m_promise)), m_p_state(std::move(another.m_p_state))
+        : m_promise{ std::move(another.m_promise) }, m_p_state{ std::move(another.m_p_state) }
         {}
 
 
@@ -234,7 +234,7 @@ namespace tetengo2 { namespace concurrent {
 
             \param initial_progress An initial progress.
         */
-        explicit progressive_promise(progress_type initial_progress) : base_type(std::move(initial_progress)) {}
+        explicit progressive_promise(progress_type initial_progress) : base_type{ std::move(initial_progress) } {}
 
         /*!
             \brief Creates a progressive promise.
@@ -250,7 +250,7 @@ namespace tetengo2 { namespace concurrent {
             progress_type        initial_progress,
             std::allocator_arg_t allocator_arg,
             const Allocator&     allocator)
-        : base_type(std::move(initial_progress), std::move(allocator_arg), allocator)
+        : base_type{ std::move(initial_progress), std::move(allocator_arg), allocator }
         {}
 
         /*!
@@ -348,14 +348,14 @@ namespace tetengo2 { namespace concurrent {
 
         // constructors and destructor
 
-        explicit progressive_promise(progress_type initial_progress) : base_type(std::move(initial_progress)) {}
+        explicit progressive_promise(progress_type initial_progress) : base_type{ std::move(initial_progress) } {}
 
         template <typename Allocator>
         progressive_promise(
             progress_type        initial_progress,
             std::allocator_arg_t allocator_arg,
             const Allocator&     allocator)
-        : base_type(std::move(initial_progress), std::move(allocator_arg), allocator)
+        : base_type{ std::move(initial_progress), std::move(allocator_arg), allocator }
         {}
 
         progressive_promise(progressive_promise&& another) noexcept : base_type(std::move(another)) {}
@@ -405,14 +405,14 @@ namespace tetengo2 { namespace concurrent {
 
         // constructors and destructor
 
-        explicit progressive_promise(progress_type initial_progress) : base_type(std::move(initial_progress)) {}
+        explicit progressive_promise(progress_type initial_progress) : base_type{ std::move(initial_progress) } {}
 
         template <typename Allocator>
         progressive_promise(
             progress_type        initial_progress,
             std::allocator_arg_t allocator_arg,
             const Allocator&     allocator)
-        : base_type(std::move(initial_progress), std::move(allocator_arg), allocator)
+        : base_type{ std::move(initial_progress), std::move(allocator_arg), allocator }
         {}
 
         progressive_promise(progressive_promise&& another) noexcept : base_type(std::move(another)) {}

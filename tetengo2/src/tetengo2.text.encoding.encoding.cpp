@@ -96,7 +96,7 @@ namespace tetengo2 { namespace text { namespace encoding {
     }
 
     template <typename String>
-    encoding<String>::encoding() : m_p_impl(std::make_shared<impl>())
+    encoding<String>::encoding() : m_p_impl{ std::make_shared<impl>() }
     {}
 
     template <typename String>

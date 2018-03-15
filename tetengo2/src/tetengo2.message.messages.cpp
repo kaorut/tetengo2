@@ -84,7 +84,7 @@ namespace tetengo2 { namespace message {
         // constructors and destructor
 
         impl(const boost::filesystem::path& path, const std::locale& locale)
-        : m_open(false), m_message_catalog(load_message_catalog(path, locale))
+        : m_open{ false }, m_message_catalog{ load_message_catalog(path, locale) }
         {}
 
 
@@ -155,7 +155,7 @@ namespace tetengo2 { namespace message {
         {
             const std::locale& m_locale;
 
-            matches_locale_type(const std::locale& locale) : m_locale(locale) {}
+            matches_locale_type(const std::locale& locale) : m_locale{ locale } {}
 
             bool operator()(const catalog_file_mappings_type::value_type& mapping) const
             {
@@ -296,7 +296,7 @@ namespace tetengo2 { namespace message {
     }
 
     messages::messages(const boost::filesystem::path& path, const std::locale& locale)
-    : m_p_impl(stdalt::make_unique<impl>(path, locale))
+    : m_p_impl{ stdalt::make_unique<impl>(path, locale) }
     {}
 
     messages::~messages() = default;

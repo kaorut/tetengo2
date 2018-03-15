@@ -113,8 +113,8 @@ namespace tetengo2 { namespace gui { namespace widget {
             \param cursor_details A cursor detail implementation.
         */
         side_bar(widget_type& parent, const cursor_details_type& cursor_details)
-        : base_type(parent, false, scroll_bar_style_type::none), m_cursor_details(cursor_details), m_p_caption(),
-          m_p_splitter(), m_preferred_width(dimension_unit_type{}), m_minimized(false)
+        : base_type{ parent, false, scroll_bar_style_type::none }, m_cursor_details{ cursor_details }, m_p_caption{},
+          m_p_splitter{}, m_preferred_width{ dimension_unit_type{} }, m_minimized{ false }
         {
             initialize_side_bar(*this);
         }
@@ -267,11 +267,10 @@ namespace tetengo2 { namespace gui { namespace widget {
             // constructors and destructor
 
             explicit state_button(side_bar& side_bar_)
-            : inner_item_type(
-                  side_bar_,
-                  position_type{},
-                  dimension_type{ dimension_unit_type{ 1 }, dimension_unit_type{ 1 } }),
-              m_p_current_background_color(&background_color()), m_p_timer(), m_animation_step(0)
+            : inner_item_type{ side_bar_,
+                               position_type{},
+                               dimension_type{ dimension_unit_type{ 1 }, dimension_unit_type{ 1 } } },
+              m_p_current_background_color{ &background_color() }, m_p_timer{}, m_animation_step{ 0 }
             {}
 
 
@@ -466,7 +465,7 @@ namespace tetengo2 { namespace gui { namespace widget {
             // constructors and destructor
 
             explicit caption(side_bar& side_bar_)
-            : inner_item_type(side_bar_, position_type{}, dimension_type{}), m_text_position()
+            : inner_item_type{ side_bar_, position_type{}, dimension_type{} }, m_text_position{}
             {}
 
             virtual ~caption() = default;
@@ -635,8 +634,8 @@ namespace tetengo2 { namespace gui { namespace widget {
             // constructors and destructor
 
             explicit splitter(side_bar& side_bar_)
-            : inner_item_type(side_bar_, position_type{}, dimension_type{}), m_need_size_recalculation(true),
-              m_pressed_position(position_type{})
+            : inner_item_type{ side_bar_, position_type{}, dimension_type{} }, m_need_size_recalculation{ true },
+              m_pressed_position{ position_type{} }
             {}
 
 

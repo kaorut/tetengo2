@@ -871,7 +871,7 @@ namespace tetengo2 { namespace gui { namespace widget {
         class paint_background
         {
         public:
-            paint_background(widget& self) : m_self(self) {}
+            paint_background(widget& self) : m_self{ self } {}
 
             bool operator()(canvas_type& canvas) const
             {

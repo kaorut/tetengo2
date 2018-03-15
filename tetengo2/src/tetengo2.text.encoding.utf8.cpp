@@ -49,7 +49,7 @@ namespace tetengo2 { namespace text { namespace encoding {
     };
 
 
-    utf8::utf8() : m_p_impl(std::make_shared<impl>()) {}
+    utf8::utf8() : m_p_impl{ std::make_shared<impl>() } {}
 
     utf8::~utf8() = default;
 

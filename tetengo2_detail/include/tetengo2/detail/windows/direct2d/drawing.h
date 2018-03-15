@@ -89,7 +89,7 @@ namespace tetengo2 { namespace detail { namespace windows {
                     const unsigned char green,
                     const unsigned char blue,
                     const unsigned char alpha)
-                : m_red(red), m_green(green), m_blue(blue), m_alpha(alpha)
+                : m_red{ red }, m_green{ green }, m_blue{ blue }, m_alpha{ alpha }
                 {}
 
                 virtual ~solid_background_details() = default;

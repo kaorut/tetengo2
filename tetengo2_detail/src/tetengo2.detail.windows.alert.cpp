@@ -56,7 +56,7 @@ namespace tetengo2 { namespace detail { namespace windows {
 
         // constructors and destructor
 
-        impl() : m_encoder(type_list::internal_encoding_type{}, text::encoding::locale<std::wstring>{}) {}
+        impl() : m_encoder{ type_list::internal_encoding_type{}, text::encoding::locale<std::wstring>{} } {}
 
 
         // functions
@@ -181,7 +181,7 @@ namespace tetengo2 { namespace detail { namespace windows {
 
     alert::~alert() = default;
 
-    alert::alert() : m_p_impl(stdalt::make_unique<impl>()) {}
+    alert::alert() : m_p_impl{ stdalt::make_unique<impl>() } {}
 
     alert::widget_handle_type alert::root_ancestor_widget_handle_impl(const widget_handle_type widget_handle) const
     {

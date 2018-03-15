@@ -99,12 +99,12 @@ namespace tetengo2 {
                 \param another Another progressive future base.
             */
             progressive_future_base(progressive_future_base&& another) noexcept
-            : m_future(std::move(another.m_future)), m_p_state(std::move(another.m_p_state))
+            : m_future{ std::move(another.m_future) }, m_p_state{ std::move(another.m_p_state) }
             {}
 
 #if !defined(DOCUMENTATION)
             progressive_future_base(future_type&& future, const std::shared_ptr<detail::progress_state>& p_state)
-            : m_future(std::move(future)), m_p_state(p_state)
+            : m_future{ std::move(future) }, m_p_state{ p_state }
             {}
 #endif
 
@@ -277,7 +277,7 @@ namespace tetengo2 {
 
 #if !defined(DOCUMENTATION)
             progressive_future(future_type&& future, const std::shared_ptr<detail::progress_state>& p_state)
-            : base_type(std::move(future), p_state)
+            : base_type{ std::move(future), p_state }
             {}
 #endif
 
@@ -332,7 +332,7 @@ namespace tetengo2 {
             progressive_future(progressive_future&& another) noexcept : base_type(std::move(another)) {}
 
             progressive_future(future_type&& future, const std::shared_ptr<detail::progress_state>& p_state)
-            : base_type(std::move(future), p_state)
+            : base_type{ std::move(future), p_state }
             {}
 
 
@@ -373,7 +373,7 @@ namespace tetengo2 {
             progressive_future(progressive_future&& another) noexcept : base_type(std::move(another)) {}
 
             progressive_future(future_type&& future, const std::shared_ptr<detail::progress_state>& p_state) noexcept
-            : base_type(std::move(future), p_state)
+            : base_type{ std::move(future), p_state }
             {}
 
 

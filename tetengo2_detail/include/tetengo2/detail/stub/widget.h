@@ -52,7 +52,7 @@ namespace tetengo2 { namespace detail { namespace stub {
             bool        underline;
             bool        strikeout;
 
-            details_font_type() : family(), size(), bold(), italic(), underline(), strikeout() {}
+            details_font_type() : family{}, size{}, bold{}, italic{}, underline{}, strikeout{} {}
 
             details_font_type(
                 string_type       family,
@@ -61,8 +61,8 @@ namespace tetengo2 { namespace detail { namespace stub {
                 const bool        italic,
                 const bool        underline,
                 const bool        strikeout)
-            : family(std::move(family)), size(size), bold(bold), italic(italic), underline(underline),
-              strikeout(strikeout)
+            : family{ std::move(family) }, size{ size }, bold{ bold }, italic{ italic }, underline{ underline },
+              strikeout{ strikeout }
             {}
         };
 #endif
@@ -89,9 +89,9 @@ namespace tetengo2 { namespace detail { namespace stub {
             int                                       progress_bar_state;
 
             widget_details_type()
-            : p_parent(), enabled(), visible(), window_state(), position(), dimension(), text(), font(), children(),
-              focusable(), read_only(), list_box_values(), selected_list_box_value_index(), progress_bar_goal(),
-              progress_bar_progress(), progress_bar_state()
+            : p_parent{}, enabled{}, visible{}, window_state{}, position{}, dimension{}, text{}, font{}, children{},
+              focusable{}, read_only{}, list_box_values{}, selected_list_box_value_index{}, progress_bar_goal{},
+              progress_bar_progress{}, progress_bar_state{}
             {}
 
             widget_details_type(
@@ -111,13 +111,13 @@ namespace tetengo2 { namespace detail { namespace stub {
                 const std::size_t                         progress_bar_goal,
                 const std::size_t                         progress_bar_progress,
                 const int                                 progress_bar_state)
-            : p_parent(p_parent), enabled(enabled), visible(visible), window_state(window_state),
-              position(std::move(position)), dimension(std::move(dimension)), text(std::move(text)),
-              font(std::move(font)), children(std::move(children)), focusable(focusable), read_only(read_only),
-              list_box_values(std::move(list_box_values)),
-              selected_list_box_value_index(std::move(selected_list_box_value_index)),
-              progress_bar_goal(progress_bar_goal), progress_bar_progress(progress_bar_progress),
-              progress_bar_state(progress_bar_state)
+            : p_parent{ p_parent }, enabled{ enabled }, visible{ visible }, window_state{ window_state },
+              position{ std::move(position) }, dimension{ std::move(dimension) }, text{ std::move(text) },
+              font{ std::move(font) }, children{ std::move(children) }, focusable{ focusable }, read_only{ read_only },
+              list_box_values{ std::move(list_box_values) }, selected_list_box_value_index{ std::move(
+                                                                 selected_list_box_value_index) },
+              progress_bar_goal{ progress_bar_goal }, progress_bar_progress{ progress_bar_progress },
+              progress_bar_state{ progress_bar_state }
             {}
 #endif
         };

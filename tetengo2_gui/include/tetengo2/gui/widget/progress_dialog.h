@@ -120,9 +120,10 @@ namespace tetengo2 { namespace gui { namespace widget {
             string_type                 canceling_message,
             task_type                   task,
             const message_catalog_type& message_catalog)
-        : base_type(parent, false), m_canceling_message(std::move(canceling_message)), m_p_message_label(),
-          m_p_progress_label(), m_p_progress_bar(), m_p_cancel_button(), m_promise(0), m_future(m_promise.get_future()),
-          m_task(std::move(task)), m_p_thread(), m_p_timer(), m_previous_progress(), m_message_catalog(message_catalog)
+        : base_type{ parent, false }, m_canceling_message{ std::move(canceling_message) }, m_p_message_label{},
+          m_p_progress_label{}, m_p_progress_bar{},
+          m_p_cancel_button{}, m_promise{ 0 }, m_future{ m_promise.get_future() }, m_task{ std::move(task) },
+          m_p_thread{}, m_p_timer{}, m_previous_progress{}, m_message_catalog{ message_catalog }
         {
             initialize_dialog(std::move(title), std::move(waiting_message));
         }

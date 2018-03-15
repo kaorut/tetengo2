@@ -117,7 +117,7 @@ namespace tetengo2 { namespace detail { namespace base {
         return m_p_impl->point_difference_to_pixel(point_difference, *this);
     }
 
-    unit::unit() : m_p_impl(stdalt::make_unique<impl>()) {}
+    unit::unit() : m_p_impl{ stdalt::make_unique<impl>() } {}
 
 
 }}}

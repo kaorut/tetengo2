@@ -61,7 +61,7 @@ namespace tetengo2 { namespace detail {
                 ::HMENU     parent_handle;
 
                 id_handle_type(const ::UINT id, handle_type handle, const ::HMENU parent_handle)
-                : id(id), handle(std::move(handle)), parent_handle(parent_handle)
+                : id{ id }, handle{ std::move(handle) }, parent_handle{ parent_handle }
                 {}
             };
 
@@ -80,10 +80,10 @@ namespace tetengo2 { namespace detail {
             class shortcut_key_table_details : private boost::noncopyable
             {
             public:
-                shortcut_key_table_details() : m_accelerator_table_handle() {}
+                shortcut_key_table_details() : m_accelerator_table_handle{} {}
 
                 explicit shortcut_key_table_details(const ::HACCEL accelerator_table_handle)
-                : m_accelerator_table_handle(accelerator_table_handle)
+                : m_accelerator_table_handle{ accelerator_table_handle }
                 {}
 
                 ::HACCEL get() const

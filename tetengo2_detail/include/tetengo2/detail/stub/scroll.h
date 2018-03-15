@@ -48,8 +48,8 @@ namespace tetengo2 { namespace detail { namespace stub {
                 std::pair<size_type, size_type>&& range,
                 const size_type                   page_size,
                 const bool                        enabled)
-            : position(position), range(std::forward<std::pair<size_type, size_type>>(range)), page_size(page_size),
-              enabled(enabled)
+            : position{ position }, range{ std::forward<std::pair<size_type, size_type>>(range) },
+              page_size{ page_size }, enabled{ enabled }
             {}
 #endif
         };

@@ -54,7 +54,7 @@ namespace tetengo2 { namespace concurrent {
             \throw std::invalid_argument When capacity is equal to 0.
         */
         explicit channel(const size_type capacity)
-        : m_mutex(), m_condition_variable(), m_queue(), m_capacity(capacity), m_close_requested(false)
+        : m_mutex{}, m_condition_variable{}, m_queue{}, m_capacity{ capacity }, m_close_requested{ false }
         {
             if (capacity == 0)
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "Capacity is zero." }));

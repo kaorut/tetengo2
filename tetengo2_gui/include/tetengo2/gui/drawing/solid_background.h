@@ -45,8 +45,9 @@ namespace tetengo2 { namespace gui { namespace drawing {
             \param color A color.
         */
         explicit solid_background(color_type color)
-        : base_type(), m_color(std::move(color)),
-          m_p_details(base_type::drawing_details_type::create_solid_background(m_color))
+        : base_type{}, m_color{ std::move(color) }, m_p_details{
+              base_type::drawing_details_type::create_solid_background(m_color)
+          }
         {}
 
         /*!

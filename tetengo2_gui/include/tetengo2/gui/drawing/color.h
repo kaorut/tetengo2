@@ -46,7 +46,7 @@ namespace tetengo2 { namespace gui { namespace drawing {
             const value_type green,
             const value_type blue,
             const value_type alpha = std::numeric_limits<value_type>::max())
-        : m_red(red), m_green(green), m_blue(blue), m_alpha(alpha)
+        : m_red{ red }, m_green{ green }, m_blue{ blue }, m_alpha{ alpha }
         {}
 
 

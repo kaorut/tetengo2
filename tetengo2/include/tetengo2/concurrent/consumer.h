@@ -43,7 +43,7 @@ namespace tetengo2 { namespace concurrent {
 
             \param channel A channel.
         */
-        explicit consumer(channel_type& channel) : m_channel(channel) {}
+        explicit consumer(channel_type& channel) : m_channel{ channel } {}
 
         /*!
             \brief Destroys the consumer.

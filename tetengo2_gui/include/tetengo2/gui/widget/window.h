@@ -69,11 +69,12 @@ namespace tetengo2 { namespace gui { namespace widget {
         explicit window(
             const scroll_bar_style_type scroll_bar_style = base_type::scroll_bar_style_type::none,
             const bool                  file_droppable = false)
-        : base_type(scroll_bar_style, file_droppable, message_handler_map_type{}),
-          m_p_details(widget_details_type::template create_window<typename base_type::base_type>(
-              nullptr,
-              scroll_bar_style,
-              file_droppable))
+        : base_type{ scroll_bar_style, file_droppable, message_handler_map_type{} }, m_p_details{
+              widget_details_type::template create_window<typename base_type::base_type>(
+                  nullptr,
+                  scroll_bar_style,
+                  file_droppable)
+          }
         {
             initialize_window();
         }

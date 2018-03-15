@@ -88,7 +88,7 @@ namespace tetengo2 { namespace detail { namespace stub {
 
     unit::~unit() = default;
 
-    unit::unit() : m_p_impl(stdalt::make_unique<impl>()) {}
+    unit::unit() : m_p_impl{ stdalt::make_unique<impl>() } {}
 
     boost::rational<unit::size_type> unit::pixel_size_to_em_impl(const size_type pixel_size) const
     {

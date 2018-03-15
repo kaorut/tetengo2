@@ -49,7 +49,7 @@ namespace tetengo2 { namespace gui { namespace drawing {
 
             \param path A path.
         */
-        explicit picture_reader(boost::filesystem::path path) : m_path(std::move(path)) {}
+        explicit picture_reader(boost::filesystem::path path) : m_path{ std::move(path) } {}
 
 
         // functions

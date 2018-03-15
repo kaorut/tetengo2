@@ -38,7 +38,8 @@ namespace tetengo2 {
             \param multibyte A multibyte value.
             \param wide      A wide value.
         */
-        text_value_holder(const multibyte_type multibyte, const wide_type wide) : m_multibyte(multibyte), m_wide(wide)
+        text_value_holder(const multibyte_type multibyte, const wide_type wide)
+        : m_multibyte{ multibyte }, m_wide{ wide }
         {}
 
 
@@ -88,7 +89,7 @@ namespace tetengo2 {
     template <typename Multibyte, typename Wide>
     text_value_holder<Multibyte, Wide> make_text_value_holder(const Multibyte multibyte, const Wide wide)
     {
-        return text_value_holder<Multibyte, Wide>(multibyte, wide);
+        return text_value_holder<Multibyte, Wide>{ multibyte, wide };
     }
 }
 

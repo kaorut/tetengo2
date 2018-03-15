@@ -36,7 +36,7 @@ namespace tetengo2 { namespace config {
 
         // constructors and destructor
 
-        impl() : m_values() {}
+        impl() : m_values{} {}
 
 
         // functions
@@ -70,7 +70,7 @@ namespace tetengo2 { namespace config {
     };
 
 
-    temporary_config::temporary_config() : m_p_impl(stdalt::make_unique<impl>()) {}
+    temporary_config::temporary_config() : m_p_impl{ stdalt::make_unique<impl>() } {}
 
     temporary_config::~temporary_config() = default;
 

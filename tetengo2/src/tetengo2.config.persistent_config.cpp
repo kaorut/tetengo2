@@ -42,7 +42,7 @@ namespace tetengo2 { namespace config {
 
         // constructors and destructor
 
-        explicit impl(string_type group_name) : m_group_name(std::move(group_name)) {}
+        explicit impl(string_type group_name) : m_group_name{ std::move(group_name) } {}
 
 
         // functions
@@ -90,7 +90,7 @@ namespace tetengo2 { namespace config {
 
 
     persistent_config::persistent_config(string_type group_name)
-    : m_p_impl(stdalt::make_unique<impl>(std::move(group_name)))
+    : m_p_impl{ stdalt::make_unique<impl>(std::move(group_name)) }
     {}
 
     persistent_config::~persistent_config() = default;

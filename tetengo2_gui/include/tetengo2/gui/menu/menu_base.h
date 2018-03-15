@@ -355,8 +355,8 @@ namespace tetengo2 { namespace gui { namespace menu {
             \param p_details A unique pointer to a detail implementation.
         */
         menu_base(string_type text, details_ptr_type p_details)
-        : m_text(std::move(text)), m_enabled(true), m_state(state_type::default_), m_shortcut_key(),
-          m_menu_observer_set(), m_p_details(std::move(p_details))
+        : m_text{ std::move(text) }, m_enabled{ true }, m_state{ state_type::default_ }, m_shortcut_key{},
+          m_menu_observer_set{}, m_p_details{ std::move(p_details) }
         {
             set_enabled(true);
             set_state(state_type::default_);
@@ -370,8 +370,8 @@ namespace tetengo2 { namespace gui { namespace menu {
             \param p_details    A unique pointer to a detail implementation.
         */
         menu_base(string_type text, shortcut_key_type shortcut_key, details_ptr_type p_details)
-        : m_text(std::move(text)), m_enabled(true), m_state(state_type::default_),
-          m_shortcut_key(std::move(shortcut_key)), m_menu_observer_set(), m_p_details(std::move(p_details))
+        : m_text{ std::move(text) }, m_enabled{ true }, m_state{ state_type::default_ },
+          m_shortcut_key{ std::move(shortcut_key) }, m_menu_observer_set{}, m_p_details{ std::move(p_details) }
         {
             set_enabled(true);
             set_state(state_type::default_);

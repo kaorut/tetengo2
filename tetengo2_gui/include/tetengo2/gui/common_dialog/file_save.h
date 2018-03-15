@@ -90,13 +90,13 @@ namespace tetengo2 { namespace gui { namespace common_dialog {
             const boost::optional<boost::filesystem::path>& path,
             file_filters_type                               file_filters,
             abstract_window_type&                           parent)
-        : m_p_details(common_dialog_details_type::create_file_save_dialog(
+        : m_p_details{ common_dialog_details_type::create_file_save_dialog(
               parent,
               std::move(title),
               path,
               std::move(file_filters),
-              encoder())),
-          m_result(path ? *path : boost::filesystem::path{})
+              encoder()) },
+          m_result{ path ? *path : boost::filesystem::path{} }
         {}
 
 

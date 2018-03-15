@@ -121,7 +121,7 @@ namespace tetengo2 { namespace detail { namespace windows {
         class registry_type : private boost::noncopyable
         {
         public:
-            registry_type(const string_type& key, const ::REGSAM mode) : m_handle(create(key, mode)) {}
+            registry_type(const string_type& key, const ::REGSAM mode) : m_handle{ create(key, mode) } {}
 
             ~registry_type() noexcept
             {
@@ -280,7 +280,7 @@ namespace tetengo2 { namespace detail { namespace windows {
 
     config::~config() = default;
 
-    config::config() : m_p_impl(stdalt::make_unique<impl>()) {}
+    config::config() : m_p_impl{ stdalt::make_unique<impl>() } {}
 
 
     // virtual functions

@@ -48,7 +48,7 @@ namespace tetengo2 { namespace iterator {
             \param forward_iterator A forward iterator.
         */
         explicit observable_forward_iterator(iterator forward_iterator)
-        : m_forward_iterator(forward_iterator), m_increment_observer([](const observable_forward_iterator&) {})
+        : m_forward_iterator{ forward_iterator }, m_increment_observer{ [](const observable_forward_iterator&) {} }
         {}
 
 

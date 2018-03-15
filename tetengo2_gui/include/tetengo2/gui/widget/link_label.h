@@ -95,7 +95,7 @@ namespace tetengo2 { namespace gui { namespace widget {
             \param cursor_details A cursor detail implementation.
         */
         link_label(widget_type& parent, const cursor_details_type& cursor_details)
-        : base_type(parent), m_target(), m_mouse_button_pressing(false)
+        : base_type{ parent }, m_target{}, m_mouse_button_pressing{ false }
         {
             initialize_link_label(this, cursor_details);
         }
@@ -139,7 +139,7 @@ namespace tetengo2 { namespace gui { namespace widget {
         class paint_background
         {
         public:
-            paint_background(link_label& self) : m_self(self) {}
+            paint_background(link_label& self) : m_self{ self } {}
 
             bool operator()(canvas_type& canvas) const
             {

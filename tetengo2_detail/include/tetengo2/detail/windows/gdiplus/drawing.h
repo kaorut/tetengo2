@@ -62,9 +62,10 @@ namespace tetengo2 { namespace detail { namespace windows {
             class background_details : private boost::noncopyable
             {
             public:
-                background_details() : m_p_brush() {}
+                background_details() : m_p_brush{} {}
 
-                explicit background_details(std::unique_ptr<Gdiplus::Brush> p_brush) : m_p_brush(std::move(p_brush)) {}
+                explicit background_details(std::unique_ptr<Gdiplus::Brush> p_brush) : m_p_brush{ std::move(p_brush) }
+                {}
 
                 const Gdiplus::Brush* get() const
                 {
@@ -80,8 +81,8 @@ namespace tetengo2 { namespace detail { namespace windows {
             public:
                 template <typename HandleOrWidgetDetails>
                 canvas_details(const HandleOrWidgetDetails& handle_or_widget_details)
-                : m_p_widget_graphics(create_canvas_impl(handle_or_widget_details)), m_p_memory_image(),
-                  m_p_memory_graphics()
+                : m_p_widget_graphics{ create_canvas_impl(handle_or_widget_details) }, m_p_memory_image{},
+                  m_p_memory_graphics{}
                 {}
 
                 Gdiplus::Graphics& get() const

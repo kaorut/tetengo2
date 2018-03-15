@@ -29,9 +29,9 @@ namespace {
     class concrete_encoding : public encoding_type
     {
     public:
-        concrete_encoding() : m_name("test_concrete") {}
+        concrete_encoding() : m_name{ "test_concrete" } {}
 
-        concrete_encoding(std::string name) : m_name(std::move(name)) {}
+        concrete_encoding(std::string name) : m_name{ std::move(name) } {}
 
         void call_details() const
         {

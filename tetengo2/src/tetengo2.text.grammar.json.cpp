@@ -45,10 +45,10 @@ namespace tetengo2 { namespace text { namespace grammar {
         // constructors and destructor
 
         impl(rule_type& json_text, json& base)
-        : m_json_text(json_text), m_begin_array(), m_begin_object(), m_end_array(), m_end_object(), m_name_separator(),
-          m_value_separator(), m_ws(), m_value(), m_false(), m_null(), m_true(), m_object(), m_member(), m_array(),
-          m_number(), m_decimal_point(), m_digit1to9(), m_e(), m_exp(), m_frac(), m_int(), m_minus(), m_plus(),
-          m_zero(), m_string(), m_char(), m_escape(), m_quotation_mark(), m_unescaped()
+        : m_json_text{ json_text }, m_begin_array{}, m_begin_object{}, m_end_array{}, m_end_object{},
+          m_name_separator{}, m_value_separator{}, m_ws{}, m_value{}, m_false{}, m_null{}, m_true{}, m_object{},
+          m_member{}, m_array{}, m_number{}, m_decimal_point{}, m_digit1to9{}, m_e{}, m_exp{}, m_frac{}, m_int{},
+          m_minus{}, m_plus{}, m_zero{}, m_string{}, m_char{}, m_escape{}, m_quotation_mark{}, m_unescaped{}
         {
             define_rules(base);
         }
@@ -116,7 +116,7 @@ namespace tetengo2 { namespace text { namespace grammar {
             const handler_type m_handler;
 
             call_handler_type(impl& self, json& base, const handler_type handler)
-            : m_self(self), m_base(base), m_handler(handler)
+            : m_self{ self }, m_base{ base }, m_handler{ handler }
             {}
 
             void operator()(const string_type& attribute, const boost::spirit::qi::unused_type&, bool& pass) const
@@ -326,7 +326,7 @@ namespace tetengo2 { namespace text { namespace grammar {
 
     template <typename ForwardIterator>
     json<ForwardIterator>::json()
-    : base_type(m_json_text), m_json_text(), m_p_impl(stdalt::make_unique<impl>(m_json_text, *this))
+    : base_type{ m_json_text }, m_json_text{}, m_p_impl{ stdalt::make_unique<impl>(m_json_text, *this) }
     {}
 
     template <typename ForwardIterator>

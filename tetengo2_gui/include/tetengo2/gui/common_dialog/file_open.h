@@ -84,12 +84,12 @@ namespace tetengo2 { namespace gui { namespace common_dialog {
             \param parent       A parent widget.
         */
         file_open(string_type title, file_filters_type file_filters, abstract_window_type& parent)
-        : m_p_details(common_dialog_details_type::create_file_open_dialog(
+        : m_p_details{ common_dialog_details_type::create_file_open_dialog(
               parent,
               std::move(title),
               std::move(file_filters),
-              encoder())),
-          m_result()
+              encoder()) },
+          m_result{}
         {}
 
 

@@ -56,12 +56,12 @@ namespace tetengo2 { namespace detail { namespace windows {
             std::function<void(bool&)>       procedure,
             const std::chrono::milliseconds& interval,
             const bool                       once_only)
-        : m_window_handle(widget.details().handle.get()), m_procedure(std::move(procedure)), m_once_only(once_only),
-          m_id(::SetTimer(
-              m_window_handle,
-              reinterpret_cast<::UINT_PTR>(this),
-              static_cast<::UINT>(interval.count()),
-              timer_proc))
+        : m_window_handle{ widget.details().handle.get() }, m_procedure{ std::move(procedure) },
+          m_once_only{ once_only }, m_id{ ::SetTimer(
+                                        m_window_handle,
+                                        reinterpret_cast<::UINT_PTR>(this),
+                                        static_cast<::UINT>(interval.count()),
+                                        timer_proc) }
         {
             if (stopped())
             {

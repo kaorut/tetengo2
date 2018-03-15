@@ -80,7 +80,7 @@ namespace tetengo2 { namespace detail { namespace unixos {
         {
         public:
             iconv_converter(const char* const from, const char* const to)
-            : m_conversion_descriptor(::iconv_open(to, from))
+            : m_conversion_descriptor{ ::iconv_open(to, from) }
             {
                 if (m_conversion_descriptor == reinterpret_cast<::iconv_t>(-1))
                     throw std::runtime_error("Can't open iconv.");
@@ -155,7 +155,7 @@ namespace tetengo2 { namespace detail { namespace unixos {
 
     encoding::~encoding() = default;
 
-    encoding::encoding() : m_p_impl(stdalt::make_unique<impl>()) {}
+    encoding::encoding() : m_p_impl{ stdalt::make_unique<impl>() } {}
 
     encoding::utf8_string_type encoding::pivot_to_utf8_impl(pivot_type pivot) const
     {

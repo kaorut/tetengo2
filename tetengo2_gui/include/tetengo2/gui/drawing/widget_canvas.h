@@ -41,7 +41,7 @@ namespace tetengo2 { namespace gui { namespace drawing {
         */
         template <typename HandleOrWidgetDetails>
         explicit widget_canvas(const HandleOrWidgetDetails& handle_or_widget_details)
-        : base_type(base_type::drawing_details_type::create_canvas(handle_or_widget_details))
+        : base_type{ base_type::drawing_details_type::create_canvas(handle_or_widget_details) }
         {}
 
         /*!
