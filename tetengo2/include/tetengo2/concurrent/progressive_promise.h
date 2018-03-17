@@ -16,7 +16,6 @@
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/predef.h>
 #include <boost/rational.hpp>
 
 #include <tetengo2/concurrent/progressive_future.h>
