@@ -53,7 +53,7 @@ namespace {
         // constructors and destructor
 
         concrete_popup_menu(string_type text)
-        : abstract_popup_menu_type(std::move(text), menu_details_type::create_popup_menu())
+        : abstract_popup_menu_type{ std::move(text), menu_details_type::create_popup_menu() }
         {}
 
 

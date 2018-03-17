@@ -51,7 +51,7 @@ namespace {
     {
     public:
         explicit concrete_dialog(abstract_window_type& parent, const bool file_droppable = false)
-        : dialog_type(parent, file_droppable)
+        : dialog_type{ parent, file_droppable }
         {}
     };
 }

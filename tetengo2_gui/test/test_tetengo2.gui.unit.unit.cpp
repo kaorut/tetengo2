@@ -42,7 +42,7 @@ namespace {
 
         // constructors and destructor
 
-        explicit concrete_unit(value_type value) : m_value(std::move(value)) {}
+        explicit concrete_unit(value_type value) : m_value{ std::move(value) } {}
 
 
         // functions

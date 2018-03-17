@@ -29,7 +29,7 @@ namespace {
 
     struct concrete_background : public background_type
     {
-        concrete_background() : background_type(), m_details() {}
+        concrete_background() : background_type{}, m_details{} {}
 
 
     private:
