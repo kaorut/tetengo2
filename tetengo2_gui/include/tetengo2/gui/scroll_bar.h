@@ -65,8 +65,8 @@ namespace tetengo2 { namespace gui {
         */
         template <typename WidgetDetails>
         scroll_bar(const WidgetDetails& widget_details, const style_type style)
-        : m_p_details(details_type::create_scroll_bar(widget_details, to_details_style(style))),
-          m_scroll_bar_observer_set(), m_tracking_position()
+        : m_p_details{ details_type::create_scroll_bar(widget_details, to_details_style(style)) },
+          m_scroll_bar_observer_set{}, m_tracking_position{}
         {
             set_observers();
         }
