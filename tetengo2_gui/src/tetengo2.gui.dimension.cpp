@@ -16,12 +16,12 @@
 
 namespace tetengo2 { namespace gui {
     template <typename Unit>
-    dimension<Unit>::dimension() : m_width(unit_type{}), m_height(unit_type{})
+    dimension<Unit>::dimension() : m_width{ unit_type{} }, m_height{ unit_type{} }
     {}
 
     template <typename Unit>
     dimension<Unit>::dimension(unit_type width, unit_type height)
-    : m_width(std::move(width)), m_height(std::move(height))
+    : m_width{ std::move(width) }, m_height{ std::move(height) }
     {}
 
     template <typename U>

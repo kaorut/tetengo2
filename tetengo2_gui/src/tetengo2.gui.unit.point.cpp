@@ -20,11 +20,11 @@
 
 namespace tetengo2 { namespace gui { namespace unit {
     template <typename Value, typename UnitDetails>
-    basic_point<Value, UnitDetails>::basic_point() : m_value(0)
+    basic_point<Value, UnitDetails>::basic_point() : m_value{ 0 }
     {}
 
     template <typename Value, typename UnitDetails>
-    basic_point<Value, UnitDetails>::basic_point(value_type value) : m_value(std::move(value))
+    basic_point<Value, UnitDetails>::basic_point(value_type value) : m_value{ std::move(value) }
     {}
 
     template <typename V, typename UD>
