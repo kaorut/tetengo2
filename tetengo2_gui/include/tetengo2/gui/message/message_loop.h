@@ -39,7 +39,7 @@ namespace tetengo2 { namespace gui { namespace message {
 
             \param window A window.
         */
-        explicit message_loop(abstract_window_type& window) : m_window(window) {}
+        explicit message_loop(abstract_window_type& window) : m_window{ window } {}
 
 
         // functions

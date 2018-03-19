@@ -50,7 +50,7 @@ namespace tetengo2 { namespace detail { namespace stub {
                 \param width A width.
                 \param height A height.
             */
-            picture_details_type(const std::size_t width, const std::size_t height) : m_dimension(width, height) {}
+            picture_details_type(const std::size_t width, const std::size_t height) : m_dimension{ width, height } {}
 
             /*!
                 \brief Returns the dimension.

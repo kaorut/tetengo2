@@ -37,7 +37,7 @@ namespace tetengo2 { namespace detail { namespace windows {
     public:
         // constructors and destructor
 
-        impl() : m_p_gdiplus_gui_fixture()
+        impl() : m_p_gdiplus_gui_fixture{}
         {
             check_platform();
             setup_common_controls();
@@ -97,7 +97,7 @@ namespace tetengo2 { namespace detail { namespace windows {
     };
 
 
-    gui_fixture::gui_fixture() : m_p_impl(stdalt::make_unique<impl>()) {}
+    gui_fixture::gui_fixture() : m_p_impl{ stdalt::make_unique<impl>() } {}
 
     gui_fixture::~gui_fixture() = default;
 

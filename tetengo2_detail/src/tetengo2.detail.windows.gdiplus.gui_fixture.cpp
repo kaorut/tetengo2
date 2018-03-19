@@ -40,7 +40,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus {
     public:
         // constructors and destructor
 
-        impl() : m_gdiplus_token(setup_gdiplus()) {}
+        impl() : m_gdiplus_token{ setup_gdiplus() } {}
 
         ~impl() noexcept
         {
@@ -78,7 +78,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus {
     };
 
 
-    gui_fixture::gui_fixture() : m_p_impl(stdalt::make_unique<impl>()) {}
+    gui_fixture::gui_fixture() : m_p_impl{ stdalt::make_unique<impl>() } {}
 
     gui_fixture::~gui_fixture() = default;
 

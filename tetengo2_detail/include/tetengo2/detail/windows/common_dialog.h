@@ -117,9 +117,9 @@ namespace tetengo2 { namespace detail {
                     const message_box_button_style_type        button_style,
                     const message_box_icon_style_type          icon_style,
                     std::vector<boost::optional<std::wstring>> custom_button_labels)
-                : parent_handle(parent_handle), title(std::move(title)), main_content(std::move(main_content)),
-                  sub_content(std::move(sub_content)), cancellable(cancellable), button_style(button_style),
-                  icon_style(icon_style), custom_button_labels(std::move(custom_button_labels))
+                : parent_handle{ parent_handle }, title{ std::move(title) }, main_content{ std::move(main_content) },
+                  sub_content{ std::move(sub_content) }, cancellable{ cancellable }, button_style{ button_style },
+                  icon_style{ icon_style }, custom_button_labels{ std::move(custom_button_labels) }
                 {}
 
 #endif
@@ -144,8 +144,8 @@ namespace tetengo2 { namespace detail {
                     std::wstring                      title,
                     std::wstring                      default_extension,
                     detail::native_filters_type       native_filters)
-                : p_dialog(std::move(p_dialog)), parent_handle(parent_handle), title(std::move(title)),
-                  default_extension(std::move(default_extension)), native_filters(std::move(native_filters))
+                : p_dialog{ std::move(p_dialog) }, parent_handle{ parent_handle }, title{ std::move(title) },
+                  default_extension{ std::move(default_extension) }, native_filters{ std::move(native_filters) }
                 {}
 
 #endif
@@ -174,9 +174,9 @@ namespace tetengo2 { namespace detail {
                     std::wstring                      default_extension,
                     detail::native_filters_type       native_filters,
                     const std::size_t                 filter_index)
-                : p_dialog(std::move(p_dialog)), parent_handle(parent_handle), title(std::move(title)),
-                  path(std::move(path)), default_extension(std::move(default_extension)),
-                  native_filters(std::move(native_filters)), filter_index(filter_index)
+                : p_dialog{ std::move(p_dialog) }, parent_handle{ parent_handle }, title{ std::move(title) },
+                  path{ std::move(path) }, default_extension{ std::move(default_extension) },
+                  native_filters{ std::move(native_filters) }, filter_index{ filter_index }
                 {}
 
 #endif
@@ -193,7 +193,7 @@ namespace tetengo2 { namespace detail {
                 std::unique_ptr<::LOGFONTW> p_log_font;
 
                 font_dialog_details_type(const ::HWND parent_handle, std::unique_ptr<::LOGFONTW>&& p_log_font)
-                : parent_handle(parent_handle), p_log_font(std::move(p_log_font))
+                : parent_handle{ parent_handle }, p_log_font{ std::move(p_log_font) }
                 {}
 #endif
             };
@@ -210,7 +210,7 @@ namespace tetengo2 { namespace detail {
                 ::COLORREF native_color;
 
                 color_dialog_details_type(const ::HWND parent_handle, const ::COLORREF native_color)
-                : parent_handle(parent_handle), native_color(native_color)
+                : parent_handle{ parent_handle }, native_color{ native_color }
                 {}
 #endif
             };

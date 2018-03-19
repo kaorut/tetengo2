@@ -377,7 +377,9 @@ namespace tetengo2 { namespace gui { namespace widget {
             \param dimension A dimension.
         */
         inner_item(custom_control_type& parent, position_type&& position, dimension_type&& dimension)
-        : m_parent(parent), m_position(std::move(position)), m_dimension(std::move(dimension)), m_mouse_inside(false)
+        : m_parent{ parent }, m_position{ std::move(position) }, m_dimension{ std::move(dimension) }, m_mouse_inside{
+              false
+          }
         {}
 
 

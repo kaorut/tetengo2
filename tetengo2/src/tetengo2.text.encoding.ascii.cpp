@@ -93,7 +93,7 @@ namespace tetengo2 { namespace text { namespace encoding {
     };
 
 
-    ascii::ascii() : m_p_impl(std::make_shared<impl>()) {}
+    ascii::ascii() : m_p_impl{ std::make_shared<impl>() } {}
 
     ascii::~ascii() = default;
 

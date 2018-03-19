@@ -33,9 +33,9 @@ namespace tetengo2 { namespace text { namespace encoding {
 
         // constructors and destructors
 
-        impl() : m_p_encoding() {}
+        impl() : m_p_encoding{} {}
 
-        explicit impl(std::unique_ptr<base_type> p_encoding) : m_p_encoding(std::move(p_encoding))
+        explicit impl(std::unique_ptr<base_type> p_encoding) : m_p_encoding{ std::move(p_encoding) }
         {
             if (!m_p_encoding)
                 BOOST_THROW_EXCEPTION(std::invalid_argument("p_encoding is nullptr."));
@@ -74,12 +74,12 @@ namespace tetengo2 { namespace text { namespace encoding {
 
 
     template <typename String>
-    polymorphic<String>::polymorphic() : m_p_impl(std::make_shared<impl>())
+    polymorphic<String>::polymorphic() : m_p_impl{ std::make_shared<impl>() }
     {}
 
     template <typename String>
     polymorphic<String>::polymorphic(std::unique_ptr<base_type> p_encoding)
-    : m_p_impl(std::make_shared<impl>(std::move(p_encoding)))
+    : m_p_impl{ std::make_shared<impl>(std::move(p_encoding)) }
     {}
 
     template <typename String>

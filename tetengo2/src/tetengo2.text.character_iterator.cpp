@@ -35,14 +35,15 @@ namespace tetengo2 { namespace text {
         // constructors and destructor
 
         impl()
-        : m_p_string(nullptr), m_utf8_encoder(encoding_type{}, encoding::utf8{}), m_utf8_string(utf8_string_type{}),
-          m_next_offset(0), m_current_character(string_type{})
+        : m_p_string{ nullptr }, m_utf8_encoder{ encoding_type{}, encoding::utf8{} },
+          m_utf8_string{ utf8_string_type{} }, m_next_offset{ 0 }, m_current_character{ string_type{} }
         {}
 
         impl(const string_type& string, encoding_type encoding)
-        : m_p_string(&string), m_utf8_encoder(encoding, encoding::utf8{}),
-          m_utf8_string(m_utf8_encoder.encode(*m_p_string)), m_next_offset(0),
-          m_current_character(extract_current_character(m_utf8_string, m_next_offset, m_utf8_encoder))
+        : m_p_string{ &string }, m_utf8_encoder{ encoding, encoding::utf8{} },
+          m_utf8_string{ m_utf8_encoder.encode(*m_p_string) }, m_next_offset{ 0 }, m_current_character{
+              extract_current_character(m_utf8_string, m_next_offset, m_utf8_encoder)
+          }
         {}
 
 
@@ -149,22 +150,22 @@ namespace tetengo2 { namespace text {
 
 
     template <typename String>
-    character_iterator<String>::character_iterator() : m_p_impl(std::make_shared<impl>())
+    character_iterator<String>::character_iterator() : m_p_impl{ std::make_shared<impl>() }
     {}
 
     template <typename String>
     character_iterator<String>::character_iterator(const string_type& string, encoding_type encoding)
-    : m_p_impl(std::make_shared<impl>(string, std::move(encoding)))
+    : m_p_impl{ std::make_shared<impl>(string, std::move(encoding)) }
     {}
 
     template <typename String>
     character_iterator<String>::character_iterator(const character_iterator& another)
-    : m_p_impl(std::make_shared<impl>(*another.m_p_impl))
+    : m_p_impl{ std::make_shared<impl>(*another.m_p_impl) }
     {}
 
     template <typename String>
     character_iterator<String>::character_iterator(character_iterator&& another)
-    : m_p_impl(std::make_shared<impl>(std::move(*another.m_p_impl)))
+    : m_p_impl{ std::make_shared<impl>(std::move(*another.m_p_impl)) }
     {}
 
     template <typename String>

@@ -28,7 +28,8 @@ namespace tetengo2 { namespace message {
 
         // constructors and destructor
 
-        impl() : m_p_messages(get_messages(std::locale{})), m_catalog_id(open_messages(m_p_messages, std::locale{})) {}
+        impl() : m_p_messages{ get_messages(std::locale{}) }, m_catalog_id{ open_messages(m_p_messages, std::locale{}) }
+        {}
 
         ~impl() noexcept
         {
@@ -86,7 +87,7 @@ namespace tetengo2 { namespace message {
     };
 
 
-    message_catalog::message_catalog() : m_p_impl(stdalt::make_unique<impl>()) {}
+    message_catalog::message_catalog() : m_p_impl{ stdalt::make_unique<impl>() } {}
 
     message_catalog::~message_catalog() = default;
 

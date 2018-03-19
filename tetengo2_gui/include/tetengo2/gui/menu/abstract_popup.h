@@ -80,7 +80,7 @@ namespace tetengo2 { namespace gui { namespace menu {
             \param p_details A unique pointer to a detail implementation.
         */
         abstract_popup(string_type text, details_ptr_type p_details)
-        : base_type(std::move(text), std::move(p_details)), m_children()
+        : base_type{ std::move(text), std::move(p_details) }, m_children{}
         {}
 
         /*!

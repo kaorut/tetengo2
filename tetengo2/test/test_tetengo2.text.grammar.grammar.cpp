@@ -28,7 +28,7 @@ namespace {
     public:
         using rule_type = grammar_type::rule_type;
 
-        concrete_grammar() : grammar_type(m_rule), m_rule{} {}
+        concrete_grammar() : grammar_type{ m_rule }, m_rule{} {}
 
     private:
         rule_type m_rule;

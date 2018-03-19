@@ -40,9 +40,9 @@ namespace tetengo2 { namespace text { namespace encoding {
 
         // constructors and destructors
 
-        impl() : m_locale() {}
+        impl() : m_locale{} {}
 
-        explicit impl(std::locale locale_based_on) : m_locale(std::move(locale_based_on)) {}
+        explicit impl(std::locale locale_based_on) : m_locale{ std::move(locale_based_on) } {}
 
 
         // functions
@@ -253,11 +253,11 @@ namespace tetengo2 { namespace text { namespace encoding {
 
 
     template <typename String>
-    locale<String>::locale() : m_p_impl(std::make_shared<impl>())
+    locale<String>::locale() : m_p_impl{ std::make_shared<impl>() }
     {}
 
     template <typename String>
-    locale<String>::locale(std::locale locale_based_on) : m_p_impl(std::make_shared<impl>(std::move(locale_based_on)))
+    locale<String>::locale(std::locale locale_based_on) : m_p_impl{ std::make_shared<impl>(std::move(locale_based_on)) }
     {}
 
     template <typename String>

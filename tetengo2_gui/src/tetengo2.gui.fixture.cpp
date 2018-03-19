@@ -27,7 +27,7 @@ namespace tetengo2 { namespace gui {
         // constructors and destructor
 
         explicit impl(std::unique_ptr<fixture_details_type> p_fixture_details)
-        : m_p_fixture_details(std::move(p_fixture_details))
+        : m_p_fixture_details{ std::move(p_fixture_details) }
         {}
 
 
@@ -39,7 +39,7 @@ namespace tetengo2 { namespace gui {
 
 
     fixture::fixture(std::unique_ptr<fixture_details_type> p_fixture_details)
-    : m_p_impl(stdalt::make_unique<impl>(std::move(p_fixture_details)))
+    : m_p_impl{ stdalt::make_unique<impl>(std::move(p_fixture_details)) }
     {}
 
     fixture::~fixture() = default;

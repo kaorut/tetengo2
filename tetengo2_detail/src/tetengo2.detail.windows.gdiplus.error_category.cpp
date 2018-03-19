@@ -32,7 +32,7 @@
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus {
-    error_category::error_category() : std::error_category() {}
+    error_category::error_category() : std::error_category{} {}
 
     error_category::~error_category() = default;
 

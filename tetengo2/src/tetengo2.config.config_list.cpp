@@ -37,7 +37,7 @@ namespace tetengo2 { namespace config {
 
         // constructors and destructor
 
-        explicit impl(std::vector<std::unique_ptr<base_type>> p_configs) : m_p_configs(std::move(p_configs)) {}
+        explicit impl(std::vector<std::unique_ptr<base_type>> p_configs) : m_p_configs{ std::move(p_configs) } {}
 
 
         // functions
@@ -77,7 +77,7 @@ namespace tetengo2 { namespace config {
 
 
     config_list::config_list(std::vector<std::unique_ptr<base_type>> p_configs)
-    : m_p_impl(stdalt::make_unique<impl>(std::move(p_configs)))
+    : m_p_impl{ stdalt::make_unique<impl>(std::move(p_configs)) }
     {}
 
     config_list::~config_list() = default;

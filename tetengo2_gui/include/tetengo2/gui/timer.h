@@ -57,7 +57,7 @@ namespace tetengo2 { namespace gui {
             \param once_only Set true to execute the procedure once only.
         */
         timer(const widget_type& widget, procedure_type procedure, const inteval_type& interval, const bool once_only)
-        : m_timer_details(widget, std::move(procedure), interval, once_only)
+        : m_timer_details{ widget, std::move(procedure), interval, once_only }
         {}
 
 

@@ -37,11 +37,11 @@ Building on Windows
 
 You need the following tools in order to build Tetengo2:
 
-- [Visual Studio 2017](https://www.microsoft.com/)
+- [Visual Studio 2017 Update 6](https://www.microsoft.com/)
 - [Boost C++ Libraries 1.66.0](https://www.boost.org/)
 - Windows Subsystem for Linux
   - [GNU Make](https://www.gnu.org/)
-  - [include-what-you-use](https://include-what-you-use.org/)
+  - [include-what-you-use 3.9](https://include-what-you-use.org/)
   - [ClangFormat 5.0](https://clang.llvm.org/docs/ClangFormat.html)
   - [Dos2Unix](https://waterlan.home.xs4all.nl/dos2unix.html)
   - [Doxygen 1.8.14](http://www.doxygen.org)
@@ -79,10 +79,10 @@ Building on UNIX
 
 You need the following tools in order to build Tetengo2 libraries:
 
-- [GCC 6.3.0](https://www.gnu.org/) or [Clang 3.8](https://clang.llvm.org/)
+- [GCC 6.3.0](https://www.gnu.org/) or [Clang 5.0](https://clang.llvm.org/)
 - [GNU Make](https://www.gnu.org/)
 - [Boost C++ Libraries 1.66.0](https://www.boost.org/)
-- [include-what-you-use](https://include-what-you-use.org/)
+- [include-what-you-use 3.9](https://include-what-you-use.org/)
 - [ClangFormat 5.0](https://clang.llvm.org/docs/ClangFormat.html)
 - [Dos2Unix](https://waterlan.home.xs4all.nl/dos2unix.html)
 - [Doxygen 1.8.14](http://www.doxygen.org)

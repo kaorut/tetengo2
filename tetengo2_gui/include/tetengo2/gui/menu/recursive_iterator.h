@@ -43,7 +43,7 @@ namespace tetengo2 { namespace gui { namespace menu {
         /*!
             \brief Creates a recursive iterator.
         */
-        recursive_iterator() : m_p_menu(nullptr), m_parents()
+        recursive_iterator() : m_p_menu{ nullptr }, m_parents{}
         {
             m_parents.emplace(nullptr, 0);
         }
@@ -53,7 +53,7 @@ namespace tetengo2 { namespace gui { namespace menu {
 
             \param p_menu A pointer to a menu.
         */
-        explicit recursive_iterator(menu_base_type* const p_menu) : m_p_menu(p_menu), m_parents()
+        explicit recursive_iterator(menu_base_type* const p_menu) : m_p_menu{ p_menu }, m_parents{}
         {
             m_parents.emplace(nullptr, 0);
         }

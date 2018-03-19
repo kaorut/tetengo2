@@ -31,8 +31,8 @@ namespace tetengo2 {
                 // constructors and destructor
 
                 explicit impl(progress_type initial_progress)
-                : m_progress(std::move(initial_progress)), m_abort_requested(false), m_progress_mutex(),
-                  m_abort_request_mutex()
+                : m_progress{ std::move(initial_progress) }, m_abort_requested{ false }, m_progress_mutex{},
+                  m_abort_request_mutex{}
                 {}
 
 
@@ -77,7 +77,7 @@ namespace tetengo2 {
 
 
             progress_state::progress_state(progress_type initial_progress)
-            : m_p_impl(stdalt::make_unique<impl>(std::move(initial_progress)))
+            : m_p_impl{ stdalt::make_unique<impl>(std::move(initial_progress)) }
             {}
 
             progress_state::~progress_state() = default;

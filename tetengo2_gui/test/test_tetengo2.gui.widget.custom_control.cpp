@@ -65,7 +65,7 @@ namespace {
     {
     public:
         explicit concrete_custom_control(window_type& parent)
-        : custom_control_type(parent, false, custom_control_type::scroll_bar_style_type::none)
+        : custom_control_type{ parent, false, custom_control_type::scroll_bar_style_type::none }
         {}
     };
 
@@ -73,10 +73,9 @@ namespace {
     {
     public:
         concrete_inner_item(custom_control_type& parent)
-        : inner_item_type(
-              parent,
-              position_type{ position_unit_type{ 42 }, position_unit_type{ 24 } },
-              dimension_type{ dimension_unit_type{ 12 }, dimension_unit_type{ 34 } })
+        : inner_item_type{ parent,
+                           position_type{ position_unit_type{ 42 }, position_unit_type{ 24 } },
+                           dimension_type{ dimension_unit_type{ 12 }, dimension_unit_type{ 34 } } }
         {}
 
         const custom_control_type& call_parent() const

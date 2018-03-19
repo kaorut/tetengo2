@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_GUI_MESSAGE_MESSAGELOOPBREAK_H)
 #define TETENGO2_GUI_MESSAGE_MESSAGELOOPBREAK_H
 
-#include <functional>
-
 
 namespace tetengo2 { namespace gui { namespace message {
     /*!
@@ -19,7 +17,7 @@ namespace tetengo2 { namespace gui { namespace message {
         \tparam MessageLoopDetails The message loop details type.
     */
     template <typename MessageLoopDetails>
-    class message_loop_break : public std::unary_function<int, void>
+    class message_loop_break
     {
     public:
         // types

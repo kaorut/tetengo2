@@ -38,7 +38,7 @@ namespace tetengo2 { namespace gui { namespace drawing {
             \brief Creates a transparent background.
         */
         transparent_background()
-        : base_type(), m_p_details(base_type::drawing_details_type::create_transparent_background())
+        : base_type{}, m_p_details{ base_type::drawing_details_type::create_transparent_background() }
         {}
 
         /*!

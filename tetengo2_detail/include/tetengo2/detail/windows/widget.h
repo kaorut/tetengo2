@@ -88,8 +88,8 @@ namespace tetengo2 { namespace detail {
                     handle_type     handle,
                     const ::WNDPROC window_procedure,
                     const ::HWND    first_child_handle)
-                : handle(std::move(handle)), window_procedure(window_procedure), first_child_handle(first_child_handle),
-                  window_state_when_hidden(SW_RESTORE)
+                : handle{ std::move(handle) }, window_procedure{ window_procedure },
+                  first_child_handle{ first_child_handle }, window_state_when_hidden{ SW_RESTORE }
                 {}
 #endif
             };

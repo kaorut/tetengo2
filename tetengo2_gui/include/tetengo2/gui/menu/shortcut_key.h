@@ -50,7 +50,7 @@ namespace tetengo2 { namespace gui { namespace menu {
             \param meta    True when a meta key is required.
         */
         shortcut_key(const virtual_key_type& key, const bool shift, const bool control, const bool meta)
-        : m_p_key(&key), m_shift(shift), m_control(control), m_meta(meta)
+        : m_p_key{ &key }, m_shift{ shift }, m_control{ control }, m_meta{ meta }
         {}
 
 

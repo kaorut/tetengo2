@@ -50,7 +50,7 @@ namespace tetengo2 { namespace gui { namespace menu {
         /*!
             \brief Creates a menu separator.
         */
-        separator() : base_type(string_type{}, menu_details_type::create_menu()) {}
+        separator() : base_type{ string_type{}, menu_details_type::create_menu() } {}
 
         /*!
             \brief Destroys the menu separator.

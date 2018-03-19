@@ -27,7 +27,7 @@ namespace {
 
     struct test_exception : public std::runtime_error
     {
-        test_exception() : std::runtime_error("fuga") {}
+        test_exception() : std::runtime_error{ "fuga" } {}
     };
 
 

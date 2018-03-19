@@ -23,7 +23,7 @@ namespace tetengo2 { namespace text { namespace grammar {
         string_type           name,
         const value_type_type value_type,
         const string_type&    attribute)
-    : m_name(std::move(name)), m_value_type(value_type), m_attribute(attribute)
+    : m_name{ std::move(name) }, m_value_type{ value_type }, m_attribute{ attribute }
     {}
 
     template <typename String>
@@ -66,7 +66,7 @@ namespace tetengo2 { namespace text { namespace grammar {
 
         // constructors and destructor
 
-        impl() : m_on_structure_begin(), m_on_structure_end(), m_on_value() {}
+        impl() : m_on_structure_begin{}, m_on_structure_end{}, m_on_value{} {}
 
 
         // functions
@@ -118,7 +118,7 @@ namespace tetengo2 { namespace text { namespace grammar {
 
     template <typename ForwardIterator>
     grammar<ForwardIterator>::grammar(rule_type& root_rule)
-    : grammar::base_type(root_rule), m_p_impl(stdalt::make_unique<impl>())
+    : grammar::base_type{ root_rule }, m_p_impl{ stdalt::make_unique<impl>() }
     {}
 
     template <typename ForwardIterator>

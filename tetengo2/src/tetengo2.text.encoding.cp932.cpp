@@ -49,7 +49,7 @@ namespace tetengo2 { namespace text { namespace encoding {
     };
 
 
-    cp932::cp932() : m_p_impl(std::make_shared<impl>()) {}
+    cp932::cp932() : m_p_impl{ std::make_shared<impl>() } {}
 
     cp932::~cp932() = default;
 

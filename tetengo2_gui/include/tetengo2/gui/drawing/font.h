@@ -71,8 +71,8 @@ namespace tetengo2 { namespace gui { namespace drawing {
             const bool      italic,
             const bool      underline,
             const bool      strikeout)
-        : m_family(std::move(family)), m_size(size), m_bold(bold), m_italic(italic), m_underline(underline),
-          m_strikeout(strikeout)
+        : m_family{ std::move(family) }, m_size{ size }, m_bold{ bold }, m_italic{ italic }, m_underline{ underline },
+          m_strikeout{ strikeout }
         {}
 
 

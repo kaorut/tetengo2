@@ -96,7 +96,7 @@ namespace tetengo2 { namespace gui { namespace widget {
                 \param index  A tab index.
                 */
             tab_label_type(tab_frame& parent, const size_type index)
-            : base_type(parent, position_type{}, dimension_type{}), m_index(index), m_title()
+            : base_type{ parent, position_type{}, dimension_type{} }, m_index{ index }, m_title{}
             {}
 
             /*!
@@ -301,7 +301,7 @@ namespace tetengo2 { namespace gui { namespace widget {
                 \param control A control.
             */
             tab_body_type(tab_frame& parent, control_type& control)
-            : base_type(parent, position_type{}, dimension_type{}), m_control(control)
+            : base_type{ parent, position_type{}, dimension_type{} }, m_control{ control }
             {}
 
             /*!
@@ -384,7 +384,7 @@ namespace tetengo2 { namespace gui { namespace widget {
                 \param control A control.
             */
             tab_type(tab_frame& parent, const size_type index, control_type& control)
-            : m_label(parent, index), m_body(parent, control), m_selected(false)
+            : m_label{ parent, index }, m_body{ parent, control }, m_selected{ false }
             {}
 
 
@@ -498,7 +498,7 @@ namespace tetengo2 { namespace gui { namespace widget {
             \param parent A parent widget.
         */
         explicit tab_frame(widget_type& parent)
-        : base_type(parent, false, base_type::scroll_bar_style_type::none), m_p_tabs()
+        : base_type{ parent, false, base_type::scroll_bar_style_type::none }, m_p_tabs{}
         {
             initialize_tab_frame(*this);
         }
@@ -567,11 +567,11 @@ namespace tetengo2 { namespace gui { namespace widget {
             if (m_p_tabs.empty())
                 BOOST_THROW_EXCEPTION(std::logic_error{ "This tab frame has no tab." });
 
-            assert(std::count_if(m_p_tabs.begin(), m_p_tabs.end(), [this](const std::unique_ptr<tab_type>& p_tab) {
+            assert(std::count_if(m_p_tabs.begin(), m_p_tabs.end(), [](const std::unique_ptr<tab_type>& p_tab) {
                        return p_tab->selected();
                    }) == 1);
             const auto tab_position =
-                std::find_if(m_p_tabs.begin(), m_p_tabs.end(), [this](const std::unique_ptr<tab_type>& p_tab) {
+                std::find_if(m_p_tabs.begin(), m_p_tabs.end(), [](const std::unique_ptr<tab_type>& p_tab) {
                     return p_tab->selected();
                 });
             return std::distance(m_p_tabs.begin(), tab_position);

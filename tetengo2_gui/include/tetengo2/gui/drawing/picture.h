@@ -49,7 +49,8 @@ namespace tetengo2 { namespace gui { namespace drawing {
 
             \param dimension A dimension.
         */
-        explicit picture(const dimension_type& dimension) : m_p_details(drawing_details_type::create_picture(dimension))
+        explicit picture(const dimension_type& dimension)
+        : m_p_details{ drawing_details_type::create_picture(dimension) }
         {}
 
         /*!
@@ -59,7 +60,7 @@ namespace tetengo2 { namespace gui { namespace drawing {
 
             \throw std::invalid_argument When p_details is nullptr.
         */
-        explicit picture(details_ptr_type p_details) : m_p_details(std::move(p_details))
+        explicit picture(details_ptr_type p_details) : m_p_details{ std::move(p_details) }
         {
             if (!m_p_details)
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "The detail implementation is nullptr." }));

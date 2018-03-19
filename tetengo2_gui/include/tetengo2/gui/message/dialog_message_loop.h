@@ -39,7 +39,7 @@ namespace tetengo2 { namespace gui { namespace message {
 
             \param dialog A dialog.
         */
-        explicit dialog_message_loop(abstract_window_type& dialog) : m_dialog(dialog) {}
+        explicit dialog_message_loop(abstract_window_type& dialog) : m_dialog{ dialog } {}
 
 
         // functions

@@ -55,7 +55,7 @@ namespace tetengo2 { namespace detail { namespace windows {
             bool   enabled;
 
             scroll_bar_details_type(const ::HWND window_handle, const int native_style, const bool enabled)
-            : window_handle(window_handle), native_style(native_style), enabled(enabled)
+            : window_handle{ window_handle }, native_style{ native_style }, enabled{ enabled }
             {}
 #endif
         };

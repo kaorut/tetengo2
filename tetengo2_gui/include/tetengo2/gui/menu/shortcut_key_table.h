@@ -72,7 +72,7 @@ namespace tetengo2 { namespace gui { namespace menu {
             \brief Creates an empty shortcut key table.
         */
         shortcut_key_table()
-        : m_entries(), m_p_details(menu_details_type::template create_shortcut_key_table<entry_type>())
+        : m_entries{}, m_p_details{ menu_details_type::template create_shortcut_key_table<entry_type>() }
         {}
 
         /*!
@@ -85,7 +85,9 @@ namespace tetengo2 { namespace gui { namespace menu {
         */
         template <typename ForwardIterator>
         shortcut_key_table(const ForwardIterator first, const ForwardIterator last)
-        : m_entries(build_entries(first, last)), m_p_details(menu_details_type::create_shortcut_key_table(first, last))
+        : m_entries{ build_entries(first, last) }, m_p_details{
+              menu_details_type::create_shortcut_key_table(first, last)
+          }
         {}
 
 

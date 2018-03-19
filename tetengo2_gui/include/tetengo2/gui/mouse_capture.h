@@ -45,7 +45,7 @@ namespace tetengo2 { namespace gui {
             \param button A button.
         */
         mouse_capture(const widget_type& widget, const mouse_button_type button)
-        : m_mouse_capture_details(widget), m_button(button)
+        : m_mouse_capture_details{ widget }, m_button{ button }
         {}
 
 

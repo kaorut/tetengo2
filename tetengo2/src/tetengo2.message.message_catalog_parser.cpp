@@ -50,8 +50,8 @@ namespace tetengo2 { namespace message {
         // constructors and destructor
 
         impl(std::unique_ptr<pull_parser_type> p_pull_parser, input_encoding_type input_encoding)
-        : m_p_pull_parser(std::move(p_pull_parser)), m_input_encoder(make_input_encoder(std::move(input_encoding))),
-          m_p_preread_entry(), m_preamble_read_succeeded()
+        : m_p_pull_parser{ std::move(p_pull_parser) }, m_input_encoder{ make_input_encoder(std::move(input_encoding)) },
+          m_p_preread_entry{}, m_preamble_read_succeeded{}
         {}
 
 
@@ -262,7 +262,7 @@ namespace tetengo2 { namespace message {
     message_catalog_parser<ForwardIterator>::message_catalog_parser(
         std::unique_ptr<pull_parser_type> p_pull_parser,
         input_encoding_type               input_encoding)
-    : m_p_impl(stdalt::make_unique<impl>(std::move(p_pull_parser), std::move(input_encoding)))
+    : m_p_impl{ stdalt::make_unique<impl>(std::move(p_pull_parser), std::move(input_encoding)) }
     {}
 
     template <typename ForwardIterator>

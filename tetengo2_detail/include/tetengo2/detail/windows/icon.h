@@ -62,7 +62,7 @@ namespace tetengo2 { namespace detail { namespace windows {
             const icon_handle_type small_icon_handle;
 
             icon_details_type(icon_handle_type big_icon_handle_, icon_handle_type small_icon_handle_)
-            : big_icon_handle(std::move(big_icon_handle_)), small_icon_handle(std::move(small_icon_handle_))
+            : big_icon_handle{ std::move(big_icon_handle_) }, small_icon_handle{ std::move(small_icon_handle_) }
             {
                 assert(big_icon_handle);
                 assert(small_icon_handle);

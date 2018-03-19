@@ -32,7 +32,8 @@ AC_CONFIG_FILES([
 ])
 
 AC_LANG([C++])
-AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
+AX_CXX_COMPILE_STDCXX_14([noext], [mandatory])
+#AX_CXX_COMPILE_STDCXX_17([noext], [mandatory]) # This one is preferable, but...
 
 AC_ARG_ENABLE(
     precompilation,
@@ -130,6 +131,7 @@ AC_SUBST([CPPFLAGS], "$CPPFLAGS $BOOST_CPPFLAGS")
 
 #### Checks for typedefs, structures, and compiler characteristics ####
 AC_SUBST([CXXFLAGS], "$CXXFLAGS -Werror -Wall -Wextra -pedantic-errors")
+AC_SUBST([CXXFLAGS], "$CXXFLAGS -std=c++1z") # Remove this line when AX_CXX_COMPILE_STDCXX_17 gets enabled.
 
 #### Checks for library functions ####
 

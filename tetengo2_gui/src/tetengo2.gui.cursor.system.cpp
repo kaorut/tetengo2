@@ -33,7 +33,7 @@ namespace tetengo2 { namespace gui { namespace cursor {
         // constructors and destructor
 
         impl(const style_type style, const cursor_details_type& cursor_details)
-        : m_style(style), m_p_details(cursor_details.create_system_cursor(style))
+        : m_style{ style }, m_p_details{ cursor_details.create_system_cursor(style) }
         {}
 
 
@@ -67,7 +67,7 @@ namespace tetengo2 { namespace gui { namespace cursor {
 
 
     system::system(style_type style, const cursor_details_type& cursor_details)
-    : m_p_impl(stdalt::make_unique<impl>(style, cursor_details))
+    : m_p_impl{ stdalt::make_unique<impl>(style, cursor_details) }
     {}
 
     system::~system() = default;

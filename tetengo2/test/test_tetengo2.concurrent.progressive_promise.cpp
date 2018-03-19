@@ -15,6 +15,7 @@
 #include <stdexcept>
 #include <string>
 #include <thread>
+#include <type_traits>
 #include <utility>
 
 #include <boost/preprocessor.hpp>
@@ -151,7 +152,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                 struct test_exception : public std::runtime_error
                 {
-                    test_exception() : std::runtime_error("test exception") {}
+                    test_exception() : std::runtime_error{ "test exception" } {}
                 };
 
                 {
@@ -227,7 +228,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                 struct test_exception : public std::runtime_error
                 {
-                    test_exception() : std::runtime_error("test exception") {}
+                    test_exception() : std::runtime_error{ "test exception" } {}
                 };
 
                 using promise_type = tetengo2::concurrent::progressive_promise<std::string>;
@@ -251,7 +252,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                 struct test_exception : public std::runtime_error
                 {
-                    test_exception() : std::runtime_error("test exception") {}
+                    test_exception() : std::runtime_error{ "test exception" } {}
                 };
 
                 {
@@ -317,7 +318,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                 struct test_exception : public std::runtime_error
                 {
-                    test_exception() : std::runtime_error("test exception") {}
+                    test_exception() : std::runtime_error{ "test exception" } {}
                 };
 
                 using promise_type = tetengo2::concurrent::progressive_promise<std::string>;

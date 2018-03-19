@@ -156,8 +156,8 @@ namespace tetengo2 { namespace gui { namespace common_dialog {
                 const bool                                                  cancellable,
                 const boost::optional<string_type>&                         ok_button_label,
                 const boost::optional<std::pair<string_type, string_type>>& yes_no_button_labels)
-            : m_style(style), m_cancellable(cancellable), m_ok_button_label(ok_button_label),
-              m_yes_no_button_labels(yes_no_button_labels)
+            : m_style{ style }, m_cancellable{ cancellable }, m_ok_button_label{ ok_button_label },
+              m_yes_no_button_labels{ yes_no_button_labels }
             {}
 
 
@@ -262,7 +262,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog {
             string_type              sub_content,
             const button_style_type& button_style,
             const icon_style_type    icon_style)
-        : m_p_details(common_dialog_details_type::create_message_box(
+        : m_p_details{ common_dialog_details_type::create_message_box(
               parent,
               std::move(title),
               std::move(main_content),
@@ -272,7 +272,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog {
               to_details_icon_style(icon_style),
               button_style.ok_button_label(),
               button_style.yes_no_button_labels(),
-              encoder()))
+              encoder()) }
         {}
 
 

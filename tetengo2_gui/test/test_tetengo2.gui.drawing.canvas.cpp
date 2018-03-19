@@ -86,12 +86,12 @@ namespace {
 
     struct concrete_canvas : public canvas_type
     {
-        concrete_canvas() : canvas_type(tetengo2::stdalt::make_unique<canvas_details_type>()) {}
+        concrete_canvas() : canvas_type{ tetengo2::stdalt::make_unique<canvas_details_type>() } {}
     };
 
     struct concrete_canvas0 : public canvas_type
     {
-        concrete_canvas0() : canvas_type(canvas_details_ptr_type{}) {}
+        concrete_canvas0() : canvas_type{ canvas_details_ptr_type{} } {}
     };
 
 

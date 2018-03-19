@@ -49,10 +49,10 @@ namespace {
     public:
         // constructors and destructor
 
-        concrete_menu(string_type text) : menu_base_type(std::move(text), menu_details_type::create_menu()) {}
+        concrete_menu(string_type text) : menu_base_type{ std::move(text), menu_details_type::create_menu() } {}
 
         concrete_menu(string_type text, shortcut_key_type shortcut_key_type)
-        : menu_base_type(std::move(text), std::move(shortcut_key_type), menu_details_type::create_menu())
+        : menu_base_type{ std::move(text), std::move(shortcut_key_type), menu_details_type::create_menu() }
         {}
 
 

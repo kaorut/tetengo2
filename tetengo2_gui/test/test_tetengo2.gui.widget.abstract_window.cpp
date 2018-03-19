@@ -63,11 +63,10 @@ namespace {
         using details_ptr_type = abstract_window_type::details_ptr_type;
 
         concrete_window(const bool file_droppable = false)
-        : abstract_window_type(
-              abstract_window_type::scroll_bar_style_type::none,
-              file_droppable,
-              message_handler_map_type{}),
-          m_p_details(tetengo2::stdalt::make_unique<details_type>())
+        : abstract_window_type{ abstract_window_type::scroll_bar_style_type::none,
+                                file_droppable,
+                                message_handler_map_type{} },
+          m_p_details{ tetengo2::stdalt::make_unique<details_type>() }
         {
             base_type::initialize(this);
         }

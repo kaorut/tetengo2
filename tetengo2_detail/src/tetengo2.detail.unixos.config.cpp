@@ -240,7 +240,7 @@ namespace tetengo2 { namespace detail { namespace unixos {
 
     config::~config() = default;
 
-    config::config() : m_p_impl(stdalt::make_unique<impl>()) {}
+    config::config() : m_p_impl{ stdalt::make_unique<impl>() } {}
 
 
     // virtual functions

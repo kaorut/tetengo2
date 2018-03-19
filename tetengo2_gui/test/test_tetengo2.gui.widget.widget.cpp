@@ -86,24 +86,25 @@ namespace {
         explicit concrete_widget(
             widget_type* const                       p_parent = nullptr,
             const widget_type::scroll_bar_style_type scroll_bar_style = widget_type::scroll_bar_style_type::none)
-        : widget_type(scroll_bar_style, message_handler_map_type{}),
-          m_p_details(tetengo2::stdalt::make_unique<widget_details_type::widget_details_type>(
-              p_parent,
-              true,
-              true,
-              0,
-              std::make_pair(0, 0),
-              std::make_pair(1, 1),
-              string_type{},
-              details_font_type{ string_type{}, 12, false, false, false, false },
-              std::vector<void*>{},
-              false,
-              false,
-              std::vector<string_type>{},
-              boost::none,
-              100,
-              0,
-              0))
+        : widget_type{ scroll_bar_style, message_handler_map_type{} }, m_p_details{
+              tetengo2::stdalt::make_unique<widget_details_type::widget_details_type>(
+                  p_parent,
+                  true,
+                  true,
+                  0,
+                  std::make_pair(0, 0),
+                  std::make_pair(1, 1),
+                  string_type{},
+                  details_font_type{ string_type{}, 12, false, false, false, false },
+                  std::vector<void*>{},
+                  false,
+                  false,
+                  std::vector<string_type>{},
+                  boost::none,
+                  100,
+                  0,
+                  0)
+          }
         {
             widget_type::initialize(this);
         }

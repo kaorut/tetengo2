@@ -38,11 +38,11 @@ namespace tetengo2 { namespace gui {
         // constructors and destructor
 
         impl(const widget_handle_type widget_handle, const alert_details_type& alert_details)
-        : m_widget_handle(alert_details.root_ancestor_widget_handle(widget_handle)), m_alert_details(alert_details)
+        : m_widget_handle{ alert_details.root_ancestor_widget_handle(widget_handle) }, m_alert_details{ alert_details }
         {}
 
         explicit impl(const alert_details_type& alert_details)
-        : m_widget_handle(alert_details.root_ancestor_widget_handle(nullptr)), m_alert_details(alert_details)
+        : m_widget_handle{ alert_details.root_ancestor_widget_handle(nullptr) }, m_alert_details{ alert_details }
         {}
 
 
@@ -148,10 +148,10 @@ namespace tetengo2 { namespace gui {
 
 
     alert::alert(const widget_handle_type widget_handle, const alert_details_type& alert_details)
-    : m_p_impl(stdalt::make_unique<impl>(widget_handle, alert_details))
+    : m_p_impl{ stdalt::make_unique<impl>(widget_handle, alert_details) }
     {}
 
-    alert::alert(const alert_details_type& alert_details) : m_p_impl(stdalt::make_unique<impl>(alert_details)) {}
+    alert::alert(const alert_details_type& alert_details) : m_p_impl{ stdalt::make_unique<impl>(alert_details) } {}
 
     alert::~alert() = default;
 
