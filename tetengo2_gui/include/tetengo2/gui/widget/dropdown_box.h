@@ -73,14 +73,15 @@ namespace tetengo2 { namespace gui { namespace widget {
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type(
+          base_type{
               base_type::scroll_bar_style_type::none,
               message_handler_details_type::make_dropdown_box_message_handler_map(*this, message_handler_map_type{}),
-              widget_details_type::create_dropdown_box(parent)),
+              widget_details_type::create_dropdown_box(parent)
+          },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
-          m_list_selection_observer_set()
+          m_list_selection_observer_set{}
         {
             base_type::initialize(this);
 
