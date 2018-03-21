@@ -33,7 +33,10 @@ def load_include_list(path):
             stdlib_headers.append(stdlib_match.group("name"))
 
         boost_match = boost_pattern.match(line)
-        if boost_match and boost_match.group("name"):
+        if \
+            boost_match and \
+            boost_match.group("name") and \
+            boost_match.group("name") != "boost/test/unit_test.hpp":
             boost_headers.append(boost_match.group("name"))
 
     return stdlib_headers, boost_headers
