@@ -10,10 +10,8 @@ EXTRA_DIST = \
     get_solution_config.bat \
     iwyu_mappings.imp \
     make_precompiled_h.sh \
-    make_stdlib_headers_txt.sh \
     paths.sh \
     precompiled.template.h \
-    stdlib_headers.txt \
     test_case_check_ignore.txt \
     zzz_check_test_cases.pl \
     zzz_check_type_list_type_duplication.pl \
@@ -21,9 +19,7 @@ EXTRA_DIST = \
     zzz_get_solution_config.js \
     zzz_make_function_list.pl \
     zzz_make_function_list.sh \
-    zzz_make_precompiled_h.pl \
-    zzz_make_stdlib_headers_txt.pl \
+    zzz_make_precompiled_h.py \
     zzz_make_test_case_list.pl \
     zzz_make_test_case_list.sh \
-    zzz_parse_solution_config.js \
-    zzz_stdlib_usage.pm
+    zzz_parse_solution_config.js
