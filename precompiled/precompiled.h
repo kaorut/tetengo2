@@ -77,7 +77,6 @@
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/support.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
-#include <boost/test/unit_test.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/type_traits.hpp>
 #include <boost/variant.hpp>
