@@ -848,14 +848,16 @@ namespace tetengo2 { namespace gui { namespace widget {
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          m_message_handler_map(
-              message_handler_details_type::make_widget_message_handler_map(*this, std::move(message_handler_map))),
+          m_message_handler_map{
+              message_handler_details_type::make_widget_message_handler_map(*this, std::move(message_handler_map))
+          },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
-          m_focused(false), m_destroyed(false), m_p_background(), m_p_cursor(), m_scroll_bar_style(scroll_bar_style),
-          m_p_vertical_scroll_bar(), m_p_horizontal_scroll_bar(), m_child_observer_set(), m_size_observer_set(),
-          m_focus_observer_set(), m_paint_observer_set(), m_keyboard_observer_set(), m_mouse_observer_set()
+          m_focused{ false }, m_destroyed{ false }, m_p_background{}, m_p_cursor{},
+          m_scroll_bar_style{ scroll_bar_style }, m_p_vertical_scroll_bar{}, m_p_horizontal_scroll_bar{},
+          m_child_observer_set{}, m_size_observer_set{}, m_focus_observer_set{}, m_paint_observer_set{},
+          m_keyboard_observer_set{}, m_mouse_observer_set{}
         {
             m_focus_observer_set.got_focus().connect([this]() { this->m_focused = true; });
             m_focus_observer_set.lost_focus().connect([this]() { this->m_focused = false; });

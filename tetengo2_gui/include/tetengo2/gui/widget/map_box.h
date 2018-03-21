@@ -116,7 +116,7 @@ namespace tetengo2 { namespace gui { namespace widget {
         explicit map_box(widget_type& parent, const cursor_details_type& cursor_details)
         : base_type{ parent, true, scroll_bar_style_type::vertical }, m_cursor_details{ cursor_details },
           m_splitter_position{ position_unit_type{ 8 } }, m_p_splitter{}, m_p_value_items{}, m_selected_value_index{},
-          m_list_selection_observer_call_requested(false), m_list_selection_observer_set()
+          m_list_selection_observer_call_requested{ false }, m_list_selection_observer_set{}
         {
             initialize_map_box(*this);
         }

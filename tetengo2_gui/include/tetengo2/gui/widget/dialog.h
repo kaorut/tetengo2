@@ -92,16 +92,15 @@ namespace tetengo2 { namespace gui { namespace widget {
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type(
-              base_type::scroll_bar_style_type::none,
-              file_droppable,
-              message_handler_details_type::make_dialog_message_handler_map(*this, message_handler_map_type{})),
+          base_type{ base_type::scroll_bar_style_type::none,
+                     file_droppable,
+                     message_handler_details_type::make_dialog_message_handler_map(*this, message_handler_map_type{}) },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
-          m_result(result_type::undecided),
-          m_p_details(
-              widget_details_type::template create_dialog<typename base_type::base_type>(&parent, file_droppable))
+          m_result{ result_type::undecided }, m_p_details{
+              widget_details_type::template create_dialog<typename base_type::base_type>(&parent, file_droppable)
+          }
         {
             initialize_dialog();
 

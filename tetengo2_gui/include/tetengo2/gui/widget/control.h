@@ -138,13 +138,14 @@ namespace tetengo2 { namespace gui { namespace widget {
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type(
+          base_type{
               scroll_bar_style,
-              message_handler_details_type::make_control_message_handler_map(*this, std::move(message_handler_map))),
+              message_handler_details_type::make_control_message_handler_map(*this, std::move(message_handler_map))
+          },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
-          m_p_details(std::move(p_details)), m_text_color()
+          m_p_details{ std::move(p_details) }, m_text_color{}
         {}
 
 

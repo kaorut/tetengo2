@@ -92,17 +92,16 @@ namespace tetengo2 { namespace gui { namespace widget {
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type(
-              scroll_bar_style,
-              file_droppable,
-              message_handler_details_type::make_window_message_handler_map(*this, message_handler_map_type{})),
+          base_type{ scroll_bar_style,
+                     file_droppable,
+                     message_handler_details_type::make_window_message_handler_map(*this, message_handler_map_type{}) },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
-          m_p_details(widget_details_type::template create_window<typename base_type::base_type>(
+          m_p_details{ widget_details_type::template create_window<typename base_type::base_type>(
               &parent,
               scroll_bar_style,
-              file_droppable))
+              file_droppable) }
         {
             initialize_window();
 

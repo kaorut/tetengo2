@@ -334,16 +334,15 @@ namespace tetengo2 { namespace gui { namespace widget {
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type(
-              scroll_bar_style,
-              message_handler_details_type::make_abstract_window_message_handler_map(
-                  *this,
-                  std::move(message_handler_map))),
+          base_type{ scroll_bar_style,
+                     message_handler_details_type::make_abstract_window_message_handler_map(
+                         *this,
+                         std::move(message_handler_map)) },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
-          m_file_droppable(file_droppable), m_p_icon(), m_p_menu_bar(), m_window_observer_set(),
-          m_file_drop_observer_set()
+          m_file_droppable{ file_droppable }, m_p_icon{}, m_p_menu_bar{}, m_window_observer_set{},
+          m_file_drop_observer_set{}
         {}
 
         /*!
