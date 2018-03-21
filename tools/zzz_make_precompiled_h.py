@@ -42,7 +42,7 @@ def load_include_list(path):
 def make_precompiled_h(template_path, stdlib_headers, boost_headers):
     file = open(template_path, "r")
     for line in file:
-        line = line.strip()
+        line = line.rstrip()
 
         if line == "////STDLIB_BOOST_INCLUDES////":
             print("// The standard library headers")
