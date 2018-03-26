@@ -16,7 +16,7 @@
 #include <boost/core/noncopyable.hpp>
 
 
-namespace tetengo2 { namespace detail { namespace stub {
+namespace tetengo2::detail::stub {
     /*!
         \brief The class for a detail implementation of a timer.
     */
@@ -63,9 +63,7 @@ namespace tetengo2 { namespace detail { namespace stub {
         */
         void stop() {}
     };
-
-
-}}}
+}
 
 
 #endif

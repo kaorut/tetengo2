@@ -23,36 +23,29 @@
 #include <Windows.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail
-{
-    namespace dropdown_box
+namespace tetengo2::detail::windows::message_handler_detail::dropdown_box {
+    template <typename ListBox>
+    boost::optional< ::LRESULT> on_tetengo2_command(
+        ListBox&       dropdown_box,
+        const ::WPARAM w_param,
+        const ::LPARAM l_param
+    )
     {
-        template <typename ListBox>
-        boost::optional< ::LRESULT> on_tetengo2_command(
-            ListBox&       dropdown_box,
-            const ::WPARAM w_param,
-            const ::LPARAM l_param
-        )
+        boost::ignore_unused(l_param);
+
+        switch (HIWORD(w_param))
         {
-            boost::ignore_unused(l_param);
-
-            switch (HIWORD(w_param))
-            {
-            case CBN_SELCHANGE:
-                dropdown_box.list_selection_observer_set().selection_changed()();
-                break;
-            default:
-                break;
-            }
-
-            return boost::make_optional< ::LRESULT>(0);
+        case CBN_SELCHANGE:
+            dropdown_box.list_selection_observer_set().selection_changed()();
+            break;
+        default:
+            break;
         }
 
-
+        return boost::make_optional< ::LRESULT>(0);
     }
 
-
-}}}}
+}
 
 
 #endif

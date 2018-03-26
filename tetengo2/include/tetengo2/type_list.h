@@ -15,7 +15,7 @@
 #include <tetengo2/text/encoding/locale.h>
 
 
-namespace tetengo2 { namespace type_list {
+namespace tetengo2::type_list {
     //! The type for integer.
     using integer_type = int;
 
@@ -33,9 +33,7 @@ namespace tetengo2 { namespace type_list {
 
     //! The type for internal encoding.
     using internal_encoding_type = text::encoding::locale<string_type>;
-
-
-}}
+}
 
 
 #endif

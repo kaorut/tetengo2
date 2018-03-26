@@ -14,7 +14,7 @@
 #include <tetengo2/gui/widget/control.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget {
+namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a progress bar.
 
@@ -169,9 +169,7 @@ namespace tetengo2 { namespace gui { namespace widget {
 
         using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
     };
-
-
-}}}
+}
 
 
 #endif

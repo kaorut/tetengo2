@@ -14,7 +14,7 @@
 #include <tetengo2/text/grammar/grammar.h>
 
 
-namespace tetengo2 { namespace text { namespace grammar {
+namespace tetengo2::text::grammar {
     /*!
         \brief The class template for a grammar of JSON.
 
@@ -116,9 +116,7 @@ namespace tetengo2 { namespace text { namespace grammar {
 
         const std::unique_ptr<impl> m_p_impl;
     };
-
-
-}}}
+}
 
 
 #endif

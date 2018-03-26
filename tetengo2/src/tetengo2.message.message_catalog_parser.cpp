@@ -27,7 +27,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace message {
+namespace tetengo2::message {
     template <typename ForwardIterator>
     class message_catalog_parser<ForwardIterator>::impl : private boost::noncopyable
     {
@@ -302,6 +302,4 @@ namespace tetengo2 { namespace message {
     template class message_catalog_parser<application::input_stream_iterator_type>;
 
     template class message_catalog_parser<test::input_stream_iterator_type>;
-
-
-}}
+}

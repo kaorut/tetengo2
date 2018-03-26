@@ -12,7 +12,7 @@
 #include <boost/operators.hpp>
 
 
-namespace tetengo2 { namespace gui {
+namespace tetengo2::gui {
     /*!
         \brief The class for a position.
 
@@ -82,9 +82,7 @@ namespace tetengo2 { namespace gui {
 
         unit_type m_top;
     };
-
-
-}}
+}
 
 
 #endif

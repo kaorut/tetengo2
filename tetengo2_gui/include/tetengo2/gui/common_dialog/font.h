@@ -19,7 +19,7 @@ namespace boost {
 }
 
 
-namespace tetengo2 { namespace gui { namespace common_dialog {
+namespace tetengo2::gui::common_dialog {
     /*!
         \brief The class template for a font dialog.
 
@@ -150,9 +150,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog {
 
         font_type m_result;
     };
-
-
-}}}
+}
 
 
 #endif

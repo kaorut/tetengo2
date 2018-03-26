@@ -18,7 +18,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace gui { namespace unit {
+namespace tetengo2::gui::unit {
     template <typename Value, typename UnitDetails>
     basic_em<Value, UnitDetails>::basic_em() : m_value{ 0 }
     {}
@@ -172,6 +172,4 @@ namespace tetengo2 { namespace gui { namespace unit {
         const basic_em<difference_rational_type, detail::windows::unit>& one,
         const difference_rational_type&                                  another);
 #endif
-
-
-}}}
+}

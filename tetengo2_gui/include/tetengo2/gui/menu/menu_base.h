@@ -25,7 +25,7 @@
 #include <tetengo2/gui/message/menu_observer_set.h>
 
 
-namespace tetengo2 { namespace gui { namespace menu {
+namespace tetengo2::gui::menu {
     /*!
         \brief The base class template for a menu base.
 
@@ -462,9 +462,7 @@ namespace tetengo2 { namespace gui { namespace menu {
             BOOST_THROW_EXCEPTION((std::logic_error{ "Can't erase any menus." }));
         }
     };
-
-
-}}}
+}
 
 
 #endif

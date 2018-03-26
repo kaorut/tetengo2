@@ -13,7 +13,7 @@
 
 #include <boost/operators.hpp>
 
-namespace tetengo2 { namespace iterator {
+namespace tetengo2::iterator {
     /*!
         \brief The class template for a polymorphic forward iterator.
 
@@ -121,9 +121,7 @@ namespace tetengo2 { namespace iterator {
 
         virtual void increment() = 0;
     };
-
-
-}}
+}
 
 
 #endif

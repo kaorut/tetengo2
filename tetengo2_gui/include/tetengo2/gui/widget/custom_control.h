@@ -21,7 +21,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget {
+namespace tetengo2::gui::widget {
     template <typename CustomControl>
     class inner_item;
 
@@ -496,9 +496,7 @@ namespace tetengo2 { namespace gui { namespace widget {
 
         virtual void mouse_left_impl() {}
     };
-
-
-}}}
+}
 
 
 #endif

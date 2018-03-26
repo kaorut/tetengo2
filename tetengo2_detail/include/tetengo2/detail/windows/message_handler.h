@@ -41,7 +41,7 @@
 #include <tetengo2/detail/windows/widget.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     /*!
         \brief The class for a detail implementation of a message handler.
     */
@@ -464,9 +464,7 @@ namespace tetengo2 { namespace detail { namespace windows {
 
         message_handler() = delete;
     };
-
-
-}}}
+}
 
 
 #endif

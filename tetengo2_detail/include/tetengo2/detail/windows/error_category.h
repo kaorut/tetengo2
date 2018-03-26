@@ -13,7 +13,7 @@
 #include <system_error>
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     /*!
         \brief The class for a detail implementation of an error category.
     */
@@ -94,9 +94,7 @@ namespace tetengo2 { namespace detail { namespace windows {
         \return The error category.
     */
     const std::error_category& wic_category();
-
-
-}}}
+}
 
 
 #endif

@@ -19,7 +19,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace config {
+namespace tetengo2::config {
     class temporary_config::impl : private boost::noncopyable
     {
     public:
@@ -88,6 +88,4 @@ namespace tetengo2 { namespace config {
     {
         m_p_impl->clear_impl();
     }
-
-
-}}
+}

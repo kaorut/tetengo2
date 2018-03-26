@@ -13,7 +13,7 @@
 #include <tetengo2/detail/base/config.h>
 
 
-namespace tetengo2 { namespace detail { namespace base {
+namespace tetengo2::detail::base {
     config::~config() = default;
 
     config::config() = default;
@@ -32,6 +32,4 @@ namespace tetengo2 { namespace detail { namespace base {
     {
         clear_impl(group_name);
     }
-
-
-}}}
+}

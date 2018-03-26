@@ -11,7 +11,7 @@
 #include <tetengo2/detail/base/encoding.h>
 
 
-namespace tetengo2 { namespace detail { namespace base {
+namespace tetengo2::detail::base {
     encoding::encoding() = default;
 
     encoding::~encoding() = default;
@@ -35,6 +35,4 @@ namespace tetengo2 { namespace detail { namespace base {
     {
         return cp932_to_pivot_impl(std::move(string));
     }
-
-
-}}}
+}

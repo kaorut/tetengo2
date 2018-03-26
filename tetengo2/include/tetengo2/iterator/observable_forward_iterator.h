@@ -15,7 +15,7 @@
 #include <boost/iterator/iterator_facade.hpp>
 
 
-namespace tetengo2 { namespace iterator {
+namespace tetengo2::iterator {
     /*!
         \brief The class template for an observable forward iterator.
 
@@ -134,9 +134,7 @@ namespace tetengo2 { namespace iterator {
     {
         return observable_forward_iterator<ForwardIterator>{ forward_iterator };
     }
-
-
-}}
+}
 
 
 #endif

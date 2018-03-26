@@ -27,7 +27,7 @@
 #include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     class cursor::impl : private boost::noncopyable
     {
     public:
@@ -110,6 +110,4 @@ namespace tetengo2 { namespace detail { namespace windows {
     {
         return m_p_impl->create_system_cursor_impl(style);
     }
-
-
-}}}
+}

@@ -16,7 +16,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace detail { namespace base {
+namespace tetengo2::detail::base {
     /*!
         \brief The class for a detail implementation of an alert.
     */
@@ -110,9 +110,7 @@ namespace tetengo2 { namespace detail { namespace base {
             const string_type& source_file_name,
             integer_type       source_file_line) const = 0;
     };
-
-
-}}}
+}
 
 
 #endif

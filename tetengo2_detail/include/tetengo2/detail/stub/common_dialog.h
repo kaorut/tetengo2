@@ -21,7 +21,7 @@
 #include <tetengo2/text.h>
 
 
-namespace tetengo2 { namespace detail { namespace stub {
+namespace tetengo2::detail::stub {
     /*!
         \brief The class for a detail implementation of dialogs.
     */
@@ -346,9 +346,7 @@ namespace tetengo2 { namespace detail { namespace stub {
             return boost::make_optional(Color{ 0xAB, 0xCD, 0xEF });
         }
     };
-
-
-}}}
+}
 
 
 #endif

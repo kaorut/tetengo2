@@ -18,7 +18,7 @@
 #include <boost/spirit/include/qi.hpp>
 
 
-namespace tetengo2 { namespace text { namespace grammar {
+namespace tetengo2::text::grammar {
     /*!
         \brief The structure attribute.
 
@@ -232,9 +232,7 @@ namespace tetengo2 { namespace text { namespace grammar {
 
         const std::unique_ptr<impl> m_p_impl;
     };
-
-
-}}}
+}
 
 
 #endif

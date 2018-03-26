@@ -14,7 +14,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace cursor {
+namespace tetengo2::gui::cursor {
     class cursor_base::impl : private boost::noncopyable
     {
     public:
@@ -54,6 +54,4 @@ namespace tetengo2 { namespace gui { namespace cursor {
     }
 
     cursor_base::cursor_base() : m_p_impl{ stdalt::make_unique<impl>() } {}
-
-
-}}}
+}

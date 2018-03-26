@@ -12,7 +12,7 @@
 #include <boost/operators.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace unit {
+namespace tetengo2::gui::unit {
     /*!
         \brief The class template for a unit.
 
@@ -315,9 +315,7 @@ namespace tetengo2 { namespace gui { namespace unit {
             return *static_cast<concrete_unit_type*>(this);
         }
     };
-
-
-}}}
+}
 
 
 #endif

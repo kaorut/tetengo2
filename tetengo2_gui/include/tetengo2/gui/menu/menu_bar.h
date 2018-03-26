@@ -16,7 +16,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace menu {
+namespace tetengo2::gui::menu {
     /*!
         \brief The class template for a menu bar.
 
@@ -114,9 +114,7 @@ namespace tetengo2 { namespace gui { namespace menu {
             return menu_details_type::template menu_bar_style<typename base_type::base_type>();
         }
     };
-
-
-}}}
+}
 
 
 #endif

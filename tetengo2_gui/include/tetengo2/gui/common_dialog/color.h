@@ -19,7 +19,7 @@ namespace boost {
 }
 
 
-namespace tetengo2 { namespace gui { namespace common_dialog {
+namespace tetengo2::gui::common_dialog {
     /*!
         \brief The class template for a color dialog.
 
@@ -137,9 +137,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog {
 
         color_type m_result;
     };
-
-
-}}}
+}
 
 
 #endif

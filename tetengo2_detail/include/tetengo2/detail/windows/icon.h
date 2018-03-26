@@ -32,7 +32,7 @@
 #include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     /*!
         \brief The class for a detail implementation of an icon.
     */
@@ -139,9 +139,7 @@ namespace tetengo2 { namespace detail { namespace windows {
             return static_cast<::HICON>(handle);
         }
     };
-
-
-}}}
+}
 
 
 #endif

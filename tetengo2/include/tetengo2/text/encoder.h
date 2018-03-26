@@ -13,7 +13,7 @@
 #include <utility>
 
 
-namespace tetengo2 { namespace text {
+namespace tetengo2::text {
     /*!
         \brief The class template for an encoder.
 
@@ -144,9 +144,7 @@ namespace tetengo2 { namespace text {
             return m_internal_encoding.from_pivot(m_external_encoding.to_pivot(std::move(string)));
         }
     };
-
-
-}}
+}
 
 
 #endif

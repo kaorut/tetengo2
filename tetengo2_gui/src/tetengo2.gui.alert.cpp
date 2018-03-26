@@ -24,7 +24,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace gui {
+namespace tetengo2::gui {
     class alert::impl : private boost::noncopyable
     {
     public:
@@ -164,6 +164,4 @@ namespace tetengo2 { namespace gui {
     {
         m_p_impl->operator_paren(exception);
     }
-
-
-}}
+}

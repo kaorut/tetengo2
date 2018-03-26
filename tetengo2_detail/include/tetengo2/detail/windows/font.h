@@ -19,7 +19,7 @@
 #include <Windows.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     /*!
         \brief Returns a nonclient metrics.
 
@@ -35,9 +35,7 @@ namespace tetengo2 { namespace detail { namespace windows {
         \return The message font.
     */
     ::LOGFONTW get_message_font();
-
-
-}}}
+}
 
 
 #endif

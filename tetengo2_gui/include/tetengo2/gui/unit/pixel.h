@@ -15,7 +15,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace gui { namespace unit {
+namespace tetengo2::gui::unit {
     /*!
         \brief The class template for a pixel unit.
 
@@ -191,8 +191,6 @@ namespace tetengo2 { namespace gui { namespace unit {
 
     //! The unsigned pixel type.
     using upixel = basic_pixel<boost::rational<type_list::size_type>>;
-
-
-}}}
+}
 
 #endif

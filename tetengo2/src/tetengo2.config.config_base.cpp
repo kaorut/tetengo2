@@ -16,7 +16,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace config {
+namespace tetengo2::config {
     class config_base::impl : private boost::noncopyable
     {
     public:
@@ -66,6 +66,4 @@ namespace tetengo2 { namespace config {
     {
         m_p_impl->clear(*this);
     }
-
-
-}}
+}

@@ -32,7 +32,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     class alert::impl : private boost::noncopyable
     {
     public:
@@ -198,6 +198,4 @@ namespace tetengo2 { namespace detail { namespace windows {
     {
         m_p_impl->show_task_dialog_impl(widget_handle, caption, text1, text2, source_file_name, source_file_line);
     }
-
-
-}}}
+}

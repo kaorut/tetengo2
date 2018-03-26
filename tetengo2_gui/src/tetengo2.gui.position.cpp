@@ -14,7 +14,7 @@
 #include <tetengo2/gui/unit/point.h>
 
 
-namespace tetengo2 { namespace gui {
+namespace tetengo2::gui {
     template <typename Unit>
     position<Unit>::position() : m_left{ unit_type{} }, m_top{ unit_type{} }
     {}
@@ -78,6 +78,4 @@ namespace tetengo2 { namespace gui {
     template bool
     operator==(const position<point_windows_unit_type>& one, const position<point_windows_unit_type>& another);
 #endif
-
-
-}}
+}

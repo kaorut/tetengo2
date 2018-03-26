@@ -26,7 +26,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace drawing {
+namespace tetengo2::gui::drawing {
     /*!
         \brief The class template for a canvas.
 
@@ -510,9 +510,7 @@ namespace tetengo2 { namespace gui { namespace drawing {
 
         font_type m_font;
     };
-
-
-}}}
+}
 
 
 #endif

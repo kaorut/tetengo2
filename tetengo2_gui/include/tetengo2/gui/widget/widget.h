@@ -38,7 +38,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget {
+namespace tetengo2::gui::widget {
     /*!
         \brief The base class template for a GUI widget.
 
@@ -953,9 +953,7 @@ namespace tetengo2 { namespace gui { namespace widget {
             return stdalt::make_unique<scroll_bar_type>(details(), scroll_bar_type::style_type::horizontal);
         }
     };
-
-
-}}}
+}
 
 
 #endif

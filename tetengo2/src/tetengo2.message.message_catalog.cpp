@@ -15,7 +15,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace message {
+namespace tetengo2::message {
     class message_catalog::impl : private boost::noncopyable
     {
     public:
@@ -100,6 +100,4 @@ namespace tetengo2 { namespace message {
     {
         return m_p_impl->get(p_key);
     }
-
-
-}}
+}

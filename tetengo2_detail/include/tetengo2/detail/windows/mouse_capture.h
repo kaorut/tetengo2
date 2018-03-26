@@ -21,7 +21,7 @@
 #include <Windows.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     /*!
         \brief The class for a detail implementation of a mouse capture.
     */
@@ -55,9 +55,7 @@ namespace tetengo2 { namespace detail { namespace windows {
     private:
         // variables
     };
-
-
-}}}
+}
 
 
 #endif

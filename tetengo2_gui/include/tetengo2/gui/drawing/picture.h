@@ -16,7 +16,7 @@
 #include <boost/throw_exception.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace drawing {
+namespace tetengo2::gui::drawing {
     /*!
         \brief The class template for a picture.
 
@@ -107,9 +107,7 @@ namespace tetengo2 { namespace gui { namespace drawing {
 
         const details_ptr_type m_p_details;
     };
-
-
-}}}
+}
 
 
 #endif

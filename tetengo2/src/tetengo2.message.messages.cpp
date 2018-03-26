@@ -42,7 +42,7 @@
 #include <tetengo2/text/push_parser.h>
 
 
-namespace tetengo2 { namespace message {
+namespace tetengo2::message {
     class messages::impl : private boost::noncopyable
     {
     public:
@@ -317,6 +317,4 @@ namespace tetengo2 { namespace message {
     {
         return m_p_impl->do_close(catalog_id);
     }
-
-
-}}
+}

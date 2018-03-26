@@ -20,7 +20,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace detail { namespace stub {
+namespace tetengo2::detail::stub {
     const impl_set& impl_set::instance()
     {
         static const impl_set singleton;
@@ -50,6 +50,4 @@ namespace tetengo2 { namespace detail { namespace stub {
     {
         return unit::instance();
     }
-
-
-}}}
+}

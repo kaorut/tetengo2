@@ -19,7 +19,7 @@
 #include <tetengo2/gui/message/scroll_bar_observer_set.h>
 
 
-namespace tetengo2 { namespace gui {
+namespace tetengo2::gui {
     /*!
         \brief The class template for a scroll bar.
 
@@ -246,8 +246,6 @@ namespace tetengo2 { namespace gui {
             m_tracking_position = new_position;
         }
     };
-
-
-}}
+}
 
 #endif

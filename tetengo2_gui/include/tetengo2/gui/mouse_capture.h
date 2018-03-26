@@ -12,7 +12,7 @@
 #include <boost/core/noncopyable.hpp>
 
 
-namespace tetengo2 { namespace gui {
+namespace tetengo2::gui {
     /*!
         \brief The class template for a mouse capture.
 
@@ -69,8 +69,6 @@ namespace tetengo2 { namespace gui {
 
         const mouse_button_type m_button;
     };
-
-
-}}
+}
 
 #endif

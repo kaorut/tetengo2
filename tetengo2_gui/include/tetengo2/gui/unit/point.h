@@ -17,7 +17,7 @@
 #include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/type_list.h>
 
-namespace tetengo2 { namespace detail {
+namespace tetengo2::detail {
     namespace stub {
         class unit;
     }
@@ -26,10 +26,10 @@ namespace tetengo2 { namespace detail {
         class unit;
     }
 #endif
-}}
+}
 
 
-namespace tetengo2 { namespace gui { namespace unit {
+namespace tetengo2::gui::unit {
     /*!
         \brief The class template for a point unit.
 
@@ -256,9 +256,7 @@ namespace tetengo2 { namespace gui { namespace unit {
 
     //! The unsigned point type for testing.
     using upoint_for_test = basic_point<boost::rational<type_list::size_type>, detail::stub::unit>;
-
-
-}}}
+}
 
 
 #endif

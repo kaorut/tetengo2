@@ -24,7 +24,7 @@
 #include <tetengo2/text/encoding/locale.h>
 
 
-namespace tetengo2 { namespace text { namespace encoding {
+namespace tetengo2::text::encoding {
     template <typename String>
     class locale<String>::impl : private boost::noncopyable
     {
@@ -311,6 +311,4 @@ namespace tetengo2 { namespace text { namespace encoding {
     template bool operator!=(const locale<std::string>& one, const locale<std::string>& another);
 
     template bool operator!=(const locale<std::wstring>& one, const locale<std::wstring>& another);
-
-
-}}}
+}

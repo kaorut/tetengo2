@@ -15,7 +15,7 @@
 #include <boost/rational.hpp>
 
 
-namespace tetengo2 { namespace gui {
+namespace tetengo2::gui {
     /*!
         \brief Converts a value in a certain unit to pixels.
 
@@ -105,9 +105,7 @@ namespace tetengo2 { namespace gui {
         return static_cast<Integer>(std::floor(static_cast<double>(value)));
     }
 #endif
-
-
-}}
+}
 
 
 #endif

@@ -12,7 +12,7 @@
 #include <boost/operators.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace drawing {
+namespace tetengo2::gui::drawing {
     /*!
         \brief The class template for a font.
 
@@ -174,9 +174,7 @@ namespace tetengo2 { namespace gui { namespace drawing {
 
         bool m_strikeout;
     };
-
-
-}}}
+}
 
 
 #endif

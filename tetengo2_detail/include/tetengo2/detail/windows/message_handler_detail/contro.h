@@ -26,7 +26,7 @@
 #include <Windows.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail { namespace control {
+namespace tetengo2::detail::windows::message_handler_detail::control {
     template <typename Control>
     boost::optional<::LRESULT> on_control_color(Control& control, const ::WPARAM w_param, const ::LPARAM l_param)
     {
@@ -77,9 +77,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
         return boost::none;
     }
-
-
-}}}}}
+}
 
 
 #endif

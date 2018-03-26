@@ -15,7 +15,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace detail { namespace stub {
+namespace tetengo2::detail::stub {
     class alert::impl : private boost::noncopyable
     {
     public:
@@ -83,6 +83,4 @@ namespace tetengo2 { namespace detail { namespace stub {
     {
         m_p_impl->show_task_dialog_impl(widget_handle, caption, text1, text2, source_file_name, source_file_line);
     }
-
-
-}}}
+}

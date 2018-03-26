@@ -16,7 +16,7 @@
 #include <tetengo2/text/encoding/encoding.h>
 
 
-namespace tetengo2 { namespace text { namespace encoding {
+namespace tetengo2::text::encoding {
     class cp932::impl : private boost::noncopyable
     {
     public:
@@ -67,6 +67,4 @@ namespace tetengo2 { namespace text { namespace encoding {
     {
         return m_p_impl->to_pivot_impl(string);
     }
-
-
-}}}
+}

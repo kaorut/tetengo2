@@ -13,7 +13,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace gui { namespace unit {
+namespace tetengo2::gui::unit {
     template <typename Value>
     basic_pixel<Value>::basic_pixel() : m_value{ 0 }
     {}
@@ -124,6 +124,4 @@ namespace tetengo2 { namespace gui { namespace unit {
     template bool operator>(const basic_pixel<size_rational_type>& one, const size_rational_type& another);
 
     template bool operator>(const basic_pixel<difference_rational_type>& one, const difference_rational_type& another);
-
-
-}}}
+}

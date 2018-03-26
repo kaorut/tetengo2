@@ -14,7 +14,7 @@
 #include <tetengo2/detail/base/cursor.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     /*!
         \brief The class for a detail implementation of a cursor.
     */
@@ -71,9 +71,7 @@ namespace tetengo2 { namespace detail { namespace windows {
 
         virtual cursor_details_ptr_type create_system_cursor_impl(system_cursor_style_type style) const override;
     };
-
-
-}}}
+}
 
 
 #endif

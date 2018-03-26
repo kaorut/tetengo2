@@ -10,7 +10,7 @@
 #define TETENGO2_GUI_DRAWING_CANVASTRAITS_H
 
 
-namespace tetengo2 { namespace gui { namespace drawing {
+namespace tetengo2::gui::drawing {
     /*!
         \brief The traits class template for a canvas.
 
@@ -41,9 +41,7 @@ namespace tetengo2 { namespace gui { namespace drawing {
         //! The encoder type.
         using encoder_type = Encoder;
     };
-
-
-}}}
+}
 
 
 #endif

@@ -14,7 +14,7 @@
 #include <boost/signals2.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace message {
+namespace tetengo2::gui::message {
     /*!
         \brief The class for a focus observer set.
     */
@@ -90,9 +90,7 @@ namespace tetengo2 { namespace gui { namespace message {
 
         lost_focus_signal_type m_lost_focus;
     };
-
-
-}}}
+}
 
 
 #endif

@@ -10,7 +10,7 @@
 #define TETENGO2_GUI_WIDGET_WIDGETTRAITS_H
 
 
-namespace tetengo2 { namespace gui { namespace widget {
+namespace tetengo2::gui::widget {
     /*!
         \brief The traits class template for a GUI widget.
 
@@ -50,9 +50,7 @@ namespace tetengo2 { namespace gui { namespace widget {
         //! The encoder type.
         using encoder_type = Encoder;
     };
-
-
-}}}
+}
 
 
 #endif

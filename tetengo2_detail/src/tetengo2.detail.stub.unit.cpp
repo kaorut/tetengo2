@@ -15,7 +15,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace detail { namespace stub {
+namespace tetengo2::detail::stub {
     class unit::impl : private boost::noncopyable
     {
     public:
@@ -132,6 +132,4 @@ namespace tetengo2 { namespace detail { namespace stub {
     {
         return m_p_impl->point_difference_to_pixel_impl(point_difference);
     }
-
-
-}}}
+}

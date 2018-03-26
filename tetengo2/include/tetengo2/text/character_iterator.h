@@ -17,7 +17,7 @@
 #include <tetengo2/text/encoding/polymorphic.h>
 
 
-namespace tetengo2 { namespace text {
+namespace tetengo2::text {
     /*!
         \brief The class template for a character iterator.
 
@@ -138,9 +138,7 @@ namespace tetengo2 { namespace text {
     */
     template <typename String>
     character_iterator<String> make_character_iterator(const String& string, encoding::polymorphic<String> encoding);
-
-
-}}
+}
 
 
 #endif

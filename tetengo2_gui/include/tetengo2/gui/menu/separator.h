@@ -12,7 +12,7 @@
 #include <tetengo2/gui/menu/menu_base.h>
 
 
-namespace tetengo2 { namespace gui { namespace menu {
+namespace tetengo2::gui::menu {
     /*!
         \brief The class template for a menu separator.
 
@@ -71,9 +71,7 @@ namespace tetengo2 { namespace gui { namespace menu {
             return menu_details_type::template menu_separator_style<base_type>();
         }
     };
-
-
-}}}
+}
 
 
 #endif

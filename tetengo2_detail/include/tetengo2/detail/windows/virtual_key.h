@@ -25,7 +25,7 @@
 #include <tetengo2/text.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     /*!
         \brief The class for a detail implementation of virtual keys.
     */
@@ -664,9 +664,7 @@ namespace tetengo2 { namespace detail { namespace windows {
 
         virtual_key() = delete;
     };
-
-
-}}}
+}
 
 
 #endif

@@ -18,7 +18,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace drawing {
+namespace tetengo2::gui::drawing {
     /*!
         \brief The class template for a solid background.
 
@@ -103,9 +103,7 @@ namespace tetengo2 { namespace gui { namespace drawing {
             return *m_p_details;
         }
     };
-
-
-}}}
+}
 
 
 #endif

@@ -15,7 +15,7 @@
 #include <tetengo2/gui/widget/control.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget {
+namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a text box.
 
@@ -150,9 +150,7 @@ namespace tetengo2 { namespace gui { namespace widget {
 
         text_box_observer_set_type m_text_box_observer_set;
     };
-
-
-}}}
+}
 
 
 #endif

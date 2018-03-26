@@ -22,33 +22,31 @@
 #include <Windows.h>
 
 
-namespace tetengo2 { namespace detail {
-    namespace windows {
+namespace tetengo2::detail::windows {
 #if !defined(DOCUMENTATION)
-        namespace detail {
-            // types
+    namespace detail {
+        // types
 
-            struct release_unknown
+        struct release_unknown
+        {
+            void operator()(::IUnknown* const p_unknown) const
             {
-                void operator()(::IUnknown* const p_unknown) const
-                {
-                    if (p_unknown)
-                        p_unknown->Release();
-                }
-            };
-        }
+                if (p_unknown)
+                    p_unknown->Release();
+            }
+        };
+    }
 #endif
 
 
-        /*!
-            \brief The meta function for a unique COM pointer.
+    /*!
+        \brief The meta function for a unique COM pointer.
 
-            \tparam T A type.
-        */
-        template <typename T>
-        using unique_com_ptr = std::unique_ptr<T, detail::release_unknown>;
-    }
-}}
+        \tparam T A type.
+    */
+    template <typename T>
+    using unique_com_ptr = std::unique_ptr<T, detail::release_unknown>;
+}
 
 
 #endif

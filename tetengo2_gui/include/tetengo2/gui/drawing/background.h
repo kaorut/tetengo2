@@ -14,7 +14,7 @@
 #include <boost/core/noncopyable.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace drawing {
+namespace tetengo2::gui::drawing {
     /*!
         \brief The class template for a background.
 
@@ -95,9 +95,7 @@ namespace tetengo2 { namespace gui { namespace drawing {
 
         virtual details_type& details_impl() = 0;
     };
-
-
-}}}
+}
 
 
 #endif

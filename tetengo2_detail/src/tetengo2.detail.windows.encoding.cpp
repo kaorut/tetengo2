@@ -26,7 +26,7 @@
 #include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     class encoding::impl : private boost::noncopyable
     {
     public:
@@ -169,6 +169,4 @@ namespace tetengo2 { namespace detail { namespace windows {
     {
         return m_p_impl->cp932_to_pivot_impl(std::move(string));
     }
-
-
-}}}
+}

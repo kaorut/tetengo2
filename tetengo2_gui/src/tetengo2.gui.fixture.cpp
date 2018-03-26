@@ -15,7 +15,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui {
+namespace tetengo2::gui {
     class fixture::impl : private boost::noncopyable
     {
     public:
@@ -43,6 +43,4 @@ namespace tetengo2 { namespace gui {
     {}
 
     fixture::~fixture() = default;
-
-
-}}
+}
