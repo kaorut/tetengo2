@@ -10,7 +10,7 @@
 #define TETENGO2_GUI_WIDGET_WIDGETDETAILSTRAITS_H
 
 
-namespace tetengo2 { namespace gui { namespace widget {
+namespace tetengo2::gui::widget {
     /*!
         \brief The traits class template for detail implementation of a widget.
 
@@ -50,9 +50,7 @@ namespace tetengo2 { namespace gui { namespace widget {
         //! The virtual key details type.
         using virtual_key_details_type = VirtualKeyDetails;
     };
-
-
-}}}
+}
 
 
 #endif

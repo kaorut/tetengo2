@@ -30,11 +30,7 @@
 #include <Windows.h>
 
 
-namespace tetengo2 {
-    namespace detail {
-        namespace windows {
-            namespace message_handler_detail {
-                namespace abstract_window {
+namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
     template <typename AbstractWindow>
     boost::optional<::LRESULT>
     on_command(AbstractWindow& abstract_window, const ::WPARAM w_param, const ::LPARAM l_param)
@@ -166,9 +162,7 @@ namespace tetengo2 {
 
         return boost::none;
     }
-
-
-}}}}}
+}
 
 
 #endif

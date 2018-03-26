@@ -25,7 +25,7 @@
 #include <Windows.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail { namespace dialog {
+namespace tetengo2::detail::windows::message_handler_detail::dialog {
     template <typename WidgetDetails, typename Dialog>
     boost::optional<::LRESULT> on_command(Dialog& dialog, const ::WPARAM w_param, const ::LPARAM l_param)
     {
@@ -126,9 +126,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
         return boost::none;
     }
-
-
-}}}}}
+}
 
 
 #endif

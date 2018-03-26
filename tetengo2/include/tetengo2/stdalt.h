@@ -25,32 +25,30 @@
 #include <memory>
 #include <utility>
 
-namespace tetengo2 {
-    namespace stdalt {
+namespace tetengo2::stdalt {
 #if TETENGO2_STDALT_STD_MAKE_UNIQUE_SUPPORTED || defined(DOCUMENTATION)
-        /*!
-            \brief Makes a unique pointer.
+    /*!
+        \brief Makes a unique pointer.
 
-            \tparam T A type.
-            \tparam A Argument types.
+        \tparam T A type.
+        \tparam A Argument types.
 
-            \param args An arguments.
+        \param args An arguments.
 
-            \return A unique pointer
-        */
-        template <typename T, typename... A>
-        std::unique_ptr<T> make_unique(A&&... args)
-        {
-            return std::make_unique<T>(std::forward<A>(args)...);
-        }
-#else
-        template <typename T, typename... A>
-        std::unique_ptr<T> make_unique(A&&... args)
-        {
-            return std::unique_ptr<T>{ new T(std::forward<A>(args)...) };
-        }
-#endif
+        \return A unique pointer
+    */
+    template <typename T, typename... A>
+    std::unique_ptr<T> make_unique(A&&... args)
+    {
+        return std::make_unique<T>(std::forward<A>(args)...);
     }
+#else
+    template <typename T, typename... A>
+    std::unique_ptr<T> make_unique(A&&... args)
+    {
+        return std::unique_ptr<T>{ new T(std::forward<A>(args)...) };
+    }
+#endif
 }
 
 

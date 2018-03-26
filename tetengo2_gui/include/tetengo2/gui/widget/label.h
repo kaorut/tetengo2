@@ -17,7 +17,7 @@
 #include <tetengo2/gui/widget/control.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget {
+namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a label.
 
@@ -187,9 +187,7 @@ namespace tetengo2 { namespace gui { namespace widget {
                 *this, [this](const canvas_type& canvas) { return canvas.calc_text_dimension(this->text()); });
         }
     };
-
-
-}}}
+}
 
 
 #endif

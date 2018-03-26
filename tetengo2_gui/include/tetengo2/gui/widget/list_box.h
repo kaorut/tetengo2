@@ -19,7 +19,7 @@
 #include <tetengo2/gui/widget/control.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget {
+namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a list box.
 
@@ -246,9 +246,7 @@ namespace tetengo2 { namespace gui { namespace widget {
 
         list_selection_observer_set_type m_list_selection_observer_set;
     };
-
-
-}}}
+}
 
 
 #endif

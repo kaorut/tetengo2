@@ -16,7 +16,7 @@
 #include <boost/core/noncopyable.hpp>
 
 
-namespace tetengo2 { namespace gui {
+namespace tetengo2::gui {
     /*!
         \brief The class template for a timer.
 
@@ -87,8 +87,6 @@ namespace tetengo2 { namespace gui {
 
         timer_details_type m_timer_details;
     };
-
-
-}}
+}
 
 #endif

@@ -16,7 +16,7 @@
 #include <tetengo2/detail/base/cursor.h>
 
 
-namespace tetengo2 { namespace gui { namespace cursor {
+namespace tetengo2::gui::cursor {
     /*!
         \brief The class for a cursor base.
     */
@@ -86,9 +86,7 @@ namespace tetengo2 { namespace gui { namespace cursor {
 
         virtual details_type& details_impl() = 0;
     };
-
-
-}}}
+}
 
 
 #endif

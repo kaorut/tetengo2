@@ -16,7 +16,7 @@
 #include <boost/operators.hpp>
 
 
-namespace tetengo2 { namespace gui {
+namespace tetengo2::gui {
     /*!
         \brief The class template for virtual keys.
 
@@ -796,9 +796,7 @@ namespace tetengo2 { namespace gui {
 
         string_type m_string;
     };
-
-
-}}
+}
 
 
 #endif

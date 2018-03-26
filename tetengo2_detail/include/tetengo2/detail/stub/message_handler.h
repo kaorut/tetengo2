@@ -18,7 +18,7 @@
 #include <boost/core/noncopyable.hpp>
 
 
-namespace tetengo2 { namespace detail { namespace stub {
+namespace tetengo2::detail::stub {
     /*!
         \brief The class for a detail implementation of a message handler.
     */
@@ -290,9 +290,7 @@ namespace tetengo2 { namespace detail { namespace stub {
 
         message_handler() = delete;
     };
-
-
-}}}
+}
 
 
 #endif

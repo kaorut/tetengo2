@@ -16,7 +16,7 @@
 #include <tetengo2/detail/base/unit.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     /*!
         \brief The class for a detail implementation of a unit.
     */
@@ -88,9 +88,7 @@ namespace tetengo2 { namespace detail { namespace windows {
         virtual difference_type
         point_difference_to_pixel_impl(const boost::rational<difference_type>& point_difference) const override;
     };
-
-
-}}}
+}
 
 
 #endif

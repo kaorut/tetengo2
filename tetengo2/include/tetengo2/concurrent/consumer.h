@@ -17,7 +17,7 @@
 #include <tetengo2/concurrent/channel.h>
 
 
-namespace tetengo2 { namespace concurrent {
+namespace tetengo2::concurrent {
     /*!
         \brief The class template for a consumer.
 
@@ -113,9 +113,7 @@ namespace tetengo2 { namespace concurrent {
 
         channel_type& m_channel;
     };
-
-
-}}
+}
 
 
 #endif

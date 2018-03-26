@@ -29,7 +29,7 @@
 #include <Windows.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail { namespace picture_box {
+namespace tetengo2::detail::windows::message_handler_detail::picture_box {
     template <typename PictureBox>
     boost::optional<::LRESULT>
     on_erase_background(PictureBox& picture_box, const ::WPARAM w_param, const ::LPARAM l_param)
@@ -73,9 +73,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
         return boost::make_optional<::LRESULT>(0);
     }
-
-
-}}}}}
+}
 
 
 #endif

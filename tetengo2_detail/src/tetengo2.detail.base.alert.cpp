@@ -14,7 +14,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace detail { namespace base {
+namespace tetengo2::detail::base {
     class alert::impl : private boost::noncopyable
     {
     public:
@@ -67,6 +67,4 @@ namespace tetengo2 { namespace detail { namespace base {
     }
 
     alert::alert() : m_p_impl{ stdalt::make_unique<impl>() } {}
-
-
-}}}
+}

@@ -17,7 +17,7 @@
 #include <boost/throw_exception.hpp>
 
 
-namespace tetengo2 { namespace detail { namespace stub {
+namespace tetengo2::detail::stub {
     /*!
         \brief The class for a detail implementation of a GUI fixture.
     */
@@ -84,9 +84,7 @@ namespace tetengo2 { namespace detail { namespace stub {
 
         system_color() = delete;
     };
-
-
-}}}
+}
 
 
 #endif

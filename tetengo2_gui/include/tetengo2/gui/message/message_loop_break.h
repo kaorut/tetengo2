@@ -10,7 +10,7 @@
 #define TETENGO2_GUI_MESSAGE_MESSAGELOOPBREAK_H
 
 
-namespace tetengo2 { namespace gui { namespace message {
+namespace tetengo2::gui::message {
     /*!
         \brief The class template for a message loop break.
 
@@ -38,9 +38,7 @@ namespace tetengo2 { namespace gui { namespace message {
             message_loop_details_type::break_loop(exit_code);
         }
     };
-
-
-}}}
+}
 
 
 #endif

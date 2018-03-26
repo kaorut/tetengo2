@@ -23,7 +23,7 @@
 #include <tetengo2/text/encoding/encoding.h>
 
 
-namespace tetengo2 { namespace text { namespace encoding {
+namespace tetengo2::text::encoding {
     template <typename String>
     class encoding<String>::impl : private boost::noncopyable
     {
@@ -131,6 +131,4 @@ namespace tetengo2 { namespace text { namespace encoding {
     template bool operator!=(const encoding<std::wstring>& one, const encoding<std::string>& another);
 
     template bool operator!=(const encoding<std::wstring>& one, const encoding<std::wstring>& another);
-
-
-}}}
+}

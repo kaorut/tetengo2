@@ -15,7 +15,7 @@
 #include <tetengo2/text.h>
 
 
-namespace tetengo2 { namespace detail { namespace stub {
+namespace tetengo2::detail::stub {
     /*!
         \brief The class for a detail implementation of a shell.
     */
@@ -59,9 +59,7 @@ namespace tetengo2 { namespace detail { namespace stub {
             return command.find(TETENGO2_TEXT("fail")) == String::npos;
         }
     };
-
-
-}}}
+}
 
 
 #endif

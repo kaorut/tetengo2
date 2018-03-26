@@ -18,7 +18,7 @@
 #include <tetengo2/gui/menu/menu_base.h>
 
 
-namespace tetengo2 { namespace gui { namespace menu {
+namespace tetengo2::gui::menu {
     /*!
         \brief The base class template for an abstract popup menu.
 
@@ -163,9 +163,7 @@ namespace tetengo2 { namespace gui { namespace menu {
             m_children.erase(first.base(), last.base());
         }
     };
-
-
-}}}
+}
 
 
 #endif

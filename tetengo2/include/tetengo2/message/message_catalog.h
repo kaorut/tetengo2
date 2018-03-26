@@ -17,7 +17,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace message {
+namespace tetengo2::message {
     /*!
         \brief The class for a message catalog.
     */
@@ -83,9 +83,7 @@ namespace tetengo2 { namespace message {
 
         const std::unique_ptr<impl> m_p_impl;
     };
-
-
-}}
+}
 
 
 #endif

@@ -39,163 +39,160 @@
 #endif
 
 
-namespace tetengo2 { namespace detail { namespace windows {
-    namespace picture {
+namespace tetengo2::detail::windows::picture {
 #if !defined(DOCUMENTATION)
-        namespace detail {
-            // types
-
-            using wic_imaging_factory_ptr_type = unique_com_ptr<::IWICImagingFactory>;
-
-
-            // functions
-
-            inline wic_imaging_factory_ptr_type create_wic_imaging_factory()
-            {
-                ::IWICImagingFactory* rp_factory = nullptr;
-                const auto            hr = ::CoCreateInstance(
-                    Tetengo2_CLSID_WICImagingFactory, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&rp_factory));
-                if (FAILED(hr))
-                {
-                    BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ hr, wic_category() },
-                                                              "Can't create WIC imaging factory." }));
-                }
-
-                return wic_imaging_factory_ptr_type{ rp_factory };
-            }
-        }
-#endif
-
-
+    namespace detail {
         // types
 
-        //! The details type.
-        using details_type = ::IWICBitmapSource;
-
-        //! The details pointer type.
-        using details_ptr_type = unique_com_ptr<details_type>;
+        using wic_imaging_factory_ptr_type = unique_com_ptr<::IWICImagingFactory>;
 
 
         // functions
 
-        /*!
-            \brief Returns the WIC image factory.
-
-            \return The WIC image factory.
-        */
-        inline ::IWICImagingFactory& wic_imaging_factory()
+        inline wic_imaging_factory_ptr_type create_wic_imaging_factory()
         {
-            static const detail::wic_imaging_factory_ptr_type p_factory{ detail::create_wic_imaging_factory() };
-            return *p_factory;
-        }
-
-        /*!
-            \brief Creates a picture.
-
-            \tparam Dimension A dimension type.
-
-            \param dimension A dimension.
-
-            \return A unique pointer to a picture.
-        */
-        template <typename Dimension>
-        details_ptr_type create(const Dimension& dimension)
-        {
-            ::IWICBitmap* rp_bitmap = nullptr;
-            const auto    hr = wic_imaging_factory().CreateBitmap(
-                gui::to_pixels<::UINT>(dimension.width()),
-                gui::to_pixels<::UINT>(dimension.height()),
-                ::GUID_WICPixelFormat32bppPBGRA,
-                ::WICBitmapCacheOnDemand,
-                &rp_bitmap);
-            if (FAILED(hr))
-                BOOST_THROW_EXCEPTION(
-                    (std::system_error{ std::error_code(hr, wic_category()), "Can't create bitmap." }));
-
-            return { rp_bitmap };
-        }
-
-        /*!
-            \brief Reads a picture.
-
-            \param path A path.
-
-            \return A unique pointer to a picture.
-
-            \throw std::system_error When the picture cannot be read.
-        */
-        inline details_ptr_type read(const boost::filesystem::path& path)
-        {
-            ::IWICBitmapDecoder* rp_decoder = nullptr;
-            const auto           create_decoder_hr = wic_imaging_factory().CreateDecoderFromFilename(
-                path.c_str(), nullptr, GENERIC_READ, WICDecodeMetadataCacheOnDemand, &rp_decoder);
-            if (FAILED(create_decoder_hr))
-            {
-                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ create_decoder_hr, wic_category() },
-                                                          "Can't create WIC decoder." }));
-            }
-            const unique_com_ptr<::IWICBitmapDecoder> p_decoder{ rp_decoder };
-
-            ::IWICBitmapFrameDecode* rp_frame = nullptr;
-            const auto               get_frame_hr = p_decoder->GetFrame(0, &rp_frame);
-            if (FAILED(get_frame_hr))
-            {
-                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ get_frame_hr, wic_category() },
-                                                          "Can't create bitmap frame." }));
-            }
-            const unique_com_ptr<::IWICBitmapFrameDecode> p_frame{ rp_frame };
-
-            ::IWICFormatConverter* rp_format_converter = nullptr;
-            const auto create_format_converter_hr = wic_imaging_factory().CreateFormatConverter(&rp_format_converter);
-            if (FAILED(create_format_converter_hr))
-            {
-                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ create_format_converter_hr, wic_category() },
-                                                          "Can't create format converter." }));
-            }
-            unique_com_ptr<::IWICFormatConverter> p_format_converter{ rp_format_converter };
-
-            const auto initialize_hr = p_format_converter->Initialize(
-                p_frame.get(),
-                ::GUID_WICPixelFormat32bppPBGRA,
-                WICBitmapDitherTypeNone,
-                nullptr,
-                0.0,
-                WICBitmapPaletteTypeCustom);
-            if (FAILED(initialize_hr))
-            {
-                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ initialize_hr, wic_category() },
-                                                          "Can't initialize format converter." }));
-            }
-
-            return { std::move(p_format_converter) };
-        }
-
-        /*!
-            \brief Returns the dimension of a picture.
-
-            \tparam Dimension A dimension type.
-
-            \param picture A picture.
-
-            \return The dimension of the picture.
-        */
-        template <typename Dimension>
-        Dimension dimension(const details_type& picture)
-        {
-            ::UINT     width = 0;
-            ::UINT     height = 0;
-            const auto hr = const_cast<details_type&>(picture).GetSize(&width, &height);
+            ::IWICImagingFactory* rp_factory = nullptr;
+            const auto            hr = ::CoCreateInstance(
+                Tetengo2_CLSID_WICImagingFactory, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&rp_factory));
             if (FAILED(hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    (std::system_error{ std::error_code{ hr, wic_category() }, "Can't get size of picture." }));
+                    (std::system_error{ std::error_code{ hr, wic_category() }, "Can't create WIC imaging factory." }));
             }
 
-            return { gui::to_unit<typename Dimension::unit_type>(width),
-                     gui::to_unit<typename Dimension::unit_type>(height) };
+            return wic_imaging_factory_ptr_type{ rp_factory };
         }
     }
-}}}
+#endif
+
+
+    // types
+
+    //! The details type.
+    using details_type = ::IWICBitmapSource;
+
+    //! The details pointer type.
+    using details_ptr_type = unique_com_ptr<details_type>;
+
+
+    // functions
+
+    /*!
+        \brief Returns the WIC image factory.
+
+        \return The WIC image factory.
+    */
+    inline ::IWICImagingFactory& wic_imaging_factory()
+    {
+        static const detail::wic_imaging_factory_ptr_type p_factory{ detail::create_wic_imaging_factory() };
+        return *p_factory;
+    }
+
+    /*!
+        \brief Creates a picture.
+
+        \tparam Dimension A dimension type.
+
+        \param dimension A dimension.
+
+        \return A unique pointer to a picture.
+    */
+    template <typename Dimension>
+    details_ptr_type create(const Dimension& dimension)
+    {
+        ::IWICBitmap* rp_bitmap = nullptr;
+        const auto    hr = wic_imaging_factory().CreateBitmap(
+            gui::to_pixels<::UINT>(dimension.width()),
+            gui::to_pixels<::UINT>(dimension.height()),
+            ::GUID_WICPixelFormat32bppPBGRA,
+            ::WICBitmapCacheOnDemand,
+            &rp_bitmap);
+        if (FAILED(hr))
+            BOOST_THROW_EXCEPTION((std::system_error{ std::error_code(hr, wic_category()), "Can't create bitmap." }));
+
+        return { rp_bitmap };
+    }
+
+    /*!
+        \brief Reads a picture.
+
+        \param path A path.
+
+        \return A unique pointer to a picture.
+
+        \throw std::system_error When the picture cannot be read.
+    */
+    inline details_ptr_type read(const boost::filesystem::path& path)
+    {
+        ::IWICBitmapDecoder* rp_decoder = nullptr;
+        const auto           create_decoder_hr = wic_imaging_factory().CreateDecoderFromFilename(
+            path.c_str(), nullptr, GENERIC_READ, WICDecodeMetadataCacheOnDemand, &rp_decoder);
+        if (FAILED(create_decoder_hr))
+        {
+            BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ create_decoder_hr, wic_category() },
+                                                      "Can't create WIC decoder." }));
+        }
+        const unique_com_ptr<::IWICBitmapDecoder> p_decoder{ rp_decoder };
+
+        ::IWICBitmapFrameDecode* rp_frame = nullptr;
+        const auto               get_frame_hr = p_decoder->GetFrame(0, &rp_frame);
+        if (FAILED(get_frame_hr))
+        {
+            BOOST_THROW_EXCEPTION(
+                (std::system_error{ std::error_code{ get_frame_hr, wic_category() }, "Can't create bitmap frame." }));
+        }
+        const unique_com_ptr<::IWICBitmapFrameDecode> p_frame{ rp_frame };
+
+        ::IWICFormatConverter* rp_format_converter = nullptr;
+        const auto create_format_converter_hr = wic_imaging_factory().CreateFormatConverter(&rp_format_converter);
+        if (FAILED(create_format_converter_hr))
+        {
+            BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ create_format_converter_hr, wic_category() },
+                                                      "Can't create format converter." }));
+        }
+        unique_com_ptr<::IWICFormatConverter> p_format_converter{ rp_format_converter };
+
+        const auto initialize_hr = p_format_converter->Initialize(
+            p_frame.get(),
+            ::GUID_WICPixelFormat32bppPBGRA,
+            WICBitmapDitherTypeNone,
+            nullptr,
+            0.0,
+            WICBitmapPaletteTypeCustom);
+        if (FAILED(initialize_hr))
+        {
+            BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ initialize_hr, wic_category() },
+                                                      "Can't initialize format converter." }));
+        }
+
+        return { std::move(p_format_converter) };
+    }
+
+    /*!
+        \brief Returns the dimension of a picture.
+
+        \tparam Dimension A dimension type.
+
+        \param picture A picture.
+
+        \return The dimension of the picture.
+    */
+    template <typename Dimension>
+    Dimension dimension(const details_type& picture)
+    {
+        ::UINT     width = 0;
+        ::UINT     height = 0;
+        const auto hr = const_cast<details_type&>(picture).GetSize(&width, &height);
+        if (FAILED(hr))
+        {
+            BOOST_THROW_EXCEPTION(
+                (std::system_error{ std::error_code{ hr, wic_category() }, "Can't get size of picture." }));
+        }
+
+        return { gui::to_unit<typename Dimension::unit_type>(width),
+                 gui::to_unit<typename Dimension::unit_type>(height) };
+    }
+}
 
 
 #endif

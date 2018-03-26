@@ -14,7 +14,7 @@
 #include <boost/core/noncopyable.hpp>
 
 
-namespace tetengo2 { namespace detail { namespace base {
+namespace tetengo2::detail::base {
     class alert;
     class cursor;
     class gui_fixture;
@@ -86,9 +86,7 @@ namespace tetengo2 { namespace detail { namespace base {
 
         virtual const unit& unit_impl() const = 0;
     };
-
-
-}}}
+}
 
 
 #endif

@@ -15,12 +15,12 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
 
-namespace boost { namespace filesystem {
+namespace boost::filesystem {
     class path;
-}}
+}
 
 
-namespace tetengo2 { namespace gui { namespace message {
+namespace tetengo2::gui::message {
     /*!
         \brief The class for a file drop observer set.
     */
@@ -68,9 +68,7 @@ namespace tetengo2 { namespace gui { namespace message {
 
         file_dropped_signal_type m_file_dropped;
     };
-
-
-}}}
+}
 
 
 #endif

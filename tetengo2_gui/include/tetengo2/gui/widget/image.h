@@ -20,7 +20,7 @@
 #include <tetengo2/gui/widget/control.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget {
+namespace tetengo2::gui::widget {
     /*!
         \brief The class template for an image.
 
@@ -265,9 +265,7 @@ namespace tetengo2 { namespace gui { namespace widget {
                 canvas.paint_icon(*m_p_icon, position_type{});
         }
     };
-
-
-}}}
+}
 
 
 #endif

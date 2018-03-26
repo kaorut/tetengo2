@@ -17,7 +17,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui {
+namespace tetengo2::gui {
     /*!
         \brief The class template for a shell.
 
@@ -103,8 +103,6 @@ namespace tetengo2 { namespace gui {
 
         shell() : m_p_shell_details{ stdalt::make_unique<shell_details_type>() } {}
     };
-
-
-}}
+}
 
 #endif

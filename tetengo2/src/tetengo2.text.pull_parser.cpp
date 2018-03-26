@@ -29,7 +29,7 @@
 #include <tetengo2/text/push_parser.h>
 
 
-namespace tetengo2 { namespace text {
+namespace tetengo2::text {
     template <structure_kind Kind, typename String, typename AttributeMap>
     structure_kind structure<Kind, String, AttributeMap>::kind()
     {
@@ -273,6 +273,4 @@ namespace tetengo2 { namespace text {
     template class pull_parser<application::input_stream_iterator_type>;
 
     template class pull_parser<test::input_stream_iterator_type>;
-
-
-}}
+}

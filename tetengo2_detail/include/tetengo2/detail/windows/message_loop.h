@@ -26,8 +26,7 @@
 #include <tetengo2/detail/windows/error_category.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows
-{
+namespace tetengo2::detail::windows {
     /*!
         \brief The class for a detail implementation of a message loop.
     */
@@ -172,7 +171,7 @@ namespace tetengo2 { namespace detail { namespace windows
    };
 
 
-}}}
+}
 
 
 #endif

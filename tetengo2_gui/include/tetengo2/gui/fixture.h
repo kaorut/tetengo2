@@ -16,7 +16,7 @@
 #include <tetengo2/detail/base/gui_fixture.h>
 
 
-namespace tetengo2 { namespace gui {
+namespace tetengo2::gui {
     /*!
         \brief The class for a GUI fixture.
     */
@@ -54,8 +54,6 @@ namespace tetengo2 { namespace gui {
 
         const std::unique_ptr<impl> m_p_impl;
     };
-
-
-}}
+}
 
 #endif

@@ -10,7 +10,7 @@
 #define TETENGO2_GUI_CURSOR_SYSTEMCURSORSTYLE_H
 
 
-namespace tetengo2 { namespace gui { namespace cursor {
+namespace tetengo2::gui::cursor {
     /*!
         \brief The enumeration type for the sysctem cursor style.
     */
@@ -21,9 +21,7 @@ namespace tetengo2 { namespace gui { namespace cursor {
         horizontal_resize, //!< A horizontal resize style.
         vertical_resize, //!< A vertical resize style.
     };
-
-
-}}}
+}
 
 
 #endif

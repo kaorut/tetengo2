@@ -18,7 +18,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace detail { namespace base {
+namespace tetengo2::detail::base {
     /*!
         \brief The class for a detail implementation of a unit.
     */
@@ -230,9 +230,7 @@ namespace tetengo2 { namespace detail { namespace base {
 
         difference_type point_difference_to_pixel(const boost::rational<difference_type>& point_difference) const;
     };
-
-
-}}}
+}
 
 
 #endif

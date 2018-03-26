@@ -17,7 +17,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     /*!
         \brief The class for a detail implementation of a config.
     */
@@ -79,9 +79,7 @@ namespace tetengo2 { namespace detail { namespace windows {
 
         virtual void clear_impl(const string_type& group_name) const override;
     };
-
-
-}}}
+}
 
 
 #endif

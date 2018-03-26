@@ -26,7 +26,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget {
+namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a tab frame.
 
@@ -818,9 +818,7 @@ namespace tetengo2 { namespace gui { namespace widget {
             return (*max_width_tab)->label().dimension().width();
         }
     };
-
-
-}}}
+}
 
 
 #endif

@@ -22,7 +22,7 @@ namespace boost {
 }
 
 
-namespace tetengo2 { namespace gui {
+namespace tetengo2::gui {
     /*!
         \brief The class for an alert.
     */
@@ -88,9 +88,7 @@ namespace tetengo2 { namespace gui {
 
         const std::unique_ptr<impl> m_p_impl;
     };
-
-
-}}
+}
 
 
 #endif

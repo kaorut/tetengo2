@@ -35,7 +35,7 @@
 #include <tetengo2/gui/measure.h> // IWYU pragma: keep
 
 
-namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail { namespace widget {
+namespace tetengo2::detail::windows::message_handler_detail::widget {
     template <typename Widget>
     boost::optional<::LRESULT> on_command(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
     {
@@ -523,9 +523,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
 
         return boost::make_optional<::LRESULT>(0);
     }
-
-
-}}}}}
+}
 
 
 #endif

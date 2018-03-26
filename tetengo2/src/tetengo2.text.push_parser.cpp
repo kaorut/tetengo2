@@ -32,7 +32,7 @@
 #include <tetengo2/text/push_parser.h>
 
 
-namespace tetengo2 { namespace text {
+namespace tetengo2::text {
     template <typename ForwardIterator>
     class push_parser<ForwardIterator>::impl : private boost::noncopyable
     {
@@ -356,6 +356,4 @@ namespace tetengo2 { namespace text {
     template class push_parser<application::input_stream_iterator_type>;
 
     template class push_parser<test::input_stream_iterator_type>;
-
-
-}}
+}

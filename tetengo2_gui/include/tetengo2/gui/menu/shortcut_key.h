@@ -16,7 +16,7 @@
 #include <tetengo2/gui/virtual_key.h>
 
 
-namespace tetengo2 { namespace gui { namespace menu {
+namespace tetengo2::gui::menu {
     /*!
         \brief The class template for a shortcut key.
 
@@ -146,9 +146,7 @@ namespace tetengo2 { namespace gui { namespace menu {
 
         bool m_meta;
     };
-
-
-}}}
+}
 
 
 #endif

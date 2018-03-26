@@ -19,7 +19,7 @@
 #include <Windows.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     /*!
         \brief Verifies the Windows version.
 
@@ -69,9 +69,7 @@ namespace tetengo2 { namespace detail { namespace windows {
         static const auto result = verify_windows_version(6, 0, 0, 0);
         return result;
     }
-
-
-}}}
+}
 
 
 #endif

@@ -19,7 +19,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace message {
+namespace tetengo2::message {
     /*!
         \brief The class for a messages facet.
 
@@ -87,9 +87,7 @@ namespace tetengo2 { namespace message {
 
         virtual void do_close(catalog catalog_id) const override;
     };
-
-
-}}
+}
 
 
 #endif

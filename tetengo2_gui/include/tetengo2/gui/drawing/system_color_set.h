@@ -14,7 +14,7 @@
 #include <tetengo2/gui/drawing/color.h>
 
 
-namespace tetengo2 { namespace gui { namespace drawing {
+namespace tetengo2::gui::drawing {
     /*!
         \brief The class template for a system color set.
 
@@ -137,9 +137,7 @@ namespace tetengo2 { namespace gui { namespace drawing {
 
         system_color_set() = delete;
     };
-
-
-}}}
+}
 
 
 #endif

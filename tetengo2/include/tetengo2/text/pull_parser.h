@@ -19,7 +19,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace text {
+namespace tetengo2::text {
     /*!
         \brief The pull parser structure kind type.
     */
@@ -200,9 +200,7 @@ namespace tetengo2 { namespace text {
 
         const std::unique_ptr<impl> m_p_impl;
     };
-
-
-}}
+}
 
 
 #endif

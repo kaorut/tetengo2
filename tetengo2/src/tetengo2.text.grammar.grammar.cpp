@@ -17,7 +17,7 @@
 #include <tetengo2/text/grammar/grammar.h>
 
 
-namespace tetengo2 { namespace text { namespace grammar {
+namespace tetengo2::text::grammar {
     template <typename String>
     structure_attribute<String>::structure_attribute(
         string_type           name,
@@ -174,6 +174,4 @@ namespace tetengo2 { namespace text { namespace grammar {
     template class grammar<application::input_stream_iterator_type>;
 
     template class grammar<test::input_stream_iterator_type>;
-
-
-}}}
+}

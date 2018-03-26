@@ -20,15 +20,13 @@
 #include <Windows.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail {
+namespace tetengo2::detail::windows::message_handler_detail {
     enum class custom_message_type : ::UINT
     {
         command = WM_APP + 1,
         control_color,
     };
-
-
-}}}}
+}
 
 
 #endif

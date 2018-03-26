@@ -14,7 +14,7 @@
 #include <tetengo2/gui/unit/point.h>
 
 
-namespace tetengo2 { namespace gui {
+namespace tetengo2::gui {
     template <typename Unit>
     dimension<Unit>::dimension() : m_width{ unit_type{} }, m_height{ unit_type{} }
     {}
@@ -81,6 +81,4 @@ namespace tetengo2 { namespace gui {
     template bool
     operator==(const dimension<point_windows_unit_type>& one, const dimension<point_windows_unit_type>& another);
 #endif
-
-
-}}
+}

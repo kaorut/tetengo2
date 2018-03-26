@@ -18,7 +18,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace config {
+namespace tetengo2::config {
     /*!
         \brief The class for a configuration base.
     */
@@ -94,9 +94,7 @@ namespace tetengo2 { namespace config {
 
         virtual void clear_impl() = 0;
     };
-
-
-}}
+}
 
 
 #endif

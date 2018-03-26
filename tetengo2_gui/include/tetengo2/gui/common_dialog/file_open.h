@@ -18,7 +18,7 @@
 #include <tetengo2/gui/widget/abstract_window.h>
 
 
-namespace tetengo2 { namespace gui { namespace common_dialog {
+namespace tetengo2::gui::common_dialog {
     /*!
         \brief The class template for a file open dialog.
 
@@ -158,9 +158,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog {
 
         boost::filesystem::path m_result;
     };
-
-
-}}}
+}
 
 
 #endif

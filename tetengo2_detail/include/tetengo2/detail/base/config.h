@@ -16,7 +16,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace detail { namespace base {
+namespace tetengo2::detail::base {
     /*!
         \brief The class for a detail implementation of a configuration.
     */
@@ -90,9 +90,7 @@ namespace tetengo2 { namespace detail { namespace base {
 
         virtual void clear_impl(const string_type& group_name) const = 0;
     };
-
-
-}}}
+}
 
 
 #endif

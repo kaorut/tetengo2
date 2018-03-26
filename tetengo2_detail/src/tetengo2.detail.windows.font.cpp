@@ -24,7 +24,7 @@
 #include <tetengo2/detail/windows/windows_version.h> // IWYU pragma: keep
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     void get_nonclient_metrics(::NONCLIENTMETRICSW& metrics)
     {
         const ::UINT metrics_size =
@@ -44,6 +44,4 @@ namespace tetengo2 { namespace detail { namespace windows {
 
         return metrics.lfMessageFont;
     }
-
-
-}}}
+}

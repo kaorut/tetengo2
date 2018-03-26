@@ -16,12 +16,12 @@
 
 #include <boost/iterator/iterator_facade.hpp>
 
-namespace boost { namespace iterators {
+namespace boost::iterators {
     struct forward_traversal_tag;
-}}
+}
 
 
-namespace tetengo2 { namespace gui { namespace menu {
+namespace tetengo2::gui::menu {
     /*!
         \brief The class template for a recursive iterator.
 
@@ -126,9 +126,7 @@ namespace tetengo2 { namespace gui { namespace menu {
 
         std::stack<parent_and_index_type> m_parents;
     };
-
-
-}}}
+}
 
 
 #endif

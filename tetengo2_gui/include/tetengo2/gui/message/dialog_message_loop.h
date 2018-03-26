@@ -12,7 +12,7 @@
 #include <boost/core/noncopyable.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace message {
+namespace tetengo2::gui::message {
     /*!
         \brief The class template for a message loop for dialogs.
 
@@ -60,9 +60,7 @@ namespace tetengo2 { namespace gui { namespace message {
 
         abstract_window_type& m_dialog;
     };
-
-
-}}}
+}
 
 
 #endif

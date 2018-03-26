@@ -20,7 +20,7 @@
 #include <tetengo2/text/encoding/utf8.h>
 
 
-namespace tetengo2 { namespace text {
+namespace tetengo2::text {
     template <typename String>
     class character_iterator<String>::impl
     {
@@ -216,6 +216,4 @@ namespace tetengo2 { namespace text {
 
     template character_iterator<std::wstring>
     make_character_iterator(const std::wstring& string, encoding::polymorphic<std::wstring> encoding);
-
-
-}}
+}

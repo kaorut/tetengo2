@@ -22,7 +22,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace concurrent {
+namespace tetengo2::concurrent {
     /*!
         \brief The class template for a progressive promise base.
 
@@ -441,9 +441,7 @@ namespace tetengo2 { namespace concurrent {
         }
     };
 #endif
-
-
-}}
+}
 
 
 namespace std {

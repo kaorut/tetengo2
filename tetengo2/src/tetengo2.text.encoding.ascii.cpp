@@ -18,7 +18,7 @@
 #include <tetengo2/text/encoding/ascii.h>
 
 
-namespace tetengo2 { namespace text { namespace encoding {
+namespace tetengo2::text::encoding {
     class ascii::impl : private boost::noncopyable
     {
     public:
@@ -111,6 +111,4 @@ namespace tetengo2 { namespace text { namespace encoding {
     {
         return m_p_impl->to_pivot_impl(string);
     }
-
-
-}}}
+}

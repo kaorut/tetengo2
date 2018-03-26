@@ -15,7 +15,7 @@
 #include <boost/predef.h>
 
 
-namespace tetengo2 { namespace detail { namespace base {
+namespace tetengo2::detail::base {
     /*!
         \brief The class for a detail implementation of an encoding.
     */
@@ -107,9 +107,7 @@ namespace tetengo2 { namespace detail { namespace base {
 
         virtual pivot_type cp932_to_pivot_impl(cp932_string_type string) const = 0;
     };
-
-
-}}}
+}
 
 
 #endif

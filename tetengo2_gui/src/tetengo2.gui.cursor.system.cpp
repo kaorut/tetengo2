@@ -15,7 +15,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace cursor {
+namespace tetengo2::gui::cursor {
     class system::impl : public cursor_base
     {
     public:
@@ -86,6 +86,4 @@ namespace tetengo2 { namespace gui { namespace cursor {
     {
         return m_p_impl->details_impl();
     }
-
-
-}}}
+}

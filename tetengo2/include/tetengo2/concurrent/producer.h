@@ -18,7 +18,7 @@
 #include <tetengo2/concurrent/channel.h>
 
 
-namespace tetengo2 { namespace concurrent {
+namespace tetengo2::concurrent {
     /*!
         \brief The class template for a producer.
 
@@ -106,9 +106,7 @@ namespace tetengo2 { namespace concurrent {
 
         std::thread m_thread;
     };
-
-
-}}
+}
 
 
 #endif

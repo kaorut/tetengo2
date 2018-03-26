@@ -18,7 +18,7 @@
 #include <tetengo2/gui/widget/abstract_window.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget {
+namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a modal dialog.
 
@@ -217,9 +217,7 @@ namespace tetengo2 { namespace gui { namespace widget {
             return *m_p_details;
         }
     };
-
-
-}}}
+}
 
 
 #endif

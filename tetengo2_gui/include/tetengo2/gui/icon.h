@@ -16,7 +16,7 @@
 #include <boost/filesystem.hpp>
 
 
-namespace tetengo2 { namespace gui {
+namespace tetengo2::gui {
     /*!
         \brief The class template for an icon.
 
@@ -123,8 +123,6 @@ namespace tetengo2 { namespace gui {
 
         const icon_details_ptr_type m_p_icon_details;
     };
-
-
-}}
+}
 
 #endif

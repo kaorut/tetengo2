@@ -23,12 +23,12 @@
 #include <tetengo2/text/grammar/grammar.h>
 #include <tetengo2/text/grammar/json.h>
 
-namespace boost { namespace spirit {
+namespace boost::spirit {
     struct unused_type;
-}}
+}
 
 
-namespace tetengo2 { namespace text { namespace grammar {
+namespace tetengo2::text::grammar {
     template <typename ForwardIterator>
     class json<ForwardIterator>::impl : private boost::noncopyable
     {
@@ -389,6 +389,4 @@ namespace tetengo2 { namespace text { namespace grammar {
     template class json<application::input_stream_iterator_type>;
 
     template class json<test::input_stream_iterator_type>;
-
-
-}}}
+}

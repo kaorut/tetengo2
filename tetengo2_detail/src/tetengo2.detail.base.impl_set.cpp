@@ -11,14 +11,14 @@
 #include <tetengo2/detail/base/gui_fixture.h>
 #include <tetengo2/detail/base/impl_set.h>
 
-namespace tetengo2 { namespace detail { namespace base {
+namespace tetengo2::detail::base {
     class alert;
     class cursor;
     class unit;
-}}}
+}
 
 
-namespace tetengo2 { namespace detail { namespace base {
+namespace tetengo2::detail::base {
     impl_set::~impl_set() = default;
 
     const alert& impl_set::alert_() const
@@ -42,6 +42,4 @@ namespace tetengo2 { namespace detail { namespace base {
     }
 
     impl_set::impl_set() = default;
-
-
-}}}
+}

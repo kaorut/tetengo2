@@ -12,7 +12,7 @@
 #include <tetengo2/detail/base/gui_fixture.h>
 
 
-namespace tetengo2 { namespace detail { namespace stub {
+namespace tetengo2::detail::stub {
     /*!
         \brief The class for a detail implementation of a GUI fixture.
     */
@@ -33,9 +33,7 @@ namespace tetengo2 { namespace detail { namespace stub {
         */
         virtual ~gui_fixture();
     };
-
-
-}}}
+}
 
 
 #endif

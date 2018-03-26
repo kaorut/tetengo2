@@ -14,7 +14,7 @@
 #include <tetengo2/detail/base/encoding.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     /*!
         \brief The class for a detail implementation of an encoding.
     */
@@ -77,9 +77,7 @@ namespace tetengo2 { namespace detail { namespace windows {
 
         virtual pivot_type cp932_to_pivot_impl(cp932_string_type string) const override;
     };
-
-
-}}}
+}
 
 
 #endif

@@ -14,7 +14,7 @@
 #include <boost/signals2.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace message {
+namespace tetengo2::gui::message {
     /*!
         \brief The class for a list selection observer set.
     */
@@ -60,9 +60,7 @@ namespace tetengo2 { namespace gui { namespace message {
 
         selection_changed_signal_type m_selection_changed;
     };
-
-
-}}}
+}
 
 
 #endif

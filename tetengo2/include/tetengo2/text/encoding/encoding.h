@@ -15,7 +15,7 @@
 #include <tetengo2/detail/base/encoding.h>
 
 
-namespace tetengo2 { namespace text { namespace encoding {
+namespace tetengo2::text::encoding {
     /*!
         \brief The class template for a encoding.
 
@@ -145,9 +145,7 @@ namespace tetengo2 { namespace text { namespace encoding {
 
         virtual pivot_type to_pivot_impl(string_type string) const = 0;
     };
-
-
-}}}
+}
 
 
 #endif

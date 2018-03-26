@@ -31,7 +31,7 @@
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     /*!
         \brief The class for a detail implementation of a timer.
     */
@@ -132,9 +132,7 @@ namespace tetengo2 { namespace detail { namespace windows {
 
         ::UINT_PTR m_id;
     };
-
-
-}}}
+}
 
 
 #endif

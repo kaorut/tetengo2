@@ -25,7 +25,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace concurrent {
+namespace tetengo2::concurrent {
     /*!
         \brief The class template for a channel.
 
@@ -243,9 +243,7 @@ namespace tetengo2 { namespace concurrent {
             return !m_queue.empty();
         }
     };
-
-
-}}
+}
 
 
 #endif

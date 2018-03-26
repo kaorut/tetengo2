@@ -17,7 +17,7 @@
 #include <tetengo2/gui/cursor/system_cursor_style.h>
 
 
-namespace tetengo2 { namespace detail { namespace base {
+namespace tetengo2::detail::base {
     /*!
         \brief The class for a detail implementation of a cursor.
     */
@@ -84,9 +84,7 @@ namespace tetengo2 { namespace detail { namespace base {
 
         virtual cursor_details_ptr_type create_system_cursor_impl(system_cursor_style_type style) const = 0;
     };
-
-
-}}}
+}
 
 
 #endif

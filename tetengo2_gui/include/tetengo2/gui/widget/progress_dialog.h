@@ -31,7 +31,7 @@
 #include <tetengo2/text.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget {
+namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a progress dialog.
 
@@ -347,9 +347,7 @@ namespace tetengo2 { namespace gui { namespace widget {
             m_previous_progress = progress;
         }
     };
-
-
-}}}
+}
 
 
 #endif

@@ -16,7 +16,7 @@
 #include <tetengo2/gui/widget/abstract_window.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget {
+namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a window.
 
@@ -157,9 +157,7 @@ namespace tetengo2 { namespace gui { namespace widget {
             base_type::initialize(this);
         }
     };
-
-
-}}}
+}
 
 
 #endif

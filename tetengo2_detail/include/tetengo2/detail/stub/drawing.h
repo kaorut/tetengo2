@@ -22,7 +22,7 @@
 #include <tetengo2/text.h>
 
 
-namespace tetengo2 { namespace detail { namespace stub {
+namespace tetengo2::detail::stub {
     /*!
         \brief The class for a detail implementation of a drawing.
     */
@@ -561,9 +561,7 @@ namespace tetengo2 { namespace detail { namespace stub {
 
         drawing() = delete;
     };
-
-
-}}}
+}
 
 
 #endif

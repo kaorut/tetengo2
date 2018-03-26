@@ -13,15 +13,15 @@
 
 #include <tetengo2/detail/base/impl_set.h>
 
-namespace tetengo2 { namespace detail { namespace base {
+namespace tetengo2::detail::base {
     class alert;
     class cursor;
     class gui_fixture;
     class unit;
-}}}
+}
 
 
-namespace tetengo2 { namespace detail { namespace stub {
+namespace tetengo2::detail::stub {
     /*!
         The class for a detail implementation set.
     */
@@ -62,9 +62,7 @@ namespace tetengo2 { namespace detail { namespace stub {
 
         virtual const base::unit& unit_impl() const override;
     };
-
-
-}}}
+}
 
 
 #endif

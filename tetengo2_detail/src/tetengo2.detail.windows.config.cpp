@@ -32,7 +32,7 @@
 #include <tetengo2/text/encoding/locale.h> // IWYU pragma: keep
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     class config::impl : private boost::noncopyable
     {
     public:
@@ -299,6 +299,4 @@ namespace tetengo2 { namespace detail { namespace windows {
     {
         m_p_impl->clear_impl(group_name);
     }
-
-
-}}}
+}

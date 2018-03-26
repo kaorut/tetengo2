@@ -23,7 +23,7 @@
 #include <tetengo2/gui/widget/widget.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget {
+namespace tetengo2::gui::widget {
     /*!
         \brief The class template for an abstract window.
 
@@ -368,9 +368,7 @@ namespace tetengo2 { namespace gui { namespace widget {
 
         file_drop_observer_set_type m_file_drop_observer_set;
     };
-
-
-}}}
+}
 
 
 #endif

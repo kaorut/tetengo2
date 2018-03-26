@@ -20,7 +20,7 @@
 #include <tetengo2/gui/widget/widget.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget {
+namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a control.
 
@@ -171,9 +171,7 @@ namespace tetengo2 { namespace gui { namespace widget {
             return *m_p_details;
         }
     };
-
-
-}}}
+}
 
 
 #endif

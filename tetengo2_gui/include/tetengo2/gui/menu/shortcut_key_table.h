@@ -20,7 +20,7 @@
 #include <tetengo2/gui/menu/shortcut_key.h>
 
 
-namespace tetengo2 { namespace gui { namespace menu {
+namespace tetengo2::gui::menu {
     /*!
         \brief The class template for a shortcut key table.
 
@@ -163,9 +163,7 @@ namespace tetengo2 { namespace gui { namespace menu {
 
         details_ptr_type m_p_details;
     };
-
-
-}}}
+}
 
 
 #endif

@@ -12,7 +12,7 @@
 #include <tetengo2/gui/drawing/canvas.h>
 
 
-namespace tetengo2 { namespace gui { namespace drawing {
+namespace tetengo2::gui::drawing {
     /*!
         \brief The class template for a widget canvas.
 
@@ -49,9 +49,7 @@ namespace tetengo2 { namespace gui { namespace drawing {
         */
         virtual ~widget_canvas() = default;
     };
-
-
-}}}
+}
 
 
 #endif

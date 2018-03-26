@@ -20,7 +20,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     const impl_set& impl_set::instance()
     {
         static const impl_set singleton;
@@ -50,6 +50,4 @@ namespace tetengo2 { namespace detail { namespace windows {
     {
         return unit::instance();
     }
-
-
-}}}
+}

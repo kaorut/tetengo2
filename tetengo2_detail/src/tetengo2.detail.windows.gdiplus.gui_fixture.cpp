@@ -34,7 +34,7 @@
 #include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
-namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus {
+namespace tetengo2::detail::windows::gdiplus {
     class gui_fixture::impl : private boost::noncopyable
     {
     public:
@@ -81,6 +81,4 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus {
     gui_fixture::gui_fixture() : m_p_impl{ stdalt::make_unique<impl>() } {}
 
     gui_fixture::~gui_fixture() = default;
-
-
-}}}}
+}

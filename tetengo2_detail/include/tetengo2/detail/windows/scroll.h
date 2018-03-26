@@ -31,7 +31,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     /*!
         \brief The class for a detail implementation of a scroll.
     */
@@ -276,9 +276,7 @@ namespace tetengo2 { namespace detail { namespace windows {
 
         scroll() = delete;
     };
-
-
-}}}
+}
 
 
 #endif

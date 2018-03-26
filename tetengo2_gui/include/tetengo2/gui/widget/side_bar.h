@@ -28,7 +28,7 @@
 #include <tetengo2/stdalt.h>
 
 
-namespace tetengo2 { namespace gui { namespace widget {
+namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a side bar.
 
@@ -869,9 +869,7 @@ namespace tetengo2 { namespace gui { namespace widget {
             }
         }
     };
-
-
-}}}
+}
 
 
 #endif

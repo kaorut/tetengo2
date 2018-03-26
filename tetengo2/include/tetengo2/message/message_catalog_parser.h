@@ -20,7 +20,7 @@
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2 { namespace message {
+namespace tetengo2::message {
     /*!
         \brief The class template for a message catalog parser.
 
@@ -104,9 +104,7 @@ namespace tetengo2 { namespace message {
 
         const std::unique_ptr<impl> m_p_impl;
     };
-
-
-}}
+}
 
 
 #endif

@@ -25,7 +25,7 @@
 #include <Windows.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     /*!
         \brief The class for a detail implementation of a system color.
     */
@@ -102,9 +102,7 @@ namespace tetengo2 { namespace detail { namespace windows {
 
         system_color() = delete;
     };
-
-
-}}}
+}
 
 
 #endif

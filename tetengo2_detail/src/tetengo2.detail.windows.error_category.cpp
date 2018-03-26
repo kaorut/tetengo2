@@ -27,7 +27,7 @@
 #include <tetengo2/text/encoding/utf8.h> // IWYU pragma: keep
 
 
-namespace tetengo2 { namespace detail { namespace windows {
+namespace tetengo2::detail::windows {
     namespace detail {
         using encoder_type = text::encoder<text::encoding::utf8, text::encoding::locale<std::wstring>>;
 
@@ -189,6 +189,4 @@ namespace tetengo2 { namespace detail { namespace windows {
         static const wic_error_category singleton;
         return singleton;
     }
-
-
-}}}
+}

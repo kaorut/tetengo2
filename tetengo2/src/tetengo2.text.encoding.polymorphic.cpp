@@ -17,7 +17,7 @@
 #include <tetengo2/text/encoding/polymorphic.h>
 
 
-namespace tetengo2 { namespace text { namespace encoding {
+namespace tetengo2::text::encoding {
     template <typename String>
     class polymorphic<String>::impl : private boost::noncopyable
     {
@@ -107,6 +107,4 @@ namespace tetengo2 { namespace text { namespace encoding {
     template class polymorphic<std::string>;
 
     template class polymorphic<std::wstring>;
-
-
-}}}
+}

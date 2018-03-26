@@ -21,7 +21,7 @@
 #include <tetengo2/gui/widget/abstract_window.h>
 
 
-namespace tetengo2 { namespace gui { namespace common_dialog {
+namespace tetengo2::gui::common_dialog {
     namespace message_box_style {
         /*!
             \brief The class template for a button style.
@@ -374,9 +374,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog {
 
         details_ptr_type m_p_details;
     };
-
-
-}}}
+}
 
 
 #endif

@@ -13,7 +13,7 @@
 #include <boost/signals2.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace message {
+namespace tetengo2::gui::message {
     /*!
         \brief The class template for a keyboard observer set.
 
@@ -141,9 +141,7 @@ namespace tetengo2 { namespace gui { namespace message {
 
         character_input_signal_type m_character_input;
     };
-
-
-}}}
+}
 
 
 #endif

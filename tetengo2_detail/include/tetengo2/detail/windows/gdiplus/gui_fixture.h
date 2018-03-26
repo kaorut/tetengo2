@@ -14,7 +14,7 @@
 #include <tetengo2/detail/base/gui_fixture.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus {
+namespace tetengo2::detail::windows::gdiplus {
     /*!
         \brief The class for a detail implementation of a GUI fixture.
     */
@@ -46,9 +46,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus {
 
         const std::unique_ptr<impl> m_p_impl;
     };
-
-
-}}}}
+}
 
 
 #endif

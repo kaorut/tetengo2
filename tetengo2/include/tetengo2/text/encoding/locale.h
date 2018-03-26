@@ -16,7 +16,7 @@
 #include <tetengo2/text/encoding/encoding.h>
 
 
-namespace tetengo2 { namespace text { namespace encoding {
+namespace tetengo2::text::encoding {
     /*!
         \brief The class template for an encoding based on a locale.
 
@@ -115,9 +115,7 @@ namespace tetengo2 { namespace text { namespace encoding {
 
         virtual pivot_type to_pivot_impl(string_type string) const override;
     };
-
-
-}}}
+}
 
 
 #endif

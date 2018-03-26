@@ -23,7 +23,7 @@
 #include <tetengo2/detail/windows/error_category.h>
 
 
-namespace tetengo2 { namespace detail { namespace windows { namespace direct2d {
+namespace tetengo2::detail::windows::direct2d {
     error_category::error_category() : std::error_category{} {}
 
     error_category::~error_category() = default;
@@ -116,6 +116,4 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d {
         static const error_category singleton;
         return singleton;
     }
-
-
-}}}}
+}
