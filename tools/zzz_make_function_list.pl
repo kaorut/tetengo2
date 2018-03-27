@@ -46,6 +46,10 @@ foreach my $output (`$ctags_command $file_name_tmp`)
 	$namespace =~ s/^namespace://;
 	$namespace =~ s/^class://;
 	$namespace =~ s/^struct://;
+	$namespace =~ s/^boost::tetengo2::/tetengo2::/; # adhoc
+	$namespace =~ s/^tetengo2::tetengo2::/tetengo2::/; # adhoc
+	$namespace =~ s/^boost::bobura::/bobura::/; # adhoc
+	$namespace =~ s/^bobura::bobura::/bobura::/; # adhoc
 	
 	if ($description =~ /\bvirtual\b/)
 	{
