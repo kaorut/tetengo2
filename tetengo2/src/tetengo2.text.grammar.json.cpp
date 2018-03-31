@@ -7,6 +7,7 @@
 */
 
 #include <iterator>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -325,7 +326,7 @@ namespace tetengo2::text::grammar {
 
     template <typename ForwardIterator>
     json<ForwardIterator>::json()
-    : base_type{ m_json_text }, m_json_text{}, m_p_impl{ stdalt::make_unique<impl>(m_json_text, *this) }
+    : base_type{ m_json_text }, m_json_text{}, m_p_impl{ std::make_unique<impl>(m_json_text, *this) }
     {}
 
     template <typename ForwardIterator>

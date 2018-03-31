@@ -36,7 +36,7 @@ namespace {
 
         virtual std::unique_ptr<background_type> clone_impl() const override
         {
-            return tetengo2::stdalt::make_unique<concrete_background>();
+            return std::make_unique<concrete_background>();
         }
 
         virtual const background_type::details_type& details_impl() const override

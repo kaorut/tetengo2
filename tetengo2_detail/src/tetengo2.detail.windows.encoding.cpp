@@ -7,6 +7,7 @@
 */
 
 #include <cassert>
+#include <memory>
 #include <utility> // IWYU pragma: keep
 #include <vector> // IWYU pragma: keep
 
@@ -147,7 +148,7 @@ namespace tetengo2::detail::windows {
 
     encoding::~encoding() = default;
 
-    encoding::encoding() : m_p_impl{ stdalt::make_unique<impl>() } {}
+    encoding::encoding() : m_p_impl{ std::make_unique<impl>() } {}
 
     encoding::utf8_string_type encoding::pivot_to_utf8_impl(pivot_type pivot) const
     {

@@ -366,7 +366,7 @@ namespace tetengo2::gui::widget {
                 auto original_background = canvas.get_background().clone();
                 canvas.set_color(border_color());
                 canvas.set_line_width(dimension_unit_type{ 1 } / 16);
-                canvas.set_background(stdalt::make_unique<solid_background_type>(*m_p_current_background_color));
+                canvas.set_background(std::make_unique<solid_background_type>(*m_p_current_background_color));
 
                 const auto triangle = make_triangle();
                 canvas.fill_polygon(triangle.begin(), triangle.end());
@@ -385,7 +385,7 @@ namespace tetengo2::gui::widget {
                 if (m_animation_step > 0)
                     return;
 
-                m_p_timer = stdalt::make_unique<timer_type>(
+                m_p_timer = std::make_unique<timer_type>(
                     this->parent(),
                     [this](bool& stop) { this->timer_proc(stop); },
                     animation_duration() / max_animation_step(),
@@ -500,7 +500,7 @@ namespace tetengo2::gui::widget {
                 auto p_original_background = canvas.get_background().clone();
                 canvas.set_color(system_color_set_type::title_bar_text());
                 canvas.set_background(
-                    stdalt::make_unique<solid_background_type>(system_color_set_type::title_bar_background()));
+                    std::make_unique<solid_background_type>(system_color_set_type::title_bar_background()));
 
                 canvas.fill_rectangle(this->position(), this->dimension());
 
@@ -662,7 +662,7 @@ namespace tetengo2::gui::widget {
 
                 auto original_background = canvas.get_background().clone();
                 canvas.set_background(
-                    stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background()));
+                    std::make_unique<solid_background_type>(system_color_set_type::dialog_background()));
 
                 canvas.fill_rectangle(this->position(), this->dimension());
 
@@ -700,7 +700,7 @@ namespace tetengo2::gui::widget {
                 if (this->template parent_to<side_bar>().m_minimized)
                     return;
 
-                auto p_cursor = stdalt::make_unique<system_cursor_type>(
+                auto p_cursor = std::make_unique<system_cursor_type>(
                     system_cursor_type::style_type::horizontal_resize,
                     this->template parent_to<side_bar>().m_cursor_details);
                 this->template parent_to<side_bar>().set_cursor(std::move(p_cursor));
@@ -764,7 +764,7 @@ namespace tetengo2::gui::widget {
         {
             side_bar_.set_dimension(dimension_type{ dimension_unit_type{ 16 }, dimension_unit_type{ 16 } });
             side_bar_.set_background(
-                stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background()));
+                std::make_unique<solid_background_type>(system_color_set_type::dialog_background()));
 
             create_items(side_bar_);
 
@@ -775,10 +775,10 @@ namespace tetengo2::gui::widget {
 
         static void create_items(side_bar& side_bar_)
         {
-            side_bar_.m_p_state_button = stdalt::make_unique<state_button>(side_bar_);
-            side_bar_.m_p_caption = stdalt::make_unique<caption>(side_bar_);
+            side_bar_.m_p_state_button = std::make_unique<state_button>(side_bar_);
+            side_bar_.m_p_caption = std::make_unique<caption>(side_bar_);
 
-            side_bar_.m_p_splitter = stdalt::make_unique<splitter>(side_bar_);
+            side_bar_.m_p_splitter = std::make_unique<splitter>(side_bar_);
         }
 
         static void set_observers(side_bar& side_bar_)

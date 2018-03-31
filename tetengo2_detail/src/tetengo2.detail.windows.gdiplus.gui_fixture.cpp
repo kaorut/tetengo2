@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <memory>
 #include <system_error> // IWYU pragma: keep
 
 #include <boost/core/noncopyable.hpp>
@@ -77,7 +78,7 @@ namespace tetengo2::detail::windows::gdiplus {
     };
 
 
-    gui_fixture::gui_fixture() : m_p_impl{ stdalt::make_unique<impl>() } {}
+    gui_fixture::gui_fixture() : m_p_impl{ std::make_unique<impl>() } {}
 
     gui_fixture::~gui_fixture() = default;
 }

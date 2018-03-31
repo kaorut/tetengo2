@@ -188,7 +188,7 @@ namespace tetengo2::gui::widget {
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
             m_p_value_items.insert(
-                std::next(m_p_value_items.begin(), index), stdalt::make_unique<value_item>(*this, std::move(value)));
+                std::next(m_p_value_items.begin(), index), std::make_unique<value_item>(*this, std::move(value)));
             if (m_selected_value_index && index <= *m_selected_value_index)
             {
                 ++(*m_selected_value_index);
@@ -403,7 +403,7 @@ namespace tetengo2::gui::widget {
 
             virtual void mouse_entered_impl() override
             {
-                auto p_cursor = stdalt::make_unique<system_cursor_type>(
+                auto p_cursor = std::make_unique<system_cursor_type>(
                     system_cursor_type::style_type::horizontal_resize,
                     this->template parent_to<map_box>().m_cursor_details);
                 this->parent().set_cursor(std::move(p_cursor));
@@ -519,7 +519,7 @@ namespace tetengo2::gui::widget {
                 {
                     canvas.set_color(system_color_set_type::selected_text());
                     canvas.set_background(
-                        stdalt::make_unique<solid_background_type>(system_color_set_type::selected_background()));
+                        std::make_unique<solid_background_type>(system_color_set_type::selected_background()));
                     canvas.fill_rectangle(position_to_paint_, this->dimension());
                 }
                 else
@@ -659,7 +659,7 @@ namespace tetengo2::gui::widget {
         static void initialize_map_box(map_box& map_box_)
         {
             map_box_.set_background(
-                stdalt::make_unique<solid_background_type>(system_color_set_type::control_background()));
+                std::make_unique<solid_background_type>(system_color_set_type::control_background()));
 
             create_items(map_box_);
 
@@ -668,7 +668,7 @@ namespace tetengo2::gui::widget {
 
         static void create_items(map_box& map_box_)
         {
-            map_box_.m_p_splitter = stdalt::make_unique<splitter>(map_box_);
+            map_box_.m_p_splitter = std::make_unique<splitter>(map_box_);
         }
 
         static void set_observers(map_box& map_box_)

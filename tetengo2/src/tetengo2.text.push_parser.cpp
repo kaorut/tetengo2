@@ -290,7 +290,7 @@ namespace tetengo2::text {
         const iterator                first,
         const iterator                last,
         std::unique_ptr<grammar_type> p_grammar)
-    : m_p_impl{ stdalt::make_unique<impl>(first, last, std::move(p_grammar)) }
+    : m_p_impl{ std::make_unique<impl>(first, last, std::move(p_grammar)) }
     {}
 
     template <typename ForwardIterator>

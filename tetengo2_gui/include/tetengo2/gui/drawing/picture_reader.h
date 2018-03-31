@@ -61,7 +61,7 @@ namespace tetengo2::gui::drawing {
         std::unique_ptr<picture_type> read()
         {
             picture_details_ptr_type p_picture{ drawing_details_type::read_picture(m_path) };
-            return stdalt::make_unique<picture_type>(std::move(p_picture));
+            return std::make_unique<picture_type>(std::move(p_picture));
         }
 
 

@@ -47,7 +47,7 @@ namespace {
     public:
         concrete_window()
         : abstract_window_type{ abstract_window_type::scroll_bar_style_type::none, false, message_handler_map_type{} },
-          m_p_details{ tetengo2::stdalt::make_unique<details_type>() }
+          m_p_details{ std::make_unique<details_type>() }
         {
             base_type::initialize(this);
         }

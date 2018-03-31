@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <memory>
 #include <sstream> // IWYU pragma: keep
 #include <string>
 
@@ -180,7 +181,7 @@ namespace tetengo2::detail::windows {
 
     alert::~alert() = default;
 
-    alert::alert() : m_p_impl{ stdalt::make_unique<impl>() } {}
+    alert::alert() : m_p_impl{ std::make_unique<impl>() } {}
 
     alert::widget_handle_type alert::root_ancestor_widget_handle_impl(const widget_handle_type widget_handle) const
     {

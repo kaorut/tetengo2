@@ -91,12 +91,12 @@ namespace tetengo2::detail::windows {
 
         void setup_gdiplus()
         {
-            m_p_gdiplus_gui_fixture = stdalt::make_unique<gdiplus::gui_fixture>();
+            m_p_gdiplus_gui_fixture = std::make_unique<gdiplus::gui_fixture>();
         }
     };
 
 
-    gui_fixture::gui_fixture() : m_p_impl{ stdalt::make_unique<impl>() } {}
+    gui_fixture::gui_fixture() : m_p_impl{ std::make_unique<impl>() } {}
 
     gui_fixture::~gui_fixture() = default;
 }

@@ -65,5 +65,5 @@ namespace tetengo2::detail::base {
         m_p_impl->show_task_dialog(widget_handle, caption, text1, text2, source_file_name, source_file_line, *this);
     }
 
-    alert::alert() : m_p_impl{ stdalt::make_unique<impl>() } {}
+    alert::alert() : m_p_impl{ std::make_unique<impl>() } {}
 }

@@ -87,7 +87,7 @@ namespace tetengo2::gui::drawing {
 
         virtual std::unique_ptr<base_type> clone_impl() const override
         {
-            return stdalt::make_unique<solid_background>(m_color);
+            return std::make_unique<solid_background>(m_color);
         }
 
         virtual const details_type& details_impl() const override

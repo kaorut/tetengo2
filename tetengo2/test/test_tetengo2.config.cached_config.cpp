@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
                     { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
                 };
-                auto p_temporary_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                auto p_temporary_config = std::make_unique<temporary_config_type>();
                 for (const auto& value : values)
                 {
                     p_temporary_config->set(value.first, value.second);
@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
                     { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
                 };
-                auto p_temporary_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                auto p_temporary_config = std::make_unique<temporary_config_type>();
                 for (const auto& value : values)
                 {
                     p_temporary_config->set(value.first, value.second);
@@ -96,7 +96,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
                     { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
                 };
-                auto p_temporary_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                auto p_temporary_config = std::make_unique<temporary_config_type>();
                 for (const auto& value : values)
                 {
                     p_temporary_config->set(value.first, value.second);
@@ -118,7 +118,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
                     { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
                 };
-                auto p_temporary_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                auto p_temporary_config = std::make_unique<temporary_config_type>();
                 for (const auto& value : values)
                 {
                     p_temporary_config->set(value.first, value.second);

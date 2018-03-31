@@ -10,6 +10,7 @@
 #define TETENGO2_GUI_WIDGET_LINKLABEL_H
 
 #include <cassert>
+#include <memory>
 
 #include <tetengo2/detail/base/cursor.h>
 #include <tetengo2/gui/drawing/solid_background.h>
@@ -165,7 +166,7 @@ namespace tetengo2::gui::widget {
             assert(p_link_label);
 
             p_link_label->set_background(
-                stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background()));
+                std::make_unique<solid_background_type>(system_color_set_type::dialog_background()));
 
             const auto original_font = p_link_label->font();
             p_link_label->set_font(font_type{ original_font.family(),
@@ -177,8 +178,7 @@ namespace tetengo2::gui::widget {
 
             p_link_label->set_text_color(system_color_set_type::hyperlink_text());
 
-            auto p_cursor =
-                stdalt::make_unique<system_cursor_type>(system_cursor_type::style_type::hand, cursor_details);
+            auto p_cursor = std::make_unique<system_cursor_type>(system_cursor_type::style_type::hand, cursor_details);
             p_link_label->set_cursor(std::move(p_cursor));
 
             p_link_label->set_focusable(true);

@@ -475,7 +475,7 @@ namespace tetengo2::gui::drawing {
         */
         explicit canvas(details_ptr_type p_details)
         : m_p_details{ std::move(p_details) }, m_color{ 0, 0, 0, 255 },
-          m_p_background{ stdalt::make_unique<const solid_background_type>(color_type{ 255, 255, 255, 255 }) },
+          m_p_background{ std::make_unique<const solid_background_type>(color_type{ 255, 255, 255, 255 }) },
           m_line_width{ dimension_unit_type{ 1 } }, m_line_style{ line_style_type::solid }, m_font{
               font_type::dialog_font()
           }

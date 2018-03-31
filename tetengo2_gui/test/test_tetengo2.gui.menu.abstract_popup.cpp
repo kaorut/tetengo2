@@ -7,6 +7,7 @@
 */
 
 #include <iterator>
+#include <memory>
 #include <sstream>
 #include <string>
 #include <utility>
@@ -85,10 +86,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     concrete_popup_menu popup_menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
-                    auto                p_child1 =
-                        tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Hoge") });
-                    auto p_child2 =
-                        tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Fuga") });
+                    auto p_child1 = std::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Hoge") });
+                    auto p_child2 = std::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Fuga") });
 
                     popup_menu.insert(popup_menu.end(), std::move(p_child1));
                     BOOST_TEST(std::distance(popup_menu.begin(), popup_menu.end()) == 1);
@@ -104,10 +103,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     concrete_popup_menu popup_menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
-                    auto                p_child1 =
-                        tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Hoge") });
-                    auto p_child2 =
-                        tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Fuga") });
+                    auto p_child1 = std::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Hoge") });
+                    auto p_child2 = std::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Fuga") });
                     popup_menu.insert(popup_menu.end(), std::move(p_child1));
                     popup_menu.insert(popup_menu.begin(), std::move(p_child2));
 
@@ -144,12 +141,9 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     {
                         concrete_popup_menu popup_menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
-                        auto                p_child1 =
-                            tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Hoge") });
-                        auto p_child2 =
-                            tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Fuga") });
-                        auto p_child3 =
-                            tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Piyo") });
+                        auto p_child1 = std::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Hoge") });
+                        auto p_child2 = std::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Fuga") });
+                        auto p_child3 = std::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Piyo") });
                         popup_menu.insert(popup_menu.end(), std::move(p_child1));
                         popup_menu.begin()->insert(popup_menu.begin()->end(), std::move(p_child2));
                         popup_menu.insert(popup_menu.end(), std::move(p_child3));
@@ -163,12 +157,9 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     }
                     {
                         concrete_popup_menu popup_menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
-                        auto                p_child1 =
-                            tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Hoge") });
-                        auto p_child2 =
-                            tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Fuga") });
-                        auto p_child3 =
-                            tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Piyo") });
+                        auto p_child1 = std::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Hoge") });
+                        auto p_child2 = std::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Fuga") });
+                        auto p_child3 = std::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Piyo") });
                         popup_menu.insert(popup_menu.end(), std::move(p_child1));
                         popup_menu.begin()->insert(popup_menu.begin()->end(), std::move(p_child2));
                         popup_menu.insert(popup_menu.end(), std::move(p_child3));
@@ -201,12 +192,9 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     {
                         concrete_popup_menu popup_menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
-                        auto                p_child1 =
-                            tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Hoge") });
-                        auto p_child2 =
-                            tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Fuga") });
-                        auto p_child3 =
-                            tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Piyo") });
+                        auto p_child1 = std::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Hoge") });
+                        auto p_child2 = std::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Fuga") });
+                        auto p_child3 = std::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Piyo") });
                         popup_menu.insert(popup_menu.end(), std::move(p_child1));
                         popup_menu.begin()->insert(popup_menu.begin()->end(), std::move(p_child2));
                         popup_menu.insert(popup_menu.end(), std::move(p_child3));
@@ -229,12 +217,9 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     }
                     {
                         concrete_popup_menu popup_menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
-                        auto                p_child1 =
-                            tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Hoge") });
-                        auto p_child2 =
-                            tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Fuga") });
-                        auto p_child3 =
-                            tetengo2::stdalt::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Piyo") });
+                        auto p_child1 = std::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Hoge") });
+                        auto p_child2 = std::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Fuga") });
+                        auto p_child3 = std::make_unique<concrete_popup_menu>(string_type{ TETENGO2_TEXT("Piyo") });
                         popup_menu.insert(popup_menu.end(), std::move(p_child1));
                         popup_menu.begin()->insert(popup_menu.begin()->end(), std::move(p_child2));
                         popup_menu.insert(popup_menu.end(), std::move(p_child3));

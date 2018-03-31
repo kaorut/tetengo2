@@ -146,7 +146,7 @@ namespace tetengo2::detail::windows {
         */
         static menu_details_ptr_type create_menu_bar()
         {
-            menu_details_ptr_type p_menu{ stdalt::make_unique<menu_details_type>(
+            menu_details_ptr_type p_menu{ std::make_unique<menu_details_type>(
                 get_and_increment_id(), detail::handle_type{ ::CreateMenu() }, nullptr) };
             if (!p_menu->handle)
             {
@@ -167,7 +167,7 @@ namespace tetengo2::detail::windows {
         */
         static menu_details_ptr_type create_popup_menu()
         {
-            menu_details_ptr_type p_menu{ stdalt::make_unique<menu_details_type>(
+            menu_details_ptr_type p_menu{ std::make_unique<menu_details_type>(
                 get_and_increment_id(), detail::handle_type{ ::CreatePopupMenu() }, nullptr) };
             if (!p_menu->handle)
             {
@@ -186,7 +186,7 @@ namespace tetengo2::detail::windows {
         */
         static menu_details_ptr_type create_menu()
         {
-            return stdalt::make_unique<menu_details_type>(get_and_increment_id(), detail::handle_type{}, nullptr);
+            return std::make_unique<menu_details_type>(get_and_increment_id(), detail::handle_type{}, nullptr);
         }
 
         /*!
@@ -233,7 +233,7 @@ namespace tetengo2::detail::windows {
         template <typename Entry>
         static shortcut_key_table_details_ptr_type create_shortcut_key_table()
         {
-            return stdalt::make_unique<shortcut_key_table_details_type>();
+            return std::make_unique<shortcut_key_table_details_type>();
         }
 
         /*!
@@ -272,7 +272,7 @@ namespace tetengo2::detail::windows {
                                         "Can't create a shortcut key table." }));
             }
 
-            return stdalt::make_unique<shortcut_key_table_details_type>(accelerator_table_handle);
+            return std::make_unique<shortcut_key_table_details_type>(accelerator_table_handle);
         }
 
         /*!

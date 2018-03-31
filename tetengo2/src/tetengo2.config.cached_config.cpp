@@ -80,7 +80,7 @@ namespace tetengo2::config {
 
 
     cached_config::cached_config(std::unique_ptr<base_type> p_config)
-    : m_p_impl{ stdalt::make_unique<impl>(std::move(p_config)) }
+    : m_p_impl{ std::make_unique<impl>(std::move(p_config)) }
     {}
 
     cached_config::~cached_config() = default;

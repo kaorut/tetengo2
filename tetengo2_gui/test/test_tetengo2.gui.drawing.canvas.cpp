@@ -85,7 +85,7 @@ namespace {
 
     struct concrete_canvas : public canvas_type
     {
-        concrete_canvas() : canvas_type{ tetengo2::stdalt::make_unique<canvas_details_type>() } {}
+        concrete_canvas() : canvas_type{ std::make_unique<canvas_details_type>() } {}
     };
 
     struct concrete_canvas0 : public canvas_type
@@ -190,7 +190,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     concrete_canvas canvas{};
 
-                    canvas.set_background(tetengo2::stdalt::make_unique<const transparent_background_type>());
+                    canvas.set_background(std::make_unique<const transparent_background_type>());
 
                     BOOST_TEST(dynamic_cast<const transparent_background_type*>(&canvas.get_background()));
                 }

@@ -269,15 +269,15 @@ namespace tetengo2::message {
 
         static std::unique_ptr<pull_parser_type> create_pull_parser(std::istream& input_stream)
         {
-            auto p_grammar = stdalt::make_unique<grammar_type>();
+            auto p_grammar = std::make_unique<grammar_type>();
 
             const auto first = tetengo2::iterator::make_observable_forward_iterator(
                 boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ input_stream }));
             const auto last = tetengo2::iterator::make_observable_forward_iterator(
                 boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{}));
-            auto p_push_parser = stdalt::make_unique<push_parser_type>(first, last, std::move(p_grammar));
+            auto p_push_parser = std::make_unique<push_parser_type>(first, last, std::move(p_grammar));
 
-            return stdalt::make_unique<pull_parser_type>(std::move(p_push_parser), 5);
+            return std::make_unique<pull_parser_type>(std::move(p_push_parser), 5);
         }
 
 
@@ -295,7 +295,7 @@ namespace tetengo2::message {
     }
 
     messages::messages(const boost::filesystem::path& path, const std::locale& locale)
-    : m_p_impl{ stdalt::make_unique<impl>(path, locale) }
+    : m_p_impl{ std::make_unique<impl>(path, locale) }
     {}
 
     messages::~messages() = default;

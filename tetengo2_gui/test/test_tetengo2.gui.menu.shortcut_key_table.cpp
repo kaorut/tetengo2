@@ -86,10 +86,10 @@ namespace {
     {
         std::vector<std::unique_ptr<concrete_menu>> menus{};
 
-        menus.push_back(tetengo2::stdalt::make_unique<concrete_menu>(string_type{ TETENGO2_TEXT("hoge") }));
-        menus.push_back(tetengo2::stdalt::make_unique<concrete_menu>(
+        menus.push_back(std::make_unique<concrete_menu>(string_type{ TETENGO2_TEXT("hoge") }));
+        menus.push_back(std::make_unique<concrete_menu>(
             string_type{ TETENGO2_TEXT("fuga") }, shortcut_key_type{ virtual_key_type::char_a(), false, true, false }));
-        menus.push_back(tetengo2::stdalt::make_unique<concrete_menu>(
+        menus.push_back(std::make_unique<concrete_menu>(
             string_type{ TETENGO2_TEXT("piyo") }, shortcut_key_type{ virtual_key_type::del(), false, true, true }));
 
         return menus;

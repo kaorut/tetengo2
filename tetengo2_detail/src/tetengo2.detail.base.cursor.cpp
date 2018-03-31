@@ -45,5 +45,5 @@ namespace tetengo2::detail::base {
         return m_p_impl->create_system_cursor(style, *this);
     }
 
-    cursor::cursor() : m_p_impl{ stdalt::make_unique<impl>() } {}
+    cursor::cursor() : m_p_impl{ std::make_unique<impl>() } {}
 }

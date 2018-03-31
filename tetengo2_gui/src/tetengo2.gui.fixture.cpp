@@ -38,7 +38,7 @@ namespace tetengo2::gui {
 
 
     fixture::fixture(std::unique_ptr<fixture_details_type> p_fixture_details)
-    : m_p_impl{ stdalt::make_unique<impl>(std::move(p_fixture_details)) }
+    : m_p_impl{ std::make_unique<impl>(std::move(p_fixture_details)) }
     {}
 
     fixture::~fixture() = default;

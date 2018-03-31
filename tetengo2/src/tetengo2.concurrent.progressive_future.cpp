@@ -75,7 +75,7 @@ namespace tetengo2::concurrent {
 
 
         progress_state::progress_state(progress_type initial_progress)
-        : m_p_impl{ stdalt::make_unique<impl>(std::move(initial_progress)) }
+        : m_p_impl{ std::make_unique<impl>(std::move(initial_progress)) }
         {}
 
         progress_state::~progress_state() = default;

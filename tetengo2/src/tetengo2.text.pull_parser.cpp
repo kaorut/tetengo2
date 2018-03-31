@@ -219,7 +219,7 @@ namespace tetengo2::text {
     pull_parser<ForwardIterator>::pull_parser(
         std::unique_ptr<push_parser_type> p_push_parser,
         const size_type                   channel_capacity)
-    : m_p_impl{ stdalt::make_unique<impl>(std::move(p_push_parser), channel_capacity) }
+    : m_p_impl{ std::make_unique<impl>(std::move(p_push_parser), channel_capacity) }
     {}
 
     template <typename ForwardIterator>

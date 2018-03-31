@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <memory>
 #include <sstream>
 
 #include <boost/optional.hpp>
@@ -40,7 +41,7 @@ namespace {
         : control_type{ control_type::scroll_bar_style_type::none,
                         message_handler_map_type{},
                         widget_details_type::widget_details_ptr_type(
-                            tetengo2::stdalt::make_unique<widget_details_type::widget_details_type>()) }
+                            std::make_unique<widget_details_type::widget_details_type>()) }
         {
             base_type::initialize(this);
         }

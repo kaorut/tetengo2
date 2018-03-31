@@ -99,7 +99,7 @@ namespace tetengo2::gui {
 
         // constructors
 
-        shell() : m_p_shell_details{ stdalt::make_unique<shell_details_type>() } {}
+        shell() : m_p_shell_details{ std::make_unique<shell_details_type>() } {}
     };
 }
 

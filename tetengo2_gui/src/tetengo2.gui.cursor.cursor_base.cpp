@@ -52,5 +52,5 @@ namespace tetengo2::gui::cursor {
         return m_p_impl->details(*this);
     }
 
-    cursor_base::cursor_base() : m_p_impl{ stdalt::make_unique<impl>() } {}
+    cursor_base::cursor_base() : m_p_impl{ std::make_unique<impl>() } {}
 }

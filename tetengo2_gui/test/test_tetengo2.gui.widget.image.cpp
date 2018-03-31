@@ -132,8 +132,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         window_type parent{};
                         image_type  image{ parent };
 
-                        auto p_icon = tetengo2::stdalt::make_unique<icon_type>(
-                            boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") });
+                        auto p_icon = std::make_unique<icon_type>(boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") });
                         image.set_icon(std::move(p_icon));
 
                         picture_reader_type picture_reader{ "image_file" };
@@ -153,8 +152,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     BOOST_TEST(!image.has_icon());
 
-                    auto p_icon =
-                        tetengo2::stdalt::make_unique<icon_type>(boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") });
+                    auto p_icon = std::make_unique<icon_type>(boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") });
                     image.set_icon(std::move(p_icon));
 
                     BOOST_TEST(image.has_icon());
@@ -171,8 +169,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_CHECK_THROW(image.icon(), std::logic_error);
                     BOOST_CHECK_THROW(const_image.icon(), std::logic_error);
 
-                    auto p_icon =
-                        tetengo2::stdalt::make_unique<icon_type>(boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") });
+                    auto p_icon = std::make_unique<icon_type>(boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") });
                     image.set_icon(std::move(p_icon));
                     image.icon();
                     const_image.icon();
@@ -186,8 +183,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         window_type parent{};
                         image_type  image{ parent };
 
-                        auto p_icon = tetengo2::stdalt::make_unique<icon_type>(
-                            boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") });
+                        auto p_icon = std::make_unique<icon_type>(boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") });
                         image.set_icon(std::move(p_icon));
 
                         BOOST_TEST(image.has_icon());
@@ -203,8 +199,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         picture_reader_type picture_reader{ "image_file" };
                         image.set_picture(picture_reader.read());
 
-                        auto p_icon = tetengo2::stdalt::make_unique<icon_type>(
-                            boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") });
+                        auto p_icon = std::make_unique<icon_type>(boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") });
                         image.set_icon(std::move(p_icon));
 
                         BOOST_TEST(image.has_icon());
@@ -230,8 +225,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         BOOST_CHECK(dimension == answer_dimension);
                     }
                     {
-                        auto p_icon = tetengo2::stdalt::make_unique<icon_type>(
-                            boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") });
+                        auto p_icon = std::make_unique<icon_type>(boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") });
                         image.set_icon(std::move(p_icon));
 
                         image.fit_to_content();

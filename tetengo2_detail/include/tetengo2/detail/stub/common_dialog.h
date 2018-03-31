@@ -141,7 +141,7 @@ namespace tetengo2::detail::stub {
                 custom_yes_no_button_labels,
                 encoder);
 
-            return stdalt::make_unique<message_box_details_type>();
+            return std::make_unique<message_box_details_type>();
         }
 
         /*!
@@ -183,7 +183,7 @@ namespace tetengo2::detail::stub {
         {
             boost::ignore_unused(parent, title, filters, encoder);
 
-            return stdalt::make_unique<file_open_dialog_details_type>();
+            return std::make_unique<file_open_dialog_details_type>();
         }
 
         /*!
@@ -236,7 +236,7 @@ namespace tetengo2::detail::stub {
         {
             boost::ignore_unused(parent, title, path, filters, encoder);
 
-            return stdalt::make_unique<file_save_dialog_details_type>();
+            return std::make_unique<file_save_dialog_details_type>();
         }
 
         /*!
@@ -280,7 +280,7 @@ namespace tetengo2::detail::stub {
         create_font_dialog(AbstractWindow& parent, const OptionalFont& font, const Encoder& encoder)
         {
             boost::ignore_unused(parent, font, encoder);
-            return stdalt::make_unique<font_dialog_details_type>();
+            return std::make_unique<font_dialog_details_type>();
         }
 
         /*!
@@ -323,7 +323,7 @@ namespace tetengo2::detail::stub {
         {
             boost::ignore_unused(parent, color);
 
-            return stdalt::make_unique<color_dialog_details_type>();
+            return std::make_unique<color_dialog_details_type>();
         }
 
         /*!

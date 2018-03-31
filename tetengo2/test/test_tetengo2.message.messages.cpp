@@ -41,8 +41,7 @@ namespace {
         explicit set_global_locale(const std::locale& locale)
         : m_initial_locale{ std::locale::global(std::locale{
               locale,
-              tetengo2::stdalt::make_unique<messages_type>(boost::filesystem::path{ "messages.test" }, locale)
-                  .release() }) }
+              std::make_unique<messages_type>(boost::filesystem::path{ "messages.test" }, locale).release() }) }
         {}
 
         ~set_global_locale() noexcept

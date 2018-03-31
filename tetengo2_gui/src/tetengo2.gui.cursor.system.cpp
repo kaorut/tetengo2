@@ -66,7 +66,7 @@ namespace tetengo2::gui::cursor {
 
 
     system::system(style_type style, const cursor_details_type& cursor_details)
-    : m_p_impl{ stdalt::make_unique<impl>(style, cursor_details) }
+    : m_p_impl{ std::make_unique<impl>(style, cursor_details) }
     {}
 
     system::~system() = default;
