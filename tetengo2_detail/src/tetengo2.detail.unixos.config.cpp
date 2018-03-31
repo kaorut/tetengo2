@@ -135,7 +135,7 @@ namespace tetengo2 { namespace detail { namespace unixos {
                 boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{ stream }));
             const auto last = tetengo2::iterator::make_observable_forward_iterator(
                 boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>{}));
-            auto        p_grammer = stdalt::make_unique<json_type>();
+            auto        p_grammer = std::make_unique<json_type>();
             parser_type parser(first, last, std::move(p_grammer));
 
             std::stack<std::pair<native_string_type, native_string_type>> structure_stack{};
@@ -239,7 +239,7 @@ namespace tetengo2 { namespace detail { namespace unixos {
 
     config::~config() = default;
 
-    config::config() : m_p_impl{ stdalt::make_unique<impl>() } {}
+    config::config() : m_p_impl{ std::make_unique<impl>() } {}
 
 
     // virtual functions
