@@ -29,7 +29,6 @@
 #include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/unit/pixel.h>
 #include <tetengo2/gui/unit/unit.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"

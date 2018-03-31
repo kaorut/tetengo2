@@ -16,8 +16,6 @@
 #include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 
-#include <tetengo2/stdalt.h>
-
 
 namespace tetengo2::detail::stub {
     /*!

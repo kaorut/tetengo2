@@ -11,7 +11,6 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/gui/cursor/cursor_base.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::cursor {

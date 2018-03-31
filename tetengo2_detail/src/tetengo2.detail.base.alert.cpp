@@ -11,7 +11,6 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/base/alert.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::base {

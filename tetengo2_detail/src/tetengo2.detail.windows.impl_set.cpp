@@ -17,7 +17,6 @@
 #include <tetengo2/detail/windows/gui_fixture.h>
 #include <tetengo2/detail/windows/impl_set.h>
 #include <tetengo2/detail/windows/unit.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::windows {

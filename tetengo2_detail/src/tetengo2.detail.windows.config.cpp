@@ -26,7 +26,6 @@
 #include <Windows.h>
 
 #include <tetengo2/detail/windows/config.h>
-#include <tetengo2/stdalt.h> // IWYU pragma: keep
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h> // IWYU pragma: keep

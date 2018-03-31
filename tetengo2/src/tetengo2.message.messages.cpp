@@ -32,7 +32,6 @@
 #include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/message/message_catalog_parser.h>
 #include <tetengo2/message/messages.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>

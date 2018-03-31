@@ -13,7 +13,6 @@
 #include <string>
 #include <utility>
 
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text/encoding/encoding.h>
 
 

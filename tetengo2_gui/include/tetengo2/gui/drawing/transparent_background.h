@@ -13,7 +13,6 @@
 #include <memory>
 
 #include <tetengo2/gui/drawing/background.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::drawing {

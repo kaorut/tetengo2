@@ -29,7 +29,6 @@
 #include <Windows.h>
 
 #include <tetengo2/gui/measure.h>
-#include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
 namespace tetengo2::detail::windows {

@@ -19,7 +19,6 @@
 #include <boost/variant.hpp>
 
 #include <tetengo2/iterator/observable_forward_iterator.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/grammar/json.h>
 #include <tetengo2/text/pull_parser.h>

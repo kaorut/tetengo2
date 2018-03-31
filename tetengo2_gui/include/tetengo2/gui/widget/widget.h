@@ -35,7 +35,6 @@
 #include <tetengo2/gui/message/size_observer_set.h>
 #include <tetengo2/gui/scroll_bar.h>
 #include <tetengo2/gui/virtual_key.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::widget {

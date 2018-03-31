@@ -43,7 +43,6 @@
 
 #include <tetengo2/detail/windows/com_ptr.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 

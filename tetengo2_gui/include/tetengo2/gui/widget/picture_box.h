@@ -17,7 +17,6 @@
 #include <tetengo2/gui/drawing/widget_canvas.h>
 #include <tetengo2/gui/message/paint_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::widget {

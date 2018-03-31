@@ -12,7 +12,6 @@
 #include <boost/rational.hpp>
 
 #include <tetengo2/detail/base/unit.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::base {

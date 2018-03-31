@@ -16,7 +16,6 @@
 #include <boost/filesystem.hpp>
 
 #include <tetengo2/gui/drawing/picture.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::drawing {

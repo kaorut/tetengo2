@@ -27,7 +27,6 @@
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/image.h>
 #include <tetengo2/gui/widget/window.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"

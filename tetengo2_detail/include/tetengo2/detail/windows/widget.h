@@ -42,7 +42,6 @@
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
 #include <tetengo2/gui/alert.h> // IWYU pragma: keep
 #include <tetengo2/gui/measure.h> // IWYU pragma: keep
-#include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
 namespace tetengo2::detail::windows {

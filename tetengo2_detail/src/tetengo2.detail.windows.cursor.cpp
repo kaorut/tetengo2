@@ -24,7 +24,6 @@
 
 #include <tetengo2/detail/windows/cursor.h>
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
-#include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
 namespace tetengo2::detail::windows {

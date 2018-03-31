@@ -13,7 +13,6 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/concurrent/progressive_future.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::concurrent {

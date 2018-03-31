@@ -22,7 +22,6 @@
 #else
 #error Unsupported platform.
 #endif
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::config {

@@ -28,7 +28,6 @@
 #include <Windows.h>
 
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::windows {

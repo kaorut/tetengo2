@@ -16,7 +16,6 @@
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/shell.h>
 #include <tetengo2/gui/widget/label.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::widget {

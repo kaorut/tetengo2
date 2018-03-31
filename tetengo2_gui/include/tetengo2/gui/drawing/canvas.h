@@ -23,7 +23,6 @@
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/icon.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::drawing {

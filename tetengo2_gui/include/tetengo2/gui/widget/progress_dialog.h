@@ -27,7 +27,6 @@
 #include <tetengo2/gui/widget/dialog.h>
 #include <tetengo2/gui/widget/label.h>
 #include <tetengo2/gui/widget/progress_bar.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 

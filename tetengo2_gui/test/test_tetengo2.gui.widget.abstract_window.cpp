@@ -22,7 +22,6 @@
 #include <tetengo2/gui/menu/shortcut_key_table.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/gui/widget/widget.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"

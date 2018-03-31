@@ -52,7 +52,6 @@
 #include <tetengo2/detail/windows/gdiplus/error_category.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/picture.h>
 #include <tetengo2/gui/measure.h> // IWYU pragma: keep
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::windows::gdiplus {

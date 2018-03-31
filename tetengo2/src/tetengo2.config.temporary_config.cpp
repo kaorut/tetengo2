@@ -16,7 +16,6 @@
 #include <boost/type_traits.hpp>
 
 #include <tetengo2/config/temporary_config.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::config {

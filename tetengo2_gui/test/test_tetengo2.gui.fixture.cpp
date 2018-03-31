@@ -16,7 +16,6 @@
 
 #include <tetengo2/detail/stub/gui_fixture.h>
 #include <tetengo2/gui/fixture.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace {

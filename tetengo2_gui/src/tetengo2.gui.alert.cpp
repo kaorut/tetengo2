@@ -17,7 +17,6 @@
 #include <boost/exception/all.hpp>
 
 #include <tetengo2/gui/alert.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>

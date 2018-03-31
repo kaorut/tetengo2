@@ -24,7 +24,6 @@
 #include <tetengo2/concurrent/consumer.h>
 #include <tetengo2/concurrent/producer.h>
 #include <tetengo2/iterator/observable_forward_iterator.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text/pull_parser.h>
 #include <tetengo2/text/push_parser.h>
 

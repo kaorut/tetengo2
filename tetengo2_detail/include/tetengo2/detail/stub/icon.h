@@ -15,8 +15,6 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 
-#include <tetengo2/stdalt.h>
-
 
 namespace tetengo2::detail::stub {
     /*!

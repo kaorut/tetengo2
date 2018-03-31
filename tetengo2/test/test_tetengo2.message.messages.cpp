@@ -19,7 +19,6 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/message/messages.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoding/locale.h>
 
