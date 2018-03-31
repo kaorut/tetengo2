@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <memory>
 #include <string>
 
 #include <boost/preprocessor.hpp>

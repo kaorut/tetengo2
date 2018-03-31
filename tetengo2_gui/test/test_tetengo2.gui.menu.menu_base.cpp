@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <memory>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -17,7 +18,6 @@
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/gui/menu/shortcut_key.h>
 #include <tetengo2/gui/virtual_key.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
@@ -295,7 +295,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     concrete_menu menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
-                    auto p_child = tetengo2::stdalt::make_unique<concrete_menu>(string_type{ TETENGO2_TEXT("Hoge") });
+                    auto          p_child = std::make_unique<concrete_menu>(string_type{ TETENGO2_TEXT("Hoge") });
 
                     BOOST_CHECK_THROW(menu.insert(menu.begin(), std::move(p_child)), std::logic_error);
                 }

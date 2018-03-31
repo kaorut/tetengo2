@@ -28,7 +28,6 @@
 #include <Windows.h>
 
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::windows {
@@ -90,7 +89,7 @@ namespace tetengo2::detail::windows {
         create_scroll_bar(const WidgetDetails& widget_details, const style_type style)
         {
             auto p_scroll_bar_details =
-                stdalt::make_unique<scroll_bar_details_type>(widget_details.handle.get(), to_native_style(style), true);
+                std::make_unique<scroll_bar_details_type>(widget_details.handle.get(), to_native_style(style), true);
 
             set_enabled(*p_scroll_bar_details, true);
 

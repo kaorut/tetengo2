@@ -52,7 +52,6 @@
 #include <tetengo2/detail/windows/gdiplus/error_category.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/picture.h>
 #include <tetengo2/gui/measure.h> // IWYU pragma: keep
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::windows::gdiplus {
@@ -98,8 +97,8 @@ namespace tetengo2::detail::windows::gdiplus {
                     BOOST_THROW_EXCEPTION((std::logic_error{ "Another transaction has already begun." }));
                 }
 
-                m_p_memory_image = stdalt::make_unique<Gdiplus::Bitmap>(width, height, m_p_widget_graphics.get());
-                m_p_memory_graphics = stdalt::make_unique<Gdiplus::Graphics>(m_p_memory_image.get());
+                m_p_memory_image = std::make_unique<Gdiplus::Bitmap>(width, height, m_p_widget_graphics.get());
+                m_p_memory_graphics = std::make_unique<Gdiplus::Graphics>(m_p_memory_image.get());
                 initialize_canvas(*m_p_memory_graphics);
             }
 
@@ -127,7 +126,7 @@ namespace tetengo2::detail::windows::gdiplus {
                 const HandleOrWidgetDetails& handle,
                 typename std::enable_if<std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = nullptr)
             {
-                auto p_canvas = stdalt::make_unique<Gdiplus::Graphics>(handle);
+                auto p_canvas = std::make_unique<Gdiplus::Graphics>(handle);
 
                 initialize_canvas(*p_canvas);
 
@@ -139,7 +138,7 @@ namespace tetengo2::detail::windows::gdiplus {
                 const HandleOrWidgetDetails& widget_details,
                 typename std::enable_if<!std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = nullptr)
             {
-                auto p_canvas = stdalt::make_unique<Gdiplus::Graphics>(widget_details.handle.get());
+                auto p_canvas = std::make_unique<Gdiplus::Graphics>(widget_details.handle.get());
 
                 initialize_canvas(*p_canvas);
 
@@ -203,7 +202,7 @@ namespace tetengo2::detail::windows::gdiplus {
         template <typename HandleOrWidgetDetails>
         static std::unique_ptr<canvas_details_type> create_canvas(const HandleOrWidgetDetails& handle_or_widget_details)
         {
-            return stdalt::make_unique<canvas_details_type>(handle_or_widget_details);
+            return std::make_unique<canvas_details_type>(handle_or_widget_details);
         }
 
         /*!
@@ -251,7 +250,7 @@ namespace tetengo2::detail::windows::gdiplus {
         template <typename Color>
         static std::unique_ptr<background_details_type> create_solid_background(const Color& color)
         {
-            return stdalt::make_unique<background_details_type>(stdalt::make_unique<Gdiplus::SolidBrush>(
+            return std::make_unique<background_details_type>(std::make_unique<Gdiplus::SolidBrush>(
                 Gdiplus::Color(color.alpha(), color.red(), color.green(), color.blue())));
         }
 
@@ -262,7 +261,7 @@ namespace tetengo2::detail::windows::gdiplus {
         */
         static std::unique_ptr<background_details_type> create_transparent_background()
         {
-            return stdalt::make_unique<background_details_type>();
+            return std::make_unique<background_details_type>();
         }
 
         /*!
@@ -869,7 +868,7 @@ namespace tetengo2::detail::windows::gdiplus {
                                                         static_cast<Gdiplus::REAL>(Font::dialog_font().size());
             const auto font_style = fallback_level < 2 ? get_font_style(font) : get_font_style(Font::dialog_font());
             auto       p_gdiplus_font =
-                stdalt::make_unique<Gdiplus::Font>(&gdiplus_font_family, font_size, font_style, Gdiplus::UnitPixel);
+                std::make_unique<Gdiplus::Font>(&gdiplus_font_family, font_size, font_style, Gdiplus::UnitPixel);
             if (!p_gdiplus_font->IsAvailable())
                 return create_gdiplus_font<String>(font, font_collection, encoder, fallback_level + 1);
 

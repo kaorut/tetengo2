@@ -16,7 +16,6 @@
 
 #include <tetengo2/config/config_base.h>
 #include <tetengo2/config/config_list.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
 
 
@@ -77,7 +76,7 @@ namespace tetengo2::config {
 
 
     config_list::config_list(std::vector<std::unique_ptr<base_type>> p_configs)
-    : m_p_impl{ stdalt::make_unique<impl>(std::move(p_configs)) }
+    : m_p_impl{ std::make_unique<impl>(std::move(p_configs)) }
     {}
 
     config_list::~config_list() = default;

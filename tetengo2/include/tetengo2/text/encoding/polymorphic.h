@@ -13,7 +13,6 @@
 #include <string>
 #include <utility>
 
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text/encoding/encoding.h>
 
 
@@ -94,7 +93,7 @@ namespace tetengo2::text::encoding {
     template <typename Encoding, typename... Args>
     polymorphic<typename Encoding::string_type> make_polymorphic(Args&&... args)
     {
-        return polymorphic<typename Encoding::string_type>(stdalt::make_unique<Encoding>(std::forward<Args>(args)...));
+        return polymorphic<typename Encoding::string_type>(std::make_unique<Encoding>(std::forward<Args>(args)...));
     }
 }
 

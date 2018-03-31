@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <memory>
 #include <sstream>
 
 #include <boost/optional.hpp>
@@ -16,7 +17,6 @@
 #include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/gui/widget/control.h>
-#include <tetengo2/stdalt.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
@@ -41,7 +41,7 @@ namespace {
         : control_type{ control_type::scroll_bar_style_type::none,
                         message_handler_map_type{},
                         widget_details_type::widget_details_ptr_type(
-                            tetengo2::stdalt::make_unique<widget_details_type::widget_details_type>()) }
+                            std::make_unique<widget_details_type::widget_details_type>()) }
         {
             base_type::initialize(this);
         }

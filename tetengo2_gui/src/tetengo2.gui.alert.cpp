@@ -17,7 +17,6 @@
 #include <boost/exception/all.hpp>
 
 #include <tetengo2/gui/alert.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
@@ -148,10 +147,10 @@ namespace tetengo2::gui {
 
 
     alert::alert(const widget_handle_type widget_handle, const alert_details_type& alert_details)
-    : m_p_impl{ stdalt::make_unique<impl>(widget_handle, alert_details) }
+    : m_p_impl{ std::make_unique<impl>(widget_handle, alert_details) }
     {}
 
-    alert::alert(const alert_details_type& alert_details) : m_p_impl{ stdalt::make_unique<impl>(alert_details) } {}
+    alert::alert(const alert_details_type& alert_details) : m_p_impl{ std::make_unique<impl>(alert_details) } {}
 
     alert::~alert() = default;
 

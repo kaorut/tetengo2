@@ -19,7 +19,6 @@
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/gui/menu/popup.h>
 #include <tetengo2/gui/menu/recursive_iterator.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
@@ -54,14 +53,12 @@ namespace {
 
     std::unique_ptr<menu_base_type> create_menu()
     {
-        auto p_menu = tetengo2::stdalt::make_unique<popup_menu_type>(string_type{ TETENGO2_TEXT("0") });
+        auto p_menu = std::make_unique<popup_menu_type>(string_type{ TETENGO2_TEXT("0") });
 
-        p_menu->insert(
-            p_menu->end(), tetengo2::stdalt::make_unique<popup_menu_type>(string_type{ TETENGO2_TEXT("1") }));
+        p_menu->insert(p_menu->end(), std::make_unique<popup_menu_type>(string_type{ TETENGO2_TEXT("1") }));
         p_menu->begin()->insert(
-            p_menu->begin()->end(), tetengo2::stdalt::make_unique<popup_menu_type>(string_type{ TETENGO2_TEXT("2") }));
-        p_menu->insert(
-            p_menu->end(), tetengo2::stdalt::make_unique<popup_menu_type>(string_type{ TETENGO2_TEXT("3") }));
+            p_menu->begin()->end(), std::make_unique<popup_menu_type>(string_type{ TETENGO2_TEXT("2") }));
+        p_menu->insert(p_menu->end(), std::make_unique<popup_menu_type>(string_type{ TETENGO2_TEXT("3") }));
 
         return std::move(p_menu);
     }

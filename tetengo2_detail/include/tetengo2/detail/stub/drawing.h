@@ -18,7 +18,6 @@
 #include <boost/filesystem.hpp>
 
 #include <tetengo2/gui/measure.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 
@@ -97,7 +96,7 @@ namespace tetengo2::detail::stub {
         {
             boost::ignore_unused(handle_or_widget_details);
 
-            return stdalt::make_unique<canvas_details_type>();
+            return std::make_unique<canvas_details_type>();
         }
 
         /*!
@@ -146,7 +145,7 @@ namespace tetengo2::detail::stub {
         {
             boost::ignore_unused(color);
 
-            return stdalt::make_unique<background_details_type>();
+            return std::make_unique<background_details_type>();
         }
 
         /*!
@@ -156,7 +155,7 @@ namespace tetengo2::detail::stub {
         */
         static std::unique_ptr<background_details_type> create_transparent_background()
         {
-            return stdalt::make_unique<background_details_type>();
+            return std::make_unique<background_details_type>();
         }
 
         /*!
@@ -173,7 +172,7 @@ namespace tetengo2::detail::stub {
         {
             const auto& width = dimension.width();
             const auto& height = dimension.height();
-            return stdalt::make_unique<picture_details_type>(
+            return std::make_unique<picture_details_type>(
                 gui::to_pixels<std::size_t>(width), gui::to_pixels<std::size_t>(height));
         }
 
@@ -190,7 +189,7 @@ namespace tetengo2::detail::stub {
         {
             boost::ignore_unused(path);
 
-            return stdalt::make_unique<picture_details_type>(123, 456);
+            return std::make_unique<picture_details_type>(123, 456);
         }
 
         /*!

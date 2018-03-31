@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <memory>
 #include <system_error> // IWYU pragma: keep
 #include <utility> // IWYU pragma: keep
 
@@ -24,7 +25,6 @@
 
 #include <tetengo2/detail/windows/cursor.h>
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
-#include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
 namespace tetengo2::detail::windows {
@@ -104,7 +104,7 @@ namespace tetengo2::detail::windows {
 
     cursor::~cursor() = default;
 
-    cursor::cursor() : m_p_impl{ stdalt::make_unique<impl>() } {}
+    cursor::cursor() : m_p_impl{ std::make_unique<impl>() } {}
 
     cursor::cursor_details_ptr_type cursor::create_system_cursor_impl(const system_cursor_style_type style) const
     {

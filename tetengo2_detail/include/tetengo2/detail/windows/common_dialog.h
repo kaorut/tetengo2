@@ -43,7 +43,6 @@
 
 #include <tetengo2/detail/windows/com_ptr.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 
@@ -253,7 +252,7 @@ namespace tetengo2::detail::windows {
             boost::optional<std::pair<String, String>> custom_yes_no_button_labels,
             const Encoder&                             encoder)
         {
-            return stdalt::make_unique<message_box_details_type>(
+            return std::make_unique<message_box_details_type>(
                 parent.details().handle.get(),
                 encoder.encode(std::move(title)),
                 encoder.encode(std::move(main_content)),
@@ -339,7 +338,7 @@ namespace tetengo2::detail::windows {
                                                           "Can't create a file open dialog." }));
             }
             detail::file_open_dialog_ptr_type p_dialog{ p_raw_dialog };
-            return stdalt::make_unique<file_open_dialog_details_type>(
+            return std::make_unique<file_open_dialog_details_type>(
                 std::move(p_dialog),
                 parent.details().handle.get(),
                 encoder.encode(std::move(title)),
@@ -456,7 +455,7 @@ namespace tetengo2::detail::windows {
                                                           "Can't create a file save dialog." }));
             }
             detail::file_save_dialog_ptr_type p_dialog{ p_raw_dialog };
-            return stdalt::make_unique<file_save_dialog_details_type>(
+            return std::make_unique<file_save_dialog_details_type>(
                 std::move(p_dialog),
                 parent.details().handle.get(),
                 encoder.encode(std::move(title)),
@@ -597,7 +596,7 @@ namespace tetengo2::detail::windows {
         static font_dialog_details_ptr_type
         create_font_dialog(AbstractWindow& parent, const OptionalFont& font, const Encoder& encoder)
         {
-            auto p_log_font = stdalt::make_unique<::LOGFONTW>();
+            auto p_log_font = std::make_unique<::LOGFONTW>();
             if (font)
             {
                 p_log_font->lfHeight = -static_cast<::LONG>(font->size());
@@ -639,7 +638,7 @@ namespace tetengo2::detail::windows {
             p_log_font->lfQuality = DEFAULT_QUALITY;
             p_log_font->lfPitchAndFamily = DEFAULT_PITCH;
 
-            return stdalt::make_unique<font_dialog_details_type>(parent.details().handle.get(), std::move(p_log_font));
+            return std::make_unique<font_dialog_details_type>(parent.details().handle.get(), std::move(p_log_font));
         }
 
         /*!
@@ -707,7 +706,7 @@ namespace tetengo2::detail::windows {
         static color_dialog_details_ptr_type create_color_dialog(AbstractWindow& parent, const OptionalColor& color)
         {
             const ::COLORREF native_color = color ? RGB(color->red(), color->green(), color->blue()) : 0;
-            return stdalt::make_unique<color_dialog_details_type>(parent.details().handle.get(), native_color);
+            return std::make_unique<color_dialog_details_type>(parent.details().handle.get(), native_color);
         }
 
         /*!

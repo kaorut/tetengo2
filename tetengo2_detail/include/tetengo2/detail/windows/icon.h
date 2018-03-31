@@ -29,7 +29,6 @@
 #include <Windows.h>
 
 #include <tetengo2/gui/measure.h>
-#include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
 namespace tetengo2::detail::windows {
@@ -112,7 +111,7 @@ namespace tetengo2::detail::windows {
             icon_handle_type          small_icon_handle{ load_icon(
                 path, small_icon_dimension_.first, small_icon_dimension_.second) };
 
-            return stdalt::make_unique<icon_details_type>(std::move(big_icon_handle), std::move(small_icon_handle));
+            return std::make_unique<icon_details_type>(std::move(big_icon_handle), std::move(small_icon_handle));
         }
 
 

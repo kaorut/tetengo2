@@ -12,7 +12,6 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/stub/alert.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::stub {
@@ -66,7 +65,7 @@ namespace tetengo2::detail::stub {
 
     alert::~alert() = default;
 
-    alert::alert() : m_p_impl{ stdalt::make_unique<impl>() } {}
+    alert::alert() : m_p_impl{ std::make_unique<impl>() } {}
 
     alert::widget_handle_type alert::root_ancestor_widget_handle_impl(const widget_handle_type widget_handle) const
     {

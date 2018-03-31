@@ -8,6 +8,7 @@
 
 #include <cassert>
 #include <iterator> // IWYU pragma: keep
+#include <memory>
 #include <string>
 #include <utility>
 #include <vector> // IWYU pragma: keep
@@ -26,7 +27,6 @@
 #include <Windows.h>
 
 #include <tetengo2/detail/windows/config.h>
-#include <tetengo2/stdalt.h> // IWYU pragma: keep
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h> // IWYU pragma: keep
@@ -280,7 +280,7 @@ namespace tetengo2::detail::windows {
 
     config::~config() = default;
 
-    config::config() : m_p_impl{ stdalt::make_unique<impl>() } {}
+    config::config() : m_p_impl{ std::make_unique<impl>() } {}
 
 
     // virtual functions

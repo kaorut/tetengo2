@@ -18,7 +18,6 @@
 #include <tetengo2/gui/message/dialog_message_loop.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/gui/widget/widget.h>
-#include <tetengo2/stdalt.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
@@ -48,7 +47,7 @@ namespace {
     public:
         concrete_window()
         : abstract_window_type{ abstract_window_type::scroll_bar_style_type::none, false, message_handler_map_type{} },
-          m_p_details{ tetengo2::stdalt::make_unique<details_type>() }
+          m_p_details{ std::make_unique<details_type>() }
         {
             base_type::initialize(this);
         }

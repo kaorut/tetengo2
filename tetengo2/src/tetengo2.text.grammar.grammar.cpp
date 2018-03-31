@@ -7,13 +7,13 @@
 */
 
 #include <iterator>
+#include <memory>
 #include <string>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 
 #include <tetengo2/iterator/observable_forward_iterator.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text/grammar/grammar.h>
 
 
@@ -118,7 +118,7 @@ namespace tetengo2::text::grammar {
 
     template <typename ForwardIterator>
     grammar<ForwardIterator>::grammar(rule_type& root_rule)
-    : grammar::base_type{ root_rule }, m_p_impl{ stdalt::make_unique<impl>() }
+    : grammar::base_type{ root_rule }, m_p_impl{ std::make_unique<impl>() }
     {}
 
     template <typename ForwardIterator>

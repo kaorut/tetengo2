@@ -12,7 +12,6 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/message/message_catalog.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::message {
@@ -87,7 +86,7 @@ namespace tetengo2::message {
     };
 
 
-    message_catalog::message_catalog() : m_p_impl{ stdalt::make_unique<impl>() } {}
+    message_catalog::message_catalog() : m_p_impl{ std::make_unique<impl>() } {}
 
     message_catalog::~message_catalog() = default;
 

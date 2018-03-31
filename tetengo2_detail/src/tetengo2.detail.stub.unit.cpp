@@ -12,7 +12,6 @@
 #include <boost/rational.hpp>
 
 #include <tetengo2/detail/stub/unit.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::stub {
@@ -88,7 +87,7 @@ namespace tetengo2::detail::stub {
 
     unit::~unit() = default;
 
-    unit::unit() : m_p_impl{ stdalt::make_unique<impl>() } {}
+    unit::unit() : m_p_impl{ std::make_unique<impl>() } {}
 
     boost::rational<unit::size_type> unit::pixel_size_to_em_impl(const size_type pixel_size) const
     {

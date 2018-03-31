@@ -18,7 +18,6 @@
 
 #include <tetengo2/gui/mouse_capture.h>
 #include <tetengo2/gui/widget/control.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::widget {
@@ -179,7 +178,7 @@ namespace tetengo2::gui::widget {
             if (m_p_mouse_capture)
                 return false;
 
-            m_p_mouse_capture = stdalt::make_unique<mouse_capture_type>(*this, mouse_button);
+            m_p_mouse_capture = std::make_unique<mouse_capture_type>(*this, mouse_button);
             m_p_mouse_captured_item = p_inner_item;
 
             return true;

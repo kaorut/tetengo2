@@ -13,7 +13,6 @@
 #include <memory>
 
 #include <tetengo2/gui/drawing/background.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::drawing {
@@ -64,7 +63,7 @@ namespace tetengo2::gui::drawing {
 
         virtual std::unique_ptr<base_type> clone_impl() const override
         {
-            return stdalt::make_unique<transparent_background>();
+            return std::make_unique<transparent_background>();
         }
 
         virtual const details_type& details_impl() const override

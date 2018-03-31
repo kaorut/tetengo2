@@ -35,7 +35,6 @@
 #include <tetengo2/gui/message/size_observer_set.h>
 #include <tetengo2/gui/scroll_bar.h>
 #include <tetengo2/gui/virtual_key.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::widget {
@@ -601,7 +600,7 @@ namespace tetengo2::gui::widget {
         */
         std::unique_ptr<canvas_type> create_canvas() const
         {
-            return stdalt::make_unique<widget_canvas_type>(details());
+            return std::make_unique<widget_canvas_type>(details());
         }
 
         /*!
@@ -939,7 +938,7 @@ namespace tetengo2::gui::widget {
                 return {};
             }
 
-            return stdalt::make_unique<scroll_bar_type>(details(), scroll_bar_type::style_type::vertical);
+            return std::make_unique<scroll_bar_type>(details(), scroll_bar_type::style_type::vertical);
         }
 
         std::unique_ptr<scroll_bar_type> create_horizontal_scroll_bar()
@@ -950,7 +949,7 @@ namespace tetengo2::gui::widget {
                 return {};
             }
 
-            return stdalt::make_unique<scroll_bar_type>(details(), scroll_bar_type::style_type::horizontal);
+            return std::make_unique<scroll_bar_type>(details(), scroll_bar_type::style_type::horizontal);
         }
     };
 }

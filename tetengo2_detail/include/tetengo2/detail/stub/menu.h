@@ -14,8 +14,6 @@
 #include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 
-#include <tetengo2/stdalt.h>
-
 
 namespace tetengo2::detail::stub {
     /*!
@@ -64,7 +62,7 @@ namespace tetengo2::detail::stub {
         */
         static menu_details_ptr_type create_menu_bar()
         {
-            return stdalt::make_unique<menu_details_type>();
+            return std::make_unique<menu_details_type>();
         }
 
         /*!
@@ -76,7 +74,7 @@ namespace tetengo2::detail::stub {
         */
         static menu_details_ptr_type create_popup_menu()
         {
-            return stdalt::make_unique<menu_details_type>();
+            return std::make_unique<menu_details_type>();
         }
 
         /*!
@@ -86,7 +84,7 @@ namespace tetengo2::detail::stub {
         */
         static menu_details_ptr_type create_menu()
         {
-            return stdalt::make_unique<menu_details_type>();
+            return std::make_unique<menu_details_type>();
         }
 
         /*!
@@ -127,7 +125,7 @@ namespace tetengo2::detail::stub {
         template <typename Entry>
         static shortcut_key_table_details_ptr_type create_shortcut_key_table()
         {
-            return stdalt::make_unique<shortcut_key_table_details_type>();
+            return std::make_unique<shortcut_key_table_details_type>();
         }
 
         /*!
@@ -148,7 +146,7 @@ namespace tetengo2::detail::stub {
         create_shortcut_key_table(const InputIterator first, const InputIterator last)
         {
             boost::ignore_unused(first, last);
-            return stdalt::make_unique<shortcut_key_table_details_type>();
+            return std::make_unique<shortcut_key_table_details_type>();
         }
 
         /*!

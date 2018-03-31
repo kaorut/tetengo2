@@ -13,7 +13,6 @@
 #include <memory>
 
 #include <tetengo2/gui/menu/abstract_popup.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::menu {
@@ -63,7 +62,7 @@ namespace tetengo2::gui::menu {
         */
         menu_bar()
         : base_type{ string_type{}, menu_details_type::create_menu_bar() }, m_p_shortcut_key_table{
-              stdalt::make_unique<shortcut_key_table_type>()
+              std::make_unique<shortcut_key_table_type>()
           }
         {}
 
@@ -92,7 +91,7 @@ namespace tetengo2::gui::menu {
         void update_shortcut_key_table()
         {
             m_p_shortcut_key_table =
-                stdalt::make_unique<shortcut_key_table_type>(this->recursive_begin(), this->recursive_end());
+                std::make_unique<shortcut_key_table_type>(this->recursive_begin(), this->recursive_end());
         }
 
 

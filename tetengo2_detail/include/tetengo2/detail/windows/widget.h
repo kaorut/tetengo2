@@ -42,7 +42,6 @@
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
 #include <tetengo2/gui/alert.h> // IWYU pragma: keep
 #include <tetengo2/gui/measure.h> // IWYU pragma: keep
-#include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
 namespace tetengo2::detail::windows {
@@ -154,7 +153,7 @@ namespace tetengo2::detail::windows {
 
             const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
-            return stdalt::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
+            return std::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
 
         /*!
@@ -209,7 +208,7 @@ namespace tetengo2::detail::windows {
                                         "Can't create a custom control!" }));
             }
 
-            return stdalt::make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);
+            return std::make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);
         }
 
         /*!
@@ -265,7 +264,7 @@ namespace tetengo2::detail::windows {
             if (file_droppable)
                 ::DragAcceptFiles(p_widget.get(), TRUE);
 
-            return stdalt::make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);
+            return std::make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);
         }
 
         /*!
@@ -304,7 +303,7 @@ namespace tetengo2::detail::windows {
 
             const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
-            return stdalt::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
+            return std::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
 
         /*!
@@ -343,7 +342,7 @@ namespace tetengo2::detail::windows {
 
             const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
-            return stdalt::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
+            return std::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
 
         /*!
@@ -382,7 +381,7 @@ namespace tetengo2::detail::windows {
 
             const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
-            return stdalt::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
+            return std::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
 
         /*!
@@ -424,7 +423,7 @@ namespace tetengo2::detail::windows {
 
             const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
-            return stdalt::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
+            return std::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
 
         /*!
@@ -474,7 +473,7 @@ namespace tetengo2::detail::windows {
                                         "Can't create a picture box!" }));
             }
 
-            return stdalt::make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);
+            return std::make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);
         }
 
         /*!
@@ -513,7 +512,7 @@ namespace tetengo2::detail::windows {
 
             const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
-            return stdalt::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
+            return std::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
 
         /*!
@@ -555,7 +554,7 @@ namespace tetengo2::detail::windows {
 
             const auto p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
-            return stdalt::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
+            return std::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
         }
 
         /*!
@@ -614,7 +613,7 @@ namespace tetengo2::detail::windows {
             if (file_droppable)
                 ::DragAcceptFiles(p_widget.get(), TRUE);
 
-            return stdalt::make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);
+            return std::make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, nullptr);
         }
 
         /*!

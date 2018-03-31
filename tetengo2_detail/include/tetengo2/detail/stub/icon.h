@@ -15,8 +15,6 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 
-#include <tetengo2/stdalt.h>
-
 
 namespace tetengo2::detail::stub {
     /*!
@@ -66,7 +64,7 @@ namespace tetengo2::detail::stub {
         static icon_details_ptr_type create(const boost::filesystem::path& path, const Dimension& dimension)
         {
             boost::ignore_unused(path, dimension);
-            return stdalt::make_unique<icon_details_type>();
+            return std::make_unique<icon_details_type>();
         }
     };
 }

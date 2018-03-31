@@ -13,7 +13,6 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/concurrent/progressive_future.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::concurrent {
@@ -76,7 +75,7 @@ namespace tetengo2::concurrent {
 
 
         progress_state::progress_state(progress_type initial_progress)
-        : m_p_impl{ stdalt::make_unique<impl>(std::move(initial_progress)) }
+        : m_p_impl{ std::make_unique<impl>(std::move(initial_progress)) }
         {}
 
         progress_state::~progress_state() = default;

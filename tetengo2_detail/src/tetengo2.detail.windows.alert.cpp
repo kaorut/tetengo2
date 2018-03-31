@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <memory>
 #include <sstream> // IWYU pragma: keep
 #include <string>
 
@@ -25,7 +26,6 @@
 #include <CommCtrl.h>
 
 #include <tetengo2/detail/windows/alert.h>
-#include <tetengo2/stdalt.h> // IWYU pragma: keep
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h> // IWYU pragma: keep
@@ -181,7 +181,7 @@ namespace tetengo2::detail::windows {
 
     alert::~alert() = default;
 
-    alert::alert() : m_p_impl{ stdalt::make_unique<impl>() } {}
+    alert::alert() : m_p_impl{ std::make_unique<impl>() } {}
 
     alert::widget_handle_type alert::root_ancestor_widget_handle_impl(const widget_handle_type widget_handle) const
     {

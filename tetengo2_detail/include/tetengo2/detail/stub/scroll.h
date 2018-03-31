@@ -16,8 +16,6 @@
 #include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 
-#include <tetengo2/stdalt.h>
-
 
 namespace tetengo2::detail::stub {
     /*!
@@ -85,7 +83,7 @@ namespace tetengo2::detail::stub {
         {
             boost::ignore_unused(widget_details, style);
 
-            return stdalt::make_unique<scroll_bar_details_type>(0, std::make_pair(0, 100), 10, true);
+            return std::make_unique<scroll_bar_details_type>(0, std::make_pair(0, 100), 10, true);
         }
 
         /*!

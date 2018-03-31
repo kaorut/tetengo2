@@ -16,7 +16,6 @@
 
 #include <tetengo2/detail/stub/gui_fixture.h>
 #include <tetengo2/gui/fixture.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace {
@@ -37,7 +36,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
             {
                 BOOST_TEST_PASSPOINT();
 
-                auto               p_fixture_details = tetengo2::stdalt::make_unique<fixture_details_type>();
+                auto               p_fixture_details = std::make_unique<fixture_details_type>();
                 const fixture_type fixture{ std::move(p_fixture_details) };
                 boost::ignore_unused(fixture);
             }

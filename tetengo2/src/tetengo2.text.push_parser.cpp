@@ -26,7 +26,6 @@
 #include <boost/variant.hpp>
 
 #include <tetengo2/iterator/observable_forward_iterator.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/grammar/grammar.h>
 #include <tetengo2/text/push_parser.h>
@@ -291,7 +290,7 @@ namespace tetengo2::text {
         const iterator                first,
         const iterator                last,
         std::unique_ptr<grammar_type> p_grammar)
-    : m_p_impl{ stdalt::make_unique<impl>(first, last, std::move(p_grammar)) }
+    : m_p_impl{ std::make_unique<impl>(first, last, std::move(p_grammar)) }
     {}
 
     template <typename ForwardIterator>

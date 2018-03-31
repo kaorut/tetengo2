@@ -17,7 +17,6 @@
 #include <tetengo2/detail/stub/gui_fixture.h>
 #include <tetengo2/detail/stub/impl_set.h>
 #include <tetengo2/detail/stub/unit.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::stub {
@@ -43,7 +42,7 @@ namespace tetengo2::detail::stub {
 
     std::unique_ptr<base::gui_fixture> impl_set::create_gui_fixture_impl() const
     {
-        return tetengo2::stdalt::make_unique<gui_fixture>();
+        return std::make_unique<gui_fixture>();
     }
 
     const base::unit& impl_set::unit_impl() const

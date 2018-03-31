@@ -12,7 +12,6 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/stub/cursor.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::stub {
@@ -65,7 +64,7 @@ namespace tetengo2::detail::stub {
 
     cursor::~cursor() = default;
 
-    cursor::cursor() : m_p_impl{ stdalt::make_unique<impl>() } {}
+    cursor::cursor() : m_p_impl{ std::make_unique<impl>() } {}
 
     cursor::cursor_details_ptr_type cursor::create_system_cursor_impl(const system_cursor_style_type style) const
     {

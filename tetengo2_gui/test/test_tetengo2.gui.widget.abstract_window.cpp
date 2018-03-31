@@ -22,7 +22,6 @@
 #include <tetengo2/gui/menu/shortcut_key_table.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/gui/widget/widget.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
@@ -66,7 +65,7 @@ namespace {
         : abstract_window_type{ abstract_window_type::scroll_bar_style_type::none,
                                 file_droppable,
                                 message_handler_map_type{} },
-          m_p_details{ tetengo2::stdalt::make_unique<details_type>() }
+          m_p_details{ std::make_unique<details_type>() }
         {
             base_type::initialize(this);
         }
@@ -176,7 +175,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     concrete_window window;
 
                     std::unique_ptr<icon_type> p_icon =
-                        tetengo2::stdalt::make_unique<icon_type>(boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") });
+                        std::make_unique<icon_type>(boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") });
                     window.set_icon(std::move(p_icon));
 
                     BOOST_TEST_REQUIRE(window.has_icon());
@@ -196,7 +195,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         concrete_window window;
 
-                        auto p_menu_bar = tetengo2::stdalt::make_unique<menu_bar_type>();
+                        auto p_menu_bar = std::make_unique<menu_bar_type>();
                         window.set_menu_bar(std::move(p_menu_bar));
 
                         BOOST_TEST(window.has_menu_bar());
@@ -220,7 +219,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         concrete_window window;
 
-                        auto p_menu_bar = tetengo2::stdalt::make_unique<menu_bar_type>();
+                        auto p_menu_bar = std::make_unique<menu_bar_type>();
                         window.set_menu_bar(std::move(p_menu_bar));
 
                         window.menu_bar();
@@ -236,10 +235,10 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     concrete_window window;
 
-                    auto p_menu_bar = tetengo2::stdalt::make_unique<menu_bar_type>();
+                    auto p_menu_bar = std::make_unique<menu_bar_type>();
                     window.set_menu_bar(std::move(p_menu_bar));
 
-                    auto p_menu_bar2 = tetengo2::stdalt::make_unique<menu_bar_type>();
+                    auto p_menu_bar2 = std::make_unique<menu_bar_type>();
                     window.set_menu_bar(std::move(p_menu_bar2));
                 }
 

@@ -43,7 +43,6 @@
 #include <tetengo2/detail/windows/font.h>
 #include <tetengo2/detail/windows/picture.h>
 #include <tetengo2/gui/measure.h> // IWYU pragma: keep
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text/character_iterator.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/polymorphic.h>
@@ -263,7 +262,7 @@ namespace tetengo2::detail::windows::direct2d {
         template <typename Color>
         static background_details_ptr_type create_solid_background(const Color& color)
         {
-            return stdalt::make_unique<detail::solid_background_details>(
+            return std::make_unique<detail::solid_background_details>(
                 color.red(), color.green(), color.blue(), color.alpha());
         }
 
@@ -274,7 +273,7 @@ namespace tetengo2::detail::windows::direct2d {
         */
         static background_details_ptr_type create_transparent_background()
         {
-            return stdalt::make_unique<detail::transparent_background_details>();
+            return std::make_unique<detail::transparent_background_details>();
         }
 
         /*!

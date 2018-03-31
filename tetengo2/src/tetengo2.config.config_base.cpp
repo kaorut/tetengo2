@@ -13,7 +13,6 @@
 #include <boost/optional.hpp>
 
 #include <tetengo2/config/config_base.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::config {
@@ -48,7 +47,7 @@ namespace tetengo2::config {
     };
 
 
-    config_base::config_base() : m_p_impl{ stdalt::make_unique<impl>() } {}
+    config_base::config_base() : m_p_impl{ std::make_unique<impl>() } {}
 
     config_base::~config_base() = default;
 

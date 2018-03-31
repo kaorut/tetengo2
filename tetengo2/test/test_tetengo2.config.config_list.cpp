@@ -18,7 +18,6 @@
 
 #include <tetengo2/config/config_list.h>
 #include <tetengo2/config/temporary_config.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/type_list.h>
 
@@ -54,7 +53,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
                         { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
                     };
-                    auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                    auto p_config = std::make_unique<temporary_config_type>();
                     for (const auto& value : values)
                     {
                         p_config->set(value.first, value.second);
@@ -66,7 +65,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("fuga") } } },
                         { string_type{ TETENGO2_TEXT("baz") }, value_type{ 4242 } }
                     };
-                    auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                    auto p_config = std::make_unique<temporary_config_type>();
                     for (const auto& value : values)
                     {
                         p_config->set(value.first, value.second);
@@ -87,7 +86,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                             { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
                             { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
                         };
-                        auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                        auto p_config = std::make_unique<temporary_config_type>();
                         for (const auto& value : values)
                         {
                             p_config->set(value.first, value.second);
@@ -99,7 +98,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                             { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("fuga") } } },
                             { string_type{ TETENGO2_TEXT("baz") }, value_type{ 4242 } }
                         };
-                        auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                        auto p_config = std::make_unique<temporary_config_type>();
                         for (const auto& value : values)
                         {
                             p_config->set(value.first, value.second);
@@ -131,7 +130,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                             { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("fuga") } } },
                             { string_type{ TETENGO2_TEXT("baz") }, value_type{ 4242 } }
                         };
-                        auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                        auto p_config = std::make_unique<temporary_config_type>();
                         for (const auto& value : values)
                         {
                             p_config->set(value.first, value.second);
@@ -143,7 +142,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                             { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
                             { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
                         };
-                        auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                        auto p_config = std::make_unique<temporary_config_type>();
                         for (const auto& value : values)
                         {
                             p_config->set(value.first, value.second);
@@ -171,7 +170,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                             { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
                             { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
                         };
-                        auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                        auto p_config = std::make_unique<temporary_config_type>();
                         for (const auto& value : values)
                         {
                             p_config->set(value.first, value.second);
@@ -183,7 +182,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                             { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("fuga") } } },
                             { string_type{ TETENGO2_TEXT("baz") }, value_type{ 4242 } }
                         };
-                        auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                        auto p_config = std::make_unique<temporary_config_type>();
                         for (const auto& value : values)
                         {
                             p_config->set(value.first, value.second);
@@ -205,7 +204,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                             { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
                             { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
                         };
-                        auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                        auto p_config = std::make_unique<temporary_config_type>();
                         for (const auto& value : values)
                         {
                             p_config->set(value.first, value.second);
@@ -217,7 +216,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                             { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("fuga") } } },
                             { string_type{ TETENGO2_TEXT("baz") }, value_type{ 4242 } }
                         };
-                        auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                        auto p_config = std::make_unique<temporary_config_type>();
                         for (const auto& value : values)
                         {
                             p_config->set(value.first, value.second);
@@ -246,7 +245,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                             { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("hoge") } } },
                             { string_type{ TETENGO2_TEXT("bar") }, value_type{ 42 } }
                         };
-                        auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                        auto p_config = std::make_unique<temporary_config_type>();
                         for (const auto& value : values)
                         {
                             p_config->set(value.first, value.second);
@@ -258,7 +257,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                             { string_type{ TETENGO2_TEXT("foo") }, value_type{ string_type{ TETENGO2_TEXT("fuga") } } },
                             { string_type{ TETENGO2_TEXT("baz") }, value_type{ 4242 } }
                         };
-                        auto p_config = tetengo2::stdalt::make_unique<temporary_config_type>();
+                        auto p_config = std::make_unique<temporary_config_type>();
                         for (const auto& value : values)
                         {
                             p_config->set(value.first, value.second);

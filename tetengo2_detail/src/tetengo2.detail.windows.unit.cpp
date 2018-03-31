@@ -7,6 +7,7 @@
 */
 
 #include <cassert>
+#include <memory>
 #include <system_error> // IWYU pragma: keep
 #include <utility>
 
@@ -28,7 +29,6 @@
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/font.h>
 #include <tetengo2/detail/windows/unit.h>
-#include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
 namespace tetengo2::detail::windows {
@@ -143,7 +143,7 @@ namespace tetengo2::detail::windows {
 
     unit::~unit() = default;
 
-    unit::unit() : m_p_impl{ stdalt::make_unique<impl>() } {}
+    unit::unit() : m_p_impl{ std::make_unique<impl>() } {}
 
     boost::rational<unit::size_type> unit::pixel_size_to_em_impl(const size_type pixel_size) const
     {

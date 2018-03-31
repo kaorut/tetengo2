@@ -32,7 +32,6 @@
 #include <tetengo2/gui/unit/pixel.h>
 #include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/gui/widget/widget.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
@@ -87,7 +86,7 @@ namespace {
             widget_type* const                       p_parent = nullptr,
             const widget_type::scroll_bar_style_type scroll_bar_style = widget_type::scroll_bar_style_type::none)
         : widget_type{ scroll_bar_style, message_handler_map_type{} }, m_p_details{
-              tetengo2::stdalt::make_unique<widget_details_type::widget_details_type>(
+              std::make_unique<widget_details_type::widget_details_type>(
                   p_parent,
                   true,
                   true,
@@ -458,7 +457,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         concrete_widget widget{};
 
-                        auto p_background = tetengo2::stdalt::make_unique<transparent_background_type>();
+                        auto p_background = std::make_unique<transparent_background_type>();
                         widget.set_background(std::move(p_background));
 
                         BOOST_TEST(widget.p_background());
@@ -478,7 +477,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         concrete_widget widget{};
 
-                        auto p_background = tetengo2::stdalt::make_unique<transparent_background_type>();
+                        auto p_background = std::make_unique<transparent_background_type>();
                         widget.set_background(std::move(p_background));
                     }
                 }
@@ -522,7 +521,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     concrete_widget widget{};
 
-                    auto p_cursor = tetengo2::stdalt::make_unique<system_cursor_type>(
+                    auto p_cursor = std::make_unique<system_cursor_type>(
                         system_cursor_type::style_type::hand, cursor_details_type::instance());
                     widget.set_cursor(std::move(p_cursor));
 

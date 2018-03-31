@@ -21,7 +21,6 @@
 
 #include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/message/message_catalog_parser.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/type_list.h>
@@ -210,7 +209,7 @@ namespace tetengo2::message {
                 m_p_pull_parser->next();
             }
 
-            return stdalt::make_unique<entry_type>(m_input_encoder.decode(key), m_input_encoder.decode(value));
+            return std::make_unique<entry_type>(m_input_encoder.decode(key), m_input_encoder.decode(value));
         }
 
         template <typename Structure>
@@ -262,7 +261,7 @@ namespace tetengo2::message {
     message_catalog_parser<ForwardIterator>::message_catalog_parser(
         std::unique_ptr<pull_parser_type> p_pull_parser,
         input_encoding_type               input_encoding)
-    : m_p_impl{ stdalt::make_unique<impl>(std::move(p_pull_parser), std::move(input_encoding)) }
+    : m_p_impl{ std::make_unique<impl>(std::move(p_pull_parser), std::move(input_encoding)) }
     {}
 
     template <typename ForwardIterator>

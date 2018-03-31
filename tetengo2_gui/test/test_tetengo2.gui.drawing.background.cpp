@@ -13,7 +13,6 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/drawing/background.h>
-#include <tetengo2/stdalt.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
 
@@ -37,7 +36,7 @@ namespace {
 
         virtual std::unique_ptr<background_type> clone_impl() const override
         {
-            return tetengo2::stdalt::make_unique<concrete_background>();
+            return std::make_unique<concrete_background>();
         }
 
         virtual const background_type::details_type& details_impl() const override

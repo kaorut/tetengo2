@@ -20,7 +20,6 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/unixos/encoding.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace detail { namespace unixos {
@@ -155,7 +154,7 @@ namespace tetengo2 { namespace detail { namespace unixos {
 
     encoding::~encoding() = default;
 
-    encoding::encoding() : m_p_impl{ stdalt::make_unique<impl>() } {}
+    encoding::encoding() : m_p_impl{ std::make_unique<impl>() } {}
 
     encoding::utf8_string_type encoding::pivot_to_utf8_impl(pivot_type pivot) const
     {

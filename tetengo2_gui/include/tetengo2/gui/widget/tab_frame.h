@@ -23,7 +23,6 @@
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/widget/custom_control.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::widget {
@@ -197,7 +196,7 @@ namespace tetengo2::gui::widget {
                 auto original_line_width = canvas.line_width();
                 canvas.set_color(system_color_set_type::control_text());
                 canvas.set_background(
-                    stdalt::make_unique<solid_background_type>(system_color_set_type::control_background()));
+                    std::make_unique<solid_background_type>(system_color_set_type::control_background()));
                 canvas.set_line_width(dimension_unit_type{ 1 } / 8);
 
                 position_unit_type unselected_left{};
@@ -658,7 +657,7 @@ namespace tetengo2::gui::widget {
         {
             tab_frame_.set_dimension(dimension_type{ dimension_unit_type{ 16 }, dimension_unit_type{ 16 } });
             tab_frame_.set_background(
-                stdalt::make_unique<solid_background_type>(system_color_set_type::dialog_background()));
+                std::make_unique<solid_background_type>(system_color_set_type::dialog_background()));
 
             set_observers(tab_frame_);
         }
@@ -753,7 +752,7 @@ namespace tetengo2::gui::widget {
             if (!p_child)
                 return;
 
-            auto p_tab = stdalt::make_unique<tab_type>(*this, m_p_tabs.size(), *p_child);
+            auto p_tab = std::make_unique<tab_type>(*this, m_p_tabs.size(), *p_child);
             m_p_tabs.push_back(std::move(p_tab));
 
             select_tab(m_p_tabs.size() - 1);

@@ -27,7 +27,6 @@
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/measure.h>
-#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::stub {
@@ -1398,7 +1397,7 @@ namespace tetengo2::detail::stub {
         template <typename Widget>
         static widget_details_ptr_type create_details(Widget* const p_parent)
         {
-            widget_details_ptr_type p_details{ stdalt::make_unique<widget_details_type>(
+            widget_details_ptr_type p_details{ std::make_unique<widget_details_type>(
                 p_parent,
                 true,
                 true,
