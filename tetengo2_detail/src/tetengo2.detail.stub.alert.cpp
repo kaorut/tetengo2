@@ -8,7 +8,6 @@
 
 #include <memory>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/stub/alert.h>
@@ -38,23 +37,20 @@ namespace tetengo2::detail::stub {
 
         // functions
 
-        widget_handle_type root_ancestor_widget_handle_impl(const widget_handle_type widget_handle) const
+        widget_handle_type root_ancestor_widget_handle_impl([
+            [maybe_unused]] const widget_handle_type widget_handle) const
         {
-            boost::ignore_unused(widget_handle);
-
             return nullptr;
         }
 
         virtual void show_task_dialog_impl(
-            const widget_handle_type widget_handle,
-            const string_type&       caption,
-            const string_type&       text1,
-            const string_type&       text2,
-            const string_type&       source_file_name,
-            const integer_type       source_file_line) const
-        {
-            boost::ignore_unused(widget_handle, caption, text1, text2, source_file_name, source_file_line);
-        }
+            [[maybe_unused]] const widget_handle_type widget_handle,
+            [[maybe_unused]] const string_type&       caption,
+            [[maybe_unused]] const string_type&       text1,
+            [[maybe_unused]] const string_type&       text2,
+            [[maybe_unused]] const string_type&       source_file_name,
+            [[maybe_unused]] const integer_type       source_file_line) const
+        {}
     };
 
 

@@ -12,7 +12,6 @@
 #include <chrono>
 #include <functional>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 
 
@@ -37,13 +36,11 @@ namespace tetengo2::detail::stub {
         */
         template <typename Widget>
         timer(
-            const Widget&                    widget,
-            std::function<void(bool&)>       procedure,
-            const std::chrono::milliseconds& interval,
-            const bool                       once_only)
-        {
-            boost::ignore_unused(widget, procedure, interval, once_only);
-        }
+            [[maybe_unused]] const Widget&                    widget,
+            [[maybe_unused]] std::function<void(bool&)>       procedure,
+            [[maybe_unused]] const std::chrono::milliseconds& interval,
+            [[maybe_unused]] const bool                       once_only)
+        {}
 
 
         // functions

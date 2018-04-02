@@ -13,7 +13,6 @@
 #include <utility>
 #include <vector>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/none.hpp>
 #include <boost/optional.hpp>
 #include <boost/preprocessor.hpp>
@@ -50,28 +49,24 @@ namespace {
 
     // functions
 
-    bool structure_observer0(const std::string& structure, const attribute_map_type& attribute_map)
+    bool structure_observer0(
+        [[maybe_unused]] const std::string&        structure,
+        [[maybe_unused]] const attribute_map_type& attribute_map)
     {
-        boost::ignore_unused(structure, attribute_map);
-
         return true;
     }
 
     bool structure_observer1(
-        const std::string&                  structure,
-        const attribute_map_type&           attribute_map,
-        std::vector<parsed_structure_type>& parsed_structures)
+        const std::string&                         structure,
+        [[maybe_unused]] const attribute_map_type& attribute_map,
+        std::vector<parsed_structure_type>&        parsed_structures)
     {
-        boost::ignore_unused(attribute_map);
-
         parsed_structures.emplace_back(structure, boost::none);
         return true;
     }
 
-    bool value_observer0(const push_parser_type::value_type& value)
+    bool value_observer0([[maybe_unused]] const push_parser_type::value_type& value)
     {
-        boost::ignore_unused(value);
-
         return true;
     }
 

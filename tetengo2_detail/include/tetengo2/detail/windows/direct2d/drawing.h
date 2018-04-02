@@ -17,7 +17,6 @@
 #include <utility> // IWYU pragma: keep
 #include <vector> // IWYU pragma: keep
 
-#include <boost/core/ignore_unused.hpp> // IWYU pragma: keep
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/math/constants/constants.hpp> // IWYU pragma: keep
@@ -231,10 +230,9 @@ namespace tetengo2::detail::windows::direct2d {
             \throw std::logic_error When another transaction has not ended yet.
         */
         template <typename Dimension>
-        static void begin_transaction(canvas_details_type& canvas, const Dimension& dimension)
-        {
-            boost::ignore_unused(canvas, dimension);
-        }
+        static void
+            begin_transaction([[maybe_unused]] canvas_details_type& canvas, [[maybe_unused]] const Dimension& dimension)
+        {}
 
         /*!
             \brief Ends the transaction.
@@ -245,10 +243,7 @@ namespace tetengo2::detail::windows::direct2d {
 
             \throw std::logic_error When no transaction has begun.
         */
-        static void end_transaction(canvas_details_type& canvas)
-        {
-            boost::ignore_unused(canvas);
-        }
+        static void end_transaction([[maybe_unused]] canvas_details_type& canvas) {}
 
         /*!
             \brief Creates a solid background.
@@ -519,14 +514,12 @@ namespace tetengo2::detail::windows::direct2d {
         */
         template <typename Dimension, typename Font, typename String, typename Encoder>
         static Dimension calc_text_dimension(
-            const canvas_details_type&           canvas,
-            const Font&                          font,
-            const String&                        text,
-            const Encoder&                       encoder,
-            const typename Dimension::unit_type& max_width)
+            [[maybe_unused]] const canvas_details_type& canvas,
+            const Font&                                 font,
+            const String&                               text,
+            const Encoder&                              encoder,
+            const typename Dimension::unit_type&        max_width)
         {
-            boost::ignore_unused(canvas);
-
             const auto p_layout = create_text_layout(text, font, encoder, max_width);
 
             ::DWRITE_TEXT_METRICS metrics{};

@@ -12,7 +12,6 @@
 #include <memory>
 #include <utility>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/optional.hpp>
@@ -118,29 +117,17 @@ namespace tetengo2::detail::stub {
         */
         template <typename AbstractWindow, typename String, typename Encoder>
         static message_box_details_ptr_type create_message_box(
-            AbstractWindow&                            parent,
-            String                                     title,
-            String                                     main_content,
-            String                                     sub_content,
-            const bool                                 cancellable,
-            const message_box_button_style_type        button_style,
-            const message_box_icon_style_type          icon_style,
-            boost::optional<String>                    custom_ok_button_label,
-            boost::optional<std::pair<String, String>> custom_yes_no_button_labels,
-            const Encoder&                             encoder)
+            [[maybe_unused]] AbstractWindow&                            parent,
+            [[maybe_unused]] String                                     title,
+            [[maybe_unused]] String                                     main_content,
+            [[maybe_unused]] String                                     sub_content,
+            [[maybe_unused]] const bool                                 cancellable,
+            [[maybe_unused]] const message_box_button_style_type        button_style,
+            [[maybe_unused]] const message_box_icon_style_type          icon_style,
+            [[maybe_unused]] boost::optional<String>                    custom_ok_button_label,
+            [[maybe_unused]] boost::optional<std::pair<String, String>> custom_yes_no_button_labels,
+            [[maybe_unused]] const Encoder&                             encoder)
         {
-            boost::ignore_unused(
-                parent,
-                title,
-                main_content,
-                sub_content,
-                cancellable,
-                button_style,
-                icon_style,
-                custom_ok_button_label,
-                custom_yes_no_button_labels,
-                encoder);
-
             return std::make_unique<message_box_details_type>();
         }
 
@@ -153,10 +140,8 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the message box cannot be shown.
         */
-        static message_box_button_id_type show_message_box(message_box_details_type& message_box)
+        static message_box_button_id_type show_message_box([[maybe_unused]] message_box_details_type& message_box)
         {
-            boost::ignore_unused(message_box);
-
             return message_box_button_id_type::cancel;
         }
 
@@ -178,11 +163,12 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the file open dialog cannot be created.
         */
         template <typename AbstractWindow, typename String, typename Filters, typename Encoder>
-        static file_open_dialog_details_ptr_type
-        create_file_open_dialog(AbstractWindow& parent, String title, const Filters& filters, const Encoder& encoder)
+        static file_open_dialog_details_ptr_type create_file_open_dialog(
+            [[maybe_unused]] AbstractWindow& parent,
+            [[maybe_unused]] String          title,
+            [[maybe_unused]] const Filters&  filters,
+            [[maybe_unused]] const Encoder&  encoder)
         {
-            boost::ignore_unused(parent, title, filters, encoder);
-
             return std::make_unique<file_open_dialog_details_type>();
         }
 
@@ -199,11 +185,10 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the file open dialog cannot be shown.
         */
         template <typename Encoder>
-        static boost::optional<boost::filesystem::path>
-        show_file_open_dialog(file_open_dialog_details_type& dialog, const Encoder& encoder)
+        static boost::optional<boost::filesystem::path> show_file_open_dialog(
+            [[maybe_unused]] file_open_dialog_details_type& dialog,
+            [[maybe_unused]] const Encoder&                 encoder)
         {
-            boost::ignore_unused(dialog, encoder);
-
             return boost::make_optional(boost::filesystem::temp_directory_path() / boost::filesystem::unique_path());
         }
 
@@ -228,14 +213,12 @@ namespace tetengo2::detail::stub {
         */
         template <typename AbstractWindow, typename String, typename OptionalPath, typename Filters, typename Encoder>
         static file_save_dialog_details_ptr_type create_file_save_dialog(
-            AbstractWindow&     parent,
-            String              title,
-            const OptionalPath& path,
-            const Filters&      filters,
-            const Encoder&      encoder)
+            [[maybe_unused]] AbstractWindow&     parent,
+            [[maybe_unused]] String              title,
+            [[maybe_unused]] const OptionalPath& path,
+            [[maybe_unused]] const Filters&      filters,
+            [[maybe_unused]] const Encoder&      encoder)
         {
-            boost::ignore_unused(parent, title, path, filters, encoder);
-
             return std::make_unique<file_save_dialog_details_type>();
         }
 
@@ -252,11 +235,10 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the file save dialog cannot be shown.
         */
         template <typename Encoder>
-        static boost::optional<boost::filesystem::path>
-        show_file_save_dialog(file_save_dialog_details_type& dialog, const Encoder& encoder)
+        static boost::optional<boost::filesystem::path> show_file_save_dialog(
+            [[maybe_unused]] file_save_dialog_details_type& dialog,
+            [[maybe_unused]] const Encoder&                 encoder)
         {
-            boost::ignore_unused(dialog, encoder);
-
             return boost::make_optional(boost::filesystem::temp_directory_path() / boost::filesystem::unique_path());
         }
 
@@ -276,10 +258,11 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the font dialog cannot be created.
         */
         template <typename AbstractWindow, typename OptionalFont, typename Encoder>
-        static font_dialog_details_ptr_type
-        create_font_dialog(AbstractWindow& parent, const OptionalFont& font, const Encoder& encoder)
+        static font_dialog_details_ptr_type create_font_dialog(
+            [[maybe_unused]] AbstractWindow&     parent,
+            [[maybe_unused]] const OptionalFont& font,
+            [[maybe_unused]] const Encoder&      encoder)
         {
-            boost::ignore_unused(parent, font, encoder);
             return std::make_unique<font_dialog_details_type>();
         }
 
@@ -297,10 +280,9 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the font dialog cannot be shown.
         */
         template <typename Font, typename Encoder>
-        static boost::optional<Font> show_font_dialog(font_dialog_details_type& dialog, const Encoder& encoder)
+        static boost::optional<Font>
+            show_font_dialog([[maybe_unused]] font_dialog_details_type& dialog, [[maybe_unused]] const Encoder& encoder)
         {
-            boost::ignore_unused(dialog, encoder);
-
             return boost::make_optional(
                 Font{ typename Font::string_type{ TETENGO2_TEXT("font_dialog_font") }, 42, false, true, false, true });
         }
@@ -319,10 +301,9 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the color dialog cannot be created.
         */
         template <typename AbstractWindow, typename OptionalColor>
-        static color_dialog_details_ptr_type create_color_dialog(AbstractWindow& parent, const OptionalColor& color)
+        static color_dialog_details_ptr_type
+            create_color_dialog([[maybe_unused]] AbstractWindow& parent, [[maybe_unused]] const OptionalColor& color)
         {
-            boost::ignore_unused(parent, color);
-
             return std::make_unique<color_dialog_details_type>();
         }
 
@@ -338,10 +319,8 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the color dialog cannot be shown.
         */
         template <typename Color>
-        static boost::optional<Color> show_color_dialog(color_dialog_details_type& dialog)
+        static boost::optional<Color> show_color_dialog([[maybe_unused]] color_dialog_details_type& dialog)
         {
-            boost::ignore_unused(dialog);
-
             return boost::make_optional(Color{ 0xAB, 0xCD, 0xEF });
         }
     };

@@ -10,7 +10,6 @@
 #include <system_error> // IWYU pragma: keep
 #include <utility> // IWYU pragma: keep
 
-#include <boost/core/ignore_unused.hpp> // IWYU pragma: keep
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -90,10 +89,7 @@ namespace tetengo2::detail::windows {
             }
         }
 
-        static void delete_details(cursor_details_type* const p_details)
-        {
-            boost::ignore_unused(p_details);
-        }
+        static void delete_details([[maybe_unused]] cursor_details_type* const p_details) {}
     };
 
 

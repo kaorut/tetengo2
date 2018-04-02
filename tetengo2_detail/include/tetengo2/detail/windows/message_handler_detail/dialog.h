@@ -12,7 +12,6 @@
 
 #include <cassert>
 
-#include <boost/core/ignore_unused.hpp> // IWYU pragma: keep
 #include <boost/optional.hpp> // IWYU pragma: keep
 
 #pragma warning(push)
@@ -51,10 +50,9 @@ namespace tetengo2::detail::windows::message_handler_detail::dialog {
     }
 
     template <typename WidgetDetails, typename Dialog>
-    boost::optional<::LRESULT> on_syscommand(Dialog& dialog, const ::WPARAM w_param, const ::LPARAM l_param)
+    boost::optional<::LRESULT>
+    on_syscommand(Dialog& dialog, const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
     {
-        boost::ignore_unused(l_param);
-
         if (w_param == SC_CLOSE)
         {
             const auto widget_handle = ::GetDlgItem(dialog.details().handle.get(), IDCANCEL);
@@ -107,10 +105,9 @@ namespace tetengo2::detail::windows::message_handler_detail::dialog {
     }
 
     template <typename WidgetDetails, typename Dialog>
-    boost::optional<::LRESULT> on_set_focus(Dialog& dialog, const ::WPARAM w_param, const ::LPARAM l_param)
+    boost::optional<::LRESULT>
+    on_set_focus(Dialog& dialog, [[maybe_unused]] const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
     {
-        boost::ignore_unused(w_param, l_param);
-
         if (dialog.details().first_child_handle)
         {
             ::SetFocus(dialog.details().first_child_handle);

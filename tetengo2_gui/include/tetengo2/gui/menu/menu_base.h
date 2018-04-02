@@ -14,7 +14,6 @@
 #include <stdexcept>
 #include <vector>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/optional.hpp>
@@ -448,17 +447,14 @@ namespace tetengo2::gui::menu {
             return {};
         }
 
-        virtual void insert_impl(const iterator offset, std::unique_ptr<menu_base> p_menu)
+        virtual void
+            insert_impl([[maybe_unused]] const iterator offset, [[maybe_unused]] std::unique_ptr<menu_base> p_menu)
         {
-            boost::ignore_unused(offset, p_menu);
-
             BOOST_THROW_EXCEPTION((std::logic_error{ "Can't insert any menus." }));
         }
 
-        virtual void erase_impl(const iterator first, const iterator last)
+        virtual void erase_impl([[maybe_unused]] const iterator first, [[maybe_unused]] const iterator last)
         {
-            boost::ignore_unused(first, last);
-
             BOOST_THROW_EXCEPTION((std::logic_error{ "Can't erase any menus." }));
         }
     };

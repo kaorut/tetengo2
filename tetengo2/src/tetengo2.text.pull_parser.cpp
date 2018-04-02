@@ -13,7 +13,6 @@
 #include <string>
 #include <utility>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
@@ -164,12 +163,9 @@ namespace tetengo2::text {
                 [&channel](const string_type& name, const attribute_map_type& attribute_map) {
                     return on_structure_begin(name, attribute_map, channel);
                 });
-            push_parser.on_structure_end().connect(
-                [&channel](const string_type& name, const attribute_map_type& attribute_map) {
-                    boost::ignore_unused(attribute_map);
-
-                    return on_structure_end(name, channel);
-                });
+            push_parser.on_structure_end().connect([&channel](const string_type& name, const attribute_map_type&) {
+                return on_structure_end(name, channel);
+            });
             push_parser.on_value().connect([&channel](const value_type& value) { return on_value(value, channel); });
 
             push_parser.parse();

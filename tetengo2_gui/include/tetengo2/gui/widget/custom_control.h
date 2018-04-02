@@ -12,7 +12,6 @@
 #include <cassert>
 #include <memory>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/predef.h>
 
@@ -471,25 +470,13 @@ namespace tetengo2::gui::widget {
 
         virtual void resized_impl() {}
 
-        virtual void paint_impl(canvas_type& canvas) const
-        {
-            boost::ignore_unused(canvas);
-        }
+        virtual void paint_impl([[maybe_unused]] canvas_type& canvas) const {}
 
-        virtual void mouse_pressed_impl(const position_type& cursor_position)
-        {
-            boost::ignore_unused(cursor_position);
-        }
+        virtual void mouse_pressed_impl([[maybe_unused]] const position_type& cursor_position) {}
 
-        virtual void mouse_released_impl(const position_type& cursor_position)
-        {
-            boost::ignore_unused(cursor_position);
-        }
+        virtual void mouse_released_impl([[maybe_unused]] const position_type& cursor_position) {}
 
-        virtual void mouse_moved_impl(const position_type& cursor_position)
-        {
-            boost::ignore_unused(cursor_position);
-        }
+        virtual void mouse_moved_impl([[maybe_unused]] const position_type& cursor_position) {}
 
         virtual void mouse_entered_impl() {}
 

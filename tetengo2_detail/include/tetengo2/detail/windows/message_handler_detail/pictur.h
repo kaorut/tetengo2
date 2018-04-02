@@ -13,7 +13,6 @@
 #include <memory> // IWYU pragma: keep
 #include <system_error> // IWYU pragma: keep
 
-#include <boost/core/ignore_unused.hpp> // IWYU pragma: keep
 #include <boost/optional.hpp> // IWYU pragma: keep
 #include <boost/preprocessor.hpp>
 #include <boost/scope_exit.hpp>
@@ -31,11 +30,11 @@
 
 namespace tetengo2::detail::windows::message_handler_detail::picture_box {
     template <typename PictureBox>
-    boost::optional<::LRESULT>
-    on_erase_background(PictureBox& picture_box, const ::WPARAM w_param, const ::LPARAM l_param)
+    boost::optional<::LRESULT> on_erase_background(
+        PictureBox&                     picture_box,
+        [[maybe_unused]] const ::WPARAM w_param,
+        [[maybe_unused]] const ::LPARAM l_param)
     {
-        boost::ignore_unused(w_param, l_param);
-
         if (picture_box.fast_paint_observer_set().paint_background().empty())
             return boost::none;
 
@@ -48,10 +47,9 @@ namespace tetengo2::detail::windows::message_handler_detail::picture_box {
     }
 
     template <typename PictureBox>
-    boost::optional<::LRESULT> on_paint(PictureBox& picture_box, const ::WPARAM w_param, const ::LPARAM l_param)
+    boost::optional<::LRESULT>
+    on_paint(PictureBox& picture_box, [[maybe_unused]] const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
     {
-        boost::ignore_unused(w_param, l_param);
-
         if (picture_box.fast_paint_observer_set().paint().empty())
             return boost::none;
 

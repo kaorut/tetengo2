@@ -20,7 +20,6 @@
 #include <vector>
 
 #include <boost/algorithm/string.hpp>
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/iterator/iterator_facade.hpp>
@@ -89,10 +88,9 @@ namespace tetengo2::message {
 
         // functions
 
-        catalog do_open(const std::string& catalog_name, const std::locale& locale) const
+        catalog
+            do_open([[maybe_unused]] const std::string& catalog_name, [[maybe_unused]] const std::locale& locale) const
         {
-            boost::ignore_unused(catalog_name, locale);
-
             if (m_open)
                 BOOST_THROW_EXCEPTION((std::runtime_error{ "A message catalog is already open." }));
 
@@ -103,11 +101,12 @@ namespace tetengo2::message {
             return 1;
         }
 
-        string_type
-        do_get(const catalog catalog_id, const int set, const int message, const string_type& default_message) const
+        string_type do_get(
+            const catalog                       catalog_id,
+            [[maybe_unused]] const int          set,
+            [[maybe_unused]] const int          message,
+            [[maybe_unused]] const string_type& default_message) const
         {
-            boost::ignore_unused(set, message);
-
             if (catalog_id < 0)
                 return remove_namespace(default_message);
 

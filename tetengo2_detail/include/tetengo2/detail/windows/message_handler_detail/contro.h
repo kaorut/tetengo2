@@ -12,7 +12,6 @@
 
 #include <system_error> // IWYU pragma: keep
 
-#include <boost/core/ignore_unused.hpp> // IWYU pragma: keep
 #include <boost/optional.hpp> // IWYU pragma: keep
 #include <boost/throw_exception.hpp>
 
@@ -28,10 +27,9 @@
 
 namespace tetengo2::detail::windows::message_handler_detail::control {
     template <typename Control>
-    boost::optional<::LRESULT> on_control_color(Control& control, const ::WPARAM w_param, const ::LPARAM l_param)
+    boost::optional<::LRESULT>
+    on_control_color(Control& control, const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
     {
-        boost::ignore_unused(l_param);
-
         if (!control.p_background() && !control.text_color())
             return boost::none;
 
@@ -64,10 +62,9 @@ namespace tetengo2::detail::windows::message_handler_detail::control {
     }
 
     template <typename Control>
-    boost::optional<::LRESULT> on_set_focus(Control& control, const ::WPARAM w_param, const ::LPARAM l_param)
+    boost::optional<::LRESULT>
+    on_set_focus(Control& control, [[maybe_unused]] const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
     {
-        boost::ignore_unused(w_param, l_param);
-
         if (control.has_parent())
         {
             auto& dialog = control.root_ancestor();

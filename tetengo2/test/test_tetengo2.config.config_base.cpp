@@ -8,7 +8,6 @@
 
 #include <string>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/optional.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
@@ -42,10 +41,7 @@ namespace {
             return key == string_type{ TETENGO2_TEXT("foo") } ? value1 : value2;
         }
 
-        virtual void set_impl(const string_type& key, value_type value) override
-        {
-            boost::ignore_unused(key, value);
-        }
+        virtual void set_impl([[maybe_unused]] const string_type& key, [[maybe_unused]] value_type value) override {}
 
         virtual void clear_impl() override {}
     };

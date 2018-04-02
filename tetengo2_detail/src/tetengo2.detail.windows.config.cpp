@@ -14,7 +14,6 @@
 #include <vector> // IWYU pragma: keep
 
 #include <boost/algorithm/string.hpp> // IWYU pragma: keep
-#include <boost/core/ignore_unused.hpp> // IWYU pragma: keep
 #include <boost/core/noncopyable.hpp>
 
 #pragma warning(push)
@@ -229,7 +228,6 @@ namespace tetengo2::detail::windows {
                 nullptr,
                 reinterpret_cast<::LPBYTE>(value.data()),
                 &value_size);
-            boost::ignore_unused(query_value_result);
             assert(query_value_result == ERROR_SUCCESS);
 
             return encoder().decode(&value[0]);
@@ -241,7 +239,6 @@ namespace tetengo2::detail::windows {
             ::DWORD    value_size = sizeof(::DWORD);
             const auto query_value_result = ::RegQueryValueExW(
                 handle, encoder().encode(key).c_str(), 0, nullptr, reinterpret_cast<::LPBYTE>(&value), &value_size);
-            boost::ignore_unused(query_value_result);
             assert(query_value_result == ERROR_SUCCESS);
 
             return value;

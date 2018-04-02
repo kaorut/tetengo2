@@ -9,7 +9,6 @@
 #include <sstream>
 #include <string>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -36,15 +35,13 @@ namespace {
             return singleton;
         }
 
-        virtual string_type from_pivot_impl(pivot_type pivot) const
+        virtual string_type from_pivot_impl([[maybe_unused]] pivot_type pivot) const
         {
-            boost::ignore_unused(pivot);
             return string_type{};
         }
 
-        virtual pivot_type to_pivot_impl(string_type string) const
+        virtual pivot_type to_pivot_impl([[maybe_unused]] string_type string) const
         {
-            boost::ignore_unused(string);
             return pivot_type{};
         }
     };
@@ -58,15 +55,13 @@ namespace {
             return singleton;
         }
 
-        virtual string_type from_pivot_impl(pivot_type pivot) const
+        virtual string_type from_pivot_impl([[maybe_unused]] pivot_type pivot) const
         {
-            boost::ignore_unused(pivot);
             return string_type{};
         }
 
-        virtual pivot_type to_pivot_impl(string_type string) const
+        virtual pivot_type to_pivot_impl([[maybe_unused]] string_type string) const
         {
-            boost::ignore_unused(string);
             return pivot_type{};
         }
     };
@@ -80,15 +75,13 @@ namespace {
             return singleton;
         }
 
-        virtual string_type from_pivot_impl(pivot_type pivot) const
+        virtual string_type from_pivot_impl([[maybe_unused]] pivot_type pivot) const
         {
-            boost::ignore_unused(pivot);
             return string_type{};
         }
 
-        virtual pivot_type to_pivot_impl(string_type string) const
+        virtual pivot_type to_pivot_impl([[maybe_unused]] string_type string) const
         {
-            boost::ignore_unused(string);
             return pivot_type{};
         }
     };

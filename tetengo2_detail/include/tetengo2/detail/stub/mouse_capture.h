@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_DETAIL_STUB_MOUSECAPTURE_H)
 #define TETENGO2_DETAIL_STUB_MOUSECAPTURE_H
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 
 
@@ -30,10 +29,8 @@ namespace tetengo2::detail::stub {
             \param widget A widget.
         */
         template <typename Widget>
-        explicit mouse_capture(const Widget& widget)
-        {
-            boost::ignore_unused(widget);
-        }
+        explicit mouse_capture([[maybe_unused]] const Widget& widget)
+        {}
     };
 }
 

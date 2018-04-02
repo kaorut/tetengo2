@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_DETAIL_STUB_MESSAGELOOP_H)
 #define TETENGO2_DETAIL_STUB_MESSAGELOOP_H
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 
 
@@ -34,10 +33,8 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When a message loop error has happened.
         */
         template <typename AbstractWindow>
-        static int loop(AbstractWindow& window)
+        static int loop([[maybe_unused]] AbstractWindow& window)
         {
-            boost::ignore_unused(window);
-
             return 0;
         }
 
@@ -53,10 +50,8 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When a message loop error has happened.
         */
         template <typename AbstractWindow>
-        static int dialog_loop(AbstractWindow& dialog)
+        static int dialog_loop([[maybe_unused]] AbstractWindow& dialog)
         {
-            boost::ignore_unused(dialog);
-
             return 0;
         }
 
@@ -65,10 +60,7 @@ namespace tetengo2::detail::stub {
 
             \param exit_code An exit code.
         */
-        static void break_loop(const int exit_code)
-        {
-            boost::ignore_unused(exit_code);
-        }
+        static void break_loop([[maybe_unused]] const int exit_code) {}
 
 
     private:

@@ -19,7 +19,6 @@
 #include <utility> // IWYU pragma: keep
 #include <vector> // IWYU pragma: keep
 
-#include <boost/core/ignore_unused.hpp> // IWYU pragma: keep
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -399,14 +398,12 @@ namespace tetengo2::detail::windows {
         struct menu_bar_style_tag : public style_tag<MenuBase>
         {
             virtual void set_style(
-                const menu_details_type&      details,
-                ::MENUITEMINFOW&              menu_info,
-                std::vector<::WCHAR>&         text,
-                bool                          enabled,
-                typename MenuBase::state_type state) const override
+                [[maybe_unused]] const menu_details_type&      details,
+                [[maybe_unused]] ::MENUITEMINFOW&              menu_info,
+                [[maybe_unused]] std::vector<::WCHAR>&         text,
+                [[maybe_unused]] bool                          enabled,
+                [[maybe_unused]] typename MenuBase::state_type state) const override
             {
-                boost::ignore_unused(details, menu_info, text, enabled, state);
-
                 assert(false);
                 BOOST_THROW_EXCEPTION((std::logic_error{ "A menu bar cannot be inserted." }));
             }
@@ -471,14 +468,12 @@ namespace tetengo2::detail::windows {
         struct menu_separator_style_tag : public style_tag<MenuBase>
         {
             virtual void set_style(
-                const menu_details_type&      details,
-                ::MENUITEMINFOW&              menu_info,
-                std::vector<::WCHAR>&         text,
-                bool                          enabled,
-                typename MenuBase::state_type state) const override
+                [[maybe_unused]] const menu_details_type&      details,
+                ::MENUITEMINFOW&                               menu_info,
+                [[maybe_unused]] std::vector<::WCHAR>&         text,
+                [[maybe_unused]] bool                          enabled,
+                [[maybe_unused]] typename MenuBase::state_type state) const override
             {
-                boost::ignore_unused(details, text, enabled, state);
-
                 menu_info.fMask = MIIM_FTYPE;
                 menu_info.fType = MFT_SEPARATOR;
             }
