@@ -11,7 +11,6 @@
 
 #include <memory>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 
 
@@ -96,10 +95,8 @@ namespace tetengo2::detail::stub {
             \param enabled An enabled status.
         */
         template <typename MenuBase>
-        static void set_enabled(MenuBase& menu, const bool enabled)
-        {
-            boost::ignore_unused(menu, enabled);
-        }
+        static void set_enabled([[maybe_unused]] MenuBase& menu, [[maybe_unused]] const bool enabled)
+        {}
 
         /*!
             \brief Sets a state.
@@ -110,10 +107,9 @@ namespace tetengo2::detail::stub {
             \param state A status.
         */
         template <typename MenuBase>
-        static void set_state(MenuBase& menu, const typename MenuBase::state_type state)
-        {
-            boost::ignore_unused(menu, state);
-        }
+        static void
+            set_state([[maybe_unused]] MenuBase& menu, [[maybe_unused]] const typename MenuBase::state_type state)
+        {}
 
         /*!
             \brief Creates an empty shortcut key table.
@@ -142,10 +138,10 @@ namespace tetengo2::detail::stub {
                                      created.
         */
         template <typename InputIterator>
-        static shortcut_key_table_details_ptr_type
-        create_shortcut_key_table(const InputIterator first, const InputIterator last)
+        static shortcut_key_table_details_ptr_type create_shortcut_key_table(
+            [[maybe_unused]] const InputIterator first,
+            [[maybe_unused]] const InputIterator last)
         {
-            boost::ignore_unused(first, last);
             return std::make_unique<shortcut_key_table_details_type>();
         }
 
@@ -165,11 +161,12 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When a menu cannot be inserted.
         */
         template <typename PopupMenu, typename ForwardIterator, typename MenuBase, typename Encoder>
-        static void
-        insert_menu(PopupMenu& popup_menu, const ForwardIterator offset, MenuBase& menu, const Encoder& encoder)
-        {
-            boost::ignore_unused(popup_menu, offset, menu, encoder);
-        }
+        static void insert_menu(
+            [[maybe_unused]] PopupMenu&            popup_menu,
+            [[maybe_unused]] const ForwardIterator offset,
+            [[maybe_unused]] MenuBase&             menu,
+            [[maybe_unused]] const Encoder&        encoder)
+        {}
 
         /*!
             \brief Erases a menu.
@@ -184,10 +181,11 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When a menu cannot be erased.
         */
         template <typename PopupMenu, typename ForwardIterator>
-        static void erase_menus(PopupMenu& popup_menu, const ForwardIterator first, const ForwardIterator last)
-        {
-            boost::ignore_unused(popup_menu, first, last);
-        }
+        static void erase_menus(
+            [[maybe_unused]] PopupMenu&            popup_menu,
+            [[maybe_unused]] const ForwardIterator first,
+            [[maybe_unused]] const ForwardIterator last)
+        {}
 
         /*!
             \brief Returns the menu bar style.

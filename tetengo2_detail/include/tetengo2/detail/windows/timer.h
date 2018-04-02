@@ -15,7 +15,6 @@
 #include <system_error> // IWYU pragma: keep
 #include <utility> // IWYU pragma: keep
 
-#include <boost/core/ignore_unused.hpp> // IWYU pragma: keep
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -104,11 +103,12 @@ namespace tetengo2::detail::windows {
     private:
         // static functions
 
-        static void CALLBACK
-                    timer_proc(const ::HWND window_handle, const ::UINT message, const ::UINT_PTR id, const ::DWORD elapsed_time)
+        static void CALLBACK timer_proc(
+            [[maybe_unused]] const ::HWND  window_handle,
+            [[maybe_unused]] const ::UINT  message,
+            const ::UINT_PTR               id,
+            [[maybe_unused]] const ::DWORD elapsed_time)
         {
-            boost::ignore_unused(window_handle, message, elapsed_time);
-
             timer* const p_timer = reinterpret_cast<timer*>(id);
             assert(p_timer);
 

@@ -10,7 +10,6 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_DROPDOWNBOX_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_DROPDOWNBOX_H
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/optional.hpp>
 
 #pragma warning (push)
@@ -28,11 +27,9 @@ namespace tetengo2::detail::windows::message_handler_detail::dropdown_box {
     boost::optional< ::LRESULT> on_tetengo2_command(
         ListBox&       dropdown_box,
         const ::WPARAM w_param,
-        const ::LPARAM l_param
+        [[maybe_unused]] const ::LPARAM l_param
     )
     {
-        boost::ignore_unused(l_param);
-
         switch (HIWORD(w_param))
         {
         case CBN_SELCHANGE:

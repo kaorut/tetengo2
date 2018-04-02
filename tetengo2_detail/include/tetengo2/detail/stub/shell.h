@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_DETAIL_STUB_SHELL_H)
 #define TETENGO2_DETAIL_STUB_SHELL_H
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/text.h>
@@ -49,13 +48,11 @@ namespace tetengo2::detail::stub {
         */
         template <typename String, typename InputIterator, typename Encoder>
         bool execute(
-            const String&       command,
-            const InputIterator parameter_first,
-            const InputIterator parameter_last,
-            const Encoder&      encoder) const
+            const String&                        command,
+            [[maybe_unused]] const InputIterator parameter_first,
+            [[maybe_unused]] const InputIterator parameter_last,
+            [[maybe_unused]] const Encoder&      encoder) const
         {
-            boost::ignore_unused(parameter_first, parameter_last, encoder);
-
             return command.find(TETENGO2_TEXT("fail")) == String::npos;
         }
     };

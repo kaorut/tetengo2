@@ -14,7 +14,6 @@
 #include <utility> // IWYU pragma: keep
 #include <vector> // IWYU pragma: keep
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/optional.hpp> // IWYU pragma: keep
 
@@ -160,11 +159,10 @@ namespace tetengo2::detail::windows {
             \return A message handler map.
         */
         template <typename CustomControl>
-        static message_handler_map_type
-        make_custom_control_message_handler_map(CustomControl& custom_control, message_handler_map_type&& initial_map)
+        static message_handler_map_type make_custom_control_message_handler_map(
+            [[maybe_unused]] CustomControl& custom_control,
+            message_handler_map_type&&      initial_map)
         {
-            boost::ignore_unused(custom_control);
-
             return std::move(initial_map);
         }
 
@@ -233,10 +231,8 @@ namespace tetengo2::detail::windows {
         */
         template <typename Image>
         static message_handler_map_type
-        make_image_message_handler_map(Image& image, message_handler_map_type&& initial_map)
+            make_image_message_handler_map([[maybe_unused]] Image& image, message_handler_map_type&& initial_map)
         {
-            boost::ignore_unused(image);
-
             return std::move(initial_map);
         }
 
@@ -252,10 +248,8 @@ namespace tetengo2::detail::windows {
         */
         template <typename Label>
         static message_handler_map_type
-        make_label_message_handler_map(Label& label, message_handler_map_type&& initial_map)
+            make_label_message_handler_map([[maybe_unused]] Label& label, message_handler_map_type&& initial_map)
         {
-            boost::ignore_unused(label);
-
             return std::move(initial_map);
         }
 
@@ -446,10 +440,8 @@ namespace tetengo2::detail::windows {
         */
         template <typename Window>
         static message_handler_map_type
-        make_window_message_handler_map(Window& window, message_handler_map_type&& initial_map)
+            make_window_message_handler_map([[maybe_unused]] Window& window, message_handler_map_type&& initial_map)
         {
-            boost::ignore_unused(window);
-
             return std::move(initial_map);
         }
 

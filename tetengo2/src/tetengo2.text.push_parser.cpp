@@ -16,7 +16,6 @@
 #include <vector>
 
 #include <boost/algorithm/string.hpp>
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/lexical_cast.hpp>
@@ -75,11 +74,7 @@ namespace tetengo2::text {
                     return this->observe_structure_begin(structure_name, structure_attributes);
                 });
             m_p_grammar->on_structure_end().connect(
-                [this](
-                    const string_type&                           structure_name,
-                    const std::vector<structure_attribute_type>& structure_attributes) {
-                    boost::ignore_unused(structure_attributes);
-
+                [this](const string_type& structure_name, const std::vector<structure_attribute_type>&) {
                     return this->observe_structure_end(structure_name);
                 });
             m_p_grammar->on_value().connect([this](const value_type_type value_type, const string_type& value) {
@@ -239,10 +234,8 @@ namespace tetengo2::text {
             return string_value == string_type{ TETENGO2_TEXT("true") };
         }
 
-        static void* to_null(const string_type& string_value)
+        static void* to_null([[maybe_unused]] const string_type& string_value)
         {
-            boost::ignore_unused(string_value);
-
             assert(string_value == string_type{ TETENGO2_TEXT("null") });
 
             return nullptr;

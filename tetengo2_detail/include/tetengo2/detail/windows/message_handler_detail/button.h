@@ -10,7 +10,6 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_BUTTON_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_BUTTON_H
 
-#include <boost/core/ignore_unused.hpp> // IWYU pragma: keep
 #include <boost/optional.hpp> // IWYU pragma: keep
 
 #pragma warning(push)
@@ -25,10 +24,11 @@
 
 namespace tetengo2::detail::windows::message_handler_detail::button {
     template <typename Button>
-    boost::optional<::LRESULT> on_tetengo2_command(Button& button, const ::WPARAM w_param, const ::LPARAM l_param)
+    boost::optional<::LRESULT> on_tetengo2_command(
+        Button&                         button,
+        [[maybe_unused]] const ::WPARAM w_param,
+        [[maybe_unused]] const ::LPARAM l_param)
     {
-        boost::ignore_unused(w_param, l_param);
-
         button.mouse_observer_set().clicked()();
 
         return boost::make_optional<::LRESULT>(0);

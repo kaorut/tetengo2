@@ -13,7 +13,6 @@
 #include <memory>
 #include <utility>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 
@@ -92,10 +91,9 @@ namespace tetengo2::detail::stub {
             \return A unique pointer to a canvas.
         */
         template <typename HandleOrWidgetDetails>
-        static std::unique_ptr<canvas_details_type> create_canvas(const HandleOrWidgetDetails& handle_or_widget_details)
+        static std::unique_ptr<canvas_details_type>
+            create_canvas([[maybe_unused]] const HandleOrWidgetDetails& handle_or_widget_details)
         {
-            boost::ignore_unused(handle_or_widget_details);
-
             return std::make_unique<canvas_details_type>();
         }
 
@@ -112,10 +110,9 @@ namespace tetengo2::detail::stub {
             \throw std::logic_error When another transaction has not ended yet.
         */
         template <typename Dimension>
-        static void begin_transaction(canvas_details_type& canvas, const Dimension& dimension)
-        {
-            boost::ignore_unused(canvas, dimension);
-        }
+        static void
+            begin_transaction([[maybe_unused]] canvas_details_type& canvas, [[maybe_unused]] const Dimension& dimension)
+        {}
 
         /*!
             \brief Ends the transaction.
@@ -126,10 +123,7 @@ namespace tetengo2::detail::stub {
 
             \throw std::logic_error When no transaction has begun.
         */
-        static void end_transaction(canvas_details_type& canvas)
-        {
-            boost::ignore_unused(canvas);
-        }
+        static void end_transaction([[maybe_unused]] canvas_details_type& canvas) {}
 
         /*!
             \brief Creates a solid background.
@@ -141,10 +135,8 @@ namespace tetengo2::detail::stub {
             \return A unique pointer to a solid background.
         */
         template <typename Color>
-        static std::unique_ptr<background_details_type> create_solid_background(const Color& color)
+        static std::unique_ptr<background_details_type> create_solid_background([[maybe_unused]] const Color& color)
         {
-            boost::ignore_unused(color);
-
             return std::make_unique<background_details_type>();
         }
 
@@ -185,10 +177,9 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the picture cannot be read.
         */
-        inline static std::unique_ptr<picture_details_type> read_picture(const boost::filesystem::path& path)
+        inline static std::unique_ptr<picture_details_type> read_picture([
+            [maybe_unused]] const boost::filesystem::path& path)
         {
-            boost::ignore_unused(path);
-
             return std::make_unique<picture_details_type>(123, 456);
         }
 
@@ -224,15 +215,13 @@ namespace tetengo2::detail::stub {
         */
         template <typename Position, typename Size, typename Color>
         static void draw_line(
-            canvas_details_type& canvas,
-            const Position&      from,
-            const Position&      to,
-            const Size           width,
-            const int            style,
-            const Color&         color)
-        {
-            boost::ignore_unused(canvas, from, to, width, style, color);
-        }
+            [[maybe_unused]] canvas_details_type& canvas,
+            [[maybe_unused]] const Position&      from,
+            [[maybe_unused]] const Position&      to,
+            [[maybe_unused]] const Size           width,
+            [[maybe_unused]] const int            style,
+            [[maybe_unused]] const Color&         color)
+        {}
 
         /*!
             \brief Draws a focus indication.
@@ -247,11 +236,11 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the focus indication cannot be drawn.
         */
         template <typename Position, typename Dimension>
-        static void
-        draw_focus_indication(canvas_details_type& canvas, const Position& position, const Dimension& dimension)
-        {
-            boost::ignore_unused(canvas, position, dimension);
-        }
+        static void draw_focus_indication(
+            [[maybe_unused]] canvas_details_type& canvas,
+            [[maybe_unused]] const Position&      position,
+            [[maybe_unused]] const Dimension&     dimension)
+        {}
 
         /*!
             \brief Draws a rectangle.
@@ -272,15 +261,13 @@ namespace tetengo2::detail::stub {
         */
         template <typename Position, typename Dimension, typename Size, typename Color>
         static void draw_rectangle(
-            canvas_details_type& canvas,
-            const Position&      position,
-            const Dimension&     dimension,
-            const Size           width,
-            const int            style,
-            const Color&         color)
-        {
-            boost::ignore_unused(canvas, position, dimension, width, style, color);
-        }
+            [[maybe_unused]] canvas_details_type& canvas,
+            [[maybe_unused]] const Position&      position,
+            [[maybe_unused]] const Dimension&     dimension,
+            [[maybe_unused]] const Size           width,
+            [[maybe_unused]] const int            style,
+            [[maybe_unused]] const Color&         color)
+        {}
 
         /*!
             \brief Fills a rectangle region.
@@ -298,13 +285,11 @@ namespace tetengo2::detail::stub {
         */
         template <typename Position, typename Dimension, typename Background>
         static void fill_rectangle(
-            canvas_details_type& canvas,
-            const Position&      position,
-            const Dimension&     dimension,
-            const Background&    background)
-        {
-            boost::ignore_unused(canvas, position, dimension, background);
-        }
+            [[maybe_unused]] canvas_details_type& canvas,
+            [[maybe_unused]] const Position&      position,
+            [[maybe_unused]] const Dimension&     dimension,
+            [[maybe_unused]] const Background&    background)
+        {}
 
         /*!
             \brief Draws a polygon.
@@ -324,15 +309,13 @@ namespace tetengo2::detail::stub {
         */
         template <typename PositionIterator, typename Size, typename Color>
         static void draw_polygon(
-            canvas_details_type&   canvas,
-            const PositionIterator position_first,
-            const PositionIterator position_last,
-            const Size             width,
-            const int              style,
-            const Color&           color)
-        {
-            boost::ignore_unused(canvas, position_first, position_last, width, style, color);
-        }
+            [[maybe_unused]] canvas_details_type&   canvas,
+            [[maybe_unused]] const PositionIterator position_first,
+            [[maybe_unused]] const PositionIterator position_last,
+            [[maybe_unused]] const Size             width,
+            [[maybe_unused]] const int              style,
+            [[maybe_unused]] const Color&           color)
+        {}
 
         /*!
             \brief Fills a polygon region.
@@ -349,13 +332,11 @@ namespace tetengo2::detail::stub {
         */
         template <typename PositionIterator, typename Background>
         static void fill_polygon(
-            canvas_details_type&   canvas,
-            const PositionIterator position_first,
-            const PositionIterator position_last,
-            const Background&      background)
-        {
-            boost::ignore_unused(canvas, position_first, position_last, background);
-        }
+            [[maybe_unused]] canvas_details_type&   canvas,
+            [[maybe_unused]] const PositionIterator position_first,
+            [[maybe_unused]] const PositionIterator position_last,
+            [[maybe_unused]] const Background&      background)
+        {}
 
         /*!
             \brief Makes a dialog font.
@@ -390,14 +371,12 @@ namespace tetengo2::detail::stub {
         */
         template <typename Dimension, typename Font, typename String, typename Encoder>
         static Dimension calc_text_dimension(
-            const canvas_details_type&           canvas,
-            const Font&                          font,
-            const String&                        text,
-            const Encoder&                       encoder,
-            const typename Dimension::unit_type& max_width)
+            [[maybe_unused]] const canvas_details_type&           canvas,
+            [[maybe_unused]] const Font&                          font,
+            [[maybe_unused]] const String&                        text,
+            [[maybe_unused]] const Encoder&                       encoder,
+            [[maybe_unused]] const typename Dimension::unit_type& max_width)
         {
-            boost::ignore_unused(canvas, font, text, encoder, max_width);
-
             using dimension_unit_type = typename Dimension::unit_type;
             return max_width == dimension_unit_type{} || max_width >= dimension_unit_type{ 123 } ?
                        Dimension{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } } :
@@ -423,13 +402,11 @@ namespace tetengo2::detail::stub {
         */
         template <typename Dimension, typename Font, typename String, typename Encoder>
         static Dimension calc_vertical_text_dimension(
-            const canvas_details_type& canvas,
-            const Font&                font,
-            const String&              text,
-            const Encoder&             encoder)
+            [[maybe_unused]] const canvas_details_type& canvas,
+            [[maybe_unused]] const Font&                font,
+            [[maybe_unused]] const String&              text,
+            [[maybe_unused]] const Encoder&             encoder)
         {
-            boost::ignore_unused(canvas, font, text, encoder);
-
             using dimension_unit_type = typename Dimension::unit_type;
             return Dimension{ dimension_unit_type{ 456 }, dimension_unit_type{ 123 } };
         }
@@ -463,17 +440,15 @@ namespace tetengo2::detail::stub {
             typename DimensionUnit,
             typename Color>
         static void draw_text(
-            canvas_details_type& canvas,
-            const Font&          font,
-            const String&        text,
-            const Encoder&       encoder,
-            const Position&      position,
-            const DimensionUnit& max_width,
-            const Color&         color,
-            const double         angle)
-        {
-            boost::ignore_unused(canvas, font, text, encoder, position, max_width, color, angle);
-        }
+            [[maybe_unused]] canvas_details_type& canvas,
+            [[maybe_unused]] const Font&          font,
+            [[maybe_unused]] const String&        text,
+            [[maybe_unused]] const Encoder&       encoder,
+            [[maybe_unused]] const Position&      position,
+            [[maybe_unused]] const DimensionUnit& max_width,
+            [[maybe_unused]] const Color&         color,
+            [[maybe_unused]] const double         angle)
+        {}
 
         /*!
             \brief Draws a vertical text.
@@ -502,15 +477,13 @@ namespace tetengo2::detail::stub {
             typename Dimension,
             typename Color>
         static void draw_vertical_text(
-            canvas_details_type& canvas,
-            const Font&          font,
-            const String&        text,
-            const Encoder&       encoder,
-            const Position&      position,
-            const Color&         color)
-        {
-            boost::ignore_unused(canvas, font, text, encoder, position, color);
-        }
+            [[maybe_unused]] canvas_details_type& canvas,
+            [[maybe_unused]] const Font&          font,
+            [[maybe_unused]] const String&        text,
+            [[maybe_unused]] const Encoder&       encoder,
+            [[maybe_unused]] const Position&      position,
+            [[maybe_unused]] const Color&         color)
+        {}
 
         /*!
             \brief Paints a picture.
@@ -528,13 +501,11 @@ namespace tetengo2::detail::stub {
         */
         template <typename Picture, typename Position, typename Dimension>
         static void paint_picture(
-            canvas_details_type& canvas,
-            const Picture&       picture,
-            const Position&      position,
-            const Dimension&     dimension)
-        {
-            boost::ignore_unused(canvas, picture, position, dimension);
-        }
+            [[maybe_unused]] canvas_details_type& canvas,
+            [[maybe_unused]] const Picture&       picture,
+            [[maybe_unused]] const Position&      position,
+            [[maybe_unused]] const Dimension&     dimension)
+        {}
 
         /*!
             \brief Paints an icon.
@@ -549,10 +520,11 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the icon cannot be painted.
         */
         template <typename Icon, typename Position>
-        static void paint_icon(canvas_details_type& canvas, const Icon& icon, const Position& position)
-        {
-            boost::ignore_unused(canvas, icon, position);
-        }
+        static void paint_icon(
+            [[maybe_unused]] canvas_details_type& canvas,
+            [[maybe_unused]] const Icon&          icon,
+            [[maybe_unused]] const Position&      position)
+        {}
 
 
     private:

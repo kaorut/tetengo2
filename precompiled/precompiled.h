@@ -47,7 +47,6 @@
 
 // The Boost library headers
 #include <boost/algorithm/string.hpp>
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/exception/all.hpp>
 #include <boost/filesystem.hpp>

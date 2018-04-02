@@ -13,7 +13,6 @@
 #include <memory>
 #include <utility>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 
 
@@ -78,11 +77,10 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When a system cursor cannot be created.
         */
         template <typename WidgetDetails>
-        static scroll_bar_details_ptr_type
-        create_scroll_bar(const WidgetDetails& widget_details, const style_type style)
+        static scroll_bar_details_ptr_type create_scroll_bar(
+            [[maybe_unused]] const WidgetDetails& widget_details,
+            [[maybe_unused]] const style_type     style)
         {
-            boost::ignore_unused(widget_details, style);
-
             return std::make_unique<scroll_bar_details_type>(0, std::make_pair(0, 100), 10, true);
         }
 

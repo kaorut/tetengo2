@@ -12,7 +12,6 @@
 #include <string>
 #include <vector>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
@@ -173,11 +172,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                                 return structure_begun(output, type, structure_attributes);
                             });
                         g.on_structure_end().connect(
-                            [&output](
-                                const std::string&                           type,
-                                const std::vector<structure_attribute_type>& structure_attributes) {
-                                boost::ignore_unused(structure_attributes);
-
+                            [&output](const std::string& type, const std::vector<structure_attribute_type>&) {
                                 return structure_ended(output, type);
                             });
                         g.on_value().connect([&output](const value_type_type type, const std::string& parsed) {
@@ -205,11 +200,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                                 return structure_begun(output, type, structure_attributes);
                             });
                         g.on_structure_end().connect(
-                            [&output](
-                                const std::string&                           type,
-                                const std::vector<structure_attribute_type>& structure_attributes) {
-                                boost::ignore_unused(structure_attributes);
-
+                            [&output](const std::string& type, const std::vector<structure_attribute_type>&) {
                                 return structure_ended(output, type);
                             });
                         g.on_value().connect([&output](const value_type_type type, const std::string& parsed) {
@@ -243,11 +234,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                                 return structure_begun(output, type, structure_attributes);
                             });
                         g.on_structure_end().connect(
-                            [&output](
-                                const std::string&                           type,
-                                const std::vector<structure_attribute_type>& structure_attributes) {
-                                boost::ignore_unused(structure_attributes);
-
+                            [&output](const std::string& type, const std::vector<structure_attribute_type>&) {
                                 return structure_ended(output, type);
                             });
                         g.on_value().connect([&output](const value_type_type type, const std::string& parsed) {

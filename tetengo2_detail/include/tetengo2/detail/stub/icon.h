@@ -11,7 +11,6 @@
 
 #include <memory>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 
@@ -61,9 +60,9 @@ namespace tetengo2::detail::stub {
             \return A unique pointer to an icon.
         */
         template <typename Dimension>
-        static icon_details_ptr_type create(const boost::filesystem::path& path, const Dimension& dimension)
+        static icon_details_ptr_type
+            create([[maybe_unused]] const boost::filesystem::path& path, [[maybe_unused]] const Dimension& dimension)
         {
-            boost::ignore_unused(path, dimension);
             return std::make_unique<icon_details_type>();
         }
     };

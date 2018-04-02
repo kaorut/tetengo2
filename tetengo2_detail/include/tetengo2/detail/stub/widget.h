@@ -20,7 +20,6 @@
 #include <utility>
 #include <vector>
 
-#include <boost/core/ignore_unused.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/none.hpp>
 #include <boost/optional.hpp>
@@ -143,10 +142,9 @@ namespace tetengo2::detail::stub {
             \throw std::system_error     When a button cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_button(Widget& parent, const bool is_default, const bool is_cancel)
+        static widget_details_ptr_type
+        create_button(Widget& parent, [[maybe_unused]] const bool is_default, [[maybe_unused]] const bool is_cancel)
         {
-            boost::ignore_unused(is_default, is_cancel);
-
             return create_details<Widget>(&parent);
         }
 
@@ -165,12 +163,10 @@ namespace tetengo2::detail::stub {
         */
         template <typename Widget>
         static widget_details_ptr_type create_custom_control(
-            Widget&                                      parent,
-            const bool                                   border,
-            const typename Widget::scroll_bar_style_type scroll_bar_style)
+            Widget&                                                       parent,
+            [[maybe_unused]] const bool                                   border,
+            [[maybe_unused]] const typename Widget::scroll_bar_style_type scroll_bar_style)
         {
-            boost::ignore_unused(border, scroll_bar_style);
-
             return create_details<Widget>(&parent);
         }
 
@@ -187,10 +183,8 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When a dialog cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_dialog(Widget* const p_parent, const bool file_droppable)
+        static widget_details_ptr_type create_dialog(Widget* const p_parent, [[maybe_unused]] const bool file_droppable)
         {
-            boost::ignore_unused(file_droppable);
-
             return create_details<Widget>(p_parent);
         }
 
@@ -259,10 +253,8 @@ namespace tetengo2::detail::stub {
         */
         template <typename Widget>
         static widget_details_ptr_type
-        create_list_box(Widget& parent, const typename Widget::scroll_bar_style_type scroll_bar_style)
+        create_list_box(Widget& parent, [[maybe_unused]] const typename Widget::scroll_bar_style_type scroll_bar_style)
         {
-            boost::ignore_unused(scroll_bar_style);
-
             return create_details<Widget>(&parent);
         }
 
@@ -279,11 +271,10 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When a picture box cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type
-        create_picture_box(Widget& parent, const typename Widget::scroll_bar_style_type scroll_bar_style)
+        static widget_details_ptr_type create_picture_box(
+            Widget&                                                       parent,
+            [[maybe_unused]] const typename Widget::scroll_bar_style_type scroll_bar_style)
         {
-            boost::ignore_unused(scroll_bar_style);
-
             return create_details<Widget>(&parent);
         }
 
@@ -318,10 +309,8 @@ namespace tetengo2::detail::stub {
         */
         template <typename Widget>
         static widget_details_ptr_type
-        create_text_box(Widget& parent, const typename Widget::scroll_bar_style_type scroll_bar_style)
+        create_text_box(Widget& parent, [[maybe_unused]] const typename Widget::scroll_bar_style_type scroll_bar_style)
         {
-            boost::ignore_unused(scroll_bar_style);
-
             return create_details<Widget>(&parent);
         }
 
@@ -340,12 +329,10 @@ namespace tetengo2::detail::stub {
         */
         template <typename Widget>
         static widget_details_ptr_type create_window(
-            Widget* const                                p_parent,
-            const typename Widget::scroll_bar_style_type scroll_bar_style,
-            const bool                                   file_droppable)
+            Widget* const                                                 p_parent,
+            [[maybe_unused]] const typename Widget::scroll_bar_style_type scroll_bar_style,
+            [[maybe_unused]] const bool                                   file_droppable)
         {
-            boost::ignore_unused(scroll_bar_style, file_droppable);
-
             return create_details<Widget>(p_parent);
         }
 
@@ -565,10 +552,8 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When a position cannot be calculated.
         */
         template <typename Position, typename Widget, typename ParentWidget>
-        static Position dialog_position(const Widget& widget, const ParentWidget& parent)
+        static Position dialog_position([[maybe_unused]] const Widget& widget, const ParentWidget& parent)
         {
-            boost::ignore_unused(widget);
-
             return position<Position>(parent);
         }
 
@@ -767,10 +752,8 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the widget cannot be repainted.
         */
         template <typename Widget>
-        static void repaint(Widget& widget, const bool immediately)
-        {
-            boost::ignore_unused(widget, immediately);
-        }
+        static void repaint([[maybe_unused]] Widget& widget, [[maybe_unused]] const bool immediately)
+        {}
 
         /*!
             \brief Repaints a widget partially.
@@ -786,10 +769,11 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the widget cannot be repainted.
         */
         template <typename Widget, typename Position, typename Dimension>
-        static void repaint_partially(Widget& widget, const Position& position, const Dimension& dimension)
-        {
-            boost::ignore_unused(widget, position, dimension);
-        }
+        static void repaint_partially(
+            [[maybe_unused]] Widget&          widget,
+            [[maybe_unused]] const Position&  position,
+            [[maybe_unused]] const Dimension& dimension)
+        {}
 
         /*!
             \brief Uses a widget canvas.
@@ -818,10 +802,8 @@ namespace tetengo2::detail::stub {
             \param widget A widget.
         */
         template <typename Widget>
-        static void activate(Widget& widget)
-        {
-            boost::ignore_unused(widget);
-        }
+        static void activate([[maybe_unused]] Widget& widget)
+        {}
 
         /*!
             \brief Assigns an icon on a widget.
@@ -835,10 +817,8 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When an icon cannot be set.
         */
         template <typename Widget, typename Icon>
-        static void set_icon(Widget& widget, const Icon* const p_icon)
-        {
-            boost::ignore_unused(widget, p_icon);
-        }
+        static void set_icon([[maybe_unused]] Widget& widget, [[maybe_unused]] const Icon* const p_icon)
+        {}
 
         /*!
             \brief Assigns a menu bar on a widget.
@@ -852,10 +832,9 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When a menu bar cannot be set.
         */
         template <typename Widget, typename MenuBase>
-        static void set_menu_bar(Widget& widget, const MenuBase* const p_menu = nullptr)
-        {
-            boost::ignore_unused(widget, p_menu);
-        }
+        static void
+            set_menu_bar([[maybe_unused]] Widget& widget, [[maybe_unused]] const MenuBase* const p_menu = nullptr)
+        {}
 
         /*!
             \brief Checks whether a widget accepts a focus.
@@ -897,10 +876,8 @@ namespace tetengo2::detail::stub {
             \param widget A widget.
         */
         template <typename Widget>
-        static void set_focus(Widget& widget)
-        {
-            boost::ignore_unused(widget);
-        }
+        static void set_focus([[maybe_unused]] Widget& widget)
+        {}
 
         /*!
             \brief Checks whether a widget is read-only.
@@ -946,10 +923,8 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the widget cannot be closed.
         */
         template <typename Widget>
-        static void close(Widget& widget)
-        {
-            boost::ignore_unused(widget);
-        }
+        static void close([[maybe_unused]] Widget& widget)
+        {}
 
         /*!
             \brief Returns the dropdown box value count.
