@@ -31,6 +31,7 @@
 #include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/message/message_catalog_parser.h>
 #include <tetengo2/message/messages.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
@@ -88,8 +89,9 @@ namespace tetengo2::message {
 
         // functions
 
-        catalog
-            do_open([[maybe_unused]] const std::string& catalog_name, [[maybe_unused]] const std::locale& locale) const
+        catalog do_open(
+            TETENGO2_STDALT_MAYBE_UNUSED const std::string& catalog_name,
+            TETENGO2_STDALT_MAYBE_UNUSED const std::locale& locale) const
         {
             if (m_open)
                 BOOST_THROW_EXCEPTION((std::runtime_error{ "A message catalog is already open." }));
@@ -102,10 +104,10 @@ namespace tetengo2::message {
         }
 
         string_type do_get(
-            const catalog                       catalog_id,
-            [[maybe_unused]] const int          set,
-            [[maybe_unused]] const int          message,
-            [[maybe_unused]] const string_type& default_message) const
+            const catalog                          catalog_id,
+            TETENGO2_STDALT_MAYBE_UNUSED const int set,
+            TETENGO2_STDALT_MAYBE_UNUSED const int message,
+            TETENGO2_STDALT_MAYBE_UNUSED const string_type& default_message) const
         {
             if (catalog_id < 0)
                 return remove_namespace(default_message);

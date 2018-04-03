@@ -22,6 +22,7 @@
 #include <tetengo2/gui/menu/recursive_iterator.h>
 #include <tetengo2/gui/menu/shortcut_key.h>
 #include <tetengo2/gui/message/menu_observer_set.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::menu {
@@ -447,13 +448,15 @@ namespace tetengo2::gui::menu {
             return {};
         }
 
-        virtual void
-            insert_impl([[maybe_unused]] const iterator offset, [[maybe_unused]] std::unique_ptr<menu_base> p_menu)
+        virtual void insert_impl(
+            TETENGO2_STDALT_MAYBE_UNUSED const iterator offset,
+            TETENGO2_STDALT_MAYBE_UNUSED std::unique_ptr<menu_base> p_menu)
         {
             BOOST_THROW_EXCEPTION((std::logic_error{ "Can't insert any menus." }));
         }
 
-        virtual void erase_impl([[maybe_unused]] const iterator first, [[maybe_unused]] const iterator last)
+        virtual void
+        erase_impl(TETENGO2_STDALT_MAYBE_UNUSED const iterator first, TETENGO2_STDALT_MAYBE_UNUSED const iterator last)
         {
             BOOST_THROW_EXCEPTION((std::logic_error{ "Can't erase any menus." }));
         }

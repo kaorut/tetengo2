@@ -16,6 +16,8 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/stdalt.h>
+
 
 namespace tetengo2::detail::stub {
     /*!
@@ -47,8 +49,8 @@ namespace tetengo2::detail::stub {
         */
         template <typename AbstractWindow>
         static message_handler_map_type make_abstract_window_message_handler_map(
-            [[maybe_unused]] AbstractWindow& abstract_window,
-            message_handler_map_type&&       initial_map)
+            TETENGO2_STDALT_MAYBE_UNUSED AbstractWindow& abstract_window,
+            message_handler_map_type&&                   initial_map)
         {
             return std::move(initial_map);
         }
@@ -64,8 +66,9 @@ namespace tetengo2::detail::stub {
             \return A message handler map.
         */
         template <typename Button>
-        static message_handler_map_type
-            make_button_message_handler_map([[maybe_unused]] Button& button, message_handler_map_type&& initial_map)
+        static message_handler_map_type make_button_message_handler_map(
+            TETENGO2_STDALT_MAYBE_UNUSED Button& button,
+            message_handler_map_type&&           initial_map)
         {
             return std::move(initial_map);
         }
@@ -81,8 +84,9 @@ namespace tetengo2::detail::stub {
             \return A message handler map.
         */
         template <typename Control>
-        static message_handler_map_type
-            make_control_message_handler_map([[maybe_unused]] Control& control, message_handler_map_type&& initial_map)
+        static message_handler_map_type make_control_message_handler_map(
+            TETENGO2_STDALT_MAYBE_UNUSED Control& control,
+            message_handler_map_type&&            initial_map)
         {
             return std::move(initial_map);
         }
@@ -99,8 +103,8 @@ namespace tetengo2::detail::stub {
         */
         template <typename CustomControl>
         static message_handler_map_type make_custom_control_message_handler_map(
-            [[maybe_unused]] CustomControl& custom_control,
-            message_handler_map_type&&      initial_map)
+            TETENGO2_STDALT_MAYBE_UNUSED CustomControl& custom_control,
+            message_handler_map_type&&                  initial_map)
         {
             return std::move(initial_map);
         }
@@ -116,8 +120,9 @@ namespace tetengo2::detail::stub {
             \return A message handler map.
         */
         template <typename Dialog>
-        static message_handler_map_type
-            make_dialog_message_handler_map([[maybe_unused]] Dialog& dialog, message_handler_map_type&& initial_map)
+        static message_handler_map_type make_dialog_message_handler_map(
+            TETENGO2_STDALT_MAYBE_UNUSED Dialog& dialog,
+            message_handler_map_type&&           initial_map)
         {
             return std::move(initial_map);
         }
@@ -134,8 +139,8 @@ namespace tetengo2::detail::stub {
         */
         template <typename DropdownBox>
         static message_handler_map_type make_dropdown_box_message_handler_map(
-            [[maybe_unused]] DropdownBox& dropdown_box,
-            message_handler_map_type&&    initial_map)
+            TETENGO2_STDALT_MAYBE_UNUSED DropdownBox& dropdown_box,
+            message_handler_map_type&&                initial_map)
         {
             return std::move(initial_map);
         }
@@ -151,8 +156,9 @@ namespace tetengo2::detail::stub {
             \return A message handler map.
         */
         template <typename Image>
-        static message_handler_map_type
-            make_image_message_handler_map([[maybe_unused]] Image& image, message_handler_map_type&& initial_map)
+        static message_handler_map_type make_image_message_handler_map(
+            TETENGO2_STDALT_MAYBE_UNUSED Image& image,
+            message_handler_map_type&&          initial_map)
         {
             return std::move(initial_map);
         }
@@ -168,8 +174,9 @@ namespace tetengo2::detail::stub {
             \return A message handler map.
         */
         template <typename Label>
-        static message_handler_map_type
-            make_label_message_handler_map([[maybe_unused]] Label& label, message_handler_map_type&& initial_map)
+        static message_handler_map_type make_label_message_handler_map(
+            TETENGO2_STDALT_MAYBE_UNUSED Label& label,
+            message_handler_map_type&&          initial_map)
         {
             return std::move(initial_map);
         }
@@ -186,8 +193,8 @@ namespace tetengo2::detail::stub {
         */
         template <typename ListBox>
         static message_handler_map_type make_list_box_message_handler_map(
-            [[maybe_unused]] ListBox&  list_box,
-            message_handler_map_type&& initial_map)
+            TETENGO2_STDALT_MAYBE_UNUSED ListBox& list_box,
+            message_handler_map_type&&            initial_map)
         {
             return std::move(initial_map);
         }
@@ -204,8 +211,8 @@ namespace tetengo2::detail::stub {
         */
         template <typename PictureBox>
         static message_handler_map_type make_picture_box_message_handler_map(
-            [[maybe_unused]] PictureBox& picture_box,
-            message_handler_map_type&&   initial_map)
+            TETENGO2_STDALT_MAYBE_UNUSED PictureBox& picture_box,
+            message_handler_map_type&&               initial_map)
         {
             return std::move(initial_map);
         }
@@ -222,8 +229,8 @@ namespace tetengo2::detail::stub {
         */
         template <typename TextBox>
         static message_handler_map_type make_text_box_message_handler_map(
-            [[maybe_unused]] TextBox&  text_box,
-            message_handler_map_type&& initial_map)
+            TETENGO2_STDALT_MAYBE_UNUSED TextBox& text_box,
+            message_handler_map_type&&            initial_map)
         {
             return std::move(initial_map);
         }
@@ -239,8 +246,9 @@ namespace tetengo2::detail::stub {
             \return A message handler map.
         */
         template <typename Widget>
-        static message_handler_map_type
-            make_widget_message_handler_map([[maybe_unused]] Widget& widget, message_handler_map_type&& initial_map)
+        static message_handler_map_type make_widget_message_handler_map(
+            TETENGO2_STDALT_MAYBE_UNUSED Widget& widget,
+            message_handler_map_type&&           initial_map)
         {
             return std::move(initial_map);
         }
@@ -256,8 +264,9 @@ namespace tetengo2::detail::stub {
             \return A message handler map.
         */
         template <typename Window>
-        static message_handler_map_type
-            make_window_message_handler_map([[maybe_unused]] Window& window, message_handler_map_type&& initial_map)
+        static message_handler_map_type make_window_message_handler_map(
+            TETENGO2_STDALT_MAYBE_UNUSED Window& window,
+            message_handler_map_type&&           initial_map)
         {
             return std::move(initial_map);
         }

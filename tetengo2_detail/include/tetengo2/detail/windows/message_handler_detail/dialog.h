@@ -23,6 +23,8 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include <tetengo2/stdalt.h>
+
 
 namespace tetengo2::detail::windows::message_handler_detail::dialog {
     template <typename WidgetDetails, typename Dialog>
@@ -51,7 +53,7 @@ namespace tetengo2::detail::windows::message_handler_detail::dialog {
 
     template <typename WidgetDetails, typename Dialog>
     boost::optional<::LRESULT>
-    on_syscommand(Dialog& dialog, const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    on_syscommand(Dialog& dialog, const ::WPARAM w_param, TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (w_param == SC_CLOSE)
         {
@@ -105,8 +107,10 @@ namespace tetengo2::detail::windows::message_handler_detail::dialog {
     }
 
     template <typename WidgetDetails, typename Dialog>
-    boost::optional<::LRESULT>
-    on_set_focus(Dialog& dialog, [[maybe_unused]] const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    boost::optional<::LRESULT> on_set_focus(
+        Dialog&                                     dialog,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (dialog.details().first_child_handle)
         {

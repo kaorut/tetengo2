@@ -32,6 +32,7 @@
 #include <Windows.h>
 
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 
@@ -398,11 +399,11 @@ namespace tetengo2::detail::windows {
         struct menu_bar_style_tag : public style_tag<MenuBase>
         {
             virtual void set_style(
-                [[maybe_unused]] const menu_details_type&      details,
-                [[maybe_unused]] ::MENUITEMINFOW&              menu_info,
-                [[maybe_unused]] std::vector<::WCHAR>&         text,
-                [[maybe_unused]] bool                          enabled,
-                [[maybe_unused]] typename MenuBase::state_type state) const override
+                TETENGO2_STDALT_MAYBE_UNUSED const menu_details_type& details,
+                TETENGO2_STDALT_MAYBE_UNUSED ::MENUITEMINFOW&         menu_info,
+                TETENGO2_STDALT_MAYBE_UNUSED std::vector<::WCHAR>&         text,
+                TETENGO2_STDALT_MAYBE_UNUSED bool                          enabled,
+                TETENGO2_STDALT_MAYBE_UNUSED typename MenuBase::state_type state) const override
             {
                 assert(false);
                 BOOST_THROW_EXCEPTION((std::logic_error{ "A menu bar cannot be inserted." }));
@@ -468,11 +469,11 @@ namespace tetengo2::detail::windows {
         struct menu_separator_style_tag : public style_tag<MenuBase>
         {
             virtual void set_style(
-                [[maybe_unused]] const menu_details_type&      details,
-                ::MENUITEMINFOW&                               menu_info,
-                [[maybe_unused]] std::vector<::WCHAR>&         text,
-                [[maybe_unused]] bool                          enabled,
-                [[maybe_unused]] typename MenuBase::state_type state) const override
+                TETENGO2_STDALT_MAYBE_UNUSED const menu_details_type& details,
+                ::MENUITEMINFOW&                                      menu_info,
+                TETENGO2_STDALT_MAYBE_UNUSED std::vector<::WCHAR>&         text,
+                TETENGO2_STDALT_MAYBE_UNUSED bool                          enabled,
+                TETENGO2_STDALT_MAYBE_UNUSED typename MenuBase::state_type state) const override
             {
                 menu_info.fMask = MIIM_FTYPE;
                 menu_info.fType = MFT_SEPARATOR;

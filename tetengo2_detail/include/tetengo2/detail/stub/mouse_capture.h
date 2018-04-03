@@ -11,6 +11,8 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/stdalt.h>
+
 
 namespace tetengo2::detail::stub {
     /*!
@@ -29,7 +31,7 @@ namespace tetengo2::detail::stub {
             \param widget A widget.
         */
         template <typename Widget>
-        explicit mouse_capture([[maybe_unused]] const Widget& widget)
+        explicit mouse_capture(TETENGO2_STDALT_MAYBE_UNUSED const Widget& widget)
         {}
     };
 }

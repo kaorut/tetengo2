@@ -11,6 +11,7 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 
@@ -48,10 +49,10 @@ namespace tetengo2::detail::stub {
         */
         template <typename String, typename InputIterator, typename Encoder>
         bool execute(
-            const String&                        command,
-            [[maybe_unused]] const InputIterator parameter_first,
-            [[maybe_unused]] const InputIterator parameter_last,
-            [[maybe_unused]] const Encoder&      encoder) const
+            const String&                      command,
+            TETENGO2_STDALT_MAYBE_UNUSED const InputIterator parameter_first,
+            TETENGO2_STDALT_MAYBE_UNUSED const InputIterator parameter_last,
+            TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder) const
         {
             return command.find(TETENGO2_TEXT("fail")) == String::npos;
         }

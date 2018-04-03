@@ -32,6 +32,7 @@
 
 #include <tetengo2/detail/windows/cursor.h> // IWYU pragma: keep
 #include <tetengo2/gui/measure.h> // IWYU pragma: keep
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::windows::message_handler_detail::widget {
@@ -51,7 +52,7 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
 
     template <typename Widget>
     boost::optional<::LRESULT>
-    on_key_down(Widget& widget, const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    on_key_down(Widget& widget, const ::WPARAM w_param, TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (widget.keyboard_observer_set().key_down().empty())
             return boost::none;
@@ -74,7 +75,7 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
 
     template <typename Widget>
     boost::optional<::LRESULT>
-    on_key_up(Widget& widget, const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    on_key_up(Widget& widget, const ::WPARAM w_param, TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (widget.keyboard_observer_set().key_up().empty())
             return boost::none;
@@ -96,7 +97,8 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
     }
 
     template <typename Widget>
-    boost::optional<::LRESULT> on_char(Widget& widget, const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    boost::optional<::LRESULT>
+    on_char(Widget& widget, const ::WPARAM w_param, TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (widget.keyboard_observer_set().character_input().empty())
             return boost::none;
@@ -195,8 +197,10 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
     }
 
     template <typename Widget>
-    boost::optional<::LRESULT>
-    on_l_doubleclick(Widget& widget, [[maybe_unused]] const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    boost::optional<::LRESULT> on_l_doubleclick(
+        Widget&                                     widget,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (widget.mouse_observer_set().doubleclicked().empty())
             return boost::none;
@@ -262,7 +266,7 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
 
     template <typename Widget>
     boost::optional<::LRESULT>
-        on_control_color([[maybe_unused]] Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
+    on_control_color(TETENGO2_STDALT_MAYBE_UNUSED Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
     {
         if (l_param == 0)
             return boost::none;
@@ -274,8 +278,10 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
     }
 
     template <typename Widget>
-    boost::optional<::LRESULT>
-    on_set_cursor(Widget& widget, [[maybe_unused]] const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    boost::optional<::LRESULT> on_set_cursor(
+        Widget&                                     widget,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (!widget.p_cursor())
             return boost::none;
@@ -287,8 +293,10 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
     }
 
     template <typename Widget>
-    boost::optional<::LRESULT>
-    on_resized(Widget& widget, [[maybe_unused]] const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    boost::optional<::LRESULT> on_resized(
+        Widget&                                     widget,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (widget.size_observer_set().resized().empty())
             return boost::none;
@@ -299,16 +307,20 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
     }
 
     template <typename Widget>
-    boost::optional<::LRESULT>
-    on_set_focus(Widget& widget, [[maybe_unused]] const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    boost::optional<::LRESULT> on_set_focus(
+        Widget&                                     widget,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         widget.focus_observer_set().got_focus()();
         return boost::none;
     }
 
     template <typename Widget>
-    boost::optional<::LRESULT>
-    on_kill_focus(Widget& widget, [[maybe_unused]] const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    boost::optional<::LRESULT> on_kill_focus(
+        Widget&                                     widget,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         widget.focus_observer_set().lost_focus()();
         return boost::none;
@@ -359,7 +371,7 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
 
     template <typename Widget>
     boost::optional<::LRESULT>
-    on_vertical_scroll(Widget& widget, const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    on_vertical_scroll(Widget& widget, const ::WPARAM w_param, TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (!widget.has_vertical_scroll_bar())
             return boost::none;
@@ -396,7 +408,7 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
 
     template <typename Widget>
     boost::optional<::LRESULT>
-    on_horizontal_scroll(Widget& widget, const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    on_horizontal_scroll(Widget& widget, const ::WPARAM w_param, TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (!widget.has_horizontal_scroll_bar())
             return boost::none;
@@ -433,7 +445,7 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
 
     template <typename Widget>
     boost::optional<::LRESULT>
-    on_erase_background(Widget& widget, const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    on_erase_background(Widget& widget, const ::WPARAM w_param, TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (widget.paint_observer_set().paint_background().empty())
             return boost::none;
@@ -446,8 +458,10 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
     }
 
     template <typename Widget>
-    boost::optional<::LRESULT>
-    on_paint(Widget& widget, [[maybe_unused]] const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    boost::optional<::LRESULT> on_paint(
+        Widget&                                     widget,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (widget.paint_observer_set().paint().empty())
             return boost::none;
@@ -486,16 +500,20 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
     }
 
     template <typename Widget>
-    boost::optional<::LRESULT>
-    on_destroy(Widget& widget, [[maybe_unused]] const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    boost::optional<::LRESULT> on_destroy(
+        Widget&                                     widget,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         delete_current_font(widget);
         return boost::make_optional<::LRESULT>(0);
     }
 
     template <typename WidgetDetails, typename Widget>
-    boost::optional<::LRESULT>
-    on_ncdestroy(Widget& widget, [[maybe_unused]] const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    boost::optional<::LRESULT> on_ncdestroy(
+        Widget&                                     widget,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         const auto* const p_widget = reinterpret_cast<const Widget*>(
             ::RemovePropW(widget.details().handle.get(), WidgetDetails::property_key_for_cpp_instance().c_str()));

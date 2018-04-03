@@ -42,6 +42,7 @@
 #include <tetengo2/detail/windows/font.h>
 #include <tetengo2/detail/windows/picture.h>
 #include <tetengo2/gui/measure.h> // IWYU pragma: keep
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text/character_iterator.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/polymorphic.h>
@@ -230,8 +231,9 @@ namespace tetengo2::detail::windows::direct2d {
             \throw std::logic_error When another transaction has not ended yet.
         */
         template <typename Dimension>
-        static void
-            begin_transaction([[maybe_unused]] canvas_details_type& canvas, [[maybe_unused]] const Dimension& dimension)
+        static void begin_transaction(
+            TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
+            TETENGO2_STDALT_MAYBE_UNUSED const Dimension& dimension)
         {}
 
         /*!
@@ -243,7 +245,7 @@ namespace tetengo2::detail::windows::direct2d {
 
             \throw std::logic_error When no transaction has begun.
         */
-        static void end_transaction([[maybe_unused]] canvas_details_type& canvas) {}
+        static void end_transaction(TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas) {}
 
         /*!
             \brief Creates a solid background.
@@ -514,11 +516,11 @@ namespace tetengo2::detail::windows::direct2d {
         */
         template <typename Dimension, typename Font, typename String, typename Encoder>
         static Dimension calc_text_dimension(
-            [[maybe_unused]] const canvas_details_type& canvas,
-            const Font&                                 font,
-            const String&                               text,
-            const Encoder&                              encoder,
-            const typename Dimension::unit_type&        max_width)
+            TETENGO2_STDALT_MAYBE_UNUSED const canvas_details_type& canvas,
+            const Font&                                             font,
+            const String&                                           text,
+            const Encoder&                                          encoder,
+            const typename Dimension::unit_type&                    max_width)
         {
             const auto p_layout = create_text_layout(text, font, encoder, max_width);
 

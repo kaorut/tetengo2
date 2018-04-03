@@ -52,6 +52,7 @@
 #include <tetengo2/detail/windows/gdiplus/error_category.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/picture.h>
 #include <tetengo2/gui/measure.h> // IWYU pragma: keep
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::windows::gdiplus {
@@ -324,12 +325,12 @@ namespace tetengo2::detail::windows::gdiplus {
         */
         template <typename Position, typename Size, typename Color>
         static void draw_line(
-            canvas_details_type&       canvas,
-            const Position&            from,
-            const Position&            to,
-            const Size                 width,
-            [[maybe_unused]] const int style,
-            const Color&               color)
+            canvas_details_type&                   canvas,
+            const Position&                        from,
+            const Position&                        to,
+            const Size                             width,
+            TETENGO2_STDALT_MAYBE_UNUSED const int style,
+            const Color&                           color)
         {
             const Gdiplus::Pen    pen{ Gdiplus::Color{ color.alpha(), color.red(), color.green(), color.blue() },
                                     gui::to_pixels<Gdiplus::REAL>(width) };
@@ -453,12 +454,12 @@ namespace tetengo2::detail::windows::gdiplus {
         */
         template <typename PositionIterator, typename Size, typename Color>
         static void draw_polygon(
-            canvas_details_type&       canvas,
-            const PositionIterator     position_first,
-            const PositionIterator     position_last,
-            const Size                 width,
-            [[maybe_unused]] const int style,
-            const Color&               color)
+            canvas_details_type&                   canvas,
+            const PositionIterator                 position_first,
+            const PositionIterator                 position_last,
+            const Size                             width,
+            TETENGO2_STDALT_MAYBE_UNUSED const int style,
+            const Color&                           color)
         {
             const Gdiplus::Pen pen{ Gdiplus::Color{ color.alpha(), color.red(), color.green(), color.blue() },
                                     gui::to_pixels<Gdiplus::REAL>(width) };

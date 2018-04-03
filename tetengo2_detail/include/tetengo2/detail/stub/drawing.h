@@ -17,6 +17,7 @@
 #include <boost/filesystem.hpp>
 
 #include <tetengo2/gui/measure.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 
@@ -92,7 +93,7 @@ namespace tetengo2::detail::stub {
         */
         template <typename HandleOrWidgetDetails>
         static std::unique_ptr<canvas_details_type>
-            create_canvas([[maybe_unused]] const HandleOrWidgetDetails& handle_or_widget_details)
+        create_canvas(TETENGO2_STDALT_MAYBE_UNUSED const HandleOrWidgetDetails& handle_or_widget_details)
         {
             return std::make_unique<canvas_details_type>();
         }
@@ -110,8 +111,9 @@ namespace tetengo2::detail::stub {
             \throw std::logic_error When another transaction has not ended yet.
         */
         template <typename Dimension>
-        static void
-            begin_transaction([[maybe_unused]] canvas_details_type& canvas, [[maybe_unused]] const Dimension& dimension)
+        static void begin_transaction(
+            TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
+            TETENGO2_STDALT_MAYBE_UNUSED const Dimension& dimension)
         {}
 
         /*!
@@ -123,7 +125,7 @@ namespace tetengo2::detail::stub {
 
             \throw std::logic_error When no transaction has begun.
         */
-        static void end_transaction([[maybe_unused]] canvas_details_type& canvas) {}
+        static void end_transaction(TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas) {}
 
         /*!
             \brief Creates a solid background.
@@ -135,7 +137,8 @@ namespace tetengo2::detail::stub {
             \return A unique pointer to a solid background.
         */
         template <typename Color>
-        static std::unique_ptr<background_details_type> create_solid_background([[maybe_unused]] const Color& color)
+        static std::unique_ptr<background_details_type>
+        create_solid_background(TETENGO2_STDALT_MAYBE_UNUSED const Color& color)
         {
             return std::make_unique<background_details_type>();
         }
@@ -177,8 +180,8 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the picture cannot be read.
         */
-        inline static std::unique_ptr<picture_details_type> read_picture([
-            [maybe_unused]] const boost::filesystem::path& path)
+        inline static std::unique_ptr<picture_details_type>
+        read_picture(TETENGO2_STDALT_MAYBE_UNUSED const boost::filesystem::path& path)
         {
             return std::make_unique<picture_details_type>(123, 456);
         }
@@ -215,12 +218,12 @@ namespace tetengo2::detail::stub {
         */
         template <typename Position, typename Size, typename Color>
         static void draw_line(
-            [[maybe_unused]] canvas_details_type& canvas,
-            [[maybe_unused]] const Position&      from,
-            [[maybe_unused]] const Position&      to,
-            [[maybe_unused]] const Size           width,
-            [[maybe_unused]] const int            style,
-            [[maybe_unused]] const Color&         color)
+            TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
+            TETENGO2_STDALT_MAYBE_UNUSED const Position& from,
+            TETENGO2_STDALT_MAYBE_UNUSED const Position& to,
+            TETENGO2_STDALT_MAYBE_UNUSED const Size width,
+            TETENGO2_STDALT_MAYBE_UNUSED const int  style,
+            TETENGO2_STDALT_MAYBE_UNUSED const Color& color)
         {}
 
         /*!
@@ -237,9 +240,9 @@ namespace tetengo2::detail::stub {
         */
         template <typename Position, typename Dimension>
         static void draw_focus_indication(
-            [[maybe_unused]] canvas_details_type& canvas,
-            [[maybe_unused]] const Position&      position,
-            [[maybe_unused]] const Dimension&     dimension)
+            TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
+            TETENGO2_STDALT_MAYBE_UNUSED const Position& position,
+            TETENGO2_STDALT_MAYBE_UNUSED const Dimension& dimension)
         {}
 
         /*!
@@ -261,12 +264,12 @@ namespace tetengo2::detail::stub {
         */
         template <typename Position, typename Dimension, typename Size, typename Color>
         static void draw_rectangle(
-            [[maybe_unused]] canvas_details_type& canvas,
-            [[maybe_unused]] const Position&      position,
-            [[maybe_unused]] const Dimension&     dimension,
-            [[maybe_unused]] const Size           width,
-            [[maybe_unused]] const int            style,
-            [[maybe_unused]] const Color&         color)
+            TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
+            TETENGO2_STDALT_MAYBE_UNUSED const Position& position,
+            TETENGO2_STDALT_MAYBE_UNUSED const Dimension& dimension,
+            TETENGO2_STDALT_MAYBE_UNUSED const Size width,
+            TETENGO2_STDALT_MAYBE_UNUSED const int  style,
+            TETENGO2_STDALT_MAYBE_UNUSED const Color& color)
         {}
 
         /*!
@@ -285,10 +288,10 @@ namespace tetengo2::detail::stub {
         */
         template <typename Position, typename Dimension, typename Background>
         static void fill_rectangle(
-            [[maybe_unused]] canvas_details_type& canvas,
-            [[maybe_unused]] const Position&      position,
-            [[maybe_unused]] const Dimension&     dimension,
-            [[maybe_unused]] const Background&    background)
+            TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
+            TETENGO2_STDALT_MAYBE_UNUSED const Position& position,
+            TETENGO2_STDALT_MAYBE_UNUSED const Dimension& dimension,
+            TETENGO2_STDALT_MAYBE_UNUSED const Background& background)
         {}
 
         /*!
@@ -309,12 +312,12 @@ namespace tetengo2::detail::stub {
         */
         template <typename PositionIterator, typename Size, typename Color>
         static void draw_polygon(
-            [[maybe_unused]] canvas_details_type&   canvas,
-            [[maybe_unused]] const PositionIterator position_first,
-            [[maybe_unused]] const PositionIterator position_last,
-            [[maybe_unused]] const Size             width,
-            [[maybe_unused]] const int              style,
-            [[maybe_unused]] const Color&           color)
+            TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
+            TETENGO2_STDALT_MAYBE_UNUSED const PositionIterator position_first,
+            TETENGO2_STDALT_MAYBE_UNUSED const PositionIterator position_last,
+            TETENGO2_STDALT_MAYBE_UNUSED const Size width,
+            TETENGO2_STDALT_MAYBE_UNUSED const int  style,
+            TETENGO2_STDALT_MAYBE_UNUSED const Color& color)
         {}
 
         /*!
@@ -332,10 +335,10 @@ namespace tetengo2::detail::stub {
         */
         template <typename PositionIterator, typename Background>
         static void fill_polygon(
-            [[maybe_unused]] canvas_details_type&   canvas,
-            [[maybe_unused]] const PositionIterator position_first,
-            [[maybe_unused]] const PositionIterator position_last,
-            [[maybe_unused]] const Background&      background)
+            TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
+            TETENGO2_STDALT_MAYBE_UNUSED const PositionIterator position_first,
+            TETENGO2_STDALT_MAYBE_UNUSED const PositionIterator position_last,
+            TETENGO2_STDALT_MAYBE_UNUSED const Background& background)
         {}
 
         /*!
@@ -371,11 +374,11 @@ namespace tetengo2::detail::stub {
         */
         template <typename Dimension, typename Font, typename String, typename Encoder>
         static Dimension calc_text_dimension(
-            [[maybe_unused]] const canvas_details_type&           canvas,
-            [[maybe_unused]] const Font&                          font,
-            [[maybe_unused]] const String&                        text,
-            [[maybe_unused]] const Encoder&                       encoder,
-            [[maybe_unused]] const typename Dimension::unit_type& max_width)
+            TETENGO2_STDALT_MAYBE_UNUSED const canvas_details_type& canvas,
+            TETENGO2_STDALT_MAYBE_UNUSED const Font& font,
+            TETENGO2_STDALT_MAYBE_UNUSED const String& text,
+            TETENGO2_STDALT_MAYBE_UNUSED const Encoder&                       encoder,
+            TETENGO2_STDALT_MAYBE_UNUSED const typename Dimension::unit_type& max_width)
         {
             using dimension_unit_type = typename Dimension::unit_type;
             return max_width == dimension_unit_type{} || max_width >= dimension_unit_type{ 123 } ?
@@ -402,10 +405,10 @@ namespace tetengo2::detail::stub {
         */
         template <typename Dimension, typename Font, typename String, typename Encoder>
         static Dimension calc_vertical_text_dimension(
-            [[maybe_unused]] const canvas_details_type& canvas,
-            [[maybe_unused]] const Font&                font,
-            [[maybe_unused]] const String&              text,
-            [[maybe_unused]] const Encoder&             encoder)
+            TETENGO2_STDALT_MAYBE_UNUSED const canvas_details_type& canvas,
+            TETENGO2_STDALT_MAYBE_UNUSED const Font& font,
+            TETENGO2_STDALT_MAYBE_UNUSED const String& text,
+            TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder)
         {
             using dimension_unit_type = typename Dimension::unit_type;
             return Dimension{ dimension_unit_type{ 456 }, dimension_unit_type{ 123 } };
@@ -440,14 +443,14 @@ namespace tetengo2::detail::stub {
             typename DimensionUnit,
             typename Color>
         static void draw_text(
-            [[maybe_unused]] canvas_details_type& canvas,
-            [[maybe_unused]] const Font&          font,
-            [[maybe_unused]] const String&        text,
-            [[maybe_unused]] const Encoder&       encoder,
-            [[maybe_unused]] const Position&      position,
-            [[maybe_unused]] const DimensionUnit& max_width,
-            [[maybe_unused]] const Color&         color,
-            [[maybe_unused]] const double         angle)
+            TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
+            TETENGO2_STDALT_MAYBE_UNUSED const Font& font,
+            TETENGO2_STDALT_MAYBE_UNUSED const String& text,
+            TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder,
+            TETENGO2_STDALT_MAYBE_UNUSED const Position& position,
+            TETENGO2_STDALT_MAYBE_UNUSED const DimensionUnit& max_width,
+            TETENGO2_STDALT_MAYBE_UNUSED const Color& color,
+            TETENGO2_STDALT_MAYBE_UNUSED const double angle)
         {}
 
         /*!
@@ -477,12 +480,12 @@ namespace tetengo2::detail::stub {
             typename Dimension,
             typename Color>
         static void draw_vertical_text(
-            [[maybe_unused]] canvas_details_type& canvas,
-            [[maybe_unused]] const Font&          font,
-            [[maybe_unused]] const String&        text,
-            [[maybe_unused]] const Encoder&       encoder,
-            [[maybe_unused]] const Position&      position,
-            [[maybe_unused]] const Color&         color)
+            TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
+            TETENGO2_STDALT_MAYBE_UNUSED const Font& font,
+            TETENGO2_STDALT_MAYBE_UNUSED const String& text,
+            TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder,
+            TETENGO2_STDALT_MAYBE_UNUSED const Position& position,
+            TETENGO2_STDALT_MAYBE_UNUSED const Color& color)
         {}
 
         /*!
@@ -501,10 +504,10 @@ namespace tetengo2::detail::stub {
         */
         template <typename Picture, typename Position, typename Dimension>
         static void paint_picture(
-            [[maybe_unused]] canvas_details_type& canvas,
-            [[maybe_unused]] const Picture&       picture,
-            [[maybe_unused]] const Position&      position,
-            [[maybe_unused]] const Dimension&     dimension)
+            TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
+            TETENGO2_STDALT_MAYBE_UNUSED const Picture& picture,
+            TETENGO2_STDALT_MAYBE_UNUSED const Position& position,
+            TETENGO2_STDALT_MAYBE_UNUSED const Dimension& dimension)
         {}
 
         /*!
@@ -521,9 +524,9 @@ namespace tetengo2::detail::stub {
         */
         template <typename Icon, typename Position>
         static void paint_icon(
-            [[maybe_unused]] canvas_details_type& canvas,
-            [[maybe_unused]] const Icon&          icon,
-            [[maybe_unused]] const Position&      position)
+            TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
+            TETENGO2_STDALT_MAYBE_UNUSED const Icon& icon,
+            TETENGO2_STDALT_MAYBE_UNUSED const Position& position)
         {}
 
 

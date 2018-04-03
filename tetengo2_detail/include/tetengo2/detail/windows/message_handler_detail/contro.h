@@ -24,11 +24,13 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include <tetengo2/stdalt.h>
+
 
 namespace tetengo2::detail::windows::message_handler_detail::control {
     template <typename Control>
     boost::optional<::LRESULT>
-    on_control_color(Control& control, const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    on_control_color(Control& control, const ::WPARAM w_param, TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (!control.p_background() && !control.text_color())
             return boost::none;
@@ -62,8 +64,10 @@ namespace tetengo2::detail::windows::message_handler_detail::control {
     }
 
     template <typename Control>
-    boost::optional<::LRESULT>
-    on_set_focus(Control& control, [[maybe_unused]] const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    boost::optional<::LRESULT> on_set_focus(
+        Control&                                    control,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (control.has_parent())
         {

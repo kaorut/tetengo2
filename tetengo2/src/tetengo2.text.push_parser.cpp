@@ -25,6 +25,7 @@
 #include <boost/variant.hpp>
 
 #include <tetengo2/iterator/observable_forward_iterator.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/grammar/grammar.h>
 #include <tetengo2/text/push_parser.h>
@@ -234,7 +235,7 @@ namespace tetengo2::text {
             return string_value == string_type{ TETENGO2_TEXT("true") };
         }
 
-        static void* to_null([[maybe_unused]] const string_type& string_value)
+        static void* to_null(TETENGO2_STDALT_MAYBE_UNUSED const string_type& string_value)
         {
             assert(string_value == string_type{ TETENGO2_TEXT("null") });
 

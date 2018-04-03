@@ -28,6 +28,7 @@
 #include <Windows.h>
 
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::windows {
@@ -104,10 +105,10 @@ namespace tetengo2::detail::windows {
         // static functions
 
         static void CALLBACK timer_proc(
-            [[maybe_unused]] const ::HWND  window_handle,
-            [[maybe_unused]] const ::UINT  message,
-            const ::UINT_PTR               id,
-            [[maybe_unused]] const ::DWORD elapsed_time)
+            TETENGO2_STDALT_MAYBE_UNUSED const ::HWND  window_handle,
+            TETENGO2_STDALT_MAYBE_UNUSED const ::UINT  message,
+            const ::UINT_PTR                           id,
+            TETENGO2_STDALT_MAYBE_UNUSED const ::DWORD elapsed_time)
         {
             timer* const p_timer = reinterpret_cast<timer*>(id);
             assert(p_timer);

@@ -38,6 +38,7 @@
 #include <tetengo2/detail/windows/message_handler_detail/text_b.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/message_handler_detail/widget.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/widget.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::windows {
@@ -160,8 +161,8 @@ namespace tetengo2::detail::windows {
         */
         template <typename CustomControl>
         static message_handler_map_type make_custom_control_message_handler_map(
-            [[maybe_unused]] CustomControl& custom_control,
-            message_handler_map_type&&      initial_map)
+            TETENGO2_STDALT_MAYBE_UNUSED CustomControl& custom_control,
+            message_handler_map_type&&                  initial_map)
         {
             return std::move(initial_map);
         }
@@ -230,8 +231,9 @@ namespace tetengo2::detail::windows {
             \return A message handler map.
         */
         template <typename Image>
-        static message_handler_map_type
-            make_image_message_handler_map([[maybe_unused]] Image& image, message_handler_map_type&& initial_map)
+        static message_handler_map_type make_image_message_handler_map(
+            TETENGO2_STDALT_MAYBE_UNUSED Image& image,
+            message_handler_map_type&&          initial_map)
         {
             return std::move(initial_map);
         }
@@ -247,8 +249,9 @@ namespace tetengo2::detail::windows {
             \return A message handler map.
         */
         template <typename Label>
-        static message_handler_map_type
-            make_label_message_handler_map([[maybe_unused]] Label& label, message_handler_map_type&& initial_map)
+        static message_handler_map_type make_label_message_handler_map(
+            TETENGO2_STDALT_MAYBE_UNUSED Label& label,
+            message_handler_map_type&&          initial_map)
         {
             return std::move(initial_map);
         }
@@ -439,8 +442,9 @@ namespace tetengo2::detail::windows {
             \return A message handler map.
         */
         template <typename Window>
-        static message_handler_map_type
-            make_window_message_handler_map([[maybe_unused]] Window& window, message_handler_map_type&& initial_map)
+        static message_handler_map_type make_window_message_handler_map(
+            TETENGO2_STDALT_MAYBE_UNUSED Window& window,
+            message_handler_map_type&&           initial_map)
         {
             return std::move(initial_map);
         }

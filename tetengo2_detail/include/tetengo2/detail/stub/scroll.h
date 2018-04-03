@@ -15,6 +15,8 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/stdalt.h>
+
 
 namespace tetengo2::detail::stub {
     /*!
@@ -78,8 +80,8 @@ namespace tetengo2::detail::stub {
         */
         template <typename WidgetDetails>
         static scroll_bar_details_ptr_type create_scroll_bar(
-            [[maybe_unused]] const WidgetDetails& widget_details,
-            [[maybe_unused]] const style_type     style)
+            TETENGO2_STDALT_MAYBE_UNUSED const WidgetDetails& widget_details,
+            TETENGO2_STDALT_MAYBE_UNUSED const style_type style)
         {
             return std::make_unique<scroll_bar_details_type>(0, std::make_pair(0, 100), 10, true);
         }

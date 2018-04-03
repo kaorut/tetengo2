@@ -14,6 +14,7 @@
 #include <boost/variant.hpp>
 
 #include <tetengo2/config/config_base.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 
@@ -41,7 +42,10 @@ namespace {
             return key == string_type{ TETENGO2_TEXT("foo") } ? value1 : value2;
         }
 
-        virtual void set_impl([[maybe_unused]] const string_type& key, [[maybe_unused]] value_type value) override {}
+        virtual void set_impl(
+            TETENGO2_STDALT_MAYBE_UNUSED const string_type& key,
+            TETENGO2_STDALT_MAYBE_UNUSED value_type value) override
+        {}
 
         virtual void clear_impl() override {}
     };

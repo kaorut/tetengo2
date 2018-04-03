@@ -26,6 +26,7 @@
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/measure.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::stub {
@@ -142,8 +143,10 @@ namespace tetengo2::detail::stub {
             \throw std::system_error     When a button cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type
-        create_button(Widget& parent, [[maybe_unused]] const bool is_default, [[maybe_unused]] const bool is_cancel)
+        static widget_details_ptr_type create_button(
+            Widget&                                 parent,
+            TETENGO2_STDALT_MAYBE_UNUSED const bool is_default,
+            TETENGO2_STDALT_MAYBE_UNUSED const bool is_cancel)
         {
             return create_details<Widget>(&parent);
         }
@@ -163,9 +166,9 @@ namespace tetengo2::detail::stub {
         */
         template <typename Widget>
         static widget_details_ptr_type create_custom_control(
-            Widget&                                                       parent,
-            [[maybe_unused]] const bool                                   border,
-            [[maybe_unused]] const typename Widget::scroll_bar_style_type scroll_bar_style)
+            Widget&                                                                   parent,
+            TETENGO2_STDALT_MAYBE_UNUSED const bool                                   border,
+            TETENGO2_STDALT_MAYBE_UNUSED const typename Widget::scroll_bar_style_type scroll_bar_style)
         {
             return create_details<Widget>(&parent);
         }
@@ -183,7 +186,8 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When a dialog cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_dialog(Widget* const p_parent, [[maybe_unused]] const bool file_droppable)
+        static widget_details_ptr_type
+        create_dialog(Widget* const p_parent, TETENGO2_STDALT_MAYBE_UNUSED const bool file_droppable)
         {
             return create_details<Widget>(p_parent);
         }
@@ -252,8 +256,9 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When a list box cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type
-        create_list_box(Widget& parent, [[maybe_unused]] const typename Widget::scroll_bar_style_type scroll_bar_style)
+        static widget_details_ptr_type create_list_box(
+            Widget&                                                                   parent,
+            TETENGO2_STDALT_MAYBE_UNUSED const typename Widget::scroll_bar_style_type scroll_bar_style)
         {
             return create_details<Widget>(&parent);
         }
@@ -272,8 +277,8 @@ namespace tetengo2::detail::stub {
         */
         template <typename Widget>
         static widget_details_ptr_type create_picture_box(
-            Widget&                                                       parent,
-            [[maybe_unused]] const typename Widget::scroll_bar_style_type scroll_bar_style)
+            Widget&                                                                   parent,
+            TETENGO2_STDALT_MAYBE_UNUSED const typename Widget::scroll_bar_style_type scroll_bar_style)
         {
             return create_details<Widget>(&parent);
         }
@@ -308,8 +313,9 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When a text box cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type
-        create_text_box(Widget& parent, [[maybe_unused]] const typename Widget::scroll_bar_style_type scroll_bar_style)
+        static widget_details_ptr_type create_text_box(
+            Widget&                                                                   parent,
+            TETENGO2_STDALT_MAYBE_UNUSED const typename Widget::scroll_bar_style_type scroll_bar_style)
         {
             return create_details<Widget>(&parent);
         }
@@ -329,9 +335,9 @@ namespace tetengo2::detail::stub {
         */
         template <typename Widget>
         static widget_details_ptr_type create_window(
-            Widget* const                                                 p_parent,
-            [[maybe_unused]] const typename Widget::scroll_bar_style_type scroll_bar_style,
-            [[maybe_unused]] const bool                                   file_droppable)
+            Widget* const                                                             p_parent,
+            TETENGO2_STDALT_MAYBE_UNUSED const typename Widget::scroll_bar_style_type scroll_bar_style,
+            TETENGO2_STDALT_MAYBE_UNUSED const bool                                   file_droppable)
         {
             return create_details<Widget>(p_parent);
         }
@@ -552,7 +558,7 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When a position cannot be calculated.
         */
         template <typename Position, typename Widget, typename ParentWidget>
-        static Position dialog_position([[maybe_unused]] const Widget& widget, const ParentWidget& parent)
+        static Position dialog_position(TETENGO2_STDALT_MAYBE_UNUSED const Widget& widget, const ParentWidget& parent)
         {
             return position<Position>(parent);
         }
@@ -752,7 +758,8 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the widget cannot be repainted.
         */
         template <typename Widget>
-        static void repaint([[maybe_unused]] Widget& widget, [[maybe_unused]] const bool immediately)
+        static void
+        repaint(TETENGO2_STDALT_MAYBE_UNUSED Widget& widget, TETENGO2_STDALT_MAYBE_UNUSED const bool immediately)
         {}
 
         /*!
@@ -770,9 +777,9 @@ namespace tetengo2::detail::stub {
         */
         template <typename Widget, typename Position, typename Dimension>
         static void repaint_partially(
-            [[maybe_unused]] Widget&          widget,
-            [[maybe_unused]] const Position&  position,
-            [[maybe_unused]] const Dimension& dimension)
+            TETENGO2_STDALT_MAYBE_UNUSED Widget& widget,
+            TETENGO2_STDALT_MAYBE_UNUSED const Position& position,
+            TETENGO2_STDALT_MAYBE_UNUSED const Dimension& dimension)
         {}
 
         /*!
@@ -802,7 +809,7 @@ namespace tetengo2::detail::stub {
             \param widget A widget.
         */
         template <typename Widget>
-        static void activate([[maybe_unused]] Widget& widget)
+        static void activate(TETENGO2_STDALT_MAYBE_UNUSED Widget& widget)
         {}
 
         /*!
@@ -817,7 +824,8 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When an icon cannot be set.
         */
         template <typename Widget, typename Icon>
-        static void set_icon([[maybe_unused]] Widget& widget, [[maybe_unused]] const Icon* const p_icon)
+        static void
+        set_icon(TETENGO2_STDALT_MAYBE_UNUSED Widget& widget, TETENGO2_STDALT_MAYBE_UNUSED const Icon* const p_icon)
         {}
 
         /*!
@@ -832,8 +840,9 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When a menu bar cannot be set.
         */
         template <typename Widget, typename MenuBase>
-        static void
-            set_menu_bar([[maybe_unused]] Widget& widget, [[maybe_unused]] const MenuBase* const p_menu = nullptr)
+        static void set_menu_bar(
+            TETENGO2_STDALT_MAYBE_UNUSED Widget& widget,
+            TETENGO2_STDALT_MAYBE_UNUSED const MenuBase* const p_menu = nullptr)
         {}
 
         /*!
@@ -876,7 +885,7 @@ namespace tetengo2::detail::stub {
             \param widget A widget.
         */
         template <typename Widget>
-        static void set_focus([[maybe_unused]] Widget& widget)
+        static void set_focus(TETENGO2_STDALT_MAYBE_UNUSED Widget& widget)
         {}
 
         /*!
@@ -923,7 +932,7 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the widget cannot be closed.
         */
         template <typename Widget>
-        static void close([[maybe_unused]] Widget& widget)
+        static void close(TETENGO2_STDALT_MAYBE_UNUSED Widget& widget)
         {}
 
         /*!
