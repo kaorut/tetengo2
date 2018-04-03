@@ -26,6 +26,7 @@
 #include <CommCtrl.h>
 
 #include <tetengo2/detail/windows/alert.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h> // IWYU pragma: keep
@@ -75,12 +76,12 @@ namespace tetengo2::detail::windows {
         }
 
         virtual void show_task_dialog_impl(
-            const widget_handle_type            widget_handle,
-            const string_type&                  caption,
-            const string_type&                  text1,
-            const string_type&                  text2,
-            [[maybe_unused]] const string_type& source_file_name,
-            [[maybe_unused]] const integer_type source_file_line) const
+            const widget_handle_type           widget_handle,
+            const string_type&                 caption,
+            const string_type&                 text1,
+            const string_type&                 text2,
+            TETENGO2_STDALT_MAYBE_UNUSED const string_type& source_file_name,
+            TETENGO2_STDALT_MAYBE_UNUSED const integer_type source_file_line) const
         {
 #if defined(NDEBUG)
             show_task_dialog_impl(

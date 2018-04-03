@@ -14,6 +14,8 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/filesystem.hpp>
 
+#include <tetengo2/stdalt.h>
+
 
 namespace tetengo2::detail::stub {
     /*!
@@ -60,8 +62,9 @@ namespace tetengo2::detail::stub {
             \return A unique pointer to an icon.
         */
         template <typename Dimension>
-        static icon_details_ptr_type
-            create([[maybe_unused]] const boost::filesystem::path& path, [[maybe_unused]] const Dimension& dimension)
+        static icon_details_ptr_type create(
+            TETENGO2_STDALT_MAYBE_UNUSED const boost::filesystem::path& path,
+            TETENGO2_STDALT_MAYBE_UNUSED const Dimension& dimension)
         {
             return std::make_unique<icon_details_type>();
         }

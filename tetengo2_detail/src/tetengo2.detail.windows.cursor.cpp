@@ -24,6 +24,7 @@
 
 #include <tetengo2/detail/windows/cursor.h>
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::windows {
@@ -89,7 +90,7 @@ namespace tetengo2::detail::windows {
             }
         }
 
-        static void delete_details([[maybe_unused]] cursor_details_type* const p_details) {}
+        static void delete_details(TETENGO2_STDALT_MAYBE_UNUSED cursor_details_type* const p_details) {}
     };
 
 

@@ -11,6 +11,7 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/stub/alert.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::stub {
@@ -37,19 +38,19 @@ namespace tetengo2::detail::stub {
 
         // functions
 
-        widget_handle_type root_ancestor_widget_handle_impl([
-            [maybe_unused]] const widget_handle_type widget_handle) const
+        widget_handle_type
+        root_ancestor_widget_handle_impl(TETENGO2_STDALT_MAYBE_UNUSED const widget_handle_type widget_handle) const
         {
             return nullptr;
         }
 
         virtual void show_task_dialog_impl(
-            [[maybe_unused]] const widget_handle_type widget_handle,
-            [[maybe_unused]] const string_type&       caption,
-            [[maybe_unused]] const string_type&       text1,
-            [[maybe_unused]] const string_type&       text2,
-            [[maybe_unused]] const string_type&       source_file_name,
-            [[maybe_unused]] const integer_type       source_file_line) const
+            TETENGO2_STDALT_MAYBE_UNUSED const widget_handle_type widget_handle,
+            TETENGO2_STDALT_MAYBE_UNUSED const string_type& caption,
+            TETENGO2_STDALT_MAYBE_UNUSED const string_type& text1,
+            TETENGO2_STDALT_MAYBE_UNUSED const string_type& text2,
+            TETENGO2_STDALT_MAYBE_UNUSED const string_type& source_file_name,
+            TETENGO2_STDALT_MAYBE_UNUSED const integer_type source_file_line) const
         {}
     };
 

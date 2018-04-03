@@ -21,13 +21,15 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include <tetengo2/stdalt.h>
+
 
 namespace tetengo2::detail::windows::message_handler_detail::button {
     template <typename Button>
     boost::optional<::LRESULT> on_tetengo2_command(
-        Button&                         button,
-        [[maybe_unused]] const ::WPARAM w_param,
-        [[maybe_unused]] const ::LPARAM l_param)
+        Button&                                     button,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         button.mouse_observer_set().clicked()();
 

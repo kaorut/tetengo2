@@ -28,11 +28,15 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include <tetengo2/stdalt.h>
+
 
 namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
     template <typename AbstractWindow>
-    boost::optional<::LRESULT>
-    on_command(AbstractWindow& abstract_window, const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    boost::optional<::LRESULT> on_command(
+        AbstractWindow&                             abstract_window,
+        const ::WPARAM                              w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         const ::WORD id = LOWORD(w_param);
 
@@ -52,8 +56,10 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
     }
 
     template <typename AbstractWindow>
-    boost::optional<::LRESULT>
-    on_initmenupopup(AbstractWindow& abstract_window, const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    boost::optional<::LRESULT> on_initmenupopup(
+        AbstractWindow&                             abstract_window,
+        const ::WPARAM                              w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         const auto handle = reinterpret_cast<::HMENU>(w_param);
 
@@ -105,9 +111,9 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
 
     template <typename AbstractWindow>
     boost::optional<::LRESULT> on_drop_files(
-        AbstractWindow&                 abstract_window,
-        [[maybe_unused]] const ::WPARAM w_param,
-        [[maybe_unused]] const ::LPARAM l_param)
+        AbstractWindow&                             abstract_window,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (abstract_window.file_drop_observer_set().file_dropped().empty())
             return boost::none;
@@ -119,9 +125,9 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
 
     template <typename AbstractWindow>
     boost::optional<::LRESULT> on_close(
-        AbstractWindow&                 abstract_window,
-        [[maybe_unused]] const ::WPARAM w_param,
-        [[maybe_unused]] const ::LPARAM l_param)
+        AbstractWindow&                             abstract_window,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (abstract_window.window_observer_set().closing().empty())
             return boost::none;
@@ -133,9 +139,9 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
 
     template <typename AbstractWindow>
     boost::optional<::LRESULT> on_query_end_session(
-        AbstractWindow&                 abstract_window,
-        [[maybe_unused]] const ::WPARAM w_param,
-        [[maybe_unused]] const ::LPARAM l_param)
+        AbstractWindow&                             abstract_window,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (abstract_window.window_observer_set().closing().empty())
             return boost::none;
@@ -147,9 +153,9 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
 
     template <typename AbstractWindow>
     boost::optional<::LRESULT> on_destroy(
-        AbstractWindow&                 abstract_window,
-        [[maybe_unused]] const ::WPARAM w_param,
-        [[maybe_unused]] const ::LPARAM l_param)
+        AbstractWindow&                             abstract_window,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (abstract_window.window_observer_set().destroyed().empty())
             return boost::none;

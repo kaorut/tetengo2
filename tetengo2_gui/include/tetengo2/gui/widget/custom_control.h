@@ -17,6 +17,7 @@
 
 #include <tetengo2/gui/mouse_capture.h>
 #include <tetengo2/gui/widget/control.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::widget {
@@ -470,13 +471,13 @@ namespace tetengo2::gui::widget {
 
         virtual void resized_impl() {}
 
-        virtual void paint_impl([[maybe_unused]] canvas_type& canvas) const {}
+        virtual void paint_impl(TETENGO2_STDALT_MAYBE_UNUSED canvas_type& canvas) const {}
 
-        virtual void mouse_pressed_impl([[maybe_unused]] const position_type& cursor_position) {}
+        virtual void mouse_pressed_impl(TETENGO2_STDALT_MAYBE_UNUSED const position_type& cursor_position) {}
 
-        virtual void mouse_released_impl([[maybe_unused]] const position_type& cursor_position) {}
+        virtual void mouse_released_impl(TETENGO2_STDALT_MAYBE_UNUSED const position_type& cursor_position) {}
 
-        virtual void mouse_moved_impl([[maybe_unused]] const position_type& cursor_position) {}
+        virtual void mouse_moved_impl(TETENGO2_STDALT_MAYBE_UNUSED const position_type& cursor_position) {}
 
         virtual void mouse_entered_impl() {}
 

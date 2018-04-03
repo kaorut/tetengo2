@@ -14,6 +14,8 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/stdalt.h>
+
 
 namespace tetengo2::detail::stub {
     /*!
@@ -36,10 +38,10 @@ namespace tetengo2::detail::stub {
         */
         template <typename Widget>
         timer(
-            [[maybe_unused]] const Widget&                    widget,
-            [[maybe_unused]] std::function<void(bool&)>       procedure,
-            [[maybe_unused]] const std::chrono::milliseconds& interval,
-            [[maybe_unused]] const bool                       once_only)
+            TETENGO2_STDALT_MAYBE_UNUSED const Widget& widget,
+            TETENGO2_STDALT_MAYBE_UNUSED std::function<void(bool&)> procedure,
+            TETENGO2_STDALT_MAYBE_UNUSED const std::chrono::milliseconds& interval,
+            TETENGO2_STDALT_MAYBE_UNUSED const bool                       once_only)
         {}
 
 

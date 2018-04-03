@@ -13,6 +13,8 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/stdalt.h>
+
 
 namespace tetengo2::detail::stub {
     /*!
@@ -95,7 +97,8 @@ namespace tetengo2::detail::stub {
             \param enabled An enabled status.
         */
         template <typename MenuBase>
-        static void set_enabled([[maybe_unused]] MenuBase& menu, [[maybe_unused]] const bool enabled)
+        static void
+        set_enabled(TETENGO2_STDALT_MAYBE_UNUSED MenuBase& menu, TETENGO2_STDALT_MAYBE_UNUSED const bool enabled)
         {}
 
         /*!
@@ -107,8 +110,9 @@ namespace tetengo2::detail::stub {
             \param state A status.
         */
         template <typename MenuBase>
-        static void
-            set_state([[maybe_unused]] MenuBase& menu, [[maybe_unused]] const typename MenuBase::state_type state)
+        static void set_state(
+            TETENGO2_STDALT_MAYBE_UNUSED MenuBase&                           menu,
+            TETENGO2_STDALT_MAYBE_UNUSED const typename MenuBase::state_type state)
         {}
 
         /*!
@@ -139,8 +143,8 @@ namespace tetengo2::detail::stub {
         */
         template <typename InputIterator>
         static shortcut_key_table_details_ptr_type create_shortcut_key_table(
-            [[maybe_unused]] const InputIterator first,
-            [[maybe_unused]] const InputIterator last)
+            TETENGO2_STDALT_MAYBE_UNUSED const InputIterator first,
+            TETENGO2_STDALT_MAYBE_UNUSED const InputIterator last)
         {
             return std::make_unique<shortcut_key_table_details_type>();
         }
@@ -162,10 +166,10 @@ namespace tetengo2::detail::stub {
         */
         template <typename PopupMenu, typename ForwardIterator, typename MenuBase, typename Encoder>
         static void insert_menu(
-            [[maybe_unused]] PopupMenu&            popup_menu,
-            [[maybe_unused]] const ForwardIterator offset,
-            [[maybe_unused]] MenuBase&             menu,
-            [[maybe_unused]] const Encoder&        encoder)
+            TETENGO2_STDALT_MAYBE_UNUSED PopupMenu& popup_menu,
+            TETENGO2_STDALT_MAYBE_UNUSED const ForwardIterator offset,
+            TETENGO2_STDALT_MAYBE_UNUSED MenuBase& menu,
+            TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder)
         {}
 
         /*!
@@ -182,9 +186,9 @@ namespace tetengo2::detail::stub {
         */
         template <typename PopupMenu, typename ForwardIterator>
         static void erase_menus(
-            [[maybe_unused]] PopupMenu&            popup_menu,
-            [[maybe_unused]] const ForwardIterator first,
-            [[maybe_unused]] const ForwardIterator last)
+            TETENGO2_STDALT_MAYBE_UNUSED PopupMenu& popup_menu,
+            TETENGO2_STDALT_MAYBE_UNUSED const ForwardIterator first,
+            TETENGO2_STDALT_MAYBE_UNUSED const ForwardIterator last)
         {}
 
         /*!

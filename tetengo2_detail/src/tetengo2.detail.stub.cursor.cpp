@@ -11,6 +11,7 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/stub/cursor.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::stub {
@@ -37,7 +38,8 @@ namespace tetengo2::detail::stub {
 
         // functions
 
-        cursor_details_ptr_type create_system_cursor_impl([[maybe_unused]] const system_cursor_style_type style) const
+        cursor_details_ptr_type
+        create_system_cursor_impl(TETENGO2_STDALT_MAYBE_UNUSED const system_cursor_style_type style) const
         {
             return cursor_details_ptr_type{ new cursor_details_type{}, delete_details };
         }

@@ -11,6 +11,8 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/stdalt.h>
+
 
 namespace tetengo2::detail::stub {
     /*!
@@ -33,7 +35,7 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When a message loop error has happened.
         */
         template <typename AbstractWindow>
-        static int loop([[maybe_unused]] AbstractWindow& window)
+        static int loop(TETENGO2_STDALT_MAYBE_UNUSED AbstractWindow& window)
         {
             return 0;
         }
@@ -50,7 +52,7 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When a message loop error has happened.
         */
         template <typename AbstractWindow>
-        static int dialog_loop([[maybe_unused]] AbstractWindow& dialog)
+        static int dialog_loop(TETENGO2_STDALT_MAYBE_UNUSED AbstractWindow& dialog)
         {
             return 0;
         }
@@ -60,7 +62,7 @@ namespace tetengo2::detail::stub {
 
             \param exit_code An exit code.
         */
-        static void break_loop([[maybe_unused]] const int exit_code) {}
+        static void break_loop(TETENGO2_STDALT_MAYBE_UNUSED const int exit_code) {}
 
 
     private:

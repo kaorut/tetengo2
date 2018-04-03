@@ -27,13 +27,15 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include <tetengo2/stdalt.h>
+
 
 namespace tetengo2::detail::windows::message_handler_detail::picture_box {
     template <typename PictureBox>
     boost::optional<::LRESULT> on_erase_background(
-        PictureBox&                     picture_box,
-        [[maybe_unused]] const ::WPARAM w_param,
-        [[maybe_unused]] const ::LPARAM l_param)
+        PictureBox&                                 picture_box,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (picture_box.fast_paint_observer_set().paint_background().empty())
             return boost::none;
@@ -47,8 +49,10 @@ namespace tetengo2::detail::windows::message_handler_detail::picture_box {
     }
 
     template <typename PictureBox>
-    boost::optional<::LRESULT>
-    on_paint(PictureBox& picture_box, [[maybe_unused]] const ::WPARAM w_param, [[maybe_unused]] const ::LPARAM l_param)
+    boost::optional<::LRESULT> on_paint(
+        PictureBox&                                 picture_box,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (picture_box.fast_paint_observer_set().paint().empty())
             return boost::none;

@@ -12,6 +12,7 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text/encoding/encoding.h>
 
 
@@ -35,12 +36,12 @@ namespace {
             return singleton;
         }
 
-        virtual string_type from_pivot_impl([[maybe_unused]] pivot_type pivot) const
+        virtual string_type from_pivot_impl(TETENGO2_STDALT_MAYBE_UNUSED pivot_type pivot) const
         {
             return string_type{};
         }
 
-        virtual pivot_type to_pivot_impl([[maybe_unused]] string_type string) const
+        virtual pivot_type to_pivot_impl(TETENGO2_STDALT_MAYBE_UNUSED string_type string) const
         {
             return pivot_type{};
         }
@@ -55,12 +56,12 @@ namespace {
             return singleton;
         }
 
-        virtual string_type from_pivot_impl([[maybe_unused]] pivot_type pivot) const
+        virtual string_type from_pivot_impl(TETENGO2_STDALT_MAYBE_UNUSED pivot_type pivot) const
         {
             return string_type{};
         }
 
-        virtual pivot_type to_pivot_impl([[maybe_unused]] string_type string) const
+        virtual pivot_type to_pivot_impl(TETENGO2_STDALT_MAYBE_UNUSED string_type string) const
         {
             return pivot_type{};
         }
@@ -75,12 +76,12 @@ namespace {
             return singleton;
         }
 
-        virtual string_type from_pivot_impl([[maybe_unused]] pivot_type pivot) const
+        virtual string_type from_pivot_impl(TETENGO2_STDALT_MAYBE_UNUSED pivot_type pivot) const
         {
             return string_type{};
         }
 
-        virtual pivot_type to_pivot_impl([[maybe_unused]] string_type string) const
+        virtual pivot_type to_pivot_impl(TETENGO2_STDALT_MAYBE_UNUSED string_type string) const
         {
             return pivot_type{};
         }
