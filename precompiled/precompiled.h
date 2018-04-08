@@ -49,8 +49,6 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/exception/all.hpp>
-#include <boost/filesystem.hpp>
-#include <boost/filesystem/fstream.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
