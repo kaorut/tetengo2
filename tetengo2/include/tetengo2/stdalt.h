@@ -10,11 +10,11 @@
 #define TETENGO2_STDALT_H
 
 #if __has_include(<filesystem>)
-#   include <filesystem>
+#include <filesystem>
 #elif __has_include(<experimental/filesystem>)
-#   include <experimental/filesystem>
+#include <experimental/filesystem>
 #else
-#   error Standard filesystem library not found.
+#error Standard filesystem library not found.
 #endif
 
 #include <boost/predef.h>
@@ -41,9 +41,9 @@ namespace tetengo2::stdalt {
     */
     namespace filesystem = std::filesystem;
 #else
-#   error Unsupported compiler.
+#error Unsupported compiler.
 #endif
-
 }
+
 
 #endif

@@ -21,7 +21,6 @@
 #include <vector> // IWYU pragma: keep
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/optional.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/scope_exit.hpp>
@@ -43,6 +42,7 @@
 
 #include <tetengo2/detail/windows/com_ptr.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 
@@ -359,7 +359,7 @@ namespace tetengo2::detail::windows {
             \throw std::system_error When the file open dialog cannot be shown.
         */
         template <typename Encoder>
-        static boost::optional<boost::filesystem::path>
+        static boost::optional<tetengo2::stdalt::filesystem::path>
         show_file_open_dialog(file_open_dialog_details_type& dialog, const Encoder& encoder)
         {
             const auto title_set_result = dialog.p_dialog->SetTitle(dialog.title.c_str());
@@ -416,7 +416,7 @@ namespace tetengo2::detail::windows {
             }
             BOOST_SCOPE_EXIT_END;
 
-            return boost::make_optional(boost::filesystem::path{ encoder.decode(file_name) });
+            return boost::make_optional(tetengo2::stdalt::filesystem::path{ encoder.decode(file_name) });
         }
 
         /*!
@@ -468,7 +468,7 @@ namespace tetengo2::detail::windows {
         /*!
             \brief Shows a file save dialog and return a path.
 
-            \tparam boost::filesystem::path    A path type.
+            \tparam tetengo2::stdalt::filesystem::path    A path type.
             \tparam Encoder An encoder type.
 
             \param dialog  A file save dialog.
@@ -479,7 +479,7 @@ namespace tetengo2::detail::windows {
             \throw std::system_error When the file save dialog cannot be shown.
         */
         template <typename Encoder>
-        static boost::optional<boost::filesystem::path>
+        static boost::optional<tetengo2::stdalt::filesystem::path>
         show_file_save_dialog(file_save_dialog_details_type& dialog, const Encoder& encoder)
         {
             const auto title_set_result = dialog.p_dialog->SetTitle(dialog.title.c_str());
@@ -574,7 +574,7 @@ namespace tetengo2::detail::windows {
             }
             BOOST_SCOPE_EXIT_END;
 
-            return boost::make_optional(boost::filesystem::path{ encoder.decode(file_name) });
+            return boost::make_optional(tetengo2::stdalt::filesystem::path{ encoder.decode(file_name) });
         }
 
         /*!
@@ -885,7 +885,7 @@ namespace tetengo2::detail::windows {
         }
 
         template <typename String>
-        static bool match_extension(const boost::filesystem::path& path, const String& extension)
+        static bool match_extension(const tetengo2::stdalt::filesystem::path& path, const String& extension)
         {
             const auto path_string = path.template string<String>();
             const auto dotted_extension = String{ TETENGO2_TEXT(".") } + extension;

@@ -12,7 +12,6 @@
 #include <system_error> // IWYU pragma: keep
 #include <utility> // IWYU pragma: keep
 
-#include <boost/filesystem.hpp>
 #include <boost/throw_exception.hpp>
 
 #pragma warning(push)
@@ -28,6 +27,7 @@
 
 #include <tetengo2/detail/windows/com_ptr.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
+#include <tetengo2/stdalt.h>
 
 #if !defined(DOCUMENTATION)
 // Use the older version of WIC with the Windows SDK 8.0 for the time being.
@@ -122,7 +122,7 @@ namespace tetengo2::detail::windows::picture {
 
         \throw std::system_error When the picture cannot be read.
     */
-    inline details_ptr_type read(const boost::filesystem::path& path)
+    inline details_ptr_type read(const tetengo2::stdalt::filesystem::path& path)
     {
         ::IWICBitmapDecoder* rp_decoder = nullptr;
         const auto           create_decoder_hr = wic_imaging_factory().CreateDecoderFromFilename(

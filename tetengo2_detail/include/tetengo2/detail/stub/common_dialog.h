@@ -13,7 +13,6 @@
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/optional.hpp>
 
 #include <tetengo2/stdalt.h>
@@ -187,11 +186,13 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the file open dialog cannot be shown.
         */
         template <typename Encoder>
-        static boost::optional<boost::filesystem::path> show_file_open_dialog(
+        static boost::optional<tetengo2::stdalt::filesystem::path> show_file_open_dialog(
             TETENGO2_STDALT_MAYBE_UNUSED file_open_dialog_details_type& dialog,
             TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder)
         {
-            return boost::make_optional(boost::filesystem::temp_directory_path() / boost::filesystem::unique_path());
+            tetengo2::stdalt::filesystem::path file_name{ tetengo2::stdalt::filesystem::path::string_type{
+                TETENGO2_TEXT("file_open_dialog") } };
+            return boost::make_optional(tetengo2::stdalt::filesystem::temp_directory_path() / std::move(file_name));
         }
 
         /*!
@@ -237,11 +238,13 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the file save dialog cannot be shown.
         */
         template <typename Encoder>
-        static boost::optional<boost::filesystem::path> show_file_save_dialog(
+        static boost::optional<tetengo2::stdalt::filesystem::path> show_file_save_dialog(
             TETENGO2_STDALT_MAYBE_UNUSED file_save_dialog_details_type& dialog,
             TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder)
         {
-            return boost::make_optional(boost::filesystem::temp_directory_path() / boost::filesystem::unique_path());
+            tetengo2::stdalt::filesystem::path file_name{ tetengo2::stdalt::filesystem::path::string_type{
+                TETENGO2_TEXT("file_save_dialog") } };
+            return boost::make_optional(tetengo2::stdalt::filesystem::temp_directory_path() / file_name);
         }
 
         /*!

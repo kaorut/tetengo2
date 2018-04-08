@@ -13,7 +13,6 @@
 #include <utility>
 #include <vector>
 
-#include <boost/filesystem.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -29,6 +28,7 @@
 #include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/unit/pixel.h>
 #include <tetengo2/gui/unit/unit.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
@@ -428,7 +428,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     concrete_canvas canvas{};
 
-                    const icon_type icon{ boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") } };
+                    const icon_type icon{ tetengo2::stdalt::filesystem::path{
+                        tetengo2::stdalt::filesystem::path::string_type{ TETENGO2_TEXT("hoge.ico") } } };
                     canvas.paint_icon(icon, make_position(12, 34));
                 }
 

@@ -13,10 +13,10 @@
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/optional.hpp>
 
 #include <tetengo2/gui/widget/abstract_window.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::common_dialog {
@@ -86,17 +86,17 @@ namespace tetengo2::gui::common_dialog {
             \param parent       A parent widget.
         */
         file_save(
-            string_type                                     title,
-            const boost::optional<boost::filesystem::path>& path,
-            file_filters_type                               file_filters,
-            abstract_window_type&                           parent)
+            string_type                                                title,
+            const boost::optional<tetengo2::stdalt::filesystem::path>& path,
+            file_filters_type                                          file_filters,
+            abstract_window_type&                                      parent)
         : m_p_details{ common_dialog_details_type::create_file_save_dialog(
               parent,
               std::move(title),
               path,
               std::move(file_filters),
               encoder()) },
-          m_result{ path ? *path : boost::filesystem::path{} }
+          m_result{ path ? *path : tetengo2::stdalt::filesystem::path{} }
         {}
 
 
@@ -107,7 +107,7 @@ namespace tetengo2::gui::common_dialog {
 
             \return The result.
         */
-        const boost::filesystem::path& result() const
+        const tetengo2::stdalt::filesystem::path& result() const
         {
             return m_result;
         }
@@ -163,7 +163,7 @@ namespace tetengo2::gui::common_dialog {
 
         details_ptr_type m_p_details;
 
-        boost::filesystem::path m_result;
+        tetengo2::stdalt::filesystem::path m_result;
     };
 }
 

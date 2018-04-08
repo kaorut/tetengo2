@@ -7,6 +7,7 @@
 */
 
 #include <algorithm>
+#include <fstream>
 #include <functional>
 #include <ios>
 #include <iterator>
@@ -21,7 +22,6 @@
 
 #include <boost/algorithm/string.hpp>
 #include <boost/core/noncopyable.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/none.hpp>
 #include <boost/optional.hpp>
@@ -82,7 +82,7 @@ namespace tetengo2::message {
 
         // constructors and destructor
 
-        impl(const boost::filesystem::path& path, const std::locale& locale)
+        impl(const tetengo2::stdalt::filesystem::path& path, const std::locale& locale)
         : m_open{ false }, m_message_catalog{ load_message_catalog(path, locale) }
         {}
 
@@ -147,9 +147,9 @@ namespace tetengo2::message {
 
         using message_catalog_type = std::unordered_map<string_type, string_type>;
 
-        using directory_iterator_type = boost::filesystem::directory_iterator;
+        using directory_iterator_type = tetengo2::stdalt::filesystem::directory_iterator;
 
-        using directory_entry_type = boost::filesystem::directory_entry;
+        using directory_entry_type = tetengo2::stdalt::filesystem::directory_entry;
 
         struct matches_locale_type
         {
@@ -186,14 +186,14 @@ namespace tetengo2::message {
             return singleton;
         }
 
-        static const boost::filesystem::path::string_type& catalog_file_mappings_filename()
+        static const tetengo2::stdalt::filesystem::path::string_type& catalog_file_mappings_filename()
         {
-            static const boost::filesystem::path::string_type singleton{ TETENGO2_TEXT("_catalogs.json") };
+            static const tetengo2::stdalt::filesystem::path::string_type singleton{ TETENGO2_TEXT("_catalogs.json") };
             return singleton;
         }
 
         static boost::optional<message_catalog_type>
-        load_message_catalog(const boost::filesystem::path& path, const std::locale& locale)
+        load_message_catalog(const tetengo2::stdalt::filesystem::path& path, const std::locale& locale)
         {
             const auto catalog_file = select_catalog_file(path, locale);
             if (!catalog_file)
@@ -205,21 +205,21 @@ namespace tetengo2::message {
             return boost::make_optional(std::move(message_catalog));
         }
 
-        static const boost::optional<boost::filesystem::path>
-        select_catalog_file(const boost::filesystem::path& path, const std::locale& locale)
+        static const boost::optional<tetengo2::stdalt::filesystem::path>
+        select_catalog_file(const tetengo2::stdalt::filesystem::path& path, const std::locale& locale)
         {
-            if (!boost::filesystem::exists(path))
+            if (!tetengo2::stdalt::filesystem::exists(path))
                 BOOST_THROW_EXCEPTION((std::ios_base::failure{ "Path does not exist." }));
-            if (!boost::filesystem::is_directory(path))
+            if (!tetengo2::stdalt::filesystem::is_directory(path))
                 BOOST_THROW_EXCEPTION((std::ios_base::failure{ "Path is not a directory." }));
 
-            std::vector<boost::filesystem::path> catalog_files{};
+            std::vector<tetengo2::stdalt::filesystem::path> catalog_files{};
             std::transform(
                 directory_iterator_type{ path },
                 directory_iterator_type{},
                 std::back_inserter(catalog_files),
                 [](const directory_entry_type& entry) { return entry.path(); });
-            std::sort(catalog_files.begin(), catalog_files.end(), std::greater<boost::filesystem::path>{});
+            std::sort(catalog_files.begin(), catalog_files.end(), std::greater<tetengo2::stdalt::filesystem::path>{});
 
             const auto catalog_file_mappings = read_catalog_file_mappings(path);
 
@@ -232,12 +232,12 @@ namespace tetengo2::message {
         }
 
         static catalog_file_mappings_type
-        read_catalog_file_mappings(const boost::filesystem::path& message_catalog_directory)
+        read_catalog_file_mappings(const tetengo2::stdalt::filesystem::path& message_catalog_directory)
         {
             catalog_file_mappings_type mappings{};
 
-            boost::filesystem::ifstream input_stream{ boost::filesystem::path{ message_catalog_directory /
-                                                                               catalog_file_mappings_filename() } };
+            std::ifstream input_stream{ tetengo2::stdalt::filesystem::path{ message_catalog_directory /
+                                                                            catalog_file_mappings_filename() } };
             if (!input_stream.is_open())
                 BOOST_THROW_EXCEPTION((std::ios_base::failure{ "Can't open the message catalog file mappings." }));
 
@@ -252,10 +252,11 @@ namespace tetengo2::message {
             return mappings;
         }
 
-        static void
-        read_message_catalog(const boost::filesystem::path& catalog_file, message_catalog_type& message_catalog)
+        static void read_message_catalog(
+            const tetengo2::stdalt::filesystem::path& catalog_file,
+            message_catalog_type&                     message_catalog)
         {
-            boost::filesystem::ifstream input_stream{ catalog_file };
+            std::ifstream input_stream{ catalog_file };
             if (!input_stream.is_open())
                 BOOST_THROW_EXCEPTION((std::ios_base::failure{ "Can't open a message catalog." }));
 
@@ -295,7 +296,7 @@ namespace tetengo2::message {
         return impl::remove_namespace(key);
     }
 
-    messages::messages(const boost::filesystem::path& path, const std::locale& locale)
+    messages::messages(const tetengo2::stdalt::filesystem::path& path, const std::locale& locale)
     : m_p_impl{ std::make_unique<impl>(path, locale) }
     {}
 

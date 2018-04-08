@@ -13,9 +13,9 @@
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/filesystem.hpp>
 
 #include <tetengo2/gui/widget/abstract_window.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::common_dialog {
@@ -100,7 +100,7 @@ namespace tetengo2::gui::common_dialog {
 
             \return The result.
         */
-        const boost::filesystem::path& result() const
+        const tetengo2::stdalt::filesystem::path& result() const
         {
             return m_result;
         }
@@ -156,7 +156,7 @@ namespace tetengo2::gui::common_dialog {
 
         details_ptr_type m_p_details;
 
-        boost::filesystem::path m_result;
+        tetengo2::stdalt::filesystem::path m_result;
     };
 }
 

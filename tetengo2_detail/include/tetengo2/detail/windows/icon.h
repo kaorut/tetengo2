@@ -16,7 +16,6 @@
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/throw_exception.hpp>
 
 #pragma warning(push)
@@ -29,6 +28,7 @@
 #include <Windows.h>
 
 #include <tetengo2/gui/measure.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::windows {
@@ -101,7 +101,7 @@ namespace tetengo2::detail::windows {
             \return A unique pointer to an icon.
         */
         template <typename Dimension>
-        static icon_details_ptr_type create(const boost::filesystem::path& path, const Dimension& dimension)
+        static icon_details_ptr_type create(const tetengo2::stdalt::filesystem::path& path, const Dimension& dimension)
         {
             const int        width = gui::to_pixels<int>(dimension.width());
             const int        height = gui::to_pixels<int>(dimension.height());
@@ -128,7 +128,8 @@ namespace tetengo2::detail::windows {
             return std::make_pair(::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON));
         }
 
-        inline static ::HICON load_icon(const boost::filesystem::path& path, const int width, const int height)
+        inline static ::HICON
+        load_icon(const tetengo2::stdalt::filesystem::path& path, const int width, const int height)
         {
             const ::HANDLE handle =
                 ::LoadImageW(nullptr, path.c_str(), IMAGE_ICON, width, height, LR_LOADFROMFILE | LR_VGACOLOR);

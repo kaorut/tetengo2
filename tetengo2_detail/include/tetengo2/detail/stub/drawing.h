@@ -14,7 +14,6 @@
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/filesystem.hpp>
 
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/stdalt.h>
@@ -181,7 +180,7 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the picture cannot be read.
         */
         inline static std::unique_ptr<picture_details_type>
-        read_picture(TETENGO2_STDALT_MAYBE_UNUSED const boost::filesystem::path& path)
+        read_picture(TETENGO2_STDALT_MAYBE_UNUSED const tetengo2::stdalt::filesystem::path& path)
         {
             return std::make_unique<picture_details_type>(123, 456);
         }
