@@ -22,6 +22,7 @@
 #include <cwchar>
 #include <exception>
 #include <forward_list>
+#include <fstream>
 #include <functional>
 #include <future>
 #include <ios>
@@ -46,6 +47,12 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#if __has_include(<experimental/filesystem>)
+#   include <experimental/filesystem>
+#endif
+#if __has_include(<filesystem>)
+#   include <filesystem>
+#endif
 
 
 // The Boost library headers
