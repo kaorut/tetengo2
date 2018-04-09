@@ -13,9 +13,9 @@
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/filesystem.hpp>
 
 #include <tetengo2/gui/drawing/picture.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::drawing {
@@ -48,7 +48,7 @@ namespace tetengo2::gui::drawing {
 
             \param path A path.
         */
-        explicit picture_reader(boost::filesystem::path path) : m_path{ std::move(path) } {}
+        explicit picture_reader(tetengo2::stdalt::filesystem::path path) : m_path{ std::move(path) } {}
 
 
         // functions
@@ -73,7 +73,7 @@ namespace tetengo2::gui::drawing {
 
         // variables
 
-        const boost::filesystem::path m_path;
+        const tetengo2::stdalt::filesystem::path m_path;
     };
 }
 

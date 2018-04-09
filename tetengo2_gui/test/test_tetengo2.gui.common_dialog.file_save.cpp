@@ -9,7 +9,6 @@
 #include <sstream>
 #include <string>
 
-#include <boost/filesystem.hpp>
 #include <boost/none.hpp>
 #include <boost/optional.hpp>
 #include <boost/preprocessor.hpp>
@@ -21,6 +20,7 @@
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_bar.h>
 #include <tetengo2/gui/widget/window.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
@@ -121,22 +121,23 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         window_type                 parent{};
                         const file_save_dialog_type file_save{ string_type{ TETENGO2_TEXT("hoge") },
                                                                boost::make_optional(
-                                                                   boost::filesystem::path{ "fuga.jpg" }),
+                                                                   tetengo2::stdalt::filesystem::path{ "fuga.jpg" }),
                                                                make_file_filters(),
                                                                parent };
 
-                        BOOST_CHECK(file_save.result() == boost::filesystem::path{ "fuga.jpg" });
+                        BOOST_CHECK(file_save.result() == tetengo2::stdalt::filesystem::path{ "fuga.jpg" });
                     }
                     {
                         window_type           parent{};
                         file_save_dialog_type file_save{ string_type{ TETENGO2_TEXT("hoge") },
-                                                         boost::make_optional(boost::filesystem::path{ "fuga.jpg" }),
+                                                         boost::make_optional(
+                                                             tetengo2::stdalt::filesystem::path{ "fuga.jpg" }),
                                                          make_file_filters(),
                                                          parent };
 
                         file_save.do_modal();
 
-                        BOOST_CHECK(file_save.result() != boost::filesystem::path{ "fuga.jpg" });
+                        BOOST_CHECK(file_save.result() != tetengo2::stdalt::filesystem::path{ "fuga.jpg" });
                     }
                 }
 

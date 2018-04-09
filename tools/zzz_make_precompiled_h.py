@@ -12,13 +12,14 @@ def main(args):
         sys.stderr.write("Usage: ./zzz_make_precompiled_h.py zzz_include_list.txt precompiled.template.h\n")
         exit(1)
 
-    stdlib_headers, boost_headers = load_include_list(args[1])
+    stdlib_headers, special_stdlib_headers, boost_headers = load_include_list(args[1])
 
-    make_precompiled_h(args[2], stdlib_headers, boost_headers)
+    make_precompiled_h(args[2], stdlib_headers, special_stdlib_headers, boost_headers)
 
 
 def load_include_list(path):
     stdlib_headers = []
+    special_stdlib_headers = []
     boost_headers = []
 
     stdlib_pattern = re.compile("^#\s*include\s+<(?P<name>[^>\.]+)>")
@@ -30,7 +31,12 @@ def load_include_list(path):
 
         stdlib_match = stdlib_pattern.match(line)
         if stdlib_match and stdlib_match.group("name"):
-            stdlib_headers.append(stdlib_match.group("name"))
+            if \
+                stdlib_match.group('name') != "experimental/filesystem" and \
+                stdlib_match.group('name') != "filesystem":
+                stdlib_headers.append(stdlib_match.group("name"))
+            else:
+                special_stdlib_headers.append(stdlib_match.group("name"))
 
         boost_match = boost_pattern.match(line)
         if \
@@ -39,10 +45,10 @@ def load_include_list(path):
             boost_match.group("name") != "boost/test/unit_test.hpp":
             boost_headers.append(boost_match.group("name"))
 
-    return stdlib_headers, boost_headers
+    return stdlib_headers, special_stdlib_headers, boost_headers
 
 
-def make_precompiled_h(template_path, stdlib_headers, boost_headers):
+def make_precompiled_h(template_path, stdlib_headers, special_stdlib_headers, boost_headers):
     file = open(template_path, "r")
     for line in file:
         line = line.rstrip()
@@ -52,6 +58,10 @@ def make_precompiled_h(template_path, stdlib_headers, boost_headers):
             print("")
             for h in stdlib_headers:
                 print("#include <{}>".format(h))
+            for h in special_stdlib_headers:
+                print("#if __has_include(<{}>)".format(h))
+                print("#   include <{}>".format(h))
+                print("#endif")
             print("")
             print("")
             print("// The Boost library headers")

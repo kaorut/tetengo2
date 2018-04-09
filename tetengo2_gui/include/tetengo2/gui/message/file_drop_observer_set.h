@@ -15,9 +15,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
 
-namespace boost::filesystem {
-    class path;
-}
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::message {
@@ -34,7 +32,7 @@ namespace tetengo2::gui::message {
 
             \param paths Paths.
         */
-        using file_dropped_type = void(const std::vector<boost::filesystem::path>& paths);
+        using file_dropped_type = void(const std::vector<tetengo2::stdalt::filesystem::path>& paths);
 
         //! The signal type of file_dropped.
         using file_dropped_signal_type = boost::signals2::signal<file_dropped_type>;

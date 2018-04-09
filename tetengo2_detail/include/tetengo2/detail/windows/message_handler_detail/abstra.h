@@ -15,7 +15,6 @@
 #include <system_error> // IWYU pragma: keep
 #include <vector> // IWYU pragma: keep
 
-#include <boost/filesystem.hpp> // IWYU pragma: keep
 #include <boost/optional.hpp> // IWYU pragma: keep
 #include <boost/throw_exception.hpp>
 
@@ -82,11 +81,11 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
         return boost::make_optional<::LRESULT>(0);
     }
 
-    inline std::vector<boost::filesystem::path> make_paths(const ::HDROP drop_handle)
+    inline std::vector<tetengo2::stdalt::filesystem::path> make_paths(const ::HDROP drop_handle)
     {
         const auto count = ::DragQueryFileW(drop_handle, 0xFFFFFFFF, nullptr, 0);
 
-        std::vector<boost::filesystem::path> paths{};
+        std::vector<tetengo2::stdalt::filesystem::path> paths{};
         paths.reserve(count);
 
         for (::UINT i = 0; i < count; ++i)

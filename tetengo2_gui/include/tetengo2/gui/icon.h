@@ -13,7 +13,8 @@
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/filesystem.hpp>
+
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui {
@@ -51,7 +52,7 @@ namespace tetengo2::gui {
 
             \param path A path.
         */
-        explicit icon(boost::filesystem::path path)
+        explicit icon(tetengo2::stdalt::filesystem::path path)
         : m_path{ std::move(path) }, m_dimension{ details_type::template default_dimension<dimension_type>() },
           m_p_icon_details{ details_type::create(m_path, m_dimension) }
         {}
@@ -62,7 +63,7 @@ namespace tetengo2::gui {
             \param path      A path.
             \param dimension A dimension.
         */
-        icon(boost::filesystem::path path, dimension_type dimension)
+        icon(tetengo2::stdalt::filesystem::path path, dimension_type dimension)
         : m_path{ std::move(path) }, m_dimension{ std::move(dimension) }, m_p_icon_details{
               details_type::create(m_path, m_dimension)
           }
@@ -76,7 +77,7 @@ namespace tetengo2::gui {
 
             \return The path.
         */
-        const boost::filesystem::path& path() const
+        const tetengo2::stdalt::filesystem::path& path() const
         {
             return m_path;
         }
@@ -117,7 +118,7 @@ namespace tetengo2::gui {
     private:
         // variables
 
-        const boost::filesystem::path m_path;
+        const tetengo2::stdalt::filesystem::path m_path;
 
         const dimension_type m_dimension;
 

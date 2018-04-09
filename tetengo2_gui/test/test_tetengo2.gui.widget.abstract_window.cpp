@@ -11,7 +11,6 @@
 #include <stdexcept>
 #include <utility>
 
-#include <boost/filesystem.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/test/unit_test.hpp>
@@ -22,6 +21,7 @@
 #include <tetengo2/gui/menu/shortcut_key_table.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/gui/widget/widget.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
@@ -174,13 +174,16 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     concrete_window window;
 
+                    using path_type = tetengo2::stdalt::filesystem::path;
+                    using path_string_type = path_type::string_type;
+
                     std::unique_ptr<icon_type> p_icon =
-                        std::make_unique<icon_type>(boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") });
+                        std::make_unique<icon_type>(path_type{ path_string_type{ TETENGO2_TEXT("hoge.ico") } });
                     window.set_icon(std::move(p_icon));
 
                     BOOST_TEST_REQUIRE(window.has_icon());
                     const icon_type& icon = window.icon();
-                    BOOST_CHECK(icon.path() == boost::filesystem::path{ TETENGO2_TEXT("hoge.ico") });
+                    BOOST_CHECK(icon.path() == path_type{ path_string_type{ TETENGO2_TEXT("hoge.ico") } });
                 }
 
                 BOOST_AUTO_TEST_CASE(has_menu_bar)

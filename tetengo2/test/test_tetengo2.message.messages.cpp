@@ -12,13 +12,13 @@
 #include <stdexcept>
 #include <string>
 
-#include <boost/filesystem.hpp>
 #include <boost/predef.h>
 #include <boost/preprocessor.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/message/messages.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoding/locale.h>
 
@@ -41,7 +41,8 @@ namespace {
         explicit set_global_locale(const std::locale& locale)
         : m_initial_locale{ std::locale::global(std::locale{
               locale,
-              std::make_unique<messages_type>(boost::filesystem::path{ "messages.test" }, locale).release() }) }
+              std::make_unique<messages_type>(tetengo2::stdalt::filesystem::path{ "messages.test" }, locale)
+                  .release() }) }
         {}
 
         ~set_global_locale() noexcept
@@ -132,13 +133,16 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                 if (locale_supported())
                 {
-                    const messages_type messages{ boost::filesystem::path{ "messages.test" }, std::locale{} };
+                    const messages_type messages{ tetengo2::stdalt::filesystem::path{ "messages.test" },
+                                                  std::locale{} };
 
                     BOOST_CHECK_THROW(
-                        (messages_type{ boost::filesystem::path{ "" }, std::locale{} }), std::ios_base::failure);
+                        (messages_type{ tetengo2::stdalt::filesystem::path{ "" }, std::locale{} }),
+                        std::ios_base::failure);
 
                     BOOST_CHECK_THROW(
-                        (messages_type{ boost::filesystem::path{ "messages.test" } / "English.txt", std::locale{} }),
+                        (messages_type{ tetengo2::stdalt::filesystem::path{ "messages.test" } / "English.txt",
+                                        std::locale{} }),
                         std::ios_base::failure);
                 }
                 else

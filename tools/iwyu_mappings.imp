@@ -1,12 +1,13 @@
 [
-  { include: ["<bits/shared_ptr.h>",     "private", "<memory>", "public"] },
-  { include: ["<bits/uses_allocator.h>", "private", "<memory>", "public"] },
+  { include: ["<bits/shared_ptr.h>",          "private", "<memory>",            "public"] },
+  { include: ["<bits/uses_allocator.h>",      "private", "<memory>",            "public"] },
+  { include: ["<experimental/bits/fs_ops.h>", "private", "<tetengo2/stdalt.h>", "public"] },
+  { include: ["<experimental/filesystem>",    "private", "<tetengo2/stdalt.h>", "public"] },
 
   { include: ["@<boost/algorithm/string/.+>",                         "private", "<boost/algorithm/string.hpp>",                  "public"] },
   { include: ["<boost/core/explicit_operator_bool.hpp>",              "private", "<boost/optional.hpp>",                          "public"] },
   { include: ["<boost/detail/basic_pointerbuf.hpp>",                  "private", "<boost/lexical_cast.hpp>",                      "public"] },
   { include: ["@<boost/exception/.+>",                                "private", "<boost/exception/all.hpp>",                     "public"] },
-  { include: ["@<boost/filesystem/.+>",                               "private", "<boost/filesystem.hpp>",                        "public"] },
   { include: ["<boost/iostreams/detail/error.hpp>",                   "private", "<boost/iostreams/checked_operations.hpp>",      "public"] },
   { include: ["<boost/iostreams/detail/forward.hpp>",                 "private", "<boost/iostreams/stream_buffer.hpp>",           "public"] },
   { include: ["@<boost/lexical_cast/.+>",                             "private", "<boost/lexical_cast.hpp>",                      "public"] },

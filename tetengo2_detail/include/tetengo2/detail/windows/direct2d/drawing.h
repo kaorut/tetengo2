@@ -18,7 +18,6 @@
 #include <vector> // IWYU pragma: keep
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/math/constants/constants.hpp> // IWYU pragma: keep
 #include <boost/preprocessor.hpp>
 #include <boost/scope_exit.hpp>
@@ -297,7 +296,7 @@ namespace tetengo2::detail::windows::direct2d {
 
             \throw std::system_error When the picture cannot be read.
         */
-        inline static picture_details_ptr_type read_picture(const boost::filesystem::path& path)
+        inline static picture_details_ptr_type read_picture(const tetengo2::stdalt::filesystem::path& path)
         {
             return picture::read(path);
         }

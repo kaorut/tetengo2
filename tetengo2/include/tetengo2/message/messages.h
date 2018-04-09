@@ -14,8 +14,8 @@
 #include <string>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/filesystem.hpp>
 
+#include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
 
 
@@ -59,7 +59,7 @@ namespace tetengo2::message {
 
             \throw std::ios_base::failure When the path does not exist or is not a directory.
         */
-        messages(const boost::filesystem::path& path, const std::locale& locale);
+        messages(const tetengo2::stdalt::filesystem::path& path, const std::locale& locale);
 
         /*!
             \brief Destroys the messages facet.

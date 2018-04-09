@@ -8,6 +8,7 @@
 
 #include <cassert>
 #include <cstdlib>
+#include <fstream>
 #include <ios>
 #include <iterator>
 #include <map>
@@ -19,7 +20,6 @@
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/none.hpp>
 #include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
@@ -31,6 +31,7 @@
 
 #include <tetengo2/detail/unixos/config.h>
 #include <tetengo2/iterator/observable_forward_iterator.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
@@ -81,8 +82,8 @@ namespace tetengo2 { namespace detail { namespace unixos {
         virtual void clear_impl(const string_type& group_name) const
         {
             const auto setting_file_path = make_setting_file_path(group_name);
-            if (boost::filesystem::exists(setting_file_path))
-                boost::filesystem::remove(setting_file_path);
+            if (tetengo2::stdalt::filesystem::exists(setting_file_path))
+                tetengo2::stdalt::filesystem::remove(setting_file_path);
         }
 
 
@@ -117,17 +118,17 @@ namespace tetengo2 { namespace detail { namespace unixos {
             return singleton;
         }
 
-        static boost::filesystem::path make_setting_file_path(const string_type& group_name)
+        static tetengo2::stdalt::filesystem::path make_setting_file_path(const string_type& group_name)
         {
-            const auto* const             p_home_directory = std::getenv("HOME");
-            const boost::filesystem::path base{ p_home_directory ? p_home_directory : "" };
+            const auto* const                        p_home_directory = std::getenv("HOME");
+            const tetengo2::stdalt::filesystem::path base{ p_home_directory ? p_home_directory : "" };
             return base / encoder().encode(string_type(TETENGO2_TEXT(".")) + group_name);
         }
 
         static void load_from_file(const string_type& group_name, value_map_type& value_map)
         {
-            const auto                  setting_file_path = make_setting_file_path(group_name);
-            boost::filesystem::ifstream stream{ setting_file_path };
+            const auto    setting_file_path = make_setting_file_path(group_name);
+            std::ifstream stream{ setting_file_path };
             if (!stream)
                 return;
 
@@ -196,8 +197,8 @@ namespace tetengo2 { namespace detail { namespace unixos {
 
         static void save_to_file(const string_type& group_name, const value_map_type& value_map)
         {
-            const auto                  setting_file_path = make_setting_file_path(group_name);
-            boost::filesystem::ofstream stream{ setting_file_path };
+            const auto    setting_file_path = make_setting_file_path(group_name);
+            std::ofstream stream{ setting_file_path };
             if (!stream)
                 return;
 

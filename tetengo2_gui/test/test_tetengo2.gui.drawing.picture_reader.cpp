@@ -9,12 +9,12 @@
 #include <sstream>
 #include <utility>
 
-#include <boost/filesystem.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/drawing/picture_reader.h>
+#include <tetengo2/stdalt.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
@@ -47,16 +47,16 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    boost::filesystem::path   path{};
-                    const picture_reader_type reader{ std::move(path) };
+                    tetengo2::stdalt::filesystem::path path{};
+                    const picture_reader_type          reader{ std::move(path) };
                 }
 
                 BOOST_AUTO_TEST_CASE(read)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    boost::filesystem::path path{};
-                    picture_reader_type     reader{ std::move(path) };
+                    tetengo2::stdalt::filesystem::path path{};
+                    picture_reader_type                reader{ std::move(path) };
 
                     const auto p_picture = reader.read();
                 }

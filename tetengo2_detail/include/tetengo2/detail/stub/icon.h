@@ -12,7 +12,6 @@
 #include <memory>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/filesystem.hpp>
 
 #include <tetengo2/stdalt.h>
 
@@ -63,7 +62,7 @@ namespace tetengo2::detail::stub {
         */
         template <typename Dimension>
         static icon_details_ptr_type create(
-            TETENGO2_STDALT_MAYBE_UNUSED const boost::filesystem::path& path,
+            TETENGO2_STDALT_MAYBE_UNUSED const tetengo2::stdalt::filesystem::path& path,
             TETENGO2_STDALT_MAYBE_UNUSED const Dimension& dimension)
         {
             return std::make_unique<icon_details_type>();
