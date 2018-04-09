@@ -881,13 +881,13 @@ namespace tetengo2::detail::windows {
         template <typename String, typename OptionalPath>
         static String to_native_path(const OptionalPath& path)
         {
-            return path ? path->template string<String>() : String{};
+            return path ? path->template string<typename String::value_type>() : String{};
         }
 
         template <typename String>
         static bool match_extension(const tetengo2::stdalt::filesystem::path& path, const String& extension)
         {
-            const auto path_string = path.template string<String>();
+            const auto path_string = path.template string<typename String::value_type>();
             const auto dotted_extension = String{ TETENGO2_TEXT(".") } + extension;
             if (path_string.length() < dotted_extension.length())
                 return false;
