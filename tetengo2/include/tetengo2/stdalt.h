@@ -16,6 +16,15 @@
 #else
 #error Standard filesystem library not found.
 #endif
+#if __has_include(<optional>)
+#include <optional>
+#elif __has_include(<experimental/optional>)
+#include <experimental/optional>
+#else
+#error Standard optional library not found.
+#endif
+#include <type_traits>
+#include <utility>
 
 #include <boost/predef.h>
 
@@ -35,15 +44,52 @@ namespace tetengo2::stdalt {
     (BOOST_COMP_CLANG && BOOST_COMP_CLANG < BOOST_VERSION_NUMBER(6, 0, 0)) || \
     (BOOST_COMP_GNUC && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(7, 0, 0))
     namespace filesystem = std::experimental::filesystem;
-#elif defined(DOCUMENTATION)
+#else
     /*!
         \brief The alternate to std::filesystem.
     */
     namespace filesystem = std::filesystem;
-#else
-#error Unsupported compiler.
 #endif
 }
+
+
+namespace tetengo2::stdalt {
+#if (BOOST_COMP_CLANG && BOOST_COMP_CLANG < BOOST_VERSION_NUMBER(6, 0, 0)) || \
+    (BOOST_COMP_GNUC && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(7, 0, 0))
+    template <typename T>
+    using optional = std::experimental::optional<T>;
+#else
+    /*!
+        \brief The alternate to std::optional.
+
+        \tparam T A type.
+    */
+    template <typename T>
+    using optional = std::optional<T>;
+#endif
+
+    /*!
+        \brief The alternate to std::make_optional().
+
+        \tparam T A type.
+
+        \param v A value.
+
+        \return The optional.
+    */
+    template <class T>
+    constexpr optional<T> make_optional(T&& v)
+    {
+        return optional<std::decay_t<T>>(std::forward<T>(v));
+    }
+}
+
+#if (BOOST_COMP_CLANG && BOOST_COMP_CLANG < BOOST_VERSION_NUMBER(6, 0, 0)) || \
+    (BOOST_COMP_GNUC && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(7, 0, 0))
+#define TETENGO2_STDALT_NULLOPT std::experimental::nullopt
+#else
+#define TETENGO2_STDALT_NULLOPT std::nullopt
+#endif
 
 
 #endif
