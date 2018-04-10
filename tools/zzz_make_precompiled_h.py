@@ -33,7 +33,9 @@ def load_include_list(path):
         if stdlib_match and stdlib_match.group("name"):
             if \
                 stdlib_match.group('name') != "experimental/filesystem" and \
-                stdlib_match.group('name') != "filesystem":
+                stdlib_match.group('name') != "filesystem" and \
+                stdlib_match.group('name') != "experimental/optional" and \
+                stdlib_match.group('name') != "optional":
                 stdlib_headers.append(stdlib_match.group("name"))
             else:
                 special_stdlib_headers.append(stdlib_match.group("name"))

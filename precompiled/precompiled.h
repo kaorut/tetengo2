@@ -50,8 +50,14 @@
 #if __has_include(<experimental/filesystem>)
 #   include <experimental/filesystem>
 #endif
+#if __has_include(<experimental/optional>)
+#   include <experimental/optional>
+#endif
 #if __has_include(<filesystem>)
 #   include <filesystem>
+#endif
+#if __has_include(<optional>)
+#   include <optional>
 #endif
 
 
