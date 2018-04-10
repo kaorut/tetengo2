@@ -121,7 +121,7 @@ lint-iwyu: $(addsuffix .iwyuout, $(headers) $(sources))
 lint-iwyu-extra: $(addsuffix .iwyuout, $(extra_headers) $(extra_sources))
 
 %.iwyuout: %
-	$(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(tetengo2_gui_test_CPPFLAGS) $(CXXFLAGS) $< 2> $(addsuffix .tmp, $@) || test $$? -eq 2
+	$(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(tetengo2_gui_test_CPPFLAGS) $(CXXFLAGS) $< 2> $(addsuffix .tmp, $@) || true
 	mv $(addsuffix .tmp, $@) $@
 
 format:

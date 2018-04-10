@@ -58,7 +58,7 @@ lint-iwyu-extra: $(addsuffix .iwyuout, $(extra_headers))
 
 %.iwyuout: %
 	mkdir -p $(dir $@)
-	$(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $< 2> $(addsuffix .tmp, $@) || test $$? -eq 2
+	$(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $< 2> $(addsuffix .tmp, $@) || true
 	mv $(addsuffix .tmp, $@) $@
 
 format:
