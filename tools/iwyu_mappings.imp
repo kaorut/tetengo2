@@ -1,8 +1,9 @@
 [
-  { include: ["<bits/shared_ptr.h>",          "private", "<memory>",            "public"] },
-  { include: ["<bits/uses_allocator.h>",      "private", "<memory>",            "public"] },
-  { include: ["<experimental/bits/fs_ops.h>", "private", "<tetengo2/stdalt.h>", "public"] },
-  { include: ["<experimental/filesystem>",    "private", "<tetengo2/stdalt.h>", "public"] },
+  { include: ["<bits/shared_ptr.h>",          "private", "<memory>",         "public"] },
+  { include: ["<bits/uses_allocator.h>",      "private", "<memory>",         "public"] },
+  { include: ["<experimental/bits/fs_ops.h>", "private", "<boost/predef.h>", "public"] },
+  { include: ["<experimental/filesystem>",    "private", "<boost/predef.h>", "public"] },
+  { include: ["<experimental/optional>",      "private", "<boost/predef.h>", "public"] },
 
   { include: ["@<boost/algorithm/string/.+>",                         "private", "<boost/algorithm/string.hpp>",                  "public"] },
   { include: ["<boost/core/explicit_operator_bool.hpp>",              "private", "<boost/optional.hpp>",                          "public"] },

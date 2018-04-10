@@ -12,14 +12,14 @@
 #if __has_include(<filesystem>)
 #include <filesystem>
 #elif __has_include(<experimental/filesystem>)
-#include <experimental/filesystem>
+#include <experimental/filesystem> // IWYU pragma: keep
 #else
 #error Standard filesystem library not found.
 #endif
 #if __has_include(<optional>)
 #include <optional>
 #elif __has_include(<experimental/optional>)
-#include <experimental/optional>
+#include <experimental/optional> // IWYU pragma: keep
 #else
 #error Standard optional library not found.
 #endif
