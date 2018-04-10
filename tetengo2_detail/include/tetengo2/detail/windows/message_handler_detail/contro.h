@@ -12,7 +12,6 @@
 
 #include <system_error> // IWYU pragma: keep
 
-#include <boost/optional.hpp> // IWYU pragma: keep
 #include <boost/throw_exception.hpp>
 
 #pragma warning(push)
@@ -29,11 +28,11 @@
 
 namespace tetengo2::detail::windows::message_handler_detail::control {
     template <typename Control>
-    boost::optional<::LRESULT>
+    tetengo2::stdalt::optional<::LRESULT>
     on_control_color(Control& control, const ::WPARAM w_param, TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (!control.p_background() && !control.text_color())
-            return boost::none;
+            return TETENGO2_STDALT_NULLOPT;
 
         const auto device_context = reinterpret_cast<::HDC>(w_param);
         if (!control.paint_observer_set().paint_background().empty())
@@ -60,11 +59,11 @@ namespace tetengo2::detail::windows::message_handler_detail::control {
                                                       "Can't set background mode." }));
         }
 
-        return boost::make_optional(reinterpret_cast<::LRESULT>(::GetStockObject(NULL_BRUSH)));
+        return tetengo2::stdalt::make_optional(reinterpret_cast<::LRESULT>(::GetStockObject(NULL_BRUSH)));
     }
 
     template <typename Control>
-    boost::optional<::LRESULT> on_set_focus(
+    tetengo2::stdalt::optional<::LRESULT> on_set_focus(
         Control&                                    control,
         TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
         TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
@@ -76,7 +75,7 @@ namespace tetengo2::detail::windows::message_handler_detail::control {
             dialog.details().first_child_handle = control.details().handle.get();
         }
 
-        return boost::none;
+        return TETENGO2_STDALT_NULLOPT;
     }
 }
 

@@ -12,11 +12,7 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/gui/widget/abstract_window.h>
-
-namespace boost {
-    template <typename T>
-    class optional;
-}
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::common_dialog {
@@ -77,7 +73,7 @@ namespace tetengo2::gui::common_dialog {
             \param font   A font.
             \param parent A parent widget.
         */
-        font(const boost::optional<font_type>& font, abstract_window_type& parent)
+        font(const tetengo2::stdalt::optional<font_type>& font, abstract_window_type& parent)
         : m_p_details{ common_dialog_details_type::create_font_dialog(parent, font, encoder()) }, m_result{
               font ? *font : font_type::dialog_font()
           }

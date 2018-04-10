@@ -10,11 +10,11 @@
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/optional.hpp>
 
 #include <tetengo2/config/cached_config.h>
 #include <tetengo2/config/config_base.h>
 #include <tetengo2/config/temporary_config.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::config {
@@ -39,10 +39,10 @@ namespace tetengo2::config {
 
         // functions
 
-        boost::optional<value_type> get_impl(const string_type& key) const
+        tetengo2::stdalt::optional<value_type> get_impl(const string_type& key) const
         {
             auto cached_value = m_cache.get(key);
-            if (cached_value.is_initialized())
+            if (cached_value)
                 return cached_value;
 
             auto value = m_p_config->get(key);
@@ -85,7 +85,7 @@ namespace tetengo2::config {
 
     cached_config::~cached_config() = default;
 
-    boost::optional<cached_config::value_type> cached_config::get_impl(const string_type& key) const
+    tetengo2::stdalt::optional<cached_config::value_type> cached_config::get_impl(const string_type& key) const
     {
         return m_p_impl->get_impl(key);
     }

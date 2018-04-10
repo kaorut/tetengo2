@@ -14,11 +14,10 @@
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/none.hpp>
-#include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/widget/abstract_window.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::common_dialog {
@@ -56,7 +55,7 @@ namespace tetengo2::gui::common_dialog {
             */
             static button_style ok(const bool cancellable)
             {
-                return { style_type::ok, cancellable, boost::none, boost::none };
+                return { style_type::ok, cancellable, TETENGO2_STDALT_NULLOPT, TETENGO2_STDALT_NULLOPT };
             }
 
             /*!
@@ -69,7 +68,10 @@ namespace tetengo2::gui::common_dialog {
             */
             static button_style ok(const bool cancellable, string_type ok_button_label)
             {
-                return { style_type::ok, cancellable, boost::make_optional(std::move(ok_button_label)), boost::none };
+                return { style_type::ok,
+                         cancellable,
+                         tetengo2::stdalt::make_optional(std::move(ok_button_label)),
+                         TETENGO2_STDALT_NULLOPT };
             }
 
             /*!
@@ -81,7 +83,7 @@ namespace tetengo2::gui::common_dialog {
             */
             static button_style yes_no(const bool cancellable)
             {
-                return { style_type::yes_no, cancellable, boost::none, boost::none };
+                return { style_type::yes_no, cancellable, TETENGO2_STDALT_NULLOPT, TETENGO2_STDALT_NULLOPT };
             }
 
             /*!
@@ -99,8 +101,9 @@ namespace tetengo2::gui::common_dialog {
                 return button_style(
                     style_type::yes_no,
                     cancellable,
-                    boost::none,
-                    boost::make_optional(std::make_pair(std::move(yes_button_label), std::move(no_button_label))));
+                    TETENGO2_STDALT_NULLOPT,
+                    tetengo2::stdalt::make_optional(
+                        std::make_pair(std::move(yes_button_label), std::move(no_button_label))));
             }
 
 
@@ -132,7 +135,7 @@ namespace tetengo2::gui::common_dialog {
 
                 \return The OK button label.
             */
-            const boost::optional<string_type>& ok_button_label() const
+            const tetengo2::stdalt::optional<string_type>& ok_button_label() const
             {
                 return m_ok_button_label;
             }
@@ -142,7 +145,7 @@ namespace tetengo2::gui::common_dialog {
 
                 \return The Yes button labels.
             */
-            const boost::optional<std::pair<string_type, string_type>>& yes_no_button_labels() const
+            const tetengo2::stdalt::optional<std::pair<string_type, string_type>>& yes_no_button_labels() const
             {
                 return m_yes_no_button_labels;
             }
@@ -152,10 +155,10 @@ namespace tetengo2::gui::common_dialog {
             // constructors
 
             button_style(
-                const style_type                                            style,
-                const bool                                                  cancellable,
-                const boost::optional<string_type>&                         ok_button_label,
-                const boost::optional<std::pair<string_type, string_type>>& yes_no_button_labels)
+                const style_type                                                       style,
+                const bool                                                             cancellable,
+                const tetengo2::stdalt::optional<string_type>&                         ok_button_label,
+                const tetengo2::stdalt::optional<std::pair<string_type, string_type>>& yes_no_button_labels)
             : m_style{ style }, m_cancellable{ cancellable }, m_ok_button_label{ ok_button_label },
               m_yes_no_button_labels{ yes_no_button_labels }
             {}
@@ -167,9 +170,9 @@ namespace tetengo2::gui::common_dialog {
 
             bool m_cancellable;
 
-            boost::optional<string_type> m_ok_button_label;
+            tetengo2::stdalt::optional<string_type> m_ok_button_label;
 
-            boost::optional<std::pair<string_type, string_type>> m_yes_no_button_labels;
+            tetengo2::stdalt::optional<std::pair<string_type, string_type>> m_yes_no_button_labels;
         };
     }
 

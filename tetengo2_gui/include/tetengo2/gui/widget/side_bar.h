@@ -17,14 +17,13 @@
 #include <vector>
 
 #include <boost/math/constants/constants.hpp>
-#include <boost/none.hpp>
-#include <boost/optional.hpp>
 
 #include <tetengo2/detail/base/cursor.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/timer.h>
 #include <tetengo2/gui/widget/custom_control.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::widget {
@@ -482,14 +481,14 @@ namespace tetengo2::gui::widget {
         private:
             // variables
 
-            boost::optional<position_type> m_text_position;
+            tetengo2::stdalt::optional<position_type> m_text_position;
 
 
             // virtual functions
 
             virtual void resized_impl() override
             {
-                m_text_position = boost::none;
+                m_text_position = TETENGO2_STDALT_NULLOPT;
 
                 ensure_dimension_calculated();
             }
@@ -537,7 +536,7 @@ namespace tetengo2::gui::widget {
 
                 this->template parent_to<side_bar>().m_p_state_button->set_position(state_button_position(padding));
 
-                m_text_position = boost::make_optional(text_position(padding, text_dimension));
+                m_text_position = tetengo2::stdalt::make_optional(text_position(padding, text_dimension));
             }
 
             dimension_type

@@ -26,6 +26,7 @@
 #include <Windows.h>
 
 #include <tetengo2/detail/windows/config.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h> // IWYU pragma: keep
@@ -51,7 +52,8 @@ namespace tetengo2::detail::windows {
 
         // virtual functions
 
-        virtual boost::optional<value_type> get_impl(const string_type& group_name, const string_type& key) const
+        virtual tetengo2::stdalt::optional<value_type>
+        get_impl(const string_type& group_name, const string_type& key) const
         {
             const auto registry_key_and_value_name = build_registry_key_and_value_name(group_name, key);
 
@@ -64,13 +66,14 @@ namespace tetengo2::detail::windows {
             switch (type.first)
             {
             case value_kind_type::string:
-                return boost::make_optional(
+                return tetengo2::stdalt::make_optional(
                     value_type{ get_string(handle.get(), registry_key_and_value_name.second, type.second) });
             case value_kind_type::dword:
-                return boost::make_optional(value_type{ get_dword(handle.get(), registry_key_and_value_name.second) });
+                return tetengo2::stdalt::make_optional(
+                    value_type{ get_dword(handle.get(), registry_key_and_value_name.second) });
             default:
                 assert(type.first == value_kind_type::unknown);
-                return boost::none;
+                return TETENGO2_STDALT_NULLOPT;
             }
         }
 
@@ -282,7 +285,8 @@ namespace tetengo2::detail::windows {
 
     // virtual functions
 
-    boost::optional<config::value_type> config::get_impl(const string_type& group_name, const string_type& key) const
+    tetengo2::stdalt::optional<config::value_type>
+    config::get_impl(const string_type& group_name, const string_type& key) const
     {
         return m_p_impl->get_impl(group_name, key);
     }

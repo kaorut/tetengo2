@@ -10,7 +10,6 @@
 #include <string>
 #include <utility>
 
-#include <boost/optional.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
@@ -167,24 +166,24 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         {
                             const auto style = button_style_type::ok(false);
 
-                            BOOST_TEST_REQUIRE(!style.ok_button_label().is_initialized());
+                            BOOST_TEST_REQUIRE(!tetengo2::stdalt::has_value(style.ok_button_label()));
                         }
                         {
                             const auto style = button_style_type::ok(false, string_type{ TETENGO2_TEXT("hoge") });
 
-                            BOOST_TEST_REQUIRE(style.ok_button_label().is_initialized());
+                            BOOST_TEST_REQUIRE(tetengo2::stdalt::has_value(style.ok_button_label()));
                             BOOST_CHECK(*style.ok_button_label() == string_type{ TETENGO2_TEXT("hoge") });
                         }
                         {
                             const auto style = button_style_type::yes_no(false);
 
-                            BOOST_TEST_REQUIRE(!style.ok_button_label().is_initialized());
+                            BOOST_TEST_REQUIRE(!tetengo2::stdalt::has_value(style.ok_button_label()));
                         }
                         {
                             const auto style = button_style_type::yes_no(
                                 false, string_type{ TETENGO2_TEXT("hoge") }, string_type{ TETENGO2_TEXT("fuga") });
 
-                            BOOST_TEST_REQUIRE(!style.ok_button_label().is_initialized());
+                            BOOST_TEST_REQUIRE(!tetengo2::stdalt::has_value(style.ok_button_label()));
                         }
                     }
 
@@ -195,23 +194,23 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         {
                             const auto style = button_style_type::ok(false);
 
-                            BOOST_TEST_REQUIRE(!style.yes_no_button_labels().is_initialized());
+                            BOOST_TEST_REQUIRE(!tetengo2::stdalt::has_value(style.yes_no_button_labels()));
                         }
                         {
                             const auto style = button_style_type::ok(false, string_type{ TETENGO2_TEXT("hoge") });
 
-                            BOOST_TEST_REQUIRE(!style.yes_no_button_labels().is_initialized());
+                            BOOST_TEST_REQUIRE(!tetengo2::stdalt::has_value(style.yes_no_button_labels()));
                         }
                         {
                             const auto style = button_style_type::yes_no(false);
 
-                            BOOST_TEST_REQUIRE(!style.yes_no_button_labels().is_initialized());
+                            BOOST_TEST_REQUIRE(!tetengo2::stdalt::has_value(style.yes_no_button_labels()));
                         }
                         {
                             const auto style = button_style_type::yes_no(
                                 false, string_type{ TETENGO2_TEXT("hoge") }, string_type{ TETENGO2_TEXT("fuga") });
 
-                            BOOST_TEST_REQUIRE(style.yes_no_button_labels().is_initialized());
+                            BOOST_TEST_REQUIRE(tetengo2::stdalt::has_value(style.yes_no_button_labels()));
                             BOOST_CHECK(style.yes_no_button_labels()->first == string_type{ TETENGO2_TEXT("hoge") });
                             BOOST_CHECK(style.yes_no_button_labels()->second == string_type{ TETENGO2_TEXT("fuga") });
                         }

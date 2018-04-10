@@ -21,7 +21,6 @@
 #include <vector> // IWYU pragma: keep
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/optional.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
@@ -97,24 +96,24 @@ namespace tetengo2::detail::windows {
         struct message_box_details_type
         {
 #if !defined(DOCUMENTATION)
-            ::HWND                                     parent_handle;
-            std::wstring                               title;
-            std::wstring                               main_content;
-            std::wstring                               sub_content;
-            bool                                       cancellable;
-            message_box_button_style_type              button_style;
-            message_box_icon_style_type                icon_style;
-            std::vector<boost::optional<std::wstring>> custom_button_labels;
+            ::HWND                                                parent_handle;
+            std::wstring                                          title;
+            std::wstring                                          main_content;
+            std::wstring                                          sub_content;
+            bool                                                  cancellable;
+            message_box_button_style_type                         button_style;
+            message_box_icon_style_type                           icon_style;
+            std::vector<tetengo2::stdalt::optional<std::wstring>> custom_button_labels;
 
             message_box_details_type(
-                const ::HWND                               parent_handle,
-                std::wstring                               title,
-                std::wstring                               main_content,
-                std::wstring                               sub_content,
-                const bool                                 cancellable,
-                const message_box_button_style_type        button_style,
-                const message_box_icon_style_type          icon_style,
-                std::vector<boost::optional<std::wstring>> custom_button_labels)
+                const ::HWND                                          parent_handle,
+                std::wstring                                          title,
+                std::wstring                                          main_content,
+                std::wstring                                          sub_content,
+                const bool                                            cancellable,
+                const message_box_button_style_type                   button_style,
+                const message_box_icon_style_type                     icon_style,
+                std::vector<tetengo2::stdalt::optional<std::wstring>> custom_button_labels)
             : parent_handle{ parent_handle }, title{ std::move(title) }, main_content{ std::move(main_content) },
               sub_content{ std::move(sub_content) }, cancellable{ cancellable }, button_style{ button_style },
               icon_style{ icon_style }, custom_button_labels{ std::move(custom_button_labels) }
@@ -241,16 +240,16 @@ namespace tetengo2::detail::windows {
         */
         template <typename AbstractWindow, typename String, typename Encoder>
         static message_box_details_ptr_type create_message_box(
-            AbstractWindow&                            parent,
-            String                                     title,
-            String                                     main_content,
-            String                                     sub_content,
-            const bool                                 cancellable,
-            const message_box_button_style_type        button_style,
-            const message_box_icon_style_type          icon_style,
-            boost::optional<String>                    custom_ok_button_label,
-            boost::optional<std::pair<String, String>> custom_yes_no_button_labels,
-            const Encoder&                             encoder)
+            AbstractWindow&                                       parent,
+            String                                                title,
+            String                                                main_content,
+            String                                                sub_content,
+            const bool                                            cancellable,
+            const message_box_button_style_type                   button_style,
+            const message_box_icon_style_type                     icon_style,
+            tetengo2::stdalt::optional<String>                    custom_ok_button_label,
+            tetengo2::stdalt::optional<std::pair<String, String>> custom_yes_no_button_labels,
+            const Encoder&                                        encoder)
         {
             return std::make_unique<message_box_details_type>(
                 parent.details().handle.get(),
@@ -359,7 +358,7 @@ namespace tetengo2::detail::windows {
             \throw std::system_error When the file open dialog cannot be shown.
         */
         template <typename Encoder>
-        static boost::optional<tetengo2::stdalt::filesystem::path>
+        static tetengo2::stdalt::optional<tetengo2::stdalt::filesystem::path>
         show_file_open_dialog(file_open_dialog_details_type& dialog, const Encoder& encoder)
         {
             const auto title_set_result = dialog.p_dialog->SetTitle(dialog.title.c_str());
@@ -392,7 +391,7 @@ namespace tetengo2::detail::windows {
 
             const auto showing_result = dialog.p_dialog->Show(dialog.parent_handle);
             if (FAILED(showing_result))
-                return boost::none;
+                return TETENGO2_STDALT_NULLOPT;
 
             ::IShellItem* p_raw_item = nullptr;
             const auto    result_result = dialog.p_dialog->GetResult(&p_raw_item);
@@ -416,7 +415,7 @@ namespace tetengo2::detail::windows {
             }
             BOOST_SCOPE_EXIT_END;
 
-            return boost::make_optional(tetengo2::stdalt::filesystem::path{ encoder.decode(file_name) });
+            return tetengo2::stdalt::make_optional(tetengo2::stdalt::filesystem::path{ encoder.decode(file_name) });
         }
 
         /*!
@@ -479,7 +478,7 @@ namespace tetengo2::detail::windows {
             \throw std::system_error When the file save dialog cannot be shown.
         */
         template <typename Encoder>
-        static boost::optional<tetengo2::stdalt::filesystem::path>
+        static tetengo2::stdalt::optional<tetengo2::stdalt::filesystem::path>
         show_file_save_dialog(file_save_dialog_details_type& dialog, const Encoder& encoder)
         {
             const auto title_set_result = dialog.p_dialog->SetTitle(dialog.title.c_str());
@@ -550,7 +549,7 @@ namespace tetengo2::detail::windows {
 
             const auto showing_result = dialog.p_dialog->Show(dialog.parent_handle);
             if (FAILED(showing_result))
-                return boost::none;
+                return TETENGO2_STDALT_NULLOPT;
 
             ::IShellItem* p_raw_item = nullptr;
             const auto    result_result = dialog.p_dialog->GetResult(&p_raw_item);
@@ -574,7 +573,7 @@ namespace tetengo2::detail::windows {
             }
             BOOST_SCOPE_EXIT_END;
 
-            return boost::make_optional(tetengo2::stdalt::filesystem::path{ encoder.decode(file_name) });
+            return tetengo2::stdalt::make_optional(tetengo2::stdalt::filesystem::path{ encoder.decode(file_name) });
         }
 
         /*!
@@ -655,7 +654,8 @@ namespace tetengo2::detail::windows {
             \throw std::system_error When the font dialog cannot be shown.
         */
         template <typename Font, typename Encoder>
-        static boost::optional<Font> show_font_dialog(font_dialog_details_type& dialog, const Encoder& encoder)
+        static tetengo2::stdalt::optional<Font>
+        show_font_dialog(font_dialog_details_type& dialog, const Encoder& encoder)
         {
             ::CHOOSEFONTW choose_font{};
             choose_font.lStructSize = sizeof(::CHOOSEFONTW);
@@ -676,9 +676,9 @@ namespace tetengo2::detail::windows {
 
             const auto result = ::ChooseFontW(&choose_font);
             if (result == FALSE)
-                return boost::none;
+                return TETENGO2_STDALT_NULLOPT;
 
-            return boost::make_optional(
+            return tetengo2::stdalt::make_optional(
                 Font{ encoder.decode(choose_font.lpLogFont->lfFaceName),
                       static_cast<typename Font::size_type>(
                           choose_font.lpLogFont->lfHeight < 0 ? -choose_font.lpLogFont->lfHeight :
@@ -721,7 +721,7 @@ namespace tetengo2::detail::windows {
             \throw std::system_error When the color dialog cannot be shown.
         */
         template <typename Color>
-        static boost::optional<Color> show_color_dialog(color_dialog_details_type& dialog)
+        static tetengo2::stdalt::optional<Color> show_color_dialog(color_dialog_details_type& dialog)
         {
             static std::vector<::COLORREF> custom_colors(16, RGB(0xFF, 0xFF, 0xFF));
             ::CHOOSECOLORW                 choose_color{};
@@ -737,11 +737,11 @@ namespace tetengo2::detail::windows {
 
             const auto result = ::ChooseColorW(&choose_color);
             if (result == FALSE)
-                return boost::none;
+                return TETENGO2_STDALT_NULLOPT;
 
-            return boost::make_optional(Color{ GetRValue(choose_color.rgbResult),
-                                               GetGValue(choose_color.rgbResult),
-                                               GetBValue(choose_color.rgbResult) });
+            return tetengo2::stdalt::make_optional(Color{ GetRValue(choose_color.rgbResult),
+                                                          GetGValue(choose_color.rgbResult),
+                                                          GetBValue(choose_color.rgbResult) });
         }
 
 
@@ -749,18 +749,18 @@ namespace tetengo2::detail::windows {
         // static functions
 
         template <typename String, typename Encoder>
-        static std::vector<boost::optional<std::wstring>> to_custom_button_labels(
-            const boost::optional<String>&                    ok_button_label,
-            const boost::optional<std::pair<String, String>>& yes_no_button_labels,
-            const Encoder&                                    encoder)
+        static std::vector<tetengo2::stdalt::optional<std::wstring>> to_custom_button_labels(
+            const tetengo2::stdalt::optional<String>&                    ok_button_label,
+            const tetengo2::stdalt::optional<std::pair<String, String>>& yes_no_button_labels,
+            const Encoder&                                               encoder)
         {
-            std::vector<boost::optional<std::wstring>> labels{};
+            std::vector<tetengo2::stdalt::optional<std::wstring>> labels{};
             labels.reserve(3);
 
             if (ok_button_label)
                 labels.emplace_back(encoder.encode(*ok_button_label));
             else
-                labels.push_back(boost::none);
+                labels.push_back(TETENGO2_STDALT_NULLOPT);
 
             if (yes_no_button_labels)
             {
@@ -769,8 +769,8 @@ namespace tetengo2::detail::windows {
             }
             else
             {
-                labels.push_back(boost::none);
-                labels.push_back(boost::none);
+                labels.push_back(TETENGO2_STDALT_NULLOPT);
+                labels.push_back(TETENGO2_STDALT_NULLOPT);
             }
 
             assert(labels.size() == 3);
@@ -778,7 +778,7 @@ namespace tetengo2::detail::windows {
         }
 
         static std::vector<::TASKDIALOG_BUTTON>
-        make_custom_buttons(const std::vector<boost::optional<std::wstring>>& button_labels)
+        make_custom_buttons(const std::vector<tetengo2::stdalt::optional<std::wstring>>& button_labels)
         {
             assert(button_labels.size() == 3);
 
@@ -813,9 +813,9 @@ namespace tetengo2::detail::windows {
         }
 
         static ::TASKDIALOG_COMMON_BUTTON_FLAGS to_task_dialog_common_buttons(
-            const message_box_button_style_type               style,
-            const bool                                        cancellable,
-            const std::vector<boost::optional<std::wstring>>& custom_button_labels)
+            const message_box_button_style_type                          style,
+            const bool                                                   cancellable,
+            const std::vector<tetengo2::stdalt::optional<std::wstring>>& custom_button_labels)
         {
             assert(custom_button_labels.size() == 3);
 

@@ -13,7 +13,6 @@
 #include <memory> // IWYU pragma: keep
 #include <system_error> // IWYU pragma: keep
 
-#include <boost/optional.hpp> // IWYU pragma: keep
 #include <boost/preprocessor.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
@@ -32,30 +31,30 @@
 
 namespace tetengo2::detail::windows::message_handler_detail::picture_box {
     template <typename PictureBox>
-    boost::optional<::LRESULT> on_erase_background(
+    tetengo2::stdalt::optional<::LRESULT> on_erase_background(
         PictureBox&                                 picture_box,
         TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
         TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (picture_box.fast_paint_observer_set().paint_background().empty())
-            return boost::none;
+            return TETENGO2_STDALT_NULLOPT;
 
         const std::unique_ptr<typename PictureBox::fast_canvas_type> p_canvas = picture_box.create_fast_canvas();
 
         if (!picture_box.fast_paint_observer_set().paint_background()(*p_canvas))
-            return boost::none;
+            return TETENGO2_STDALT_NULLOPT;
 
-        return boost::make_optional<::LRESULT>(TRUE);
+        return tetengo2::stdalt::make_optional<::LRESULT>(TRUE);
     }
 
     template <typename PictureBox>
-    boost::optional<::LRESULT> on_paint(
+    tetengo2::stdalt::optional<::LRESULT> on_paint(
         PictureBox&                                 picture_box,
         TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
         TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (picture_box.fast_paint_observer_set().paint().empty())
-            return boost::none;
+            return TETENGO2_STDALT_NULLOPT;
 
         ::PAINTSTRUCT paint_struct{};
         if (!::BeginPaint(picture_box.details().handle.get(), &paint_struct))
@@ -73,7 +72,7 @@ namespace tetengo2::detail::windows::message_handler_detail::picture_box {
 
         picture_box.fast_paint_observer_set().paint()(*p_canvas);
 
-        return boost::make_optional<::LRESULT>(0);
+        return tetengo2::stdalt::make_optional<::LRESULT>(0);
     }
 }
 

@@ -15,7 +15,6 @@
 #include <system_error> // IWYU pragma: keep
 #include <vector> // IWYU pragma: keep
 
-#include <boost/optional.hpp> // IWYU pragma: keep
 #include <boost/throw_exception.hpp>
 
 #pragma warning(push)
@@ -32,7 +31,7 @@
 
 namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
     template <typename AbstractWindow>
-    boost::optional<::LRESULT> on_command(
+    tetengo2::stdalt::optional<::LRESULT> on_command(
         AbstractWindow&                             abstract_window,
         const ::WPARAM                              w_param,
         TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
@@ -40,7 +39,7 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
         const ::WORD id = LOWORD(w_param);
 
         if (!abstract_window.has_menu_bar())
-            return boost::none;
+            return TETENGO2_STDALT_NULLOPT;
 
         using menu_bar_type = typename AbstractWindow::menu_bar_type;
         const typename menu_bar_type::recursive_iterator_type found = std::find_if(
@@ -48,14 +47,14 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
             abstract_window.menu_bar().recursive_end(),
             [id](const typename menu_bar_type::base_type::base_type& menu) { return menu.details().id == id; });
         if (found == abstract_window.menu_bar().recursive_end())
-            return boost::none;
+            return TETENGO2_STDALT_NULLOPT;
         found->select();
 
-        return boost::make_optional<::LRESULT>(0);
+        return tetengo2::stdalt::make_optional<::LRESULT>(0);
     }
 
     template <typename AbstractWindow>
-    boost::optional<::LRESULT> on_initmenupopup(
+    tetengo2::stdalt::optional<::LRESULT> on_initmenupopup(
         AbstractWindow&                             abstract_window,
         const ::WPARAM                              w_param,
         TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
@@ -63,7 +62,7 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
         const auto handle = reinterpret_cast<::HMENU>(w_param);
 
         if (!abstract_window.has_menu_bar())
-            return boost::none;
+            return TETENGO2_STDALT_NULLOPT;
 
         using menu_bar_type = typename AbstractWindow::menu_bar_type;
         const auto found = std::find_if(
@@ -75,10 +74,10 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
                 return popup_menu.details().handle.get() == handle;
             });
         if (found == abstract_window.menu_bar().recursive_end())
-            return boost::none;
+            return TETENGO2_STDALT_NULLOPT;
         found->select();
 
-        return boost::make_optional<::LRESULT>(0);
+        return tetengo2::stdalt::make_optional<::LRESULT>(0);
     }
 
     inline std::vector<tetengo2::stdalt::filesystem::path> make_paths(const ::HDROP drop_handle)
@@ -109,59 +108,59 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
     }
 
     template <typename AbstractWindow>
-    boost::optional<::LRESULT> on_drop_files(
+    tetengo2::stdalt::optional<::LRESULT> on_drop_files(
         AbstractWindow&                             abstract_window,
         TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
         TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (abstract_window.file_drop_observer_set().file_dropped().empty())
-            return boost::none;
+            return TETENGO2_STDALT_NULLOPT;
 
         const auto paths = make_paths(reinterpret_cast<::HDROP>(w_param));
         abstract_window.file_drop_observer_set().file_dropped()(paths);
-        return boost::make_optional<::LRESULT>(0);
+        return tetengo2::stdalt::make_optional<::LRESULT>(0);
     }
 
     template <typename AbstractWindow>
-    boost::optional<::LRESULT> on_close(
+    tetengo2::stdalt::optional<::LRESULT> on_close(
         AbstractWindow&                             abstract_window,
         TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
         TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (abstract_window.window_observer_set().closing().empty())
-            return boost::none;
+            return TETENGO2_STDALT_NULLOPT;
 
         auto cancel = false;
         abstract_window.window_observer_set().closing()(cancel);
-        return boost::make_optional<::LRESULT>(cancel, 0);
+        return tetengo2::stdalt::make_optional<::LRESULT>(cancel, 0);
     }
 
     template <typename AbstractWindow>
-    boost::optional<::LRESULT> on_query_end_session(
+    tetengo2::stdalt::optional<::LRESULT> on_query_end_session(
         AbstractWindow&                             abstract_window,
         TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
         TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (abstract_window.window_observer_set().closing().empty())
-            return boost::none;
+            return TETENGO2_STDALT_NULLOPT;
 
         auto cancel = false;
         abstract_window.window_observer_set().closing()(cancel);
-        return boost::make_optional<::LRESULT>(cancel, FALSE);
+        return tetengo2::stdalt::make_optional<::LRESULT>(cancel, FALSE);
     }
 
     template <typename AbstractWindow>
-    boost::optional<::LRESULT> on_destroy(
+    tetengo2::stdalt::optional<::LRESULT> on_destroy(
         AbstractWindow&                             abstract_window,
         TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
         TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (abstract_window.window_observer_set().destroyed().empty())
-            return boost::none;
+            return TETENGO2_STDALT_NULLOPT;
 
         abstract_window.window_observer_set().destroyed()();
 
-        return boost::none;
+        return TETENGO2_STDALT_NULLOPT;
     }
 }
 

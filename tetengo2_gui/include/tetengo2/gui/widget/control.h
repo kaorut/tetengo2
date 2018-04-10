@@ -12,12 +12,11 @@
 #include <cassert>
 #include <utility>
 
-#include <boost/none.hpp>
-#include <boost/optional.hpp>
 #include <boost/predef.h>
 
 #include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/gui/widget/widget.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::widget {
@@ -76,7 +75,7 @@ namespace tetengo2::gui::widget {
 
             \return The text color.
         */
-        const boost::optional<color_type>& text_color() const
+        const tetengo2::stdalt::optional<color_type>& text_color() const
         {
             return m_text_color;
         }
@@ -86,7 +85,7 @@ namespace tetengo2::gui::widget {
 
             \param text_color A text color.
         */
-        void set_text_color(boost::optional<color_type> text_color = boost::none)
+        void set_text_color(tetengo2::stdalt::optional<color_type> text_color = TETENGO2_STDALT_NULLOPT)
         {
             m_text_color = std::move(text_color);
         }
@@ -154,7 +153,7 @@ namespace tetengo2::gui::widget {
 
         const details_ptr_type m_p_details;
 
-        boost::optional<color_type> m_text_color;
+        tetengo2::stdalt::optional<color_type> m_text_color;
 
 
         // virtual functions

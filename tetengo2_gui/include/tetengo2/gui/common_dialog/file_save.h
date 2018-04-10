@@ -13,7 +13,6 @@
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/optional.hpp>
 
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/stdalt.h>
@@ -86,10 +85,10 @@ namespace tetengo2::gui::common_dialog {
             \param parent       A parent widget.
         */
         file_save(
-            string_type                                                title,
-            const boost::optional<tetengo2::stdalt::filesystem::path>& path,
-            file_filters_type                                          file_filters,
-            abstract_window_type&                                      parent)
+            string_type                                                           title,
+            const tetengo2::stdalt::optional<tetengo2::stdalt::filesystem::path>& path,
+            file_filters_type                                                     file_filters,
+            abstract_window_type&                                                 parent)
         : m_p_details{ common_dialog_details_type::create_file_save_dialog(
               parent,
               std::move(title),

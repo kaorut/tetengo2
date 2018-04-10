@@ -17,11 +17,10 @@
 #include <stdexcept>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/none.hpp>
-#include <boost/optional.hpp> // IWYU pragma: keep
 #include <boost/throw_exception.hpp>
 #include <boost/variant.hpp>
 
+#include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
 
 
@@ -167,7 +166,7 @@ namespace tetengo2::concurrent {
                 return;
             }
 
-            m_queue.push(boost::none);
+            m_queue.push(TETENGO2_STDALT_NULLOPT);
 
             m_condition_variable.notify_all();
         }
@@ -195,7 +194,7 @@ namespace tetengo2::concurrent {
 
         using queue_element_type = boost::variant<value_type, std::exception_ptr>;
 
-        using queue_type = std::queue<boost::optional<queue_element_type>>;
+        using queue_type = std::queue<tetengo2::stdalt::optional<queue_element_type>>;
 
 
         // variables

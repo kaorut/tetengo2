@@ -13,8 +13,6 @@
 #include <utility>
 #include <vector>
 
-#include <boost/none.hpp>
-#include <boost/optional.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
@@ -45,7 +43,7 @@ namespace {
 
     using attribute_map_type = push_parser_type::attribute_map_type;
 
-    using parsed_structure_type = std::pair<std::string, boost::optional<push_parser_type::value_type>>;
+    using parsed_structure_type = std::pair<std::string, tetengo2::stdalt::optional<push_parser_type::value_type>>;
 
 
     // functions
@@ -62,7 +60,7 @@ namespace {
         TETENGO2_STDALT_MAYBE_UNUSED const attribute_map_type& attribute_map,
         std::vector<parsed_structure_type>&                    parsed_structures)
     {
-        parsed_structures.emplace_back(structure, boost::none);
+        parsed_structures.emplace_back(structure, TETENGO2_STDALT_NULLOPT);
         return true;
     }
 
@@ -74,7 +72,7 @@ namespace {
     bool
     value_observer1(const push_parser_type::value_type& value, std::vector<parsed_structure_type>& parsed_structures)
     {
-        parsed_structures.emplace_back("value", boost::make_optional(value));
+        parsed_structures.emplace_back("value", tetengo2::stdalt::make_optional(push_parser_type::value_type{ value }));
         return true;
     }
 }
@@ -274,22 +272,22 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_CHECK(parsed[0].first == "array");
 
                     BOOST_CHECK(parsed[1].first == "value");
-                    BOOST_TEST(parsed[1].second.is_initialized());
+                    BOOST_TEST(tetengo2::stdalt::has_value(parsed[1].second));
                     BOOST_TEST(parsed[1].second->which() == 0);
                     BOOST_TEST(!boost::get<bool>(*parsed[1].second));
 
                     BOOST_CHECK(parsed[2].first == "value");
-                    BOOST_TEST(parsed[2].second.is_initialized());
+                    BOOST_TEST(tetengo2::stdalt::has_value(parsed[2].second));
                     BOOST_TEST(parsed[2].second->which() == 1);
                     BOOST_TEST(!boost::get<void*>(*parsed[2].second));
 
                     BOOST_CHECK(parsed[3].first == "value");
-                    BOOST_TEST(parsed[3].second.is_initialized());
+                    BOOST_TEST(tetengo2::stdalt::has_value(parsed[3].second));
                     BOOST_TEST(parsed[3].second->which() == 0);
                     BOOST_TEST(boost::get<bool>(*parsed[3].second));
 
                     BOOST_CHECK(parsed[4].first == "value");
-                    BOOST_TEST(parsed[4].second.is_initialized());
+                    BOOST_TEST(tetengo2::stdalt::has_value(parsed[4].second));
                     BOOST_TEST(parsed[4].second->which() == 4);
                     BOOST_CHECK(boost::get<std::string>(*parsed[4].second) == "hoge\tfuga");
 
@@ -331,33 +329,33 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_CHECK(parsed[0].first == "array");
 
                     BOOST_CHECK(parsed[1].first == "value");
-                    BOOST_TEST(parsed[1].second.is_initialized());
+                    BOOST_TEST(tetengo2::stdalt::has_value(parsed[1].second));
                     BOOST_TEST(parsed[1].second->which() == 2);
                     BOOST_TEST(boost::get<integer_type>(*parsed[1].second) == 42);
 
                     BOOST_CHECK(parsed[2].first == "value");
-                    BOOST_TEST(parsed[2].second.is_initialized());
+                    BOOST_TEST(tetengo2::stdalt::has_value(parsed[2].second));
                     BOOST_TEST(parsed[2].second->which() == 2);
                     BOOST_TEST(boost::get<integer_type>(*parsed[2].second) == -42);
 
                     BOOST_CHECK(parsed[3].first == "value");
-                    BOOST_TEST(parsed[3].second.is_initialized());
+                    BOOST_TEST(tetengo2::stdalt::has_value(parsed[3].second));
                     BOOST_TEST(parsed[3].second->which() == 3);
                     BOOST_TEST(boost::get<float_type>(*parsed[3].second) == 42.42, boost::test_tools::tolerance(0.001));
 
                     BOOST_CHECK(parsed[4].first == "value");
-                    BOOST_TEST(parsed[4].second.is_initialized());
+                    BOOST_TEST(tetengo2::stdalt::has_value(parsed[4].second));
                     BOOST_TEST(parsed[4].second->which() == 3);
                     BOOST_TEST(
                         boost::get<float_type>(*parsed[4].second) == 4200.0, boost::test_tools::tolerance(0.001));
 
                     BOOST_CHECK(parsed[5].first == "value");
-                    BOOST_TEST(parsed[5].second.is_initialized());
+                    BOOST_TEST(tetengo2::stdalt::has_value(parsed[5].second));
                     BOOST_TEST(parsed[5].second->which() == 3);
                     BOOST_TEST(boost::get<float_type>(*parsed[5].second) == 42.0, boost::test_tools::tolerance(0.001));
 
                     BOOST_CHECK(parsed[6].first == "value");
-                    BOOST_TEST(parsed[6].second.is_initialized());
+                    BOOST_TEST(tetengo2::stdalt::has_value(parsed[6].second));
                     BOOST_TEST(parsed[6].second->which() == 3);
                     BOOST_TEST(
                         boost::get<float_type>(*parsed[6].second) == 4242.0, boost::test_tools::tolerance(0.001));

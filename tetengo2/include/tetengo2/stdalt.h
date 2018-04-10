@@ -58,6 +58,12 @@ namespace tetengo2::stdalt {
     (BOOST_COMP_GNUC && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(7, 0, 0))
     template <typename T>
     using optional = std::experimental::optional<T>;
+
+    template <typename T>
+    bool has_value(const std::experimental::optional<T>& o)
+    {
+        return static_cast<bool>(o);
+    }
 #else
     /*!
         \brief The alternate to std::optional.
@@ -66,6 +72,22 @@ namespace tetengo2::stdalt {
     */
     template <typename T>
     using optional = std::optional<T>;
+
+    /*!
+        \brief The alternate to std::optional::has_value().
+
+        \tparam T A type.
+
+        \param o An optional.
+
+        \retval ture  When o.has_value() is true.
+        \retval false Otherwise.
+    */
+    template <typename T>
+    bool has_value(const std::optional<T>& o)
+    {
+        return o.has_value();
+    }
 #endif
 
     /*!

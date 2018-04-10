@@ -12,9 +12,9 @@
 #include <memory>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/optional.hpp>
 #include <boost/variant.hpp>
 
+#include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
 
 
@@ -57,9 +57,9 @@ namespace tetengo2::config {
 
             \param key A key.
 
-            \return The value or boost::none when no corresponding value to the key.
+            \return The value or TETENGO2_STDALT_NULLOPT when no corresponding value to the key.
         */
-        boost::optional<value_type> get(const string_type& key) const;
+        tetengo2::stdalt::optional<value_type> get(const string_type& key) const;
 
         /*!
             \brief Sets a string value.
@@ -88,7 +88,7 @@ namespace tetengo2::config {
 
         // virtual functions
 
-        virtual boost::optional<value_type> get_impl(const string_type& key) const = 0;
+        virtual tetengo2::stdalt::optional<value_type> get_impl(const string_type& key) const = 0;
 
         virtual void set_impl(const string_type& key, value_type value) = 0;
 

@@ -22,8 +22,6 @@
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/exception/all.hpp> // IWYU pragma: keep
-#include <boost/none.hpp>
-#include <boost/optional.hpp>
 #include <boost/predef.h>
 #include <boost/preprocessor.hpp>
 #include <boost/scope_exit.hpp>
@@ -42,6 +40,7 @@
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
 #include <tetengo2/gui/alert.h> // IWYU pragma: keep
 #include <tetengo2/gui/measure.h> // IWYU pragma: keep
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::windows {
@@ -1781,10 +1780,10 @@ namespace tetengo2::detail::windows {
             \throw std::system_error When the selected value index cannot be obtained.
         */
         template <typename Size, typename DropdownBox>
-        static boost::optional<Size> selected_dropdown_box_value_index(const DropdownBox& dropdown_box)
+        static tetengo2::stdalt::optional<Size> selected_dropdown_box_value_index(const DropdownBox& dropdown_box)
         {
             auto index = ::SendMessageW(dropdown_box.details().handle.get(), CB_GETCURSEL, 0, 0);
-            return boost::make_optional<Size>(index != CB_ERR, std::move(index));
+            return tetengo2::stdalt::make_optional<Size>(index != CB_ERR, std::move(index));
         }
 
         /*!
@@ -1980,10 +1979,10 @@ namespace tetengo2::detail::windows {
             \throw std::system_error When the selected value index cannot be obtained.
         */
         template <typename Size, typename ListBox>
-        static boost::optional<Size> selected_list_box_value_index(const ListBox& list_box)
+        static tetengo2::stdalt::optional<Size> selected_list_box_value_index(const ListBox& list_box)
         {
             auto index = ::SendMessageW(list_box.details().handle.get(), LB_GETCURSEL, 0, 0);
-            return boost::make_optional<Size>(index != LB_ERR, std::move(index));
+            return tetengo2::stdalt::make_optional<Size>(index != LB_ERR, std::move(index));
         }
 
         /*!
