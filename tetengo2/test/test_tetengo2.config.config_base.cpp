@@ -8,7 +8,6 @@
 
 #include <string>
 
-#include <boost/optional.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>
@@ -35,10 +34,11 @@ namespace {
         concrete_config() {}
 
     private:
-        virtual boost::optional<value_type> get_impl(const string_type& key) const override
+        virtual tetengo2::stdalt::optional<value_type> get_impl(const string_type& key) const override
         {
-            static const boost::optional<value_type> value1{ value_type{ string_type{ TETENGO2_TEXT("hoge") } } };
-            static const boost::optional<value_type> value2{ value_type{ 42 } };
+            static const tetengo2::stdalt::optional<value_type> value1{ value_type{
+                string_type{ TETENGO2_TEXT("hoge") } } };
+            static const tetengo2::stdalt::optional<value_type> value2{ value_type{ 42 } };
             return key == string_type{ TETENGO2_TEXT("foo") } ? value1 : value2;
         }
 
@@ -71,14 +71,14 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     const concrete_config config{};
 
                     const auto value = config.get(string_type{ TETENGO2_TEXT("foo") });
-                    BOOST_TEST_REQUIRE(value.is_initialized());
+                    BOOST_TEST_REQUIRE(tetengo2::stdalt::has_value(value));
                     BOOST_CHECK(boost::get<string_type>(*value) == string_type{ TETENGO2_TEXT("hoge") });
                 }
                 {
                     const concrete_config config{};
 
                     const auto value = config.get(string_type{ TETENGO2_TEXT("bar") });
-                    BOOST_TEST_REQUIRE(value.is_initialized());
+                    BOOST_TEST_REQUIRE(tetengo2::stdalt::has_value(value));
                     BOOST_TEST(boost::get<uint_type>(*value) == 42U);
                 }
             }

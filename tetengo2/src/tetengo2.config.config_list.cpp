@@ -11,11 +11,10 @@
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/none.hpp>
-#include <boost/optional.hpp>
 
 #include <tetengo2/config/config_base.h>
 #include <tetengo2/config/config_list.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
 
 
@@ -41,7 +40,7 @@ namespace tetengo2::config {
 
         // functions
 
-        boost::optional<value_type> get_impl(const string_type& key) const
+        tetengo2::stdalt::optional<value_type> get_impl(const string_type& key) const
         {
             for (const std::unique_ptr<base_type>& p_config : m_p_configs)
             {
@@ -50,7 +49,7 @@ namespace tetengo2::config {
                     return p_value;
             }
 
-            return boost::none;
+            return TETENGO2_STDALT_NULLOPT;
         }
 
         void set_impl(const string_type& key, value_type value)
@@ -82,7 +81,7 @@ namespace tetengo2::config {
     config_list::~config_list() = default;
 
 
-    boost::optional<config_list::value_type> config_list::get_impl(const string_type& key) const
+    tetengo2::stdalt::optional<config_list::value_type> config_list::get_impl(const string_type& key) const
     {
         return m_p_impl->get_impl(key);
     }

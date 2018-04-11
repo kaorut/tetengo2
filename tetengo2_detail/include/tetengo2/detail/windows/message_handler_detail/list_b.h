@@ -10,8 +10,6 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_LISTBOX_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_LISTBOX_H
 
-#include <boost/optional.hpp> // IWYU pragma: keep
-
 #pragma warning(push)
 #pragma warning(disable : 4005)
 #include <intsafe.h>
@@ -26,7 +24,7 @@
 
 namespace tetengo2::detail::windows::message_handler_detail::list_box {
     template <typename ListBox>
-    boost::optional<::LRESULT>
+    tetengo2::stdalt::optional<::LRESULT>
     on_tetengo2_command(ListBox& list_box, const ::WPARAM w_param, TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         switch (HIWORD(w_param))
@@ -39,7 +37,7 @@ namespace tetengo2::detail::windows::message_handler_detail::list_box {
             break;
         }
 
-        return boost::make_optional<::LRESULT>(0);
+        return tetengo2::stdalt::make_optional<::LRESULT>(0);
     }
 }
 

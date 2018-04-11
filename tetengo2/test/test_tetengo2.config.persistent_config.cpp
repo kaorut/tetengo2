@@ -8,12 +8,12 @@
 
 #include <string>
 
-#include <boost/optional.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/variant.hpp>
 
 #include <tetengo2/config/persistent_config.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/type_list.h>
 
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     config.set(string_type{ TETENGO2_TEXT("foo") }, value_type{ 4242 });
 
                     const auto value = config.get(string_type{ TETENGO2_TEXT("foo") });
-                    BOOST_TEST_REQUIRE(value.is_initialized());
+                    BOOST_TEST_REQUIRE(tetengo2::stdalt::has_value(value));
                     BOOST_TEST(boost::get<uint_type>(*value) == 4242U);
 
                     config.clear();
@@ -83,7 +83,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     config.set(string_type{ TETENGO2_TEXT("baz") }, value_type{ string_type{ TETENGO2_TEXT("fuga") } });
 
                     const auto value = config.get(string_type{ TETENGO2_TEXT("baz") });
-                    BOOST_TEST_REQUIRE(value.is_initialized());
+                    BOOST_TEST_REQUIRE(tetengo2::stdalt::has_value(value));
                     BOOST_CHECK(boost::get<string_type>(*value) == string_type{ TETENGO2_TEXT("fuga") });
 
                     config.clear();
@@ -102,8 +102,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     config.clear();
 
-                    BOOST_TEST(!config.get(string_type{ TETENGO2_TEXT("foo") }).is_initialized());
-                    BOOST_TEST(!config.get(string_type{ TETENGO2_TEXT("bar") }).is_initialized());
+                    BOOST_TEST(!tetengo2::stdalt::has_value(config.get(string_type{ TETENGO2_TEXT("foo") })));
+                    BOOST_TEST(!tetengo2::stdalt::has_value(config.get(string_type{ TETENGO2_TEXT("bar") })));
 
                     config.clear();
                 }

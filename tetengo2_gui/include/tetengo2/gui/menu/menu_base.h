@@ -16,7 +16,6 @@
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
-#include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/menu/recursive_iterator.h>
@@ -397,7 +396,7 @@ namespace tetengo2::gui::menu {
 
         state_type m_state;
 
-        const boost::optional<shortcut_key_type> m_shortcut_key;
+        const tetengo2::stdalt::optional<shortcut_key_type> m_shortcut_key;
 
         menu_observer_set_type m_menu_observer_set;
 

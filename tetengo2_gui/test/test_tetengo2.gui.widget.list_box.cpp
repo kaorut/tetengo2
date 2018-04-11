@@ -10,7 +10,6 @@
 #include <stdexcept>
 #include <string>
 
-#include <boost/optional.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
@@ -21,6 +20,7 @@
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/list_box.h>
 #include <tetengo2/gui/widget/window.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
@@ -213,7 +213,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                         list_box.select_value(0);
 
-                        BOOST_TEST_REQUIRE(list_box.selected_value_index().is_initialized());
+                        BOOST_TEST_REQUIRE(tetengo2::stdalt::has_value(list_box.selected_value_index()));
                         BOOST_TEST(*list_box.selected_value_index() == 0U);
                     }
                     {

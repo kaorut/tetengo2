@@ -12,8 +12,6 @@
 
 #include <cassert>
 
-#include <boost/optional.hpp> // IWYU pragma: keep
-
 #pragma warning(push)
 #pragma warning(disable : 4005)
 #include <intsafe.h>
@@ -28,7 +26,7 @@
 
 namespace tetengo2::detail::windows::message_handler_detail::dialog {
     template <typename WidgetDetails, typename Dialog>
-    boost::optional<::LRESULT> on_command(Dialog& dialog, const ::WPARAM w_param, const ::LPARAM l_param)
+    tetengo2::stdalt::optional<::LRESULT> on_command(Dialog& dialog, const ::WPARAM w_param, const ::LPARAM l_param)
     {
         const ::WORD hi_wparam = HIWORD(w_param);
         const ::WORD lo_wparam = LOWORD(w_param);
@@ -45,14 +43,14 @@ namespace tetengo2::detail::windows::message_handler_detail::dialog {
                 dialog.set_result(lo_wparam == IDOK ? Dialog::result_type::accepted : Dialog::result_type::canceled);
                 dialog.close();
             }
-            return boost::make_optional<::LRESULT>(0);
+            return tetengo2::stdalt::make_optional<::LRESULT>(0);
         }
 
-        return boost::none;
+        return TETENGO2_STDALT_NULLOPT;
     }
 
     template <typename WidgetDetails, typename Dialog>
-    boost::optional<::LRESULT>
+    tetengo2::stdalt::optional<::LRESULT>
     on_syscommand(Dialog& dialog, const ::WPARAM w_param, TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (w_param == SC_CLOSE)
@@ -67,10 +65,10 @@ namespace tetengo2::detail::windows::message_handler_detail::dialog {
                 dialog.set_result(Dialog::result_type::canceled);
                 dialog.close();
             }
-            return boost::make_optional<::LRESULT>(0);
+            return tetengo2::stdalt::make_optional<::LRESULT>(0);
         }
 
-        return boost::none;
+        return TETENGO2_STDALT_NULLOPT;
     }
 
     ::HWND first_child_window_handle(::HWND parent_handle);
@@ -107,7 +105,7 @@ namespace tetengo2::detail::windows::message_handler_detail::dialog {
     }
 
     template <typename WidgetDetails, typename Dialog>
-    boost::optional<::LRESULT> on_set_focus(
+    tetengo2::stdalt::optional<::LRESULT> on_set_focus(
         Dialog&                                     dialog,
         TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
         TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
@@ -115,17 +113,17 @@ namespace tetengo2::detail::windows::message_handler_detail::dialog {
         if (dialog.details().first_child_handle)
         {
             ::SetFocus(dialog.details().first_child_handle);
-            return boost::make_optional<::LRESULT>(0);
+            return tetengo2::stdalt::make_optional<::LRESULT>(0);
         }
 
         const auto child_handle = first_child_window_handle(dialog.details().handle.get());
         if (child_handle)
         {
             ::SetFocus(child_handle);
-            return boost::make_optional<::LRESULT>(0);
+            return tetengo2::stdalt::make_optional<::LRESULT>(0);
         }
 
-        return boost::none;
+        return TETENGO2_STDALT_NULLOPT;
     }
 }
 

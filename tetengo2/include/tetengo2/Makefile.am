@@ -18,7 +18,6 @@ pkg_headers = \
     message/messages.h \
     message/message_catalog.h \
     message/message_catalog_parser.h \
-    stdalt.h \
     text.h \
     text/character_iterator.h \
     text/encoder.h \
@@ -34,6 +33,10 @@ pkg_headers = \
     text/push_parser.h \
     type_list.h
 
+pkg_headers_with_stdalt_h = \
+    $(pkg_headers) \
+    stdalt.h
+
 extra_headers = \
     0namespace.dox \
     concurrent/0namespace.dox \
@@ -44,7 +47,7 @@ extra_headers = \
     text/encoding/0namespace.dox \
     text/grammar/0namespace.dox
 
-nobase_pkginclude_HEADERS = $(pkg_headers)
+nobase_pkginclude_HEADERS = $(pkg_headers_with_stdalt_h)
 EXTRA_DIST = $(extra_headers)
 
 IWYU_OPTS += -Xiwyu --mapping_file=$(top_srcdir)/$(IWYU_IMP_PATH)
@@ -58,11 +61,11 @@ lint-iwyu-extra: $(addsuffix .iwyuout, $(extra_headers))
 
 %.iwyuout: %
 	mkdir -p $(dir $@)
-	$(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $< 2> $(addsuffix .tmp, $@) || test $$? -eq 2
+	$(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $< 2> $(addsuffix .tmp, $@) || true
 	mv $(addsuffix .tmp, $@) $@
 
 format:
-	$(top_srcdir)/tools/call_clang-format.sh $(UNIX2DOS) $(CLANGFORMAT) $(srcdir) $(pkg_headers) $(extra_headers)
+	$(top_srcdir)/tools/call_clang-format.sh $(UNIX2DOS) $(CLANGFORMAT) $(srcdir) $(pkg_headers_with_stdalt_h) $(extra_headers)
 
 clean-local:
 	-find -name "*.iwyuout.tmp" | xargs rm -f

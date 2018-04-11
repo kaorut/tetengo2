@@ -8,9 +8,7 @@
 
 #include <sstream>
 
-#include <boost/none.hpp>
 #include <boost/operators.hpp>
-#include <boost/optional.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
@@ -21,6 +19,7 @@
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_bar.h>
 #include <tetengo2/gui/widget/window.h>
+#include <tetengo2/stdalt.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
@@ -67,11 +66,12 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     {
                         window_type             parent{};
-                        const color_dialog_type color{ boost::none, parent };
+                        const color_dialog_type color{ TETENGO2_STDALT_NULLOPT, parent };
                     }
                     {
                         window_type             parent{};
-                        const color_dialog_type color{ boost::make_optional(color_type{ 12, 34, 56 }), parent };
+                        const color_dialog_type color{ tetengo2::stdalt::make_optional(color_type{ 12, 34, 56 }),
+                                                       parent };
                     }
                 }
 
@@ -81,13 +81,13 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     {
                         window_type             parent{};
-                        const color_dialog_type color{ boost::none, parent };
+                        const color_dialog_type color{ TETENGO2_STDALT_NULLOPT, parent };
 
                         BOOST_CHECK((color.result() == color_type{ 0, 0, 0 }));
                     }
                     {
                         window_type       parent{};
-                        color_dialog_type color{ boost::none, parent };
+                        color_dialog_type color{ TETENGO2_STDALT_NULLOPT, parent };
 
                         color.do_modal();
 
@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     window_type       parent{};
-                    color_dialog_type color{ boost::none, parent };
+                    color_dialog_type color{ TETENGO2_STDALT_NULLOPT, parent };
 
                     color.do_modal();
                 }
@@ -111,13 +111,13 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     {
                         window_type             parent{};
-                        const color_dialog_type color{ boost::none, parent };
+                        const color_dialog_type color{ TETENGO2_STDALT_NULLOPT, parent };
 
                         color.details();
                     }
                     {
                         window_type       parent{};
-                        color_dialog_type color{ boost::none, parent };
+                        color_dialog_type color{ TETENGO2_STDALT_NULLOPT, parent };
 
                         color.details();
                     }

@@ -15,7 +15,6 @@
 #include <vector> // IWYU pragma: keep
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/optional.hpp> // IWYU pragma: keep
 
 #pragma warning(push)
 #pragma warning(disable : 4005)
@@ -51,7 +50,7 @@ namespace tetengo2::detail::windows {
         // types
 
         //! The message handler type.
-        using message_handler_type = std::function<boost::optional<::LRESULT>(::WPARAM, ::LPARAM)>;
+        using message_handler_type = std::function<tetengo2::stdalt::optional<::LRESULT>(::WPARAM, ::LPARAM)>;
 
         //! The message handler map type.
         using message_handler_map_type = std::unordered_map<::UINT, std::vector<message_handler_type>>;

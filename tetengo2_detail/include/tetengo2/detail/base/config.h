@@ -10,9 +10,9 @@
 #define TETENGO2_DETAIL_BASE_CONFIG_H
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/optional.hpp>
 #include <boost/variant.hpp>
 
+#include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
 
 
@@ -53,7 +53,7 @@ namespace tetengo2::detail::base {
 
             \return The pointer to the value. Or nullptr when no corresponding value to the key.
         */
-        boost::optional<value_type> get(const string_type& group_name, const string_type& key) const;
+        tetengo2::stdalt::optional<value_type> get(const string_type& group_name, const string_type& key) const;
 
         /*!
             \brief Sets a configuration value.
@@ -84,7 +84,8 @@ namespace tetengo2::detail::base {
     private:
         // virtual functions
 
-        virtual boost::optional<value_type> get_impl(const string_type& group_name, const string_type& key) const = 0;
+        virtual tetengo2::stdalt::optional<value_type>
+        get_impl(const string_type& group_name, const string_type& key) const = 0;
 
         virtual void set_impl(const string_type& group_name, const string_type& key, value_type value) const = 0;
 

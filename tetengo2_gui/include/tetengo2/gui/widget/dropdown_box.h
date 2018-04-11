@@ -11,12 +11,12 @@
 
 #include <stdexcept>
 
-#include <boost/optional.hpp>
 #include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/message/list_selection_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::widget {
@@ -191,9 +191,9 @@ namespace tetengo2::gui::widget {
         /*!
             \brief Returns the selected value index.
 
-            \return The selected value index. Or boost::none when no value is selected.
+            \return The selected value index. Or TETENGO2_STDALT_NULLOPT when no value is selected.
         */
-        boost::optional<size_type> selected_value_index() const
+        tetengo2::stdalt::optional<size_type> selected_value_index() const
         {
             return widget_details_type::template selected_dropdown_box_value_index<size_type>(*this);
         }

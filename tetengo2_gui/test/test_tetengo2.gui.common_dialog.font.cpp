@@ -9,9 +9,7 @@
 #include <sstream>
 #include <string>
 
-#include <boost/none.hpp>
 #include <boost/operators.hpp>
-#include <boost/optional.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
@@ -22,6 +20,7 @@
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_bar.h>
 #include <tetengo2/gui/widget/window.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
@@ -71,12 +70,12 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     {
                         window_type            parent{};
-                        const font_dialog_type font{ boost::none, parent };
+                        const font_dialog_type font{ TETENGO2_STDALT_NULLOPT, parent };
                     }
                     {
                         window_type            parent{};
                         const font_dialog_type font{
-                            boost::make_optional(
+                            tetengo2::stdalt::make_optional(
                                 font_type{ string_type{ TETENGO2_TEXT("fuga") }, 42, false, true, false, true }),
                             parent
                         };
@@ -89,13 +88,13 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     {
                         window_type            parent{};
-                        const font_dialog_type font{ boost::none, parent };
+                        const font_dialog_type font{ TETENGO2_STDALT_NULLOPT, parent };
 
                         BOOST_CHECK(font.result() == font_type::dialog_font());
                     }
                     {
                         window_type      parent{};
-                        font_dialog_type font{ boost::none, parent };
+                        font_dialog_type font{ TETENGO2_STDALT_NULLOPT, parent };
 
                         font.do_modal();
 
@@ -108,7 +107,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     window_type      parent{};
-                    font_dialog_type font{ boost::none, parent };
+                    font_dialog_type font{ TETENGO2_STDALT_NULLOPT, parent };
 
                     font.do_modal();
                 }
@@ -119,13 +118,13 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     {
                         window_type            parent{};
-                        const font_dialog_type font{ boost::none, parent };
+                        const font_dialog_type font{ TETENGO2_STDALT_NULLOPT, parent };
 
                         font.details();
                     }
                     {
                         window_type      parent{};
-                        font_dialog_type font{ boost::none, parent };
+                        font_dialog_type font{ TETENGO2_STDALT_NULLOPT, parent };
 
                         font.details();
                     }

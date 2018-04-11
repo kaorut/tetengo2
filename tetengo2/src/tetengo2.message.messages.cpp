@@ -23,8 +23,6 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/iterator/iterator_facade.hpp>
-#include <boost/none.hpp>
-#include <boost/optional.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -192,20 +190,20 @@ namespace tetengo2::message {
             return singleton;
         }
 
-        static boost::optional<message_catalog_type>
+        static tetengo2::stdalt::optional<message_catalog_type>
         load_message_catalog(const tetengo2::stdalt::filesystem::path& path, const std::locale& locale)
         {
             const auto catalog_file = select_catalog_file(path, locale);
             if (!catalog_file)
-                return boost::none;
+                return TETENGO2_STDALT_NULLOPT;
 
             message_catalog_type message_catalog{};
             read_message_catalog(*catalog_file, message_catalog);
 
-            return boost::make_optional(std::move(message_catalog));
+            return tetengo2::stdalt::make_optional(std::move(message_catalog));
         }
 
-        static const boost::optional<tetengo2::stdalt::filesystem::path>
+        static const tetengo2::stdalt::optional<tetengo2::stdalt::filesystem::path>
         select_catalog_file(const tetengo2::stdalt::filesystem::path& path, const std::locale& locale)
         {
             if (!tetengo2::stdalt::filesystem::exists(path))
@@ -228,7 +226,7 @@ namespace tetengo2::message {
             if (found != catalog_file_mappings.end())
                 return path / found->second;
 
-            return boost::none;
+            return TETENGO2_STDALT_NULLOPT;
         }
 
         static catalog_file_mappings_type
@@ -287,7 +285,7 @@ namespace tetengo2::message {
 
         mutable bool m_open;
 
-        const boost::optional<message_catalog_type> m_message_catalog;
+        const tetengo2::stdalt::optional<message_catalog_type> m_message_catalog;
     };
 
 

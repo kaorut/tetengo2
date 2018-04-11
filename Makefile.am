@@ -27,10 +27,20 @@ lint-type-list-type-duplication:
 
 lint-iwyu:
 	for d in $(SOURCE_SUBDIRS); do (cd $$d && $(MAKE) lint-iwyu); done
+	test `find -name '*.iwyuout' | xargs grep -l " should " | wc -l` -eq 0
 
 .PHONY: lint-iwyu-extra
 lint-iwyu-extra:
 	for d in $(SOURCE_SUBDIRS); do (cd $$d && $(MAKE) lint-iwyu-extra); done
+	test `find -name '*.iwyuout' | xargs grep -l " should " | wc -l` -eq 0
+
+.PHONY: iwyu-result
+iwyu-result:
+	find -name '*.iwyuout' | xargs cat | less
+
+.PHONY: clean-iwyu
+clean-iwyu:
+	find -name '*.iwyuout' | xargs rm
 
 .PHONY: format
 format: $(top_srcdir)/.clang-format

@@ -10,9 +10,9 @@
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/optional.hpp>
 
 #include <tetengo2/config/config_base.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::config {
@@ -30,7 +30,7 @@ namespace tetengo2::config {
 
         // functions
 
-        boost::optional<value_type> get(const string_type& key, const config_base& base) const
+        tetengo2::stdalt::optional<value_type> get(const string_type& key, const config_base& base) const
         {
             return base.get_impl(key);
         }
@@ -51,7 +51,7 @@ namespace tetengo2::config {
 
     config_base::~config_base() = default;
 
-    boost::optional<config_base::value_type> config_base::get(const string_type& key) const
+    tetengo2::stdalt::optional<config_base::value_type> config_base::get(const string_type& key) const
     {
         return m_p_impl->get(key, *this);
     }

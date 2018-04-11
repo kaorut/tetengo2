@@ -50,8 +50,14 @@
 #if __has_include(<experimental/filesystem>)
 #   include <experimental/filesystem>
 #endif
+#if __has_include(<experimental/optional>)
+#   include <experimental/optional>
+#endif
 #if __has_include(<filesystem>)
 #   include <filesystem>
+#endif
+#if __has_include(<optional>)
+#   include <optional>
 #endif
 
 
@@ -68,9 +74,7 @@
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/math/constants/constants.hpp>
-#include <boost/none.hpp>
 #include <boost/operators.hpp>
-#include <boost/optional.hpp>
 #include <boost/predef.h>
 #include <boost/preprocessor.hpp>
 #include <boost/proto/operators.hpp>

@@ -13,7 +13,6 @@
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/optional.hpp>
 
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
@@ -124,8 +123,9 @@ namespace tetengo2::detail::stub {
             TETENGO2_STDALT_MAYBE_UNUSED const bool cancellable,
             TETENGO2_STDALT_MAYBE_UNUSED const message_box_button_style_type button_style,
             TETENGO2_STDALT_MAYBE_UNUSED const message_box_icon_style_type icon_style,
-            TETENGO2_STDALT_MAYBE_UNUSED boost::optional<String> custom_ok_button_label,
-            TETENGO2_STDALT_MAYBE_UNUSED boost::optional<std::pair<String, String>> custom_yes_no_button_labels,
+            TETENGO2_STDALT_MAYBE_UNUSED tetengo2::stdalt::optional<String> custom_ok_button_label,
+            TETENGO2_STDALT_MAYBE_UNUSED       tetengo2::stdalt::optional<std::pair<String, String>>
+                                               custom_yes_no_button_labels,
             TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder)
         {
             return std::make_unique<message_box_details_type>();
@@ -186,13 +186,14 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the file open dialog cannot be shown.
         */
         template <typename Encoder>
-        static boost::optional<tetengo2::stdalt::filesystem::path> show_file_open_dialog(
+        static tetengo2::stdalt::optional<tetengo2::stdalt::filesystem::path> show_file_open_dialog(
             TETENGO2_STDALT_MAYBE_UNUSED file_open_dialog_details_type& dialog,
             TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder)
         {
             tetengo2::stdalt::filesystem::path file_name{ tetengo2::stdalt::filesystem::path::string_type{
                 TETENGO2_TEXT("file_open_dialog") } };
-            return boost::make_optional(tetengo2::stdalt::filesystem::temp_directory_path() / std::move(file_name));
+            return tetengo2::stdalt::make_optional(
+                tetengo2::stdalt::filesystem::temp_directory_path() / std::move(file_name));
         }
 
         /*!
@@ -238,13 +239,13 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the file save dialog cannot be shown.
         */
         template <typename Encoder>
-        static boost::optional<tetengo2::stdalt::filesystem::path> show_file_save_dialog(
+        static tetengo2::stdalt::optional<tetengo2::stdalt::filesystem::path> show_file_save_dialog(
             TETENGO2_STDALT_MAYBE_UNUSED file_save_dialog_details_type& dialog,
             TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder)
         {
             tetengo2::stdalt::filesystem::path file_name{ tetengo2::stdalt::filesystem::path::string_type{
                 TETENGO2_TEXT("file_save_dialog") } };
-            return boost::make_optional(tetengo2::stdalt::filesystem::temp_directory_path() / file_name);
+            return tetengo2::stdalt::make_optional(tetengo2::stdalt::filesystem::temp_directory_path() / file_name);
         }
 
         /*!
@@ -285,11 +286,11 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the font dialog cannot be shown.
         */
         template <typename Font, typename Encoder>
-        static boost::optional<Font> show_font_dialog(
+        static tetengo2::stdalt::optional<Font> show_font_dialog(
             TETENGO2_STDALT_MAYBE_UNUSED font_dialog_details_type& dialog,
             TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder)
         {
-            return boost::make_optional(
+            return tetengo2::stdalt::make_optional(
                 Font{ typename Font::string_type{ TETENGO2_TEXT("font_dialog_font") }, 42, false, true, false, true });
         }
 
@@ -326,9 +327,10 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the color dialog cannot be shown.
         */
         template <typename Color>
-        static boost::optional<Color> show_color_dialog(TETENGO2_STDALT_MAYBE_UNUSED color_dialog_details_type& dialog)
+        static tetengo2::stdalt::optional<Color>
+        show_color_dialog(TETENGO2_STDALT_MAYBE_UNUSED color_dialog_details_type& dialog)
         {
-            return boost::make_optional(Color{ 0xAB, 0xCD, 0xEF });
+            return tetengo2::stdalt::make_optional(Color{ 0xAB, 0xCD, 0xEF });
         }
     };
 }

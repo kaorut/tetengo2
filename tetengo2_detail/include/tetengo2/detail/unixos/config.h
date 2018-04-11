@@ -11,10 +11,10 @@
 
 #include <memory>
 
-#include <boost/optional.hpp>
 #include <boost/variant.hpp>
 
 #include <tetengo2/detail/base/config.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
 
 
@@ -73,7 +73,7 @@ namespace tetengo2 { namespace detail { namespace unixos {
 
         // virtual functions
 
-        virtual boost::optional<value_type>
+        virtual tetengo2::stdalt::optional<value_type>
         get_impl(const string_type& group_name, const string_type& key) const override;
 
         virtual void set_impl(const string_type& group_name, const string_type& key, value_type value) const override;

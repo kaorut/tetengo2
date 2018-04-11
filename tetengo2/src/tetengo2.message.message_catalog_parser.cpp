@@ -14,13 +14,13 @@
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/optional.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/variant.hpp>
 
 #include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/message/message_catalog_parser.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/type_list.h>
@@ -108,7 +108,7 @@ namespace tetengo2::message {
 
         mutable std::unique_ptr<entry_type> m_p_preread_entry;
 
-        mutable boost::optional<bool> m_preamble_read_succeeded;
+        mutable tetengo2::stdalt::optional<bool> m_preamble_read_succeeded;
 
 
         // functions
@@ -135,7 +135,7 @@ namespace tetengo2::message {
         {
             if (!next_is<structure_begin_type>(input_string_type{ TETENGO2_TEXT("object") }))
             {
-                m_preamble_read_succeeded = boost::make_optional(false);
+                m_preamble_read_succeeded = tetengo2::stdalt::make_optional(false);
                 return;
             }
             m_p_pull_parser->next();
@@ -149,19 +149,19 @@ namespace tetengo2::message {
             if (!next_is<structure_begin_type>(
                     input_string_type{ TETENGO2_TEXT("member") }, input_string_type{ TETENGO2_TEXT("body") }))
             {
-                m_preamble_read_succeeded = boost::make_optional(false);
+                m_preamble_read_succeeded = tetengo2::stdalt::make_optional(false);
                 return;
             }
             m_p_pull_parser->next();
 
             if (!next_is<structure_begin_type>(input_string_type{ TETENGO2_TEXT("object") }))
             {
-                m_preamble_read_succeeded = boost::make_optional(false);
+                m_preamble_read_succeeded = tetengo2::stdalt::make_optional(false);
                 return;
             }
             m_p_pull_parser->next();
 
-            m_preamble_read_succeeded = boost::make_optional(true);
+            m_preamble_read_succeeded = tetengo2::stdalt::make_optional(true);
             return;
         }
 

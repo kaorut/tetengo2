@@ -18,8 +18,6 @@
 #include <utility>
 #include <vector>
 
-#include <boost/none.hpp>
-#include <boost/optional.hpp>
 #include <boost/rational.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -29,6 +27,7 @@
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/message/list_selection_observer_set.h>
 #include <tetengo2/gui/widget/custom_control.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::widget {
@@ -215,7 +214,7 @@ namespace tetengo2::gui::widget {
             if (m_selected_value_index)
             {
                 if (index == *m_selected_value_index)
-                    m_selected_value_index = boost::none;
+                    m_selected_value_index = TETENGO2_STDALT_NULLOPT;
                 else if (index < *m_selected_value_index)
                     --(*m_selected_value_index);
                 request_list_selection_observer_call();
@@ -233,7 +232,7 @@ namespace tetengo2::gui::widget {
             m_p_value_items.clear();
             if (m_selected_value_index)
             {
-                m_selected_value_index = boost::none;
+                m_selected_value_index = TETENGO2_STDALT_NULLOPT;
                 request_list_selection_observer_call();
             }
 
@@ -244,9 +243,9 @@ namespace tetengo2::gui::widget {
         /*!
             \brief Returns the selected value index.
 
-            \return The selected value index. Or boost::none when no value is selected.
+            \return The selected value index. Or TETENGO2_STDALT_NULLOPT when no value is selected.
         */
-        boost::optional<size_type> selected_value_index() const
+        tetengo2::stdalt::optional<size_type> selected_value_index() const
         {
             return m_selected_value_index;
         }
@@ -258,12 +257,12 @@ namespace tetengo2::gui::widget {
 
             \throw std::out_of_range When index is out of the range.
         */
-        void select_value(const size_type index)
+        void select_value(size_type index)
         {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            m_selected_value_index = boost::make_optional(index);
+            m_selected_value_index = tetengo2::stdalt::make_optional(std::move(index));
             ensure_selected_value_shown();
             request_list_selection_observer_call();
         }
@@ -774,7 +773,7 @@ namespace tetengo2::gui::widget {
 
         std::vector<std::unique_ptr<value_item>> m_p_value_items;
 
-        boost::optional<size_type> m_selected_value_index;
+        tetengo2::stdalt::optional<size_type> m_selected_value_index;
 
         bool m_list_selection_observer_call_requested;
 

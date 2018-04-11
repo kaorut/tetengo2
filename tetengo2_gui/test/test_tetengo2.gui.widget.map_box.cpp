@@ -13,7 +13,6 @@
 #include <utility>
 
 #include <boost/operators.hpp>
-#include <boost/optional.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
@@ -29,6 +28,7 @@
 #include <tetengo2/gui/widget/control.h> // for control<>::details_type
 #include <tetengo2/gui/widget/map_box.h>
 #include <tetengo2/gui/widget/window.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h> // for TETENGO2_TEXT, text_value_holder
 
 #include "test_tetengo2.gui.detail_type_list.h"
@@ -245,18 +245,18 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                         map_box.select_value(0);
 
-                        BOOST_TEST_REQUIRE(map_box.selected_value_index().is_initialized());
+                        BOOST_TEST_REQUIRE(tetengo2::stdalt::has_value(map_box.selected_value_index()));
                         BOOST_TEST(*map_box.selected_value_index() == 0U);
 
                         map_box.insert_value(0, make_value(TETENGO2_TEXT("fuga"), TETENGO2_TEXT("bar")));
                         map_box.insert_value(2, make_value(TETENGO2_TEXT("piyo"), TETENGO2_TEXT("baz")));
 
-                        BOOST_TEST_REQUIRE(map_box.selected_value_index().is_initialized());
+                        BOOST_TEST_REQUIRE(tetengo2::stdalt::has_value(map_box.selected_value_index()));
                         BOOST_TEST(*map_box.selected_value_index() == 1U);
 
                         map_box.erase_value(0);
 
-                        BOOST_TEST_REQUIRE(map_box.selected_value_index().is_initialized());
+                        BOOST_TEST_REQUIRE(tetengo2::stdalt::has_value(map_box.selected_value_index()));
                         BOOST_TEST(*map_box.selected_value_index() == 0U);
 
                         map_box.erase_value(0);

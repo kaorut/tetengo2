@@ -21,8 +21,6 @@
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/none.hpp>
-#include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/measure.h>
@@ -82,7 +80,7 @@ namespace tetengo2::detail::stub {
             bool                                      focusable;
             bool                                      read_only;
             std::vector<string_type>                  list_box_values;
-            boost::optional<std::size_t>              selected_list_box_value_index;
+            tetengo2::stdalt::optional<std::size_t>   selected_list_box_value_index;
             std::size_t                               progress_bar_goal;
             std::size_t                               progress_bar_progress;
             int                                       progress_bar_state;
@@ -106,7 +104,7 @@ namespace tetengo2::detail::stub {
                 const bool                                focusable,
                 const bool                                read_only,
                 std::vector<string_type>                  list_box_values,
-                boost::optional<std::size_t>              selected_list_box_value_index,
+                tetengo2::stdalt::optional<std::size_t>   selected_list_box_value_index,
                 const std::size_t                         progress_bar_goal,
                 const std::size_t                         progress_bar_progress,
                 const int                                 progress_bar_state)
@@ -1039,7 +1037,7 @@ namespace tetengo2::detail::stub {
             if (dropdown_box.details().selected_list_box_value_index &&
                 *dropdown_box.details().selected_list_box_value_index >= dropdown_box.details().list_box_values.size())
             {
-                dropdown_box.details().selected_list_box_value_index = boost::none;
+                dropdown_box.details().selected_list_box_value_index = TETENGO2_STDALT_NULLOPT;
             }
         }
 
@@ -1056,7 +1054,7 @@ namespace tetengo2::detail::stub {
         static void clear_dropdown_box(DropdownBox& dropdown_box)
         {
             dropdown_box.details().list_box_values.clear();
-            dropdown_box.details().selected_list_box_value_index = boost::none;
+            dropdown_box.details().selected_list_box_value_index = TETENGO2_STDALT_NULLOPT;
         }
 
         /*!
@@ -1072,7 +1070,7 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the selected value index cannot be obtained.
         */
         template <typename Size, typename DropdownBox>
-        static boost::optional<Size> selected_dropdown_box_value_index(const DropdownBox& dropdown_box)
+        static tetengo2::stdalt::optional<Size> selected_dropdown_box_value_index(const DropdownBox& dropdown_box)
         {
             return dropdown_box.details().selected_list_box_value_index;
         }
@@ -1092,7 +1090,7 @@ namespace tetengo2::detail::stub {
         static void select_dropdown_box_value(DropdownBox& dropdown_box, const Size index)
         {
             dropdown_box.details().selected_list_box_value_index =
-                boost::make_optional(static_cast<std::size_t>(index));
+                tetengo2::stdalt::make_optional(static_cast<std::size_t>(index));
         }
 
         /*!
@@ -1196,7 +1194,7 @@ namespace tetengo2::detail::stub {
             if (list_box.details().selected_list_box_value_index &&
                 *list_box.details().selected_list_box_value_index >= list_box.details().list_box_values.size())
             {
-                list_box.details().selected_list_box_value_index = boost::none;
+                list_box.details().selected_list_box_value_index = TETENGO2_STDALT_NULLOPT;
             }
         }
 
@@ -1213,7 +1211,7 @@ namespace tetengo2::detail::stub {
         static void clear_list_box(ListBox& list_box)
         {
             list_box.details().list_box_values.clear();
-            list_box.details().selected_list_box_value_index = boost::none;
+            list_box.details().selected_list_box_value_index = TETENGO2_STDALT_NULLOPT;
         }
 
         /*!
@@ -1229,7 +1227,7 @@ namespace tetengo2::detail::stub {
             \throw std::system_error When the selected value index cannot be obtained.
         */
         template <typename Size, typename ListBox>
-        static boost::optional<Size> selected_list_box_value_index(const ListBox& list_box)
+        static tetengo2::stdalt::optional<Size> selected_list_box_value_index(const ListBox& list_box)
         {
             return list_box.details().selected_list_box_value_index;
         }
@@ -1248,7 +1246,8 @@ namespace tetengo2::detail::stub {
         template <typename ListBox, typename Size>
         static void select_list_box_value(ListBox& list_box, const Size index)
         {
-            list_box.details().selected_list_box_value_index = boost::make_optional(static_cast<std::size_t>(index));
+            list_box.details().selected_list_box_value_index =
+                tetengo2::stdalt::make_optional(static_cast<std::size_t>(index));
         }
 
         /*!
@@ -1394,7 +1393,7 @@ namespace tetengo2::detail::stub {
                 false,
                 false,
                 std::vector<string_type>{},
-                boost::none,
+                TETENGO2_STDALT_NULLOPT,
                 100,
                 0,
                 0) };

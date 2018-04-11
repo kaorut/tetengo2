@@ -13,7 +13,6 @@
 #include <utility>
 #include <vector>
 
-#include <boost/none.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/test/unit_test.hpp>
@@ -99,7 +98,7 @@ namespace {
                   false,
                   false,
                   std::vector<string_type>{},
-                  boost::none,
+                  TETENGO2_STDALT_NULLOPT,
                   100,
                   0,
                   0)

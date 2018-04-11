@@ -94,12 +94,12 @@ lint-iwyu-extra: $(subst config.h,config_.h, $(addsuffix .iwyuout, $(extra_heade
 
 %.iwyuout: %
 	mkdir -p $(dir $@)
-	$(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $< 2> $(addsuffix .tmp, $@) || test $$? -eq 2
+	$(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $< 2> $(addsuffix .tmp, $@) || true
 	mv $(addsuffix .tmp, $@) $@
 
 %_.h.iwyuout: %.h
 	mkdir -p $(dir $@)
-	$(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $< 2> $(addsuffix .tmp, $@) || test $$? -eq 2
+	$(IWYU) $(IWYU_OPTS) $(CPPFLAGS) $(iwyu_CPPFLAGS) $(CXXFLAGS) $< 2> $(addsuffix .tmp, $@) || true
 	mv $(addsuffix .tmp, $@) $@
 
 format:

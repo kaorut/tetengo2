@@ -12,11 +12,7 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/gui/widget/abstract_window.h>
-
-namespace boost {
-    template <typename T>
-    class optional;
-}
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::common_dialog {
@@ -74,7 +70,7 @@ namespace tetengo2::gui::common_dialog {
             \param color  A color.
             \param parent A parent widget.
         */
-        color(const boost::optional<color_type>& color, abstract_window_type& parent)
+        color(const tetengo2::stdalt::optional<color_type>& color, abstract_window_type& parent)
         : m_p_details{ common_dialog_details_type::create_color_dialog(parent, color) }, m_result{
               color ? *color : color_type{ 0, 0, 0 }
           }
