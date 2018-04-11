@@ -28,6 +28,7 @@
 #include <tetengo2/gui/widget/control.h> // for control<>::details_type
 #include <tetengo2/gui/widget/map_box.h>
 #include <tetengo2/gui/widget/window.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h> // for TETENGO2_TEXT, text_value_holder
 
 #include "test_tetengo2.gui.detail_type_list.h"

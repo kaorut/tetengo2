@@ -13,6 +13,7 @@
 #include <boost/variant.hpp>
 
 #include <tetengo2/config/persistent_config.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/type_list.h>
 
