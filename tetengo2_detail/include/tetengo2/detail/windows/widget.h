@@ -1783,7 +1783,7 @@ namespace tetengo2::detail::windows {
         static tetengo2::stdalt::optional<Size> selected_dropdown_box_value_index(const DropdownBox& dropdown_box)
         {
             auto index = ::SendMessageW(dropdown_box.details().handle.get(), CB_GETCURSEL, 0, 0);
-            return tetengo2::stdalt::make_optional<Size>(index != CB_ERR, std::move(index));
+            return index != CB_ERR ? tetengo2::stdalt::make_optional<Size>(std::move(index)) : TETENGO2_STDALT_NULLOPT;
         }
 
         /*!
@@ -1982,7 +1982,7 @@ namespace tetengo2::detail::windows {
         static tetengo2::stdalt::optional<Size> selected_list_box_value_index(const ListBox& list_box)
         {
             auto index = ::SendMessageW(list_box.details().handle.get(), LB_GETCURSEL, 0, 0);
-            return tetengo2::stdalt::make_optional<Size>(index != LB_ERR, std::move(index));
+            return index != LB_ERR ? tetengo2::stdalt::make_optional<Size>(std::move(index)) : TETENGO2_STDALT_NULLOPT;
         }
 
         /*!

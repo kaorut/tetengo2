@@ -132,7 +132,7 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
 
         auto cancel = false;
         abstract_window.window_observer_set().closing()(cancel);
-        return tetengo2::stdalt::make_optional<::LRESULT>(cancel, 0);
+        return cancel ? tetengo2::stdalt::make_optional<::LRESULT>(0) : TETENGO2_STDALT_NULLOPT;
     }
 
     template <typename AbstractWindow>
@@ -146,7 +146,7 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
 
         auto cancel = false;
         abstract_window.window_observer_set().closing()(cancel);
-        return tetengo2::stdalt::make_optional<::LRESULT>(cancel, FALSE);
+        return cancel ? tetengo2::stdalt::make_optional<::LRESULT>(FALSE) : TETENGO2_STDALT_NULLOPT;
     }
 
     template <typename AbstractWindow>

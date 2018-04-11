@@ -273,10 +273,10 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
         if (l_param == 0)
             return TETENGO2_STDALT_NULLOPT;
 
-        const auto result = ::SendMessageW(
+        auto result = ::SendMessageW(
             reinterpret_cast<::HWND>(l_param), static_cast<::UINT>(custom_message_type::control_color), w_param, 0);
 
-        return tetengo2::stdalt::make_optional(result != 0, result);
+        return result != 0 ? tetengo2::stdalt::make_optional(std::move(result)) : TETENGO2_STDALT_NULLOPT;
     }
 
     template <typename Widget>
