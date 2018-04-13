@@ -22,7 +22,6 @@
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/variant.hpp>
 
 #include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/stdalt.h>
@@ -199,7 +198,7 @@ namespace tetengo2::text {
         }
 
         template <typename T>
-        static boost::variant<T> to_number_impl(const string_type& string_value)
+        static value_type to_number_impl(const string_type& string_value)
         {
             try
             {
@@ -207,11 +206,11 @@ namespace tetengo2::text {
             }
             catch (const boost::bad_lexical_cast&)
             {
-                return boost::variant<T>(0);
+                return T{};
             }
         }
 
-        static boost::variant<float_type>
+        static value_type
         to_number_exp(const string_type& string_value, const typename string_type::size_type exp_index)
         {
             try
@@ -222,7 +221,7 @@ namespace tetengo2::text {
             }
             catch (const boost::bad_lexical_cast&)
             {
-                return { 0 };
+                return 0;
             }
         }
 

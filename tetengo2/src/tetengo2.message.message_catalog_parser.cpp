@@ -16,7 +16,6 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/variant.hpp>
 
 #include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/message/message_catalog_parser.h>
@@ -174,10 +173,10 @@ namespace tetengo2::message {
                 if (!m_p_pull_parser->has_next())
                     return {};
                 const auto& element = m_p_pull_parser->peek();
-                if (element.which() != 0)
+                if (tetengo2::stdalt::index(element) != 0)
                     return {};
 
-                const auto& structure = boost::get<structure_begin_type>(element);
+                const auto& structure = tetengo2::stdalt::get<structure_begin_type>(element);
                 key = get_attribute(structure);
                 if (key.empty())
                     return {};
@@ -188,14 +187,14 @@ namespace tetengo2::message {
                 if (!m_p_pull_parser->has_next())
                     return {};
                 const auto& element = m_p_pull_parser->peek();
-                if (element.which() != 2)
+                if (tetengo2::stdalt::index(element) != 2)
                     return {};
 
-                const auto& parsed_value = boost::get<value_type>(element);
-                if (parsed_value.which() != 4)
+                const auto& parsed_value = tetengo2::stdalt::get<value_type>(element);
+                if (tetengo2::stdalt::index(parsed_value) != 4)
                     return {};
 
-                value = boost::get<input_string_type>(parsed_value);
+                value = tetengo2::stdalt::get<input_string_type>(parsed_value);
 
                 m_p_pull_parser->next();
             }
@@ -203,7 +202,7 @@ namespace tetengo2::message {
                 if (!m_p_pull_parser->has_next())
                     return {};
                 const auto& element = m_p_pull_parser->peek();
-                if (element.which() != 1)
+                if (tetengo2::stdalt::index(element) != 1)
                     return {};
 
                 m_p_pull_parser->next();
@@ -222,7 +221,7 @@ namespace tetengo2::message {
             if (!is_structure(element, static_cast<const Structure*>(nullptr)))
                 return false;
 
-            const auto structure = boost::get<Structure>(element);
+            const auto structure = tetengo2::stdalt::get<Structure>(element);
             if (structure.name() != name)
                 return false;
             if (!attribute.empty())
@@ -236,12 +235,12 @@ namespace tetengo2::message {
 
         bool is_structure(const element_type& element, const structure_begin_type* const) const
         {
-            return element.which() == 0;
+            return tetengo2::stdalt::index(element) == 0;
         }
 
         bool is_structure(const element_type& element, const structure_end_type* const) const
         {
-            return element.which() == 1;
+            return tetengo2::stdalt::index(element) == 1;
         }
 
         input_string_type get_attribute(const structure_begin_type& structure) const
@@ -249,10 +248,10 @@ namespace tetengo2::message {
             const auto found = structure.attribute_map().find(input_string_type{ TETENGO2_TEXT("name") });
             if (found == structure.attribute_map().end())
                 return {};
-            if (found->second.which() != 4)
+            if (tetengo2::stdalt::index(found->second) != 4)
                 return {};
 
-            return boost::get<input_string_type>(found->second);
+            return tetengo2::stdalt::get<input_string_type>(found->second);
         }
     };
 

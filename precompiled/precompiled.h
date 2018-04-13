@@ -88,7 +88,6 @@
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/type_traits.hpp>
-#include <boost/variant.hpp>
 
 
 #if BOOST_COMP_MSVC

@@ -16,8 +16,8 @@
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/signals2.hpp>
-#include <boost/variant.hpp>
 
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text/grammar/grammar.h>
 #include <tetengo2/type_list.h>
 
@@ -50,7 +50,7 @@ namespace tetengo2::text {
         using string_type = std::basic_string<typename iterator::value_type>;
 
         //! The value type.
-        using value_type = boost::variant<bool, void*, integer_type, float_type, string_type>;
+        using value_type = tetengo2::stdalt::variant<bool, void*, integer_type, float_type, string_type>;
 
         //! The attribute map type.
         using attribute_map_type = std::unordered_map<string_type, value_type>;

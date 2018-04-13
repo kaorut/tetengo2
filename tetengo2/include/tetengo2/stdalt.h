@@ -124,13 +124,42 @@ namespace tetengo2::stdalt {
     (BOOST_COMP_GNUC && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(7, 0, 0))
     template <typename... Types>
     using variant = boost::variant<Types...>;
+
+    template <typename T, typename... Types>
+    constexpr T& get(variant<Types...>& v)
+    {
+        return boost::get<T>(v);
+    }
+
+    template <typename T, typename... Types>
+    constexpr T&& get(variant<Types...>&& v)
+    {
+        return boost::get<T>(v);
+    }
+
+    template <typename T, typename... Types>
+    constexpr const T& get(const variant<Types...>& v)
+    {
+        return boost::get<T>(v);
+    }
+
+    template <typename T, typename... Types>
+    constexpr const T& get(const variant<Types...>&& v)
+    {
+        return boost::get<T>(v);
+    }
+
+    template <typename... Types>
+    constexpr std::size_t index(const variant<Types...>& v)
+    {
+        return v.which();
+    }
 #else
     /*!
         \brief The alternate to std::variant.
     */
     template <typename... Types>
     using variant = std::variant<Types...>;
-#endif
 
     /*!
         \brief The alternate to std::get().
@@ -145,7 +174,7 @@ namespace tetengo2::stdalt {
     template <typename T, typename... Types>
     constexpr T& get(variant<Types...>& v)
     {
-        return v.template get<T>();
+        return std::get<T>(v);
     }
 
     /*!
@@ -161,7 +190,7 @@ namespace tetengo2::stdalt {
     template <typename T, typename... Types>
     constexpr T&& get(variant<Types...>&& v)
     {
-        return v.template get<T>();
+        return std::get<T>(v);
     }
 
     /*!
@@ -177,7 +206,7 @@ namespace tetengo2::stdalt {
     template <typename T, typename... Types>
     constexpr const T& get(const variant<Types...>& v)
     {
-        return v.template get<T>();
+        return std::get<T>(v);
     }
 
     /*!
@@ -193,8 +222,24 @@ namespace tetengo2::stdalt {
     template <typename T, typename... Types>
     constexpr const T& get(const variant<Types...>&& v)
     {
-        return v.template get<T>();
+        return std::get<T>(v);
     }
+
+    /*!
+        \brief The alternate to std::variant::index().
+
+        \tparam Types Parameter types.
+
+        \param v A variant.
+
+        \return The index.
+    */
+    template <typename... Types>
+    constexpr std::size_t index(const variant<Types...>& v)
+    {
+        return v.index();
+    }
+#endif
 }
 
 
