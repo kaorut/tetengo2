@@ -25,6 +25,11 @@
 #endif
 #include <type_traits>
 #include <utility>
+#if __has_include(<variant>)
+#include <variant>
+#else
+#include <boost/variant.hpp>
+#endif
 
 #include <boost/predef.h>
 
@@ -99,7 +104,7 @@ namespace tetengo2::stdalt {
 
         \return The optional.
     */
-    template <class T>
+    template <typename T>
     constexpr optional<T> make_optional(T&& v)
     {
         return optional<std::decay_t<T>>(std::forward<T>(v));
@@ -112,6 +117,130 @@ namespace tetengo2::stdalt {
 #else
 #define TETENGO2_STDALT_NULLOPT std::nullopt
 #endif
+
+
+namespace tetengo2::stdalt {
+#if (BOOST_COMP_CLANG && BOOST_COMP_CLANG < BOOST_VERSION_NUMBER(6, 0, 0)) || \
+    (BOOST_COMP_GNUC && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(7, 0, 0))
+    template <typename... Types>
+    using variant = boost::variant<Types...>;
+
+    template <typename T, typename... Types>
+    constexpr T& get(variant<Types...>& v)
+    {
+        return boost::get<T>(v);
+    }
+
+    template <typename T, typename... Types>
+    constexpr T&& get(variant<Types...>&& v)
+    {
+        return boost::get<T>(v);
+    }
+
+    template <typename T, typename... Types>
+    constexpr const T& get(const variant<Types...>& v)
+    {
+        return boost::get<T>(v);
+    }
+
+    template <typename T, typename... Types>
+    constexpr const T& get(const variant<Types...>&& v)
+    {
+        return boost::get<T>(v);
+    }
+
+    template <typename... Types>
+    constexpr std::size_t index(const variant<Types...>& v)
+    {
+        return v.which();
+    }
+#else
+    /*!
+        \brief The alternate to std::variant.
+    */
+    template <typename... Types>
+    using variant = std::variant<Types...>;
+
+    /*!
+        \brief The alternate to std::get().
+
+        \tparam T     A return type.
+        \tparam Types Parameter types.
+
+        \param v A variant.
+
+        \return The value.
+    */
+    template <typename T, typename... Types>
+    constexpr T& get(variant<Types...>& v)
+    {
+        return std::get<T>(v);
+    }
+
+    /*!
+        \brief The alternate to std::get().
+
+        \tparam T     A return type.
+        \tparam Types Parameter types.
+
+        \param v A variant.
+
+        \return The value.
+    */
+    template <typename T, typename... Types>
+    constexpr T&& get(variant<Types...>&& v)
+    {
+        return std::get<T>(v);
+    }
+
+    /*!
+        \brief The alternate to std::get().
+
+        \tparam T     A return type.
+        \tparam Types Variant template parameter types.
+
+        \param v A variant.
+
+        \return The value.
+    */
+    template <typename T, typename... Types>
+    constexpr const T& get(const variant<Types...>& v)
+    {
+        return std::get<T>(v);
+    }
+
+    /*!
+        \brief The alternate to std::get().
+
+        \tparam T     A return type.
+        \tparam Types Parameter types.
+
+        \param v A variant.
+
+        \return The value.
+    */
+    template <typename T, typename... Types>
+    constexpr const T& get(const variant<Types...>&& v)
+    {
+        return std::get<T>(v);
+    }
+
+    /*!
+        \brief The alternate to std::variant::index().
+
+        \tparam Types Parameter types.
+
+        \param v A variant.
+
+        \return The index.
+    */
+    template <typename... Types>
+    constexpr std::size_t index(const variant<Types...>& v)
+    {
+        return v.index();
+    }
+#endif
+}
 
 
 #endif

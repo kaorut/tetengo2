@@ -13,8 +13,8 @@
 #include <string>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/variant.hpp>
 
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text/push_parser.h>
 #include <tetengo2/type_list.h>
 
@@ -133,7 +133,7 @@ namespace tetengo2::text {
         using structure_end_type = structure<structure_kind::end, string_type, attribute_map_type>;
 
         //! The element type.
-        using element_type = boost::variant<structure_begin_type, structure_end_type, value_type>;
+        using element_type = tetengo2::stdalt::variant<structure_begin_type, structure_end_type, value_type>;
 
 
         // constructors and destructor

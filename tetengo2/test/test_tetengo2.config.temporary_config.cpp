@@ -12,7 +12,6 @@
 
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
-#include <boost/variant.hpp>
 
 #include <tetengo2/config/temporary_config.h>
 #include <tetengo2/stdalt.h>
@@ -62,12 +61,12 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 {
                     const auto value = config.get(string_type{ TETENGO2_TEXT("foo") });
                     BOOST_TEST_REQUIRE(tetengo2::stdalt::has_value(value));
-                    BOOST_CHECK(boost::get<string_type>(*value) == string_type{ TETENGO2_TEXT("hoge") });
+                    BOOST_CHECK(tetengo2::stdalt::get<string_type>(*value) == string_type{ TETENGO2_TEXT("hoge") });
                 }
                 {
                     const auto value = config.get(string_type{ TETENGO2_TEXT("bar") });
                     BOOST_TEST_REQUIRE(tetengo2::stdalt::has_value(value));
-                    BOOST_TEST(boost::get<uint_type>(*value) == 42U);
+                    BOOST_TEST(tetengo2::stdalt::get<uint_type>(*value) == 42U);
                 }
                 {
                     const auto value = config.get(string_type{ TETENGO2_TEXT("baz") });
@@ -94,7 +93,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     const auto value = config.get(string_type{ TETENGO2_TEXT("foo") });
                     BOOST_TEST_REQUIRE(tetengo2::stdalt::has_value(value));
-                    BOOST_TEST(boost::get<uint_type>(*value) == 4242U);
+                    BOOST_TEST(tetengo2::stdalt::get<uint_type>(*value) == 4242U);
                 }
                 {
                     const std::vector<std::pair<string_type, value_type>> values{
@@ -111,7 +110,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     const auto value = config.get(string_type{ TETENGO2_TEXT("baz") });
                     BOOST_TEST_REQUIRE(tetengo2::stdalt::has_value(value));
-                    BOOST_CHECK(boost::get<string_type>(*value) == string_type{ TETENGO2_TEXT("fuga") });
+                    BOOST_CHECK(tetengo2::stdalt::get<string_type>(*value) == string_type{ TETENGO2_TEXT("fuga") });
                 }
             }
 

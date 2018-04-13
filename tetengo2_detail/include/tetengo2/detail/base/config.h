@@ -10,7 +10,6 @@
 #define TETENGO2_DETAIL_BASE_CONFIG_H
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/variant.hpp>
 
 #include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
@@ -32,7 +31,7 @@ namespace tetengo2::detail::base {
         using uint_type = type_list::size_type;
 
         //! The value type.
-        using value_type = boost::variant<string_type, uint_type>;
+        using value_type = tetengo2::stdalt::variant<string_type, uint_type>;
 
 
         // constructors and destructor

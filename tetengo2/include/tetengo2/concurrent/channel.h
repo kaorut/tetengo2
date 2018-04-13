@@ -18,7 +18,6 @@
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/variant.hpp>
 
 #include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
@@ -103,15 +102,15 @@ namespace tetengo2::concurrent {
             if (closed_impl())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "The channel is already closed." }));
 
-            if (m_queue.front()->which() == 0)
+            if (tetengo2::stdalt::index(*m_queue.front()) == 0)
             {
-                return boost::get<value_type>(*m_queue.front());
+                return tetengo2::stdalt::get<value_type>(*m_queue.front());
             }
             else
             {
-                assert(m_queue.front()->which() == 1);
+                assert(tetengo2::stdalt::index(*m_queue.front()) == 1);
 
-                std::rethrow_exception(boost::get<std::exception_ptr>(*m_queue.front()));
+                std::rethrow_exception(tetengo2::stdalt::get<std::exception_ptr>(*m_queue.front()));
             }
         }
 
@@ -192,7 +191,7 @@ namespace tetengo2::concurrent {
 
         using condition_variable_type = std::condition_variable;
 
-        using queue_element_type = boost::variant<value_type, std::exception_ptr>;
+        using queue_element_type = tetengo2::stdalt::variant<value_type, std::exception_ptr>;
 
         using queue_type = std::queue<tetengo2::stdalt::optional<queue_element_type>>;
 

@@ -17,12 +17,12 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/variant.hpp>
 
 #include <tetengo2/concurrent/channel.h>
 #include <tetengo2/concurrent/consumer.h>
 #include <tetengo2/concurrent/producer.h>
 #include <tetengo2/iterator/observable_forward_iterator.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text/pull_parser.h>
 #include <tetengo2/text/push_parser.h>
 
@@ -117,22 +117,22 @@ namespace tetengo2::text {
         {
             const auto element = peek();
 
-            if (element.which() == 1 || element.which() == 2)
+            if (tetengo2::stdalt::index(element) == 1 || tetengo2::stdalt::index(element) == 2)
             {
                 next();
                 return;
             }
-            assert(element.which() == 0);
-            const auto& structure_begin_name = boost::get<structure_begin_type>(element).name();
+            assert(tetengo2::stdalt::index(element) == 0);
+            const auto& structure_begin_name = tetengo2::stdalt::get<structure_begin_type>(element).name();
 
             next();
 
             while (has_next())
             {
                 const auto& next_element = peek();
-                if (next_element.which() == 1)
+                if (tetengo2::stdalt::index(next_element) == 1)
                 {
-                    const auto& structure_end_name = boost::get<structure_end_type>(next_element).name();
+                    const auto& structure_end_name = tetengo2::stdalt::get<structure_end_type>(next_element).name();
                     if (structure_end_name == structure_begin_name)
                     {
                         next();

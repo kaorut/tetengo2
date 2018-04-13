@@ -85,16 +85,16 @@ namespace tetengo2::detail::windows {
             if (!handle.get())
                 return;
 
-            switch (value.which())
+            switch (tetengo2::stdalt::index(value))
             {
             case 0:
-                set_string(handle.get(), registry_key_and_value_name.second, boost::get<string_type>(value));
+                set_string(handle.get(), registry_key_and_value_name.second, tetengo2::stdalt::get<string_type>(value));
                 break;
             case 1:
                 set_dword(
                     handle.get(),
                     registry_key_and_value_name.second,
-                    static_cast<::DWORD>(boost::get<uint_type>(value)));
+                    static_cast<::DWORD>(tetengo2::stdalt::get<uint_type>(value)));
                 break;
             default:
                 assert(false);
