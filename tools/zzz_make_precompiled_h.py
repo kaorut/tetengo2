@@ -32,20 +32,24 @@ def load_include_list(path):
         stdlib_match = stdlib_pattern.match(line)
         if stdlib_match and stdlib_match.group("name"):
             if \
-                stdlib_match.group('name') != "experimental/filesystem" and \
                 stdlib_match.group('name') != "filesystem" and \
+                stdlib_match.group('name') != "experimental/filesystem" and \
+                stdlib_match.group('name') != "optional" and \
                 stdlib_match.group('name') != "experimental/optional" and \
-                stdlib_match.group('name') != "optional":
+                stdlib_match.group('name') != "variant":
                 stdlib_headers.append(stdlib_match.group("name"))
-            else:
-                special_stdlib_headers.append(stdlib_match.group("name"))
 
         boost_match = boost_pattern.match(line)
         if \
             boost_match and \
             boost_match.group("name") and \
             boost_match.group("name") != "boost/test/unit_test.hpp":
+            boost_match.group('name') != "boost/variant.hpp" and \
             boost_headers.append(boost_match.group("name"))
+
+    special_stdlib_headers.append("filesystem,experimental/filesystem")
+    special_stdlib_headers.append("optional,experimental/optional")
+    special_stdlib_headers.append("variant,boost/variant.hpp")
 
     return stdlib_headers, special_stdlib_headers, boost_headers
 
@@ -61,8 +65,11 @@ def make_precompiled_h(template_path, stdlib_headers, special_stdlib_headers, bo
             for h in stdlib_headers:
                 print("#include <{}>".format(h))
             for h in special_stdlib_headers:
-                print("#if __has_include(<{}>)".format(h))
-                print("#   include <{}>".format(h))
+                std_alt = h.split(",")
+                print("#if __has_include(<{}>)".format(std_alt[0]))
+                print("#   include <{}>".format(std_alt[0]))
+                print("#elif __has_include(<{}>)".format(std_alt[1]))
+                print("#   include <{}>".format(std_alt[1]))
                 print("#endif")
             print("")
             print("")
