@@ -272,22 +272,22 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     BOOST_CHECK(parsed[1].first == "value");
                     BOOST_TEST(tetengo2::stdalt::has_value(parsed[1].second));
-                    BOOST_TEST(tetengo2::stdalt::index(*parsed[1].second) == 0);
+                    BOOST_TEST(tetengo2::stdalt::index(*parsed[1].second) == 0U);
                     BOOST_TEST(!tetengo2::stdalt::get<bool>(*parsed[1].second));
 
                     BOOST_CHECK(parsed[2].first == "value");
                     BOOST_TEST(tetengo2::stdalt::has_value(parsed[2].second));
-                    BOOST_TEST(tetengo2::stdalt::index(*parsed[2].second) == 1);
+                    BOOST_TEST(tetengo2::stdalt::index(*parsed[2].second) == 1U);
                     BOOST_TEST(!tetengo2::stdalt::get<void*>(*parsed[2].second));
 
                     BOOST_CHECK(parsed[3].first == "value");
                     BOOST_TEST(tetengo2::stdalt::has_value(parsed[3].second));
-                    BOOST_TEST(tetengo2::stdalt::index(*parsed[3].second) == 0);
+                    BOOST_TEST(tetengo2::stdalt::index(*parsed[3].second) == 0U);
                     BOOST_TEST(tetengo2::stdalt::get<bool>(*parsed[3].second));
 
                     BOOST_CHECK(parsed[4].first == "value");
                     BOOST_TEST(tetengo2::stdalt::has_value(parsed[4].second));
-                    BOOST_TEST(tetengo2::stdalt::index(*parsed[4].second) == 4);
+                    BOOST_TEST(tetengo2::stdalt::index(*parsed[4].second) == 4U);
                     BOOST_CHECK(tetengo2::stdalt::get<std::string>(*parsed[4].second) == "hoge\tfuga");
 
                     BOOST_CHECK(parsed[5].first == "array");
@@ -329,38 +329,38 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     BOOST_CHECK(parsed[1].first == "value");
                     BOOST_TEST(tetengo2::stdalt::has_value(parsed[1].second));
-                    BOOST_TEST(tetengo2::stdalt::index(*parsed[1].second) == 2);
+                    BOOST_TEST(tetengo2::stdalt::index(*parsed[1].second) == 2U);
                     BOOST_TEST(tetengo2::stdalt::get<integer_type>(*parsed[1].second) == 42);
 
                     BOOST_CHECK(parsed[2].first == "value");
                     BOOST_TEST(tetengo2::stdalt::has_value(parsed[2].second));
-                    BOOST_TEST(tetengo2::stdalt::index(*parsed[2].second) == 2);
+                    BOOST_TEST(tetengo2::stdalt::index(*parsed[2].second) == 2U);
                     BOOST_TEST(tetengo2::stdalt::get<integer_type>(*parsed[2].second) == -42);
 
                     BOOST_CHECK(parsed[3].first == "value");
                     BOOST_TEST(tetengo2::stdalt::has_value(parsed[3].second));
-                    BOOST_TEST(tetengo2::stdalt::index(*parsed[3].second) == 3);
+                    BOOST_TEST(tetengo2::stdalt::index(*parsed[3].second) == 3U);
                     BOOST_TEST(
                         tetengo2::stdalt::get<float_type>(*parsed[3].second) == 42.42,
                         boost::test_tools::tolerance(0.001));
 
                     BOOST_CHECK(parsed[4].first == "value");
                     BOOST_TEST(tetengo2::stdalt::has_value(parsed[4].second));
-                    BOOST_TEST(tetengo2::stdalt::index(*parsed[4].second) == 3);
+                    BOOST_TEST(tetengo2::stdalt::index(*parsed[4].second) == 3U);
                     BOOST_TEST(
                         tetengo2::stdalt::get<float_type>(*parsed[4].second) == 4200.0,
                         boost::test_tools::tolerance(0.001));
 
                     BOOST_CHECK(parsed[5].first == "value");
                     BOOST_TEST(tetengo2::stdalt::has_value(parsed[5].second));
-                    BOOST_TEST(tetengo2::stdalt::index(*parsed[5].second) == 3);
+                    BOOST_TEST(tetengo2::stdalt::index(*parsed[5].second) == 3U);
                     BOOST_TEST(
                         tetengo2::stdalt::get<float_type>(*parsed[5].second) == 42.0,
                         boost::test_tools::tolerance(0.001));
 
                     BOOST_CHECK(parsed[6].first == "value");
                     BOOST_TEST(tetengo2::stdalt::has_value(parsed[6].second));
-                    BOOST_TEST(tetengo2::stdalt::index(*parsed[6].second) == 3);
+                    BOOST_TEST(tetengo2::stdalt::index(*parsed[6].second) == 3U);
                     BOOST_TEST(
                         tetengo2::stdalt::get<float_type>(*parsed[6].second) == 4242.0,
                         boost::test_tools::tolerance(0.001));

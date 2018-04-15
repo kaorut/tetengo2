@@ -226,7 +226,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         BOOST_TEST(pull_parser.has_next());
                         const auto& element = pull_parser.peek();
-                        BOOST_TEST(tetengo2::stdalt::index(element) == 0);
+                        BOOST_TEST(tetengo2::stdalt::index(element) == 0U);
                         const auto structure = tetengo2::stdalt::get<pull_parser_type::structure_begin_type>(element);
                         BOOST_CHECK(structure.name() == "object");
                         pull_parser.next();
@@ -234,7 +234,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         BOOST_TEST(pull_parser.has_next());
                         const auto& element = pull_parser.peek();
-                        BOOST_TEST(tetengo2::stdalt::index(element) == 1);
+                        BOOST_TEST(tetengo2::stdalt::index(element) == 1U);
                         const auto structure = tetengo2::stdalt::get<pull_parser_type::structure_end_type>(element);
                         BOOST_CHECK(structure.name() == "object");
                         pull_parser.next();
@@ -260,7 +260,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         BOOST_TEST(pull_parser.has_next());
                         const auto& element = pull_parser.peek();
-                        BOOST_TEST(tetengo2::stdalt::index(element) == 0);
+                        BOOST_TEST(tetengo2::stdalt::index(element) == 0U);
                         const auto structure = tetengo2::stdalt::get<pull_parser_type::structure_begin_type>(element);
                         BOOST_CHECK(structure.name() == "object");
                         pull_parser.next();
@@ -268,12 +268,12 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         BOOST_TEST(pull_parser.has_next());
                         const auto& element = pull_parser.peek();
-                        BOOST_TEST(tetengo2::stdalt::index(element) == 0);
+                        BOOST_TEST(tetengo2::stdalt::index(element) == 0U);
                         const auto structure = tetengo2::stdalt::get<pull_parser_type::structure_begin_type>(element);
                         BOOST_CHECK(structure.name() == "member");
                         const auto attribute = structure.attribute_map().find("name");
                         BOOST_CHECK(attribute != structure.attribute_map().end());
-                        BOOST_TEST(tetengo2::stdalt::index(attribute->second) == 4);
+                        BOOST_TEST(tetengo2::stdalt::index(attribute->second) == 4U);
                         const auto attribute_value = tetengo2::stdalt::get<std::string>(attribute->second);
                         BOOST_CHECK(attribute_value == "hoge");
                         pull_parser.next();
@@ -281,7 +281,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         BOOST_TEST(pull_parser.has_next());
                         const auto& element = pull_parser.peek();
-                        BOOST_TEST(tetengo2::stdalt::index(element) == 2);
+                        BOOST_TEST(tetengo2::stdalt::index(element) == 2U);
                         const auto value = tetengo2::stdalt::get<integer_type>(
                             tetengo2::stdalt::get<pull_parser_type::value_type>(element));
                         BOOST_TEST(value == 42);
@@ -290,7 +290,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         BOOST_TEST(pull_parser.has_next());
                         const auto& element = pull_parser.peek();
-                        BOOST_TEST(tetengo2::stdalt::index(element) == 1);
+                        BOOST_TEST(tetengo2::stdalt::index(element) == 1U);
                         const auto structure = tetengo2::stdalt::get<pull_parser_type::structure_end_type>(element);
                         BOOST_CHECK(structure.name() == "member");
                         pull_parser.next();
@@ -298,12 +298,12 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         BOOST_TEST(pull_parser.has_next());
                         const auto& element = pull_parser.peek();
-                        BOOST_TEST(tetengo2::stdalt::index(element) == 0);
+                        BOOST_TEST(tetengo2::stdalt::index(element) == 0U);
                         const auto structure = tetengo2::stdalt::get<pull_parser_type::structure_begin_type>(element);
                         BOOST_CHECK(structure.name() == "member");
                         const auto attribute = structure.attribute_map().find("name");
                         BOOST_CHECK(attribute != structure.attribute_map().end());
-                        BOOST_TEST(tetengo2::stdalt::index(attribute->second) == 4);
+                        BOOST_TEST(tetengo2::stdalt::index(attribute->second) == 4U);
                         const auto attribute_value = tetengo2::stdalt::get<std::string>(attribute->second);
                         BOOST_CHECK(attribute_value == "fuga");
                         pull_parser.next();
@@ -311,7 +311,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         BOOST_TEST(pull_parser.has_next());
                         const auto& element = pull_parser.peek();
-                        BOOST_TEST(tetengo2::stdalt::index(element) == 0);
+                        BOOST_TEST(tetengo2::stdalt::index(element) == 0U);
                         const auto structure = tetengo2::stdalt::get<pull_parser_type::structure_begin_type>(element);
                         BOOST_CHECK(structure.name() == "array");
                         pull_parser.next();
@@ -319,7 +319,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         BOOST_TEST(pull_parser.has_next());
                         const auto& element = pull_parser.peek();
-                        BOOST_TEST(tetengo2::stdalt::index(element) == 2);
+                        BOOST_TEST(tetengo2::stdalt::index(element) == 2U);
                         const auto value = tetengo2::stdalt::get<integer_type>(
                             tetengo2::stdalt::get<pull_parser_type::value_type>(element));
                         BOOST_TEST(value == 42);
@@ -328,7 +328,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         BOOST_TEST(pull_parser.has_next());
                         const auto& element = pull_parser.peek();
-                        BOOST_TEST(tetengo2::stdalt::index(element) == 2);
+                        BOOST_TEST(tetengo2::stdalt::index(element) == 2U);
                         const auto value = tetengo2::stdalt::get<integer_type>(
                             tetengo2::stdalt::get<pull_parser_type::value_type>(element));
                         BOOST_TEST(value == 42);
@@ -337,7 +337,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         BOOST_TEST(pull_parser.has_next());
                         const auto& element = pull_parser.peek();
-                        BOOST_TEST(tetengo2::stdalt::index(element) == 2);
+                        BOOST_TEST(tetengo2::stdalt::index(element) == 2U);
                         const auto value = tetengo2::stdalt::get<integer_type>(
                             tetengo2::stdalt::get<pull_parser_type::value_type>(element));
                         BOOST_TEST(value == 42);
@@ -346,7 +346,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         BOOST_TEST(pull_parser.has_next());
                         const auto& element = pull_parser.peek();
-                        BOOST_TEST(tetengo2::stdalt::index(element) == 1);
+                        BOOST_TEST(tetengo2::stdalt::index(element) == 1U);
                         const auto structure = tetengo2::stdalt::get<pull_parser_type::structure_end_type>(element);
                         BOOST_CHECK(structure.name() == "array");
                         pull_parser.next();
@@ -354,7 +354,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         BOOST_TEST(pull_parser.has_next());
                         const auto& element = pull_parser.peek();
-                        BOOST_TEST(tetengo2::stdalt::index(element) == 1);
+                        BOOST_TEST(tetengo2::stdalt::index(element) == 1U);
                         const auto structure = tetengo2::stdalt::get<pull_parser_type::structure_end_type>(element);
                         BOOST_CHECK(structure.name() == "member");
                         pull_parser.next();
@@ -362,7 +362,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         BOOST_TEST(pull_parser.has_next());
                         const auto& element = pull_parser.peek();
-                        BOOST_TEST(tetengo2::stdalt::index(element) == 1);
+                        BOOST_TEST(tetengo2::stdalt::index(element) == 1U);
                         const auto structure = tetengo2::stdalt::get<pull_parser_type::structure_end_type>(element);
                         BOOST_CHECK(structure.name() == "object");
                         pull_parser.next();
@@ -436,7 +436,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     pull_parser.next();
                     pull_parser.skip_next();
                     const auto& element = pull_parser.peek();
-                    BOOST_TEST(tetengo2::stdalt::index(element) == 1);
+                    BOOST_TEST(tetengo2::stdalt::index(element) == 1U);
                     const auto structure = tetengo2::stdalt::get<pull_parser_type::structure_end_type>(element);
                     BOOST_CHECK(structure.name() == "array");
                 }
@@ -485,7 +485,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     pull_parser.next();
                     pull_parser.skip_next();
                     const auto& element = pull_parser.peek();
-                    BOOST_TEST(tetengo2::stdalt::index(element) == 2);
+                    BOOST_TEST(tetengo2::stdalt::index(element) == 2U);
                     const auto value = tetengo2::stdalt::get<integer_type>(
                         tetengo2::stdalt::get<pull_parser_type::value_type>(element));
                     BOOST_TEST(value == 78);
