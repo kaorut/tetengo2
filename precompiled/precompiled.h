@@ -57,6 +57,11 @@
 #elif __has_include(<experimental/optional>)
 #   include <experimental/optional>
 #endif
+#if __has_include(<string_view>)
+#   include <string_view>
+#elif __has_include(<boost/utility/string_view.hpp>)
+#   include <boost/utility/string_view.hpp>
+#endif
 #if __has_include(<variant>)
 #   include <variant>
 #elif __has_include(<boost/variant.hpp>)
