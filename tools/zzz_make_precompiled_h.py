@@ -36,6 +36,7 @@ def load_include_list(path):
                 stdlib_match.group('name') != "experimental/filesystem" and \
                 stdlib_match.group('name') != "optional" and \
                 stdlib_match.group('name') != "experimental/optional" and \
+                stdlib_match.group('name') != "string_view" and \
                 stdlib_match.group('name') != "variant":
                 stdlib_headers.append(stdlib_match.group("name"))
 
@@ -44,11 +45,13 @@ def load_include_list(path):
             boost_match and \
             boost_match.group("name") and \
             boost_match.group("name") != "boost/test/unit_test.hpp":
+            boost_match.group('name') != "boost/utility/string_view.hpp" and \
             boost_match.group('name') != "boost/variant.hpp" and \
             boost_headers.append(boost_match.group("name"))
 
     special_stdlib_headers.append("filesystem,experimental/filesystem")
     special_stdlib_headers.append("optional,experimental/optional")
+    special_stdlib_headers.append("string_view,boost/utility/string_view.hpp")
     special_stdlib_headers.append("variant,boost/variant.hpp")
 
     return stdlib_headers, special_stdlib_headers, boost_headers

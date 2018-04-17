@@ -23,6 +23,11 @@
 #else
 #error Standard optional library not found.
 #endif
+#if __has_include(<variant>)
+#include <string_view>
+#else
+#include <boost/utility/string_view.hpp>
+#endif
 #include <type_traits>
 #include <utility>
 #if __has_include(<variant>)
@@ -240,6 +245,44 @@ namespace tetengo2::stdalt {
         return v.index();
     }
 #endif
+}
+
+
+namespace tetengo2::stdalt {
+#if (BOOST_COMP_CLANG && BOOST_COMP_CLANG < BOOST_VERSION_NUMBER(6, 0, 0)) || \
+    (BOOST_COMP_GNUC && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(7, 0, 0))
+    template <typename CharT, typename Traits = std::char_traits<CharT>>
+    using basic_string_view = boost::basic_string_view<CharT>;
+#else
+    /*!
+        \brief The alternate to std::basic_string_view.
+
+        \tparam CharT  A character type.
+        \tparam Traits A traits type.
+    */
+    template <typename CharT, typename Traits = std::char_traits<CharT>>
+    using basic_string_view = std::basic_string_view<CharT>;
+#endif
+
+    /*!
+        \brief The alternate to std::string_view.
+    */
+    using string_view = basic_string_view<char>;
+
+    /*!
+        \brief The alternate to std::wstring_view.
+    */
+    using wstring_view = basic_string_view<wchar_t>;
+
+    /*!
+        \brief The alternate to std::u16string_view.
+    */
+    using u16string_view = basic_string_view<char16_t>;
+
+    /*!
+        \brief The alternate to std::u32string_view.
+    */
+    using u32string_view = basic_string_view<char32_t>;
 }
 
 
