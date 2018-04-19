@@ -11,8 +11,6 @@
 
 #include <memory>
 
-#include <boost/variant.hpp>
-
 #include <tetengo2/detail/base/config.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
@@ -34,7 +32,7 @@ namespace tetengo2 { namespace detail { namespace unixos {
         using uint_type = type_list::size_type;
 
         //! The value type.
-        using value_type = boost::variant<string_type, uint_type>;
+        using value_type = tetengo2::stdalt::variant<string_type, uint_type>;
 
 
         // static functions
