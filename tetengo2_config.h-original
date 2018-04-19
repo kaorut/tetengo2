@@ -14,7 +14,7 @@
 
 
 // Set the Boost version.
-#define BOOST_VERSION "1_66"
+#define BOOST_VERSION "1_67"
 
 // Set the path where the 32-bit (Win32) version of Boost DLLs exist.
 #define BOOST_LIB_Win32 "X:\\path\\to\\boost\\lib-msvc141-Win32"
