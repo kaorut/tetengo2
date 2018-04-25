@@ -1,18 +1,17 @@
 [
   { include: ["<bits/shared_ptr.h>",          "private", "<memory>",            "public"] },
   { include: ["<bits/uses_allocator.h>",      "private", "<memory>",            "public"] },
+  { include: ["@<boost/variant/.+>",          "private", "<tetengo2/stdalt.h>", "public"] },
   { include: ["<experimental/bits/fs_ops.h>", "private", "<tetengo2/stdalt.h>", "public"] },
   { include: ["<experimental/filesystem>",    "private", "<tetengo2/stdalt.h>", "public"] },
   { include: ["<experimental/optional>",      "private", "<tetengo2/stdalt.h>", "public"] },
 
   { include: ["@<boost/algorithm/string/.+>",                         "private", "<boost/algorithm/string.hpp>",                  "public"] },
-  { include: ["<boost/core/explicit_operator_bool.hpp>",              "private", "<boost/optional.hpp>",                          "public"] },
   { include: ["<boost/detail/basic_pointerbuf.hpp>",                  "private", "<boost/lexical_cast.hpp>",                      "public"] },
   { include: ["@<boost/exception/.+>",                                "private", "<boost/exception/all.hpp>",                     "public"] },
   { include: ["<boost/iostreams/detail/error.hpp>",                   "private", "<boost/iostreams/checked_operations.hpp>",      "public"] },
   { include: ["<boost/iostreams/detail/forward.hpp>",                 "private", "<boost/iostreams/stream_buffer.hpp>",           "public"] },
   { include: ["@<boost/lexical_cast/.+>",                             "private", "<boost/lexical_cast.hpp>",                      "public"] },
-  { include: ["@<boost/optional/.+>",                                 "private", "<boost/optional.hpp>",                          "public"] },
   { include: ["@<boost/predef/.+>",                                   "private", "<boost/predef.h>",                              "public"] },
   { include: ["@<boost/preprocessor/.+>",                             "private", "<boost/preprocessor.hpp>",                      "public"] },
   { include: ["@<boost/range/iterator_range.+>",                      "private", "<boost/range/iterator_range.hpp>",              "public"] },
@@ -23,6 +22,5 @@
   { include: ["<boost/spirit/home/support/common_terminals.hpp>",     "private", "<boost/spirit/include/support.hpp>",            "public"] },
   { include: ["<boost/spirit/home/support/terminal.hpp>",             "private", "<boost/spirit/include/support.hpp>",            "public"] },
   { include: ["@<boost/test/.+>",                                     "private", "<boost/test/unit_test.hpp>",                    "public"] },
-  { include: ["@<boost/type_traits/.+>",                              "private", "<boost/type_traits.hpp>",                       "public"] },
-  { include: ["@<boost/variant/.+>",                                  "private", "<boost/variant.hpp>",                           "public"] }
+  { include: ["@<boost/type_traits/.+>",                              "private", "<boost/type_traits.hpp>",                       "public"] }
 ]
