@@ -121,6 +121,9 @@ namespace tetengo2::stdalt {
     (BOOST_COMP_GNUC && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(7, 0, 0))
 #define TETENGO2_STDALT_NULLOPT std::experimental::nullopt
 #else
+/*!
+    \brief The alternate to std::nullopt.
+*/
 #define TETENGO2_STDALT_NULLOPT std::nullopt
 #endif
 
