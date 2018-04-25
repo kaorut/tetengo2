@@ -16,6 +16,7 @@
 #else
 #error Standard filesystem library not found.
 #endif
+#include <mutex>
 #if __has_include(<optional>)
 #include <optional>
 #elif __has_include(<experimental/optional>)
@@ -283,6 +284,23 @@ namespace tetengo2::stdalt {
         \brief The alternate to std::u32string_view.
     */
     using u32string_view = basic_string_view<char32_t>;
+}
+
+
+namespace tetengo2::stdalt {
+#if (BOOST_COMP_CLANG && BOOST_COMP_CLANG < BOOST_VERSION_NUMBER(6, 0, 0)) || \
+    (BOOST_COMP_GNUC && BOOST_COMP_GNUC < BOOST_VERSION_NUMBER(7, 0, 0))
+    template <typename Mutex>
+    using scoped_lock = std::lock_guard<Mutex>;
+#else
+    /*!
+        \brief The alternate to std::scoped_lock.
+
+        \tparam Mutex A mutex type.
+    */
+    template <typename Mutex>
+    using scoped_lock = std::scoped_lock<Mutex>;
+#endif
 }
 
 

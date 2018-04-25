@@ -13,6 +13,7 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/concurrent/progressive_future.h>
+#include <tetengo2/stdalt.h> // IWYU pragma: keep
 
 
 namespace tetengo2::concurrent {
@@ -38,25 +39,25 @@ namespace tetengo2::concurrent {
 
             const progress_type& get() const
             {
-                std::lock_guard<std::mutex> lock{ m_progress_mutex };
+                tetengo2::stdalt::scoped_lock<std::mutex> lock{ m_progress_mutex };
                 return m_progress;
             }
 
             void set(progress_type progress)
             {
-                std::lock_guard<std::mutex> lock{ m_progress_mutex };
+                tetengo2::stdalt::scoped_lock<std::mutex> lock{ m_progress_mutex };
                 m_progress = std::move(progress);
             }
 
             bool abort_requested() const
             {
-                std::lock_guard<std::mutex> lock{ m_abort_request_mutex };
+                tetengo2::stdalt::scoped_lock<std::mutex> lock{ m_abort_request_mutex };
                 return m_abort_requested;
             }
 
             void request_abort()
             {
-                std::lock_guard<std::mutex> lock{ m_abort_request_mutex };
+                tetengo2::stdalt::scoped_lock<std::mutex> lock{ m_abort_request_mutex };
                 m_abort_requested = true;
             }
 
