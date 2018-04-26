@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_ITERATOR_POLYMORPHICFORWARDITERATOR_H)
 #define TETENGO2_ITERATOR_POLYMORPHICFORWARDITERATOR_H
 
+#include <cstddef>
 #include <iterator>
 
 #include <boost/operators.hpp>
@@ -20,8 +21,7 @@ namespace tetengo2::iterator {
         \tparam T A type.
     */
     template <typename T>
-    class polymorphic_forward_iterator : public std::iterator<std::forward_iterator_tag, T>,
-                                         private boost::equality_comparable<polymorphic_forward_iterator<T>>
+    class polymorphic_forward_iterator : private boost::equality_comparable<polymorphic_forward_iterator<T>>
     {
     public:
         // types
@@ -30,13 +30,13 @@ namespace tetengo2::iterator {
         using value_type = T;
 
         //! The difference type.
-        using difference_type = typename std::iterator<std::forward_iterator_tag, T>::difference_type;
+        using difference_type = std::ptrdiff_t;
 
         //! The pointer type.
-        using pointer = typename std::iterator<std::forward_iterator_tag, T>::pointer;
+        using pointer = value_type*;
 
         //! The reference type.
-        using reference = typename std::iterator<std::forward_iterator_tag, T>::reference;
+        using reference = value_type&;
 
         //! The iterator category type.
         using iterator_category = std::forward_iterator_tag;
