@@ -36,6 +36,7 @@
 #include <ostream>
 #include <queue>
 #include <ratio>
+#include <shared_mutex>
 #include <sstream>
 #include <stack>
 #include <stdexcept>
