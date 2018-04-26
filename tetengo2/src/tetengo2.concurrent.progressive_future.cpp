@@ -8,6 +8,7 @@
 
 #include <memory>
 #include <mutex>
+#include <shared_mutex>
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
@@ -39,25 +40,25 @@ namespace tetengo2::concurrent {
 
             const progress_type& get() const
             {
-                tetengo2::stdalt::scoped_lock<std::mutex> lock{ m_progress_mutex };
+                const std::shared_lock<std::shared_mutex> lock{ m_progress_mutex };
                 return m_progress;
             }
 
             void set(progress_type progress)
             {
-                tetengo2::stdalt::scoped_lock<std::mutex> lock{ m_progress_mutex };
+                const tetengo2::stdalt::scoped_lock<std::shared_mutex> lock{ m_progress_mutex };
                 m_progress = std::move(progress);
             }
 
             bool abort_requested() const
             {
-                tetengo2::stdalt::scoped_lock<std::mutex> lock{ m_abort_request_mutex };
+                const std::shared_lock<std::shared_mutex> lock{ m_abort_request_mutex };
                 return m_abort_requested;
             }
 
             void request_abort()
             {
-                tetengo2::stdalt::scoped_lock<std::mutex> lock{ m_abort_request_mutex };
+                const tetengo2::stdalt::scoped_lock<std::shared_mutex> lock{ m_abort_request_mutex };
                 m_abort_requested = true;
             }
 
@@ -69,9 +70,9 @@ namespace tetengo2::concurrent {
 
             bool m_abort_requested;
 
-            mutable std::mutex m_progress_mutex;
+            mutable std::shared_mutex m_progress_mutex;
 
-            mutable std::mutex m_abort_request_mutex;
+            mutable std::shared_mutex m_abort_request_mutex;
         };
 
 
