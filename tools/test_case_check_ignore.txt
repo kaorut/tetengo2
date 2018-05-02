@@ -65,7 +65,7 @@ test_tetengo2::config::[a-zA-Z0-9_]+_config::get
 test_tetengo2::config::[a-zA-Z0-9_]+_config::set
 test_tetengo2::config::[a-zA-Z0-9_]+_config::clear
 test_tetengo2::gui::cursor::system::details
-test_tetengo2::gui::dimension::operator_equal
+test_tetengo2::gui::basic_dimension::operator_equal
 test_tetengo2::gui::menu::abstract_popup::insert
 test_tetengo2::gui::menu::abstract_popup::erase
 test_tetengo2::gui::menu::[a-zA-Z0-9_]+::style
