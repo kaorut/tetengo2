@@ -35,7 +35,7 @@ namespace test_tetengo2::gui::type_list {
 
         using position_type = tetengo2::gui::position<tetengo2::gui::unit::pixel>;
 
-        using dimension_type = tetengo2::gui::dimension<tetengo2::gui::unit::upixel>;
+        using dimension_type = tetengo2::gui::pixel_dimension;
 
         template <typename DetailTypeList>
         using widget_details_type = typename DetailTypeList::widget_type;

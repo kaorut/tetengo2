@@ -13,14 +13,12 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/dimension.h>
-#include <tetengo2/gui/unit/em.h>
-#include <tetengo2/gui/unit/unit.h>
 
 
 namespace {
-    using unit_type = tetengo2::gui::unit::uem_for_test;
+    using dimension_type = tetengo2::gui::em_dimension_for_test;
 
-    using dimension_type = tetengo2::gui::dimension<unit_type>;
+    using unit_type = dimension_type::unit_type;
 }
 
 
