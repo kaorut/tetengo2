@@ -59,11 +59,13 @@ namespace tetengo2::gui {
 
     template class basic_dimension<em_stub_unit_type>;
 
-    template bool operator==(const basic_dimension<em_stub_unit_type>& one, const basic_dimension<em_stub_unit_type>& another);
+    template bool
+    operator==(const basic_dimension<em_stub_unit_type>& one, const basic_dimension<em_stub_unit_type>& another);
 
     template class basic_dimension<pixel_unit_type>;
 
-    template bool operator==(const basic_dimension<pixel_unit_type>& one, const basic_dimension<pixel_unit_type>& another);
+    template bool
+    operator==(const basic_dimension<pixel_unit_type>& one, const basic_dimension<pixel_unit_type>& another);
 
     template class basic_dimension<point_stub_unit_type>;
 
@@ -78,7 +80,8 @@ namespace tetengo2::gui {
 
     template class basic_dimension<point_windows_unit_type>;
 
-    template bool
-    operator==(const basic_dimension<point_windows_unit_type>& one, const basic_dimension<point_windows_unit_type>& another);
+    template bool operator==(
+        const basic_dimension<point_windows_unit_type>& one,
+        const basic_dimension<point_windows_unit_type>& another);
 #endif
 }
