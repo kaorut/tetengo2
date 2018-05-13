@@ -9,6 +9,7 @@ pkg_headers = \
     detail/base/encoding.h \
     detail/base/gui_fixture.h \
     detail/base/impl_set.h \
+    detail/base/messages.h \
     detail/base/unit.h \
     detail/stub/alert.h \
     detail/stub/common_dialog.h \
@@ -30,7 +31,8 @@ pkg_headers = \
     detail/stub/widget.h \
     detail/unixos/config.h \
     detail/unixos/encoding.h \
-    detail/unixos/impl_set.h
+    detail/unixos/impl_set.h \
+    detail/unixos/messages.h
 
 extra_headers = \
     detail/base/0namespace.dox \
@@ -68,6 +70,7 @@ extra_headers = \
     detail/windows/message_handler_detail/pictur.h \
     detail/windows/message_handler_detail/text_b.h \
     detail/windows/message_handler_detail/widget.h \
+    detail/windows/messages.h \
     detail/windows/mouse_capture.h \
     detail/windows/picture.h \
     detail/windows/scroll.h \
