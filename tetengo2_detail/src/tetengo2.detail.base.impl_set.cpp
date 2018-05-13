@@ -11,9 +11,11 @@
 #include <tetengo2/detail/base/gui_fixture.h>
 #include <tetengo2/detail/base/impl_set.h>
 
+
 namespace tetengo2::detail::base {
     class alert;
     class cursor;
+    class messages;
     class unit;
 }
 
@@ -34,6 +36,11 @@ namespace tetengo2::detail::base {
     std::unique_ptr<gui_fixture> impl_set::create_gui_fixture() const
     {
         return create_gui_fixture_impl();
+    }
+
+    const messages& impl_set::messages_() const
+    {
+        return messages_impl();
     }
 
     const unit& impl_set::unit_() const

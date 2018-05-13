@@ -27,6 +27,16 @@ namespace tetengo2::detail::windows {
         using string_type = base::messages::string_type;
 
 
+        // static functions
+
+        /*!
+            \brief Returns the instance.
+
+            \return The instance.
+        */
+        static const messages& instance();
+
+
         // constructors and destructor
 
         /*!

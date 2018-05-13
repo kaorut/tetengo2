@@ -11,17 +11,19 @@
 #include <stdexcept>
 
 #include <tetengo2/detail/base/impl_set.h>
+#include <tetengo2/detail/base/messages.h>
 #include <tetengo2/detail/unixos/impl_set.h>
+#include <tetengo2/detail/unixos/messages.h>
 
-namespace tetengo2 { namespace detail { namespace base {
+namespace tetengo2::detail::base {
     class alert;
     class cursor;
     class gui_fixture;
     class unit;
-}}}
+}
 
 
-namespace tetengo2 { namespace detail { namespace unixos {
+namespace tetengo2::detail::unixos {
     const impl_set& impl_set::instance()
     {
         static const impl_set singleton;
@@ -50,11 +52,14 @@ namespace tetengo2 { namespace detail { namespace unixos {
         throw std::logic_error("No implementation.");
     }
 
+    const base::messages& impl_set::messages_impl() const
+    {
+        return messages::instance();
+    }
+
     const base::unit& impl_set::unit_impl() const
     {
         assert(false);
         throw std::logic_error("No implementation.");
     }
-
-
-}}}
+}

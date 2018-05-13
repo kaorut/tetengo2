@@ -24,6 +24,15 @@ namespace tetengo2::detail::unixos {
         using string_type = base::messages::string_type;
 
 
+        // static functions
+
+        static const messages& instance()
+        {
+            static const messages singleton{};
+            return singleton;
+        }
+
+
         // virtual functions
 
         const string_type& locale_name_prefix_impl() const
@@ -33,6 +42,11 @@ namespace tetengo2::detail::unixos {
         }
     };
 
+
+    const messages& messages::instance()
+    {
+        return impl::instance();
+    }
 
     messages::messages() : m_p_impl{ std::make_unique<impl>() } {}
 
