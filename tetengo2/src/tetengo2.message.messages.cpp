@@ -23,9 +23,17 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/iterator/iterator_facade.hpp>
+#include <boost/predef.h>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>
 
+#if BOOST_OS_WINDOWS
+#include <tetengo2/detail/windows/messages.h>
+#elif BOOST_OS_LINUX
+#include <tetengo2/detail/unixos/messages.h>
+#else
+#error Unsupported platform.
+#endif
 #include <tetengo2/iterator/observable_forward_iterator.h>
 #include <tetengo2/message/message_catalog_parser.h>
 #include <tetengo2/message/messages.h>
@@ -157,7 +165,12 @@ namespace tetengo2::message {
 
             bool operator()(const catalog_file_mappings_type::value_type& mapping) const
             {
-                const auto locale_name = locale_name_encoder().encode(mapping.first);
+                const auto key_prefix = details().locale_name_prefix() + string_type{ TETENGO2_TEXT(":") };
+                if (!boost::starts_with(mapping.first, key_prefix))
+                    return false;
+
+                details().locale_name_prefix();
+                const auto locale_name = locale_name_encoder().encode(mapping.first.substr(key_prefix.length()));
                 try
                 {
                     return std::locale{ locale_name.c_str() } == m_locale;
@@ -174,6 +187,8 @@ namespace tetengo2::message {
         using push_parser_type = pull_parser_type::push_parser_type;
 
         using grammar_type = text::grammar::json<push_parser_type::iterator>;
+
+        using messages_details_type = detail::base::messages;
 
 
         // static functions
@@ -278,6 +293,17 @@ namespace tetengo2::message {
             auto p_push_parser = std::make_unique<push_parser_type>(first, last, std::move(p_grammar));
 
             return std::make_unique<pull_parser_type>(std::move(p_push_parser), 5);
+        }
+
+        static const messages_details_type& details()
+        {
+#if BOOST_OS_WINDOWS
+            return detail::windows::messages::instance();
+#elif BOOST_OS_LINUX
+            return detail::unixos::messages::instance();
+#else
+#error Unsupported platform.
+#endif
         }
 
 

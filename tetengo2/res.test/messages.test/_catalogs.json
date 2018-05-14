@@ -7,10 +7,10 @@
     
     "body":
     {
-        "English": "English.json",
-        "en_US":   "English.json",
+        "Windows:English": "English.json",
+        "UNIX:en_US":      "English.json",
         
-        "Japanese_Japan": "Japanese.json",
-        "ja_JP.UTF-8":    "Japanese.json"
+        "Windows:Japanese_Japan": "Japanese.json",
+        "UNIX:ja_JP.UTF-8":       "Japanese.json"
     }
 }

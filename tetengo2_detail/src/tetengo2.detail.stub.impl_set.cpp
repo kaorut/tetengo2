@@ -6,11 +6,14 @@
     $Id$
 */
 
+#include <cassert>
 #include <memory>
+#include <stdexcept>
 
 #include <tetengo2/detail/base/alert.h>
 #include <tetengo2/detail/base/cursor.h>
 #include <tetengo2/detail/base/gui_fixture.h>
+#include <tetengo2/detail/base/messages.h>
 #include <tetengo2/detail/base/unit.h>
 #include <tetengo2/detail/stub/alert.h>
 #include <tetengo2/detail/stub/cursor.h>
@@ -43,6 +46,12 @@ namespace tetengo2::detail::stub {
     std::unique_ptr<base::gui_fixture> impl_set::create_gui_fixture_impl() const
     {
         return std::make_unique<gui_fixture>();
+    }
+
+    const base::messages& impl_set::messages_impl() const
+    {
+        assert(false);
+        throw std::logic_error("No implementation.");
     }
 
     const base::unit& impl_set::unit_impl() const
