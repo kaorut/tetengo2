@@ -48,12 +48,6 @@ namespace tetengo2::detail::stub {
         return std::make_unique<gui_fixture>();
     }
 
-    const base::messages& impl_set::messages_impl() const
-    {
-        assert(false);
-        throw std::logic_error("No implementation.");
-    }
-
     const base::unit& impl_set::unit_impl() const
     {
         return unit::instance();

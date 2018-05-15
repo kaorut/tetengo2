@@ -46,11 +46,6 @@ namespace tetengo2::detail::windows {
         return std::make_unique<gui_fixture>();
     }
 
-    const base::messages& impl_set::messages_impl() const
-    {
-        return messages::instance();
-    }
-
     const base::unit& impl_set::unit_impl() const
     {
         return unit::instance();
