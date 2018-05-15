@@ -61,8 +61,6 @@ namespace tetengo2::detail::stub {
 
         virtual std::unique_ptr<base::gui_fixture> create_gui_fixture_impl() const override;
 
-        virtual const base::messages& messages_impl() const override;
-
         virtual const base::unit& unit_impl() const override;
     };
 }

@@ -60,13 +60,6 @@ namespace tetengo2::detail::base {
         std::unique_ptr<gui_fixture> create_gui_fixture() const;
 
         /*!
-            \brief Returns the detail implementation of messages facet.
-
-            \return The detail implementation.
-        */
-        const messages& messages_() const;
-
-        /*!
             \brief Returns the detail implementation of unit.
 
             \return The detail implementation.
@@ -91,8 +84,6 @@ namespace tetengo2::detail::base {
         virtual const cursor& cursor_impl() const = 0;
 
         virtual std::unique_ptr<gui_fixture> create_gui_fixture_impl() const = 0;
-
-        virtual const messages& messages_impl() const = 0;
 
         virtual const unit& unit_impl() const = 0;
     };
