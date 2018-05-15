@@ -38,11 +38,6 @@ namespace tetengo2::detail::base {
         return create_gui_fixture_impl();
     }
 
-    const messages& impl_set::messages_() const
-    {
-        return messages_impl();
-    }
-
     const unit& impl_set::unit_() const
     {
         return unit_impl();
