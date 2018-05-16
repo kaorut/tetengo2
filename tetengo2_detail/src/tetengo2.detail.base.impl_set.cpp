@@ -15,7 +15,6 @@
 namespace tetengo2::detail::base {
     class alert;
     class cursor;
-    class messages;
     class unit;
 }
 
