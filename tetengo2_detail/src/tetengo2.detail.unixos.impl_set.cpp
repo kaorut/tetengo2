@@ -11,9 +11,7 @@
 #include <stdexcept>
 
 #include <tetengo2/detail/base/impl_set.h>
-#include <tetengo2/detail/base/messages.h>
 #include <tetengo2/detail/unixos/impl_set.h>
-#include <tetengo2/detail/unixos/messages.h>
 
 namespace tetengo2::detail::base {
     class alert;

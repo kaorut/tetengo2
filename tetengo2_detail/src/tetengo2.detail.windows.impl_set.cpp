@@ -16,7 +16,6 @@
 #include <tetengo2/detail/windows/cursor.h>
 #include <tetengo2/detail/windows/gui_fixture.h>
 #include <tetengo2/detail/windows/impl_set.h>
-#include <tetengo2/detail/windows/messages.h>
 #include <tetengo2/detail/windows/unit.h>
 
 
