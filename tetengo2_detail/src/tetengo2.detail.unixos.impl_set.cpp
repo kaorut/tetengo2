@@ -52,11 +52,6 @@ namespace tetengo2::detail::unixos {
         throw std::logic_error("No implementation.");
     }
 
-    const base::messages& impl_set::messages_impl() const
-    {
-        return messages::instance();
-    }
-
     const base::unit& impl_set::unit_impl() const
     {
         assert(false);
