@@ -6,10 +6,12 @@
     $Id$
 */
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/base/icon.h>
-#include <tetengo2/gui/dimension.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::base {
