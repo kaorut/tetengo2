@@ -354,13 +354,13 @@
       <Filter>sources\tetengo2::detail\windows</Filter>
     </ClCompile>
     <ClCompile Include="src\tetengo2.detail.base.icon.cpp">
-      <Filter>sources\tetengo2::detail</Filter>
+      <Filter>sources\tetengo2::detail\base</Filter>
     </ClCompile>
     <ClCompile Include="src\tetengo2.detail.stub.icon.cpp">
-      <Filter>sources\tetengo2::detail</Filter>
+      <Filter>sources\tetengo2::detail\stub</Filter>
     </ClCompile>
     <ClCompile Include="src\tetengo2.detail.windows.icon.cpp">
-      <Filter>sources\tetengo2::detail</Filter>
+      <Filter>sources\tetengo2::detail\windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
