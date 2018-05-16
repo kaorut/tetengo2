@@ -104,6 +104,14 @@ namespace tetengo2::gui {
 
     //! The point-based position type.
     using point_position = basic_position<unit::point>;
+#elif BOOST_OS_LINUX
+    //! The EM-based dimension type.
+    using em_position = basic_position<unit::em_for_test>;
+
+    //! The point-based dimension type.
+    using point_position = basic_position<unit::point_for_test>;
+#else
+#error Unsupported platform.
 #endif
 }
 
