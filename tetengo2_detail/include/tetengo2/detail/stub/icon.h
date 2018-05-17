@@ -49,7 +49,7 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Destroys the instance.
         */
-        ~icon();
+        virtual ~icon();
 
 
     private:

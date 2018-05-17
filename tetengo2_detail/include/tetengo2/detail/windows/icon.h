@@ -73,6 +73,8 @@ namespace tetengo2::detail::windows {
                 assert(big_icon_handle);
                 assert(small_icon_handle);
             }
+
+            virtual ~icon_details_impl_type() {}
 #endif
         };
 
@@ -95,7 +97,7 @@ namespace tetengo2::detail::windows {
         /*!
             \brief Destroys the instance.
         */
-        ~icon();
+        virtual ~icon();
 
 
     private:

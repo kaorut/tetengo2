@@ -32,6 +32,7 @@ namespace tetengo2::detail::base {
         //! The icon details type.
         struct icon_details_type
         {
+            virtual ~icon_details_type() {}
         };
 
         //! The icon details pointer type.
@@ -43,7 +44,7 @@ namespace tetengo2::detail::base {
         /*!
             \brief Destroys the detail implementation of an icon.
         */
-        ~icon();
+        virtual ~icon();
 
 
         // functions
