@@ -17,7 +17,7 @@
 #include <tetengo2/gui/unit/unit.h>
 
 namespace {
-    using position_type = tetengo2::gui::em_position_for_test;
+    using position_type = tetengo2::gui::em_position;
 
     using unit_type = position_type::unit_type;
 }

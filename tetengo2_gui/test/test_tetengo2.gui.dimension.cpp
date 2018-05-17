@@ -18,7 +18,7 @@
 
 
 namespace {
-    using dimension_type = tetengo2::gui::em_dimension_for_test;
+    using dimension_type = tetengo2::gui::em_dimension;
 
     using unit_type = dimension_type::unit_type;
 }

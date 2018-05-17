@@ -89,14 +89,8 @@ namespace tetengo2::gui {
     };
 
 
-    //! The EM-based dimension type.
-    using em_dimension_for_test = basic_dimension<unit::uem_for_test>;
-
     //! The pixel-based dimension type.
     using pixel_dimension = basic_dimension<unit::upixel>;
-
-    //! The point-based dimension type.
-    using point_dimension_for_test = basic_dimension<unit::upoint_for_test>;
 
 #if BOOST_OS_WINDOWS
     //! The EM-based dimension type.

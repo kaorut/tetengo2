@@ -89,14 +89,8 @@ namespace tetengo2::gui {
     };
 
 
-    //! The EM-based position type.
-    using em_position_for_test = basic_position<unit::em_for_test>;
-
     //! The pixel-based position type.
     using pixel_position = basic_position<unit::pixel>;
-
-    //! The point-based position type.
-    using point_position_for_test = basic_position<unit::point_for_test>;
 
 #if BOOST_OS_WINDOWS
     //! The EM-based position type.
