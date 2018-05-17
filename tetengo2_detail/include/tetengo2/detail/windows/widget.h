@@ -38,6 +38,7 @@
 
 #include <tetengo2/detail/windows/alert.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
+#include <tetengo2/detail/windows/icon.h>
 #include <tetengo2/gui/alert.h> // IWYU pragma: keep
 #include <tetengo2/gui/measure.h> // IWYU pragma: keep
 #include <tetengo2/stdalt.h>
@@ -1422,11 +1423,10 @@ namespace tetengo2::detail::windows {
             ::HICON small_icon_handle = nullptr;
             if (p_icon)
             {
-                icon_handle = static_cast<const typename Icon::details_type::icon_details_impl_type&>(p_icon->details())
-                                  .big_icon_handle.get();
-                small_icon_handle =
-                    static_cast<const typename Icon::details_type::icon_details_impl_type&>(p_icon->details())
-                        .small_icon_handle.get();
+                icon_handle =
+                    static_cast<const typename icon::icon_details_impl_type&>(p_icon->details()).big_icon_handle.get();
+                small_icon_handle = static_cast<const typename icon::icon_details_impl_type&>(p_icon->details())
+                                        .small_icon_handle.get();
             }
 
             ::SendMessageW(
