@@ -27,6 +27,7 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include <tetengo2/detail/base/icon.h>
 #include <tetengo2/gui/measure.h>
 #include <tetengo2/stdalt.h>
 
@@ -35,10 +36,16 @@ namespace tetengo2::detail::windows {
     /*!
         \brief The class for a detail implementation of an icon.
     */
-    class icon : private boost::noncopyable
+    class icon : public base::icon
     {
     public:
         // types
+
+        //! The dimension type.
+        using dimension_type = base::icon::dimension_type;
+
+        //! The icon details type.
+        using icon_details_type = base::icon::icon_details_type;
 
 #if !defined(DOCUMENTATION)
         struct icon_deleter_type
@@ -54,13 +61,13 @@ namespace tetengo2::detail::windows {
 #endif
 
         //! The icon details type.
-        struct icon_details_type
+        struct icon_details_impl_type : public base::icon::icon_details_type
         {
 #if !defined(DOCUMENTATION)
             const icon_handle_type big_icon_handle;
             const icon_handle_type small_icon_handle;
 
-            icon_details_type(icon_handle_type big_icon_handle_, icon_handle_type small_icon_handle_)
+            icon_details_impl_type(icon_handle_type big_icon_handle_, icon_handle_type small_icon_handle_)
             : big_icon_handle{ std::move(big_icon_handle_) }, small_icon_handle{ std::move(small_icon_handle_) }
             {
                 assert(big_icon_handle);
@@ -70,74 +77,49 @@ namespace tetengo2::detail::windows {
         };
 
         //! The icon details pointer type.
-        using icon_details_ptr_type = std::unique_ptr<icon_details_type>;
+        using icon_details_ptr_type = base::icon::icon_details_ptr_type;
 
 
         // static functions
 
         /*!
-            \brief Returns the default dimension.
+            \brief Returns the instance.
 
-            \tparam Dimension A dimension type.
-
-            \return The default dimension.
+            \return The instance.
         */
-        template <typename Dimension>
-        static Dimension default_dimension()
-        {
-            const std::pair<int, int> big_icon_dimension_ = big_icon_dimension();
-            return { typename Dimension::unit_type::from_pixels(big_icon_dimension_.first),
-                     typename Dimension::unit_type::from_pixels(big_icon_dimension_.second) };
-        }
+        static const icon& instance();
+
+
+        // constructors and destructor
 
         /*!
-            \brief Creates an icon.
-
-            \tparam Dimension A dimension type.
-
-            \param path      A path.
-            \param dimension A dimension.
-
-            \return A unique pointer to an icon.
+            \brief Destroys the instance.
         */
-        template <typename Dimension>
-        static icon_details_ptr_type create(const tetengo2::stdalt::filesystem::path& path, const Dimension& dimension)
-        {
-            const int        width = gui::to_pixels<int>(dimension.width());
-            const int        height = gui::to_pixels<int>(dimension.height());
-            icon_handle_type big_icon_handle{ load_icon(path, width, height) };
-
-            const std::pair<int, int> small_icon_dimension_ = small_icon_dimension();
-            icon_handle_type          small_icon_handle{ load_icon(
-                path, small_icon_dimension_.first, small_icon_dimension_.second) };
-
-            return std::make_unique<icon_details_type>(std::move(big_icon_handle), std::move(small_icon_handle));
-        }
+        ~icon();
 
 
     private:
-        // static functions
+        // types
 
-        static std::pair<int, int> big_icon_dimension()
-        {
-            return std::make_pair(::GetSystemMetrics(SM_CXICON), ::GetSystemMetrics(SM_CYICON));
-        }
+        class impl;
 
-        static std::pair<int, int> small_icon_dimension()
-        {
-            return std::make_pair(::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON));
-        }
 
-        inline static ::HICON
-        load_icon(const tetengo2::stdalt::filesystem::path& path, const int width, const int height)
-        {
-            const ::HANDLE handle =
-                ::LoadImageW(nullptr, path.c_str(), IMAGE_ICON, width, height, LR_LOADFROMFILE | LR_VGACOLOR);
-            if (!handle)
-                BOOST_THROW_EXCEPTION((std::ios_base::failure{ "Can't load icon file." }));
+        // variables
 
-            return static_cast<::HICON>(handle);
-        }
+        const std::unique_ptr<impl> m_p_impl;
+
+
+        // constructors
+
+        icon();
+
+
+        // virtual functions
+
+        virtual dimension_type default_dimension_impl() const override;
+
+        virtual icon_details_ptr_type
+        create_impl(const tetengo2::stdalt::filesystem::path& path, const dimension_type& dimension) const override;
     };
 }
 

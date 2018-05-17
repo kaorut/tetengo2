@@ -32,9 +32,9 @@ namespace test_tetengo2::gui::type_list {
 
         using string_type = std::wstring;
 
-        using position_type = tetengo2::gui::pixel_position;
+        using position_type = tetengo2::gui::em_position;
 
-        using dimension_type = tetengo2::gui::pixel_dimension;
+        using dimension_type = tetengo2::gui::em_dimension;
 
         template <typename DetailTypeList>
         using widget_details_type = typename DetailTypeList::widget_type;

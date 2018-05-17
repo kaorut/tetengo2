@@ -13,7 +13,7 @@
 
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/icon.h>
-#include <tetengo2/gui/unit/pixel.h>
+#include <tetengo2/gui/unit/em.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 

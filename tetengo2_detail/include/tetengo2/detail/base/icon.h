@@ -89,10 +89,10 @@ namespace tetengo2::detail::base {
 
         // virtual functions
 
-        virtual dimension_type default_dimension_impl() const;
+        virtual dimension_type default_dimension_impl() const = 0;
 
         virtual icon_details_ptr_type
-        create_impl(const tetengo2::stdalt::filesystem::path& path, const dimension_type& dimension) const;
+        create_impl(const tetengo2::stdalt::filesystem::path& path, const dimension_type& dimension) const = 0;
     };
 }
 

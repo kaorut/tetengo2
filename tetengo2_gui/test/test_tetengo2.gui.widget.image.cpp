@@ -22,7 +22,7 @@
 #include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_bar.h>
-#include <tetengo2/gui/unit/pixel.h>
+#include <tetengo2/gui/unit/em.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/image.h>
 #include <tetengo2/gui/widget/window.h>
@@ -230,7 +230,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         image.fit_to_content();
 
                         const auto           dimension = image.client_dimension();
-                        const dimension_type answer_dimension{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } };
+                        const dimension_type answer_dimension{ dimension_unit_type::from_pixels(123),
+                                                               dimension_unit_type::from_pixels(456) };
                         BOOST_CHECK(dimension == answer_dimension);
                     }
                     {

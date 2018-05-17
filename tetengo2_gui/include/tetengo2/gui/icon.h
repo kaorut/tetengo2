@@ -53,8 +53,9 @@ namespace tetengo2::gui {
             \param path A path.
         */
         explicit icon(tetengo2::stdalt::filesystem::path path)
-        : m_path{ std::move(path) }, m_dimension{ details_type::template default_dimension<dimension_type>() },
-          m_p_icon_details{ details_type::create(m_path, m_dimension) }
+        : m_path{ std::move(path) }, m_dimension{ details_type::instance().default_dimension() }, m_p_icon_details{
+              details_type::instance().create(m_path, m_dimension)
+          }
         {}
 
         /*!
@@ -65,7 +66,7 @@ namespace tetengo2::gui {
         */
         icon(tetengo2::stdalt::filesystem::path path, dimension_type dimension)
         : m_path{ std::move(path) }, m_dimension{ std::move(dimension) }, m_p_icon_details{
-              details_type::create(m_path, m_dimension)
+              details_type::instance().create(m_path, m_dimension)
           }
         {}
 

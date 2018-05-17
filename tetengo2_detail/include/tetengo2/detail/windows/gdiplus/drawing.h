@@ -812,7 +812,7 @@ namespace tetengo2::detail::windows::gdiplus {
                 canvas.get().GetHDC(),
                 gui::to_pixels<int>(position.left()),
                 gui::to_pixels<int>(position.top()),
-                icon.details().big_icon_handle.get(),
+                static_cast<const Icon::details_type::icon_details_impl_type&>(icon.details()).big_icon_handle.get(),
                 gui::to_pixels<int>(icon.dimension().width()),
                 gui::to_pixels<int>(icon.dimension().width()),
                 0,

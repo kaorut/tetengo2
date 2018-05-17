@@ -26,7 +26,7 @@
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/transparent_background.h>
 #include <tetengo2/gui/icon.h>
-#include <tetengo2/gui/unit/pixel.h>
+#include <tetengo2/gui/unit/em.h>
 #include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
@@ -50,7 +50,7 @@ namespace {
 
     using position_unit_type = position_type::unit_type;
 
-    using dimension_type = common_type_list_type::dimension_type;
+    using dimension_type = tetengo2::gui::em_dimension;
 
     using dimension_unit_type = dimension_type::unit_type;
 

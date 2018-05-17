@@ -37,7 +37,7 @@ namespace tetengo2::detail::base {
         icon_details_ptr_type
         create(const tetengo2::stdalt::filesystem::path& path, const dimension_type& dimension, const icon& base) const
         {
-            return base.create(path, dimension);
+            return base.create_impl(path, dimension);
         }
     };
 

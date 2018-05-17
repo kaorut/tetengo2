@@ -11,8 +11,7 @@
 
 #include <memory>
 
-#include <boost/core/noncopyable.hpp>
-
+#include <tetengo2/detail/base/icon.h>
 #include <tetengo2/stdalt.h>
 
 
@@ -20,53 +19,61 @@ namespace tetengo2::detail::stub {
     /*!
         \brief The class for a detail implementation of an icon.
     */
-    class icon : private boost::noncopyable
+    class icon : public base::icon
     {
     public:
         // types
 
+        //! The dimension type.
+        using dimension_type = base::icon::dimension_type;
+
         //! The icon details type.
-        struct icon_details_type
-        {
-        };
+        using icon_details_type = base::icon::icon_details_type;
 
         //! The icon details pointer type.
-        using icon_details_ptr_type = std::unique_ptr<icon_details_type>;
+        using icon_details_ptr_type = base::icon::icon_details_ptr_type;
 
 
         // static functions
 
         /*!
-            \brief Returns the default dimension.
+            \brief Returns the instance.
 
-            \tparam Dimension A dimension type.
-
-            \return The default dimension.
+            \return The instance.
         */
-        template <typename Dimension>
-        static Dimension default_dimension()
-        {
-            using dimension_unit_type = typename Dimension::unit_type;
-            return { dimension_unit_type{ 42 }, dimension_unit_type{ 42 } };
-        }
+        static const icon& instance();
+
+
+        // constructors and destructor
 
         /*!
-            \brief Creates an icon.
-
-            \tparam Dimension A dimension type.
-
-            \param path      A path.
-            \param dimension A dimension.
-
-            \return A unique pointer to an icon.
+            \brief Destroys the instance.
         */
-        template <typename Dimension>
-        static icon_details_ptr_type create(
-            TETENGO2_STDALT_MAYBE_UNUSED const tetengo2::stdalt::filesystem::path& path,
-            TETENGO2_STDALT_MAYBE_UNUSED const Dimension& dimension)
-        {
-            return std::make_unique<icon_details_type>();
-        }
+        ~icon();
+
+
+    private:
+        // types
+
+        class impl;
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
+
+
+        // constructors
+
+        icon();
+
+
+        // virtual functions
+
+        virtual dimension_type default_dimension_impl() const override;
+
+        virtual icon_details_ptr_type
+        create_impl(const tetengo2::stdalt::filesystem::path& path, const dimension_type& dimension) const override;
     };
 }
 
