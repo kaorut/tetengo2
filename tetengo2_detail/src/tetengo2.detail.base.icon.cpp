@@ -42,7 +42,7 @@ namespace tetengo2::detail::base {
     };
 
 
-    icon::~icon() {}
+    icon::~icon() = default;
 
     icon::dimension_type icon::default_dimension() const
     {

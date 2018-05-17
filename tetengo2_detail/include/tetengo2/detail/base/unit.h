@@ -39,7 +39,7 @@ namespace tetengo2::detail::base {
         /*!
             \brief Destroys the detail implementation.
         */
-        ~unit();
+        virtual ~unit();
 
 
         // functions

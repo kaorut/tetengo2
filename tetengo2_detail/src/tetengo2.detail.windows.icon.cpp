@@ -85,8 +85,7 @@ namespace tetengo2::detail::windows {
         return singleton;
     }
 
-    icon::~icon() {}
-
+    icon::~icon() = default;
 
     icon::icon() : m_p_impl{ std::make_unique<impl>() } {}
 

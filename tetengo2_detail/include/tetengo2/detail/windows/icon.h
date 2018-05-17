@@ -74,7 +74,7 @@ namespace tetengo2::detail::windows {
                 assert(small_icon_handle);
             }
 
-            virtual ~icon_details_impl_type() {}
+            virtual ~icon_details_impl_type() = default;
 #endif
         };
 

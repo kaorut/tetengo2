@@ -47,7 +47,7 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Destroys the detail implementation.
         */
-        ~unit();
+        virtual ~unit();
 
 
     private:

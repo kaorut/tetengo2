@@ -32,7 +32,7 @@ namespace tetengo2::detail::base {
         //! The icon details type.
         struct icon_details_type
         {
-            virtual ~icon_details_type() {}
+            virtual ~icon_details_type() = default;
         };
 
         //! The icon details pointer type.

@@ -31,7 +31,7 @@ namespace tetengo2::detail::base {
     };
 
 
-    messages::~messages() {}
+    messages::~messages() = default;
 
     const messages::string_type& messages::locale_name_prefix() const
     {
