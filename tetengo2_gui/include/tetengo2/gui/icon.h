@@ -14,6 +14,7 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/detail/base/icon.h>
 #include <tetengo2/stdalt.h>
 
 
@@ -22,9 +23,8 @@ namespace tetengo2::gui {
         \brief The class template for an icon.
 
         \tparam Dimension A dimension type.
-        \tparam Details   A detail implementation type.
     */
-    template <typename Dimension, typename Details>
+    template <typename Dimension>
     class icon : private boost::noncopyable
     {
     public:
@@ -34,7 +34,7 @@ namespace tetengo2::gui {
         using dimension_type = Dimension;
 
         //! The details type.
-        using details_type = Details;
+        using details_type = detail::base::icon;
 
         //! The icon details type.
         using icon_details_type = typename details_type::icon_details_type;
@@ -50,11 +50,12 @@ namespace tetengo2::gui {
 
             The dimension is determined by the system.
 
-            \param path A path.
+            \param path    A path.
+            \param details A detail implementation of an icon.
         */
-        explicit icon(tetengo2::stdalt::filesystem::path path)
-        : m_path{ std::move(path) }, m_dimension{ details_type::instance().default_dimension() }, m_p_icon_details{
-              details_type::instance().create(m_path, m_dimension)
+        icon(tetengo2::stdalt::filesystem::path path, const details_type& details)
+        : m_path{ std::move(path) }, m_dimension{ details.default_dimension() }, m_p_icon_details{
+              details.create(m_path, m_dimension)
           }
         {}
 
@@ -63,10 +64,11 @@ namespace tetengo2::gui {
 
             \param path      A path.
             \param dimension A dimension.
+            \param details   A detail implementation of an icon.
         */
-        icon(tetengo2::stdalt::filesystem::path path, dimension_type dimension)
+        icon(tetengo2::stdalt::filesystem::path path, dimension_type dimension, const details_type& details)
         : m_path{ std::move(path) }, m_dimension{ std::move(dimension) }, m_p_icon_details{
-              details_type::instance().create(m_path, m_dimension)
+              details.create(m_path, m_dimension)
           }
         {}
 

@@ -45,9 +45,6 @@ namespace tetengo2::gui::widget {
         //! The drawing details type.
         using drawing_details_type = typename details_traits_type::drawing_details_type;
 
-        //! The icon details type.
-        using icon_details_type = typename details_traits_type::icon_details_type;
-
         //! The message handler details type.
         using message_handler_details_type = typename details_traits_type::message_handler_details_type;
 
@@ -64,7 +61,7 @@ namespace tetengo2::gui::widget {
         using picture_type = gui::drawing::picture<dimension_type, drawing_details_type>;
 
         //! The icon type.
-        using icon_type = gui::icon<dimension_type, icon_details_type>;
+        using icon_type = gui::icon<dimension_type>;
 
 
         // constructors and destructor

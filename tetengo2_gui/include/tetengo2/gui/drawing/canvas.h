@@ -31,9 +31,8 @@ namespace tetengo2::gui::drawing {
 
         \tparam Traits         A traits type.
         \tparam DrawingDetails A detail implementation type of a drawing.
-        \tparam IconDetails    An icon details type.
     */
-    template <typename Traits, typename DrawingDetails, typename IconDetails>
+    template <typename Traits, typename DrawingDetails>
     class canvas : private boost::noncopyable
     {
     public:
@@ -81,11 +80,8 @@ namespace tetengo2::gui::drawing {
         //! The picture type.
         using picture_type = picture<dimension_type, drawing_details_type>;
 
-        //! The icon details type.
-        using icon_details_type = IconDetails;
-
         //! The icon type.
-        using icon_type = gui::icon<dimension_type, icon_details_type>;
+        using icon_type = gui::icon<dimension_type>;
 
         //! The color type.
         using color_type = color;
