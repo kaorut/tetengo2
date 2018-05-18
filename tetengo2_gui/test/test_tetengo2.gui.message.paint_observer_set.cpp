@@ -38,8 +38,7 @@ namespace {
 
     using drawing_details_type = detail_type_list_type::drawing_type;
 
-    using canvas_type =
-        tetengo2::gui::drawing::canvas<canvas_traits_type, drawing_details_type, detail_type_list_type::icon_type>;
+    using canvas_type = tetengo2::gui::drawing::canvas<canvas_traits_type, drawing_details_type>;
 
     using paint_observer_set_type = tetengo2::gui::message::paint_observer_set<canvas_type>;
 }

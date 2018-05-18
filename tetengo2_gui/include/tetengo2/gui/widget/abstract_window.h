@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_WIDGET_ABSTRACTWINDOW_H)
 #define TETENGO2_GUI_WIDGET_ABSTRACTWINDOW_H
 
+#include <algorithm>
 #include <memory>
 #include <stdexcept>
 
@@ -46,9 +47,6 @@ namespace tetengo2::gui::widget {
         //! The widget details type.
         using widget_details_type = typename details_traits_type::widget_details_type;
 
-        //! The icon details type.
-        using icon_details_type = typename details_traits_type::icon_details_type;
-
         //! The message handler details type.
         using message_handler_details_type = typename details_traits_type::message_handler_details_type;
 
@@ -74,7 +72,7 @@ namespace tetengo2::gui::widget {
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
         //! The icon type.
-        using icon_type = gui::icon<dimension_type, icon_details_type>;
+        using icon_type = gui::icon;
 
         //! The shortcut key table type.
         using shortcut_key_table_type =

@@ -17,6 +17,7 @@ namespace tetengo2::detail::base {
     class alert;
     class cursor;
     class gui_fixture;
+    class icon;
     class unit;
 }
 
@@ -45,6 +46,12 @@ namespace tetengo2::detail::unixos {
     }
 
     std::unique_ptr<base::gui_fixture> impl_set::create_gui_fixture_impl() const
+    {
+        assert(false);
+        throw std::logic_error("No implementation.");
+    }
+
+    const base::icon& impl_set::icon_impl() const
     {
         assert(false);
         throw std::logic_error("No implementation.");

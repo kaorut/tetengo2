@@ -991,8 +991,11 @@ namespace tetengo2::gui::widget {
                 const scroll_bar_size_type scroll_bar_position_in_pixels = gui::to_pixels<scroll_bar_size_type>(
                     top + position_unit_type::from(height) - position_unit_type::from(client_height));
                 scroll_bar_position = scroll_bar_position_in_pixels / scroll_bar_size_unit();
-                if (scroll_bar_position_in_pixels % scroll_bar_size_unit() > 0)
+                if (scroll_bar_position_in_pixels % scroll_bar_size_unit() > 0 &&
+                    scroll_bar_position + 1 <= scroll_bar.range().second)
+                {
                     scroll_bar_position += 1;
+                }
             }
             if (top_to_paint < position_unit_type{})
             {

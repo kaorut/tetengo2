@@ -16,17 +16,16 @@
 #include <tetengo2/gui/unit/em.h>
 #include <tetengo2/gui/unit/unit.h>
 
-
 namespace {
-    using unit_type = tetengo2::gui::unit::em_for_test;
+    using position_type = tetengo2::gui::em_position;
 
-    using position_type = tetengo2::gui::position<unit_type>;
+    using unit_type = position_type::unit_type;
 }
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
     BOOST_AUTO_TEST_SUITE(gui)
-        BOOST_AUTO_TEST_SUITE(position)
+        BOOST_AUTO_TEST_SUITE(basic_position)
             // test cases
 
             BOOST_AUTO_TEST_CASE(construction)

@@ -338,5 +338,8 @@
     <ClCompile Include="src\tetengo2.gui.unit.point.cpp">
       <Filter>sources\tetengo2::gui\unit</Filter>
     </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.icon.cpp">
+      <Filter>sources\tetengo2::gui</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

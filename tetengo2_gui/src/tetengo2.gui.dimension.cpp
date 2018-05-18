@@ -16,28 +16,28 @@
 
 namespace tetengo2::gui {
     template <typename Unit>
-    dimension<Unit>::dimension() : m_width{ unit_type{} }, m_height{ unit_type{} }
+    basic_dimension<Unit>::basic_dimension() : m_width{ unit_type{} }, m_height{ unit_type{} }
     {}
 
     template <typename Unit>
-    dimension<Unit>::dimension(unit_type width, unit_type height)
+    basic_dimension<Unit>::basic_dimension(unit_type width, unit_type height)
     : m_width{ std::move(width) }, m_height{ std::move(height) }
     {}
 
     template <typename U>
-    bool operator==(const dimension<U>& one, const dimension<U>& another)
+    bool operator==(const basic_dimension<U>& one, const basic_dimension<U>& another)
     {
         return one.m_width == another.m_width && one.m_height == another.m_height;
     }
 
     template <typename Unit>
-    const typename dimension<Unit>::unit_type& dimension<Unit>::width() const
+    const typename basic_dimension<Unit>::unit_type& basic_dimension<Unit>::width() const
     {
         return m_width;
     }
 
     template <typename Unit>
-    const typename dimension<Unit>::unit_type& dimension<Unit>::height() const
+    const typename basic_dimension<Unit>::unit_type& basic_dimension<Unit>::height() const
     {
         return m_height;
     }
@@ -57,28 +57,31 @@ namespace tetengo2::gui {
 #endif
     }
 
-    template class dimension<em_stub_unit_type>;
-
-    template bool operator==(const dimension<em_stub_unit_type>& one, const dimension<em_stub_unit_type>& another);
-
-    template class dimension<pixel_unit_type>;
-
-    template bool operator==(const dimension<pixel_unit_type>& one, const dimension<pixel_unit_type>& another);
-
-    template class dimension<point_stub_unit_type>;
+    template class basic_dimension<em_stub_unit_type>;
 
     template bool
-    operator==(const dimension<point_stub_unit_type>& one, const dimension<point_stub_unit_type>& another);
+    operator==(const basic_dimension<em_stub_unit_type>& one, const basic_dimension<em_stub_unit_type>& another);
+
+    template class basic_dimension<pixel_unit_type>;
+
+    template bool
+    operator==(const basic_dimension<pixel_unit_type>& one, const basic_dimension<pixel_unit_type>& another);
+
+    template class basic_dimension<point_stub_unit_type>;
+
+    template bool
+    operator==(const basic_dimension<point_stub_unit_type>& one, const basic_dimension<point_stub_unit_type>& another);
 
 #if BOOST_OS_WINDOWS
-    template class dimension<em_windows_unit_type>;
+    template class basic_dimension<em_windows_unit_type>;
 
     template bool
-    operator==(const dimension<em_windows_unit_type>& one, const dimension<em_windows_unit_type>& another);
+    operator==(const basic_dimension<em_windows_unit_type>& one, const basic_dimension<em_windows_unit_type>& another);
 
-    template class dimension<point_windows_unit_type>;
+    template class basic_dimension<point_windows_unit_type>;
 
-    template bool
-    operator==(const dimension<point_windows_unit_type>& one, const dimension<point_windows_unit_type>& another);
+    template bool operator==(
+        const basic_dimension<point_windows_unit_type>& one,
+        const basic_dimension<point_windows_unit_type>& another);
 #endif
 }

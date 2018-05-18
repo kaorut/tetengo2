@@ -8,6 +8,7 @@ pkg_headers = \
     detail/base/cursor.h \
     detail/base/encoding.h \
     detail/base/gui_fixture.h \
+    detail/base/icon.h \
     detail/base/impl_set.h \
     detail/base/messages.h \
     detail/base/unit.h \

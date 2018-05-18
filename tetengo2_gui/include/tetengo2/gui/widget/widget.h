@@ -86,9 +86,6 @@ namespace tetengo2::gui::widget {
         //! The drawing details type.
         using drawing_details_type = typename details_traits_type::drawing_details_type;
 
-        //! The icon details type.
-        using icon_details_type = typename details_traits_type::icon_details_type;
-
         //! The scroll details type.
         using scroll_details_type = typename details_traits_type::scroll_details_type;
 
@@ -97,11 +94,10 @@ namespace tetengo2::gui::widget {
             gui::drawing::canvas_traits<size_type, string_type, position_type, dimension_type, encoder_type>;
 
         //! The canvas type.
-        using canvas_type = gui::drawing::canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
+        using canvas_type = gui::drawing::canvas<canvas_traits_type, drawing_details_type>;
 
         //! The widget canvas type.
-        using widget_canvas_type =
-            gui::drawing::widget_canvas<canvas_traits_type, drawing_details_type, icon_details_type>;
+        using widget_canvas_type = gui::drawing::widget_canvas<canvas_traits_type, drawing_details_type>;
 
         //! The background type.
         using background_type = gui::drawing::background<drawing_details_type>;

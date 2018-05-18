@@ -49,6 +49,7 @@
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/font.h>
 #include <tetengo2/detail/windows/gdiplus/error_category.h> // IWYU pragma: keep
+#include <tetengo2/detail/windows/icon.h>
 #include <tetengo2/detail/windows/picture.h>
 #include <tetengo2/gui/measure.h> // IWYU pragma: keep
 #include <tetengo2/stdalt.h>
@@ -812,7 +813,7 @@ namespace tetengo2::detail::windows::gdiplus {
                 canvas.get().GetHDC(),
                 gui::to_pixels<int>(position.left()),
                 gui::to_pixels<int>(position.top()),
-                icon.details().big_icon_handle.get(),
+                static_cast<const icon::icon_details_impl_type&>(icon.details()).big_icon_handle.get(),
                 gui::to_pixels<int>(icon.dimension().width()),
                 gui::to_pixels<int>(icon.dimension().width()),
                 0,

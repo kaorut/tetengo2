@@ -17,6 +17,7 @@ namespace tetengo2::detail::base {
     class alert;
     class cursor;
     class gui_fixture;
+    class icon;
     class unit;
 }
 
@@ -59,6 +60,8 @@ namespace tetengo2::detail::unixos {
         virtual const base::cursor& cursor_impl() const override;
 
         virtual std::unique_ptr<base::gui_fixture> create_gui_fixture_impl() const override;
+
+        virtual const base::icon& icon_impl() const override;
 
         virtual const base::unit& unit_impl() const override;
     };

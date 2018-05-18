@@ -20,7 +20,7 @@
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_bar.h>
-#include <tetengo2/gui/unit/pixel.h>
+#include <tetengo2/gui/unit/em.h>
 #include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/label.h>

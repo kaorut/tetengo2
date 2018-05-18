@@ -14,7 +14,6 @@
 
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/position.h>
-#include <tetengo2/gui/unit/pixel.h>
 #include <tetengo2/gui/widget/widget_details_traits.h>
 #include <tetengo2/gui/widget/widget_traits.h>
 #include <tetengo2/message/message_catalog.h>
@@ -33,9 +32,9 @@ namespace test_tetengo2::gui::type_list {
 
         using string_type = std::wstring;
 
-        using position_type = tetengo2::gui::position<tetengo2::gui::unit::pixel>;
+        using position_type = tetengo2::gui::em_position;
 
-        using dimension_type = tetengo2::gui::dimension<tetengo2::gui::unit::upixel>;
+        using dimension_type = tetengo2::gui::em_dimension;
 
         template <typename DetailTypeList>
         using widget_details_type = typename DetailTypeList::widget_type;

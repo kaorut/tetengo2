@@ -47,7 +47,7 @@ namespace tetengo2::detail::windows {
         /*!
             \brief Destroys the detail implementaion.
         */
-        ~messages();
+        virtual ~messages();
 
 
     private:

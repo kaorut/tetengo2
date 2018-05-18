@@ -18,15 +18,15 @@
 
 
 namespace {
-    using unit_type = tetengo2::gui::unit::uem_for_test;
+    using dimension_type = tetengo2::gui::em_dimension;
 
-    using dimension_type = tetengo2::gui::dimension<unit_type>;
+    using unit_type = dimension_type::unit_type;
 }
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
     BOOST_AUTO_TEST_SUITE(gui)
-        BOOST_AUTO_TEST_SUITE(dimension)
+        BOOST_AUTO_TEST_SUITE(basic_dimension)
             // test cases
 
             BOOST_AUTO_TEST_CASE(construction)

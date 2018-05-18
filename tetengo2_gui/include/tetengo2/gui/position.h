@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::position.
+    \brief The definition of tetengo2::gui::basic_position.
 
     Copyright (C) 2007-2018 kaoru
 
@@ -10,6 +10,11 @@
 #define TETENGO2_GUI_POSITION_H
 
 #include <boost/operators.hpp>
+#include <boost/predef.h>
+
+#include <tetengo2/gui/unit/em.h>
+#include <tetengo2/gui/unit/pixel.h>
+#include <tetengo2/gui/unit/point.h>
 
 
 namespace tetengo2::gui {
@@ -19,7 +24,7 @@ namespace tetengo2::gui {
         \tparam Unit A unit type.
     */
     template <typename Unit>
-    class position : private boost::equality_comparable<position<Unit>>
+    class basic_position : private boost::equality_comparable<basic_position<Unit>>
     {
     public:
         // types
@@ -31,34 +36,34 @@ namespace tetengo2::gui {
         // constructors and destructor
 
         /*!
-            \brief Creates a position with zeros.
+            \brief Creates a basic_position with zeros.
         */
-        position();
+        basic_position();
 
         /*!
-            \brief Creates a position.
+            \brief Creates a basic_position.
 
             \param left A left.
             \param top  A top.
         */
-        position(unit_type left, unit_type top);
+        basic_position(unit_type left, unit_type top);
 
 
         // functions
 
         /*!
-            \brief Checks whether one position is equal to another.
+            \brief Checks whether one basic_position is equal to another.
 
             \tparam U A unit type.
 
-            \param one     One position.
-            \param another Another position.
+            \param one     One basic_position.
+            \param another Another basic_position.
 
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
         template <typename U>
-        friend bool operator==(const position<U>& one, const position<U>& another);
+        friend bool operator==(const basic_position<U>& one, const basic_position<U>& another);
 
         /*!
             \brief Returns the left.
@@ -82,6 +87,26 @@ namespace tetengo2::gui {
 
         unit_type m_top;
     };
+
+
+    //! The pixel-based position type.
+    using pixel_position = basic_position<unit::pixel>;
+
+#if BOOST_OS_WINDOWS
+    //! The EM-based position type.
+    using em_position = basic_position<unit::em>;
+
+    //! The point-based position type.
+    using point_position = basic_position<unit::point>;
+#elif BOOST_OS_LINUX
+    //! The EM-based dimension type.
+    using em_position = basic_position<unit::em_for_test>;
+
+    //! The point-based dimension type.
+    using point_position = basic_position<unit::point_for_test>;
+#else
+#error Unsupported platform.
+#endif
 }
 
 

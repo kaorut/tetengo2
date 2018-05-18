@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::dimension.
+    \brief The definition of tetengo2::gui::basic_dimension.
 
     Copyright (C) 2007-2018 kaoru
 
@@ -10,6 +10,11 @@
 #define TETENGO2_GUI_DIMENSION_H
 
 #include <boost/operators.hpp>
+#include <boost/predef.h>
+
+#include <tetengo2/gui/unit/em.h>
+#include <tetengo2/gui/unit/pixel.h>
+#include <tetengo2/gui/unit/point.h>
 
 
 namespace tetengo2::gui {
@@ -19,7 +24,7 @@ namespace tetengo2::gui {
         \tparam Unit A unit type.
     */
     template <typename Unit>
-    class dimension : private boost::equality_comparable<dimension<Unit>>
+    class basic_dimension : private boost::equality_comparable<basic_dimension<Unit>>
     {
     public:
         // types
@@ -33,7 +38,7 @@ namespace tetengo2::gui {
         /*!
             \brief Creates a dimension with zeros.
         */
-        dimension();
+        basic_dimension();
 
         /*!
             \brief Creates a dimension.
@@ -41,7 +46,7 @@ namespace tetengo2::gui {
             \param width  A width.
             \param height A height.
         */
-        dimension(unit_type width, unit_type height);
+        basic_dimension(unit_type width, unit_type height);
 
 
         // functions
@@ -58,7 +63,7 @@ namespace tetengo2::gui {
             \retval false Otherwise.
         */
         template <typename U>
-        friend bool operator==(const dimension<U>& one, const dimension<U>& another);
+        friend bool operator==(const basic_dimension<U>& one, const basic_dimension<U>& another);
 
         /*!
             \brief Returns the width.
@@ -82,6 +87,26 @@ namespace tetengo2::gui {
 
         unit_type m_height;
     };
+
+
+    //! The pixel-based dimension type.
+    using pixel_dimension = basic_dimension<unit::upixel>;
+
+#if BOOST_OS_WINDOWS
+    //! The EM-based dimension type.
+    using em_dimension = basic_dimension<unit::uem>;
+
+    //! The point-based dimension type.
+    using point_dimension = basic_dimension<unit::upoint>;
+#elif BOOST_OS_LINUX
+    //! The EM-based dimension type.
+    using em_dimension = basic_dimension<unit::uem_for_test>;
+
+    //! The point-based dimension type.
+    using point_dimension = basic_dimension<unit::upoint_for_test>;
+#else
+#error Unsupported platform.
+#endif
 }
 
 

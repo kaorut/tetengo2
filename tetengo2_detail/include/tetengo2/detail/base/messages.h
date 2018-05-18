@@ -34,7 +34,7 @@ namespace tetengo2::detail::base {
         /*!
             \brief Destroys the detail implementaion.
         */
-        ~messages();
+        virtual ~messages();
 
 
         // functions

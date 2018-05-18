@@ -25,6 +25,7 @@
     <ClInclude Include="include\tetengo2\detail\base\cursor.h" />
     <ClInclude Include="include\tetengo2\detail\base\encoding.h" />
     <ClInclude Include="include\tetengo2\detail\base\gui_fixture.h" />
+    <ClInclude Include="include\tetengo2\detail\base\icon.h" />
     <ClInclude Include="include\tetengo2\detail\base\impl_set.h" />
     <ClInclude Include="include\tetengo2\detail\base\messages.h" />
     <ClInclude Include="include\tetengo2\detail\base\unit.h" />
@@ -103,12 +104,14 @@
     <ClCompile Include="src\tetengo2.detail.base.cursor.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.encoding.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.gui_fixture.cpp" />
+    <ClCompile Include="src\tetengo2.detail.base.icon.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.impl_set.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.messages.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.unit.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.alert.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.cursor.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.gui_fixture.cpp" />
+    <ClCompile Include="src\tetengo2.detail.stub.icon.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.impl_set.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.unit.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.alert.cpp" />
@@ -121,6 +124,7 @@
     <ClCompile Include="src\tetengo2.detail.windows.gdiplus.error_category.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.gdiplus.gui_fixture.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.gui_fixture.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.icon.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.impl_set.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.messages.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.unit.cpp" />

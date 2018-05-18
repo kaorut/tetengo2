@@ -15,6 +15,7 @@
 #include <tetengo2/detail/windows/alert.h>
 #include <tetengo2/detail/windows/cursor.h>
 #include <tetengo2/detail/windows/gui_fixture.h>
+#include <tetengo2/detail/windows/icon.h>
 #include <tetengo2/detail/windows/impl_set.h>
 #include <tetengo2/detail/windows/unit.h>
 
@@ -43,6 +44,11 @@ namespace tetengo2::detail::windows {
     std::unique_ptr<base::gui_fixture> impl_set::create_gui_fixture_impl() const
     {
         return std::make_unique<gui_fixture>();
+    }
+
+    const base::icon& impl_set::icon_impl() const
+    {
+        return icon::instance();
     }
 
     const base::unit& impl_set::unit_impl() const

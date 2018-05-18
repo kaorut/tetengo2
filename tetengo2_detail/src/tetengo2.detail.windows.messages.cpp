@@ -50,7 +50,7 @@ namespace tetengo2::detail::windows {
 
     messages::messages() : m_p_impl{ std::make_unique<impl>() } {}
 
-    messages::~messages() {}
+    messages::~messages() = default;
 
     const messages::string_type& messages::locale_name_prefix_impl() const
     {

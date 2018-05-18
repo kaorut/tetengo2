@@ -35,7 +35,7 @@ namespace {
 
     using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-    using icon_type = tetengo2::gui::icon<common_type_list_type::dimension_type, detail_type_list_type::icon_type>;
+    using icon_type = tetengo2::gui::icon;
 
     using menu_details_type = detail_type_list_type::menu_type;
 
@@ -177,8 +177,9 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     using path_type = tetengo2::stdalt::filesystem::path;
                     using path_string_type = path_type::string_type;
 
-                    std::unique_ptr<icon_type> p_icon =
-                        std::make_unique<icon_type>(path_type{ path_string_type{ TETENGO2_TEXT("hoge.ico") } });
+                    std::unique_ptr<icon_type> p_icon = std::make_unique<icon_type>(
+                        path_type{ path_string_type{ TETENGO2_TEXT("hoge.ico") } },
+                        detail_type_list_type::icon_type::instance());
                     window.set_icon(std::move(p_icon));
 
                     BOOST_TEST_REQUIRE(window.has_icon());
