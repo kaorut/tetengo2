@@ -28,8 +28,6 @@ namespace tetengo2::gui {
 
         using icon_details_type = icon::icon_details_type;
 
-        using icon_details_ptr_type = icon::icon_details_ptr_type;
-
 
         // constructors and destructor
 
@@ -72,6 +70,11 @@ namespace tetengo2::gui {
 
 
     private:
+        // types
+
+        using icon_details_ptr_type = details_type::icon_details_ptr_type;
+
+
         // variables
 
         const tetengo2::stdalt::filesystem::path m_path;
