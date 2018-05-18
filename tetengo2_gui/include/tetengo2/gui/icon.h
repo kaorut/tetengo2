@@ -9,29 +9,26 @@
 #if !defined(TETENGO2_GUI_ICON_H)
 #define TETENGO2_GUI_ICON_H
 
-#include <cassert>
-#include <utility>
+#include <memory>
 
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/base/icon.h>
+#include <tetengo2/gui/dimension.h>
 #include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui {
     /*!
-        \brief The class template for an icon.
-
-        \tparam Dimension A dimension type.
+        \brief The class for an icon.
     */
-    template <typename Dimension>
     class icon : private boost::noncopyable
     {
     public:
         // types
 
         //! The dimension type.
-        using dimension_type = Dimension;
+        using dimension_type = gui::em_dimension;
 
         //! The details type.
         using details_type = detail::base::icon;
@@ -53,11 +50,7 @@ namespace tetengo2::gui {
             \param path    A path.
             \param details A detail implementation of an icon.
         */
-        icon(tetengo2::stdalt::filesystem::path path, const details_type& details)
-        : m_path{ std::move(path) }, m_dimension{ details.default_dimension() }, m_p_icon_details{
-              details.create(m_path, m_dimension)
-          }
-        {}
+        icon(tetengo2::stdalt::filesystem::path path, const details_type& details);
 
         /*!
             \brief Creates an icon.
@@ -66,11 +59,12 @@ namespace tetengo2::gui {
             \param dimension A dimension.
             \param details   A detail implementation of an icon.
         */
-        icon(tetengo2::stdalt::filesystem::path path, dimension_type dimension, const details_type& details)
-        : m_path{ std::move(path) }, m_dimension{ std::move(dimension) }, m_p_icon_details{
-              details.create(m_path, m_dimension)
-          }
-        {}
+        icon(tetengo2::stdalt::filesystem::path path, dimension_type dimension, const details_type& details);
+
+        /*!
+            \brief Destroys the icon.
+        */
+        ~icon();
 
 
         // functions
@@ -80,52 +74,39 @@ namespace tetengo2::gui {
 
             \return The path.
         */
-        const tetengo2::stdalt::filesystem::path& path() const
-        {
-            return m_path;
-        }
+        const tetengo2::stdalt::filesystem::path& path() const;
 
         /*!
             \brief Returns the dimension.
 
             \return The dimension.
         */
-        const dimension_type& dimension() const
-        {
-            return m_dimension;
-        }
+        const dimension_type& dimension() const;
 
         /*!
             \brief Returns the detail implementation.
 
             \return The detail implementation.
         */
-        const icon_details_type& details() const
-        {
-            assert(m_p_icon_details);
-            return *m_p_icon_details;
-        }
+        const icon_details_type& details() const;
 
         /*!
             \brief Returns the detail implementation.
 
             \return The detail implementation.
         */
-        icon_details_type& details()
-        {
-            assert(m_p_icon_details);
-            return *m_p_icon_details;
-        }
+        icon_details_type& details();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        const tetengo2::stdalt::filesystem::path m_path;
-
-        const dimension_type m_dimension;
-
-        const icon_details_ptr_type m_p_icon_details;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

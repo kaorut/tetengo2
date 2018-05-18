@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_WIDGET_ABSTRACTWINDOW_H)
 #define TETENGO2_GUI_WIDGET_ABSTRACTWINDOW_H
 
+#include <algorithm>
 #include <memory>
 #include <stdexcept>
 
@@ -71,7 +72,7 @@ namespace tetengo2::gui::widget {
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
         //! The icon type.
-        using icon_type = gui::icon<dimension_type>;
+        using icon_type = gui::icon;
 
         //! The shortcut key table type.
         using shortcut_key_table_type =

@@ -81,7 +81,7 @@ namespace tetengo2::gui::drawing {
         using picture_type = picture<dimension_type, drawing_details_type>;
 
         //! The icon type.
-        using icon_type = gui::icon<dimension_type>;
+        using icon_type = gui::icon;
 
         //! The color type.
         using color_type = color;

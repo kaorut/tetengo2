@@ -35,7 +35,7 @@ namespace {
 
     using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-    using icon_type = tetengo2::gui::icon<common_type_list_type::dimension_type>;
+    using icon_type = tetengo2::gui::icon;
 
     using menu_details_type = detail_type_list_type::menu_type;
 

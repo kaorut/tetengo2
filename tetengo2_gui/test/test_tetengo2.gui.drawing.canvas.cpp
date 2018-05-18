@@ -71,7 +71,7 @@ namespace {
 
     using icon_details_type = detail_type_list_type::icon_type;
 
-    using icon_type = tetengo2::gui::icon<dimension_type>;
+    using icon_type = tetengo2::gui::icon;
 
     using canvas_details_type = drawing_details_type::canvas_details_type;
 

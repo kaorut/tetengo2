@@ -35,7 +35,7 @@ namespace {
 
     using dimension_unit_type = dimension_type::unit_type;
 
-    using icon_type = tetengo2::gui::icon<dimension_type>;
+    using icon_type = tetengo2::gui::icon;
 
     using path_type = tetengo2::stdalt::filesystem::path;
 
