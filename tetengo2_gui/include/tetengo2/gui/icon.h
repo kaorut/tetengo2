@@ -36,9 +36,6 @@ namespace tetengo2::gui {
         //! The icon details type.
         using icon_details_type = typename details_type::icon_details_type;
 
-        //! The icon details pointer type.
-        using icon_details_ptr_type = typename details_type::icon_details_ptr_type;
-
 
         // constructors and destructor
 
