@@ -55,6 +55,7 @@ pkg_headers = \
     gui/scroll_bar.h \
     gui/shell.h \
     gui/timer.h \
+    gui/type_list.h \
     gui/unit/em.h \
     gui/unit/pixel.h \
     gui/unit/point.h \
