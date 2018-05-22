@@ -26,7 +26,6 @@ pkg_headers = \
     gui/drawing/widget_canvas.h \
     gui/fixture.h \
     gui/icon.h \
-    gui/measure.h \
     gui/menu/abstract_popup.h \
     gui/menu/command.h \
     gui/menu/menu_bar.h \

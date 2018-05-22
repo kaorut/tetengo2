@@ -125,7 +125,6 @@
     <ClCompile Include="test\test_tetengo2.gui.drawing.widget_canvas.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.fixture.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.icon.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.measure.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.menu.abstract_popup.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.menu.command.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.menu.menu_bar.cpp" />
