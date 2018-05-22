@@ -243,19 +243,15 @@ namespace tetengo2::gui::unit {
 
     //! The unsigned point type.
     using upoint = basic_point<boost::rational<type_list::size_type>, detail::windows::unit>;
-#else
+#elif BOOST_OS_LINUX
     //! The signed point type.
     using point = basic_point<boost::rational<type_list::difference_type>, detail::stub::unit>;
 
     //! The unsigned point type.
     using upoint = basic_point<boost::rational<type_list::size_type>, detail::stub::unit>;
+#else
+#error Unsupported platform.
 #endif
-
-    //! The signed point type for testing.
-    using point_for_test = basic_point<boost::rational<type_list::difference_type>, detail::stub::unit>;
-
-    //! The unsigned point type for testing.
-    using upoint_for_test = basic_point<boost::rational<type_list::size_type>, detail::stub::unit>;
 }
 
 

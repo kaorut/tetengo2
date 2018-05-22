@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_POSITION_H
 
 #include <boost/operators.hpp>
-#include <boost/predef.h>
 
 #include <tetengo2/gui/unit/em.h>
 #include <tetengo2/gui/unit/pixel.h>
@@ -89,24 +88,14 @@ namespace tetengo2::gui {
     };
 
 
-    //! The pixel-based position type.
-    using pixel_position = basic_position<unit::pixel>;
-
-#if BOOST_OS_WINDOWS
     //! The EM-based position type.
     using em_position = basic_position<unit::em>;
 
+    //! The pixel-based position type.
+    using pixel_position = basic_position<unit::pixel>;
+
     //! The point-based position type.
     using point_position = basic_position<unit::point>;
-#elif BOOST_OS_LINUX
-    //! The EM-based dimension type.
-    using em_position = basic_position<unit::em_for_test>;
-
-    //! The point-based dimension type.
-    using point_position = basic_position<unit::point_for_test>;
-#else
-#error Unsupported platform.
-#endif
 }
 
 

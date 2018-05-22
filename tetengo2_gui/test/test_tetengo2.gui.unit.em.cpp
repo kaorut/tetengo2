@@ -23,9 +23,9 @@ namespace {
 
     using difference_rational_type = boost::rational<tetengo2::type_list::difference_type>;
 
-    using unit_type = tetengo2::gui::unit::em_for_test;
+    using unit_type = tetengo2::gui::unit::em;
 
-    using another_unit_type = tetengo2::gui::unit::uem_for_test;
+    using another_unit_type = tetengo2::gui::unit::uem;
 }
 
 

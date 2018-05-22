@@ -243,19 +243,15 @@ namespace tetengo2::gui::unit {
 
     //! The unsigned em type.
     using uem = basic_em<boost::rational<type_list::size_type>, detail::windows::unit>;
-#else
+#elif BOOST_OS_LINUX
     //! The signed em type.
     using em = basic_em<boost::rational<type_list::difference_type>, detail::stub::unit>;
 
     //! The unsigned em type.
     using uem = basic_em<boost::rational<type_list::size_type>, detail::stub::unit>;
+#else
+#error Unsupported platform.
 #endif
-
-    //! The signed em type for testing.
-    using em_for_test = basic_em<boost::rational<type_list::difference_type>, detail::stub::unit>;
-
-    //! The unsigned em type for testing.
-    using uem_for_test = basic_em<boost::rational<type_list::size_type>, detail::stub::unit>;
 }
 
 

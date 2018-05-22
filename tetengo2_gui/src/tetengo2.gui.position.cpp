@@ -6,8 +6,6 @@
     $Id$
 */
 
-#include <boost/predef.h>
-
 #include <tetengo2/gui/position.h>
 #include <tetengo2/gui/unit/em.h>
 #include <tetengo2/gui/unit/pixel.h>
@@ -44,44 +42,24 @@ namespace tetengo2::gui {
 
 
     namespace {
-        using em_stub_unit_type = gui::unit::em_for_test;
+        using em_unit_type = gui::unit::em;
 
         using pixel_unit_type = gui::unit::pixel;
 
-        using point_stub_unit_type = gui::unit::point_for_test;
-
-#if BOOST_OS_WINDOWS
-        using em_windows_unit_type = gui::unit::em;
-
-        using point_windows_unit_type = gui::unit::point;
-#endif
+        using point_unit_type = gui::unit::point;
     }
 
-    template class basic_position<em_stub_unit_type>;
+    template class basic_position<em_unit_type>;
 
-    template bool
-    operator==(const basic_position<em_stub_unit_type>& one, const basic_position<em_stub_unit_type>& another);
+    template bool operator==(const basic_position<em_unit_type>& one, const basic_position<em_unit_type>& another);
 
     template class basic_position<pixel_unit_type>;
 
     template bool
     operator==(const basic_position<pixel_unit_type>& one, const basic_position<pixel_unit_type>& another);
 
-    template class basic_position<point_stub_unit_type>;
+    template class basic_position<point_unit_type>;
 
     template bool
-    operator==(const basic_position<point_stub_unit_type>& one, const basic_position<point_stub_unit_type>& another);
-
-#if BOOST_OS_WINDOWS
-    template class basic_position<em_windows_unit_type>;
-
-    template bool
-    operator==(const basic_position<em_windows_unit_type>& one, const basic_position<em_windows_unit_type>& another);
-
-    template class basic_position<point_windows_unit_type>;
-
-    template bool operator==(
-        const basic_position<point_windows_unit_type>& one,
-        const basic_position<point_windows_unit_type>& another);
-#endif
+    operator==(const basic_position<point_unit_type>& one, const basic_position<point_unit_type>& another);
 }
