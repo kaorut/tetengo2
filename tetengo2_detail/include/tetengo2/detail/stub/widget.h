@@ -23,7 +23,6 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
-#include <tetengo2/gui/measure.h>
 #include <tetengo2/stdalt.h>
 
 
@@ -517,9 +516,10 @@ namespace tetengo2::detail::stub {
         static void move(Widget& widget, const Position& position, const Dimension& dimension)
         {
             widget.details().position = std::make_pair(
-                gui::to_pixels<std::size_t>(position.left()), gui::to_pixels<std::size_t>(position.top()));
+                position.left().template to_pixels<std::size_t>(), position.top().template to_pixels<std::size_t>());
             widget.details().dimension = std::make_pair(
-                gui::to_pixels<std::size_t>(dimension.width()), gui::to_pixels<std::size_t>(dimension.height()));
+                dimension.width().template to_pixels<std::size_t>(),
+                dimension.height().template to_pixels<std::size_t>());
         }
 
         /*!
@@ -537,8 +537,8 @@ namespace tetengo2::detail::stub {
         template <typename Position, typename Widget>
         static Position position(const Widget& widget)
         {
-            return { gui::to_unit<typename Position::unit_type>(widget.details().position.first),
-                     gui::to_unit<typename Position::unit_type>(widget.details().position.second) };
+            return { Position::unit_type::from_pixels(widget.details().position.first),
+                     Position::unit_type::from_pixels(widget.details().position.second) };
         }
 
         /*!
@@ -576,8 +576,8 @@ namespace tetengo2::detail::stub {
         template <typename Dimension, typename Widget>
         static Dimension dimension(const Widget& widget)
         {
-            return Dimension{ gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.first),
-                              gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.second) };
+            return Dimension{ Dimension::unit_type::from_pixels(widget.details().dimension.first),
+                              Dimension::unit_type::from_pixels(widget.details().dimension.second) };
         }
 
         /*!
@@ -596,8 +596,8 @@ namespace tetengo2::detail::stub {
         static void set_client_dimension(Widget& widget, const Dimension& client_dimension)
         {
             widget.details().dimension = std::make_pair(
-                gui::to_pixels<std::size_t>(client_dimension.width()),
-                gui::to_pixels<std::size_t>(client_dimension.height()));
+                client_dimension.width().template to_pixels<std::size_t>(),
+                client_dimension.height().template to_pixels<std::size_t>());
         }
 
         /*!
@@ -615,8 +615,8 @@ namespace tetengo2::detail::stub {
         template <typename Dimension, typename Widget>
         static Dimension client_dimension(const Widget& widget)
         {
-            return Dimension{ gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.first),
-                              gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.second) };
+            return Dimension{ Dimension::unit_type::from_pixels(widget.details().dimension.first),
+                              Dimension::unit_type::from_pixels(widget.details().dimension.second) };
         }
 
         /*!
@@ -634,8 +634,8 @@ namespace tetengo2::detail::stub {
         template <typename Dimension, typename Widget>
         static Dimension normal_dimension(const Widget& widget)
         {
-            return Dimension{ gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.first),
-                              gui::to_unit<typename Dimension::unit_type>(widget.details().dimension.second) };
+            return Dimension{ Dimension::unit_type::from_pixels(widget.details().dimension.first),
+                              Dimension::unit_type::from_pixels(widget.details().dimension.second) };
         }
 
         /*!

@@ -15,7 +15,6 @@
 
 #include <boost/core/noncopyable.hpp>
 
-#include <tetengo2/gui/measure.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
@@ -167,7 +166,7 @@ namespace tetengo2::detail::stub {
             const auto& width = dimension.width();
             const auto& height = dimension.height();
             return std::make_unique<picture_details_type>(
-                gui::to_pixels<std::size_t>(width), gui::to_pixels<std::size_t>(height));
+                width.template to_pixels<std::size_t>(), height.template to_pixels<std::size_t>());
         }
 
         /*!
@@ -197,8 +196,8 @@ namespace tetengo2::detail::stub {
         template <typename Dimension>
         static Dimension picture_dimension(const picture_details_type& picture)
         {
-            return { gui::to_unit<typename Dimension::unit_type>(picture.dimension().first),
-                     gui::to_unit<typename Dimension::unit_type>(picture.dimension().second) };
+            return { Dimension::unit_type::from_pixels(picture.dimension().first),
+                     Dimension::unit_type::from_pixels(picture.dimension().second) };
         }
 
         /*!

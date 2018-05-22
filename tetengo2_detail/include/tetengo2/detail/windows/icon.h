@@ -28,7 +28,6 @@
 #include <Windows.h>
 
 #include <tetengo2/detail/base/icon.h>
-#include <tetengo2/gui/measure.h>
 #include <tetengo2/stdalt.h>
 
 

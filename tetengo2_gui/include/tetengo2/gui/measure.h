@@ -6,7 +6,7 @@
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_MEASURE_H)
+#if 0 //! defined(TETENGO2_GUI_MEASURE_H)
 #define TETENGO2_GUI_MEASURE_H
 
 #include <cmath>

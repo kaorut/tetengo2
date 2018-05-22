@@ -171,7 +171,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     const unit_type unit{ 123 };
 
-                    BOOST_TEST(unit.to_pixels<int>() == 123);
+                    BOOST_TEST(unit.template to_pixels<int>() == 123);
                 }
 
 
