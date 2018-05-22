@@ -12,7 +12,7 @@
 #include <type_traits>
 
 #include <boost/predef.h>
-#include <boost/rational.hpp> // IWYU pragma: keep
+#include <boost/rational.hpp>
 
 #include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/type_list.h>
@@ -33,17 +33,20 @@ namespace tetengo2::gui::unit {
     /*!
         \brief The class template for an EM height unit.
 
-        \tparam Value       A value type.
+        \tparam IntValue    A integer value type.
         \tparam UnitDetails A unit details type.
    */
-    template <typename Value, typename UnitDetails>
-    class basic_em : public unit<basic_em<Value, UnitDetails>, Value>
+    template <typename IntValue, typename UnitDetails>
+    class basic_em : public unit<basic_em<IntValue, UnitDetails>, IntValue>
     {
     public:
         // types
 
+        //! The integer value type.
+        using int_value_type = IntValue;
+
         //! The value type.
-        using value_type = Value;
+        using value_type = boost::rational<int_value_type>;
 
         //! The unit details type.
         using unit_details_type = UnitDetails;
@@ -54,14 +57,14 @@ namespace tetengo2::gui::unit {
         /*!
             \brief Returns a unit made from another em unit.
 
-            \tparam V  A value type.
+            \tparam IV  A integer value type.
 
             \param another A value in another em unit.
 
             \return A em unit.
         */
-        template <typename V>
-        static basic_em from(const basic_em<V, unit_details_type>& another)
+        template <typename IV>
+        static basic_em from(const basic_em<IV, unit_details_type>& another)
         {
             return basic_em{ cast<value_type>(another.value()) };
         }
@@ -69,17 +72,11 @@ namespace tetengo2::gui::unit {
         /*!
             \brief Returns an EM height unit made from a value in pixels.
 
-            \tparam PixelValue A pixel value type.
-
-            \param value A value in pixels.
+            \param int_value A value in pixels.
 
             \return An EM height unit.
         */
-        template <typename PixelValue>
-        static basic_em from_pixels(const PixelValue value)
-        {
-            return from_pixels_impl(static_cast<typename value_type::int_type>(value));
-        }
+        static basic_em from_pixels(int_value_type int_value);
 
 
         // constructors and destructor
@@ -102,8 +99,8 @@ namespace tetengo2::gui::unit {
         /*!
             \brief Checks whether one EM height unit is equal to another.
 
-            \tparam V  A value type.
-            \tparam UD A unit details_type.
+            \tparam IV  An integer value type.
+            \tparam UD  A unit details_type.
 
             \param one     One EM height unit.
             \param another Another value in EM height unit.
@@ -111,14 +108,14 @@ namespace tetengo2::gui::unit {
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        template <typename V, typename UD>
-        friend bool operator==(const basic_em<V, UD>& one, const V& another);
+        template <typename IV, typename UD>
+        friend bool operator==(const basic_em<IV, UD>& one, const typename basic_em<IV, UD>::value_type& another);
 
         /*!
             \brief Checks whether one EM height unit is less than another.
 
-            \tparam V  A value type.
-            \tparam UD A unit details_type.
+            \tparam IV  An integer value type.
+            \tparam UD  A unit details_type.
 
             \param one     One EM height unit.
             \param another Another value in EM height unit.
@@ -126,14 +123,14 @@ namespace tetengo2::gui::unit {
             \retval true  When the one is less than the other.
             \retval false Otherwise.
         */
-        template <typename V, typename UD>
-        friend bool operator<(const basic_em<V, UD>& one, const V& another);
+        template <typename IV, typename UD>
+        friend bool operator<(const basic_em<IV, UD>& one, const typename basic_em<IV, UD>::value_type& another);
 
         /*!
             \brief Checks whether one EM height unit is greater than another.
 
-            \tparam V  A value type.
-            \tparam UD A unit details_type.
+            \tparam IV  An integer value type.
+            \tparam UD  A unit details_type.
 
             \param one     One EM height unit.
             \param another Another value in EM height unit.
@@ -141,8 +138,8 @@ namespace tetengo2::gui::unit {
             \retval true  When the one is greater than the other.
             \retval false Otherwise.
         */
-        template <typename V, typename UD>
-        friend bool operator>(const basic_em<V, UD>& one, const V& another);
+        template <typename IV, typename UD>
+        friend bool operator>(const basic_em<IV, UD>& one, const typename basic_em<IV, UD>::value_type& another);
 
         /*!
             \brief Adds another value in EM height unit.
@@ -199,15 +196,9 @@ namespace tetengo2::gui::unit {
         /*!
             \brief Returns the value in pixels.
 
-            \tparam PixelValue A pixel value type.
-
             \return The value in pixels.
         */
-        template <typename PixelValue>
-        PixelValue to_pixels() const
-        {
-            return static_cast<PixelValue>(to_pixels_impl(m_value));
-        }
+        int_value_type to_pixels() const;
 
 
     private:
@@ -226,10 +217,6 @@ namespace tetengo2::gui::unit {
                        static_cast<typename To::int_type>(from.denominator()) };
         }
 
-        static basic_em from_pixels_impl(const typename value_type::int_type value);
-
-        static typename value_type::int_type to_pixels_impl(const value_type& value);
-
 
         // variables
 
@@ -239,16 +226,16 @@ namespace tetengo2::gui::unit {
 
 #if BOOST_OS_WINDOWS
     //! The signed em type.
-    using em = basic_em<boost::rational<type_list::difference_type>, detail::windows::unit>;
+    using em = basic_em<type_list::difference_type, detail::windows::unit>;
 
     //! The unsigned em type.
-    using uem = basic_em<boost::rational<type_list::size_type>, detail::windows::unit>;
+    using uem = basic_em<type_list::size_type, detail::windows::unit>;
 #elif BOOST_OS_LINUX
     //! The signed em type.
-    using em = basic_em<boost::rational<type_list::difference_type>, detail::stub::unit>;
+    using em = basic_em<type_list::difference_type, detail::stub::unit>;
 
     //! The unsigned em type.
-    using uem = basic_em<boost::rational<type_list::size_type>, detail::stub::unit>;
+    using uem = basic_em<type_list::size_type, detail::stub::unit>;
 #else
 #error Unsupported platform.
 #endif

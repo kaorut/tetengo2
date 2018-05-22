@@ -14,8 +14,8 @@ tetengo2::gui::operator ==
 tetengo2::gui::unit::operator ==
 tetengo2::gui::unit::operator >
 tetengo2::gui::unit::operator <
-tetengo2::gui::unit::[a-zA-Z0-9_]+::from_pixels_impl
-tetengo2::gui::unit::[a-zA-Z0-9_]+::to_pixels_impl
+tetengo2::gui::unit::[a-zA-Z0-9_]+::from_pixels
+tetengo2::gui::unit::[a-zA-Z0-9_]+::to_pixels
 tetengo2::gui::virtual_key::
 tetengo2::gui::widget::dialog::on_close
 tetengo2::gui::widget::inner_item::mouse_entered

@@ -515,11 +515,8 @@ namespace tetengo2::detail::stub {
         template <typename Widget, typename Position, typename Dimension>
         static void move(Widget& widget, const Position& position, const Dimension& dimension)
         {
-            widget.details().position = std::make_pair(
-                position.left().template to_pixels<std::size_t>(), position.top().template to_pixels<std::size_t>());
-            widget.details().dimension = std::make_pair(
-                dimension.width().template to_pixels<std::size_t>(),
-                dimension.height().template to_pixels<std::size_t>());
+            widget.details().position = std::make_pair(position.left().to_pixels(), position.top().to_pixels());
+            widget.details().dimension = std::make_pair(dimension.width().to_pixels(), dimension.height().to_pixels());
         }
 
         /*!
@@ -595,9 +592,8 @@ namespace tetengo2::detail::stub {
         template <typename Position, typename Widget, typename Dimension>
         static void set_client_dimension(Widget& widget, const Dimension& client_dimension)
         {
-            widget.details().dimension = std::make_pair(
-                client_dimension.width().template to_pixels<std::size_t>(),
-                client_dimension.height().template to_pixels<std::size_t>());
+            widget.details().dimension =
+                std::make_pair(client_dimension.width().to_pixels(), client_dimension.height().to_pixels());
         }
 
         /*!

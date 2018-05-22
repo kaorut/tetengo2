@@ -41,8 +41,8 @@ namespace tetengo2::detail::windows {
         icon_details_ptr_type
         create_impl(const tetengo2::stdalt::filesystem::path& path, const dimension_type& dimension) const
         {
-            const auto       width = dimension.width().template to_pixels<int>();
-            const auto       height = dimension.height().template to_pixels<int>();
+            const auto       width = static_cast<int>(dimension.width().to_pixels());
+            const auto       height = static_cast<int>(dimension.height().to_pixels());
             icon_handle_type big_icon_handle{ load_icon(path, width, height) };
 
             const std::pair<int, int> small_icon_dimension_ = small_icon_dimension();

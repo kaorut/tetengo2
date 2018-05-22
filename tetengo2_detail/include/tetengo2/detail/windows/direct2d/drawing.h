@@ -864,24 +864,24 @@ namespace tetengo2::detail::windows::direct2d {
         template <typename Size>
         static ::FLOAT size_to_float(const Size size)
         {
-            return to_dip_y(size.template to_pixels<::FLOAT>());
+            return to_dip_y(static_cast<::FLOAT>(size.to_pixels()));
         }
 
         template <typename Position>
         static ::D2D1_POINT_2F position_to_point_2f(const Position& position)
         {
-            const auto left = to_dip_x(position.left().template to_pixels<::FLOAT>());
-            const auto top = to_dip_y(position.top().template to_pixels<::FLOAT>());
+            const auto left = to_dip_x(static_cast<::FLOAT>(position.left().to_pixels()));
+            const auto top = to_dip_y(static_cast<::FLOAT>(position.top().to_pixels()));
             return { left - 0.5f, top - 0.5f };
         }
 
         template <typename Position, typename Dimension>
         static ::D2D1_RECT_F position_and_dimension_to_rect_f(const Position& position, const Dimension& dimension)
         {
-            const auto left = to_dip_x(position.left().template to_pixels<::FLOAT>());
-            const auto top = to_dip_y(position.top().template to_pixels<::FLOAT>());
-            const auto width = to_dip_x(dimension.width().template to_pixels<::FLOAT>());
-            const auto height = to_dip_y(dimension.height().template to_pixels<::FLOAT>());
+            const auto left = to_dip_x(static_cast<::FLOAT>(position.left().to_pixels()));
+            const auto top = to_dip_y(static_cast<::FLOAT>(position.top().to_pixels()));
+            const auto width = to_dip_x(static_cast<::FLOAT>(dimension.width().to_pixels()));
+            const auto height = to_dip_y(static_cast<::FLOAT>(dimension.height().to_pixels()));
             return { left, top, left + width, top + height };
         }
 
@@ -989,7 +989,7 @@ namespace tetengo2::detail::windows::direct2d {
             const auto    encoded_text = encoder.encode(text);
             const ::FLOAT max_width_in_dip = max_width == DimensionUnit{} ?
                                                  std::numeric_limits<::FLOAT>::max() :
-                                                 to_dip_x(max_width.template to_pixels<::FLOAT>());
+                                                 to_dip_x(static_cast<::FLOAT>(max_width.to_pixels()));
             ::IDWriteTextLayout* rp_layout = nullptr;
             const auto           create_layout_hr = direct_write_factory().CreateTextLayout(
                 encoded_text.c_str(),

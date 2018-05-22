@@ -165,8 +165,7 @@ namespace tetengo2::detail::stub {
         {
             const auto& width = dimension.width();
             const auto& height = dimension.height();
-            return std::make_unique<picture_details_type>(
-                width.template to_pixels<std::size_t>(), height.template to_pixels<std::size_t>());
+            return std::make_unique<picture_details_type>(width.to_pixels(), height.to_pixels());
         }
 
         /*!

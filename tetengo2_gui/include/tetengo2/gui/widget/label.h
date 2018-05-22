@@ -136,9 +136,9 @@ namespace tetengo2::gui::widget {
                 return;
             }
 
-            const auto int_line_count = static_cast<std::size_t>(std::ceil(
-                line_count.template to_pixels<double>() / dimension_unit_type{ 1 }.template to_pixels<double>()));
-            auto       height = one_line_dimension.height() * int_line_count;
+            const auto int_line_count = static_cast<std::size_t>(
+                std::ceil(static_cast<double>(line_count.to_pixels()) / dimension_unit_type{ 1 }.to_pixels()));
+            auto height = one_line_dimension.height() * int_line_count;
             this->set_client_dimension(dimension_type{ std::move(max_width), std::move(height) });
         }
 

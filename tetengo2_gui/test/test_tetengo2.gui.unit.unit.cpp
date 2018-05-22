@@ -22,21 +22,22 @@
 namespace {
     // types
 
-    template <typename Value>
-    class concrete_unit : public tetengo2::gui::unit::unit<concrete_unit<Value>, Value>
+    template <typename IntValue>
+    class concrete_unit : public tetengo2::gui::unit::unit<concrete_unit<IntValue>, IntValue>
     {
     public:
         // types
 
-        using value_type = Value;
+        using int_value_type = IntValue;
+
+        using value_type = boost::rational<int_value_type>;
 
 
         // static functions
 
-        template <typename PV>
-        static concrete_unit from_pixels(const PV value)
+        static concrete_unit from_pixels(const int_value_type int_value)
         {
-            return concrete_unit(value / 7);
+            return concrete_unit(int_value / 7);
         }
 
 
@@ -112,10 +113,9 @@ namespace {
             return m_value;
         }
 
-        template <typename PV>
-        PV to_pixels() const
+        int_value_type to_pixels() const
         {
-            return boost::rational_cast<PV>(m_value) * 7;
+            return boost::rational_cast<int_value_type>(m_value * boost::rational<int_value_type>(7));
         }
 
 
@@ -125,9 +125,9 @@ namespace {
         value_type m_value;
     };
 
-    using unit_type = concrete_unit<boost::rational<tetengo2::type_list::difference_type>>;
+    using unit_type = concrete_unit<tetengo2::type_list::difference_type>;
 
-    using another_unit_type = concrete_unit<boost::rational<tetengo2::type_list::size_type>>;
+    using another_unit_type = concrete_unit<tetengo2::type_list::size_type>;
 }
 
 

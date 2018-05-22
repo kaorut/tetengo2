@@ -757,7 +757,7 @@ namespace tetengo2::gui::widget {
 
         static scroll_bar_size_type scroll_bar_size_unit()
         {
-            static const auto singleton = position_unit_type{ 1 }.template to_pixels<scroll_bar_size_type>();
+            static const auto singleton = static_cast<scroll_bar_size_type>(position_unit_type{ 1 }.to_pixels());
             return singleton;
         }
 
@@ -912,10 +912,8 @@ namespace tetengo2::gui::widget {
             }
             else
             {
-                const auto upper_bound =
-                    value_height.template to_pixels<scroll_bar_size_type>() / scroll_bar_size_unit();
-                const auto page_size =
-                    client_height.template to_pixels<scroll_bar_size_type>() / scroll_bar_size_unit();
+                const auto upper_bound = value_height.to_pixels() / scroll_bar_size_unit();
+                const auto page_size = client_height.to_pixels() / scroll_bar_size_unit();
                 if (scroll_bar.tracking_position() + page_size > upper_bound + 1)
                 {
                     scroll_bar.scroll_bar_observer_set().scrolled()(
@@ -947,8 +945,7 @@ namespace tetengo2::gui::widget {
 
             using delta_int_type = typename delta_type::int_type;
             auto int_delta = boost::rational_cast<delta_int_type>(
-                delta * position_unit_type{ 3 }.template to_pixels<delta_int_type>() /
-                static_cast<delta_int_type>(scroll_bar_size_unit()));
+                delta * position_unit_type{ 3 }.to_pixels() / static_cast<delta_int_type>(scroll_bar_size_unit()));
             if (int_delta == 0)
             {
                 if (delta > 0)
@@ -990,8 +987,7 @@ namespace tetengo2::gui::widget {
             if (bottom_to_paint > position_unit_type::from(client_height))
             {
                 const auto scroll_bar_position_in_pixels =
-                    (top + position_unit_type::from(height) - position_unit_type::from(client_height))
-                        .template to_pixels<scroll_bar_size_type>();
+                    (top + position_unit_type::from(height) - position_unit_type::from(client_height)).to_pixels();
                 scroll_bar_position = scroll_bar_position_in_pixels / scroll_bar_size_unit();
                 if (scroll_bar_position_in_pixels % scroll_bar_size_unit() > 0 &&
                     scroll_bar_position + 1 <= scroll_bar.range().second)
@@ -1001,7 +997,7 @@ namespace tetengo2::gui::widget {
             }
             if (top_to_paint < position_unit_type{})
             {
-                scroll_bar_position = top.template to_pixels<scroll_bar_size_type>() / scroll_bar_size_unit();
+                scroll_bar_position = top.to_pixels() / scroll_bar_size_unit();
             }
 
             if (scroll_bar_position != scroll_bar.tracking_position())

@@ -25,6 +25,8 @@ namespace {
     using difference_rational_type = boost::rational<tetengo2::type_list::difference_type>;
 
     using unit_type = tetengo2::gui::unit::pixel;
+
+    using another_unit_type = tetengo2::gui::unit::upixel;
 }
 
 
@@ -33,6 +35,15 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
         BOOST_AUTO_TEST_SUITE(unit)
             BOOST_AUTO_TEST_SUITE(basic_pixel)
                 // test cases
+
+                BOOST_AUTO_TEST_CASE(from)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    const auto unit = unit_type::from(another_unit_type{ 12 });
+
+                    BOOST_TEST(unit.value() == 12);
+                }
 
                 BOOST_AUTO_TEST_CASE(from_pixels)
                 {
@@ -171,7 +182,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     const unit_type unit{ 123 };
 
-                    BOOST_TEST(unit.template to_pixels<int>() == 123);
+                    BOOST_TEST(unit.to_pixels() == 123);
                 }
 
 

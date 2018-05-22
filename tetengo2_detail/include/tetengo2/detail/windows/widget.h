@@ -905,10 +905,10 @@ namespace tetengo2::detail::windows {
         {
             const auto result = ::MoveWindow(
                 widget.details().handle.get(),
-                position.left().template to_pixels<int>(),
-                position.top().template to_pixels<int>(),
-                dimension.width().template to_pixels<int>(),
-                dimension.height().template to_pixels<int>(),
+                position.left().to_pixels(),
+                position.top().to_pixels(),
+                dimension.width().to_pixels(),
+                dimension.height().to_pixels(),
                 visible(widget) ? TRUE : FALSE);
             if (result == 0)
             {
@@ -983,8 +983,8 @@ namespace tetengo2::detail::windows {
             }
 
             const auto widget_dimension = widget.dimension();
-            const auto widget_width = widget_dimension.width().template to_pixels<::LONG>();
-            const auto widget_height = widget_dimension.height().template to_pixels<::LONG>();
+            const auto widget_width = widget_dimension.width().to_pixels();
+            const auto widget_height = widget_dimension.height().to_pixels();
             if (point.x + widget_width + x_margin > monitor_info.rcWork.right)
                 point.x = monitor_info.rcWork.right - widget_width - x_margin;
             if (point.y + widget_height + y_margin > monitor_info.rcWork.bottom)
@@ -1044,10 +1044,10 @@ namespace tetengo2::detail::windows {
             const auto pos = position<Position>(widget);
             const auto window_style = ::GetWindowLongPtrW(widget.details().handle.get(), GWL_STYLE);
             const auto extended_window_style = ::GetWindowLongPtrW(widget.details().handle.get(), GWL_EXSTYLE);
-            const auto left = pos.left().template to_pixels<::LONG>();
-            const auto top = pos.top().template to_pixels<::LONG>();
-            const auto width = client_dimension.width().template to_pixels<::LONG>();
-            const auto height = client_dimension.height().template to_pixels<::LONG>();
+            const auto left = pos.left().to_pixels();
+            const auto top = pos.top().to_pixels();
+            const auto width = client_dimension.width().to_pixels();
+            const auto height = client_dimension.height().to_pixels();
             ::RECT     rectangle{ left, top, left + width, top + height };
             if (::AdjustWindowRectEx(
                     &rectangle,
@@ -1351,10 +1351,10 @@ namespace tetengo2::detail::windows {
         template <typename Widget, typename Position, typename Dimension>
         static void repaint_partially(Widget& widget, const Position& position, const Dimension& dimension)
         {
-            const auto   left = position.left().template to_pixels<::LONG>();
-            const auto   top = position.top().template to_pixels<::LONG>();
-            const auto   width = dimension.width().template to_pixels<::LONG>();
-            const auto   height = dimension.height().template to_pixels<::LONG>();
+            const auto   left = position.left().to_pixels();
+            const auto   top = position.top().to_pixels();
+            const auto   width = dimension.width().to_pixels();
+            const auto   height = dimension.height().to_pixels();
             const ::RECT rectangle{ left, top, left + width, top + height };
             if (::InvalidateRect(widget.details().handle.get(), &rectangle, FALSE) == 0)
             {

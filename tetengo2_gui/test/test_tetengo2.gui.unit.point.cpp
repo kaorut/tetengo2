@@ -181,7 +181,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     const unit_type unit{ 12 };
 
-                    BOOST_TEST(unit.template to_pixels<std::ptrdiff_t>() == 16);
+                    BOOST_TEST(unit.to_pixels() == 16);
                 }
 
 

@@ -102,8 +102,8 @@ namespace tetengo2::detail::windows::picture {
     {
         ::IWICBitmap* rp_bitmap = nullptr;
         const auto    hr = wic_imaging_factory().CreateBitmap(
-            dimension.width().template to_pixels<::UINT>(),
-            dimension.height().template to_pixels<::UINT>(),
+            dimension.width().to_pixels(),
+            dimension.height().to_pixels(),
             ::GUID_WICPixelFormat32bppPBGRA,
             ::WICBitmapCacheOnDemand,
             &rp_bitmap);
