@@ -424,9 +424,9 @@ namespace tetengo2::detail::windows::gdiplus {
                 return;
 
             const Gdiplus::Rect rectangle{ position.left().template to_pixels<::INT>(),
-                                           position.top().template to_pixels<::INT>()),
-                                           dimension.width().template to_pixels<::INT>()),
-                                           dimension.height().template to_pixels<::INT>()) };
+                                           position.top().template to_pixels<::INT>(),
+                                           dimension.width().template to_pixels<::INT>(),
+                                           dimension.height().template to_pixels<::INT>() };
             const auto          status = canvas.get().FillRectangle(background_details.get(), rectangle);
             if (status != Gdiplus::Ok)
             {
@@ -649,7 +649,7 @@ namespace tetengo2::detail::windows::gdiplus {
                                                  position.top().template to_pixels<Gdiplus::REAL>() };
             const Gdiplus::REAL   gdiplus_max_width = max_width == DimensionUnit{} ?
                                                         std::numeric_limits<Gdiplus::REAL>::max() :
-                                                        max_widthto_pixels<Gdiplus::REAL>();
+                                                        max_width.template to_pixels<Gdiplus::REAL>();
             const Gdiplus::RectF layout{
                 gdiplus_point.X, gdiplus_point.Y, gdiplus_max_width, std::numeric_limits<Gdiplus::REAL>::max()
             };
@@ -811,7 +811,7 @@ namespace tetengo2::detail::windows::gdiplus {
             const ::BOOL result = ::DrawIconEx(
                 canvas.get().GetHDC(),
                 position.left().template to_pixels<int>(),
-                position.top()),
+                position.top().template to_pixels<int>(),
                 static_cast<const icon::icon_details_impl_type&>(icon.details()).big_icon_handle.get(),
                 icon.dimension().width().template to_pixels<int>(),
                 icon.dimension().width().template to_pixels<int>(),
