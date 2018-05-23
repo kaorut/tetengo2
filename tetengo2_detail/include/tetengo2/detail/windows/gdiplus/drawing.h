@@ -360,10 +360,10 @@ namespace tetengo2::detail::windows::gdiplus {
         static void
         draw_focus_indication(canvas_details_type& canvas, const Position& position, const Dimension& dimension)
         {
-            const ::RECT rect{ position.left().to_pixels(),
-                               position.top().to_pixels(),
-                               dimension.width().to_pixels(),
-                               dimension.height().to_pixels() };
+            const ::RECT rect{ static_cast<::LONG>(position.left().to_pixels()),
+                               static_cast<::LONG>(position.top().to_pixels()),
+                               static_cast<::LONG>(dimension.width().to_pixels()),
+                               static_cast<::LONG>(dimension.height().to_pixels()) };
             if (::DrawFocusRect(canvas.get().GetHDC(), &rect) == 0)
             {
                 BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ Gdiplus::Win32Error, gdiplus_category() },
@@ -422,10 +422,10 @@ namespace tetengo2::detail::windows::gdiplus {
             if (!background_details.get())
                 return;
 
-            const Gdiplus::Rect rectangle{ position.left().to_pixels(),
-                                           position.top().to_pixels(),
-                                           dimension.width().to_pixels(),
-                                           dimension.height().to_pixels() };
+            const Gdiplus::Rect rectangle{ static_cast<::INT>(position.left().to_pixels()),
+                                           static_cast<::INT>(position.top().to_pixels()),
+                                           static_cast<::INT>(dimension.width().to_pixels()),
+                                           static_cast<::INT>(dimension.height().to_pixels()) };
             const auto          status = canvas.get().FillRectangle(background_details.get(), rectangle);
             if (status != Gdiplus::Ok)
             {
