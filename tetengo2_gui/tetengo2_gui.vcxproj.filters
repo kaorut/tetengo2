@@ -341,5 +341,8 @@
     <ClCompile Include="src\tetengo2.gui.icon.cpp">
       <Filter>sources\tetengo2::gui</Filter>
     </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.shell.cpp">
+      <Filter>sources\tetengo2::gui</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

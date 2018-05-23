@@ -13,29 +13,24 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/detail/base/shell.h>
+#include <tetengo2/type_list.h>
+
 
 namespace tetengo2::gui {
     /*!
-        \brief The class template for a shell.
-
-        \tparam String       A string type.
-        \tparam Encoder      An encoder type.
-        \tparam ShellDetails A detail implementation type of a shell.
+        \brief The class for a shell.
     */
-    template <typename String, typename Encoder, typename ShellDetails>
     class shell : private boost::noncopyable
     {
     public:
         // types
 
         //! The string type.
-        using string_type = String;
-
-        //! The encoder type.
-        using encoder_type = Encoder;
+        using string_type = type_list::string_type;
 
         //! The shell details type.
-        using shell_details_type = ShellDetails;
+        using shell_details_type = detail::base::shell;
 
 
         // constructors
@@ -81,7 +76,6 @@ namespace tetengo2::gui {
         execute(const string_type& command, const InputIterator parameter_first, const InputIterator parameter_last)
             const
         {
-            static const encoder_type      encoder{};
             const std::vector<string_type> parameters{ parameter_first, parameter_last };
             return m_shell_details.execute(command, parameters);
         }
