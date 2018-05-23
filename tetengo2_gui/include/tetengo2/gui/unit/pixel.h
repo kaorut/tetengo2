@@ -56,9 +56,7 @@ namespace tetengo2::gui::unit {
         /*!
             \brief Returns a pixel unit made from a value in pixels.
 
-            \tparam IV  A integer value type.
-
-            \param value A value in pixels.
+            \param int_value A value in pixels.
 
             \return A pixel unit.
         */

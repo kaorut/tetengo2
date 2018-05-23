@@ -33,7 +33,7 @@ namespace tetengo2::gui::unit {
         //! The concrete unit type.
         using concrete_unit_type = ConcreteUnit;
 
-        // !The integer value type.
+        //! The integer value type.
         using int_value_type = IntValue;
 
         //! The value type.
