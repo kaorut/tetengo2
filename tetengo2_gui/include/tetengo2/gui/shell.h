@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_GUI_SHELL_H)
 #define TETENGO2_GUI_SHELL_H
 
-#include <memory>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
@@ -39,18 +38,14 @@ namespace tetengo2::gui {
         using shell_details_type = ShellDetails;
 
 
-        // static functions
+        // constructors
 
         /*!
-            \brief Returns the instance.
+            \brief Creates a shell.
 
-            \return The instance.
+            \param shell_details A detail implementation of a shell.
         */
-        static const shell& instance()
-        {
-            static const shell singleton;
-            return singleton;
-        }
+        explicit shell(const shell_details_type& shell_details) : m_shell_details{ shell_details } {}
 
 
         // functions
@@ -86,20 +81,16 @@ namespace tetengo2::gui {
         execute(const string_type& command, const InputIterator parameter_first, const InputIterator parameter_last)
             const
         {
-            static const encoder_type encoder{};
-            return m_p_shell_details->execute(command, parameter_first, parameter_last, encoder);
+            static const encoder_type      encoder{};
+            const std::vector<string_type> parameters{ parameter_first, parameter_last };
+            return m_shell_details.execute(command, parameters);
         }
 
 
     private:
         // variables
 
-        std::unique_ptr<shell_details_type> m_p_shell_details;
-
-
-        // constructors
-
-        shell() : m_p_shell_details{ std::make_unique<shell_details_type>() } {}
+        const shell_details_type& m_shell_details;
     };
 }
 

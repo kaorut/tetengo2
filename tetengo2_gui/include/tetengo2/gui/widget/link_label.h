@@ -234,7 +234,7 @@ namespace tetengo2::gui::widget {
 
         void open_target() const
         {
-            shell_type::instance().execute(m_target);
+            shell_type{ shell_details_type::instance() }.execute(m_target);
         }
     };
 }
