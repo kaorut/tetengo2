@@ -1044,10 +1044,10 @@ namespace tetengo2::detail::windows {
             const auto pos = position<Position>(widget);
             const auto window_style = ::GetWindowLongPtrW(widget.details().handle.get(), GWL_STYLE);
             const auto extended_window_style = ::GetWindowLongPtrW(widget.details().handle.get(), GWL_EXSTYLE);
-            const auto left = pos.left().to_pixels();
-            const auto top = pos.top().to_pixels();
-            const auto width = client_dimension.width().to_pixels();
-            const auto height = client_dimension.height().to_pixels();
+            const auto left = static_cast<::LONG>(pos.left().to_pixels());
+            const auto top = static_cast<::LONG>(pos.top().to_pixels());
+            const auto width = static_cast<::LONG>(client_dimension.width().to_pixels());
+            const auto height = static_cast<::LONG>(client_dimension.height().to_pixels());
             ::RECT     rectangle{ left, top, left + width, top + height };
             if (::AdjustWindowRectEx(
                     &rectangle,
@@ -1351,10 +1351,10 @@ namespace tetengo2::detail::windows {
         template <typename Widget, typename Position, typename Dimension>
         static void repaint_partially(Widget& widget, const Position& position, const Dimension& dimension)
         {
-            const auto   left = position.left().to_pixels();
-            const auto   top = position.top().to_pixels();
-            const auto   width = dimension.width().to_pixels();
-            const auto   height = dimension.height().to_pixels();
+            const auto   left = static_cast<::LONG>(position.left().to_pixels());
+            const auto   top = static_cast<::LONG>(position.top().to_pixels());
+            const auto   width = static_cast<::LONG>(dimension.width().to_pixels());
+            const auto   height = static_cast<::LONG>(dimension.height().to_pixels());
             const ::RECT rectangle{ left, top, left + width, top + height };
             if (::InvalidateRect(widget.details().handle.get(), &rectangle, FALSE) == 0)
             {
