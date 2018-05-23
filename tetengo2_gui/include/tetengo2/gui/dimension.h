@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_DIMENSION_H
 
 #include <boost/operators.hpp>
-#include <boost/predef.h>
 
 #include <tetengo2/gui/unit/em.h>
 #include <tetengo2/gui/unit/pixel.h>
@@ -89,24 +88,14 @@ namespace tetengo2::gui {
     };
 
 
-    //! The pixel-based dimension type.
-    using pixel_dimension = basic_dimension<unit::upixel>;
-
-#if BOOST_OS_WINDOWS
     //! The EM-based dimension type.
     using em_dimension = basic_dimension<unit::uem>;
 
-    //! The point-based dimension type.
-    using point_dimension = basic_dimension<unit::upoint>;
-#elif BOOST_OS_LINUX
-    //! The EM-based dimension type.
-    using em_dimension = basic_dimension<unit::uem_for_test>;
+    //! The pixel-based dimension type.
+    using pixel_dimension = basic_dimension<unit::upixel>;
 
     //! The point-based dimension type.
-    using point_dimension = basic_dimension<unit::upoint_for_test>;
-#else
-#error Unsupported platform.
-#endif
+    using point_dimension = basic_dimension<unit::upoint>;
 }
 
 

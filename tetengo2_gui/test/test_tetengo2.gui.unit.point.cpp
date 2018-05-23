@@ -23,9 +23,9 @@ namespace {
 
     using difference_rational_type = boost::rational<tetengo2::type_list::difference_type>;
 
-    using unit_type = tetengo2::gui::unit::point_for_test;
+    using unit_type = tetengo2::gui::unit::point;
 
-    using another_unit_type = tetengo2::gui::unit::upoint_for_test;
+    using another_unit_type = tetengo2::gui::unit::upoint;
 }
 
 
@@ -181,7 +181,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     const unit_type unit{ 12 };
 
-                    BOOST_TEST(unit.to_pixels<std::ptrdiff_t>() == 16);
+                    BOOST_TEST(unit.to_pixels() == 16);
                 }
 
 

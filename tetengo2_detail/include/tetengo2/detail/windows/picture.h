@@ -102,8 +102,8 @@ namespace tetengo2::detail::windows::picture {
     {
         ::IWICBitmap* rp_bitmap = nullptr;
         const auto    hr = wic_imaging_factory().CreateBitmap(
-            gui::to_pixels<::UINT>(dimension.width()),
-            gui::to_pixels<::UINT>(dimension.height()),
+            dimension.width().to_pixels(),
+            dimension.height().to_pixels(),
             ::GUID_WICPixelFormat32bppPBGRA,
             ::WICBitmapCacheOnDemand,
             &rp_bitmap);
@@ -189,8 +189,7 @@ namespace tetengo2::detail::windows::picture {
                 (std::system_error{ std::error_code{ hr, wic_category() }, "Can't get size of picture." }));
         }
 
-        return { gui::to_unit<typename Dimension::unit_type>(width),
-                 gui::to_unit<typename Dimension::unit_type>(height) };
+        return { Dimension::unit_type::from_pixels(width), Dimension::unit_type::from_pixels(height) };
     }
 }
 

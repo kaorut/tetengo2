@@ -47,7 +47,6 @@
     <ClInclude Include="include\tetengo2\gui\drawing\widget_canvas.h" />
     <ClInclude Include="include\tetengo2\gui\fixture.h" />
     <ClInclude Include="include\tetengo2\gui\icon.h" />
-    <ClInclude Include="include\tetengo2\gui\measure.h" />
     <ClInclude Include="include\tetengo2\gui\menu\0namespace.dox" />
     <ClInclude Include="include\tetengo2\gui\menu\abstract_popup.h" />
     <ClInclude Include="include\tetengo2\gui\menu\command.h" />
@@ -79,6 +78,7 @@
     <ClInclude Include="include\tetengo2\gui\scroll_bar.h" />
     <ClInclude Include="include\tetengo2\gui\shell.h" />
     <ClInclude Include="include\tetengo2\gui\timer.h" />
+    <ClInclude Include="include\tetengo2\gui\type_list.h" />
     <ClInclude Include="include\tetengo2\gui\unit\0namespace.dox" />
     <ClInclude Include="include\tetengo2\gui\unit\em.h" />
     <ClInclude Include="include\tetengo2\gui\unit\pixel.h" />

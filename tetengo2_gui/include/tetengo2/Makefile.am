@@ -26,7 +26,6 @@ pkg_headers = \
     gui/drawing/widget_canvas.h \
     gui/fixture.h \
     gui/icon.h \
-    gui/measure.h \
     gui/menu/abstract_popup.h \
     gui/menu/command.h \
     gui/menu/menu_bar.h \
@@ -56,6 +55,7 @@ pkg_headers = \
     gui/scroll_bar.h \
     gui/shell.h \
     gui/timer.h \
+    gui/type_list.h \
     gui/unit/em.h \
     gui/unit/pixel.h \
     gui/unit/point.h \

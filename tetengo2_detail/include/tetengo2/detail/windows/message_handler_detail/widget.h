@@ -30,7 +30,6 @@
 #include <windowsx.h>
 
 #include <tetengo2/detail/windows/cursor.h> // IWYU pragma: keep
-#include <tetengo2/gui/measure.h> // IWYU pragma: keep
 #include <tetengo2/stdalt.h>
 
 
@@ -112,8 +111,8 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
     template <typename Position>
     Position l_param_to_position(const ::LPARAM l_param)
     {
-        return { gui::to_unit<typename Position::unit_type>(GET_X_LPARAM(l_param)),
-                 gui::to_unit<typename Position::unit_type>(GET_Y_LPARAM(l_param)) };
+        return { Position::unit_type::from_pixels(GET_X_LPARAM(l_param)),
+                 Position::unit_type::from_pixels(GET_Y_LPARAM(l_param)) };
     }
 
     template <typename Widget>

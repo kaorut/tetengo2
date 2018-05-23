@@ -165,9 +165,6 @@
     <ClInclude Include="include\tetengo2\gui\menu\menu_bar.h">
       <Filter>headers\tetengo2::gui\menu</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\measure.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2\gui\menu\menu_base.h">
       <Filter>headers\tetengo2::gui\menu</Filter>
     </ClInclude>
@@ -304,6 +301,9 @@
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2\gui\position.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\gui\type_list.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
   </ItemGroup>

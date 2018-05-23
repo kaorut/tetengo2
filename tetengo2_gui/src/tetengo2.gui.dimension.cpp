@@ -6,8 +6,6 @@
     $Id$
 */
 
-#include <boost/predef.h>
-
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/unit/em.h>
 #include <tetengo2/gui/unit/pixel.h>
@@ -44,44 +42,24 @@ namespace tetengo2::gui {
 
 
     namespace {
-        using em_stub_unit_type = gui::unit::uem_for_test;
+        using em_unit_type = gui::unit::uem;
 
         using pixel_unit_type = gui::unit::upixel;
 
-        using point_stub_unit_type = gui::unit::upoint_for_test;
-
-#if BOOST_OS_WINDOWS
-        using em_windows_unit_type = gui::unit::uem;
-
-        using point_windows_unit_type = gui::unit::upoint;
-#endif
+        using point_unit_type = gui::unit::upoint;
     }
 
-    template class basic_dimension<em_stub_unit_type>;
+    template class basic_dimension<em_unit_type>;
 
-    template bool
-    operator==(const basic_dimension<em_stub_unit_type>& one, const basic_dimension<em_stub_unit_type>& another);
+    template bool operator==(const basic_dimension<em_unit_type>& one, const basic_dimension<em_unit_type>& another);
 
     template class basic_dimension<pixel_unit_type>;
 
     template bool
     operator==(const basic_dimension<pixel_unit_type>& one, const basic_dimension<pixel_unit_type>& another);
 
-    template class basic_dimension<point_stub_unit_type>;
+    template class basic_dimension<point_unit_type>;
 
     template bool
-    operator==(const basic_dimension<point_stub_unit_type>& one, const basic_dimension<point_stub_unit_type>& another);
-
-#if BOOST_OS_WINDOWS
-    template class basic_dimension<em_windows_unit_type>;
-
-    template bool
-    operator==(const basic_dimension<em_windows_unit_type>& one, const basic_dimension<em_windows_unit_type>& another);
-
-    template class basic_dimension<point_windows_unit_type>;
-
-    template bool operator==(
-        const basic_dimension<point_windows_unit_type>& one,
-        const basic_dimension<point_windows_unit_type>& another);
-#endif
+    operator==(const basic_dimension<point_unit_type>& one, const basic_dimension<point_unit_type>& another);
 }

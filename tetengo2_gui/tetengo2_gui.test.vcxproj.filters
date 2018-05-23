@@ -59,9 +59,6 @@
     <ClCompile Include="test\test_tetengo2.gui.fixture.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.measure.cpp">
-      <Filter>sources\test_tetengo2::gui</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.drawing.background.cpp">
       <Filter>sources\test_tetengo2::gui\drawing</Filter>
     </ClCompile>

@@ -9,11 +9,11 @@
 #if !defined(TETENGO2_GUI_WIDGET_LABEL_H)
 #define TETENGO2_GUI_WIDGET_LABEL_H
 
+#include <cmath>
 #include <cstddef>
 
 #include <boost/predef.h>
 
-#include <tetengo2/gui/measure.h>
 #include <tetengo2/gui/widget/control.h>
 
 
@@ -136,8 +136,9 @@ namespace tetengo2::gui::widget {
                 return;
             }
 
-            const auto int_line_count = ceil<std::size_t>(line_count);
-            auto       height = one_line_dimension.height() * int_line_count;
+            const auto int_line_count = static_cast<std::size_t>(
+                std::ceil(static_cast<double>(line_count.to_pixels()) / dimension_unit_type{ 1 }.to_pixels()));
+            auto height = one_line_dimension.height() * int_line_count;
             this->set_client_dimension(dimension_type{ std::move(max_width), std::move(height) });
         }
 

@@ -14,34 +14,40 @@
 
 
 namespace tetengo2::gui::unit {
-    template <typename Value>
-    basic_pixel<Value>::basic_pixel() : m_value{ 0 }
+    template <typename IntValue>
+    basic_pixel<IntValue> basic_pixel<IntValue>::from_pixels(const int_value_type int_value)
+    {
+        return basic_pixel{ int_value };
+    }
+
+    template <typename IntValue>
+    basic_pixel<IntValue>::basic_pixel() : m_value{ 0 }
     {}
 
-    template <typename Value>
-    basic_pixel<Value>::basic_pixel(value_type value) : m_value{ std::move(value) }
+    template <typename IntValue>
+    basic_pixel<IntValue>::basic_pixel(value_type value) : m_value{ std::move(value) }
     {}
 
-    template <typename V>
-    bool operator==(const basic_pixel<V>& one, const V& another)
+    template <typename IV>
+    bool operator==(const basic_pixel<IV>& one, const typename basic_pixel<IV>::value_type& another)
     {
         return one.value() == another;
     }
 
-    template <typename V>
-    bool operator<(const basic_pixel<V>& one, const V& another)
+    template <typename IV>
+    bool operator<(const basic_pixel<IV>& one, const typename basic_pixel<IV>::value_type& another)
     {
         return one.value() < another;
     }
 
-    template <typename V>
-    bool operator>(const basic_pixel<V>& one, const V& another)
+    template <typename IV>
+    bool operator>(const basic_pixel<IV>& one, const typename basic_pixel<IV>::value_type& another)
     {
         return one.value() > another;
     }
 
-    template <typename Value>
-    basic_pixel<Value>& basic_pixel<Value>::add(const value_type& another)
+    template <typename IntValue>
+    basic_pixel<IntValue>& basic_pixel<IntValue>::add(const value_type& another)
     {
         basic_pixel temp{ *this };
 
@@ -51,8 +57,8 @@ namespace tetengo2::gui::unit {
         return *this;
     }
 
-    template <typename Value>
-    basic_pixel<Value>& basic_pixel<Value>::subtract(const value_type& another)
+    template <typename IntValue>
+    basic_pixel<IntValue>& basic_pixel<IntValue>::subtract(const value_type& another)
     {
         basic_pixel temp{ *this };
 
@@ -62,8 +68,8 @@ namespace tetengo2::gui::unit {
         return *this;
     }
 
-    template <typename Value>
-    basic_pixel<Value>& basic_pixel<Value>::multiply(const value_type& another)
+    template <typename IntValue>
+    basic_pixel<IntValue>& basic_pixel<IntValue>::multiply(const value_type& another)
     {
         basic_pixel temp{ *this };
 
@@ -73,8 +79,8 @@ namespace tetengo2::gui::unit {
         return *this;
     }
 
-    template <typename Value>
-    basic_pixel<Value>& basic_pixel<Value>::divide_by(const value_type& another)
+    template <typename IntValue>
+    basic_pixel<IntValue>& basic_pixel<IntValue>::divide_by(const value_type& another)
     {
         basic_pixel temp{ *this };
 
@@ -84,44 +90,53 @@ namespace tetengo2::gui::unit {
         return *this;
     }
 
-    template <typename Value>
-    Value basic_pixel<Value>::divide_by(const basic_pixel& another) const
+    template <typename IntValue>
+    typename basic_pixel<IntValue>::value_type basic_pixel<IntValue>::divide_by(const basic_pixel& another) const
     {
         return value() / another.value();
     }
 
-    template <typename Value>
-    const Value& basic_pixel<Value>::value() const
+    template <typename IntValue>
+    const typename basic_pixel<IntValue>::value_type& basic_pixel<IntValue>::value() const
     {
         return m_value;
     }
 
-    template <typename Value>
-    typename Value::int_type basic_pixel<Value>::to_pixels_impl(const value_type& value)
+    template <typename IntValue>
+    typename basic_pixel<IntValue>::int_value_type basic_pixel<IntValue>::to_pixels() const
     {
-        return boost::rational_cast<typename value_type::int_type>(value);
+        return boost::rational_cast<int_value_type>(m_value);
     }
 
 
     namespace {
-        using size_rational_type = boost::rational<type_list::size_type>;
+        using size_type = type_list::size_type;
 
-        using difference_rational_type = boost::rational<type_list::difference_type>;
+        using difference_type = type_list::difference_type;
     }
 
-    template class basic_pixel<size_rational_type>;
+    template class basic_pixel<size_type>;
 
-    template class basic_pixel<difference_rational_type>;
+    template class basic_pixel<difference_type>;
 
-    template bool operator==(const basic_pixel<size_rational_type>& one, const size_rational_type& another);
+    template bool
+    operator==(const basic_pixel<size_type>& one, const typename basic_pixel<size_type>::value_type& another);
 
-    template bool operator==(const basic_pixel<difference_rational_type>& one, const difference_rational_type& another);
+    template bool operator==(
+        const basic_pixel<difference_type>&                      one,
+        const typename basic_pixel<difference_type>::value_type& another);
 
-    template bool operator<(const basic_pixel<size_rational_type>& one, const size_rational_type& another);
+    template bool
+    operator<(const basic_pixel<size_type>& one, const typename basic_pixel<size_type>::value_type& another);
 
-    template bool operator<(const basic_pixel<difference_rational_type>& one, const difference_rational_type& another);
+    template bool operator<(
+        const basic_pixel<difference_type>&                      one,
+        const typename basic_pixel<difference_type>::value_type& another);
 
-    template bool operator>(const basic_pixel<size_rational_type>& one, const size_rational_type& another);
+    template bool
+    operator>(const basic_pixel<size_type>& one, const typename basic_pixel<size_type>::value_type& another);
 
-    template bool operator>(const basic_pixel<difference_rational_type>& one, const difference_rational_type& another);
+    template bool operator>(
+        const basic_pixel<difference_type>&                      one,
+        const typename basic_pixel<difference_type>::value_type& another);
 }
