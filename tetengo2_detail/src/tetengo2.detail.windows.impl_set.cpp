@@ -17,6 +17,7 @@
 #include <tetengo2/detail/windows/gui_fixture.h>
 #include <tetengo2/detail/windows/icon.h>
 #include <tetengo2/detail/windows/impl_set.h>
+#include <tetengo2/detail/windows/shell.h>
 #include <tetengo2/detail/windows/unit.h>
 
 
@@ -49,6 +50,11 @@ namespace tetengo2::detail::windows {
     const base::icon& impl_set::icon_impl() const
     {
         return icon::instance();
+    }
+
+    const base::shell& impl_set::shell_impl() const
+    {
+        return shell::instance();
     }
 
     const base::unit& impl_set::unit_impl() const

@@ -18,6 +18,7 @@ namespace tetengo2::detail::base {
     class cursor;
     class gui_fixture;
     class icon;
+    class shell;
     class unit;
 }
 
@@ -52,6 +53,12 @@ namespace tetengo2::detail::unixos {
     }
 
     const base::icon& impl_set::icon_impl() const
+    {
+        assert(false);
+        throw std::logic_error("No implementation.");
+    }
+
+    const base::shell& impl_set::shell_impl() const
     {
         assert(false);
         throw std::logic_error("No implementation.");

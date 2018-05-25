@@ -16,6 +16,7 @@ namespace tetengo2::detail::base {
     class alert;
     class cursor;
     class icon;
+    class shell;
     class unit;
 }
 
@@ -41,6 +42,11 @@ namespace tetengo2::detail::base {
     const icon& impl_set::icon_() const
     {
         return icon_impl();
+    }
+
+    const shell& impl_set::shell_() const
+    {
+        return shell_impl();
     }
 
     const unit& impl_set::unit_() const

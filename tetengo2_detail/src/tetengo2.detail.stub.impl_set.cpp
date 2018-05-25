@@ -18,6 +18,7 @@
 #include <tetengo2/detail/stub/gui_fixture.h>
 #include <tetengo2/detail/stub/icon.h>
 #include <tetengo2/detail/stub/impl_set.h>
+#include <tetengo2/detail/stub/shell.h>
 #include <tetengo2/detail/stub/unit.h>
 
 
@@ -50,6 +51,11 @@ namespace tetengo2::detail::stub {
     const base::icon& impl_set::icon_impl() const
     {
         return icon::instance();
+    }
+
+    const base::shell& impl_set::shell_impl() const
+    {
+        return shell::instance();
     }
 
     const base::unit& impl_set::unit_impl() const
