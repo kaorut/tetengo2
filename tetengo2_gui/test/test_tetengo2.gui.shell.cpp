@@ -67,16 +67,14 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     const string_type              command{ TETENGO2_TEXT("command") };
                     const std::vector<string_type> parameters{};
 
-                    const auto result = shell_type{ shell_details_type::instance() }.execute(
-                        command, parameters.begin(), parameters.end());
+                    const auto result = shell_type{ shell_details_type::instance() }.execute(command, parameters);
                     BOOST_TEST(result);
                 }
                 {
                     const string_type              command{ TETENGO2_TEXT("command") };
                     const std::vector<string_type> parameters{ string_type{ TETENGO2_TEXT("param1") } };
 
-                    const auto result = shell_type{ shell_details_type::instance() }.execute(
-                        command, parameters.begin(), parameters.end());
+                    const auto result = shell_type{ shell_details_type::instance() }.execute(command, parameters);
                     BOOST_TEST(result);
                 }
                 {
@@ -84,8 +82,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     const std::vector<string_type> parameters{ string_type{ TETENGO2_TEXT("param1") },
                                                                string_type{ TETENGO2_TEXT("param2") } };
 
-                    const auto result = shell_type{ shell_details_type::instance() }.execute(
-                        command, parameters.begin(), parameters.end());
+                    const auto result = shell_type{ shell_details_type::instance() }.execute(command, parameters);
                     BOOST_TEST(result);
                 }
             }
