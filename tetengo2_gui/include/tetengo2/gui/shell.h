@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_SHELL_H)
 #define TETENGO2_GUI_SHELL_H
 
+#include <memory>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
@@ -40,7 +41,12 @@ namespace tetengo2::gui {
 
             \param shell_details A detail implementation of a shell.
         */
-        explicit shell(const shell_details_type& shell_details) : m_shell_details{ shell_details } {}
+        explicit shell(const shell_details_type& shell_details);
+
+        /*!
+            \brief Destroys the shell.
+        */
+        ~shell();
 
 
         // functions
@@ -54,16 +60,18 @@ namespace tetengo2::gui {
             \retval true  When the command is executed successfully.
             \retval false Otherwise.
         */
-        bool execute(const string_type& command, const std::vector<string_type>& parameters = {}) const
-        {
-            return m_shell_details.execute(command, parameters);
-        }
+        bool execute(const string_type& command, const std::vector<string_type>& parameters = {}) const;
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        const shell_details_type& m_shell_details;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 
