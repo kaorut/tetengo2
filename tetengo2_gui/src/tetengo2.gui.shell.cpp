@@ -6,8 +6,6 @@
     $Id$
 */
 
-#include <tetengo2/gui/shell.h>
-
 
 namespace tetengo2::gui {
 }

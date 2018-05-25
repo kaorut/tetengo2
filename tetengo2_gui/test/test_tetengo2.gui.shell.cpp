@@ -12,6 +12,7 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/stub/shell.h>
 #include <tetengo2/gui/shell.h>
 #include <tetengo2/text.h>
 
@@ -23,6 +24,8 @@ namespace {
     // types
 
     using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
+
+    using shell_details_type = detail_type_list_type::shell_type;
 
     using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
@@ -41,7 +44,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
             {
                 BOOST_TEST_PASSPOINT();
 
-                const shell_type shell{ detail_type_list_type::shell_type::instance() };
+                const shell_type shell{ shell_details_type::instance() };
             }
 
             BOOST_AUTO_TEST_CASE(execute)
@@ -51,20 +54,20 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 {
                     const string_type command{ TETENGO2_TEXT("command") };
 
-                    const auto result = shell_type{ detail_type_list_type::shell_type::instance() }.execute(command);
+                    const auto result = shell_type{ shell_details_type::instance() }.execute(command);
                     BOOST_TEST(result);
                 }
                 {
                     const string_type command{ TETENGO2_TEXT("command_to_fail") };
 
-                    const auto result = shell_type{ detail_type_list_type::shell_type::instance() }.execute(command);
+                    const auto result = shell_type{ shell_details_type::instance() }.execute(command);
                     BOOST_TEST(!result);
                 }
                 {
                     const string_type              command{ TETENGO2_TEXT("command") };
                     const std::vector<string_type> parameters{};
 
-                    const auto result = shell_type{ detail_type_list_type::shell_type::instance() }.execute(
+                    const auto result = shell_type{ shell_details_type::instance() }.execute(
                         command, parameters.begin(), parameters.end());
                     BOOST_TEST(result);
                 }
@@ -72,7 +75,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     const string_type              command{ TETENGO2_TEXT("command") };
                     const std::vector<string_type> parameters{ string_type{ TETENGO2_TEXT("param1") } };
 
-                    const auto result = shell_type{ detail_type_list_type::shell_type::instance() }.execute(
+                    const auto result = shell_type{ shell_details_type::instance() }.execute(
                         command, parameters.begin(), parameters.end());
                     BOOST_TEST(result);
                 }
@@ -81,7 +84,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     const std::vector<string_type> parameters{ string_type{ TETENGO2_TEXT("param1") },
                                                                string_type{ TETENGO2_TEXT("param2") } };
 
-                    const auto result = shell_type{ detail_type_list_type::shell_type::instance() }.execute(
+                    const auto result = shell_type{ shell_details_type::instance() }.execute(
                         command, parameters.begin(), parameters.end());
                     BOOST_TEST(result);
                 }
