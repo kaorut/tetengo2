@@ -905,10 +905,10 @@ namespace tetengo2::detail::windows {
         {
             const auto result = ::MoveWindow(
                 widget.details().handle.get(),
-                position.left().to_pixels(),
-                position.top().to_pixels(),
-                dimension.width().to_pixels(),
-                dimension.height().to_pixels(),
+                static_cast<int>(position.left().to_pixels()),
+                static_cast<int>(position.top().to_pixels()),
+                static_cast<int>(dimension.width().to_pixels()),
+                static_cast<int>(dimension.height().to_pixels()),
                 visible(widget) ? TRUE : FALSE);
             if (result == 0)
             {
@@ -983,8 +983,8 @@ namespace tetengo2::detail::windows {
             }
 
             const auto widget_dimension = widget.dimension();
-            const auto widget_width = widget_dimension.width().to_pixels();
-            const auto widget_height = widget_dimension.height().to_pixels();
+            const auto widget_width = static_cast<::LONG>(widget_dimension.width().to_pixels());
+            const auto widget_height = static_cast<::LONG>(widget_dimension.height().to_pixels());
             if (point.x + widget_width + x_margin > monitor_info.rcWork.right)
                 point.x = monitor_info.rcWork.right - widget_width - x_margin;
             if (point.y + widget_height + y_margin > monitor_info.rcWork.bottom)

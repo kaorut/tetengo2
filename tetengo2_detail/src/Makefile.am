@@ -15,12 +15,14 @@ sources = \
     tetengo2.detail.base.icon.cpp \
     tetengo2.detail.base.impl_set.cpp \
     tetengo2.detail.base.messages.cpp \
+    tetengo2.detail.base.shell.cpp \
     tetengo2.detail.base.unit.cpp \
     tetengo2.detail.stub.alert.cpp \
     tetengo2.detail.stub.cursor.cpp \
     tetengo2.detail.stub.gui_fixture.cpp \
     tetengo2.detail.stub.icon.cpp \
     tetengo2.detail.stub.impl_set.cpp \
+    tetengo2.detail.stub.shell.cpp \
     tetengo2.detail.stub.unit.cpp \
     tetengo2.detail.unixos.config.cpp \
     tetengo2.detail.unixos.encoding.cpp \
@@ -41,6 +43,7 @@ extra_sources = \
     tetengo2.detail.windows.icon.cpp \
     tetengo2.detail.windows.impl_set.cpp \
     tetengo2.detail.windows.messages.cpp \
+    tetengo2.detail.windows.shell.cpp \
     tetengo2.detail.windows.unit.cpp
 
 BUILT_SOURCES = $(PRECOMPILE_BUILT_SOURCES)

@@ -83,7 +83,7 @@ namespace tetengo2::gui::widget {
         using system_color_set_type = gui::drawing::system_color_set<system_color_details_type>;
 
         //! The shell type.
-        using shell_type = gui::shell<string_type, encoder_type, shell_details_type>;
+        using shell_type = gui::shell;
 
 
         // constructors and destructor
@@ -234,7 +234,7 @@ namespace tetengo2::gui::widget {
 
         void open_target() const
         {
-            shell_type::instance().execute(m_target);
+            shell_type{ shell_details_type::instance() }.execute(m_target);
         }
     };
 }

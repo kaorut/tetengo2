@@ -11,6 +11,7 @@ pkg_headers = \
     detail/base/icon.h \
     detail/base/impl_set.h \
     detail/base/messages.h \
+    detail/base/shell.h \
     detail/base/unit.h \
     detail/stub/alert.h \
     detail/stub/common_dialog.h \

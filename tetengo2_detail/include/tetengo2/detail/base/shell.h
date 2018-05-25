@@ -1,26 +1,25 @@
 /*! \file
-    \brief The definition of tetengo2::gui::shell.
+    \brief The definition of tetengo2::detail::base::shell.
 
     Copyright (C) 2007-2018 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_SHELL_H)
-#define TETENGO2_GUI_SHELL_H
+#if !defined(TETENGO2_DETAIL_BASE_SHELL_H)
+#define TETENGO2_DETAIL_BASE_SHELL_H
 
 #include <memory>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
 
-#include <tetengo2/detail/base/shell.h>
 #include <tetengo2/type_list.h>
 
 
-namespace tetengo2::gui {
+namespace tetengo2::detail::base {
     /*!
-        \brief The class for a shell.
+        \brief The class for a detail implementation of a shell.
     */
     class shell : private boost::noncopyable
     {
@@ -30,23 +29,13 @@ namespace tetengo2::gui {
         //! The string type.
         using string_type = type_list::string_type;
 
-        //! The shell details type.
-        using shell_details_type = detail::base::shell;
 
-
-        // constructors
+        // constructors and destructor
 
         /*!
-            \brief Creates a shell.
-
-            \param shell_details A detail implementation of a shell.
+            \brief Destroys the detail implementation.
         */
-        explicit shell(const shell_details_type& shell_details);
-
-        /*!
-            \brief Destroys the shell.
-        */
-        ~shell();
+        virtual ~shell();
 
 
         // functions
@@ -60,7 +49,16 @@ namespace tetengo2::gui {
             \retval true  When the command is executed successfully.
             \retval false Otherwise.
         */
-        bool execute(const string_type& command, const std::vector<string_type>& parameters = {}) const;
+        bool execute(const string_type& command, const std::vector<string_type>& parameters) const;
+
+
+    protected:
+        // constructors
+
+        /*!
+            \brief Creates a detail implementation.
+        */
+        shell();
 
 
     private:
@@ -72,7 +70,13 @@ namespace tetengo2::gui {
         // variables
 
         const std::unique_ptr<impl> m_p_impl;
+
+
+        // virtual functions
+
+        virtual bool execute_impl(const string_type& command, const std::vector<string_type>& parameters) const = 0;
     };
 }
+
 
 #endif

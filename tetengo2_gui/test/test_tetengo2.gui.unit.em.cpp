@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    const auto unit = unit_type::from_pixels(123 * 12);
+                    const auto unit = unit_type::from_pixels(123 * unit_type{ 1 }.to_pixels());
 
                     BOOST_TEST(unit.value() == 123);
                 }
@@ -181,7 +181,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     const unit_type unit{ 123 };
 
-                    BOOST_TEST(unit.to_pixels() == 123 * 12);
+                    BOOST_TEST(unit.to_pixels() == 123 * unit_type{ 1 }.to_pixels());
                 }
 
 

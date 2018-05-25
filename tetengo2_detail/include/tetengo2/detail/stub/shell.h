@@ -9,53 +9,61 @@
 #if !defined(TETENGO2_DETAIL_STUB_SHELL_H)
 #define TETENGO2_DETAIL_STUB_SHELL_H
 
-#include <boost/core/noncopyable.hpp>
+#include <memory>
+#include <vector>
 
-#include <tetengo2/stdalt.h>
-#include <tetengo2/text.h>
+#include <tetengo2/detail/base/shell.h>
 
 
 namespace tetengo2::detail::stub {
     /*!
         \brief The class for a detail implementation of a shell.
     */
-    class shell : private boost::noncopyable
+    class shell : public base::shell
     {
     public:
+        // types
+
+        //! The string type.
+        using string_type = base::shell::string_type;
+
+
+        // static functions
+
+        static const shell& instance();
+
+
         // constructors and destructor
 
         /*!
-            \brief Creates a shell.
+            \brief Destroys the detail implementation.
         */
-        shell() {}
+        ~shell();
 
 
-        // functions
+    private:
+        // types
+
+        class impl;
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
+
+
+        // constructors
 
         /*!
-            \brief Executes a command.
-
-            \tparam String       A string type.
-            \tparam InpuIterator An input iterator type.
-            \tparam Encoder      An encoder type.
-
-            \param command         A command. When it is a path, the path is relative to the current directory.
-            \param parameter_first The first iterator to parameters.
-            \param parameter_last  The last iterator to parameters.
-            \param encoder         An encoder.
-
-            \retval true  When the command is executed successfully.
-            \retval false Otherwise.
+            \brief Creates a detail implementation.
         */
-        template <typename String, typename InputIterator, typename Encoder>
-        bool execute(
-            const String&                      command,
-            TETENGO2_STDALT_MAYBE_UNUSED const InputIterator parameter_first,
-            TETENGO2_STDALT_MAYBE_UNUSED const InputIterator parameter_last,
-            TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder) const
-        {
-            return command.find(TETENGO2_TEXT("fail")) == String::npos;
-        }
+        shell();
+
+
+        // virtual functions
+
+        virtual bool
+        execute_impl(const string_type& command, const std::vector<string_type>& parameters) const override;
     };
 }
 

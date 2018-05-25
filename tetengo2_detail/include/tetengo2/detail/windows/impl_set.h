@@ -18,6 +18,7 @@ namespace tetengo2::detail::base {
     class cursor;
     class gui_fixture;
     class icon;
+    class shell;
     class unit;
 }
 
@@ -62,6 +63,8 @@ namespace tetengo2::detail::windows {
         virtual std::unique_ptr<base::gui_fixture> create_gui_fixture_impl() const override;
 
         virtual const base::icon& icon_impl() const override;
+
+        virtual const base::shell& shell_impl() const override;
 
         virtual const base::unit& unit_impl() const override;
     };
