@@ -220,7 +220,8 @@ namespace tetengo2::detail::windows::gdiplus {
         template <typename Dimension>
         static void begin_transaction(canvas_details_type& canvas, const Dimension& dimension)
         {
-            canvas.begin_transaction(dimension.width().to_pixels(), dimension.height().to_pixels());
+            canvas.begin_transaction(
+                static_cast<::INT>(dimension.width().to_pixels()), static_cast<::INT>(dimension.height().to_pixels()));
         }
 
         /*!
@@ -780,10 +781,10 @@ namespace tetengo2::detail::windows::gdiplus {
                                     buffer.data() };
             const auto      status = canvas.get().DrawImage(
                 &bitmap,
-                position.left().to_pixels(),
-                position.top().to_pixels(),
-                dimension.width().to_pixels(),
-                dimension.height().to_pixels());
+                static_cast<::INT>(position.left().to_pixels()),
+                static_cast<::INT>(position.top().to_pixels()),
+                static_cast<::INT>(dimension.width().to_pixels()),
+                static_cast<::INT>(dimension.height().to_pixels()));
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
@@ -809,11 +810,11 @@ namespace tetengo2::detail::windows::gdiplus {
             using dimension_type = typename Icon::dimension_type;
             const ::BOOL result = ::DrawIconEx(
                 canvas.get().GetHDC(),
-                position.left().to_pixels(),
-                position.top().to_pixels(),
+                static_cast<int>(position.left().to_pixels()),
+                static_cast<int>(position.top().to_pixels()),
                 static_cast<const icon::icon_details_impl_type&>(icon.details()).big_icon_handle.get(),
-                icon.dimension().width().to_pixels(),
-                icon.dimension().width().to_pixels(),
+                static_cast<int>(icon.dimension().width().to_pixels()),
+                static_cast<int>(icon.dimension().width().to_pixels()),
                 0,
                 nullptr,
                 DI_NORMAL);
