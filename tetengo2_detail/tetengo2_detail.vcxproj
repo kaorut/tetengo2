@@ -30,6 +30,7 @@
     <ClInclude Include="include\tetengo2\detail\base\messages.h" />
     <ClInclude Include="include\tetengo2\detail\base\shell.h" />
     <ClInclude Include="include\tetengo2\detail\base\unit.h" />
+    <ClInclude Include="include\tetengo2\detail\base\virtual_key.h" />
     <ClInclude Include="include\tetengo2\detail\stub\0namespace.dox" />
     <ClInclude Include="include\tetengo2\detail\stub\alert.h" />
     <ClInclude Include="include\tetengo2\detail\stub\common_dialog.h" />
@@ -110,6 +111,7 @@
     <ClCompile Include="src\tetengo2.detail.base.messages.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.shell.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.unit.cpp" />
+    <ClCompile Include="src\tetengo2.detail.base.virtual_key.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.alert.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.cursor.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.gui_fixture.cpp" />
@@ -117,6 +119,7 @@
     <ClCompile Include="src\tetengo2.detail.stub.impl_set.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.shell.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.unit.cpp" />
+    <ClCompile Include="src\tetengo2.detail.stub.virtual_key.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.alert.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.config.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.cursor.cpp" />
@@ -132,6 +135,7 @@
     <ClCompile Include="src\tetengo2.detail.windows.messages.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.shell.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.unit.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.virtual_key.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\tetengo2\detail\base\0namespace.dox" />
