@@ -17,7 +17,8 @@ sources = \
     tetengo2.gui.shell.cpp \
     tetengo2.gui.unit.em.cpp \
     tetengo2.gui.unit.pixel.cpp \
-    tetengo2.gui.unit.point.cpp
+    tetengo2.gui.unit.point.cpp \
+    tetengo2.gui.virtual_key.cpp
 
 extra_sources =
 

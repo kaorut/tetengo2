@@ -124,6 +124,7 @@
     <ClCompile Include="src\tetengo2.gui.unit.em.cpp" />
     <ClCompile Include="src\tetengo2.gui.unit.pixel.cpp" />
     <ClCompile Include="src\tetengo2.gui.unit.point.cpp" />
+    <ClCompile Include="src\tetengo2.gui.virtual_key.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1E7B0400-1602-4F86-9F6D-D92F00222499}</ProjectGuid>
