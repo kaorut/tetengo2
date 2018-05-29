@@ -20,6 +20,7 @@ namespace tetengo2::detail::base {
     class icon;
     class shell;
     class unit;
+    class virtual_key;
 }
 
 
@@ -67,6 +68,8 @@ namespace tetengo2::detail::windows {
         virtual const base::shell& shell_impl() const override;
 
         virtual const base::unit& unit_impl() const override;
+
+        virtual const base::virtual_key& virtual_key_impl() const override;
     };
 }
 

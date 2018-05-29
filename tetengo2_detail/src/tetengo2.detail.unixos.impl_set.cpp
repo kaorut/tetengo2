@@ -20,6 +20,7 @@ namespace tetengo2::detail::base {
     class icon;
     class shell;
     class unit;
+    class virtual_key;
 }
 
 
@@ -65,6 +66,12 @@ namespace tetengo2::detail::unixos {
     }
 
     const base::unit& impl_set::unit_impl() const
+    {
+        assert(false);
+        throw std::logic_error("No implementation.");
+    }
+
+    const base::virtual_key& impl_set::virtual_key_impl() const
     {
         assert(false);
         throw std::logic_error("No implementation.");
