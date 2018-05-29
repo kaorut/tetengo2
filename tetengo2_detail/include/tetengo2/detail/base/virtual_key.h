@@ -36,6 +36,9 @@ namespace tetengo2::detail::base {
 
         // constructors and destructor
 
+        /*!
+            \brief Destroys the detail implementation.
+        */
         virtual ~virtual_key();
 
 

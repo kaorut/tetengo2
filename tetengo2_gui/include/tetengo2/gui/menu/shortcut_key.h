@@ -121,17 +121,17 @@ namespace tetengo2::gui::menu {
         */
         string_type to_string() const
         {
-            std::vector<const virtual_key_type*> keys{};
+            std::vector<string_type> key_strings{};
 
             if (m_shift)
-                keys.push_back(&virtual_key_type::shift());
+                key_strings.push_back(virtual_key_type::shift().to_string());
             if (m_control)
-                keys.push_back(&virtual_key_type::control());
+                key_strings.push_back(virtual_key_type::control().to_string());
             if (m_meta)
-                keys.push_back(&virtual_key_type::meta());
-            keys.push_back(m_p_key);
+                key_strings.push_back(virtual_key_type::meta().to_string());
+            key_strings.push_back(m_p_key->to_string());
 
-            return virtual_key_details_type::template to_combined_string<string_type>(keys.begin(), keys.end());
+            return virtual_key_details_type::instance().to_combined_string(key_strings);
         }
 
 
