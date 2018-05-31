@@ -6,7 +6,9 @@
     $Id$
 */
 
+#include <algorithm>
 #include <cassert>
+#include <iterator>
 #include <unordered_map>
 #include <utility>
 
@@ -490,6 +492,16 @@ namespace tetengo2::gui {
         const auto p_key = find_by_code(details_type::instance().f12().first);
         assert(p_key);
         return *p_key;
+    }
+
+    virtual_key::string_type virtual_key::to_combined_string(const std::vector<virtual_key>& keys)
+    {
+        std::vector<string_type> key_strings{};
+        key_strings.reserve(keys.size());
+        std::transform(keys.begin(), keys.end(), std::back_inserter(key_strings), [](const virtual_key& key) {
+            return key.to_string();
+        });
+        return details_type::instance().to_combined_string(key_strings);
     }
 
     bool operator==(const virtual_key& one, const virtual_key& another)

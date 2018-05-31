@@ -47,7 +47,7 @@ namespace tetengo2::gui {
 #endif
 
         //! The code type.
-        using code_type = typename details_type::code_type;
+        using code_type = int;
 
 
         // static functions
@@ -324,6 +324,15 @@ namespace tetengo2::gui {
         //! Returns the virtual key for F12.
         //! \return The virtual key.
         static const virtual_key& f12();
+
+        /*!
+            \brief Returns the string representation of the combined keys.
+
+            \param keys The bombined keys.
+
+            \return The whole string representation of the combined keys.
+        */
+        static string_type to_combined_string(const std::vector<virtual_key>& keys);
 
 
         // functions
