@@ -28,7 +28,7 @@ namespace {
 
     using string_type = common_type_list_type::string_type;
 
-    using virtual_key_type = tetengo2::gui::virtual_key<string_type, detail_type_list_type::virtual_key_type>;
+    using virtual_key_type = tetengo2::gui::virtual_key;
 
     using keyboard_observer_set_type = tetengo2::gui::message::keyboard_observer_set<virtual_key_type, string_type>;
 }

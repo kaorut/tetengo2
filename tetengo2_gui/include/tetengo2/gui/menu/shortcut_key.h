@@ -36,7 +36,7 @@ namespace tetengo2::gui::menu {
         using virtual_key_details_type = VirtualKeyDetails;
 
         //! The virtual key type.
-        using virtual_key_type = gui::virtual_key<string_type, virtual_key_details_type>;
+        using virtual_key_type = gui::virtual_key;
 
 
         // constructors and destructor

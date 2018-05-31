@@ -148,7 +148,7 @@ namespace tetengo2::gui::widget {
         using paint_observer_set_type = gui::message::paint_observer_set<canvas_type>;
 
         //! The virtual key type.
-        using virtual_key_type = gui::virtual_key<string_type, virtual_key_details_type>;
+        using virtual_key_type = gui::virtual_key;
 
         //! The keyboard observer set type.
         using keyboard_observer_set_type =

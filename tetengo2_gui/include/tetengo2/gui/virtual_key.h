@@ -14,26 +14,38 @@
 #include <utility>
 
 #include <boost/operators.hpp>
+#include <boost/predef.h>
+
+#if BOOST_OS_WINDOWS
+#include <tetengo2/detail/windows/virtual_key.h>
+#elif BOOST_OS_LINUX
+#include <tetengo2/detail/stub/virtual_key.h>
+#else
+#error Unsupported platform.
+#endif
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui {
     /*!
-        \brief The class template for virtual keys.
-
-        \tparam String  A string type.
-        \tparam Details A detail implementation type.
+        \brief The class for virtual keys.
     */
-    template <typename String, typename Details>
-    class virtual_key : private boost::equality_comparable<virtual_key<String, Details>>
+    class virtual_key : private boost::equality_comparable<virtual_key>
     {
     public:
         // types
 
         //! The string type.
-        using string_type = String;
+        using string_type = type_list::string_type;
 
         //! The details type.
-        using details_type = Details;
+#if BOOST_OS_WINDOWS
+        using details_type = detail::windows::virtual_key;
+#elif BOOST_OS_LINUX
+        using details_type = detail::stub::virtual_key;
+#else
+#error Unsupported platform.
+#endif
 
         //! The code type.
         using code_type = typename details_type::code_type;

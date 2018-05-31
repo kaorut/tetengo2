@@ -29,7 +29,7 @@ namespace {
 
     using string_type = common_type_list_type::string_type;
 
-    using virtual_key_type = tetengo2::gui::virtual_key<string_type, detail_type_list_type::virtual_key_type>;
+    using virtual_key_type = tetengo2::gui::virtual_key;
 }
 
 
