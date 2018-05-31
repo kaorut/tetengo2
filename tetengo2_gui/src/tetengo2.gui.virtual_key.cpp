@@ -26,6 +26,18 @@
 
 
 namespace tetengo2::gui {
+    namespace {
+        // types
+
+#if BOOST_OS_WINDOWS
+        using details_type = detail::windows::virtual_key;
+#elif BOOST_OS_LINUX
+        using details_type = detail::stub::virtual_key;
+#else
+#error Unsupported platform.
+#endif
+    }
+
     const virtual_key* virtual_key::find_by_code(const code_type code)
     {
         const auto found = key_map().find(code);

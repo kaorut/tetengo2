@@ -127,6 +127,20 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 virtual_key_type::f12();
             }
 
+            BOOST_AUTO_TEST_CASE(to_combined_string)
+            {
+                BOOST_TEST_PASSPOINT();
+
+                const std::vector<virtual_key_type> keys{ virtual_key_type::shift(), virtual_key_type::char_a() };
+
+                const auto string = virtual_key_type::to_combined_string(keys);
+                BOOST_TEST(string.find(virtual_key_type::shift().to_string()) != string_type::npos);
+                BOOST_TEST(string.find(virtual_key_type::char_a().to_string()) != string_type::npos);
+                BOOST_TEST(
+                    string.find(virtual_key_type::shift().to_string()) <
+                    string.find(virtual_key_type::char_a().to_string()));
+            }
+
             BOOST_AUTO_TEST_CASE(operator_equal)
             {
                 BOOST_TEST_PASSPOINT();

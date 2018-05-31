@@ -13,15 +13,7 @@
 #include <utility>
 
 #include <boost/operators.hpp>
-#include <boost/predef.h>
 
-#if BOOST_OS_WINDOWS
-#include <tetengo2/detail/windows/virtual_key.h>
-#elif BOOST_OS_LINUX
-#include <tetengo2/detail/stub/virtual_key.h>
-#else
-#error Unsupported platform.
-#endif
 #include <tetengo2/type_list.h>
 
 
@@ -36,15 +28,6 @@ namespace tetengo2::gui {
 
         //! The string type.
         using string_type = type_list::string_type;
-
-        //! The details type.
-#if BOOST_OS_WINDOWS
-        using details_type = detail::windows::virtual_key;
-#elif BOOST_OS_LINUX
-        using details_type = detail::stub::virtual_key;
-#else
-#error Unsupported platform.
-#endif
 
         //! The code type.
         using code_type = int;
