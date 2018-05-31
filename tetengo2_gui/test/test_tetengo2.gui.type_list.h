@@ -66,8 +66,7 @@ namespace test_tetengo2::gui::type_list {
             typename DetailTypeList::drawing_type,
             typename DetailTypeList::icon_type,
             typename DetailTypeList::scroll_type,
-            typename DetailTypeList::message_handler_type,
-            typename DetailTypeList::virtual_key_type>;
+            typename DetailTypeList::message_handler_type>;
 
         using message_catalog_type = tetengo2::message::message_catalog;
     }

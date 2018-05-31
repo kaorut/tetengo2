@@ -16,13 +16,12 @@ namespace tetengo2::gui::menu {
     /*!
         \brief The class template for a popup menu.
 
-        \tparam String            A string type.
-        \tparam Encoder           An encoder type.
-        \tparam MenuDetails       A detail implementation type of a menu.
-        \tparam VirtualKeyDetails A detail implementation type of a virtual key.
+        \tparam String      A string type.
+        \tparam Encoder     An encoder type.
+        \tparam MenuDetails A detail implementation type of a menu.
    */
-    template <typename String, typename Encoder, typename MenuDetails, typename VirtualKeyDetails>
-    class popup : public abstract_popup<String, Encoder, MenuDetails, VirtualKeyDetails>
+    template <typename String, typename Encoder, typename MenuDetails>
+    class popup : public abstract_popup<String, Encoder, MenuDetails>
     {
     public:
         // types
@@ -36,11 +35,8 @@ namespace tetengo2::gui::menu {
         //! The menu details type.
         using menu_details_type = MenuDetails;
 
-        //! The virtual key details type.
-        using virtual_key_details_type = VirtualKeyDetails;
-
         //! The base type.
-        using base_type = abstract_popup<string_type, encoder_type, menu_details_type, virtual_key_details_type>;
+        using base_type = abstract_popup<string_type, encoder_type, menu_details_type>;
 
 
         // constructors and destructor

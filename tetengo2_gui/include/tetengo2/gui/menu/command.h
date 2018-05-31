@@ -16,13 +16,12 @@ namespace tetengo2::gui::menu {
     /*!
         \brief The class template for a menu command.
 
-        \tparam String            A string type.
-        \tparam Encoder           An encoder type.
-        \tparam MenuDetails       A detail implementation type of a menu.
-        \tparam VirtualKeyDetails A detail implementation type of a virtual key.
+        \tparam String      A string type.
+        \tparam Encoder     An encoder type.
+        \tparam MenuDetails A detail implementation type of a menu.
    */
-    template <typename String, typename Encoder, typename MenuDetails, typename VirtualKeyDetails>
-    class command : public menu_base<String, Encoder, MenuDetails, VirtualKeyDetails>
+    template <typename String, typename Encoder, typename MenuDetails>
+    class command : public menu_base<String, Encoder, MenuDetails>
     {
     public:
         // types
@@ -36,11 +35,8 @@ namespace tetengo2::gui::menu {
         //! The menu details type.
         using menu_details_type = MenuDetails;
 
-        //! The virtual key details type.
-        using virtual_key_details_type = VirtualKeyDetails;
-
         //! The base type.
-        using base_type = menu_base<string_type, encoder_type, menu_details_type, virtual_key_details_type>;
+        using base_type = menu_base<string_type, encoder_type, menu_details_type>;
 
         //! The shortcut key type.
         using shortcut_key_type = typename base_type::shortcut_key_type;

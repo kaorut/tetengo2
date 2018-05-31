@@ -22,13 +22,12 @@ namespace tetengo2::gui::menu {
     /*!
         \brief The base class template for an abstract popup menu.
 
-        \tparam String            A string type.
-        \tparam Encoder           An encoder type.
-        \tparam MenuDetails       A detail implementation type of a menu.
-        \tparam VirtualKeyDetails A detail implementation type of a virtual key.
+        \tparam String      A string type.
+        \tparam Encoder     An encoder type.
+        \tparam MenuDetails A detail implementation type of a menu.
    */
-    template <typename String, typename Encoder, typename MenuDetails, typename VirtualKeyDetails>
-    class abstract_popup : public menu_base<String, Encoder, MenuDetails, VirtualKeyDetails>
+    template <typename String, typename Encoder, typename MenuDetails>
+    class abstract_popup : public menu_base<String, Encoder, MenuDetails>
     {
     public:
         // types
@@ -48,11 +47,8 @@ namespace tetengo2::gui::menu {
         //! The detail implementation pointer type.
         using details_ptr_type = typename menu_details_type::menu_details_ptr_type;
 
-        //! The virtual key details type.
-        using virtual_key_details_type = VirtualKeyDetails;
-
         //! The base type.
-        using base_type = menu_base<string_type, encoder_type, menu_details_type, virtual_key_details_type>;
+        using base_type = menu_base<string_type, encoder_type, menu_details_type>;
 
         //! The shortcut key type.
         using shortcut_key_type = typename base_type::shortcut_key_type;

@@ -19,15 +19,13 @@ namespace tetengo2::gui::widget {
         \tparam IconDetails           A detail implementation type of an icon.
         \tparam ScrollDetails         A detail implementation type of a scroll.
         \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam VirtualKeyDetails     A detail implementation type of a virtual key.
    */
     template <
         typename WidgetDetails,
         typename DrawingDetails,
         typename IconDetails,
         typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename VirtualKeyDetails>
+        typename MessageHandlerDetails>
     struct widget_details_traits
     {
         // types
@@ -46,9 +44,6 @@ namespace tetengo2::gui::widget {
 
         //! The message handler details type.
         using message_handler_details_type = MessageHandlerDetails;
-
-        //! The virtual key details type.
-        using virtual_key_details_type = VirtualKeyDetails;
     };
 }
 

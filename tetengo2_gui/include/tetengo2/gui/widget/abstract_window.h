@@ -50,9 +50,6 @@ namespace tetengo2::gui::widget {
         //! The message handler details type.
         using message_handler_details_type = typename details_traits_type::message_handler_details_type;
 
-        //! The virtual key details type.
-        using virtual_key_details_type = typename details_traits_type::virtual_key_details_type;
-
         //! The menu details type.
         using menu_details_type = MenuDetails;
 
@@ -75,12 +72,11 @@ namespace tetengo2::gui::widget {
         using icon_type = gui::icon;
 
         //! The shortcut key table type.
-        using shortcut_key_table_type =
-            gui::menu::shortcut_key_table<string_type, encoder_type, menu_details_type, virtual_key_details_type>;
+        using shortcut_key_table_type = gui::menu::shortcut_key_table<string_type, encoder_type, menu_details_type>;
 
         //! The menu bar type.
-        using menu_bar_type = gui::menu::
-            menu_bar<string_type, shortcut_key_table_type, encoder_type, menu_details_type, virtual_key_details_type>;
+        using menu_bar_type =
+            gui::menu::menu_bar<string_type, shortcut_key_table_type, encoder_type, menu_details_type>;
 
         //! The window observer set type.
         using window_observer_set_type = gui::message::window_observer_set;

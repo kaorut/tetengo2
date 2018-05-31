@@ -28,12 +28,11 @@ namespace tetengo2::gui::menu {
     /*!
         \brief The base class template for a menu base.
 
-        \tparam String            A string type.
-        \tparam Encoder           An encoder type.
-        \tparam MenuDetails       A detail implementation type of a menu.
-        \tparam VirtualKeyDetails A detail implementation type of a virtual key.
+        \tparam String      A string type.
+        \tparam Encoder     An encoder type.
+        \tparam MenuDetails A detail implementation type of a menu.
    */
-    template <typename String, typename Encoder, typename MenuDetails, typename VirtualKeyDetails>
+    template <typename String, typename Encoder, typename MenuDetails>
     class menu_base : private boost::noncopyable
     {
     public:
@@ -54,11 +53,8 @@ namespace tetengo2::gui::menu {
         //! The detail implementation pointer type.
         using details_ptr_type = typename menu_details_type::menu_details_ptr_type;
 
-        //! The virtual key details type.
-        using virtual_key_details_type = VirtualKeyDetails;
-
         //! The shortcut key type.
-        using shortcut_key_type = shortcut_key<string_type, virtual_key_details_type>;
+        using shortcut_key_type = shortcut_key<string_type>;
 
         //! The menu observer set type.
         using menu_observer_set_type = gui::message::menu_observer_set;

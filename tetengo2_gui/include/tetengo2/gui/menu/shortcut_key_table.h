@@ -24,12 +24,11 @@ namespace tetengo2::gui::menu {
     /*!
         \brief The class template for a shortcut key table.
 
-        \tparam String            A string type.
-        \tparam Encoder           An encoder type.
-        \tparam MenuDetails       A detail implementation type of a menu.
-        \tparam VirtualKeyDetails A detail implementation type of a virtual key.
+        \tparam String      A string type.
+        \tparam Encoder     An encoder type.
+        \tparam MenuDetails A detail implementation type of a menu.
    */
-    template <typename String, typename Encoder, typename MenuDetails, typename VirtualKeyDetails>
+    template <typename String, typename Encoder, typename MenuDetails>
     class shortcut_key_table : private boost::noncopyable
     {
     public:
@@ -50,14 +49,11 @@ namespace tetengo2::gui::menu {
         //! The detail implementation pointer type.
         using details_ptr_type = typename menu_details_type::shortcut_key_table_details_ptr_type;
 
-        //! The virtual key details type.
-        using virtual_key_details_type = VirtualKeyDetails;
-
         //! The virtual key type.
-        using shortcut_key_type = shortcut_key<string_type, virtual_key_details_type>;
+        using shortcut_key_type = shortcut_key<string_type>;
 
         //! The menu base type.
-        using menu_base_type = menu_base<string_type, encoder_type, menu_details_type, virtual_key_details_type>;
+        using menu_base_type = menu_base<string_type, encoder_type, menu_details_type>;
 
         //! The entry type.
         using entry_type = std::pair<shortcut_key_type, const menu_base_type*>;

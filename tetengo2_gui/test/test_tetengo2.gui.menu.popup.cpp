@@ -33,13 +33,9 @@ namespace {
 
     using menu_details_type = detail_type_list_type::menu_type;
 
-    using virtual_key_details_type = detail_type_list_type::virtual_key_type;
+    using menu_base_type = tetengo2::gui::menu::menu_base<string_type, ui_encoder_type, menu_details_type>;
 
-    using menu_base_type =
-        tetengo2::gui::menu::menu_base<string_type, ui_encoder_type, menu_details_type, virtual_key_details_type>;
-
-    using popup_menu_type =
-        tetengo2::gui::menu::popup<string_type, ui_encoder_type, menu_details_type, virtual_key_details_type>;
+    using popup_menu_type = tetengo2::gui::menu::popup<string_type, ui_encoder_type, menu_details_type>;
 }
 
 
