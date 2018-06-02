@@ -18,7 +18,6 @@ namespace tetengo2::detail::base {
     class icon;
     class shell;
     class unit;
-    class virtual_key;
 }
 
 
@@ -53,11 +52,6 @@ namespace tetengo2::detail::base {
     const unit& impl_set::unit_() const
     {
         return unit_impl();
-    }
-
-    const virtual_key& impl_set::virtual_key_() const
-    {
-        return virtual_key_impl();
     }
 
     impl_set::impl_set() = default;

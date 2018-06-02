@@ -12,7 +12,6 @@
 #include <tetengo2/detail/base/cursor.h>
 #include <tetengo2/detail/base/gui_fixture.h>
 #include <tetengo2/detail/base/unit.h>
-#include <tetengo2/detail/base/virtual_key.h>
 #include <tetengo2/detail/windows/alert.h>
 #include <tetengo2/detail/windows/cursor.h>
 #include <tetengo2/detail/windows/gui_fixture.h>
@@ -20,7 +19,6 @@
 #include <tetengo2/detail/windows/impl_set.h>
 #include <tetengo2/detail/windows/shell.h>
 #include <tetengo2/detail/windows/unit.h>
-#include <tetengo2/detail/windows/virtual_key.h>
 
 
 namespace tetengo2::detail::windows {
@@ -62,10 +60,5 @@ namespace tetengo2::detail::windows {
     const base::unit& impl_set::unit_impl() const
     {
         return unit::instance();
-    }
-
-    const base::virtual_key& impl_set::virtual_key_impl() const
-    {
-        return virtual_key::instance();
     }
 }

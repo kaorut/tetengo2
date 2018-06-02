@@ -21,7 +21,6 @@ namespace tetengo2::detail::base {
     class icon;
     class shell;
     class unit;
-    class virtual_key;
 
 
     /*!
@@ -82,13 +81,6 @@ namespace tetengo2::detail::base {
         */
         const unit& unit_() const;
 
-        /*!
-            \brief Returns the detail implementation of virtual key.
-
-            \return The detail implementation.
-        */
-        const virtual_key& virtual_key_() const;
-
 
     protected:
         // constructors
@@ -113,8 +105,6 @@ namespace tetengo2::detail::base {
         virtual const shell& shell_impl() const = 0;
 
         virtual const unit& unit_impl() const = 0;
-
-        virtual const virtual_key& virtual_key_impl() const = 0;
     };
 }
 
