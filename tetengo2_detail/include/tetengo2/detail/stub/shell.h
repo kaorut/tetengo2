@@ -30,6 +30,11 @@ namespace tetengo2::detail::stub {
 
         // static functions
 
+        /*!
+            \brief Returns the instance.
+
+            \return The instance.
+        */
         static const shell& instance();
 
 
