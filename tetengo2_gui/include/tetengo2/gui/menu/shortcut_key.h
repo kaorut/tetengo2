@@ -20,11 +20,10 @@ namespace tetengo2::gui::menu {
     /*!
         \brief The class template for a shortcut key.
 
-        \tparam String            A string type.
-        \tparam VirtualKeyDetails A virtual key detail implementation type.
+        \tparam String A string type.
    */
-    template <typename String, typename VirtualKeyDetails>
-    class shortcut_key : private boost::equality_comparable<shortcut_key<String, VirtualKeyDetails>>
+    template <typename String>
+    class shortcut_key : private boost::equality_comparable<shortcut_key<String>>
     {
     public:
         // types
@@ -32,11 +31,8 @@ namespace tetengo2::gui::menu {
         //! The string type.
         using string_type = String;
 
-        //! The virtual key details type.
-        using virtual_key_details_type = VirtualKeyDetails;
-
         //! The virtual key type.
-        using virtual_key_type = gui::virtual_key<string_type, virtual_key_details_type>;
+        using virtual_key_type = gui::virtual_key;
 
 
         // constructors and destructor
@@ -121,17 +117,17 @@ namespace tetengo2::gui::menu {
         */
         string_type to_string() const
         {
-            std::vector<const virtual_key_type*> keys{};
+            std::vector<virtual_key_type> keys{};
 
             if (m_shift)
-                keys.push_back(&virtual_key_type::shift());
+                keys.push_back(virtual_key_type::shift());
             if (m_control)
-                keys.push_back(&virtual_key_type::control());
+                keys.push_back(virtual_key_type::control());
             if (m_meta)
-                keys.push_back(&virtual_key_type::meta());
-            keys.push_back(m_p_key);
+                keys.push_back(virtual_key_type::meta());
+            keys.push_back(*m_p_key);
 
-            return virtual_key_details_type::template to_combined_string<string_type>(keys.begin(), keys.end());
+            return virtual_key_type::to_combined_string(keys);
         }
 
 

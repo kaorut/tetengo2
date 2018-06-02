@@ -117,9 +117,6 @@ namespace tetengo2::gui::widget {
         //! The message handler details type.
         using message_handler_details_type = typename details_traits_type::message_handler_details_type;
 
-        //! The virtual key details type.
-        using virtual_key_details_type = typename details_traits_type::virtual_key_details_type;
-
         //! The scroll bar style type.
         enum class scroll_bar_style_type
         {
@@ -148,7 +145,7 @@ namespace tetengo2::gui::widget {
         using paint_observer_set_type = gui::message::paint_observer_set<canvas_type>;
 
         //! The virtual key type.
-        using virtual_key_type = gui::virtual_key<string_type, virtual_key_details_type>;
+        using virtual_key_type = gui::virtual_key;
 
         //! The keyboard observer set type.
         using keyboard_observer_set_type =

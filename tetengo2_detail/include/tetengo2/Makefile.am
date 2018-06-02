@@ -13,6 +13,7 @@ pkg_headers = \
     detail/base/messages.h \
     detail/base/shell.h \
     detail/base/unit.h \
+    detail/base/virtual_key.h \
     detail/stub/alert.h \
     detail/stub/common_dialog.h \
     detail/stub/cursor.h \

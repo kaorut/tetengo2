@@ -40,17 +40,14 @@ namespace {
 
     using menu_details_type = detail_type_list_type::menu_type;
 
-    using virtual_key_details_type = detail_type_list_type::virtual_key_type;
+    using menu_base_type = tetengo2::gui::menu::menu_base<string_type, ui_encoder_type, menu_details_type>;
 
-    using menu_base_type =
-        tetengo2::gui::menu::menu_base<string_type, ui_encoder_type, menu_details_type, virtual_key_details_type>;
+    using virtual_key_type = tetengo2::gui::virtual_key;
 
-    using virtual_key_type = tetengo2::gui::virtual_key<string_type, virtual_key_details_type>;
+    using shortcut_key_type = tetengo2::gui::menu::shortcut_key<string_type>;
 
-    using shortcut_key_type = tetengo2::gui::menu::shortcut_key<string_type, virtual_key_details_type>;
-
-    using shortcut_key_table_type = tetengo2::gui::menu::
-        shortcut_key_table<string_type, ui_encoder_type, menu_details_type, virtual_key_details_type>;
+    using shortcut_key_table_type =
+        tetengo2::gui::menu::shortcut_key_table<string_type, ui_encoder_type, menu_details_type>;
 
     class concrete_menu : public menu_base_type
     {

@@ -21,7 +21,6 @@
 #include <tetengo2/detail/stub/shell.h>
 #include <tetengo2/detail/stub/system_color.h>
 #include <tetengo2/detail/stub/timer.h>
-#include <tetengo2/detail/stub/virtual_key.h>
 #include <tetengo2/detail/stub/widget.h>
 
 
@@ -53,8 +52,6 @@ namespace test_tetengo2::gui::type_list {
         using system_color_details_type = tetengo2::detail::stub::system_color;
 
         using timer_details_type = tetengo2::detail::stub::timer;
-
-        using virtual_key_details_type = tetengo2::detail::stub::virtual_key;
 
         using widget_details_type = tetengo2::detail::stub::widget;
     }
@@ -100,9 +97,6 @@ namespace test_tetengo2::gui::type_list {
 
         //! The timer type.
         using timer_type = detail::detail::test::timer_details_type;
-
-        //! The virtual key type.
-        using virtual_key_type = detail::detail::test::virtual_key_details_type;
 
         //! The widget type.
         using widget_type = detail::detail::test::widget_details_type;

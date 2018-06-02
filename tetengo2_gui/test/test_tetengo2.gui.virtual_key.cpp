@@ -8,6 +8,8 @@
 
 #include <sstream>
 #include <string>
+#include <utility>
+#include <vector>
 
 #include <boost/operators.hpp>
 #include <boost/preprocessor.hpp>
@@ -29,7 +31,7 @@ namespace {
 
     using string_type = common_type_list_type::string_type;
 
-    using virtual_key_type = tetengo2::gui::virtual_key<string_type, detail_type_list_type::virtual_key_type>;
+    using virtual_key_type = tetengo2::gui::virtual_key;
 }
 
 
@@ -37,6 +39,18 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
     BOOST_AUTO_TEST_SUITE(gui)
         BOOST_AUTO_TEST_SUITE(virtual_key)
             // test cases
+
+            BOOST_AUTO_TEST_CASE(construction)
+            {
+                BOOST_TEST_PASSPOINT();
+
+                const virtual_key_type& key = virtual_key_type::char_a();
+                virtual_key_type        key_copied{ key };
+                BOOST_CHECK(key_copied == key);
+
+                const virtual_key_type key_moved{ std::move(key_copied) };
+                BOOST_CHECK(key_moved == key);
+            }
 
             BOOST_AUTO_TEST_CASE(find_by_code)
             {
@@ -125,6 +139,20 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 virtual_key_type::f10();
                 virtual_key_type::f11();
                 virtual_key_type::f12();
+            }
+
+            BOOST_AUTO_TEST_CASE(to_combined_string)
+            {
+                BOOST_TEST_PASSPOINT();
+
+                const std::vector<virtual_key_type> keys{ virtual_key_type::shift(), virtual_key_type::char_a() };
+
+                const auto string = virtual_key_type::to_combined_string(keys);
+                BOOST_TEST(string.find(virtual_key_type::shift().to_string()) != string_type::npos);
+                BOOST_TEST(string.find(virtual_key_type::char_a().to_string()) != string_type::npos);
+                BOOST_TEST(
+                    string.find(virtual_key_type::shift().to_string()) <
+                    string.find(virtual_key_type::char_a().to_string()));
             }
 
             BOOST_AUTO_TEST_CASE(operator_equal)
