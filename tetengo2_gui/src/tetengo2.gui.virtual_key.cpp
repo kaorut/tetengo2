@@ -27,7 +27,7 @@
 
 namespace tetengo2::gui {
     namespace {
-        // types
+    // types
 
 #if BOOST_OS_WINDOWS
         using details_type = detail::windows::virtual_key;
@@ -37,6 +37,11 @@ namespace tetengo2::gui {
 #error Unsupported platform.
 #endif
     }
+
+    virtual_key::virtual_key(const virtual_key& another) : m_code{ another.m_code }, m_string{ another.m_string } {}
+
+    virtual_key::virtual_key(virtual_key&& another) : m_code{ another.m_code }, m_string{ std::move(another.m_string) }
+    {}
 
     const virtual_key* virtual_key::find_by_code(const code_type code)
     {

@@ -8,6 +8,7 @@
 
 #include <sstream>
 #include <string>
+#include <utility>
 
 #include <boost/operators.hpp>
 #include <boost/preprocessor.hpp>
@@ -37,6 +38,18 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
     BOOST_AUTO_TEST_SUITE(gui)
         BOOST_AUTO_TEST_SUITE(virtual_key)
             // test cases
+
+            BOOST_AUTO_TEST_CASE(construction)
+            {
+                BOOST_TEST_PASSPOINT();
+
+                const virtual_key_type& key = virtual_key_type::char_a();
+                virtual_key_type        key_copied{ key };
+                BOOST_CHECK(key_copied == key);
+
+                const virtual_key_type key_moved{ std::move(key_copied) };
+                BOOST_CHECK(key_moved == key);
+            }
 
             BOOST_AUTO_TEST_CASE(find_by_code)
             {

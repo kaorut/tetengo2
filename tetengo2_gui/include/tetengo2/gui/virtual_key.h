@@ -19,7 +19,7 @@
 
 namespace tetengo2::gui {
     /*!
-        \brief The class for virtual keys.
+        \brief The class for a virtual key.
     */
     class virtual_key : private boost::equality_comparable<virtual_key>
     {
@@ -31,6 +31,23 @@ namespace tetengo2::gui {
 
         //! The code type.
         using code_type = int;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Copies a virtual key.
+
+            \param another Another virtual key.
+        */
+        virtual_key(const virtual_key& another);
+
+        /*!
+            \brief Moves a virtual key.
+
+            \param another Another virtual key.
+        */
+        virtual_key(virtual_key&& another);
 
 
         // static functions
