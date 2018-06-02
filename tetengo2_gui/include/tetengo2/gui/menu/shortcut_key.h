@@ -13,7 +13,6 @@
 
 #include <boost/operators.hpp>
 
-#include <tetengo2/detail/stub/virtual_key.h>
 #include <tetengo2/gui/virtual_key.h>
 
 

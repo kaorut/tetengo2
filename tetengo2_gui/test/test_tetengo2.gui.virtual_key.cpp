@@ -9,6 +9,7 @@
 #include <sstream>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include <boost/operators.hpp>
 #include <boost/preprocessor.hpp>

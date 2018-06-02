@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_VIRTUALKEY_H)
 #define TETENGO2_GUI_VIRTUALKEY_H
 
-#include <unordered_map>
+#include <memory>
 #include <utility>
 
 #include <boost/operators.hpp>
@@ -26,11 +26,11 @@ namespace tetengo2::gui {
     public:
         // types
 
-        //! The string type.
-        using string_type = type_list::string_type;
-
         //! The code type.
         using code_type = int;
+
+        //! The string type.
+        using string_type = type_list::string_type;
 
 
         // constructors and destructor
@@ -48,6 +48,11 @@ namespace tetengo2::gui {
             \param another Another virtual key.
         */
         virtual_key(virtual_key&& another);
+
+        /*!
+            \brief Destroys the virtual key.
+        */
+        ~virtual_key();
 
 
         // static functions
@@ -366,30 +371,19 @@ namespace tetengo2::gui {
     private:
         // types
 
+        class impl;
+
         using code_and_string_type = std::pair<code_type, string_type>;
 
-        using key_map_type = std::unordered_map<code_type, virtual_key>;
 
+        // variables
 
-        // static functions
-
-        static const key_map_type& key_map();
-
-        static key_map_type build_key_map();
-
-        static void insert_key(key_map_type& key_map, code_and_string_type code_and_string);
+        std::unique_ptr<impl> m_p_impl;
 
 
         // constructors
 
         explicit virtual_key(code_and_string_type code_and_string);
-
-
-        // variables
-
-        code_type m_code;
-
-        string_type m_string;
     };
 }
 
