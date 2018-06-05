@@ -9,98 +9,62 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_SYSTEMCOLOR_H)
 #define TETENGO2_DETAIL_WINDOWS_SYSTEMCOLOR_H
 
-#include <cassert>
-#include <stdexcept>
-
-#include <boost/core/noncopyable.hpp>
-#include <boost/throw_exception.hpp>
-
-#pragma warning(push)
-#pragma warning(disable : 4005)
-#include <intsafe.h>
-#include <stdint.h> // IWYU pragma: keep
-#pragma warning(pop)
-#define NOMINMAX
-#define OEMRESOURCE
-#include <Windows.h>
+#include <tetengo2/detail/base/system_color.h>
 
 
 namespace tetengo2::detail::windows {
     /*!
         \brief The class for a detail implementation of a system color.
     */
-    class system_color : private boost::noncopyable
+    class system_color : public base::system_color
     {
     public:
         // types
 
-        //! The system color index type.
-        enum class system_color_index_type
-        {
-            title_bar_text, //!< Title bar text.
-            title_bar_background, //!< Title bar background.
-            dialog_background, //!< Dialog background.
-            control_background, //!< Control background.
-            control_text, //!< Control text.
-            selected_background, //!< Selected background.
-            selected_text, //!< Selected text.
-            hyperlink_text, //!< Hyperlink text.
-        };
+        //! The color type.
+        using color_type = base::system_color::color_type;
+
+        //! The index type.
+        using index_type = base::system_color::index_type;
 
 
-        // functions
+        // static functions
 
         /*!
-            \brief Returns the system color.
+            \brief Returns the instance.
 
-            \tparam Color A color type.
-
-            \param index An index;
-
-            \return The system color.
+            \return The instance.
         */
-        template <typename Color>
-        static Color get_system_color(const system_color_index_type index)
-        {
-            switch (index)
-            {
-            case system_color_index_type::title_bar_text:
-                return get_system_color_impl<Color>(COLOR_CAPTIONTEXT);
-            case system_color_index_type::title_bar_background:
-                return get_system_color_impl<Color>(COLOR_ACTIVECAPTION);
-            case system_color_index_type::dialog_background:
-                return get_system_color_impl<Color>(COLOR_3DFACE);
-            case system_color_index_type::control_background:
-                return get_system_color_impl<Color>(COLOR_WINDOW);
-            case system_color_index_type::control_text:
-                return get_system_color_impl<Color>(COLOR_WINDOWTEXT);
-            case system_color_index_type::selected_background:
-                return get_system_color_impl<Color>(COLOR_HIGHLIGHT);
-            case system_color_index_type::selected_text:
-                return get_system_color_impl<Color>(COLOR_HIGHLIGHTTEXT);
-            case system_color_index_type::hyperlink_text:
-                return get_system_color_impl<Color>(COLOR_HOTLIGHT);
-            default:
-                assert(false);
-                BOOST_THROW_EXCEPTION((std::invalid_argument{ "Invalid system color index." }));
-            }
-        }
+        static const system_color& instance();
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Destroys the detail implemntation.
+        */
+        virtual ~system_color();
 
 
     private:
-        // static functions
+        // types
 
-        template <typename Color>
-        static Color get_system_color_impl(const int index)
-        {
-            const auto color_ref = ::GetSysColor(index);
-            return { GetRValue(color_ref), GetGValue(color_ref), GetBValue(color_ref) };
-        }
+        class impl;
 
 
-        // forbidden operations
+        // variables
 
-        system_color() = delete;
+        const std::unique_ptr<impl> m_p_impl;
+
+
+        // constructors
+
+        system_color();
+
+
+        // virtual functions
+
+        virtual color_type get_system_color_impl(index_type index) const override;
     };
 }
 

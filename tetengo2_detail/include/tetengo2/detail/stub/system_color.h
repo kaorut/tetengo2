@@ -9,80 +9,62 @@
 #if !defined(TETENGO2_DETAIL_STUB_SYSTEMCOLOR_H)
 #define TETENGO2_DETAIL_STUB_SYSTEMCOLOR_H
 
-#include <cassert>
-#include <stdexcept>
-
-#include <boost/core/noncopyable.hpp>
-
-#include <boost/throw_exception.hpp>
+#include <tetengo2/detail/base/system_color.h>
 
 
 namespace tetengo2::detail::stub {
     /*!
-        \brief The class for a detail implementation of a GUI fixture.
+        \brief The class for a detail implementation of a system color.
     */
-    class system_color : private boost::noncopyable
+    class system_color : public base::system_color
     {
     public:
         // types
 
-        //! The system color index type.
-        enum class system_color_index_type
-        {
-            title_bar_text, //!< Title bar text.
-            title_bar_background, //!< Title bar background.
-            dialog_background, //!< Dialog background.
-            control_background, //!< Control background.
-            control_text, //!< Control text.
-            selected_background, //!< Selected background.
-            selected_text, //!< Selected text.
-            hyperlink_text, //!< Hyperlink text.
-        };
+        //! The color type.
+        using color_type = base::system_color::color_type;
+
+        //! The index type.
+        using index_type = base::system_color::index_type;
 
 
-        // functions
+        // static functions
 
         /*!
-            \brief Returns the system color.
+            \brief Returns the instance.
 
-            \tparam Color A color type.
-
-            \param index An index;
-
-            \return The system color.
+            \return The instance.
         */
-        template <typename Color>
-        static Color get_system_color(const system_color_index_type index)
-        {
-            switch (index)
-            {
-            case system_color_index_type::title_bar_text:
-                return { 255, 255, 255 };
-            case system_color_index_type::title_bar_background:
-                return { 0, 0, 128 };
-            case system_color_index_type::dialog_background:
-                return { 192, 192, 192 };
-            case system_color_index_type::control_background:
-                return { 255, 255, 255 };
-            case system_color_index_type::control_text:
-                return { 0, 0, 0 };
-            case system_color_index_type::selected_background:
-                return { 0, 0, 128 };
-            case system_color_index_type::selected_text:
-                return { 255, 255, 255 };
-            case system_color_index_type::hyperlink_text:
-                return { 0, 0, 255 };
-            default:
-                assert(false);
-                BOOST_THROW_EXCEPTION((std::invalid_argument{ "Invalid system color index." }));
-            }
-        }
+        static const system_color& instance();
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Destroys the detail implemntation.
+        */
+        virtual ~system_color();
 
 
     private:
-        // forbidden operations
+        // types
 
-        system_color() = delete;
+        class impl;
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
+
+
+        // constructors
+
+        system_color();
+
+
+        // virtual functions
+
+        virtual color_type get_system_color_impl(index_type index) const override;
     };
 }
 
