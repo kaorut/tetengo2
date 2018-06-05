@@ -32,9 +32,8 @@ namespace tetengo2::gui::widget {
         \tparam Traits              A traits type.
         \tparam DetailsTraits       A detail implementation type traits.
         \tparam MouseCaptureDetails A detail implementation type of a mouse capture.
-        \tparam SystemColorDetails  A detail implementation type of system colors.
     */
-    template <typename Traits, typename DetailsTraits, typename MouseCaptureDetails, typename SystemColorDetails>
+    template <typename Traits, typename DetailsTraits, typename MouseCaptureDetails>
     class tab_frame : public custom_control<Traits, DetailsTraits, MouseCaptureDetails>
     {
     public:
@@ -45,9 +44,6 @@ namespace tetengo2::gui::widget {
 
         //! The details traits type.
         using details_traits_type = DetailsTraits;
-
-        //! The system color details type.
-        using system_color_details_type = SystemColorDetails;
 
         //! The mouse capture details type.
         using mouse_capture_details_type = MouseCaptureDetails;
@@ -194,9 +190,9 @@ namespace tetengo2::gui::widget {
                 auto original_color = canvas.get_color();
                 auto p_original_background = canvas.get_background().clone();
                 auto original_line_width = canvas.line_width();
-                canvas.set_color(system_color_set_type::control_text());
+                canvas.set_color(system_color_set_type::instance().control_text());
                 canvas.set_background(
-                    std::make_unique<solid_background_type>(system_color_set_type::control_background()));
+                    std::make_unique<solid_background_type>(system_color_set_type::instance().control_background()));
                 canvas.set_line_width(dimension_unit_type{ 1 } / 8);
 
                 position_unit_type unselected_left{};
@@ -648,7 +644,7 @@ namespace tetengo2::gui::widget {
 
         using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
 
-        using system_color_set_type = gui::drawing::system_color_set<system_color_details_type>;
+        using system_color_set_type = gui::drawing::system_color_set;
 
 
         // static functions
@@ -657,7 +653,7 @@ namespace tetengo2::gui::widget {
         {
             tab_frame_.set_dimension(dimension_type{ dimension_unit_type{ 16 }, dimension_unit_type{ 16 } });
             tab_frame_.set_background(
-                std::make_unique<solid_background_type>(system_color_set_type::dialog_background()));
+                std::make_unique<solid_background_type>(system_color_set_type::instance().dialog_background()));
 
             set_observers(tab_frame_);
         }

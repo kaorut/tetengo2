@@ -36,9 +36,8 @@ namespace tetengo2::gui::widget {
         \tparam Traits              A traits type.
         \tparam DetailsTraits       A detail implementation type traits.
         \tparam MouseCaptureDetails A detail implementation type of a mouse capture.
-        \tparam SystemColorDetails  A detail implementation type of system colors.
     */
-    template <typename Traits, typename DetailsTraits, typename MouseCaptureDetails, typename SystemColorDetails>
+    template <typename Traits, typename DetailsTraits, typename MouseCaptureDetails>
     class map_box : public custom_control<Traits, DetailsTraits, MouseCaptureDetails>
     {
     public:
@@ -55,9 +54,6 @@ namespace tetengo2::gui::widget {
 
         //! The mouse capture details type.
         using mouse_capture_details_type = MouseCaptureDetails;
-
-        //! The system color details type.
-        using system_color_details_type = SystemColorDetails;
 
         //! The base type.
         using base_type = custom_control<traits_type, details_traits_type, mouse_capture_details_type>;
@@ -93,7 +89,7 @@ namespace tetengo2::gui::widget {
         using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
 
         //! The system color set type.
-        using system_color_set_type = gui::drawing::system_color_set<system_color_details_type>;
+        using system_color_set_type = gui::drawing::system_color_set;
 
         //! The list selection observer set type.
         using list_selection_observer_set_type = gui::message::list_selection_observer_set;
@@ -515,20 +511,20 @@ namespace tetengo2::gui::widget {
 
                 if (this->template parent_to<map_box>().selected_value_index() == index())
                 {
-                    canvas.set_color(system_color_set_type::selected_text());
-                    canvas.set_background(
-                        std::make_unique<solid_background_type>(system_color_set_type::selected_background()));
+                    canvas.set_color(system_color_set_type::instance().selected_text());
+                    canvas.set_background(std::make_unique<solid_background_type>(
+                        system_color_set_type::instance().selected_background()));
                     canvas.fill_rectangle(position_to_paint_, this->dimension());
                 }
                 else
                 {
-                    canvas.set_color(system_color_set_type::control_text());
+                    canvas.set_color(system_color_set_type::instance().control_text());
                 }
 
                 canvas.draw_text(m_value.first, key_text_position(position_to_paint_), key_text_max_width());
                 canvas.draw_text(m_value.second, mapped_text_position(position_to_paint_), mapped_text_max_width());
 
-                canvas.set_color(system_color_set_type::dialog_background());
+                canvas.set_color(system_color_set_type::instance().dialog_background());
                 canvas.set_line_width(dimension_unit_type{ 1 } / 12);
                 {
                     auto positions = border_line_positions(position_to_paint_);
@@ -657,7 +653,7 @@ namespace tetengo2::gui::widget {
         static void initialize_map_box(map_box& map_box_)
         {
             map_box_.set_background(
-                std::make_unique<solid_background_type>(system_color_set_type::control_background()));
+                std::make_unique<solid_background_type>(system_color_set_type::instance().control_background()));
 
             create_items(map_box_);
 

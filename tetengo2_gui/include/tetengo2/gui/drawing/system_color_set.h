@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_DRAWING_SYSTEMCOLORSET_H)
 #define TETENGO2_GUI_DRAWING_SYSTEMCOLORSET_H
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/gui/drawing/color.h>
@@ -16,11 +18,8 @@
 
 namespace tetengo2::gui::drawing {
     /*!
-        \brief The class template for a system color set.
-
-        \tparam SystemColorDetails A detail implementation type of a system color.
+        \brief The class for a system color set.
     */
-    template <typename SystemColorDetails>
     class system_color_set : private boost::noncopyable
     {
     public:
@@ -29,113 +28,90 @@ namespace tetengo2::gui::drawing {
         //! The color type.
         using color_type = color;
 
-        //! The system color details type.
-        using system_color_details_type = SystemColorDetails;
-
 
         // static functions
+
+        /*!
+            \brief Returns the instance.
+
+            \return The instance.
+        */
+        static const system_color_set& instance();
+
+
+        // functions
 
         /*!
             \brief Returns the color of title bar backgrounds.
 
             \return The color.
         */
-        static const color_type& title_bar_background()
-        {
-            static const color_type singleton{ system_color_details_type::instance().get_system_color(
-                system_color_details_type::index_type::title_bar_background) };
-            return singleton;
-        }
+        const color_type& title_bar_background() const;
 
         /*!
             \brief Returns the color of title bar texts.
 
             \return The color.
         */
-        static const color_type& title_bar_text()
-        {
-            static const color_type singleton{ system_color_details_type::instance().get_system_color(
-                system_color_details_type::index_type::title_bar_text) };
-            return singleton;
-        }
+        const color_type& title_bar_text() const;
 
         /*!
             \brief Returns the color of dialog backgrounds.
 
             \return The color.
         */
-        static const color_type& dialog_background()
-        {
-            static const color_type singleton{ system_color_details_type::instance().get_system_color(
-                system_color_details_type::index_type::dialog_background) };
-            return singleton;
-        }
+        const color_type& dialog_background() const;
 
         /*!
             \brief Returns the color of control backgrounds.
 
             \return The color.
         */
-        static const color_type& control_background()
-        {
-            static const color_type singleton{ system_color_details_type::instance().get_system_color(
-                system_color_details_type::index_type::control_background) };
-            return singleton;
-        }
+        const color_type& control_background() const;
 
         /*!
             \brief Returns the color of control texts.
 
             \return The color.
         */
-        static const color_type& control_text()
-        {
-            static const color_type singleton{ system_color_details_type::instance().get_system_color(
-                system_color_details_type::index_type::control_text) };
-            return singleton;
-        }
+        const color_type& control_text() const;
 
         /*!
             \brief Returns the color of selected backgrounds.
 
             \return The color.
         */
-        static const color_type& selected_background()
-        {
-            static const color_type singleton{ system_color_details_type::instance().get_system_color(
-                system_color_details_type::index_type::selected_background) };
-            return singleton;
-        }
+        const color_type& selected_background() const;
 
         /*!
             \brief Returns the color of selected texts.
 
             \return The color.
         */
-        static const color_type& selected_text()
-        {
-            static const color_type singleton{ system_color_details_type::instance().get_system_color(
-                system_color_details_type::index_type::selected_text) };
-            return singleton;
-        }
+        const color_type& selected_text() const;
 
         /*!
             \brief Returns the color of hyperlink texts.
 
             \return The color.
         */
-        static const color_type& hyperlink_text()
-        {
-            static const color_type singleton{ system_color_details_type::instance().get_system_color(
-                system_color_details_type::index_type::hyperlink_text) };
-            return singleton;
-        }
+        const color_type& hyperlink_text() const;
 
 
     private:
-        // forbidden operations
+        // types
 
-        system_color_set() = delete;
+        class impl;
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
+
+
+        // constructors
+
+        system_color_set();
     };
 }
 

@@ -11,6 +11,7 @@ sources = \
     tetengo2.gui.cursor.cursor_base.cpp \
     tetengo2.gui.cursor.system.cpp \
     tetengo2.gui.dimension.cpp \
+    tetengo2.gui.drawing.system_color_set.cpp \
     tetengo2.gui.fixture.cpp \
     tetengo2.gui.icon.cpp \
     tetengo2.gui.position.cpp \

@@ -33,15 +33,9 @@ namespace tetengo2::gui::widget {
         \tparam Traits              A traits type.
         \tparam DetailsTraits       A detail implementation type traits.
         \tparam MouseCaptureDetails A detail implementation type of a mouse capture.
-        \tparam SystemColorDetails  A detail implementation type of system colors.
         \tparam TimerDetails        A detail implementation type of a timer.
     */
-    template <
-        typename Traits,
-        typename DetailsTraits,
-        typename MouseCaptureDetails,
-        typename SystemColorDetails,
-        typename TimerDetails>
+    template <typename Traits, typename DetailsTraits, typename MouseCaptureDetails, typename TimerDetails>
     class side_bar : public custom_control<Traits, DetailsTraits, MouseCaptureDetails>
     {
     public:
@@ -58,9 +52,6 @@ namespace tetengo2::gui::widget {
 
         //! The mouse capture details type.
         using mouse_capture_details_type = MouseCaptureDetails;
-
-        //! The system color details type.
-        using system_color_details_type = SystemColorDetails;
 
         //! THe timer details type.
         using timer_details_type = TimerDetails;
@@ -93,7 +84,7 @@ namespace tetengo2::gui::widget {
         using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
 
         //! The system color set type.
-        using system_color_set_type = gui::drawing::system_color_set<system_color_details_type>;
+        using system_color_set_type = gui::drawing::system_color_set;
 
         //! The timer type.
         using timer_type = gui::timer<widget_type, timer_details_type>;
@@ -295,7 +286,7 @@ namespace tetengo2::gui::widget {
 
             static color_type make_background_color()
             {
-                const color_type& base_color = system_color_set_type::title_bar_background();
+                const color_type& base_color = system_color_set_type::instance().title_bar_background();
                 return { static_cast<unsigned char>((0xFF * 3 + base_color.red() * 1) / 4),
                          static_cast<unsigned char>((0xFF * 3 + base_color.green() * 1) / 4),
                          static_cast<unsigned char>((0xFF * 3 + base_color.blue() * 1) / 4) };
@@ -303,7 +294,7 @@ namespace tetengo2::gui::widget {
 
             static color_type make_background_color_hovered()
             {
-                const color_type& base_color = system_color_set_type::title_bar_background();
+                const color_type& base_color = system_color_set_type::instance().title_bar_background();
                 return { static_cast<unsigned char>((0xFF * 7 + base_color.red() * 1) / 8),
                          static_cast<unsigned char>((0xFF * 7 + base_color.green() * 1) / 8),
                          static_cast<unsigned char>((0xFF * 7 + base_color.blue() * 1) / 8) };
@@ -311,7 +302,7 @@ namespace tetengo2::gui::widget {
 
             static color_type make_border_color()
             {
-                const color_type& base_color = system_color_set_type::title_bar_background();
+                const color_type& base_color = system_color_set_type::instance().title_bar_background();
                 return { static_cast<unsigned char>(base_color.red() / 2),
                          static_cast<unsigned char>(base_color.green() / 2),
                          static_cast<unsigned char>(base_color.blue() / 2) };
@@ -497,9 +488,9 @@ namespace tetengo2::gui::widget {
             {
                 auto original_color = canvas.get_color();
                 auto p_original_background = canvas.get_background().clone();
-                canvas.set_color(system_color_set_type::title_bar_text());
+                canvas.set_color(system_color_set_type::instance().title_bar_text());
                 canvas.set_background(
-                    std::make_unique<solid_background_type>(system_color_set_type::title_bar_background()));
+                    std::make_unique<solid_background_type>(system_color_set_type::instance().title_bar_background()));
 
                 canvas.fill_rectangle(this->position(), this->dimension());
 
@@ -661,7 +652,7 @@ namespace tetengo2::gui::widget {
 
                 auto original_background = canvas.get_background().clone();
                 canvas.set_background(
-                    std::make_unique<solid_background_type>(system_color_set_type::dialog_background()));
+                    std::make_unique<solid_background_type>(system_color_set_type::instance().dialog_background()));
 
                 canvas.fill_rectangle(this->position(), this->dimension());
 
@@ -763,7 +754,7 @@ namespace tetengo2::gui::widget {
         {
             side_bar_.set_dimension(dimension_type{ dimension_unit_type{ 16 }, dimension_unit_type{ 16 } });
             side_bar_.set_background(
-                std::make_unique<solid_background_type>(system_color_set_type::dialog_background()));
+                std::make_unique<solid_background_type>(system_color_set_type::instance().dialog_background()));
 
             create_items(side_bar_);
 

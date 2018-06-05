@@ -41,7 +41,6 @@ namespace tetengo2::gui::widget {
         \tparam MenuDetails        A detail implementation type of a menu.
         \tparam MessageLoopDetails A detail implementation type of a message loop.
         \tparam TimerDetails       A detail implementation type of a timer.
-        \tparam SystemColorDetails A detail implementation type of a system color.
     */
     template <
         typename Traits,
@@ -50,8 +49,7 @@ namespace tetengo2::gui::widget {
         typename DetailsTraits,
         typename MenuDetails,
         typename MessageLoopDetails,
-        typename TimerDetails,
-        typename SystemColorDetails>
+        typename TimerDetails>
     class progress_dialog : public dialog<Traits, DetailsTraits, MenuDetails, MessageLoopDetails>
     {
     public:
@@ -80,9 +78,6 @@ namespace tetengo2::gui::widget {
 
         //! The timer details type.
         using timer_details_type = TimerDetails;
-
-        //! The system color details type.
-        using system_color_details_type = SystemColorDetails;
 
         //! The base type.
         using base_type = dialog<traits_type, details_traits_type, menu_details_type, message_loop_details_type>;
@@ -181,7 +176,7 @@ namespace tetengo2::gui::widget {
 
         using timer_type = gui::timer<widget_type, timer_details_type>;
 
-        using system_color_set_type = gui::drawing::system_color_set<system_color_details_type>;
+        using system_color_set_type = gui::drawing::system_color_set;
 
         using message_loop_break_type = typename base_type::message_loop_break_type;
 
