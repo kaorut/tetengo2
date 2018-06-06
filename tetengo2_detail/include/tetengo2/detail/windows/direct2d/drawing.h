@@ -297,7 +297,7 @@ namespace tetengo2::detail::windows::direct2d {
         */
         inline static picture_details_ptr_type read_picture(const tetengo2::stdalt::filesystem::path& path)
         {
-            return picture::read(path);
+            return picture::instance().read(path);
         }
 
         /*!
@@ -312,7 +312,7 @@ namespace tetengo2::detail::windows::direct2d {
         template <typename Dimension>
         static Dimension picture_dimension(const picture_details_type& picture)
         {
-            return picture::dimension<Dimension>(picture);
+            return picture::instance().dimension(picture);
         }
 
         /*!

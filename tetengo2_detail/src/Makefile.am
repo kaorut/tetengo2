@@ -16,6 +16,7 @@ sources = \
     tetengo2.detail.base.impl_set.cpp \
     tetengo2.detail.base.messages.cpp \
     tetengo2.detail.base.shell.cpp \
+    tetengo2.detail.base.system_color.cpp \
     tetengo2.detail.base.unit.cpp \
     tetengo2.detail.base.virtual_key.cpp \
     tetengo2.detail.stub.alert.cpp \
@@ -24,6 +25,7 @@ sources = \
     tetengo2.detail.stub.icon.cpp \
     tetengo2.detail.stub.impl_set.cpp \
     tetengo2.detail.stub.shell.cpp \
+    tetengo2.detail.stub.system_color.cpp \
     tetengo2.detail.stub.unit.cpp \
     tetengo2.detail.stub.virtual_key.cpp \
     tetengo2.detail.unixos.config.cpp \
@@ -45,7 +47,9 @@ extra_sources = \
     tetengo2.detail.windows.icon.cpp \
     tetengo2.detail.windows.impl_set.cpp \
     tetengo2.detail.windows.messages.cpp \
+    tetengo2.detail.windows.picture.cpp \
     tetengo2.detail.windows.shell.cpp \
+    tetengo2.detail.windows.system_color.cpp \
     tetengo2.detail.windows.unit.cpp \
     tetengo2.detail.windows.virtual_key.cpp
 

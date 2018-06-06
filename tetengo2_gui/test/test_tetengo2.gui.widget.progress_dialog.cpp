@@ -59,8 +59,6 @@ namespace {
 
     using timer_details_type = detail_type_list_type::timer_type;
 
-    using system_color_details_type = detail_type_list_type::system_color_type;
-
     using message_catalog_type = common_type_list_type::message_catalog_type;
 
     using dialog_type = tetengo2::gui::widget::progress_dialog<
@@ -70,8 +68,7 @@ namespace {
         widget_details_traits_type,
         menu_details_type,
         message_loop_details_type,
-        timer_details_type,
-        system_color_details_type>;
+        timer_details_type>;
 
     using promise_type = dialog_type::promise_type;
 

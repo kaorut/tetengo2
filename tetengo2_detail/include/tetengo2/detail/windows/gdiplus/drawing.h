@@ -276,7 +276,7 @@ namespace tetengo2::detail::windows::gdiplus {
         template <typename Dimension>
         static picture_details_ptr_type create_picture(const Dimension& dimension)
         {
-            return picture::create(dimension);
+            return picture::instance().create(dimension);
         }
 
         /*!
@@ -290,7 +290,7 @@ namespace tetengo2::detail::windows::gdiplus {
         */
         inline static picture_details_ptr_type read_picture(const tetengo2::stdalt::filesystem::path& path)
         {
-            return picture::read(path);
+            return picture::instance().read(path);
         }
 
         /*!
@@ -305,7 +305,7 @@ namespace tetengo2::detail::windows::gdiplus {
         template <typename Dimension>
         static Dimension picture_dimension(const picture_details_type& picture)
         {
-            return picture::dimension<Dimension>(picture);
+            return picture::instance().dimension(picture);
         }
 
         /*!

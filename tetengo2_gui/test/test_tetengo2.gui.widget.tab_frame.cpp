@@ -51,13 +51,8 @@ namespace {
 
     using mouse_capture_details_type = detail_type_list_type::mouse_capture_type;
 
-    using system_color_details_type = detail_type_list_type::system_color_type;
-
-    using tab_frame_type = tetengo2::gui::widget::tab_frame<
-        widget_traits_type,
-        widget_details_traits_type,
-        mouse_capture_details_type,
-        system_color_details_type>;
+    using tab_frame_type =
+        tetengo2::gui::widget::tab_frame<widget_traits_type, widget_details_traits_type, mouse_capture_details_type>;
 
     using tab_type = tab_frame_type::tab_type;
 

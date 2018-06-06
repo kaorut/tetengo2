@@ -117,6 +117,7 @@
     <ClCompile Include="src\tetengo2.gui.cursor.cursor_base.cpp" />
     <ClCompile Include="src\tetengo2.gui.cursor.system.cpp" />
     <ClCompile Include="src\tetengo2.gui.dimension.cpp" />
+    <ClCompile Include="src\tetengo2.gui.drawing.system_color_set.cpp" />
     <ClCompile Include="src\tetengo2.gui.fixture.cpp" />
     <ClCompile Include="src\tetengo2.gui.icon.cpp" />
     <ClCompile Include="src\tetengo2.gui.position.cpp" />

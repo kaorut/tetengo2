@@ -23,12 +23,11 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a link label.
 
-        \tparam Traits             A traits type.
-        \tparam DetailsTraits      A detail implementation type traits.
-        \tparam SystemColorDetails A detail implementation type of system colors.
-        \tparam ShellDetails       A detail implementation type of a shell.
+        \tparam Traits        A traits type.
+        \tparam DetailsTraits A detail implementation type traits.
+        \tparam ShellDetails  A detail implementation type of a shell.
     */
-    template <typename Traits, typename DetailsTraits, typename SystemColorDetails, typename ShellDetails>
+    template <typename Traits, typename DetailsTraits, typename ShellDetails>
     class link_label : public label<Traits, DetailsTraits>
     {
     public:
@@ -42,9 +41,6 @@ namespace tetengo2::gui::widget {
 
         //! The drawing details type.
         using drawing_details_type = typename details_traits_type::drawing_details_type;
-
-        //! The system color details type.
-        using system_color_details_type = SystemColorDetails;
 
         //! The shell details type.
         using shell_details_type = ShellDetails;
@@ -80,7 +76,7 @@ namespace tetengo2::gui::widget {
         using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
 
         //! The system color set type.
-        using system_color_set_type = gui::drawing::system_color_set<system_color_details_type>;
+        using system_color_set_type = gui::drawing::system_color_set;
 
         //! The shell type.
         using shell_type = gui::shell;
@@ -166,7 +162,7 @@ namespace tetengo2::gui::widget {
             assert(p_link_label);
 
             p_link_label->set_background(
-                std::make_unique<solid_background_type>(system_color_set_type::dialog_background()));
+                std::make_unique<solid_background_type>(system_color_set_type::instance().dialog_background()));
 
             const auto original_font = p_link_label->font();
             p_link_label->set_font(font_type{ original_font.family(),
@@ -176,7 +172,7 @@ namespace tetengo2::gui::widget {
                                               true,
                                               original_font.strikeout() });
 
-            p_link_label->set_text_color(system_color_set_type::hyperlink_text());
+            p_link_label->set_text_color(system_color_set_type::instance().hyperlink_text());
 
             auto p_cursor = std::make_unique<system_cursor_type>(system_cursor_type::style_type::hand, cursor_details);
             p_link_label->set_cursor(std::move(p_cursor));

@@ -276,6 +276,9 @@
     <ClInclude Include="include\tetengo2\detail\base\virtual_key.h">
       <Filter>headers\tetengo2::detail\base</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\base\system_color.h">
+      <Filter>headers\tetengo2::detail\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\tetengo2.detail.base.config.cpp">
@@ -384,6 +387,18 @@
       <Filter>sources\tetengo2::detail\stub</Filter>
     </ClCompile>
     <ClCompile Include="src\tetengo2.detail.windows.virtual_key.cpp">
+      <Filter>sources\tetengo2::detail\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.base.system_color.cpp">
+      <Filter>sources\tetengo2::detail\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.stub.system_color.cpp">
+      <Filter>sources\tetengo2::detail\stub</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.system_color.cpp">
+      <Filter>sources\tetengo2::detail\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.picture.cpp">
       <Filter>sources\tetengo2::detail\windows</Filter>
     </ClCompile>
   </ItemGroup>

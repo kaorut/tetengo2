@@ -24,9 +24,7 @@ namespace {
 
     using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-    using system_color_details_type = detail_type_list_type::system_color_type;
-
-    using system_color_set_type = tetengo2::gui::drawing::system_color_set<system_color_details_type>;
+    using system_color_set_type = tetengo2::gui::drawing::system_color_set;
 }
 
 
@@ -36,60 +34,67 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
             BOOST_AUTO_TEST_SUITE(system_color_set)
                 // test cases
 
+                BOOST_AUTO_TEST_CASE(instance)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    system_color_set_type::instance();
+                }
+
                 BOOST_AUTO_TEST_CASE(title_bar_background)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    system_color_set_type::title_bar_background();
+                    system_color_set_type::instance().title_bar_background();
                 }
 
                 BOOST_AUTO_TEST_CASE(title_bar_text)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    system_color_set_type::title_bar_text();
+                    system_color_set_type::instance().title_bar_text();
                 }
 
                 BOOST_AUTO_TEST_CASE(dialog_background)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    system_color_set_type::dialog_background();
+                    system_color_set_type::instance().dialog_background();
                 }
 
                 BOOST_AUTO_TEST_CASE(control_background)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    system_color_set_type::control_background();
+                    system_color_set_type::instance().control_background();
                 }
 
                 BOOST_AUTO_TEST_CASE(control_text)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    system_color_set_type::control_text();
+                    system_color_set_type::instance().control_text();
                 }
 
                 BOOST_AUTO_TEST_CASE(selected_background)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    system_color_set_type::selected_background();
+                    system_color_set_type::instance().selected_background();
                 }
 
                 BOOST_AUTO_TEST_CASE(selected_text)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    system_color_set_type::selected_text();
+                    system_color_set_type::instance().selected_text();
                 }
 
                 BOOST_AUTO_TEST_CASE(hyperlink_text)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    system_color_set_type::hyperlink_text();
+                    system_color_set_type::instance().hyperlink_text();
                 }
 
 
