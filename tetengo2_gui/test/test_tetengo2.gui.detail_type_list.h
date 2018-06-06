@@ -19,7 +19,6 @@
 #include <tetengo2/detail/stub/mouse_capture.h>
 #include <tetengo2/detail/stub/scroll.h>
 #include <tetengo2/detail/stub/shell.h>
-#include <tetengo2/detail/stub/system_color.h>
 #include <tetengo2/detail/stub/timer.h>
 #include <tetengo2/detail/stub/widget.h>
 
@@ -48,8 +47,6 @@ namespace test_tetengo2::gui::type_list {
         using scroll_details_type = tetengo2::detail::stub::scroll;
 
         using shell_details_type = tetengo2::detail::stub::shell;
-
-        using system_color_details_type = tetengo2::detail::stub::system_color;
 
         using timer_details_type = tetengo2::detail::stub::timer;
 
@@ -91,9 +88,6 @@ namespace test_tetengo2::gui::type_list {
 
         //! The shell type.
         using shell_type = detail::detail::test::shell_details_type;
-
-        //! The system color type.
-        using system_color_type = detail::detail::test::system_color_details_type;
 
         //! The timer type.
         using timer_type = detail::detail::test::timer_details_type;

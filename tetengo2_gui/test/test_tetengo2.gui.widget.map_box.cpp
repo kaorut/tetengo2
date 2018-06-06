@@ -53,8 +53,8 @@ namespace {
 
     using mouse_capture_details_type = detail_type_list_type::mouse_capture_type;
 
-    using map_box_type = tetengo2::gui::widget::
-        map_box<widget_traits_type, widget_details_traits_type, mouse_capture_details_type>;
+    using map_box_type =
+        tetengo2::gui::widget::map_box<widget_traits_type, widget_details_traits_type, mouse_capture_details_type>;
 
     using value_type = map_box_type::value_type;
 
