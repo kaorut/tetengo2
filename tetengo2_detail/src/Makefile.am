@@ -47,6 +47,7 @@ extra_sources = \
     tetengo2.detail.windows.icon.cpp \
     tetengo2.detail.windows.impl_set.cpp \
     tetengo2.detail.windows.messages.cpp \
+    tetengo2.detail.windows.picture.cpp \
     tetengo2.detail.windows.shell.cpp \
     tetengo2.detail.windows.system_color.cpp \
     tetengo2.detail.windows.unit.cpp \

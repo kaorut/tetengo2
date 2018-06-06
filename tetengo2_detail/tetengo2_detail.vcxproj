@@ -136,6 +136,7 @@
     <ClCompile Include="src\tetengo2.detail.windows.icon.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.impl_set.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.messages.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.picture.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.shell.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.system_color.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.unit.cpp" />
