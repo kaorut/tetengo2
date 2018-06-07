@@ -16,6 +16,8 @@
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/stdalt.h>
 
+struct IWICImagingFactory;
+
 
 namespace tetengo2::detail::windows {
     /*!
