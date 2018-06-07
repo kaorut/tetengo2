@@ -51,7 +51,8 @@ extra_sources = \
     tetengo2.detail.windows.shell.cpp \
     tetengo2.detail.windows.system_color.cpp \
     tetengo2.detail.windows.unit.cpp \
-    tetengo2.detail.windows.virtual_key.cpp
+    tetengo2.detail.windows.virtual_key.cpp \
+    tetengo2.detail.windows.windows_version.cpp
 
 BUILT_SOURCES = $(PRECOMPILE_BUILT_SOURCES)
 
