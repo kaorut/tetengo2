@@ -23,6 +23,9 @@ namespace tetengo2 { namespace detail { namespace unixos {
     public:
         // types
 
+        //! The pivot type type.
+        using pivot_type_type = base::encoding::pivot_type_type;
+
         //! The pivot type.
         using pivot_type = base::encoding::pivot_type;
 
@@ -68,6 +71,8 @@ namespace tetengo2 { namespace detail { namespace unixos {
 
 
         // virtual functions
+
+        virtual pivot_type_type pivot_type_impl() const override;
 
         virtual utf8_string_type pivot_to_utf8_impl(pivot_type pivot) const override;
 

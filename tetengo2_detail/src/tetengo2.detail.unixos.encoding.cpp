@@ -28,6 +28,8 @@ namespace tetengo2 { namespace detail { namespace unixos {
     public:
         // types
 
+        using pivot_type_type = encoding::pivot_type_type;
+
         using pivot_type = encoding::pivot_type;
 
         using utf8_string_type = encoding::utf8_string_type;
@@ -50,6 +52,11 @@ namespace tetengo2 { namespace detail { namespace unixos {
 
 
         // functions
+
+        pivot_type_type pivot_type_impl() const
+        {
+            return pivot_type_type::std_string;
+        }
 
         utf8_string_type pivot_to_utf8_impl(pivot_type pivot) const
         {
@@ -155,6 +162,11 @@ namespace tetengo2 { namespace detail { namespace unixos {
     encoding::~encoding() = default;
 
     encoding::encoding() : m_p_impl{ std::make_unique<impl>() } {}
+
+    encoding::pivot_type_type encoding::pivot_type_impl() const
+    {
+        return m_p_impl->pivot_type_impl();
+    }
 
     encoding::utf8_string_type encoding::pivot_to_utf8_impl(pivot_type pivot) const
     {
