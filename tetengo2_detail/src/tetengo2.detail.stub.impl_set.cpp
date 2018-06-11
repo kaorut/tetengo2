@@ -6,10 +6,13 @@
     $Id$
 */
 
+#include <cassert>
 #include <memory>
+#include <stdexcept>
 
 #include <tetengo2/detail/base/alert.h>
 #include <tetengo2/detail/base/cursor.h>
+#include <tetengo2/detail/base/encoding.h>
 #include <tetengo2/detail/base/gui_fixture.h>
 #include <tetengo2/detail/base/icon.h>
 #include <tetengo2/detail/base/shell.h>
@@ -42,6 +45,12 @@ namespace tetengo2::detail::stub {
     const base::cursor& impl_set::cursor_impl() const
     {
         return cursor::instance();
+    }
+
+    const base::encoding& impl_set::encoding_impl() const
+    {
+        assert(false);
+        throw std::logic_error("No implementation.");
     }
 
     std::unique_ptr<base::gui_fixture> impl_set::create_gui_fixture_impl() const

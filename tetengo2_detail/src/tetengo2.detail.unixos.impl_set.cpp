@@ -10,7 +10,9 @@
 #include <memory>
 #include <stdexcept>
 
+#include <tetengo2/detail/base/encoding.h>
 #include <tetengo2/detail/base/impl_set.h>
+#include <tetengo2/detail/unixos/encoding.h>
 #include <tetengo2/detail/unixos/impl_set.h>
 
 namespace tetengo2::detail::base {
@@ -44,6 +46,11 @@ namespace tetengo2::detail::unixos {
     {
         assert(false);
         throw std::logic_error("No implementation.");
+    }
+
+    const base::encoding& impl_set::encoding_impl() const
+    {
+        return encoding::instance();
     }
 
     std::unique_ptr<base::gui_fixture> impl_set::create_gui_fixture_impl() const

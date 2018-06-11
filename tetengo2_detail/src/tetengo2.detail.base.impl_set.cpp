@@ -18,6 +18,7 @@
 namespace tetengo2::detail::base {
     class alert;
     class cursor;
+    class encoding;
     class icon;
     class shell;
     class unit;
@@ -36,6 +37,11 @@ namespace tetengo2::detail {
         const cursor& impl_set::cursor_() const
         {
             return cursor_impl();
+        }
+
+        const encoding& impl_set::encoding_() const
+        {
+            return encoding_impl();
         }
 
         std::unique_ptr<gui_fixture> impl_set::create_gui_fixture() const

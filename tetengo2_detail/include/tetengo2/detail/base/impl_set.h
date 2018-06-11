@@ -18,6 +18,7 @@ namespace tetengo2::detail {
     namespace base {
         class alert;
         class cursor;
+        class encoding;
         class gui_fixture;
         class icon;
         class shell;
@@ -53,6 +54,13 @@ namespace tetengo2::detail {
                 \return The detail implementation.
             */
             const cursor& cursor_() const;
+
+            /*!
+                \brief Returns the detail implementation of encoding.
+
+                \return The detail implementation.
+            */
+            const encoding& encoding_() const;
 
             /*!
                 \brief Creates a detail implementation of GUI fixture.
@@ -98,6 +106,8 @@ namespace tetengo2::detail {
             virtual const alert& alert_impl() const = 0;
 
             virtual const cursor& cursor_impl() const = 0;
+
+            virtual const encoding& encoding_impl() const = 0;
 
             virtual std::unique_ptr<gui_fixture> create_gui_fixture_impl() const = 0;
 
