@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_DETAIL_BASE_GUIIMPLSET_H)
-#define TETENGO2_DETAIL_BASE_IMPLSET_H
+#define TETENGO2_DETAIL_BASE_GUIIMPLSET_H
 
 #include <memory>
 

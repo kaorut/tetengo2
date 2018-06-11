@@ -8,6 +8,7 @@ pkg_headers = \
     detail/base/cursor.h \
     detail/base/encoding.h \
     detail/base/gui_fixture.h \
+    detail/base/gui_impl_set.h \
     detail/base/icon.h \
     detail/base/impl_set.h \
     detail/base/messages.h \
@@ -20,6 +21,7 @@ pkg_headers = \
     detail/stub/cursor.h \
     detail/stub/drawing.h \
     detail/stub/gui_fixture.h \
+    detail/stub/gui_impl_set.h \
     detail/stub/icon.h \
     detail/stub/impl_set.h \
     detail/stub/menu.h \
@@ -35,6 +37,7 @@ pkg_headers = \
     detail/stub/widget.h \
     detail/unixos/config.h \
     detail/unixos/encoding.h \
+    detail/unixos/gui_impl_set.h \
     detail/unixos/impl_set.h \
     detail/unixos/messages.h
 
@@ -59,6 +62,7 @@ extra_headers = \
     detail/windows/gdiplus/error_category.h \
     detail/windows/gdiplus/gui_fixture.h \
     detail/windows/gui_fixture.h \
+    detail/windows/gui_impl_set.h \
     detail/windows/icon.h \
     detail/windows/impl_set.h \
     detail/windows/menu.h \
