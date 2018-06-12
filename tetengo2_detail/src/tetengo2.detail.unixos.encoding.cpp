@@ -20,6 +20,7 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/unixos/encoding.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace detail { namespace unixos {
@@ -60,7 +61,7 @@ namespace tetengo2 { namespace detail { namespace unixos {
 
         utf8_string_type pivot_to_utf8_impl(pivot_type pivot) const
         {
-            return pivot;
+            return tetengo2::stdalt::get<std::string>(pivot);
         }
 
         pivot_type utf8_to_pivot_impl(utf8_string_type string) const
@@ -70,7 +71,7 @@ namespace tetengo2 { namespace detail { namespace unixos {
 
         cp932_string_type pivot_to_cp932_impl(pivot_type pivot) const
         {
-            return utf8_to_cp932().convert(std::move(pivot));
+            return utf8_to_cp932().convert(std::move(tetengo2::stdalt::get<std::string>(pivot)));
         }
 
         pivot_type cp932_to_pivot_impl(cp932_string_type string) const

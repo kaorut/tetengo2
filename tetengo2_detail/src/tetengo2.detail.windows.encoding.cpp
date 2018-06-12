@@ -24,6 +24,7 @@
 
 #include <tetengo2/detail/windows/encoding.h>
 #include <tetengo2/detail/windows/windows_version.h> // IWYU pragma: keep
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::windows {
@@ -64,17 +65,26 @@ namespace tetengo2::detail::windows {
 
         utf8_string_type pivot_to_utf8_impl(pivot_type pivot) const
         {
+            const std::wstring& pivot_as_wstring = tetengo2::stdalt::get<std::wstring>(pivot);
+
             const ::DWORD flags = on_windows_vista_or_later() ? WC_ERR_INVALID_CHARS : 0;
 
             const auto string_length = ::WideCharToMultiByte(
-                CP_UTF8, flags, pivot.c_str(), static_cast<int>(pivot.length()), nullptr, 0, nullptr, nullptr);
+                CP_UTF8,
+                flags,
+                pivot_as_wstring.c_str(),
+                static_cast<int>(pivot_as_wstring.length()),
+                nullptr,
+                0,
+                nullptr,
+                nullptr);
             std::vector<char> string(string_length + 1, '\0');
 
             const auto converted_length = ::WideCharToMultiByte(
                 CP_UTF8,
                 flags,
-                pivot.c_str(),
-                static_cast<int>(pivot.length()),
+                pivot_as_wstring.c_str(),
+                static_cast<int>(pivot_as_wstring.length()),
                 string.data(),
                 string_length,
                 nullptr,
@@ -101,13 +111,22 @@ namespace tetengo2::detail::windows {
             converted_length;
             assert(converted_length == pivot_length);
 
-            return { pivot.begin(), pivot.begin() + pivot_length };
+            return std::wstring{ pivot.begin(), pivot.begin() + pivot_length };
         }
 
         cp932_string_type pivot_to_cp932_impl(pivot_type pivot) const
         {
+            const std::wstring& pivot_as_wstring = tetengo2::stdalt::get<std::wstring>(pivot);
+
             const auto string_length = ::WideCharToMultiByte(
-                932, 0, pivot.c_str(), static_cast<int>(pivot.length()), nullptr, 0, nullptr, nullptr);
+                932,
+                0,
+                pivot_as_wstring.c_str(),
+                static_cast<int>(pivot_as_wstring.length()),
+                nullptr,
+                0,
+                nullptr,
+                nullptr);
             std::vector<char> string(string_length + 1, '\0');
             const ::DWORD     le = ::GetLastError();
             le;
@@ -115,8 +134,8 @@ namespace tetengo2::detail::windows {
             const auto converted_length = ::WideCharToMultiByte(
                 932,
                 0,
-                pivot.c_str(),
-                static_cast<int>(pivot.length()),
+                pivot_as_wstring.c_str(),
+                static_cast<int>(pivot_as_wstring.length()),
                 string.data(),
                 string_length,
                 nullptr,
@@ -143,7 +162,7 @@ namespace tetengo2::detail::windows {
             converted_length;
             assert(converted_length == pivot_length);
 
-            return { pivot.begin(), pivot.begin() + pivot_length };
+            return std::wstring{ pivot.begin(), pivot.begin() + pivot_length };
         }
     };
 

@@ -14,6 +14,8 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/predef.h>
 
+#include <tetengo2/stdalt.h>
+
 
 namespace tetengo2::detail::base {
     /*!
@@ -32,13 +34,7 @@ namespace tetengo2::detail::base {
         };
 
         //! The pivot type.
-#if BOOST_OS_WINDOWS
-        using pivot_type = std::wstring;
-#elif BOOST_OS_LINUX
-        using pivot_type = std::string;
-#else
-#error Specify the pivot string type.
-#endif
+        using pivot_type = tetengo2::stdalt::variant<std::string, std::wstring>;
 
         //! The UTF-8 string type.
         using utf8_string_type = std::string;
