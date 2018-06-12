@@ -6,9 +6,7 @@
     $Id$
 */
 
-#include <cassert>
 #include <memory>
-#include <stdexcept>
 
 #include <tetengo2/detail/base/alert.h>
 #include <tetengo2/detail/base/cursor.h>

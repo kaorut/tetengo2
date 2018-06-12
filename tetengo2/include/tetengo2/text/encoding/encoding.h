@@ -27,11 +27,8 @@ namespace tetengo2::text::encoding {
     public:
         // types
 
-        //! The encoding details type.
-        using encoding_details_type = detail::base::encoding;
-
         //! The pivot type.
-        using pivot_type = typename encoding_details_type::pivot_type;
+        using pivot_type = typename detail::base::encoding::pivot_type;
 
         //! The string type.
         using string_type = String;
@@ -108,16 +105,6 @@ namespace tetengo2::text::encoding {
 
 
     protected:
-        // static functions
-
-        /*!
-            \brief Returns the detail implementation.
-
-            \return The detail implementation.
-        */
-        static const encoding_details_type& details();
-
-
         // constructors
 
         /*!

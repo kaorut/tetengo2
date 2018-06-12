@@ -32,11 +32,6 @@ namespace {
 
         concrete_encoding(std::string name) : m_name{ std::move(name) } {}
 
-        void call_details() const
-        {
-            details();
-        }
-
     private:
         std::string m_name;
 

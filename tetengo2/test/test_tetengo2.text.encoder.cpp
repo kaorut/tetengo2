@@ -23,12 +23,6 @@ namespace {
 
     class concrete_encoding : public tetengo2::text::encoding::encoding<std::string>
     {
-    public:
-        void call_details() const
-        {
-            details();
-        }
-
     private:
         virtual const std::string& name_impl() const
         {
