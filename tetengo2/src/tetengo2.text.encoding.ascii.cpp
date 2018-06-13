@@ -6,15 +6,19 @@
     $Id$
 */
 
+#include <algorithm>
+#include <cassert>
+#include <iterator>
 #include <memory>
 #include <stdexcept>
 #include <string>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/iterator/iterator_facade.hpp>
-#include <boost/iterator/transform_iterator.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/detail/base/encoding.h>
+#include <tetengo2/detail/base/impl_set.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text/encoding/ascii.h>
 
 
@@ -41,49 +45,88 @@ namespace tetengo2::text::encoding {
 
         string_type from_pivot_impl(pivot_type pivot) const
         {
-            return { boost::make_transform_iterator(pivot.begin(), to_ascii),
-                     boost::make_transform_iterator(pivot.end(), to_ascii) };
+            switch (detail::detail_impl_set().encoding_().pivot_type_())
+            {
+            case detail::base::encoding::pivot_type_type::std_string:
+            {
+                if (tetengo2::stdalt::index(pivot) != 0)
+                    pivot = std::string{};
+                string_type string;
+                std::transform(
+                    tetengo2::stdalt::get<std::string>(pivot).begin(),
+                    tetengo2::stdalt::get<std::string>(pivot).end(),
+                    std::back_inserter(string),
+                    to_ascii<char>);
+                return string;
+            }
+            case detail::base::encoding::pivot_type_type::std_wstring:
+            {
+                if (tetengo2::stdalt::index(pivot) != 1)
+                    pivot = std::wstring{};
+                string_type string;
+                std::transform(
+                    tetengo2::stdalt::get<std::wstring>(pivot).begin(),
+                    tetengo2::stdalt::get<std::wstring>(pivot).end(),
+                    std::back_inserter(string),
+                    to_ascii<wchar_t>);
+                return string;
+            }
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::logic_error("Unknown encoding pivot."));
+            }
         }
 
         pivot_type to_pivot_impl(string_type string) const
         {
-            return { boost::make_transform_iterator(string.begin(), from_ascii),
-                     boost::make_transform_iterator(string.end(), from_ascii) };
+            switch (detail::detail_impl_set().encoding_().pivot_type_())
+            {
+            case detail::base::encoding::pivot_type_type::std_string:
+            {
+                pivot_type pivot{ std::string{} };
+                std::transform(
+                    string.begin(),
+                    string.end(),
+                    std::back_inserter(tetengo2::stdalt::get<std::string>(pivot)),
+                    from_ascii<char>);
+                return pivot;
+            }
+            case detail::base::encoding::pivot_type_type::std_wstring:
+            {
+                pivot_type pivot{ std::wstring{} };
+                std::transform(
+                    string.begin(),
+                    string.end(),
+                    std::back_inserter(tetengo2::stdalt::get<std::wstring>(pivot)),
+                    from_ascii<wchar_t>);
+                return pivot;
+            }
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::logic_error("Unknown encoding pivot."));
+            }
         }
 
 
     private:
         // types
 
-        using pivot_char_type = typename pivot_type::value_type;
-
         using string_char_type = typename string_type::value_type;
 
 
         // static functions
 
-        static string_char_type to_ascii(const pivot_char_type pivot_char)
+        template <typename PivotChar>
+        static string_char_type to_ascii(const PivotChar pivot_char)
         {
-            return to_ascii_impl(pivot_char);
-        }
-
-        static string_char_type to_ascii_impl(const char pivot_char)
-        {
-            if (pivot_char >= 0)
-                return pivot_char;
-            else
-                return 0x3F;
-        }
-
-        static string_char_type to_ascii_impl(const wchar_t pivot_char)
-        {
-            if (pivot_char <= 0x7F)
+            if (0 <= pivot_char && pivot_char <= 0x7F)
                 return static_cast<string_char_type>(pivot_char);
             else
                 return 0x3F;
         }
 
-        static pivot_char_type from_ascii(const string_char_type ascii_char)
+        template <typename PivotChar>
+        static PivotChar from_ascii(const string_char_type ascii_char)
         {
             if (ascii_char < 0)
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "Not ASCII code." }));

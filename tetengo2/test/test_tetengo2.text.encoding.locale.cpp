@@ -14,6 +14,7 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoding/locale.h>
 
@@ -24,6 +25,14 @@ namespace {
     using multibyte_encoding_type = tetengo2::text::encoding::locale<std::string>;
 
     using wide_encoding_type = tetengo2::text::encoding::locale<std::wstring>;
+
+#if BOOST_OS_WINDOWS
+    using pivot_string_type = std::wstring;
+#elif BOOST_OS_LINUX
+    using pivot_string_type = std::string;
+#else
+#error Unsupported platform.
+#endif
 
 
     // functions
@@ -60,10 +69,12 @@ namespace {
     const std::locale locale_en = make_locale("English");
 
     const std::locale locale_ja = make_locale("Japanese_Japan");
-#else
+#elif BOOST_OS_LINUX
     const std::locale locale_en = make_locale("en_US");
 
     const std::locale locale_ja = make_locale("ja_JP.UTF-8");
+#else
+#error Unsupported platform.
 #endif
 }
 
@@ -195,7 +206,7 @@ BOOST_AUTO_TEST_CASE(from_pivot)
     BOOST_TEST_PASSPOINT();
 
     {
-        const multibyte_encoding_type::pivot_type  pivot{ TETENGO2_TEXT("Tetengo2") };
+        const multibyte_encoding_type::pivot_type  pivot{ pivot_string_type{ TETENGO2_TEXT("Tetengo2") } };
         const multibyte_encoding_type::string_type string{ TETENGO2_TEXT("Tetengo2") };
 
         const multibyte_encoding_type encoding{ std::locale::classic() };
@@ -211,7 +222,7 @@ BOOST_AUTO_TEST_CASE(from_pivot)
         BOOST_CHECK(encoding.from_pivot(pivot) == string);
     }
     {
-        const wide_encoding_type::pivot_type  pivot{ TETENGO2_TEXT("Tetengo2") };
+        const wide_encoding_type::pivot_type  pivot{ pivot_string_type{ TETENGO2_TEXT("Tetengo2") } };
         const wide_encoding_type::string_type string{ TETENGO2_TEXT("Tetengo2") };
 
         const wide_encoding_type encoding{ std::locale::classic() };
@@ -233,7 +244,7 @@ BOOST_AUTO_TEST_CASE(to_pivot)
     BOOST_TEST_PASSPOINT();
 
     {
-        const multibyte_encoding_type::pivot_type  pivot{ TETENGO2_TEXT("Tetengo2") };
+        const multibyte_encoding_type::pivot_type  pivot{ pivot_string_type{ TETENGO2_TEXT("Tetengo2") } };
         const multibyte_encoding_type::string_type string{ TETENGO2_TEXT("Tetengo2") };
 
         const multibyte_encoding_type encoding{ std::locale::classic() };
@@ -241,7 +252,7 @@ BOOST_AUTO_TEST_CASE(to_pivot)
         BOOST_CHECK(encoding.to_pivot(string) == pivot);
     }
     {
-        const multibyte_encoding_type::pivot_type  pivot{};
+        const multibyte_encoding_type::pivot_type  pivot{ pivot_string_type{} };
         const multibyte_encoding_type::string_type string{};
 
         const multibyte_encoding_type encoding{ std::locale::classic() };
@@ -249,7 +260,7 @@ BOOST_AUTO_TEST_CASE(to_pivot)
         BOOST_CHECK(encoding.to_pivot(string) == pivot);
     }
     {
-        const wide_encoding_type::pivot_type  pivot{ TETENGO2_TEXT("Tetengo2") };
+        const wide_encoding_type::pivot_type  pivot{ pivot_string_type{ TETENGO2_TEXT("Tetengo2") } };
         const wide_encoding_type::string_type string{ TETENGO2_TEXT("Tetengo2") };
 
         const wide_encoding_type encoding{ std::locale::classic() };
@@ -257,7 +268,7 @@ BOOST_AUTO_TEST_CASE(to_pivot)
         BOOST_CHECK(encoding.to_pivot(string) == pivot);
     }
     {
-        const wide_encoding_type::pivot_type  pivot{};
+        const wide_encoding_type::pivot_type  pivot{ pivot_string_type{} };
         const wide_encoding_type::string_type string{};
 
         const wide_encoding_type encoding{ std::locale::classic() };

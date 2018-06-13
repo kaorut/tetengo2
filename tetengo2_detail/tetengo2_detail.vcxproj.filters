@@ -46,6 +46,12 @@
     <Filter Include="sources\tetengo2::detail\windows\gdiplus">
       <UniqueIdentifier>{eb888da0-caf2-438b-aeab-64226a793295}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\tetengo2::detail\unixos">
+      <UniqueIdentifier>{ee7c4b8c-f1c0-4809-8906-ce4943e5f3f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\tetengo2::detail\unixos">
+      <UniqueIdentifier>{5aac4953-74ff-48d6-9585-656886e7e295}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2\detail\stub\0namespace.dox">
@@ -279,6 +285,30 @@
     <ClInclude Include="include\tetengo2\detail\base\system_color.h">
       <Filter>headers\tetengo2::detail\base</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\unixos\config.h">
+      <Filter>headers\tetengo2::detail\unixos</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\unixos\encoding.h">
+      <Filter>headers\tetengo2::detail\unixos</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\unixos\impl_set.h">
+      <Filter>headers\tetengo2::detail\unixos</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\unixos\messages.h">
+      <Filter>headers\tetengo2::detail\unixos</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\windows\gui_impl_set.h">
+      <Filter>headers\tetengo2::detail\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\unixos\gui_impl_set.h">
+      <Filter>headers\tetengo2::detail\unixos</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\stub\gui_impl_set.h">
+      <Filter>headers\tetengo2::detail\stub</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\base\gui_impl_set.h">
+      <Filter>headers\tetengo2::detail\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\tetengo2.detail.base.config.cpp">
@@ -402,6 +432,30 @@
       <Filter>sources\tetengo2::detail\windows</Filter>
     </ClCompile>
     <ClCompile Include="src\tetengo2.detail.windows.windows_version.cpp">
+      <Filter>sources\tetengo2::detail\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.unixos.config.cpp">
+      <Filter>sources\tetengo2::detail\unixos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.unixos.encoding.cpp">
+      <Filter>sources\tetengo2::detail\unixos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.unixos.impl_set.cpp">
+      <Filter>sources\tetengo2::detail\unixos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.unixos.messages.cpp">
+      <Filter>sources\tetengo2::detail\unixos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.base.gui_impl_set.cpp">
+      <Filter>sources\tetengo2::detail\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.stub.gui_impl_set.cpp">
+      <Filter>sources\tetengo2::detail\stub</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.unixos.gui_impl_set.cpp">
+      <Filter>sources\tetengo2::detail\unixos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.gui_impl_set.cpp">
       <Filter>sources\tetengo2::detail\windows</Filter>
     </ClCompile>
   </ItemGroup>

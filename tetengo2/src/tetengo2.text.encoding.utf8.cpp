@@ -12,6 +12,8 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/detail/base/encoding.h>
+#include <tetengo2/detail/base/impl_set.h>
 #include <tetengo2/text/encoding/encoding.h>
 #include <tetengo2/text/encoding/utf8.h>
 
@@ -39,12 +41,12 @@ namespace tetengo2::text::encoding {
 
         string_type from_pivot_impl(pivot_type pivot) const
         {
-            return utf8::details().pivot_to_utf8(std::move(pivot));
+            return detail::detail_impl_set().encoding_().pivot_to_utf8(std::move(pivot));
         }
 
         typename base_type::pivot_type to_pivot_impl(const string_type& string) const
         {
-            return utf8::details().utf8_to_pivot(std::move(string));
+            return detail::detail_impl_set().encoding_().utf8_to_pivot(std::move(string));
         }
     };
 

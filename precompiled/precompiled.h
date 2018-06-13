@@ -80,7 +80,6 @@
 #include <boost/iostreams/traits.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/iterator/iterator_facade.hpp>
-#include <boost/iterator/transform_iterator.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/math/constants/constants.hpp>
 #include <boost/operators.hpp>

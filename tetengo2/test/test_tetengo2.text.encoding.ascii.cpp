@@ -10,9 +10,11 @@
 #include <stdexcept>
 #include <string>
 
+#include <boost/predef.h>
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text/encoding/ascii.h>
 #include <tetengo2/text/encoding/encoding.h>
 
@@ -23,6 +25,14 @@ namespace {
     using encoding_type = tetengo2::text::encoding::ascii;
 
     using pivot_type = encoding_type::pivot_type;
+
+#if BOOST_OS_WINDOWS
+    using pivot_string_type = std::wstring;
+#elif BOOST_OS_LINUX
+    using pivot_string_type = std::string;
+#else
+#error Unsupported platform.
+#endif
 
 
     // variables
@@ -86,7 +96,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     {
-                        const pivot_type  pivot{ pivot_ascii, pivot_ascii + sizeof(pivot_ascii) - 1 };
+                        const pivot_type  pivot{ pivot_string_type{ pivot_ascii,
+                                                                   pivot_ascii + sizeof(pivot_ascii) - 1 } };
                         const std::string string{ ascii_ascii, ascii_ascii + sizeof(ascii_ascii) - 1 };
 
                         const encoding_type encoding{};
@@ -95,7 +106,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         BOOST_CHECK(result == string);
                     }
                     {
-                        const pivot_type  pivot{ pivot_empty, pivot_empty + sizeof(pivot_empty) - 1 };
+                        const pivot_type  pivot{ pivot_string_type{ pivot_empty,
+                                                                   pivot_empty + sizeof(pivot_empty) - 1 } };
                         const std::string string{ ascii_empty, ascii_empty + sizeof(ascii_empty) - 1 };
 
                         const encoding_type encoding{};
@@ -104,7 +116,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         BOOST_CHECK(result == string);
                     }
                     {
-                        const pivot_type  pivot{ pivot_nonascii, pivot_nonascii + sizeof(pivot_nonascii) - 1 };
+                        const pivot_type  pivot{ pivot_string_type{ pivot_nonascii,
+                                                                   pivot_nonascii + sizeof(pivot_nonascii) - 1 } };
                         const std::string string{ ascii_nonascii, ascii_nonascii + sizeof(ascii_nonascii) - 1 };
 
                         const encoding_type encoding{};
@@ -119,7 +132,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     {
-                        const pivot_type  pivot{ pivot_ascii, pivot_ascii + sizeof(pivot_ascii) - 1 };
+                        const pivot_type  pivot{ pivot_string_type{ pivot_ascii,
+                                                                   pivot_ascii + sizeof(pivot_ascii) - 1 } };
                         const std::string string{ ascii_ascii, ascii_ascii + sizeof(ascii_ascii) - 1 };
 
                         const encoding_type encoding{};
@@ -128,7 +142,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         BOOST_CHECK(result == pivot);
                     }
                     {
-                        const pivot_type  pivot{ pivot_empty, pivot_empty + sizeof(pivot_empty) - 1 };
+                        const pivot_type  pivot{ pivot_string_type{ pivot_empty,
+                                                                   pivot_empty + sizeof(pivot_empty) - 1 } };
                         const std::string string{ ascii_empty, ascii_empty + sizeof(ascii_empty) - 1 };
 
                         const encoding_type encoding{};

@@ -20,6 +20,9 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/detail/base/encoding.h>
+#include <tetengo2/detail/base/impl_set.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoding/locale.h>
 
@@ -61,23 +64,44 @@ namespace tetengo2::text::encoding {
 
         string_type from_pivot_impl(pivot_type pivot) const
         {
-            return from_pivot_impl2(std::move(pivot));
+            switch (detail::detail_impl_set().encoding_().pivot_type_())
+            {
+            case detail::base::encoding::pivot_type_type::std_string:
+                if (tetengo2::stdalt::index(pivot) != 0)
+                    pivot = std::string{};
+                return from_pivot_impl2(std::move(tetengo2::stdalt::get<std::string>(pivot)));
+            case detail::base::encoding::pivot_type_type::std_wstring:
+                if (tetengo2::stdalt::index(pivot) != 1)
+                    pivot = std::wstring{};
+                return from_pivot_impl2(std::move(tetengo2::stdalt::get<std::wstring>(pivot)));
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::logic_error("Unknown pivot type."));
+            }
         }
 
-        typename base_type::pivot_type to_pivot_impl(string_type string) const
+        pivot_type to_pivot_impl(string_type string) const
         {
-            return to_pivot_impl2(std::move(string));
+            switch (detail::detail_impl_set().encoding_().pivot_type_())
+            {
+            case detail::base::encoding::pivot_type_type::std_string:
+                return pivot_type{ to_pivot_impl2<std::string>(std::move(string)) };
+            case detail::base::encoding::pivot_type_type::std_wstring:
+                return pivot_type{ to_pivot_impl2<std::wstring>(std::move(string)) };
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::logic_error("Unknown pivot type."));
+            }
         }
 
 
     private:
         // type
 
-        using pivot_char_type = typename base_type::pivot_type::value_type;
-
         using string_char_type = typename string_type::value_type;
 
-        using converter_type = std::codecvt<pivot_char_type, string_char_type, std::mbstate_t>;
+        template <typename Pivot>
+        using converter_type = std::codecvt<typename Pivot::value_type, string_char_type, std::mbstate_t>;
 
 
         // variables
@@ -103,14 +127,15 @@ namespace tetengo2::text::encoding {
             return from_pivot_impl3(std::move(pivot));
         }
 
-        string_type from_pivot_impl3(pivot_type pivot) const
+        template <typename Pivot>
+        string_type from_pivot_impl3(Pivot pivot) const
         {
             if (pivot.empty())
                 return string_type{};
-            if (!std::has_facet<converter_type>(m_locale))
+            if (!std::has_facet<converter_type<Pivot>>(m_locale))
                 return string_type{ pivot.begin(), pivot.end() };
 
-            const auto& converter = std::use_facet<converter_type>(m_locale);
+            const auto& converter = std::use_facet<converter_type<Pivot>>(m_locale);
             auto        state = std::mbstate_t();
 
             const auto*       p_pivot_first = pivot.c_str();
@@ -122,19 +147,19 @@ namespace tetengo2::text::encoding {
 
             for (;;)
             {
-                const pivot_char_type* p_pivot_next = nullptr;
-                string_char_type*      p_string_next = nullptr;
+                const typename Pivot::value_type* p_pivot_next = nullptr;
+                string_char_type*                 p_string_next = nullptr;
 
                 const auto result = converter.out(
                     state, p_pivot_first, p_pivot_last, p_pivot_next, p_string_first, p_string_last, p_string_next);
                 if (p_pivot_next == p_pivot_last)
                 {
-                    unshift(converter, state, string_chars, p_string_next, p_string_last, p_string_next);
+                    unshift<Pivot>(converter, state, string_chars, p_string_next, p_string_last, p_string_next);
                     assert(*p_string_next == static_cast<string_char_type>(TETENGO2_TEXT('\0')));
                     return string_type{ string_chars.data(), p_string_next };
                 }
 
-                if (result == converter_type::error)
+                if (result == converter_type<Pivot>::error)
                 {
                     *p_string_next = TETENGO2_TEXT('?');
                     ++p_pivot_next;
@@ -150,8 +175,9 @@ namespace tetengo2::text::encoding {
             }
         }
 
+        template <typename Pivot>
         void unshift(
-            const converter_type&          converter,
+            const converter_type<Pivot>&   converter,
             std::mbstate_t&                state,
             std::vector<string_char_type>& string_chars,
             string_char_type*              p_string_first,
@@ -161,10 +187,10 @@ namespace tetengo2::text::encoding {
             for (;;)
             {
                 const auto result = converter.unshift(state, p_string_first, p_string_last, p_string_next);
-                if (result == converter_type::error)
+                if (result == converter_type<Pivot>::error)
                     BOOST_THROW_EXCEPTION((std::invalid_argument{ "Can't unshift the string." }));
 
-                if (result == converter_type::ok || result == converter_type::noconv)
+                if (result == converter_type<Pivot>::ok || result == converter_type<Pivot>::noconv)
                     break;
 
                 expand_destination(string_chars, p_string_first, p_string_last, p_string_next);
@@ -173,55 +199,54 @@ namespace tetengo2::text::encoding {
             }
         }
 
-        template <typename Str>
-        typename base_type::pivot_type to_pivot_impl2(
+        template <typename Pivot, typename Str>
+        Pivot to_pivot_impl2(
             Str&& string,
-            const typename std::enable_if<
-                std::is_convertible<Str, typename base_type::pivot_type>::value>::type* const = nullptr) const
+            const typename std::enable_if<std::is_convertible<Str, Pivot>::value>::type* const = nullptr) const
         {
             return std::move(string);
         }
 
-        template <typename Str>
-        typename base_type::pivot_type to_pivot_impl2(
+        template <typename Pivot, typename Str>
+        Pivot to_pivot_impl2(
             Str&& string,
-            const typename std::enable_if<
-                !std::is_convertible<Str, typename base_type::pivot_type>::value>::type* const = nullptr) const
+            const typename std::enable_if<!std::is_convertible<Str, Pivot>::value>::type* const = nullptr) const
         {
-            return to_pivot_impl3(std::move(string));
+            return to_pivot_impl3<Pivot>(std::move(string));
         }
 
-        typename base_type::pivot_type to_pivot_impl3(const string_type& string) const
+        template <typename Pivot>
+        Pivot to_pivot_impl3(const string_type& string) const
         {
             if (string.empty())
-                return typename base_type::pivot_type{};
-            if (!std::has_facet<converter_type>(m_locale))
-                return typename base_type::pivot_type{ string.begin(), string.end() };
+                return Pivot{};
+            if (!std::has_facet<converter_type<Pivot>>(m_locale))
+                return Pivot{ string.begin(), string.end() };
 
-            const converter_type& converter = std::use_facet<converter_type>(m_locale);
-            auto                  state = std::mbstate_t();
+            const converter_type<Pivot>& converter = std::use_facet<converter_type<Pivot>>(m_locale);
+            auto                         state = std::mbstate_t();
 
             const auto*                   p_string_first = string.c_str();
             const string_char_type* const p_string_last = p_string_first + string.length();
 
-            std::vector<pivot_char_type> pivot_chars{ 8, TETENGO2_TEXT('\0') };
-            auto*                        p_pivot_first = pivot_chars.data();
-            pivot_char_type*             p_pivot_last = p_pivot_first + pivot_chars.size() - 1;
+            std::vector<typename Pivot::value_type> pivot_chars{ 8, TETENGO2_TEXT('\0') };
+            auto*                                   p_pivot_first = pivot_chars.data();
+            typename Pivot::value_type*             p_pivot_last = p_pivot_first + pivot_chars.size() - 1;
 
             for (;;)
             {
-                const string_char_type* p_string_next = nullptr;
-                pivot_char_type*        p_pivot_next = nullptr;
+                const string_char_type*     p_string_next = nullptr;
+                typename Pivot::value_type* p_pivot_next = nullptr;
 
-                const typename converter_type::result result = converter.in(
+                const typename converter_type<Pivot>::result result = converter.in(
                     state, p_string_first, p_string_last, p_string_next, p_pivot_first, p_pivot_last, p_pivot_next);
                 if (p_string_next == p_string_last)
                 {
-                    assert(*p_pivot_next == static_cast<pivot_char_type>(TETENGO2_TEXT('\0')));
-                    return typename base_type::pivot_type{ pivot_chars.data(), p_pivot_next };
+                    assert(*p_pivot_next == static_cast<typename Pivot::value_type>(TETENGO2_TEXT('\0')));
+                    return Pivot{ pivot_chars.data(), p_pivot_next };
                 }
 
-                if (result == converter_type::error)
+                if (result == converter_type<Pivot>::error)
                 {
                     *p_pivot_next = TETENGO2_TEXT('?');
                     ++p_string_next;

@@ -6,53 +6,51 @@
     $Id$
 */
 
-#include <memory>
+#include <stdexcept>
 
-#include <tetengo2/detail/base/gui_fixture.h>
+#include <boost/throw_exception.hpp>
+
 #include <tetengo2/detail/base/impl_set.h>
 
 
 namespace tetengo2::detail::base {
-    class alert;
-    class cursor;
-    class icon;
-    class shell;
-    class unit;
+    class config;
+    class encoding;
 }
 
 
-namespace tetengo2::detail::base {
-    impl_set::~impl_set() = default;
+namespace tetengo2::detail {
+    namespace base {
+        impl_set::~impl_set() = default;
 
-    const alert& impl_set::alert_() const
-    {
-        return alert_impl();
+        const config& impl_set::config_() const
+        {
+            return config_impl();
+        }
+
+        const encoding& impl_set::encoding_() const
+        {
+            return encoding_impl();
+        }
+
+        impl_set::impl_set() = default;
     }
 
-    const cursor& impl_set::cursor_() const
-    {
-        return cursor_impl();
+
+    namespace {
+        const base::impl_set* g_p_impl_set = nullptr;
     }
 
-    std::unique_ptr<gui_fixture> impl_set::create_gui_fixture() const
+    const base::impl_set& detail_impl_set()
     {
-        return create_gui_fixture_impl();
+        if (!g_p_impl_set)
+            BOOST_THROW_EXCEPTION(std::logic_error{ "No detail implementation set is set yet." });
+
+        return *g_p_impl_set;
     }
 
-    const icon& impl_set::icon_() const
+    void set_detail_impl_set(const base::impl_set& impl_set_)
     {
-        return icon_impl();
+        g_p_impl_set = &impl_set_;
     }
-
-    const shell& impl_set::shell_() const
-    {
-        return shell_impl();
-    }
-
-    const unit& impl_set::unit_() const
-    {
-        return unit_impl();
-    }
-
-    impl_set::impl_set() = default;
 }

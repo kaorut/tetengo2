@@ -23,12 +23,6 @@ namespace {
 
     class concrete_encoding : public encoding_type
     {
-    public:
-        void call_details() const
-        {
-            details();
-        }
-
     private:
         virtual const std::string& name_impl() const
         {
@@ -133,15 +127,6 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                         BOOST_CHECK(encoding1 != encoding2);
                     }
-                }
-
-                BOOST_AUTO_TEST_CASE(details)
-                {
-                    BOOST_TEST_PASSPOINT();
-
-                    const concrete_encoding encoding{};
-
-                    encoding.call_details();
                 }
 
                 BOOST_AUTO_TEST_CASE(from_pivot)

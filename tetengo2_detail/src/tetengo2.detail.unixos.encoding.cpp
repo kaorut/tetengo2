@@ -20,6 +20,7 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/unixos/encoding.h>
+#include <tetengo2/stdalt.h>
 
 
 namespace tetengo2 { namespace detail { namespace unixos {
@@ -27,6 +28,8 @@ namespace tetengo2 { namespace detail { namespace unixos {
     {
     public:
         // types
+
+        using pivot_type_type = encoding::pivot_type_type;
 
         using pivot_type = encoding::pivot_type;
 
@@ -51,9 +54,16 @@ namespace tetengo2 { namespace detail { namespace unixos {
 
         // functions
 
+        pivot_type_type pivot_type_impl() const
+        {
+            return pivot_type_type::std_string;
+        }
+
         utf8_string_type pivot_to_utf8_impl(pivot_type pivot) const
         {
-            return pivot;
+            if (tetengo2::stdalt::index(pivot) != 0)
+                pivot = std::string{};
+            return tetengo2::stdalt::get<std::string>(pivot);
         }
 
         pivot_type utf8_to_pivot_impl(utf8_string_type string) const
@@ -63,7 +73,9 @@ namespace tetengo2 { namespace detail { namespace unixos {
 
         cp932_string_type pivot_to_cp932_impl(pivot_type pivot) const
         {
-            return utf8_to_cp932().convert(std::move(pivot));
+            if (tetengo2::stdalt::index(pivot) != 0)
+                pivot = std::string{};
+            return utf8_to_cp932().convert(std::move(tetengo2::stdalt::get<std::string>(pivot)));
         }
 
         pivot_type cp932_to_pivot_impl(cp932_string_type string) const
@@ -155,6 +167,11 @@ namespace tetengo2 { namespace detail { namespace unixos {
     encoding::~encoding() = default;
 
     encoding::encoding() : m_p_impl{ std::make_unique<impl>() } {}
+
+    encoding::pivot_type_type encoding::pivot_type_impl() const
+    {
+        return m_p_impl->pivot_type_impl();
+    }
 
     encoding::utf8_string_type encoding::pivot_to_utf8_impl(pivot_type pivot) const
     {

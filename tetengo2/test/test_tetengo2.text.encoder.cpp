@@ -6,13 +6,18 @@
     $Id$
 */
 
+#include <cassert>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
+#include <boost/throw_exception.hpp>
 
 #include <tetengo2/detail/base/encoding.h>
+#include <tetengo2/detail/base/impl_set.h>
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/encoding.h>
@@ -23,12 +28,6 @@ namespace {
 
     class concrete_encoding : public tetengo2::text::encoding::encoding<std::string>
     {
-    public:
-        void call_details() const
-        {
-            details();
-        }
-
     private:
         virtual const std::string& name_impl() const
         {
@@ -38,12 +37,40 @@ namespace {
 
         virtual string_type from_pivot_impl(pivot_type pivot) const
         {
-            return string_type(pivot.begin(), pivot.end()) + string_type{ TETENGO2_TEXT("+ConcreteFromPivot") };
+            switch (tetengo2::detail::detail_impl_set().encoding_().pivot_type_())
+            {
+            case tetengo2::detail::base::encoding::pivot_type_type::std_string:
+                if (tetengo2::stdalt::index(pivot) != 0)
+                    pivot = std::string{};
+                return string_type(
+                           tetengo2::stdalt::get<std::string>(pivot).begin(),
+                           tetengo2::stdalt::get<std::string>(pivot).end()) +
+                       string_type{ TETENGO2_TEXT("+ConcreteFromPivot") };
+            case tetengo2::detail::base::encoding::pivot_type_type::std_wstring:
+                if (tetengo2::stdalt::index(pivot) != 1)
+                    pivot = std::wstring{};
+                return string_type(
+                           tetengo2::stdalt::get<std::wstring>(pivot).begin(),
+                           tetengo2::stdalt::get<std::wstring>(pivot).end()) +
+                       string_type{ TETENGO2_TEXT("+ConcreteFromPivot") };
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::logic_error("Unknown pivot type."));
+            }
         }
 
         virtual pivot_type to_pivot_impl(string_type string) const
         {
-            return pivot_type(string.begin(), string.end()) + pivot_type{ TETENGO2_TEXT("+ConcreteToPivot") };
+            switch (tetengo2::detail::detail_impl_set().encoding_().pivot_type_())
+            {
+            case tetengo2::detail::base::encoding::pivot_type_type::std_string:
+                return std::string(string.begin(), string.end()) + std::string{ TETENGO2_TEXT("+ConcreteToPivot") };
+            case tetengo2::detail::base::encoding::pivot_type_type::std_wstring:
+                return std::wstring(string.begin(), string.end()) + std::wstring{ TETENGO2_TEXT("+ConcreteToPivot") };
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::logic_error("Unknown pivot type."));
+            }
         }
     };
 
@@ -58,12 +85,40 @@ namespace {
 
         virtual string_type from_pivot_impl(pivot_type pivot) const
         {
-            return string_type(pivot.begin(), pivot.end()) + string_type{ TETENGO2_TEXT("+AnotherFromPivot") };
+            switch (tetengo2::detail::detail_impl_set().encoding_().pivot_type_())
+            {
+            case tetengo2::detail::base::encoding::pivot_type_type::std_string:
+                if (tetengo2::stdalt::index(pivot) != 0)
+                    pivot = std::string{};
+                return string_type(
+                           tetengo2::stdalt::get<std::string>(pivot).begin(),
+                           tetengo2::stdalt::get<std::string>(pivot).end()) +
+                       string_type{ TETENGO2_TEXT("+AnotherFromPivot") };
+            case tetengo2::detail::base::encoding::pivot_type_type::std_wstring:
+                if (tetengo2::stdalt::index(pivot) != 1)
+                    pivot = std::wstring{};
+                return string_type(
+                           tetengo2::stdalt::get<std::wstring>(pivot).begin(),
+                           tetengo2::stdalt::get<std::wstring>(pivot).end()) +
+                       string_type{ TETENGO2_TEXT("+AnotherFromPivot") };
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::logic_error("Unknown pivot type."));
+            }
         }
 
         virtual pivot_type to_pivot_impl(string_type string) const
         {
-            return pivot_type(string.begin(), string.end()) + pivot_type{ TETENGO2_TEXT("+AnotherToPivot") };
+            switch (tetengo2::detail::detail_impl_set().encoding_().pivot_type_())
+            {
+            case tetengo2::detail::base::encoding::pivot_type_type::std_string:
+                return std::string(string.begin(), string.end()) + std::string{ TETENGO2_TEXT("+AnotherToPivot") };
+            case tetengo2::detail::base::encoding::pivot_type_type::std_wstring:
+                return std::wstring(string.begin(), string.end()) + std::wstring{ TETENGO2_TEXT("+AnotherToPivot") };
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::logic_error("Unknown pivot type."));
+            }
         }
     };
 
@@ -78,12 +133,40 @@ namespace {
 
         virtual string_type from_pivot_impl(pivot_type pivot) const
         {
-            return string_type(pivot.begin(), pivot.end()) + string_type{ TETENGO2_TEXT("+WideFromPivot") };
+            switch (tetengo2::detail::detail_impl_set().encoding_().pivot_type_())
+            {
+            case tetengo2::detail::base::encoding::pivot_type_type::std_string:
+                if (tetengo2::stdalt::index(pivot) != 0)
+                    pivot = std::string{};
+                return string_type(
+                           tetengo2::stdalt::get<std::string>(pivot).begin(),
+                           tetengo2::stdalt::get<std::string>(pivot).end()) +
+                       string_type{ TETENGO2_TEXT("+WideFromPivot") };
+            case tetengo2::detail::base::encoding::pivot_type_type::std_wstring:
+                if (tetengo2::stdalt::index(pivot) != 1)
+                    pivot = std::wstring{};
+                return string_type(
+                           tetengo2::stdalt::get<std::wstring>(pivot).begin(),
+                           tetengo2::stdalt::get<std::wstring>(pivot).end()) +
+                       string_type{ TETENGO2_TEXT("+WideFromPivot") };
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::logic_error("Unknown pivot type."));
+            }
         }
 
         virtual pivot_type to_pivot_impl(string_type string) const
         {
-            return pivot_type(string.begin(), string.end()) + pivot_type{ TETENGO2_TEXT("+WideToPivot") };
+            switch (tetengo2::detail::detail_impl_set().encoding_().pivot_type_())
+            {
+            case tetengo2::detail::base::encoding::pivot_type_type::std_string:
+                return std::string(string.begin(), string.end()) + std::string{ TETENGO2_TEXT("+WideToPivot") };
+            case tetengo2::detail::base::encoding::pivot_type_type::std_wstring:
+                return std::wstring(string.begin(), string.end()) + std::wstring{ TETENGO2_TEXT("+WideToPivot") };
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::logic_error("Unknown pivot type."));
+            }
         }
     };
 

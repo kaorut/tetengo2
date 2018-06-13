@@ -16,6 +16,11 @@ namespace tetengo2::detail::base {
 
     encoding::~encoding() = default;
 
+    encoding::pivot_type_type encoding::pivot_type_() const
+    {
+        return pivot_type_impl();
+    }
+
     encoding::utf8_string_type encoding::pivot_to_utf8(pivot_type pivot) const
     {
         return pivot_to_utf8_impl(std::move(pivot));

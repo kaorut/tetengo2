@@ -11,15 +11,7 @@
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/predef.h>
 
-#if BOOST_OS_WINDOWS
-#include <tetengo2/detail/windows/encoding.h>
-#elif BOOST_OS_LINUX
-#include <tetengo2/detail/unixos/encoding.h>
-#else
-#error Unsupported platform.
-#endif
 #include <tetengo2/text/encoding/encoding.h>
 
 
@@ -33,20 +25,6 @@ namespace tetengo2::text::encoding {
         using pivot_type = typename encoding::pivot_type;
 
         using string_type = typename encoding::string_type;
-
-
-        // static functions
-
-        static const encoding_details_type& details()
-        {
-#if BOOST_OS_WINDOWS
-            return detail::windows::encoding::instance();
-#elif BOOST_OS_LINUX
-            return detail::unixos::encoding::instance();
-#else
-#error Unsupported platform.
-#endif
-        }
 
 
         // functions
@@ -87,12 +65,6 @@ namespace tetengo2::text::encoding {
     bool operator!=(const encoding<S>& one, const encoding<T>& another)
     {
         return !operator==(one, another);
-    }
-
-    template <typename String>
-    const typename encoding<String>::encoding_details_type& encoding<String>::details()
-    {
-        return impl::details();
     }
 
     template <typename String>

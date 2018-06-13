@@ -6,7 +6,7 @@
     $Id$
 */
 
-#include <boost/core/swap.hpp>
+#include <boost/core/swap.hpp> // IWYU pragma: keep
 #include <boost/predef.h>
 
 #include <tetengo2/detail/stub/unit.h> // IWYU pragma: keep
