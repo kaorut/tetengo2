@@ -12,7 +12,6 @@
 #include <string>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/predef.h>
 
 #include <tetengo2/stdalt.h>
 

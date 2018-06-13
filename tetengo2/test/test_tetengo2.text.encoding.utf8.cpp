@@ -13,6 +13,7 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text/encoding/encoding.h>
 #include <tetengo2/text/encoding/utf8.h>
 
@@ -40,25 +41,29 @@ namespace {
 #if BOOST_OS_WINDOWS
 #pragma warning(push)
 #pragma warning(disable : 4592)
-    const pivot_type pivot{
+    const std::wstring pivot_string{
         0x68EE, // MORI in kanji
         0x9DD7, // OU in kanji
         0x5916, // GAI in kanji
         0xD842, 0xDF9F, // SHIKARU in kanji
     }; // in UTF-16
+
+    const std::wstring empty_pivot_string{};
 #pragma warning(pop)
-#else
-    const pivot_type pivot{
+#elif BOOST_OS_LINUX
+    const std::string pivot_string{
         tc(0xE6), tc(0xA3), tc(0xAE), // MORI in kanji
         tc(0xE9), tc(0xB7), tc(0x97), // OU in kanji
         tc(0xE5), tc(0xA4), tc(0x96), // GAI in kanji
         tc(0xF0), tc(0xA0), tc(0xAE), tc(0x9F), // SHIKARU in kanji
     }; // in UTF-8
+
+    const std::string empty_pivot_string{};
+#else
+#error Unsupported platform.
 #endif
 
-    const pivot_type empty_pivot{};
-
-    const string_type utf8_{
+    const string_type utf8_string{
         tc(0xE6), tc(0xA3), tc(0xAE), // MORI in kanji
         tc(0xE9), tc(0xB7), tc(0x97), // OU in kanji
         tc(0xE5), tc(0xA4), tc(0x96), // GAI in kanji
@@ -106,13 +111,13 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     {
                         const encoding_type encoding{};
-                        const auto          result = encoding.from_pivot(pivot);
+                        const auto          result = encoding.from_pivot(pivot_type{ pivot_string });
 
-                        BOOST_CHECK(result == utf8_);
+                        BOOST_CHECK(result == utf8_string);
                     }
                     {
                         const encoding_type encoding{};
-                        const auto          result = encoding.from_pivot(empty_pivot);
+                        const auto          result = encoding.from_pivot(pivot_type{ empty_pivot_string });
 
                         BOOST_CHECK(result == empty_utf8_);
                     }
@@ -124,15 +129,15 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     {
                         const encoding_type encoding{};
-                        const auto          result = encoding.to_pivot(utf8_);
+                        const auto          result = encoding.to_pivot(utf8_string);
 
-                        BOOST_CHECK(result == pivot);
+                        BOOST_CHECK(result == pivot_type{ pivot_string });
                     }
                     {
                         const encoding_type encoding{};
                         const auto          result = encoding.to_pivot(empty_utf8_);
 
-                        BOOST_CHECK(result == empty_pivot);
+                        BOOST_CHECK(result == pivot_type{ empty_pivot_string });
                     }
                 }
 

@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <cassert>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -39,11 +40,15 @@ namespace {
             switch (tetengo2::detail::detail_impl_set().encoding_().pivot_type_())
             {
             case tetengo2::detail::base::encoding::pivot_type_type::std_string:
+                if (tetengo2::stdalt::index(pivot) != 0)
+                    pivot = std::string{};
                 return string_type(
                            tetengo2::stdalt::get<std::string>(pivot).begin(),
                            tetengo2::stdalt::get<std::string>(pivot).end()) +
                        string_type{ TETENGO2_TEXT("+ConcreteFromPivot") };
             case tetengo2::detail::base::encoding::pivot_type_type::std_wstring:
+                if (tetengo2::stdalt::index(pivot) != 1)
+                    pivot = std::wstring{};
                 return string_type(
                            tetengo2::stdalt::get<std::wstring>(pivot).begin(),
                            tetengo2::stdalt::get<std::wstring>(pivot).end()) +
@@ -83,11 +88,15 @@ namespace {
             switch (tetengo2::detail::detail_impl_set().encoding_().pivot_type_())
             {
             case tetengo2::detail::base::encoding::pivot_type_type::std_string:
+                if (tetengo2::stdalt::index(pivot) != 0)
+                    pivot = std::string{};
                 return string_type(
                            tetengo2::stdalt::get<std::string>(pivot).begin(),
                            tetengo2::stdalt::get<std::string>(pivot).end()) +
                        string_type{ TETENGO2_TEXT("+AnotherFromPivot") };
             case tetengo2::detail::base::encoding::pivot_type_type::std_wstring:
+                if (tetengo2::stdalt::index(pivot) != 1)
+                    pivot = std::wstring{};
                 return string_type(
                            tetengo2::stdalt::get<std::wstring>(pivot).begin(),
                            tetengo2::stdalt::get<std::wstring>(pivot).end()) +
@@ -127,11 +136,15 @@ namespace {
             switch (tetengo2::detail::detail_impl_set().encoding_().pivot_type_())
             {
             case tetengo2::detail::base::encoding::pivot_type_type::std_string:
+                if (tetengo2::stdalt::index(pivot) != 0)
+                    pivot = std::string{};
                 return string_type(
                            tetengo2::stdalt::get<std::string>(pivot).begin(),
                            tetengo2::stdalt::get<std::string>(pivot).end()) +
                        string_type{ TETENGO2_TEXT("+WideFromPivot") };
             case tetengo2::detail::base::encoding::pivot_type_type::std_wstring:
+                if (tetengo2::stdalt::index(pivot) != 1)
+                    pivot = std::wstring{};
                 return string_type(
                            tetengo2::stdalt::get<std::wstring>(pivot).begin(),
                            tetengo2::stdalt::get<std::wstring>(pivot).end()) +

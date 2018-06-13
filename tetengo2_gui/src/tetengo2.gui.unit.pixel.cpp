@@ -6,7 +6,6 @@
     $Id$
 */
 
-#include <boost/core/swap.hpp>
 #include <boost/rational.hpp>
 
 #include <tetengo2/gui/unit/pixel.h>

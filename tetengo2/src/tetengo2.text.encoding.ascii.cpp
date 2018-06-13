@@ -14,8 +14,6 @@
 #include <string>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/iterator/iterator_facade.hpp>
-#include <boost/iterator/transform_iterator.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/detail/base/encoding.h>
@@ -51,6 +49,8 @@ namespace tetengo2::text::encoding {
             {
             case detail::base::encoding::pivot_type_type::std_string:
             {
+                if (tetengo2::stdalt::index(pivot) != 0)
+                    pivot = std::string{};
                 string_type string;
                 std::transform(
                     tetengo2::stdalt::get<std::string>(pivot).begin(),
@@ -61,6 +61,8 @@ namespace tetengo2::text::encoding {
             }
             case detail::base::encoding::pivot_type_type::std_wstring:
             {
+                if (tetengo2::stdalt::index(pivot) != 1)
+                    pivot = std::wstring{};
                 string_type string;
                 std::transform(
                     tetengo2::stdalt::get<std::wstring>(pivot).begin(),
@@ -81,14 +83,17 @@ namespace tetengo2::text::encoding {
             {
             case detail::base::encoding::pivot_type_type::std_string:
             {
-                pivot_type pivot;
+                pivot_type pivot{ std::string{} };
                 std::transform(
-                    string.begin(), string.end(), std::back_inserter(tetengo2::stdalt::get<std::string>(pivot)), from_ascii<char>);
+                    string.begin(),
+                    string.end(),
+                    std::back_inserter(tetengo2::stdalt::get<std::string>(pivot)),
+                    from_ascii<char>);
                 return pivot;
             }
             case detail::base::encoding::pivot_type_type::std_wstring:
             {
-                pivot_type pivot;
+                pivot_type pivot{ std::wstring{} };
                 std::transform(
                     string.begin(),
                     string.end(),

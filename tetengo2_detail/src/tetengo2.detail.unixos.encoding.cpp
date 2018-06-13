@@ -61,6 +61,8 @@ namespace tetengo2 { namespace detail { namespace unixos {
 
         utf8_string_type pivot_to_utf8_impl(pivot_type pivot) const
         {
+            if (tetengo2::stdalt::index(pivot) != 0)
+                pivot = std::string{};
             return tetengo2::stdalt::get<std::string>(pivot);
         }
 
@@ -71,6 +73,8 @@ namespace tetengo2 { namespace detail { namespace unixos {
 
         cp932_string_type pivot_to_cp932_impl(pivot_type pivot) const
         {
+            if (tetengo2::stdalt::index(pivot) != 0)
+                pivot = std::string{};
             return utf8_to_cp932().convert(std::move(tetengo2::stdalt::get<std::string>(pivot)));
         }
 

@@ -13,6 +13,7 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/stdalt.h>
 #include <tetengo2/text/encoding/cp932.h>
 #include <tetengo2/text/encoding/encoding.h>
 
@@ -140,19 +141,19 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     {
                         const encoding_type encoding{};
-                        const auto          result = encoding.from_pivot(pivot_string);
+                        const auto          result = encoding.from_pivot(pivot_type{ pivot_string });
 
                         BOOST_CHECK(result == cp932_string);
                     }
                     {
                         const encoding_type encoding{};
-                        const auto          result = encoding.from_pivot(empty_pivot_string);
+                        const auto          result = encoding.from_pivot(pivot_type{ empty_pivot_string });
 
                         BOOST_CHECK(result == empty_cp932_string);
                     }
                     {
                         const encoding_type encoding{};
-                        const auto          result = encoding.from_pivot(unconvertible_pivot);
+                        const auto          result = encoding.from_pivot(pivot_type{ unconvertible_pivot });
 
                         BOOST_CHECK(result == unconvertible_cp932_string);
                     }

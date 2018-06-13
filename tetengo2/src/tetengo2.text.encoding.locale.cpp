@@ -67,8 +67,12 @@ namespace tetengo2::text::encoding {
             switch (detail::detail_impl_set().encoding_().pivot_type_())
             {
             case detail::base::encoding::pivot_type_type::std_string:
+                if (tetengo2::stdalt::index(pivot) != 0)
+                    pivot = std::string{};
                 return from_pivot_impl2(std::move(tetengo2::stdalt::get<std::string>(pivot)));
             case detail::base::encoding::pivot_type_type::std_wstring:
+                if (tetengo2::stdalt::index(pivot) != 1)
+                    pivot = std::wstring{};
                 return from_pivot_impl2(std::move(tetengo2::stdalt::get<std::wstring>(pivot)));
             default:
                 assert(false);
@@ -81,9 +85,9 @@ namespace tetengo2::text::encoding {
             switch (detail::detail_impl_set().encoding_().pivot_type_())
             {
             case detail::base::encoding::pivot_type_type::std_string:
-                return to_pivot_impl2<std::string>(std::move(string));
+                return pivot_type{ to_pivot_impl2<std::string>(std::move(string)) };
             case detail::base::encoding::pivot_type_type::std_wstring:
-                return to_pivot_impl2<std::wstring>(std::move(string));
+                return pivot_type{ to_pivot_impl2<std::wstring>(std::move(string)) };
             default:
                 assert(false);
                 BOOST_THROW_EXCEPTION(std::logic_error("Unknown pivot type."));
