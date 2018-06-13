@@ -14,13 +14,7 @@
 
 #include <tetengo2/config/persistent_config.h>
 #include <tetengo2/detail/base/config.h>
-#if BOOST_OS_WINDOWS
-#include <tetengo2/detail/windows/config.h>
-#elif BOOST_OS_LINUX
-#include <tetengo2/detail/unixos/config.h>
-#else
-#error Unsupported platform.
-#endif
+#include <tetengo2/detail/base/impl_set.h>
 #include <tetengo2/stdalt.h>
 
 
@@ -48,40 +42,21 @@ namespace tetengo2::config {
 
         tetengo2::stdalt::optional<value_type> get_impl(const string_type& key) const
         {
-            return details().get(m_group_name, key);
+            return detail::detail_impl_set().config_().get(m_group_name, key);
         }
 
         void set_impl(const string_type& key, value_type value)
         {
-            return details().set(m_group_name, key, std::move(value));
+            return detail::detail_impl_set().config_().set(m_group_name, key, std::move(value));
         }
 
         void clear_impl()
         {
-            return details().clear(m_group_name);
+            return detail::detail_impl_set().config_().clear(m_group_name);
         }
 
 
     private:
-        // types
-
-        using config_details_type = detail::base::config;
-
-
-        // static functions
-
-        static const config_details_type& details()
-        {
-#if BOOST_OS_WINDOWS
-            return detail::windows::config::instance();
-#elif BOOST_OS_LINUX
-            return detail::unixos::config::instance();
-#else
-#error Unsupported platform.
-#endif
-        }
-
-
         // variables
 
         const string_type m_group_name;
