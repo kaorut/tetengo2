@@ -12,6 +12,7 @@
 #include <tetengo2/detail/base/impl_set.h>
 
 namespace tetengo2::detail::base {
+    class config;
     class encoding;
 }
 
@@ -48,6 +49,8 @@ namespace tetengo2::detail::windows {
 
 
         // virtual functions
+
+        virtual const base::config& config_impl() const override;
 
         virtual const base::encoding& encoding_impl() const override;
     };

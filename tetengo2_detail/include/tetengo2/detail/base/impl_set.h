@@ -14,6 +14,7 @@
 
 namespace tetengo2::detail {
     namespace base {
+        class config;
         class encoding;
 
 
@@ -34,6 +35,13 @@ namespace tetengo2::detail {
             // functions
 
             /*!
+                \brief Returns the detail implementation of config.
+
+                \return The detail implementation.
+            */
+            const config& config_() const;
+
+            /*!
                 \brief Returns the detail implementation of encoding.
 
                 \return The detail implementation.
@@ -52,6 +60,8 @@ namespace tetengo2::detail {
 
         private:
             // virtual functions
+
+            virtual const config& config_impl() const = 0;
 
             virtual const encoding& encoding_impl() const = 0;
         };

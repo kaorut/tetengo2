@@ -14,6 +14,7 @@
 
 
 namespace tetengo2::detail::base {
+    class config;
     class encoding;
 }
 
@@ -21,6 +22,11 @@ namespace tetengo2::detail::base {
 namespace tetengo2::detail {
     namespace base {
         impl_set::~impl_set() = default;
+
+        const config& impl_set::config_() const
+        {
+            return config_impl();
+        }
 
         const encoding& impl_set::encoding_() const
         {
