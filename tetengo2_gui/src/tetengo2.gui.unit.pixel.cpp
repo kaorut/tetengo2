@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <boost/core/swap.hpp> // IWYU pragma: keep
 #include <boost/rational.hpp>
 
 #include <tetengo2/gui/unit/pixel.h>
