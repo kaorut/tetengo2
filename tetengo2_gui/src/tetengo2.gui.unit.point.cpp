@@ -7,14 +7,9 @@
 */
 
 #include <boost/core/swap.hpp> // IWYU pragma: keep
-#include <boost/predef.h>
 
 #include <tetengo2/detail/base/gui_impl_set.h>
-#include <tetengo2/detail/base/unit.h>
-#include <tetengo2/detail/stub/unit.h> // IWYU pragma: keep
-#if BOOST_OS_WINDOWS
-#include <tetengo2/detail/windows/unit.h> // IWYU pragma: keep
-#endif
+#include <tetengo2/detail/base/unit.h> // IWYU pragma: keep
 #include <tetengo2/gui/unit/point.h>
 #include <tetengo2/type_list.h>
 
