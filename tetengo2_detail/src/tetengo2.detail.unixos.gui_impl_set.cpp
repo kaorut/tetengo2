@@ -19,6 +19,7 @@ namespace tetengo2::detail::base {
     class gui_fixture;
     class icon;
     class shell;
+    class system_color;
     class unit;
 }
 
@@ -59,6 +60,12 @@ namespace tetengo2::detail::unixos {
     }
 
     const base::shell& gui_impl_set::shell_impl() const
+    {
+        assert(false);
+        throw std::logic_error("No implementation.");
+    }
+
+    const base::system_color& gui_impl_set::system_color_impl() const
     {
         assert(false);
         throw std::logic_error("No implementation.");
