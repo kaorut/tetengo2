@@ -10,9 +10,11 @@
 
 #include <tetengo2/detail/base/config.h>
 #include <tetengo2/detail/base/encoding.h>
+#include <tetengo2/detail/base/messages.h>
 #include <tetengo2/detail/windows/config.h>
 #include <tetengo2/detail/windows/encoding.h>
 #include <tetengo2/detail/windows/impl_set.h>
+#include <tetengo2/detail/windows/messages.h>
 
 
 namespace tetengo2::detail::windows {
@@ -34,5 +36,10 @@ namespace tetengo2::detail::windows {
     const base::encoding& impl_set::encoding_impl() const
     {
         return encoding::instance();
+    }
+
+    const base::messages& impl_set::messages_impl() const
+    {
+        return messages::instance();
     }
 }

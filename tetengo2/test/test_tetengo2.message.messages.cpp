@@ -88,12 +88,14 @@ namespace {
     const std::locale locale_ja = make_locale("Japanese_Japan");
 
     const std::locale locale_zh = make_locale("Chinese");
-#else
+#elif BOOST_OS_LINUX
     const std::locale locale_en = make_locale("en_US");
 
     const std::locale locale_ja = make_locale("ja_JP.UTF-8");
 
     const std::locale locale_zh = make_locale("zh_CN");
+#else
+#error Unsupported platform.
 #endif
 }
 

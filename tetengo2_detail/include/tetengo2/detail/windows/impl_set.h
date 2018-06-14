@@ -14,6 +14,7 @@
 namespace tetengo2::detail::base {
     class config;
     class encoding;
+    class messages;
 }
 
 
@@ -53,6 +54,8 @@ namespace tetengo2::detail::windows {
         virtual const base::config& config_impl() const override;
 
         virtual const base::encoding& encoding_impl() const override;
+
+        virtual const base::messages& messages_impl() const override;
     };
 }
 

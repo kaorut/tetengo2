@@ -19,6 +19,7 @@ namespace tetengo2::detail::base {
     class gui_fixture;
     class icon;
     class shell;
+    class system_color;
     class unit;
 }
 
@@ -65,6 +66,8 @@ namespace tetengo2::detail::unixos {
         virtual const base::icon& icon_impl() const override;
 
         virtual const base::shell& shell_impl() const override;
+
+        virtual const base::system_color& system_color_impl() const override;
 
         virtual const base::unit& unit_impl() const override;
     };

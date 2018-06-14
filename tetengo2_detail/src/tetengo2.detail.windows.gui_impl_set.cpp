@@ -11,6 +11,9 @@
 #include <tetengo2/detail/base/alert.h>
 #include <tetengo2/detail/base/cursor.h>
 #include <tetengo2/detail/base/gui_fixture.h>
+#include <tetengo2/detail/base/icon.h>
+#include <tetengo2/detail/base/shell.h>
+#include <tetengo2/detail/base/system_color.h>
 #include <tetengo2/detail/base/unit.h>
 #include <tetengo2/detail/windows/alert.h>
 #include <tetengo2/detail/windows/cursor.h>
@@ -18,6 +21,7 @@
 #include <tetengo2/detail/windows/gui_impl_set.h>
 #include <tetengo2/detail/windows/icon.h>
 #include <tetengo2/detail/windows/shell.h>
+#include <tetengo2/detail/windows/system_color.h>
 #include <tetengo2/detail/windows/unit.h>
 
 
@@ -55,6 +59,11 @@ namespace tetengo2::detail::windows {
     const base::shell& gui_impl_set::shell_impl() const
     {
         return shell::instance();
+    }
+
+    const base::system_color& gui_impl_set::system_color_impl() const
+    {
+        return system_color::instance();
     }
 
     const base::unit& gui_impl_set::unit_impl() const

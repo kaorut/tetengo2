@@ -8,9 +8,11 @@
 
 #include <tetengo2/detail/base/config.h>
 #include <tetengo2/detail/base/encoding.h>
+#include <tetengo2/detail/base/messages.h>
 #include <tetengo2/detail/unixos/config.h>
 #include <tetengo2/detail/unixos/encoding.h>
 #include <tetengo2/detail/unixos/impl_set.h>
+#include <tetengo2/detail/unixos/messages.h>
 
 
 namespace tetengo2::detail::unixos {
@@ -32,5 +34,10 @@ namespace tetengo2::detail::unixos {
     const base::encoding& impl_set::encoding_impl() const
     {
         return encoding::instance();
+    }
+
+    const base::messages& impl_set::messages_impl() const
+    {
+        return messages::instance();
     }
 }

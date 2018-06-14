@@ -16,6 +16,7 @@ namespace tetengo2::detail {
     namespace base {
         class config;
         class encoding;
+        class messages;
 
 
         /*!
@@ -48,6 +49,13 @@ namespace tetengo2::detail {
             */
             const encoding& encoding_() const;
 
+            /*!
+                \brief Returns the detail implementation of messages facet.
+
+                \return The detail implementation.
+            */
+            const messages& messages_() const;
+
 
         protected:
             // constructors
@@ -64,6 +72,8 @@ namespace tetengo2::detail {
             virtual const config& config_impl() const = 0;
 
             virtual const encoding& encoding_impl() const = 0;
+
+            virtual const messages& messages_impl() const = 0;
         };
     }
 

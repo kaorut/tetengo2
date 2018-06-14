@@ -11,33 +11,20 @@
 
 #include <type_traits>
 
-#include <boost/predef.h>
 #include <boost/rational.hpp>
 
 #include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/type_list.h>
-
-namespace tetengo2::detail {
-    namespace stub {
-        class unit;
-    }
-#if BOOST_OS_WINDOWS
-    namespace windows {
-        class unit;
-    }
-#endif
-}
 
 
 namespace tetengo2::gui::unit {
     /*!
         \brief The class template for an EM height unit.
 
-        \tparam IntValue    A integer value type.
-        \tparam UnitDetails A unit details type.
+        \tparam IntValue A integer value type.
    */
-    template <typename IntValue, typename UnitDetails>
-    class basic_em : public unit<basic_em<IntValue, UnitDetails>, IntValue>
+    template <typename IntValue>
+    class basic_em : public unit<basic_em<IntValue>, IntValue>
     {
     public:
         // types
@@ -47,9 +34,6 @@ namespace tetengo2::gui::unit {
 
         //! The value type.
         using value_type = boost::rational<int_value_type>;
-
-        //! The unit details type.
-        using unit_details_type = UnitDetails;
 
 
         // static functions
@@ -64,7 +48,7 @@ namespace tetengo2::gui::unit {
             \return A em unit.
         */
         template <typename IV>
-        static basic_em from(const basic_em<IV, unit_details_type>& another)
+        static basic_em from(const basic_em<IV>& another)
         {
             return basic_em{ cast<value_type>(another.value()) };
         }
@@ -99,8 +83,7 @@ namespace tetengo2::gui::unit {
         /*!
             \brief Checks whether one EM height unit is equal to another.
 
-            \tparam IV  An integer value type.
-            \tparam UD  A unit details_type.
+            \tparam IV An integer value type.
 
             \param one     One EM height unit.
             \param another Another value in EM height unit.
@@ -108,14 +91,13 @@ namespace tetengo2::gui::unit {
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        template <typename IV, typename UD>
-        friend bool operator==(const basic_em<IV, UD>& one, const typename basic_em<IV, UD>::value_type& another);
+        template <typename IV>
+        friend bool operator==(const basic_em<IV>& one, const typename basic_em<IV>::value_type& another);
 
         /*!
             \brief Checks whether one EM height unit is less than another.
 
-            \tparam IV  An integer value type.
-            \tparam UD  A unit details_type.
+            \tparam IV An integer value type.
 
             \param one     One EM height unit.
             \param another Another value in EM height unit.
@@ -123,14 +105,13 @@ namespace tetengo2::gui::unit {
             \retval true  When the one is less than the other.
             \retval false Otherwise.
         */
-        template <typename IV, typename UD>
-        friend bool operator<(const basic_em<IV, UD>& one, const typename basic_em<IV, UD>::value_type& another);
+        template <typename IV>
+        friend bool operator<(const basic_em<IV>& one, const typename basic_em<IV>::value_type& another);
 
         /*!
             \brief Checks whether one EM height unit is greater than another.
 
-            \tparam IV  An integer value type.
-            \tparam UD  A unit details_type.
+            \tparam IV An integer value type.
 
             \param one     One EM height unit.
             \param another Another value in EM height unit.
@@ -138,8 +119,8 @@ namespace tetengo2::gui::unit {
             \retval true  When the one is greater than the other.
             \retval false Otherwise.
         */
-        template <typename IV, typename UD>
-        friend bool operator>(const basic_em<IV, UD>& one, const typename basic_em<IV, UD>::value_type& another);
+        template <typename IV>
+        friend bool operator>(const basic_em<IV>& one, const typename basic_em<IV>::value_type& another);
 
         /*!
             \brief Adds another value in EM height unit.
@@ -224,21 +205,11 @@ namespace tetengo2::gui::unit {
     };
 
 
-#if BOOST_OS_WINDOWS
     //! The signed em type.
-    using em = basic_em<type_list::difference_type, detail::windows::unit>;
+    using em = basic_em<type_list::difference_type>;
 
     //! The unsigned em type.
-    using uem = basic_em<type_list::size_type, detail::windows::unit>;
-#elif BOOST_OS_LINUX
-    //! The signed em type.
-    using em = basic_em<type_list::difference_type, detail::stub::unit>;
-
-    //! The unsigned em type.
-    using uem = basic_em<type_list::size_type, detail::stub::unit>;
-#else
-#error Unsupported platform.
-#endif
+    using uem = basic_em<type_list::size_type>;
 }
 
 
