@@ -17,6 +17,9 @@ echo Skipping the unit test...
 )
 </Command>
     </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>comctl32.lib;gdiplus.lib;d2d1.lib;dwrite.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>

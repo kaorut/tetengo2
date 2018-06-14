@@ -9,6 +9,8 @@
 #include <boost/core/swap.hpp> // IWYU pragma: keep
 #include <boost/predef.h>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/unit.h>
 #include <tetengo2/detail/stub/unit.h> // IWYU pragma: keep
 #if BOOST_OS_WINDOWS
 #include <tetengo2/detail/windows/unit.h> // IWYU pragma: keep
@@ -21,7 +23,7 @@ namespace tetengo2::gui::unit {
     template <typename IntValue, typename UnitDetails>
     basic_point<IntValue, UnitDetails> basic_point<IntValue, UnitDetails>::from_pixels(const int_value_type value)
     {
-        return basic_point{ unit_details_type::instance().to_point(value) };
+        return basic_point{ detail::gui_detail_impl_set().unit_().to_point(value) };
     }
 
     template <typename IntValue, typename UnitDetails>
@@ -110,7 +112,7 @@ namespace tetengo2::gui::unit {
     template <typename IntValue, typename UnitDetails>
     typename basic_point<IntValue, UnitDetails>::int_value_type basic_point<IntValue, UnitDetails>::to_pixels() const
     {
-        return unit_details_type::instance().template point_to_pixel<int_value_type>(m_value);
+        return detail::gui_detail_impl_set().unit_().template point_to_pixel<int_value_type>(m_value);
     }
 
 
