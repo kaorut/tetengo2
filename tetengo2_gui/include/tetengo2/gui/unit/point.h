@@ -11,33 +11,20 @@
 
 #include <type_traits>
 
-#include <boost/predef.h>
 #include <boost/rational.hpp>
 
 #include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/type_list.h>
-
-namespace tetengo2::detail {
-    namespace stub {
-        class unit;
-    }
-#if BOOST_OS_WINDOWS
-    namespace windows {
-        class unit;
-    }
-#endif
-}
 
 
 namespace tetengo2::gui::unit {
     /*!
         \brief The class template for a point unit.
 
-        \tparam IntValue    A integer value type.
-        \tparam UnitDetails A unit details type.
+        \tparam IntValue A integer value type.
    */
-    template <typename IntValue, typename UnitDetails>
-    class basic_point : public unit<basic_point<IntValue, UnitDetails>, IntValue>
+    template <typename IntValue>
+    class basic_point : public unit<basic_point<IntValue>, IntValue>
     {
     public:
         // types
@@ -47,9 +34,6 @@ namespace tetengo2::gui::unit {
 
         //! The value type.
         using value_type = boost::rational<int_value_type>;
-
-        //! The unit details type.
-        using unit_details_type = UnitDetails;
 
 
         // static functions
@@ -64,7 +48,7 @@ namespace tetengo2::gui::unit {
             \return A point unit.
         */
         template <typename IV>
-        static basic_point from(const basic_point<IV, unit_details_type>& another)
+        static basic_point from(const basic_point<IV>& another)
         {
             return basic_point{ cast<value_type>(another.value()) };
         }
@@ -99,8 +83,7 @@ namespace tetengo2::gui::unit {
         /*!
             \brief Checks whether one point unit is equal to another.
 
-            \tparam IV  An integer value type.
-            \tparam UD  A unit details_type.
+            \tparam IV An integer value type.
 
             \param one     One point unit.
             \param another Another value in point unit.
@@ -108,14 +91,13 @@ namespace tetengo2::gui::unit {
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        template <typename IV, typename UD>
-        friend bool operator==(const basic_point<IV, UD>& one, const typename basic_point<IV, UD>::value_type& another);
+        template <typename IV>
+        friend bool operator==(const basic_point<IV>& one, const typename basic_point<IV>::value_type& another);
 
         /*!
             \brief Checks whether one point unit is less than another.
 
-            \tparam IV  An integer value type.
-            \tparam UD  A unit details_type.
+            \tparam IV An integer value type.
 
             \param one     One point unit.
             \param another Another value in point unit.
@@ -123,14 +105,13 @@ namespace tetengo2::gui::unit {
             \retval true  When the one is less than the other.
             \retval false Otherwise.
         */
-        template <typename IV, typename UD>
-        friend bool operator<(const basic_point<IV, UD>& one, const typename basic_point<IV, UD>::value_type& another);
+        template <typename IV>
+        friend bool operator<(const basic_point<IV>& one, const typename basic_point<IV>::value_type& another);
 
         /*!
             \brief Checks whether one point unit is greater than another.
 
-            \tparam IV  An integer value type.
-            \tparam UD  A unit details_type.
+            \tparam IV An integer value type.
 
             \param one     One point unit.
             \param another Another value in point unit.
@@ -138,8 +119,8 @@ namespace tetengo2::gui::unit {
             \retval true  When the one is greater than the other.
             \retval false Otherwise.
         */
-        template <typename IV, typename UD>
-        friend bool operator>(const basic_point<IV, UD>& one, const typename basic_point<IV, UD>::value_type& another);
+        template <typename IV>
+        friend bool operator>(const basic_point<IV>& one, const typename basic_point<IV>::value_type& another);
 
         /*!
             \brief Adds another value in point unit.
@@ -224,21 +205,11 @@ namespace tetengo2::gui::unit {
     };
 
 
-#if BOOST_OS_WINDOWS
     //! The signed point type.
-    using point = basic_point<type_list::difference_type, detail::windows::unit>;
+    using point = basic_point<type_list::difference_type>;
 
     //! The unsigned point type.
-    using upoint = basic_point<type_list::size_type, detail::windows::unit>;
-#elif BOOST_OS_LINUX
-    //! The signed point type.
-    using point = basic_point<type_list::difference_type, detail::stub::unit>;
-
-    //! The unsigned point type.
-    using upoint = basic_point<type_list::size_type, detail::stub::unit>;
-#else
-#error Unsupported platform.
-#endif
+    using upoint = basic_point<type_list::size_type>;
 }
 
 
