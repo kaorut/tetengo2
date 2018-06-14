@@ -9,15 +9,9 @@
 #include <memory>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/predef.h>
 
-#if BOOST_OS_WINDOWS
-#include <tetengo2/detail/windows/system_color.h>
-#elif BOOST_OS_LINUX
-#include <tetengo2/detail/stub/system_color.h>
-#else
-#error Unsupported platform.
-#endif
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/system_color.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 
 
@@ -43,70 +37,59 @@ namespace tetengo2::gui::drawing {
 
         const color_type& title_bar_background() const
         {
-            static const color_type singleton{ system_color_details_type::instance().get_system_color(
-                system_color_details_type::index_type::title_bar_background) };
+            static const color_type singleton{ detail::gui_detail_impl_set().system_color_().get_system_color(
+                detail::base::system_color::index_type::title_bar_background) };
             return singleton;
         }
 
         const color_type& title_bar_text() const
         {
-            static const color_type singleton{ system_color_details_type::instance().get_system_color(
-                system_color_details_type::index_type::title_bar_text) };
+            static const color_type singleton{ detail::gui_detail_impl_set().system_color_().get_system_color(
+                detail::base::system_color::index_type::title_bar_text) };
             return singleton;
         }
 
         const color_type& dialog_background() const
         {
-            static const color_type singleton{ system_color_details_type::instance().get_system_color(
-                system_color_details_type::index_type::dialog_background) };
+            static const color_type singleton{ detail::gui_detail_impl_set().system_color_().get_system_color(
+                detail::base::system_color::index_type::dialog_background) };
             return singleton;
         }
 
         const color_type& control_background() const
         {
-            static const color_type singleton{ system_color_details_type::instance().get_system_color(
-                system_color_details_type::index_type::control_background) };
+            static const color_type singleton{ detail::gui_detail_impl_set().system_color_().get_system_color(
+                detail::base::system_color::index_type::control_background) };
             return singleton;
         }
 
         const color_type& control_text() const
         {
-            static const color_type singleton{ system_color_details_type::instance().get_system_color(
-                system_color_details_type::index_type::control_text) };
+            static const color_type singleton{ detail::gui_detail_impl_set().system_color_().get_system_color(
+                detail::base::system_color::index_type::control_text) };
             return singleton;
         }
 
         const color_type& selected_background() const
         {
-            static const color_type singleton{ system_color_details_type::instance().get_system_color(
-                system_color_details_type::index_type::selected_background) };
+            static const color_type singleton{ detail::gui_detail_impl_set().system_color_().get_system_color(
+                detail::base::system_color::index_type::selected_background) };
             return singleton;
         }
 
         const color_type& selected_text() const
         {
-            static const color_type singleton{ system_color_details_type::instance().get_system_color(
-                system_color_details_type::index_type::selected_text) };
+            static const color_type singleton{ detail::gui_detail_impl_set().system_color_().get_system_color(
+                detail::base::system_color::index_type::selected_text) };
             return singleton;
         }
 
         const color_type& hyperlink_text() const
         {
-            static const color_type singleton{ system_color_details_type::instance().get_system_color(
-                system_color_details_type::index_type::hyperlink_text) };
+            static const color_type singleton{ detail::gui_detail_impl_set().system_color_().get_system_color(
+                detail::base::system_color::index_type::hyperlink_text) };
             return singleton;
         }
-
-    private:
-        // types
-
-#if BOOST_OS_WINDOWS
-        using system_color_details_type = detail::windows::system_color;
-#elif BOOST_OS_LINUX
-        using system_color_details_type = detail::stub::system_color;
-#else
-#error Unsupported platform.
-#endif
     };
 
 
