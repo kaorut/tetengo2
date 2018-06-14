@@ -16,6 +16,7 @@
 namespace tetengo2::detail::base {
     class config;
     class encoding;
+    class messages;
 }
 
 
@@ -31,6 +32,11 @@ namespace tetengo2::detail {
         const encoding& impl_set::encoding_() const
         {
             return encoding_impl();
+        }
+
+        const messages& impl_set::messages_() const
+        {
+            return messages_impl();
         }
 
         impl_set::impl_set() = default;

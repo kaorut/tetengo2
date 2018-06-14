@@ -15,6 +15,7 @@
 namespace tetengo2::detail::base {
     class config;
     class encoding;
+    class messages;
 }
 
 
@@ -36,6 +37,12 @@ namespace tetengo2::detail::stub {
     }
 
     const base::encoding& impl_set::encoding_impl() const
+    {
+        assert(false);
+        throw std::logic_error("No implementation.");
+    }
+
+    const base::messages& impl_set::messages_impl() const
     {
         assert(false);
         throw std::logic_error("No implementation.");
