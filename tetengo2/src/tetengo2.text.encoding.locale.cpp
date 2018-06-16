@@ -66,11 +66,11 @@ namespace tetengo2::text::encoding {
         {
             switch (detail::detail_impl_set().encoding_().pivot_type_())
             {
-            case detail::base::encoding::pivot_type_type::std_string:
+            case pivot_type_type::std_string:
                 if (tetengo2::stdalt::index(pivot) != 0)
                     pivot = std::string{};
                 return from_pivot_impl2(std::move(tetengo2::stdalt::get<std::string>(pivot)));
-            case detail::base::encoding::pivot_type_type::std_wstring:
+            case pivot_type_type::std_wstring:
                 if (tetengo2::stdalt::index(pivot) != 1)
                     pivot = std::wstring{};
                 return from_pivot_impl2(std::move(tetengo2::stdalt::get<std::wstring>(pivot)));
@@ -84,9 +84,9 @@ namespace tetengo2::text::encoding {
         {
             switch (detail::detail_impl_set().encoding_().pivot_type_())
             {
-            case detail::base::encoding::pivot_type_type::std_string:
+            case pivot_type_type::std_string:
                 return pivot_type{ to_pivot_impl2<std::string>(std::move(string)) };
-            case detail::base::encoding::pivot_type_type::std_wstring:
+            case pivot_type_type::std_wstring:
                 return pivot_type{ to_pivot_impl2<std::wstring>(std::move(string)) };
             default:
                 assert(false);
@@ -99,6 +99,8 @@ namespace tetengo2::text::encoding {
         // type
 
         using string_char_type = typename string_type::value_type;
+
+        using pivot_type_type = detail::base::encoding::pivot_type_type;
 
         template <typename Pivot>
         using converter_type = std::codecvt<typename Pivot::value_type, string_char_type, std::mbstate_t>;
