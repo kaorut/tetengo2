@@ -15,7 +15,6 @@
 #include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/detail/stub/cursor.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_bar.h>
@@ -51,8 +50,6 @@ namespace {
 
     using link_label_type =
         tetengo2::gui::widget::link_label<widget_traits_type, widget_details_traits_type, shell_details_type>;
-
-    using cursor_details_type = tetengo2::detail::stub::cursor;
 }
 
 
@@ -67,7 +64,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     window_type           parent{};
-                    const link_label_type label{ parent, cursor_details_type::instance() };
+                    const link_label_type label{ parent };
                 }
 
                 BOOST_AUTO_TEST_CASE(target)
@@ -75,7 +72,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     window_type           parent{};
-                    const link_label_type label{ parent, cursor_details_type::instance() };
+                    const link_label_type label{ parent };
 
                     BOOST_TEST(label.target().empty());
                 }
@@ -85,7 +82,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     window_type     parent{};
-                    link_label_type label{ parent, cursor_details_type::instance() };
+                    link_label_type label{ parent };
 
                     label.set_target(string_type{ TETENGO2_TEXT("http://www.tetengo.org") });
 

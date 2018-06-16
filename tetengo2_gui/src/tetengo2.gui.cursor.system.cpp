@@ -9,6 +9,8 @@
 #include <cassert>
 #include <memory>
 
+#include <tetengo2/detail/base/cursor.h>
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/cursor/cursor_base.h>
 #include <tetengo2/gui/cursor/system.h>
 #include <tetengo2/gui/cursor/system_cursor_style.h>
@@ -31,8 +33,8 @@ namespace tetengo2::gui::cursor {
 
         // constructors and destructor
 
-        impl(const style_type style, const cursor_details_type& cursor_details)
-        : m_style{ style }, m_p_details{ cursor_details.create_system_cursor(style) }
+        explicit impl(const style_type style)
+        : m_style{ style }, m_p_details{ detail::gui_detail_impl_set().cursor_().create_system_cursor(style) }
         {}
 
 
@@ -65,9 +67,7 @@ namespace tetengo2::gui::cursor {
     };
 
 
-    system::system(style_type style, const cursor_details_type& cursor_details)
-    : m_p_impl{ std::make_unique<impl>(style, cursor_details) }
-    {}
+    system::system(const style_type style) : m_p_impl{ std::make_unique<impl>(style) } {}
 
     system::~system() = default;
 

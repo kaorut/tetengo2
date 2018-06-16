@@ -21,7 +21,6 @@
 #include <boost/rational.hpp>
 #include <boost/throw_exception.hpp>
 
-#include <tetengo2/detail/base/cursor.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/message/list_selection_observer_set.h>
@@ -67,9 +66,6 @@ namespace tetengo2::gui::widget {
         //! The system cursor type.
         using system_cursor_type = typename base_type::system_cursor_type;
 
-        //! The cursor details type.
-        using cursor_details_type = detail::base::cursor;
-
         //! The integer size type.
         using size_type = typename base_type::size_type;
 
@@ -103,12 +99,11 @@ namespace tetengo2::gui::widget {
         /*!
             \brief Creates a map box.
 
-            \param parent         A parent widget.
-            \param cursor_details A cursor detail implementation.
+            \param parent A parent widget.
         */
-        explicit map_box(widget_type& parent, const cursor_details_type& cursor_details)
-        : base_type{ parent, true, scroll_bar_style_type::vertical }, m_cursor_details{ cursor_details },
-          m_splitter_position{ position_unit_type{ 8 } }, m_p_splitter{}, m_p_value_items{}, m_selected_value_index{},
+        explicit map_box(widget_type& parent)
+        : base_type{ parent, true, scroll_bar_style_type::vertical }, m_splitter_position{ position_unit_type{ 8 } },
+          m_p_splitter{}, m_p_value_items{}, m_selected_value_index{},
           m_list_selection_observer_call_requested{ false }, m_list_selection_observer_set{}
         {
             initialize_map_box(*this);
@@ -397,9 +392,7 @@ namespace tetengo2::gui::widget {
 
             virtual void mouse_entered_impl() override
             {
-                auto p_cursor = std::make_unique<system_cursor_type>(
-                    system_cursor_type::style_type::horizontal_resize,
-                    this->template parent_to<map_box>().m_cursor_details);
+                auto p_cursor = std::make_unique<system_cursor_type>(system_cursor_type::style_type::horizontal_resize);
                 this->parent().set_cursor(std::move(p_cursor));
             }
 
@@ -759,8 +752,6 @@ namespace tetengo2::gui::widget {
 
 
         // variables
-
-        const cursor_details_type& m_cursor_details;
 
         position_unit_type m_splitter_position;
 
