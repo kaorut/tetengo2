@@ -15,6 +15,7 @@
 #include <tetengo2/detail/base/shell.h>
 #include <tetengo2/detail/base/system_color.h>
 #include <tetengo2/detail/base/unit.h>
+#include <tetengo2/detail/base/virtual_key.h>
 #include <tetengo2/detail/stub/alert.h>
 #include <tetengo2/detail/stub/cursor.h>
 #include <tetengo2/detail/stub/gui_fixture.h>
@@ -23,6 +24,7 @@
 #include <tetengo2/detail/stub/shell.h>
 #include <tetengo2/detail/stub/system_color.h>
 #include <tetengo2/detail/stub/unit.h>
+#include <tetengo2/detail/stub/virtual_key.h>
 
 
 namespace tetengo2::detail::stub {
@@ -69,5 +71,10 @@ namespace tetengo2::detail::stub {
     const base::unit& gui_impl_set::unit_impl() const
     {
         return unit::instance();
+    }
+
+    const base::virtual_key& gui_impl_set::virtual_key_impl() const
+    {
+        return virtual_key::instance();
     }
 }

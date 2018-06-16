@@ -23,6 +23,7 @@ namespace tetengo2::detail {
         class shell;
         class system_color;
         class unit;
+        class virtual_key;
 
 
         /*!
@@ -90,6 +91,13 @@ namespace tetengo2::detail {
             */
             const unit& unit_() const;
 
+            /*!
+                \brief Returns the detail implementation of virtual key.
+
+                \return The detail implementation.
+            */
+            const virtual_key& virtual_key_() const;
+
 
         protected:
             // constructors
@@ -116,6 +124,8 @@ namespace tetengo2::detail {
             virtual const system_color& system_color_impl() const = 0;
 
             virtual const unit& unit_impl() const = 0;
+
+            virtual const virtual_key& virtual_key_impl() const = 0;
         };
     }
 
