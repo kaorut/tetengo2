@@ -22,6 +22,7 @@ namespace tetengo2::detail::base {
     class shell;
     class system_color;
     class unit;
+    class virtual_key;
 }
 
 
@@ -62,6 +63,11 @@ namespace tetengo2::detail {
         const unit& gui_impl_set::unit_() const
         {
             return unit_impl();
+        }
+
+        const virtual_key& gui_impl_set::virtual_key_() const
+        {
+            return virtual_key_impl();
         }
 
         gui_impl_set::gui_impl_set() = default;

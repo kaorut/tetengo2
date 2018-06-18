@@ -15,16 +15,8 @@
 #include <utility>
 #include <vector>
 
-#include <boost/predef.h>
-
-#if BOOST_OS_WINDOWS
-#include <tetengo2/detail/windows/virtual_key.h>
-#elif BOOST_OS_LINUX
-#include <tetengo2/detail/stub/virtual_key.h>
-#else
-#error Unsupported platform.
-#endif
-
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/virtual_key.h>
 #include <tetengo2/gui/virtual_key.h>
 
 
@@ -62,462 +54,462 @@ namespace tetengo2::gui {
 
         static const virtual_key& backspace()
         {
-            const auto p_key = find_by_code(details_type::instance().backspace().first);
+            const auto p_key = find_by_code(details().backspace().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& tab()
         {
-            const auto p_key = find_by_code(details_type::instance().tab().first);
+            const auto p_key = find_by_code(details().tab().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& enter()
         {
-            const auto p_key = find_by_code(details_type::instance().enter().first);
+            const auto p_key = find_by_code(details().enter().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& shift()
         {
-            const auto p_key = find_by_code(details_type::instance().shift().first);
+            const auto p_key = find_by_code(details().shift().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& control()
         {
-            const auto p_key = find_by_code(details_type::instance().control().first);
+            const auto p_key = find_by_code(details().control().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& meta()
         {
-            const auto p_key = find_by_code(details_type::instance().meta().first);
+            const auto p_key = find_by_code(details().meta().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& escape()
         {
-            const auto p_key = find_by_code(details_type::instance().escape().first);
+            const auto p_key = find_by_code(details().escape().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& space()
         {
-            const auto p_key = find_by_code(details_type::instance().space().first);
+            const auto p_key = find_by_code(details().space().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& page_up()
         {
-            const auto p_key = find_by_code(details_type::instance().page_up().first);
+            const auto p_key = find_by_code(details().page_up().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& page_down()
         {
-            const auto p_key = find_by_code(details_type::instance().page_down().first);
+            const auto p_key = find_by_code(details().page_down().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& end()
         {
-            const auto p_key = find_by_code(details_type::instance().end().first);
+            const auto p_key = find_by_code(details().end().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& home()
         {
-            const auto p_key = find_by_code(details_type::instance().home().first);
+            const auto p_key = find_by_code(details().home().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& left()
         {
-            const auto p_key = find_by_code(details_type::instance().left().first);
+            const auto p_key = find_by_code(details().left().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& up()
         {
-            const auto p_key = find_by_code(details_type::instance().up().first);
+            const auto p_key = find_by_code(details().up().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& right()
         {
-            const auto p_key = find_by_code(details_type::instance().right().first);
+            const auto p_key = find_by_code(details().right().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& down()
         {
-            const auto p_key = find_by_code(details_type::instance().down().first);
+            const auto p_key = find_by_code(details().down().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& insert()
         {
-            const auto p_key = find_by_code(details_type::instance().insert().first);
+            const auto p_key = find_by_code(details().insert().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& del()
         {
-            const auto p_key = find_by_code(details_type::instance().del().first);
+            const auto p_key = find_by_code(details().del().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_0()
         {
-            const auto p_key = find_by_code(details_type::instance().char_0().first);
+            const auto p_key = find_by_code(details().char_0().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_1()
         {
-            const auto p_key = find_by_code(details_type::instance().char_1().first);
+            const auto p_key = find_by_code(details().char_1().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_2()
         {
-            const auto p_key = find_by_code(details_type::instance().char_2().first);
+            const auto p_key = find_by_code(details().char_2().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_3()
         {
-            const auto p_key = find_by_code(details_type::instance().char_3().first);
+            const auto p_key = find_by_code(details().char_3().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_4()
         {
-            const auto p_key = find_by_code(details_type::instance().char_4().first);
+            const auto p_key = find_by_code(details().char_4().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_5()
         {
-            const auto p_key = find_by_code(details_type::instance().char_5().first);
+            const auto p_key = find_by_code(details().char_5().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_6()
         {
-            const auto p_key = find_by_code(details_type::instance().char_6().first);
+            const auto p_key = find_by_code(details().char_6().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_7()
         {
-            const auto p_key = find_by_code(details_type::instance().char_7().first);
+            const auto p_key = find_by_code(details().char_7().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_8()
         {
-            const auto p_key = find_by_code(details_type::instance().char_8().first);
+            const auto p_key = find_by_code(details().char_8().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_9()
         {
-            const auto p_key = find_by_code(details_type::instance().char_9().first);
+            const auto p_key = find_by_code(details().char_9().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_a()
         {
-            const auto p_key = find_by_code(details_type::instance().char_a().first);
+            const auto p_key = find_by_code(details().char_a().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_b()
         {
-            const auto p_key = find_by_code(details_type::instance().char_b().first);
+            const auto p_key = find_by_code(details().char_b().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_c()
         {
-            const auto p_key = find_by_code(details_type::instance().char_c().first);
+            const auto p_key = find_by_code(details().char_c().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_d()
         {
-            const auto p_key = find_by_code(details_type::instance().char_d().first);
+            const auto p_key = find_by_code(details().char_d().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_e()
         {
-            const auto p_key = find_by_code(details_type::instance().char_e().first);
+            const auto p_key = find_by_code(details().char_e().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_f()
         {
-            const auto p_key = find_by_code(details_type::instance().char_f().first);
+            const auto p_key = find_by_code(details().char_f().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_g()
         {
-            const auto p_key = find_by_code(details_type::instance().char_g().first);
+            const auto p_key = find_by_code(details().char_g().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_h()
         {
-            const auto p_key = find_by_code(details_type::instance().char_h().first);
+            const auto p_key = find_by_code(details().char_h().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_i()
         {
-            const auto p_key = find_by_code(details_type::instance().char_i().first);
+            const auto p_key = find_by_code(details().char_i().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_j()
         {
-            const auto p_key = find_by_code(details_type::instance().char_j().first);
+            const auto p_key = find_by_code(details().char_j().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_k()
         {
-            const auto p_key = find_by_code(details_type::instance().char_k().first);
+            const auto p_key = find_by_code(details().char_k().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_l()
         {
-            const auto p_key = find_by_code(details_type::instance().char_l().first);
+            const auto p_key = find_by_code(details().char_l().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_m()
         {
-            const auto p_key = find_by_code(details_type::instance().char_m().first);
+            const auto p_key = find_by_code(details().char_m().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_n()
         {
-            const auto p_key = find_by_code(details_type::instance().char_n().first);
+            const auto p_key = find_by_code(details().char_n().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_o()
         {
-            const auto p_key = find_by_code(details_type::instance().char_o().first);
+            const auto p_key = find_by_code(details().char_o().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_p()
         {
-            const auto p_key = find_by_code(details_type::instance().char_p().first);
+            const auto p_key = find_by_code(details().char_p().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_q()
         {
-            const auto p_key = find_by_code(details_type::instance().char_q().first);
+            const auto p_key = find_by_code(details().char_q().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_r()
         {
-            const auto p_key = find_by_code(details_type::instance().char_r().first);
+            const auto p_key = find_by_code(details().char_r().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_s()
         {
-            const auto p_key = find_by_code(details_type::instance().char_s().first);
+            const auto p_key = find_by_code(details().char_s().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_t()
         {
-            const auto p_key = find_by_code(details_type::instance().char_t().first);
+            const auto p_key = find_by_code(details().char_t().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_u()
         {
-            const auto p_key = find_by_code(details_type::instance().char_u().first);
+            const auto p_key = find_by_code(details().char_u().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_v()
         {
-            const auto p_key = find_by_code(details_type::instance().char_v().first);
+            const auto p_key = find_by_code(details().char_v().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_w()
         {
-            const auto p_key = find_by_code(details_type::instance().char_w().first);
+            const auto p_key = find_by_code(details().char_w().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_x()
         {
-            const auto p_key = find_by_code(details_type::instance().char_x().first);
+            const auto p_key = find_by_code(details().char_x().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_y()
         {
-            const auto p_key = find_by_code(details_type::instance().char_y().first);
+            const auto p_key = find_by_code(details().char_y().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& char_z()
         {
-            const auto p_key = find_by_code(details_type::instance().char_z().first);
+            const auto p_key = find_by_code(details().char_z().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& f1()
         {
-            const auto p_key = find_by_code(details_type::instance().f1().first);
+            const auto p_key = find_by_code(details().f1().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& f2()
         {
-            const auto p_key = find_by_code(details_type::instance().f2().first);
+            const auto p_key = find_by_code(details().f2().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& f3()
         {
-            const auto p_key = find_by_code(details_type::instance().f3().first);
+            const auto p_key = find_by_code(details().f3().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& f4()
         {
-            const auto p_key = find_by_code(details_type::instance().f4().first);
+            const auto p_key = find_by_code(details().f4().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& f5()
         {
-            const auto p_key = find_by_code(details_type::instance().f5().first);
+            const auto p_key = find_by_code(details().f5().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& f6()
         {
-            const auto p_key = find_by_code(details_type::instance().f6().first);
+            const auto p_key = find_by_code(details().f6().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& f7()
         {
-            const auto p_key = find_by_code(details_type::instance().f7().first);
+            const auto p_key = find_by_code(details().f7().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& f8()
         {
-            const auto p_key = find_by_code(details_type::instance().f8().first);
+            const auto p_key = find_by_code(details().f8().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& f9()
         {
-            const auto p_key = find_by_code(details_type::instance().f9().first);
+            const auto p_key = find_by_code(details().f9().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& f10()
         {
-            const auto p_key = find_by_code(details_type::instance().f10().first);
+            const auto p_key = find_by_code(details().f10().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& f11()
         {
-            const auto p_key = find_by_code(details_type::instance().f11().first);
+            const auto p_key = find_by_code(details().f11().first);
             assert(p_key);
             return *p_key;
         }
 
         static const virtual_key& f12()
         {
-            const auto p_key = find_by_code(details_type::instance().f12().first);
+            const auto p_key = find_by_code(details().f12().first);
             assert(p_key);
             return *p_key;
         }
@@ -536,7 +528,7 @@ namespace tetengo2::gui {
             std::transform(keys.begin(), keys.end(), std::back_inserter(key_strings), [](const virtual_key& key) {
                 return key.to_string();
             });
-            return details_type::instance().to_combined_string(key_strings);
+            return details().to_combined_string(key_strings);
         }
 
 
@@ -563,16 +555,13 @@ namespace tetengo2::gui {
 
         using key_map_type = std::unordered_map<code_type, virtual_key>;
 
-#if BOOST_OS_WINDOWS
-        using details_type = detail::windows::virtual_key;
-#elif BOOST_OS_LINUX
-        using details_type = detail::stub::virtual_key;
-#else
-#error Unsupported platform.
-#endif
 
         // static functions
 
+        static const detail::base::virtual_key& details()
+        {
+            return detail::gui_detail_impl_set().virtual_key_();
+        }
 
         static const key_map_type& key_map()
         {
@@ -584,72 +573,72 @@ namespace tetengo2::gui {
         {
             key_map_type key_map{};
 
-            insert_key(key_map, details_type::instance().backspace());
-            insert_key(key_map, details_type::instance().tab());
-            insert_key(key_map, details_type::instance().enter());
-            insert_key(key_map, details_type::instance().shift());
-            insert_key(key_map, details_type::instance().control());
-            insert_key(key_map, details_type::instance().meta());
-            insert_key(key_map, details_type::instance().escape());
-            insert_key(key_map, details_type::instance().space());
-            insert_key(key_map, details_type::instance().page_up());
-            insert_key(key_map, details_type::instance().page_down());
-            insert_key(key_map, details_type::instance().end());
-            insert_key(key_map, details_type::instance().home());
-            insert_key(key_map, details_type::instance().left());
-            insert_key(key_map, details_type::instance().up());
-            insert_key(key_map, details_type::instance().right());
-            insert_key(key_map, details_type::instance().down());
-            insert_key(key_map, details_type::instance().insert());
-            insert_key(key_map, details_type::instance().del());
-            insert_key(key_map, details_type::instance().char_0());
-            insert_key(key_map, details_type::instance().char_1());
-            insert_key(key_map, details_type::instance().char_2());
-            insert_key(key_map, details_type::instance().char_3());
-            insert_key(key_map, details_type::instance().char_4());
-            insert_key(key_map, details_type::instance().char_5());
-            insert_key(key_map, details_type::instance().char_6());
-            insert_key(key_map, details_type::instance().char_7());
-            insert_key(key_map, details_type::instance().char_8());
-            insert_key(key_map, details_type::instance().char_9());
-            insert_key(key_map, details_type::instance().char_a());
-            insert_key(key_map, details_type::instance().char_b());
-            insert_key(key_map, details_type::instance().char_c());
-            insert_key(key_map, details_type::instance().char_d());
-            insert_key(key_map, details_type::instance().char_e());
-            insert_key(key_map, details_type::instance().char_f());
-            insert_key(key_map, details_type::instance().char_g());
-            insert_key(key_map, details_type::instance().char_h());
-            insert_key(key_map, details_type::instance().char_i());
-            insert_key(key_map, details_type::instance().char_j());
-            insert_key(key_map, details_type::instance().char_k());
-            insert_key(key_map, details_type::instance().char_l());
-            insert_key(key_map, details_type::instance().char_m());
-            insert_key(key_map, details_type::instance().char_n());
-            insert_key(key_map, details_type::instance().char_o());
-            insert_key(key_map, details_type::instance().char_p());
-            insert_key(key_map, details_type::instance().char_q());
-            insert_key(key_map, details_type::instance().char_r());
-            insert_key(key_map, details_type::instance().char_s());
-            insert_key(key_map, details_type::instance().char_t());
-            insert_key(key_map, details_type::instance().char_u());
-            insert_key(key_map, details_type::instance().char_v());
-            insert_key(key_map, details_type::instance().char_w());
-            insert_key(key_map, details_type::instance().char_x());
-            insert_key(key_map, details_type::instance().char_y());
-            insert_key(key_map, details_type::instance().char_z());
-            insert_key(key_map, details_type::instance().f1());
-            insert_key(key_map, details_type::instance().f2());
-            insert_key(key_map, details_type::instance().f3());
-            insert_key(key_map, details_type::instance().f4());
-            insert_key(key_map, details_type::instance().f5());
-            insert_key(key_map, details_type::instance().f6());
-            insert_key(key_map, details_type::instance().f7());
-            insert_key(key_map, details_type::instance().f8());
-            insert_key(key_map, details_type::instance().f9());
-            insert_key(key_map, details_type::instance().f10());
-            insert_key(key_map, details_type::instance().f11());
-            insert_key(key_map, details_type::instance().f12());
+            insert_key(key_map, details().backspace());
+            insert_key(key_map, details().tab());
+            insert_key(key_map, details().enter());
+            insert_key(key_map, details().shift());
+            insert_key(key_map, details().control());
+            insert_key(key_map, details().meta());
+            insert_key(key_map, details().escape());
+            insert_key(key_map, details().space());
+            insert_key(key_map, details().page_up());
+            insert_key(key_map, details().page_down());
+            insert_key(key_map, details().end());
+            insert_key(key_map, details().home());
+            insert_key(key_map, details().left());
+            insert_key(key_map, details().up());
+            insert_key(key_map, details().right());
+            insert_key(key_map, details().down());
+            insert_key(key_map, details().insert());
+            insert_key(key_map, details().del());
+            insert_key(key_map, details().char_0());
+            insert_key(key_map, details().char_1());
+            insert_key(key_map, details().char_2());
+            insert_key(key_map, details().char_3());
+            insert_key(key_map, details().char_4());
+            insert_key(key_map, details().char_5());
+            insert_key(key_map, details().char_6());
+            insert_key(key_map, details().char_7());
+            insert_key(key_map, details().char_8());
+            insert_key(key_map, details().char_9());
+            insert_key(key_map, details().char_a());
+            insert_key(key_map, details().char_b());
+            insert_key(key_map, details().char_c());
+            insert_key(key_map, details().char_d());
+            insert_key(key_map, details().char_e());
+            insert_key(key_map, details().char_f());
+            insert_key(key_map, details().char_g());
+            insert_key(key_map, details().char_h());
+            insert_key(key_map, details().char_i());
+            insert_key(key_map, details().char_j());
+            insert_key(key_map, details().char_k());
+            insert_key(key_map, details().char_l());
+            insert_key(key_map, details().char_m());
+            insert_key(key_map, details().char_n());
+            insert_key(key_map, details().char_o());
+            insert_key(key_map, details().char_p());
+            insert_key(key_map, details().char_q());
+            insert_key(key_map, details().char_r());
+            insert_key(key_map, details().char_s());
+            insert_key(key_map, details().char_t());
+            insert_key(key_map, details().char_u());
+            insert_key(key_map, details().char_v());
+            insert_key(key_map, details().char_w());
+            insert_key(key_map, details().char_x());
+            insert_key(key_map, details().char_y());
+            insert_key(key_map, details().char_z());
+            insert_key(key_map, details().f1());
+            insert_key(key_map, details().f2());
+            insert_key(key_map, details().f3());
+            insert_key(key_map, details().f4());
+            insert_key(key_map, details().f5());
+            insert_key(key_map, details().f6());
+            insert_key(key_map, details().f7());
+            insert_key(key_map, details().f8());
+            insert_key(key_map, details().f9());
+            insert_key(key_map, details().f10());
+            insert_key(key_map, details().f11());
+            insert_key(key_map, details().f12());
 
             return key_map;
         }

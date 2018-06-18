@@ -11,7 +11,6 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/detail/stub/icon.h>
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/unit/em.h>
@@ -26,8 +25,6 @@ namespace {
     // types
 
     using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
-
-    using icon_details_type = detail_type_list_type::icon_type;
 
     using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
@@ -61,13 +58,11 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 BOOST_TEST_PASSPOINT();
 
                 {
-                    const icon_type icon{ path_type{ path_string_type{ TETENGO2_TEXT("hoge.ico") } },
-                                          icon_details_type::instance() };
+                    const icon_type icon{ path_type{ path_string_type{ TETENGO2_TEXT("hoge.ico") } } };
                 }
                 {
                     const icon_type icon{ path_type{ path_string_type{ TETENGO2_TEXT("hoge.ico") } },
-                                          make_dimension(42, 42),
-                                          icon_details_type::instance() };
+                                          make_dimension(42, 42) };
                 }
             }
 
@@ -75,8 +70,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
             {
                 BOOST_TEST_PASSPOINT();
 
-                const icon_type icon{ path_type{ path_string_type{ TETENGO2_TEXT("hoge.ico") } },
-                                      icon_details_type::instance() };
+                const icon_type icon{ path_type{ path_string_type{ TETENGO2_TEXT("hoge.ico") } } };
 
                 BOOST_CHECK(icon.path() == path_type{ path_string_type{ TETENGO2_TEXT("hoge.ico") } });
             }
@@ -86,8 +80,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 BOOST_TEST_PASSPOINT();
 
                 const icon_type icon{ path_type{ path_string_type{ TETENGO2_TEXT("hoge.ico") } },
-                                      make_dimension(42, 42),
-                                      icon_details_type::instance() };
+                                      make_dimension(42, 42) };
 
                 BOOST_CHECK(icon.dimension() == make_dimension(42, 42));
             }
@@ -97,14 +90,12 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 BOOST_TEST_PASSPOINT();
 
                 {
-                    const icon_type icon{ path_type{ path_string_type{ TETENGO2_TEXT("hoge.ico") } },
-                                          icon_details_type::instance() };
+                    const icon_type icon{ path_type{ path_string_type{ TETENGO2_TEXT("hoge.ico") } } };
 
                     icon.details();
                 }
                 {
-                    icon_type icon{ path_type{ path_string_type{ TETENGO2_TEXT("hoge.ico") } },
-                                    icon_details_type::instance() };
+                    icon_type icon{ path_type{ path_string_type{ TETENGO2_TEXT("hoge.ico") } } };
 
                     icon.details();
                 }

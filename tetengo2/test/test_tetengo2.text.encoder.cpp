@@ -26,6 +26,8 @@
 namespace {
     // types
 
+    using pivot_type_type = tetengo2::detail::base::encoding::pivot_type_type;
+
     class concrete_encoding : public tetengo2::text::encoding::encoding<std::string>
     {
     private:
@@ -39,14 +41,14 @@ namespace {
         {
             switch (tetengo2::detail::detail_impl_set().encoding_().pivot_type_())
             {
-            case tetengo2::detail::base::encoding::pivot_type_type::std_string:
+            case pivot_type_type::std_string:
                 if (tetengo2::stdalt::index(pivot) != 0)
                     pivot = std::string{};
                 return string_type(
                            tetengo2::stdalt::get<std::string>(pivot).begin(),
                            tetengo2::stdalt::get<std::string>(pivot).end()) +
                        string_type{ TETENGO2_TEXT("+ConcreteFromPivot") };
-            case tetengo2::detail::base::encoding::pivot_type_type::std_wstring:
+            case pivot_type_type::std_wstring:
                 if (tetengo2::stdalt::index(pivot) != 1)
                     pivot = std::wstring{};
                 return string_type(
@@ -63,9 +65,9 @@ namespace {
         {
             switch (tetengo2::detail::detail_impl_set().encoding_().pivot_type_())
             {
-            case tetengo2::detail::base::encoding::pivot_type_type::std_string:
+            case pivot_type_type::std_string:
                 return std::string(string.begin(), string.end()) + std::string{ TETENGO2_TEXT("+ConcreteToPivot") };
-            case tetengo2::detail::base::encoding::pivot_type_type::std_wstring:
+            case pivot_type_type::std_wstring:
                 return std::wstring(string.begin(), string.end()) + std::wstring{ TETENGO2_TEXT("+ConcreteToPivot") };
             default:
                 assert(false);
@@ -87,14 +89,14 @@ namespace {
         {
             switch (tetengo2::detail::detail_impl_set().encoding_().pivot_type_())
             {
-            case tetengo2::detail::base::encoding::pivot_type_type::std_string:
+            case pivot_type_type::std_string:
                 if (tetengo2::stdalt::index(pivot) != 0)
                     pivot = std::string{};
                 return string_type(
                            tetengo2::stdalt::get<std::string>(pivot).begin(),
                            tetengo2::stdalt::get<std::string>(pivot).end()) +
                        string_type{ TETENGO2_TEXT("+AnotherFromPivot") };
-            case tetengo2::detail::base::encoding::pivot_type_type::std_wstring:
+            case pivot_type_type::std_wstring:
                 if (tetengo2::stdalt::index(pivot) != 1)
                     pivot = std::wstring{};
                 return string_type(
@@ -111,9 +113,9 @@ namespace {
         {
             switch (tetengo2::detail::detail_impl_set().encoding_().pivot_type_())
             {
-            case tetengo2::detail::base::encoding::pivot_type_type::std_string:
+            case pivot_type_type::std_string:
                 return std::string(string.begin(), string.end()) + std::string{ TETENGO2_TEXT("+AnotherToPivot") };
-            case tetengo2::detail::base::encoding::pivot_type_type::std_wstring:
+            case pivot_type_type::std_wstring:
                 return std::wstring(string.begin(), string.end()) + std::wstring{ TETENGO2_TEXT("+AnotherToPivot") };
             default:
                 assert(false);
@@ -135,14 +137,14 @@ namespace {
         {
             switch (tetengo2::detail::detail_impl_set().encoding_().pivot_type_())
             {
-            case tetengo2::detail::base::encoding::pivot_type_type::std_string:
+            case pivot_type_type::std_string:
                 if (tetengo2::stdalt::index(pivot) != 0)
                     pivot = std::string{};
                 return string_type(
                            tetengo2::stdalt::get<std::string>(pivot).begin(),
                            tetengo2::stdalt::get<std::string>(pivot).end()) +
                        string_type{ TETENGO2_TEXT("+WideFromPivot") };
-            case tetengo2::detail::base::encoding::pivot_type_type::std_wstring:
+            case pivot_type_type::std_wstring:
                 if (tetengo2::stdalt::index(pivot) != 1)
                     pivot = std::wstring{};
                 return string_type(
@@ -159,9 +161,9 @@ namespace {
         {
             switch (tetengo2::detail::detail_impl_set().encoding_().pivot_type_())
             {
-            case tetengo2::detail::base::encoding::pivot_type_type::std_string:
+            case pivot_type_type::std_string:
                 return std::string(string.begin(), string.end()) + std::string{ TETENGO2_TEXT("+WideToPivot") };
-            case tetengo2::detail::base::encoding::pivot_type_type::std_wstring:
+            case pivot_type_type::std_wstring:
                 return std::wstring(string.begin(), string.end()) + std::wstring{ TETENGO2_TEXT("+WideToPivot") };
             default:
                 assert(false);

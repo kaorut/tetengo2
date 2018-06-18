@@ -37,58 +37,64 @@ namespace tetengo2::gui::drawing {
 
         const color_type& title_bar_background() const
         {
-            static const color_type singleton{ detail::gui_detail_impl_set().system_color_().get_system_color(
-                detail::base::system_color::index_type::title_bar_background) };
+            static const color_type singleton{ details().get_system_color(index_type::title_bar_background) };
             return singleton;
         }
 
         const color_type& title_bar_text() const
         {
-            static const color_type singleton{ detail::gui_detail_impl_set().system_color_().get_system_color(
-                detail::base::system_color::index_type::title_bar_text) };
+            static const color_type singleton{ details().get_system_color(index_type::title_bar_text) };
             return singleton;
         }
 
         const color_type& dialog_background() const
         {
-            static const color_type singleton{ detail::gui_detail_impl_set().system_color_().get_system_color(
-                detail::base::system_color::index_type::dialog_background) };
+            static const color_type singleton{ details().get_system_color(index_type::dialog_background) };
             return singleton;
         }
 
         const color_type& control_background() const
         {
-            static const color_type singleton{ detail::gui_detail_impl_set().system_color_().get_system_color(
-                detail::base::system_color::index_type::control_background) };
+            static const color_type singleton{ details().get_system_color(index_type::control_background) };
             return singleton;
         }
 
         const color_type& control_text() const
         {
-            static const color_type singleton{ detail::gui_detail_impl_set().system_color_().get_system_color(
-                detail::base::system_color::index_type::control_text) };
+            static const color_type singleton{ details().get_system_color(index_type::control_text) };
             return singleton;
         }
 
         const color_type& selected_background() const
         {
-            static const color_type singleton{ detail::gui_detail_impl_set().system_color_().get_system_color(
-                detail::base::system_color::index_type::selected_background) };
+            static const color_type singleton{ details().get_system_color(index_type::selected_background) };
             return singleton;
         }
 
         const color_type& selected_text() const
         {
-            static const color_type singleton{ detail::gui_detail_impl_set().system_color_().get_system_color(
-                detail::base::system_color::index_type::selected_text) };
+            static const color_type singleton{ details().get_system_color(index_type::selected_text) };
             return singleton;
         }
 
         const color_type& hyperlink_text() const
         {
-            static const color_type singleton{ detail::gui_detail_impl_set().system_color_().get_system_color(
-                detail::base::system_color::index_type::hyperlink_text) };
+            static const color_type singleton{ details().get_system_color(index_type::hyperlink_text) };
             return singleton;
+        }
+
+
+    private:
+        // types
+
+        using index_type = detail::base::system_color::index_type;
+
+
+        // static functions
+
+        static const detail::base::system_color& details()
+        {
+            return detail::gui_detail_impl_set().system_color_();
         }
     };
 

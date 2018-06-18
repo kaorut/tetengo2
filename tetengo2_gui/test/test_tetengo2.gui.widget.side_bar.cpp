@@ -15,7 +15,6 @@
 #include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/detail/stub/cursor.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_bar.h>
@@ -54,8 +53,6 @@ namespace {
         side_bar<widget_traits_type, widget_details_traits_type, mouse_capture_details_type, timer_details_type>;
 
     using dimension_unit_type = side_bar_type::dimension_unit_type;
-
-    using cursor_details_type = tetengo2::detail::stub::cursor;
 }
 
 
@@ -70,7 +67,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     window_type         parent{};
-                    const side_bar_type side_bar{ parent, cursor_details_type::instance() };
+                    const side_bar_type side_bar{ parent };
                 }
 
                 BOOST_AUTO_TEST_CASE(preferred_width)
@@ -78,7 +75,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     window_type   parent{};
-                    side_bar_type side_bar{ parent, cursor_details_type::instance() };
+                    side_bar_type side_bar{ parent };
 
                     side_bar.preferred_width();
                 }
@@ -88,7 +85,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     window_type   parent{};
-                    side_bar_type side_bar{ parent, cursor_details_type::instance() };
+                    side_bar_type side_bar{ parent };
 
                     side_bar.normal_preferred_width();
                 }
@@ -98,7 +95,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     window_type   parent{};
-                    side_bar_type side_bar{ parent, cursor_details_type::instance() };
+                    side_bar_type side_bar{ parent };
 
                     side_bar.set_width(dimension_unit_type{ 42 });
                 }
@@ -108,7 +105,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     window_type         parent{};
-                    const side_bar_type side_bar{ parent, cursor_details_type::instance() };
+                    const side_bar_type side_bar{ parent };
 
                     side_bar.minimized();
                 }
@@ -118,7 +115,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     window_type   parent{};
-                    side_bar_type side_bar{ parent, cursor_details_type::instance() };
+                    side_bar_type side_bar{ parent };
 
                     BOOST_TEST(!side_bar.minimized());
 
@@ -136,7 +133,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     window_type         parent{};
-                    const side_bar_type side_bar{ parent, cursor_details_type::instance() };
+                    const side_bar_type side_bar{ parent };
 
                     side_bar.child_control_area_position();
                 }
@@ -146,7 +143,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     window_type         parent{};
-                    const side_bar_type side_bar{ parent, cursor_details_type::instance() };
+                    const side_bar_type side_bar{ parent };
 
                     side_bar.child_control_area_dimension();
                 }

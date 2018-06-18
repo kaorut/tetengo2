@@ -44,10 +44,9 @@ namespace tetengo2::gui::cursor {
         /*!
             \brief Creates a system cursor.
 
-            \param style          A style.
-            \param cursor_details A cursor details type.
+            \param style A style.
         */
-        system(const style_type style, const cursor_details_type& cursor_details);
+        explicit system(style_type style);
 
         /*!
             \brief Destroys the system cursor.

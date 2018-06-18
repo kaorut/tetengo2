@@ -12,7 +12,6 @@
 #include <cassert>
 #include <memory>
 
-#include <tetengo2/detail/base/cursor.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/shell.h>
@@ -63,9 +62,6 @@ namespace tetengo2::gui::widget {
         //! The system cursor type.
         using system_cursor_type = typename base_type::system_cursor_type;
 
-        //! The cursor details type.
-        using cursor_details_type = detail::base::cursor;
-
         //! The mouse observer set type.
         using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
 
@@ -87,13 +83,11 @@ namespace tetengo2::gui::widget {
         /*!
             \brief Creates a link label.
 
-            \param parent         A parent widget.
-            \param cursor_details A cursor detail implementation.
+            \param parent A parent widget.
         */
-        link_label(widget_type& parent, const cursor_details_type& cursor_details)
-        : base_type{ parent }, m_target{}, m_mouse_button_pressing{ false }
+        explicit link_label(widget_type& parent) : base_type{ parent }, m_target{}, m_mouse_button_pressing{ false }
         {
-            initialize_link_label(this, cursor_details);
+            initialize_link_label(this);
         }
 
         /*!
@@ -157,7 +151,7 @@ namespace tetengo2::gui::widget {
 
         // static functions
 
-        static void initialize_link_label(link_label* const p_link_label, const cursor_details_type& cursor_details)
+        static void initialize_link_label(link_label* const p_link_label)
         {
             assert(p_link_label);
 
@@ -174,7 +168,7 @@ namespace tetengo2::gui::widget {
 
             p_link_label->set_text_color(system_color_set_type::instance().hyperlink_text());
 
-            auto p_cursor = std::make_unique<system_cursor_type>(system_cursor_type::style_type::hand, cursor_details);
+            auto p_cursor = std::make_unique<system_cursor_type>(system_cursor_type::style_type::hand);
             p_link_label->set_cursor(std::move(p_cursor));
 
             p_link_label->set_focusable(true);

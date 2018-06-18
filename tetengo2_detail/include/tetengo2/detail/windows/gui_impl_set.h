@@ -21,6 +21,7 @@ namespace tetengo2::detail::base {
     class shell;
     class system_color;
     class unit;
+    class virtual_key;
 }
 
 
@@ -70,6 +71,8 @@ namespace tetengo2::detail::windows {
         virtual const base::system_color& system_color_impl() const override;
 
         virtual const base::unit& unit_impl() const override;
+
+        virtual const base::virtual_key& virtual_key_impl() const override;
     };
 }
 
