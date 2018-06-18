@@ -46,10 +46,7 @@ namespace {
     using window_type =
         tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
 
-    using shell_details_type = detail_type_list_type::shell_type;
-
-    using link_label_type =
-        tetengo2::gui::widget::link_label<widget_traits_type, widget_details_traits_type, shell_details_type>;
+    using link_label_type = tetengo2::gui::widget::link_label<widget_traits_type, widget_details_traits_type>;
 }
 
 

@@ -14,7 +14,6 @@
 
 #include <boost/core/noncopyable.hpp>
 
-#include <tetengo2/detail/base/shell.h>
 #include <tetengo2/type_list.h>
 
 
@@ -30,18 +29,13 @@ namespace tetengo2::gui {
         //! The string type.
         using string_type = type_list::string_type;
 
-        //! The shell details type.
-        using shell_details_type = detail::base::shell;
-
 
         // constructors
 
         /*!
             \brief Creates a shell.
-
-            \param shell_details A detail implementation of a shell.
         */
-        explicit shell(const shell_details_type& shell_details);
+        shell();
 
         /*!
             \brief Destroys the shell.

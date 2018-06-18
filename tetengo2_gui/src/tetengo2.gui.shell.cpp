@@ -11,6 +11,8 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/shell.h>
 #include <tetengo2/gui/shell.h>
 
 
@@ -22,30 +24,17 @@ namespace tetengo2::gui {
 
         using string_type = shell::string_type;
 
-        using shell_details_type = shell::shell_details_type;
-
-
-        // constructors
-
-        explicit impl(const shell_details_type& shell_details) : m_shell_details{ shell_details } {}
-
 
         // functions
 
         bool execute(const string_type& command, const std::vector<string_type>& parameters) const
         {
-            return m_shell_details.execute(command, parameters);
+            return detail::gui_detail_impl_set().shell_().execute(command, parameters);
         }
-
-
-    private:
-        // variables
-
-        const shell_details_type& m_shell_details;
     };
 
 
-    shell::shell(const shell_details_type& shell_details) : m_p_impl{ std::make_unique<impl>(shell_details) } {}
+    shell::shell() : m_p_impl{ std::make_unique<impl>() } {}
 
     shell::~shell() = default;
 

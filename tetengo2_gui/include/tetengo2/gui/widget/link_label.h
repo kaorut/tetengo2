@@ -24,9 +24,8 @@ namespace tetengo2::gui::widget {
 
         \tparam Traits        A traits type.
         \tparam DetailsTraits A detail implementation type traits.
-        \tparam ShellDetails  A detail implementation type of a shell.
     */
-    template <typename Traits, typename DetailsTraits, typename ShellDetails>
+    template <typename Traits, typename DetailsTraits>
     class link_label : public label<Traits, DetailsTraits>
     {
     public:
@@ -40,9 +39,6 @@ namespace tetengo2::gui::widget {
 
         //! The drawing details type.
         using drawing_details_type = typename details_traits_type::drawing_details_type;
-
-        //! The shell details type.
-        using shell_details_type = ShellDetails;
 
         //! The base type.
         using base_type = label<traits_type, details_traits_type>;
@@ -224,7 +220,7 @@ namespace tetengo2::gui::widget {
 
         void open_target() const
         {
-            shell_type{ shell_details_type::instance() }.execute(m_target);
+            shell_type{}.execute(m_target);
         }
     };
 }
