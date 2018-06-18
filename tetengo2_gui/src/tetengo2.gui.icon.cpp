@@ -86,8 +86,7 @@ namespace tetengo2::gui {
     };
 
 
-    icon::icon(tetengo2::stdalt::filesystem::path path) : m_p_impl{ std::make_unique<impl>(std::move(path)) }
-    {}
+    icon::icon(tetengo2::stdalt::filesystem::path path) : m_p_impl{ std::make_unique<impl>(std::move(path)) } {}
 
     icon::icon(tetengo2::stdalt::filesystem::path path, dimension_type dimension)
     : m_p_impl{ std::make_unique<impl>(std::move(path), std::move(dimension)) }
