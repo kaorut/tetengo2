@@ -12,6 +12,8 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/icon.h>
 #include <tetengo2/gui/icon.h>
 #include <tetengo2/stdalt.h>
 
@@ -31,15 +33,14 @@ namespace tetengo2::gui {
 
         // constructors and destructor
 
-        impl(tetengo2::stdalt::filesystem::path path, const details_type& details)
-        : m_path{ std::move(path) }, m_dimension{ details.default_dimension() }, m_p_icon_details{
-              details.create(m_path, m_dimension)
-          }
+        explicit impl(tetengo2::stdalt::filesystem::path path)
+        : m_path{ std::move(path) }, m_dimension{ detail::gui_detail_impl_set().icon_().default_dimension() },
+          m_p_icon_details{ detail::gui_detail_impl_set().icon_().create(m_path, m_dimension) }
         {}
 
-        impl(tetengo2::stdalt::filesystem::path path, dimension_type dimension, const details_type& details)
+        impl(tetengo2::stdalt::filesystem::path path, dimension_type dimension)
         : m_path{ std::move(path) }, m_dimension{ std::move(dimension) }, m_p_icon_details{
-              details.create(m_path, m_dimension)
+              detail::gui_detail_impl_set().icon_().create(m_path, m_dimension)
           }
         {}
 
@@ -85,12 +86,11 @@ namespace tetengo2::gui {
     };
 
 
-    icon::icon(tetengo2::stdalt::filesystem::path path, const details_type& details)
-    : m_p_impl{ std::make_unique<impl>(std::move(path), details) }
+    icon::icon(tetengo2::stdalt::filesystem::path path) : m_p_impl{ std::make_unique<impl>(std::move(path)) }
     {}
 
-    icon::icon(tetengo2::stdalt::filesystem::path path, dimension_type dimension, const details_type& details)
-    : m_p_impl{ std::make_unique<impl>(std::move(path), std::move(dimension), details) }
+    icon::icon(tetengo2::stdalt::filesystem::path path, dimension_type dimension)
+    : m_p_impl{ std::make_unique<impl>(std::move(path), std::move(dimension)) }
     {}
 
     icon::~icon() = default;

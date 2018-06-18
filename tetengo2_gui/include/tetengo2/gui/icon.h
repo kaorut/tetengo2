@@ -44,19 +44,17 @@ namespace tetengo2::gui {
 
             The dimension is determined by the system.
 
-            \param path    A path.
-            \param details A detail implementation of an icon.
+            \param path A path.
         */
-        icon(tetengo2::stdalt::filesystem::path path, const details_type& details);
+        explicit icon(tetengo2::stdalt::filesystem::path path);
 
         /*!
             \brief Creates an icon.
 
             \param path      A path.
             \param dimension A dimension.
-            \param details   A detail implementation of an icon.
         */
-        icon(tetengo2::stdalt::filesystem::path path, dimension_type dimension, const details_type& details);
+        icon(tetengo2::stdalt::filesystem::path path, dimension_type dimension);
 
         /*!
             \brief Destroys the icon.
