@@ -2372,17 +2372,17 @@ namespace tetengo2::detail::windows {
             }
             catch (const boost::exception& e)
             {
-                gui::alert{ reinterpret_cast<alert::widget_handle_type>(window_handle), alert::instance() }(e);
+                gui::alert{ reinterpret_cast<alert::widget_handle_type>(window_handle) }(e);
                 return 0;
             }
             catch (const std::exception& e)
             {
-                gui::alert{ reinterpret_cast<alert::widget_handle_type>(window_handle), alert::instance() }(e);
+                gui::alert{ reinterpret_cast<alert::widget_handle_type>(window_handle) }(e);
                 return 0;
             }
             catch (...)
             {
-                gui::alert{ reinterpret_cast<alert::widget_handle_type>(window_handle), alert::instance() }();
+                gui::alert{ reinterpret_cast<alert::widget_handle_type>(window_handle) }();
                 return 0;
             }
         }
