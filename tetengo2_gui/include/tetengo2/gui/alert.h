@@ -31,11 +31,8 @@ namespace tetengo2::gui {
     public:
         // types
 
-        //! The detail implemetation type of an alert.
-        using alert_details_type = detail::base::alert;
-
         //! The widget handle type.
-        using widget_handle_type = alert_details_type::widget_handle_type;
+        using widget_handle_type = detail::base::alert::widget_handle_type;
 
 
         // constructors and destructor
@@ -44,16 +41,13 @@ namespace tetengo2::gui {
             \brief Creates an alert.
 
             \param widget_handle A widget handle.
-            \param alert_details A detail implementation of an alert.
         */
-        alert(const widget_handle_type widget_handle, const alert_details_type& alert_details);
+        explicit alert(const widget_handle_type widget_handle);
 
         /*!
             \brief Creates an alert.
-
-            \param alert_details A detail implementation of an alert.
         */
-        explicit alert(const alert_details_type& alert_details);
+        alert();
 
         /*!
             \brief Destroys the alert.

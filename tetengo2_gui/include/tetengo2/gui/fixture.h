@@ -13,8 +13,6 @@
 
 #include <boost/core/noncopyable.hpp>
 
-#include <tetengo2/detail/base/gui_fixture.h>
-
 
 namespace tetengo2::gui {
     /*!
@@ -23,20 +21,12 @@ namespace tetengo2::gui {
     class fixture : private boost::noncopyable
     {
     public:
-        // types
-
-        //! The fixture details type.
-        using fixture_details_type = detail::base::gui_fixture;
-
-
         // constructors and destructor
 
         /*!
             \brief Creates a GUI fixture.
-
-            \param p_fixture_details A unique pointer to a detail implementation of a fixture.
         */
-        explicit fixture(std::unique_ptr<fixture_details_type> p_fixture_details);
+        fixture();
 
         /*!
             \brief Destroys the GUI fixture.

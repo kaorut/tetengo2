@@ -6,14 +6,11 @@
     $Id$
 */
 
-#include <memory>
 #include <sstream>
-#include <utility>
 
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/detail/stub/gui_fixture.h>
 #include <tetengo2/gui/fixture.h>
 
 
@@ -21,8 +18,6 @@ namespace {
     // types
 
     using fixture_type = tetengo2::gui::fixture;
-
-    using fixture_details_type = tetengo2::detail::stub::gui_fixture;
 }
 
 
@@ -35,8 +30,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
             {
                 BOOST_TEST_PASSPOINT();
 
-                auto               p_fixture_details = std::make_unique<fixture_details_type>();
-                const fixture_type fixture{ std::move(p_fixture_details) };
+                const fixture_type fixture{};
             }
 
 

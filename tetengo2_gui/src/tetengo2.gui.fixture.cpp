@@ -7,10 +7,11 @@
 */
 
 #include <memory>
-#include <utility>
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/detail/base/gui_fixture.h>
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/fixture.h>
 
 
@@ -18,28 +19,19 @@ namespace tetengo2::gui {
     class fixture::impl : private boost::noncopyable
     {
     public:
-        // types
-
-        using fixture_details_type = fixture::fixture_details_type;
-
-
         // constructors and destructor
 
-        explicit impl(std::unique_ptr<fixture_details_type> p_fixture_details)
-        : m_p_fixture_details{ std::move(p_fixture_details) }
-        {}
+        impl() : m_p_fixture_details{ detail::gui_detail_impl_set().create_gui_fixture() } {}
 
 
     private:
         // variables
 
-        std::unique_ptr<fixture_details_type> m_p_fixture_details;
+        std::unique_ptr<detail::base::gui_fixture> m_p_fixture_details;
     };
 
 
-    fixture::fixture(std::unique_ptr<fixture_details_type> p_fixture_details)
-    : m_p_impl{ std::make_unique<impl>(std::move(p_fixture_details)) }
-    {}
+    fixture::fixture() : m_p_impl{ std::make_unique<impl>() } {}
 
     fixture::~fixture() = default;
 }
