@@ -16,6 +16,8 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/exception/all.hpp>
 
+#include <tetengo2/detail/base/alert.h>
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/alert.h>
 #include <tetengo2/text.h>
 #include <tetengo2/text/encoder.h>
@@ -29,20 +31,16 @@ namespace tetengo2::gui {
     public:
         // types
 
-        using alert_details_type = alert::alert_details_type;
-
         using widget_handle_type = alert::widget_handle_type;
 
 
         // constructors and destructor
 
-        impl(const widget_handle_type widget_handle, const alert_details_type& alert_details)
-        : m_widget_handle{ alert_details.root_ancestor_widget_handle(widget_handle) }, m_alert_details{ alert_details }
+        explicit impl(const widget_handle_type widget_handle)
+        : m_widget_handle{ detail::gui_detail_impl_set().alert_().root_ancestor_widget_handle(widget_handle) }
         {}
 
-        explicit impl(const alert_details_type& alert_details)
-        : m_widget_handle{ alert_details.root_ancestor_widget_handle(nullptr) }, m_alert_details{ alert_details }
-        {}
+        impl() : m_widget_handle{ detail::gui_detail_impl_set().alert_().root_ancestor_widget_handle(nullptr) } {}
 
 
         // functions
@@ -61,7 +59,7 @@ namespace tetengo2::gui {
                     auto              message = p_system_error->code().message();
                     if (!what.empty())
                         message += std::string{ ": " } + what;
-                    m_alert_details.show_task_dialog(
+                    detail::gui_detail_impl_set().alert_().show_task_dialog(
                         m_widget_handle,
                         string_type{ TETENGO2_TEXT("Alert") },
                         string_type{ TETENGO2_TEXT("std::system_error") },
@@ -75,7 +73,7 @@ namespace tetengo2::gui {
                 const std::exception* const p_std_exception = dynamic_cast<const std::exception*>(&exception);
                 if (p_std_exception)
                 {
-                    m_alert_details.show_task_dialog(
+                    detail::gui_detail_impl_set().alert_().show_task_dialog(
                         m_widget_handle,
                         string_type{ TETENGO2_TEXT("Alert") },
                         exception_encoder().decode(typeid(*p_std_exception).name()),
@@ -86,7 +84,7 @@ namespace tetengo2::gui {
                     return;
                 }
 
-                m_alert_details.show_task_dialog(
+                detail::gui_detail_impl_set().alert_().show_task_dialog(
                     m_widget_handle,
                     string_type{ TETENGO2_TEXT("Alert") },
                     exception_encoder().decode(typeid(exception).name()),
@@ -103,7 +101,7 @@ namespace tetengo2::gui {
         {
             try
             {
-                m_alert_details.show_task_dialog(
+                detail::gui_detail_impl_set().alert_().show_task_dialog(
                     m_widget_handle,
                     string_type{ TETENGO2_TEXT("Alert") },
                     exception_encoder().decode(typeid(exception).name()),
@@ -141,16 +139,12 @@ namespace tetengo2::gui {
         // variables
 
         const widget_handle_type m_widget_handle;
-
-        const alert_details_type& m_alert_details;
     };
 
 
-    alert::alert(const widget_handle_type widget_handle, const alert_details_type& alert_details)
-    : m_p_impl{ std::make_unique<impl>(widget_handle, alert_details) }
-    {}
+    alert::alert(const widget_handle_type widget_handle) : m_p_impl{ std::make_unique<impl>(widget_handle) } {}
 
-    alert::alert(const alert_details_type& alert_details) : m_p_impl{ std::make_unique<impl>(alert_details) } {}
+    alert::alert() : m_p_impl{ std::make_unique<impl>() } {}
 
     alert::~alert() = default;
 
