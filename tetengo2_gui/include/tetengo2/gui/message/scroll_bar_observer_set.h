@@ -12,21 +12,20 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/signals2.hpp>
 
+#include <tetengo2/type_list.h>
+
 
 namespace tetengo2::gui::message {
     /*!
-        \brief The class template for a scroll bar observer set.
-
-        \tparam Size A size type.
+        \brief The class for a scroll bar observer set.
     */
-    template <typename Size>
     class scroll_bar_observer_set : private boost::noncopyable
     {
     public:
         // types
 
         //! The size type.
-        using size_type = Size;
+        using size_type = tetengo2::type_list::size_type;
 
         /*!
             \brief The observer type of scrolling.

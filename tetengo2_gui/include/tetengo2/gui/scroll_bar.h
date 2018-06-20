@@ -45,7 +45,7 @@ namespace tetengo2::gui {
         using scroll_bar_details_ptr_type = typename details_type::scroll_bar_details_ptr_type;
 
         //! The scroll bar observer set type.
-        using scroll_bar_observer_set_type = gui::message::scroll_bar_observer_set<size_type>;
+        using scroll_bar_observer_set_type = gui::message::scroll_bar_observer_set;
 
         //! The style type.
         enum class style_type
