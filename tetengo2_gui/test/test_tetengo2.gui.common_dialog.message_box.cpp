@@ -44,16 +44,12 @@ namespace {
     using window_type =
         tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
 
-    using button_style_type = tetengo2::gui::common_dialog::message_box_style::button_style<string_type>;
+    using button_style_type = tetengo2::gui::common_dialog::message_box_style::button_style;
 
     using common_dialog_details_type = detail_type_list_type::common_dialog_type;
 
-    using message_box_type = tetengo2::gui::common_dialog::message_box<
-        string_type,
-        widget_traits_type,
-        common_dialog_details_type,
-        widget_details_traits_type,
-        menu_details_type>;
+    using message_box_type = tetengo2::gui::common_dialog::
+        message_box<widget_traits_type, common_dialog_details_type, widget_details_traits_type, menu_details_type>;
 }
 
 

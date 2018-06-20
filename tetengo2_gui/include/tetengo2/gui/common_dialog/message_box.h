@@ -18,23 +18,21 @@
 
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/stdalt.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::common_dialog {
     namespace message_box_style {
         /*!
-            \brief The class template for a button style.
-
-            \tparam String A string type.
+            \brief The class for a button style.
         */
-        template <typename String>
         class button_style
         {
         public:
             // types
 
             //! The string type.
-            using string_type = String;
+            using string_type = tetengo2::type_list::string_type;
 
             //! The style type.
             enum class style_type
@@ -180,25 +178,19 @@ namespace tetengo2::gui::common_dialog {
     /*!
         \brief The class template for a message box.
 
-        \tparam String              A string type.
         \tparam WidgetTraits        A widget traits type.
         \tparam CommonDialogDetails A detail implementation type of common dialogs.
         \tparam WidgetDetailsTraits A detail implementation type traits of a widget.
         \tparam MenuDetails         A detail implementation type of a menu.
     */
-    template <
-        typename String,
-        typename WidgetTraits,
-        typename CommonDialogDetails,
-        typename WidgetDetailsTraits,
-        typename MenuDetails>
+    template <typename WidgetTraits, typename CommonDialogDetails, typename WidgetDetailsTraits, typename MenuDetails>
     class message_box : private boost::noncopyable
     {
     public:
         // types
 
         //! The string type.
-        using string_type = String;
+        using string_type = tetengo2::type_list::string_type;
 
         //! The widget traits type.
         using widget_traits_type = WidgetTraits;
@@ -226,7 +218,7 @@ namespace tetengo2::gui::common_dialog {
             gui::widget::abstract_window<widget_traits_type, widget_details_traits_type, menu_details_type>;
 
         //! The button style type.
-        using button_style_type = message_box_style::button_style<string_type>;
+        using button_style_type = message_box_style::button_style;
 
         //! The icon style type.
         enum class icon_style_type
