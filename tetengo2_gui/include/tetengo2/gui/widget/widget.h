@@ -53,9 +53,6 @@ namespace tetengo2::gui::widget {
         //! The traits type.
         using traits_type = Traits;
 
-        //! The size type.
-        using size_type = typename traits_type::size_type;
-
         //! The difference type.
         using difference_type = typename traits_type::difference_type;
 
@@ -111,7 +108,7 @@ namespace tetengo2::gui::widget {
         using system_cursor_type = gui::cursor::system;
 
         //! The scroll bar type.
-        using scroll_bar_type = gui::scroll_bar<size_type, scroll_details_type>;
+        using scroll_bar_type = gui::scroll_bar<scroll_details_type>;
 
         //! The message handler details type.
         using message_handler_details_type = typename details_traits_type::message_handler_details_type;

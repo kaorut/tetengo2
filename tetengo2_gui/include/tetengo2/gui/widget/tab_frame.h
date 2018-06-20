@@ -23,6 +23,7 @@
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/widget/custom_control.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::widget {
@@ -70,7 +71,7 @@ namespace tetengo2::gui::widget {
         using control_type = typename base_type::base_type;
 
         //! The size type.
-        using size_type = typename control_type::size_type;
+        using size_type = tetengo2::type_list::size_type;
 
         //! The tab label type.
         class tab_label_type : public inner_item<typename tab_frame::base_type>
