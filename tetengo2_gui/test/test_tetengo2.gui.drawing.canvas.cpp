@@ -42,8 +42,6 @@ namespace {
 
     using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-    using size_type = common_type_list_type::size_type;
-
     using string_type = common_type_list_type::string_type;
 
     using position_type = common_type_list_type::position_type;
@@ -64,7 +62,7 @@ namespace {
 
     using transparent_background_type = tetengo2::gui::drawing::transparent_background<drawing_details_type>;
 
-    using font_type = tetengo2::gui::drawing::font<string_type, size_type, drawing_details_type>;
+    using font_type = tetengo2::gui::drawing::font<drawing_details_type>;
 
     using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
 

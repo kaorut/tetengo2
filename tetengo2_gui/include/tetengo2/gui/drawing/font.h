@@ -9,28 +9,30 @@
 #if !defined(TETENGO2_GUI_DRAWING_FONT_H)
 #define TETENGO2_GUI_DRAWING_FONT_H
 
+#include <algorithm>
+
 #include <boost/operators.hpp>
+
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::drawing {
     /*!
         \brief The class template for a font.
 
-        \tparam String         A string type.
-        \tparam Size           A size type.
         \tparam DrawingDetails A detail implementation type of a drawing.
    */
-    template <typename String, typename Size, typename DrawingDetails>
-    class font : private boost::equality_comparable<font<String, Size, DrawingDetails>>
+    template <typename DrawingDetails>
+    class font : private boost::equality_comparable<font<DrawingDetails>>
     {
     public:
         // types
 
         //! The string type.
-        using string_type = String;
+        using string_type = tetengo2::type_list::string_type;
 
         //! The size type.
-        using size_type = Size;
+        using size_type = tetengo2::type_list::size_type;
 
         //! The drawing details type.
         using drawing_details_type = DrawingDetails;

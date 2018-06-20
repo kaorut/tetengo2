@@ -41,9 +41,6 @@ namespace tetengo2::gui::drawing {
         //! The traits type.
         using traits_type = Traits;
 
-        //! The size type.
-        using size_type = typename traits_type::size_type;
-
         //! The string type.
         using string_type = typename traits_type::string_type;
 
@@ -75,7 +72,7 @@ namespace tetengo2::gui::drawing {
         using solid_background_type = solid_background<drawing_details_type>;
 
         //! The font type.
-        using font_type = font<string_type, size_type, drawing_details_type>;
+        using font_type = font<drawing_details_type>;
 
         //! The picture type.
         using picture_type = picture<dimension_type, drawing_details_type>;
