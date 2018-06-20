@@ -53,9 +53,6 @@ namespace tetengo2::gui::widget {
         //! The traits type.
         using traits_type = Traits;
 
-        //! The difference type.
-        using difference_type = typename traits_type::difference_type;
-
         //! The string type.
         using string_type = typename traits_type::string_type;
 
@@ -148,7 +145,7 @@ namespace tetengo2::gui::widget {
             gui::message::keyboard_observer_set<virtual_key_type, typename string_type::value_type>;
 
         //! The mouse observer set type.
-        using mouse_observer_set_type = gui::message::mouse_observer_set<position_type, difference_type>;
+        using mouse_observer_set_type = gui::message::mouse_observer_set;
 
 
         // constructors and destructor

@@ -14,25 +14,24 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
 
+#include <tetengo2/gui/type_list.h>
+#include <tetengo2/type_list.h>
+
 
 namespace tetengo2::gui::message {
     /*!
-        \brief The class template for a mouse observer set.
-
-        \tparam Position   A position type.
-        \tparam Difference A difference type.
+        \brief The class for a mouse observer set.
     */
-    template <typename Position, typename Difference>
     class mouse_observer_set : private boost::noncopyable
     {
     public:
         // types
 
         //! The position type.
-        using position_type = Position;
+        using position_type = gui::type_list::position_type;
 
         //! The difference type.
-        using difference_type = Difference;
+        using difference_type = tetengo2::type_list::difference_type;
 
         /*!
             \brief The observer type of clicked.

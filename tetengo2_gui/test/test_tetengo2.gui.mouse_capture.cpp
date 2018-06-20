@@ -42,9 +42,7 @@ namespace {
     using window_type =
         tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
 
-    using mouse_button_type = tetengo2::gui::message::mouse_observer_set<
-        common_type_list_type::position_type,
-        common_type_list_type::difference_type>::mouse_button_type;
+    using mouse_button_type = tetengo2::gui::message::mouse_observer_set::mouse_button_type;
 
     using mouse_capture_type =
         tetengo2::gui::mouse_capture<widget_type, mouse_button_type, detail_type_list_type::mouse_capture_type>;
