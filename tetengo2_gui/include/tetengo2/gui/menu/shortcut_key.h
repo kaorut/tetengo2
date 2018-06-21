@@ -14,22 +14,20 @@
 #include <boost/operators.hpp>
 
 #include <tetengo2/gui/virtual_key.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::menu {
     /*!
-        \brief The class template for a shortcut key.
-
-        \tparam String A string type.
+        \brief The class for a shortcut key.
    */
-    template <typename String>
-    class shortcut_key : private boost::equality_comparable<shortcut_key<String>>
+    class shortcut_key : private boost::equality_comparable<shortcut_key>
     {
     public:
         // types
 
         //! The string type.
-        using string_type = String;
+        using string_type = tetengo2::type_list::string_type;
 
         //! The virtual key type.
         using virtual_key_type = gui::virtual_key;

@@ -35,7 +35,7 @@ namespace {
 
     using virtual_key_type = tetengo2::gui::virtual_key;
 
-    using shortcut_key_type = tetengo2::gui::menu::shortcut_key<string_type>;
+    using shortcut_key_type = tetengo2::gui::menu::shortcut_key;
 
     using menu_details_type = detail_type_list_type::menu_type;
 

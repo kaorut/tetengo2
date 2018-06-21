@@ -56,7 +56,7 @@ namespace tetengo2::gui::menu {
         using details_ptr_type = typename menu_details_type::menu_details_ptr_type;
 
         //! The shortcut key type.
-        using shortcut_key_type = shortcut_key<string_type>;
+        using shortcut_key_type = shortcut_key;
 
         //! The menu observer set type.
         using menu_observer_set_type = gui::message::menu_observer_set;

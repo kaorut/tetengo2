@@ -44,10 +44,9 @@ namespace {
 
     using virtual_key_type = tetengo2::gui::virtual_key;
 
-    using shortcut_key_type = tetengo2::gui::menu::shortcut_key<string_type>;
+    using shortcut_key_type = tetengo2::gui::menu::shortcut_key;
 
-    using shortcut_key_table_type =
-        tetengo2::gui::menu::shortcut_key_table<string_type, ui_encoder_type, menu_details_type>;
+    using shortcut_key_table_type = tetengo2::gui::menu::shortcut_key_table<ui_encoder_type, menu_details_type>;
 
     class concrete_menu : public menu_base_type
     {
