@@ -16,31 +16,26 @@
 
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/stdalt.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::common_dialog {
     /*!
         \brief The class template for a file save dialog.
 
-        \tparam String              A string type.
         \tparam WidgetTraits        A widget traits type.
         \tparam CommonDialogDetails A detail implementation type of common dialogs.
         \tparam WidgetDetailsTraits A detail implementation type traits of a widget.
         \tparam MenuDetails         A detail implementation type of a menu.
     */
-    template <
-        typename String,
-        typename WidgetTraits,
-        typename CommonDialogDetails,
-        typename WidgetDetailsTraits,
-        typename MenuDetails>
+    template <typename WidgetTraits, typename CommonDialogDetails, typename WidgetDetailsTraits, typename MenuDetails>
     class file_save : private boost::noncopyable
     {
     public:
         // types
 
         //! The string type.
-        using string_type = String;
+        using string_type = tetengo2::type_list::string_type;
 
         //! The widget traits type.
         using widget_traits_type = WidgetTraits;
