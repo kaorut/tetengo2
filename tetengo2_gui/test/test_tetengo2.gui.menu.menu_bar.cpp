@@ -33,13 +33,12 @@ namespace {
 
     using menu_details_type = detail_type_list_type::menu_type;
 
-    using menu_base_type = tetengo2::gui::menu::menu_base<string_type, ui_encoder_type, menu_details_type>;
+    using menu_base_type = tetengo2::gui::menu::menu_base<ui_encoder_type, menu_details_type>;
 
     using shortcut_key_table_type =
         tetengo2::gui::menu::shortcut_key_table<string_type, ui_encoder_type, menu_details_type>;
 
-    using menu_bar_type =
-        tetengo2::gui::menu::menu_bar<string_type, shortcut_key_table_type, ui_encoder_type, menu_details_type>;
+    using menu_bar_type = tetengo2::gui::menu::menu_bar<shortcut_key_table_type, ui_encoder_type, menu_details_type>;
 }
 
 

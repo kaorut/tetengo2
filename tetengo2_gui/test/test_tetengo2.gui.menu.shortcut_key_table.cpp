@@ -40,7 +40,7 @@ namespace {
 
     using menu_details_type = detail_type_list_type::menu_type;
 
-    using menu_base_type = tetengo2::gui::menu::menu_base<string_type, ui_encoder_type, menu_details_type>;
+    using menu_base_type = tetengo2::gui::menu::menu_base<ui_encoder_type, menu_details_type>;
 
     using virtual_key_type = tetengo2::gui::virtual_key;
 

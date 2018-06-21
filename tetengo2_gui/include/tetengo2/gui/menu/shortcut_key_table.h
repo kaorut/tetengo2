@@ -53,7 +53,7 @@ namespace tetengo2::gui::menu {
         using shortcut_key_type = shortcut_key<string_type>;
 
         //! The menu base type.
-        using menu_base_type = menu_base<string_type, encoder_type, menu_details_type>;
+        using menu_base_type = menu_base<encoder_type, menu_details_type>;
 
         //! The entry type.
         using entry_type = std::pair<shortcut_key_type, const menu_base_type*>;

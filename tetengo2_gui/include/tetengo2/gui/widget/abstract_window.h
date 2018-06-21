@@ -75,8 +75,7 @@ namespace tetengo2::gui::widget {
         using shortcut_key_table_type = gui::menu::shortcut_key_table<string_type, encoder_type, menu_details_type>;
 
         //! The menu bar type.
-        using menu_bar_type =
-            gui::menu::menu_bar<string_type, shortcut_key_table_type, encoder_type, menu_details_type>;
+        using menu_bar_type = gui::menu::menu_bar<shortcut_key_table_type, encoder_type, menu_details_type>;
 
         //! The window observer set type.
         using window_observer_set_type = gui::message::window_observer_set;

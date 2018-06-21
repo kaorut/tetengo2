@@ -13,25 +13,25 @@
 #include <memory>
 
 #include <tetengo2/gui/menu/abstract_popup.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::menu {
     /*!
         \brief The class template for a menu bar.
 
-        \tparam String           A string type.
         \tparam ShortcutKeyTable A shortcut key table type.
         \tparam Encoder          An encoder type.
         \tparam MenuDetails      A detail implementation type of a menu.
    */
-    template <typename String, typename ShortcutKeyTable, typename Encoder, typename MenuDetails>
-    class menu_bar : public abstract_popup<String, Encoder, MenuDetails>
+    template <typename ShortcutKeyTable, typename Encoder, typename MenuDetails>
+    class menu_bar : public abstract_popup<Encoder, MenuDetails>
     {
     public:
         // types
 
         //! The string type.
-        using string_type = String;
+        using string_type = tetengo2::type_list::string_type;
 
         //! The shortcut key table type.
         using shortcut_key_table_type = ShortcutKeyTable;
@@ -43,7 +43,7 @@ namespace tetengo2::gui::menu {
         using menu_details_type = MenuDetails;
 
         //! The base type.
-        using base_type = abstract_popup<string_type, encoder_type, menu_details_type>;
+        using base_type = abstract_popup<encoder_type, menu_details_type>;
 
 
         // constructors and destructor
