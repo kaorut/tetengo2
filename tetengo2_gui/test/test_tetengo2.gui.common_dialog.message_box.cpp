@@ -60,6 +60,20 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 BOOST_AUTO_TEST_SUITE(button_style)
                     // test cases
 
+                    BOOST_AUTO_TEST_CASE(construction)
+                    {
+                        BOOST_TEST_PASSPOINT();
+
+                        button_style_type style1{ button_style_type::ok(false) };
+                        BOOST_CHECK(style1.style() == button_style_type::style_type::ok);
+
+                        const button_style_type style2{ style1 };
+                        BOOST_CHECK(style2.style() == button_style_type::style_type::ok);
+
+                        const button_style_type style3{ std::move(style1) };
+                        BOOST_CHECK(style3.style() == button_style_type::style_type::ok);
+                    }
+
                     BOOST_AUTO_TEST_CASE(ok)
                     {
                         BOOST_TEST_PASSPOINT();
