@@ -46,6 +46,9 @@
     <Filter Include="sources\tetengo2::gui\common_dialog">
       <UniqueIdentifier>{ebed041b-2c0a-4610-8b38-034b371d5556}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\tetengo2::gui\menu">
+      <UniqueIdentifier>{bab67f37-bca4-468b-88a2-ad4c0a611aba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2\gui\0namespace.dox">
@@ -358,6 +361,9 @@
     </ClCompile>
     <ClCompile Include="src\tetengo2.gui.common_dialog.message_box.cpp">
       <Filter>sources\tetengo2::gui\common_dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.menu.shortcut_key.cpp">
+      <Filter>sources\tetengo2::gui\menu</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -121,6 +121,7 @@
     <ClCompile Include="src\tetengo2.gui.drawing.system_color_set.cpp" />
     <ClCompile Include="src\tetengo2.gui.fixture.cpp" />
     <ClCompile Include="src\tetengo2.gui.icon.cpp" />
+    <ClCompile Include="src\tetengo2.gui.menu.shortcut_key.cpp" />
     <ClCompile Include="src\tetengo2.gui.position.cpp" />
     <ClCompile Include="src\tetengo2.gui.shell.cpp" />
     <ClCompile Include="src\tetengo2.gui.unit.em.cpp" />
