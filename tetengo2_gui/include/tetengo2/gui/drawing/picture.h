@@ -15,22 +15,23 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/gui/type_list.h>
+
 
 namespace tetengo2::gui::drawing {
     /*!
         \brief The class template for a picture.
 
-        \tparam Dimension      A dimension type.
         \tparam DrawingDetails A detail implementation type of a drawing.
     */
-    template <typename Dimension, typename DrawingDetails>
+    template <typename DrawingDetails>
     class picture : private boost::noncopyable
     {
     public:
         // types
 
         //! The dimension type.
-        using dimension_type = Dimension;
+        using dimension_type = gui::type_list::dimension_type;
 
         //! The drawing details type.
         using drawing_details_type = DrawingDetails;
