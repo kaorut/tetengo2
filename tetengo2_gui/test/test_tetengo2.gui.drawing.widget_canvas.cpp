@@ -17,6 +17,7 @@
 #include <tetengo2/gui/drawing/widget_canvas.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
+#include "test_tetengo2.gui.type_list.h"
 
 
 namespace {
@@ -24,7 +25,9 @@ namespace {
 
     using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-    using canvas_traits_type = tetengo2::gui::drawing::canvas_traits;
+    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
+
+    using canvas_traits_type = tetengo2::gui::drawing::canvas_traits<common_type_list_type::ui_encoder_type>;
 
     using drawing_details_type = detail_type_list_type::drawing_type;
 

@@ -84,7 +84,7 @@ namespace tetengo2::gui::widget {
         using scroll_details_type = typename details_traits_type::scroll_details_type;
 
         //! The canvas traits type.
-        using canvas_traits_type = gui::drawing::canvas_traits;
+        using canvas_traits_type = gui::drawing::canvas_traits<encoder_type>;
 
         //! The canvas type.
         using canvas_type = gui::drawing::canvas<canvas_traits_type, drawing_details_type>;

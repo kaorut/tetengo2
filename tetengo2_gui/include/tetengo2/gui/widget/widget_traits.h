@@ -10,19 +10,16 @@
 #define TETENGO2_GUI_WIDGET_WIDGETTRAITS_H
 
 #include <tetengo2/gui/type_list.h>
-#include <tetengo2/text/encoder.h>
 #include <tetengo2/type_list.h>
-
-namespace tetengo2::text::encoding {
-    template <typename String>
-    class locale;
-}
 
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The traits class for a GUI widget.
+        \brief The traits class template for a GUI widget.
+
+        \tparam Encoder An encoder type.
    */
+    template <typename Encoder>
     struct widget_traits
     {
         // types
@@ -43,8 +40,7 @@ namespace tetengo2::gui::widget {
         using dimension_type = gui::type_list::dimension_type;
 
         //! The encoder type.
-        using encoder_type =
-            text::encoder<tetengo2::type_list::internal_encoding_type, text::encoding::locale<string_type>>;
+        using encoder_type = Encoder;
     };
 }
 

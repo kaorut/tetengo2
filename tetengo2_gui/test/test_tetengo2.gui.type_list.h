@@ -51,7 +51,8 @@ namespace test_tetengo2::gui::type_list {
         using ui_encoder_type =
             tetengo2::text::encoder<internal_encoding_type<DetailTypeList>, ui_encoding_type<DetailTypeList>>;
 
-        using widget_traits_type = tetengo2::gui::widget::widget_traits;
+        template <typename DetailTypeList>
+        using widget_traits_type = tetengo2::gui::widget::widget_traits<ui_encoder_type<DetailTypeList>>;
 
         template <typename DetailTypeList>
         using widget_details_traits_type = tetengo2::gui::widget::widget_details_traits<
@@ -92,7 +93,7 @@ namespace test_tetengo2::gui::type_list {
         using ui_encoder_type = detail::common::ui_encoder_type<DetailTypeList>;
 
         //! The widget traits type.
-        using widget_traits_type = detail::common::widget_traits_type;
+        using widget_traits_type = detail::common::widget_traits_type<DetailTypeList>;
 
         //! The widget details traits type.
         using widget_details_traits_type = detail::common::widget_details_traits_type<DetailTypeList>;
