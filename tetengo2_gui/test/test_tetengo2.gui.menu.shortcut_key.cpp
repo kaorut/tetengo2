@@ -70,6 +70,15 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         const shortcut_key_type shortcut_key{ virtual_key_type::char_a(), true, true, true };
                     }
+                    {
+                        shortcut_key_type shortcut_key1{ virtual_key_type::char_a(), false, false, false };
+
+                        const shortcut_key_type shortcut_key2{ shortcut_key1 };
+                        BOOST_CHECK(shortcut_key2.key() == virtual_key_type::char_a());
+
+                        const shortcut_key_type shortcut_key3{ std::move(shortcut_key1) };
+                        BOOST_CHECK(shortcut_key3.key() == virtual_key_type::char_a());
+                    }
                 }
 
                 BOOST_AUTO_TEST_CASE(operator_equal)
