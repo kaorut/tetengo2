@@ -72,7 +72,7 @@ namespace tetengo2::gui::message {
 
         // variables
 
-        std::unique_ptr<impl> m_p_impl;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 
