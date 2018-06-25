@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <algorithm>
 #include <sstream>
 
 #include <boost/preprocessor.hpp>
@@ -26,6 +27,13 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
         BOOST_AUTO_TEST_SUITE(message)
             BOOST_AUTO_TEST_SUITE(file_drop_observer_set)
                 // test cases
+
+                BOOST_AUTO_TEST_CASE(construction)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    const file_drop_observer_set_type observer_set{};
+                }
 
                 BOOST_AUTO_TEST_CASE(file_dropped)
                 {
