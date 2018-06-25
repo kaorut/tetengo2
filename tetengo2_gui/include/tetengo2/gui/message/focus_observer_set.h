@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_MESSAGE_FOCUSOBSERVERSET_H)
 #define TETENGO2_GUI_MESSAGE_FOCUSOBSERVERSET_H
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
@@ -40,6 +42,19 @@ namespace tetengo2::gui::message {
         using lost_focus_signal_type = boost::signals2::signal<lost_focus_type>;
 
 
+        // constructors and destructor
+
+        /*!
+            \brief Creates a focus observer set.
+        */
+        focus_observer_set();
+
+        /*!
+            \brief Destroys the focus observer set.
+        */
+        ~focus_observer_set();
+
+
         // functions
 
         /*!
@@ -47,48 +62,39 @@ namespace tetengo2::gui::message {
 
             \return The observer called when a widget got a focus.
         */
-        const got_focus_signal_type& got_focus() const
-        {
-            return m_got_focus;
-        }
+        const got_focus_signal_type& got_focus() const;
 
         /*!
             \brief Returns the observer called when a widget got a focus.
 
             \return The observer called when a widget got a focus.
         */
-        got_focus_signal_type& got_focus()
-        {
-            return m_got_focus;
-        }
+        got_focus_signal_type& got_focus();
 
         /*!
             \brief Returns the observer called when a widget lost a focus.
 
             \return The observer called when a widget lost a focus.
         */
-        const lost_focus_signal_type& lost_focus() const
-        {
-            return m_lost_focus;
-        }
+        const lost_focus_signal_type& lost_focus() const;
 
         /*!
             \brief Returns the observer called when a widget lost a focus.
 
             \return The observer called when a widget lost a focus.
         */
-        lost_focus_signal_type& lost_focus()
-        {
-            return m_lost_focus;
-        }
+        lost_focus_signal_type& lost_focus();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        got_focus_signal_type m_got_focus;
-
-        lost_focus_signal_type m_lost_focus;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

@@ -27,6 +27,13 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
             BOOST_AUTO_TEST_SUITE(focus_observer_set)
                 // test cases
 
+                BOOST_AUTO_TEST_CASE(construction)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    const focus_observer_set_type observer_set{};
+                }
+
                 BOOST_AUTO_TEST_CASE(got_focus)
                 {
                     BOOST_TEST_PASSPOINT();
