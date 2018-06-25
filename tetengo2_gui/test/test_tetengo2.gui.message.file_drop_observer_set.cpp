@@ -6,7 +6,6 @@
     $Id$
 */
 
-#include <algorithm>
 #include <sstream>
 
 #include <boost/preprocessor.hpp>

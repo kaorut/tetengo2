@@ -13,7 +13,6 @@
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/rational.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
 
 #include <tetengo2/gui/type_list.h>

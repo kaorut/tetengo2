@@ -6,6 +6,10 @@
     $Id$
 */
 
+#include <memory>
+
+#include <boost/core/noncopyable.hpp>
+
 #include <tetengo2/gui/message/focus_observer_set.h>
 
 
@@ -15,13 +19,13 @@ namespace tetengo2::gui::message {
     public:
         // types
 
-        using got_focus_type = void();
+        using got_focus_type = focus_observer_set::got_focus_type;
 
-        using got_focus_signal_type = boost::signals2::signal<got_focus_type>;
+        using got_focus_signal_type = focus_observer_set::got_focus_signal_type;
 
-        using lost_focus_type = void();
+        using lost_focus_type = focus_observer_set::lost_focus_type;
 
-        using lost_focus_signal_type = boost::signals2::signal<lost_focus_type>;
+        using lost_focus_signal_type = focus_observer_set::lost_focus_signal_type;
 
 
         // functions

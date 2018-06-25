@@ -6,6 +6,10 @@
     $Id$
 */
 
+#include <memory>
+
+#include <boost/core/noncopyable.hpp>
+
 #include <tetengo2/gui/message/menu_observer_set.h>
 
 
@@ -15,9 +19,9 @@ namespace tetengo2::gui::message {
     public:
         // types
 
-        using selected_type = void();
+        using selected_type = menu_observer_set::selected_type;
 
-        using selected_signal_type = boost::signals2::signal<selected_type>;
+        using selected_signal_type = menu_observer_set::selected_signal_type;
 
 
         // functions
