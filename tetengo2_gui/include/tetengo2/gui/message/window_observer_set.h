@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_MESSAGE_WINDOWOBSERVERSET_H)
 #define TETENGO2_GUI_MESSAGE_WINDOWOBSERVERSET_H
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
@@ -42,6 +44,19 @@ namespace tetengo2::gui::message {
         using destroyed_signal_type = boost::signals2::signal<destroyed_type>;
 
 
+        // constructors and destructor
+
+        /*!
+            \brief Creates a window observer set.
+        */
+        window_observer_set();
+
+        /*!
+            \brief Destroys the window observer set.
+        */
+        ~window_observer_set();
+
+
         // functions
 
         /*!
@@ -49,48 +64,39 @@ namespace tetengo2::gui::message {
 
             \return The observer called when a window is closing.
         */
-        const closing_signal_type& closing() const
-        {
-            return m_closing;
-        }
+        const closing_signal_type& closing() const;
 
         /*!
             \brief Returns the observer called when a window is closing.
 
             \return The observer called when a window is closing.
         */
-        closing_signal_type& closing()
-        {
-            return m_closing;
-        }
+        closing_signal_type& closing();
 
         /*!
             \brief Returns the observer called when a window is destroyed.
 
             \return The observer called when a window is destroyed.
         */
-        const destroyed_signal_type& destroyed() const
-        {
-            return m_destroyed;
-        }
+        const destroyed_signal_type& destroyed() const;
 
         /*!
             \brief Returns the observer called when a window is destroyed.
 
             \return The observer called when a window is destroyed.
         */
-        destroyed_signal_type& destroyed()
-        {
-            return m_destroyed;
-        }
+        destroyed_signal_type& destroyed();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        closing_signal_type m_closing;
-
-        destroyed_signal_type m_destroyed;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 
