@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_MESSAGE_SCROLLBAROBSERVERSET_H)
 #define TETENGO2_GUI_MESSAGE_SCROLLBAROBSERVERSET_H
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
@@ -49,6 +51,19 @@ namespace tetengo2::gui::message {
         using scrolled_signal_type = boost::signals2::signal<scrolled_type>;
 
 
+        // constructors and destructor
+
+        /*!
+            \brief Creates a scroll bar observer set.
+        */
+        scroll_bar_observer_set();
+
+        /*!
+            \brief Destroys the scroll bar_observer set.
+        */
+        ~scroll_bar_observer_set();
+
+
         // functions
 
         /*!
@@ -56,48 +71,39 @@ namespace tetengo2::gui::message {
 
             \return The observer called when a scroll bar is being scrolled.
         */
-        const scrolled_signal_type& scrolling() const
-        {
-            return m_scrolling;
-        }
+        const scrolled_signal_type& scrolling() const;
 
         /*!
             \brief Returns the observer called when a scroll bar is being scrolled.
 
             \return The observer called when a scroll bar is being scrolled.
         */
-        scrolled_signal_type& scrolling()
-        {
-            return m_scrolling;
-        }
+        scrolled_signal_type& scrolling();
 
         /*!
             \brief Returns the observer called when a scroll bar is scrolled.
 
             \return The observer called when a scroll bar is scrolled.
         */
-        const scrolled_signal_type& scrolled() const
-        {
-            return m_scrolled;
-        }
+        const scrolled_signal_type& scrolled() const;
 
         /*!
             \brief Returns the observer called when a scroll bar is scrolled.
 
             \return The observer called when a scroll bar is scrolled.
         */
-        scrolled_signal_type& scrolled()
-        {
-            return m_scrolled;
-        }
+        scrolled_signal_type& scrolled();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        scrolling_signal_type m_scrolling;
-
-        scrolled_signal_type m_scrolled;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 
