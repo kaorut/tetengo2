@@ -12,7 +12,6 @@
 #include <memory>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
 
 #include <tetengo2/type_list.h>

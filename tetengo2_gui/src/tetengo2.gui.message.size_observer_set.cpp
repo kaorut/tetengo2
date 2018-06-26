@@ -6,6 +6,10 @@
     $Id$
 */
 
+#include <memory>
+
+#include <boost/core/noncopyable.hpp>
+
 #include <tetengo2/gui/message/size_observer_set.h>
 
 
