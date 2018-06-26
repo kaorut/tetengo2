@@ -9,27 +9,25 @@
 #if !defined(TETENGO2_GUI_MENU_SHORTCUTKEY_H)
 #define TETENGO2_GUI_MENU_SHORTCUTKEY_H
 
-#include <vector>
+#include <memory>
 
 #include <boost/operators.hpp>
 
 #include <tetengo2/gui/virtual_key.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::menu {
     /*!
-        \brief The class template for a shortcut key.
-
-        \tparam String A string type.
+        \brief The class for a shortcut key.
    */
-    template <typename String>
-    class shortcut_key : private boost::equality_comparable<shortcut_key<String>>
+    class shortcut_key : private boost::equality_comparable<shortcut_key>
     {
     public:
         // types
 
         //! The string type.
-        using string_type = String;
+        using string_type = tetengo2::type_list::string_type;
 
         //! The virtual key type.
         using virtual_key_type = gui::virtual_key;
@@ -45,9 +43,26 @@ namespace tetengo2::gui::menu {
             \param control True when a control key is required.
             \param meta    True when a meta key is required.
         */
-        shortcut_key(const virtual_key_type& key, const bool shift, const bool control, const bool meta)
-        : m_p_key{ &key }, m_shift{ shift }, m_control{ control }, m_meta{ meta }
-        {}
+        shortcut_key(const virtual_key_type& key, const bool shift, const bool control, const bool meta);
+
+        /*!
+            \brief Copies a shortcut key.
+
+            \param another Another shortcut key.
+        */
+        shortcut_key(const shortcut_key& another);
+
+        /*!
+            \brief Moves a shortcut key.
+
+            \param another Another shortcut key.
+        */
+        shortcut_key(shortcut_key&& another);
+
+        /*!
+            \brief Destroys the shortcut key.
+        */
+        ~shortcut_key();
 
 
         // functions
@@ -61,21 +76,14 @@ namespace tetengo2::gui::menu {
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        friend bool operator==(const shortcut_key& one, const shortcut_key& another)
-        {
-            return one.m_p_key == another.m_p_key && one.m_shift == another.m_shift &&
-                   one.m_control == another.m_control && one.m_meta == another.m_meta;
-        }
+        friend bool operator==(const shortcut_key& one, const shortcut_key& another);
 
         /*!
             \brief Returns the key.
 
             \return The key.
         */
-        const virtual_key_type& key() const
-        {
-            return *m_p_key;
-        }
+        const virtual_key_type& key() const;
 
         /*!
             \brief Returns the shift key state.
@@ -83,10 +91,7 @@ namespace tetengo2::gui::menu {
             \retval true  When a shift key is required.
             \retval false Otherwise.
         */
-        bool shift() const
-        {
-            return m_shift;
-        }
+        bool shift() const;
 
         /*!
             \brief Returns the control key state.
@@ -94,10 +99,7 @@ namespace tetengo2::gui::menu {
             \retval true  When a control key is required.
             \retval false Otherwise.
         */
-        bool control() const
-        {
-            return m_control;
-        }
+        bool control() const;
 
         /*!
             \brief Returns the meta key state.
@@ -105,42 +107,25 @@ namespace tetengo2::gui::menu {
             \retval true  When a meta key is required.
             \retval false Otherwise.
         */
-        bool meta() const
-        {
-            return m_meta;
-        }
+        bool meta() const;
 
         /*!
             \brief Returns the string representation.
 
             \return The string representation.
         */
-        string_type to_string() const
-        {
-            std::vector<virtual_key_type> keys{};
-
-            if (m_shift)
-                keys.push_back(virtual_key_type::shift());
-            if (m_control)
-                keys.push_back(virtual_key_type::control());
-            if (m_meta)
-                keys.push_back(virtual_key_type::meta());
-            keys.push_back(*m_p_key);
-
-            return virtual_key_type::to_combined_string(keys);
-        }
+        string_type to_string() const;
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        const virtual_key_type* m_p_key;
-
-        bool m_shift;
-
-        bool m_control;
-
-        bool m_meta;
+        std::unique_ptr<impl> m_p_impl;
     };
 }
 

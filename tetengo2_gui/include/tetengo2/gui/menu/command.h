@@ -9,25 +9,27 @@
 #if !defined(TETENGO2_GUI_MENU_COMMAND_H)
 #define TETENGO2_GUI_MENU_COMMAND_H
 
+#include <algorithm>
+
 #include <tetengo2/gui/menu/menu_base.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::menu {
     /*!
         \brief The class template for a menu command.
 
-        \tparam String      A string type.
         \tparam Encoder     An encoder type.
         \tparam MenuDetails A detail implementation type of a menu.
    */
-    template <typename String, typename Encoder, typename MenuDetails>
-    class command : public menu_base<String, Encoder, MenuDetails>
+    template <typename Encoder, typename MenuDetails>
+    class command : public menu_base<Encoder, MenuDetails>
     {
     public:
         // types
 
         //! The string type.
-        using string_type = String;
+        using string_type = tetengo2::type_list::string_type;
 
         //! The encoder type.
         using encoder_type = Encoder;
@@ -36,7 +38,7 @@ namespace tetengo2::gui::menu {
         using menu_details_type = MenuDetails;
 
         //! The base type.
-        using base_type = menu_base<string_type, encoder_type, menu_details_type>;
+        using base_type = menu_base<encoder_type, menu_details_type>;
 
         //! The shortcut key type.
         using shortcut_key_type = typename base_type::shortcut_key_type;

@@ -34,7 +34,7 @@ namespace {
 
     using dimension_unit_type = dimension_type::unit_type;
 
-    using picture_type = tetengo2::gui::drawing::picture<dimension_type, drawing_details_type>;
+    using picture_type = tetengo2::gui::drawing::picture<drawing_details_type>;
 }
 
 

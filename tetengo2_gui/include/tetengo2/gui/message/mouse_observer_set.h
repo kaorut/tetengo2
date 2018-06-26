@@ -9,30 +9,30 @@
 #if !defined(TETENGO2_GUI_MESSAGE_MOUSEOBSERVERSET_H)
 #define TETENGO2_GUI_MESSAGE_MOUSEOBSERVERSET_H
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
 #include <boost/rational.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
+
+#include <tetengo2/gui/type_list.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::message {
     /*!
-        \brief The class template for a mouse observer set.
-
-        \tparam Position   A position type.
-        \tparam Difference A difference type.
+        \brief The class for a mouse observer set.
     */
-    template <typename Position, typename Difference>
     class mouse_observer_set : private boost::noncopyable
     {
     public:
         // types
 
         //! The position type.
-        using position_type = Position;
+        using position_type = gui::type_list::position_type;
 
         //! The difference type.
-        using difference_type = Difference;
+        using difference_type = tetengo2::type_list::difference_type;
 
         /*!
             \brief The observer type of clicked.
@@ -134,6 +134,19 @@ namespace tetengo2::gui::message {
         using wheeled_signal_type = boost::signals2::signal<wheeled_type>;
 
 
+        // constructors and destructor
+
+        /*!
+            \brief Creates a mouse observer set.
+        */
+        mouse_observer_set();
+
+        /*!
+            \brief Destroys the mouse observer set.
+        */
+        ~mouse_observer_set();
+
+
         // functions
 
         /*!
@@ -141,136 +154,96 @@ namespace tetengo2::gui::message {
 
             \return The observer called when a mouse button is clicked.
         */
-        const clicked_signal_type& clicked() const
-        {
-            return m_clicked;
-        }
+        const clicked_signal_type& clicked() const;
 
         /*!
             \brief Returns the observer called when a mouse button is clicked.
 
             \return The observer called when a mouse button is clicked.
         */
-        clicked_signal_type& clicked()
-        {
-            return m_clicked;
-        }
+        clicked_signal_type& clicked();
 
         /*!
             \brief Returns the observer called when a mouse button is double-clicked.
 
             \return The observer called when a mouse button is double-clicked.
         */
-        const doubleclicked_signal_type& doubleclicked() const
-        {
-            return m_doubleclicked;
-        }
+        const doubleclicked_signal_type& doubleclicked() const;
 
         /*!
             \brief Returns the observer called when a mouse button is double-clicked.
 
             \return The observer called when a mouse button is double-clicked.
         */
-        doubleclicked_signal_type& doubleclicked()
-        {
-            return m_doubleclicked;
-        }
+        doubleclicked_signal_type& doubleclicked();
 
         /*!
             \brief Returns the observer called when a mouse button is pressed.
 
             \return The observer called when a mouse button is pressed.
         */
-        const pressed_signal_type& pressed() const
-        {
-            return m_pressed;
-        }
+        const pressed_signal_type& pressed() const;
 
         /*!
             \brief Returns the observer called when a mouse button is pressed.
 
             \return The observer called when a mouse button is pressed.
         */
-        pressed_signal_type& pressed()
-        {
-            return m_pressed;
-        }
+        pressed_signal_type& pressed();
 
         /*!
             \brief Returns the observer called when a mouse button is released.
 
             \return The observer called when a mouse button is released.
         */
-        const released_signal_type& released() const
-        {
-            return m_released;
-        }
+        const released_signal_type& released() const;
 
         /*!
             \brief Returns the observer called when a mouse button is released.
 
             \return The observer called when a mouse button is released.
         */
-        released_signal_type& released()
-        {
-            return m_released;
-        }
+        released_signal_type& released();
 
         /*!
             \brief Returns the observer called when a mouse is moved.
 
             \return The observer called when a mouse is moved.
         */
-        const moved_signal_type& moved() const
-        {
-            return m_moved;
-        }
+        const moved_signal_type& moved() const;
 
         /*!
             \brief Returns the observer called when a mouse is moved.
 
             \return The observer called when a mouse is moved.
         */
-        moved_signal_type& moved()
-        {
-            return m_moved;
-        }
+        moved_signal_type& moved();
 
         /*!
             \brief Returns the observer called when a mouse wheel is wheeled.
 
             \return The observer called when a mouse wheel is wheeled.
         */
-        const wheeled_signal_type& wheeled() const
-        {
-            return m_wheeled;
-        }
+        const wheeled_signal_type& wheeled() const;
 
         /*!
             \brief Returns the observer called when a mouse wheel is wheeled.
 
             \return The observer called when a mouse wheel is wheeled.
         */
-        wheeled_signal_type& wheeled()
-        {
-            return m_wheeled;
-        }
+        wheeled_signal_type& wheeled();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        clicked_signal_type m_clicked;
 
-        doubleclicked_signal_type m_doubleclicked;
-
-        pressed_signal_type m_pressed;
-
-        moved_signal_type m_moved;
-
-        released_signal_type m_released;
-
-        wheeled_signal_type m_wheeled;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

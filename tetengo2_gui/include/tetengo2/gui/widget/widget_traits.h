@@ -9,43 +9,35 @@
 #if !defined(TETENGO2_GUI_WIDGET_WIDGETTRAITS_H)
 #define TETENGO2_GUI_WIDGET_WIDGETTRAITS_H
 
+#include <tetengo2/gui/type_list.h>
+#include <tetengo2/type_list.h>
+
 
 namespace tetengo2::gui::widget {
     /*!
         \brief The traits class template for a GUI widget.
 
-        \tparam Size       A size type.
-        \tparam Difference A difference type.
-        \tparam String     A string type.
-        \tparam Position   A position type.
-        \tparam Dimension  A dimension type.
-        \tparam Encoder    An encoder type.
+        \tparam Encoder An encoder type.
    */
-    template <
-        typename Size,
-        typename Difference,
-        typename String,
-        typename Position,
-        typename Dimension,
-        typename Encoder>
+    template <typename Encoder>
     struct widget_traits
     {
         // types
 
         //! The size type.
-        using size_type = Size;
+        using size_type = tetengo2::type_list::size_type;
 
         //! The difference type.
-        using difference_type = Difference;
+        using difference_type = tetengo2::type_list::difference_type;
 
         //! The string type.
-        using string_type = String;
+        using string_type = tetengo2::type_list::string_type;
 
         //! The position type.
-        using position_type = Position;
+        using position_type = gui::type_list::position_type;
 
         //! The dimension type.
-        using dimension_type = Dimension;
+        using dimension_type = gui::type_list::dimension_type;
 
         //! The encoder type.
         using encoder_type = Encoder;

@@ -43,11 +43,9 @@ namespace {
 
     using ui_encoder_type = common_type_list_type::ui_encoder_type;
 
-    using shortcut_key_table_type =
-        tetengo2::gui::menu::shortcut_key_table<string_type, ui_encoder_type, menu_details_type>;
+    using shortcut_key_table_type = tetengo2::gui::menu::shortcut_key_table<ui_encoder_type, menu_details_type>;
 
-    using menu_bar_type =
-        tetengo2::gui::menu::menu_bar<string_type, shortcut_key_table_type, ui_encoder_type, menu_details_type>;
+    using menu_bar_type = tetengo2::gui::menu::menu_bar<shortcut_key_table_type, ui_encoder_type, menu_details_type>;
 
     using abstract_window_type = tetengo2::gui::widget::abstract_window<
         common_type_list_type::widget_traits_type,

@@ -27,6 +27,13 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
             BOOST_AUTO_TEST_SUITE(list_selection_observer_set)
                 // test cases
 
+                BOOST_AUTO_TEST_CASE(construction)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    const list_selection_observer_set_type observer_set{};
+                }
+
                 BOOST_AUTO_TEST_CASE(selection_changed)
                 {
                     BOOST_TEST_PASSPOINT();

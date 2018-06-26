@@ -9,8 +9,9 @@
 #if !defined(TETENGO2_GUI_MESSAGE_LISTSELECTIONOBSERVERSET_H)
 #define TETENGO2_GUI_MESSAGE_LISTSELECTIONOBSERVERSET_H
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
 
 
@@ -32,6 +33,19 @@ namespace tetengo2::gui::message {
         using selection_changed_signal_type = boost::signals2::signal<selection_changed_type>;
 
 
+        // constructors and destructor
+
+        /*!
+            \brief Creates a list selection observer set.
+        */
+        list_selection_observer_set();
+
+        /*!
+            \brief Destroys the list selection observer set.
+        */
+        ~list_selection_observer_set();
+
+
         // functions
 
         /*!
@@ -39,26 +53,25 @@ namespace tetengo2::gui::message {
 
             \return The observer called when a selection is changed.
         */
-        const selection_changed_signal_type& selection_changed() const
-        {
-            return m_selection_changed;
-        }
+        const selection_changed_signal_type& selection_changed() const;
 
         /*!
             \brief Returns the observer called when a selection is changed.
 
             \return The observer called when a selection is changed.
         */
-        selection_changed_signal_type& selection_changed()
-        {
-            return m_selection_changed;
-        }
+        selection_changed_signal_type& selection_changed();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        selection_changed_signal_type m_selection_changed;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

@@ -31,7 +31,7 @@ namespace tetengo2::gui {
         using code_type = int;
 
         //! The string type.
-        using string_type = type_list::string_type;
+        using string_type = tetengo2::type_list::string_type;
 
 
         // constructors and destructor

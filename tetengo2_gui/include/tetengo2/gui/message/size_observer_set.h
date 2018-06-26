@@ -9,8 +9,9 @@
 #if !defined(TETENGO2_GUI_MESSAGE_SIZEOBSERVERSET_H)
 #define TETENGO2_GUI_MESSAGE_SIZEOBSERVERSET_H
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
 
 
@@ -32,6 +33,19 @@ namespace tetengo2::gui::message {
         using resized_signal_type = boost::signals2::signal<resized_type>;
 
 
+        // constructors and destructor
+
+        /*!
+            \brief Creates a size observer set.
+        */
+        size_observer_set();
+
+        /*!
+            \brief Destroys the size observer set.
+        */
+        ~size_observer_set();
+
+
         // functions
 
         /*!
@@ -39,26 +53,25 @@ namespace tetengo2::gui::message {
 
             \return The observer called when a widget is resized.
         */
-        const resized_signal_type& resized() const
-        {
-            return m_resized;
-        }
+        const resized_signal_type& resized() const;
 
         /*!
             \brief Returns the observer called when a widget is resized.
 
             \return The observer called when a widget is resized.
         */
-        resized_signal_type& resized()
-        {
-            return m_resized;
-        }
+        resized_signal_type& resized();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        resized_signal_type m_resized;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

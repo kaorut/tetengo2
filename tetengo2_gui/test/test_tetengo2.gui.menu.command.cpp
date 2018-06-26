@@ -32,9 +32,9 @@ namespace {
 
     using menu_details_type = detail_type_list_type::menu_type;
 
-    using menu_base_type = tetengo2::gui::menu::menu_base<string_type, ui_encoder_type, menu_details_type>;
+    using menu_base_type = tetengo2::gui::menu::menu_base<ui_encoder_type, menu_details_type>;
 
-    using menu_command_type = tetengo2::gui::menu::command<string_type, ui_encoder_type, menu_details_type>;
+    using menu_command_type = tetengo2::gui::menu::command<ui_encoder_type, menu_details_type>;
 }
 
 

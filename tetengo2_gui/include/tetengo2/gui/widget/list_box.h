@@ -17,6 +17,7 @@
 #include <tetengo2/gui/message/list_selection_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/stdalt.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::widget {
@@ -51,7 +52,7 @@ namespace tetengo2::gui::widget {
         using widget_type = typename base_type::base_type;
 
         //! The integer size type.
-        using size_type = typename base_type::size_type;
+        using size_type = tetengo2::type_list::size_type;
 
         //! The string type.
         using string_type = typename base_type::string_type;

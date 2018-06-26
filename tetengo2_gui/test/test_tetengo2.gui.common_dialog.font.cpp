@@ -34,8 +34,6 @@ namespace {
 
     using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-    using size_type = common_type_list_type::size_type;
-
     using string_type = common_type_list_type::string_type;
 
     using widget_traits_type = common_type_list_type::widget_traits_type;
@@ -49,7 +47,7 @@ namespace {
 
     using drawing_details_type = detail_type_list_type::drawing_type;
 
-    using font_type = tetengo2::gui::drawing::font<string_type, size_type, drawing_details_type>;
+    using font_type = tetengo2::gui::drawing::font<drawing_details_type>;
 
     using common_dialog_details_type = detail_type_list_type::common_dialog_type;
 

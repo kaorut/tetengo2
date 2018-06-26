@@ -9,24 +9,25 @@
 #if !defined(TETENGO2_GUI_MESSAGE_SCROLLBAROBSERVERSET_H)
 #define TETENGO2_GUI_MESSAGE_SCROLLBAROBSERVERSET_H
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
 #include <boost/signals2.hpp>
+
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::message {
     /*!
-        \brief The class template for a scroll bar observer set.
-
-        \tparam Size A size type.
+        \brief The class for a scroll bar observer set.
     */
-    template <typename Size>
     class scroll_bar_observer_set : private boost::noncopyable
     {
     public:
         // types
 
         //! The size type.
-        using size_type = Size;
+        using size_type = tetengo2::type_list::size_type;
 
         /*!
             \brief The observer type of scrolling.
@@ -49,6 +50,19 @@ namespace tetengo2::gui::message {
         using scrolled_signal_type = boost::signals2::signal<scrolled_type>;
 
 
+        // constructors and destructor
+
+        /*!
+            \brief Creates a scroll bar observer set.
+        */
+        scroll_bar_observer_set();
+
+        /*!
+            \brief Destroys the scroll bar_observer set.
+        */
+        ~scroll_bar_observer_set();
+
+
         // functions
 
         /*!
@@ -56,48 +70,39 @@ namespace tetengo2::gui::message {
 
             \return The observer called when a scroll bar is being scrolled.
         */
-        const scrolled_signal_type& scrolling() const
-        {
-            return m_scrolling;
-        }
+        const scrolled_signal_type& scrolling() const;
 
         /*!
             \brief Returns the observer called when a scroll bar is being scrolled.
 
             \return The observer called when a scroll bar is being scrolled.
         */
-        scrolled_signal_type& scrolling()
-        {
-            return m_scrolling;
-        }
+        scrolled_signal_type& scrolling();
 
         /*!
             \brief Returns the observer called when a scroll bar is scrolled.
 
             \return The observer called when a scroll bar is scrolled.
         */
-        const scrolled_signal_type& scrolled() const
-        {
-            return m_scrolled;
-        }
+        const scrolled_signal_type& scrolled() const;
 
         /*!
             \brief Returns the observer called when a scroll bar is scrolled.
 
             \return The observer called when a scroll bar is scrolled.
         */
-        scrolled_signal_type& scrolled()
-        {
-            return m_scrolled;
-        }
+        scrolled_signal_type& scrolled();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        scrolling_signal_type m_scrolling;
-
-        scrolled_signal_type m_scrolled;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

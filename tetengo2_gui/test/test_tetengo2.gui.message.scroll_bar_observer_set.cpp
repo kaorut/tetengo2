@@ -9,13 +9,11 @@
 #include <sstream>
 
 #include <boost/preprocessor.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/message/scroll_bar_observer_set.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
-#include "test_tetengo2.gui.type_list.h"
 
 
 namespace {
@@ -23,10 +21,7 @@ namespace {
 
     using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
-
-    using scroll_bar_observer_set_type =
-        tetengo2::gui::message::scroll_bar_observer_set<common_type_list_type::size_type>;
+    using scroll_bar_observer_set_type = tetengo2::gui::message::scroll_bar_observer_set;
 }
 
 
@@ -35,6 +30,13 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
         BOOST_AUTO_TEST_SUITE(message)
             BOOST_AUTO_TEST_SUITE(scroll_bar_observer_set)
                 // test cases
+
+                BOOST_AUTO_TEST_CASE(construction)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    const scroll_bar_observer_set_type observer_set{};
+                }
 
                 BOOST_AUTO_TEST_CASE(scrolling)
                 {

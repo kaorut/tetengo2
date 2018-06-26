@@ -9,9 +9,11 @@
 #if !defined(TETENGO2_GUI_MENU_MENUBASE_H)
 #define TETENGO2_GUI_MENU_MENUBASE_H
 
+#include <algorithm>
 #include <cassert>
 #include <memory>
 #include <stdexcept>
+#include <type_traits>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
@@ -22,24 +24,24 @@
 #include <tetengo2/gui/menu/shortcut_key.h>
 #include <tetengo2/gui/message/menu_observer_set.h>
 #include <tetengo2/stdalt.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::menu {
     /*!
         \brief The base class template for a menu base.
 
-        \tparam String      A string type.
         \tparam Encoder     An encoder type.
         \tparam MenuDetails A detail implementation type of a menu.
    */
-    template <typename String, typename Encoder, typename MenuDetails>
+    template <typename Encoder, typename MenuDetails>
     class menu_base : private boost::noncopyable
     {
     public:
         // types
 
         //! The string type.
-        using string_type = String;
+        using string_type = tetengo2::type_list::string_type;
 
         //! The encoder type.
         using encoder_type = Encoder;
@@ -54,7 +56,7 @@ namespace tetengo2::gui::menu {
         using details_ptr_type = typename menu_details_type::menu_details_ptr_type;
 
         //! The shortcut key type.
-        using shortcut_key_type = shortcut_key<string_type>;
+        using shortcut_key_type = shortcut_key;
 
         //! The menu observer set type.
         using menu_observer_set_type = gui::message::menu_observer_set;

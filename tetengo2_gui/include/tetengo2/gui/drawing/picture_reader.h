@@ -22,23 +22,19 @@ namespace tetengo2::gui::drawing {
     /*!
         \brief The class template for a picture reader.
 
-        \tparam Dimension      A dimension type.
         \tparam DrawingDetails A detail implementation type of a drawing.
     */
-    template <typename Dimension, typename DrawingDetails>
+    template <typename DrawingDetails>
     class picture_reader : private boost::noncopyable
     {
     public:
         // types
 
-        //! The dimension type.
-        using dimension_type = Dimension;
-
         //! The drawing details type.
         using drawing_details_type = DrawingDetails;
 
         //! The picture type.
-        using picture_type = picture<dimension_type, drawing_details_type>;
+        using picture_type = picture<drawing_details_type>;
 
 
         // constructors and destructor

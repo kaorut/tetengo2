@@ -43,6 +43,15 @@
     <Filter Include="sources\tetengo2::gui\drawing">
       <UniqueIdentifier>{8502107e-3b36-4e58-88ca-e49ec9bdc2d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\tetengo2::gui\common_dialog">
+      <UniqueIdentifier>{ebed041b-2c0a-4610-8b38-034b371d5556}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\tetengo2::gui\menu">
+      <UniqueIdentifier>{bab67f37-bca4-468b-88a2-ad4c0a611aba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\tetengo2::gui\message">
+      <UniqueIdentifier>{52dd663d-f967-4d08-ad5b-9ee9c58e0f82}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2\gui\0namespace.dox">
@@ -352,6 +361,39 @@
     </ClCompile>
     <ClCompile Include="src\tetengo2.gui.drawing.system_color_set.cpp">
       <Filter>sources\tetengo2::gui\drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.common_dialog.message_box.cpp">
+      <Filter>sources\tetengo2::gui\common_dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.menu.shortcut_key.cpp">
+      <Filter>sources\tetengo2::gui\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.message.file_drop_observer_set.cpp">
+      <Filter>sources\tetengo2::gui\message</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.message.focus_observer_set.cpp">
+      <Filter>sources\tetengo2::gui\message</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.message.list_selection_observer_set.cpp">
+      <Filter>sources\tetengo2::gui\message</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.message.menu_observer_set.cpp">
+      <Filter>sources\tetengo2::gui\message</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.message.mouse_observer_set.cpp">
+      <Filter>sources\tetengo2::gui\message</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.message.scroll_bar_observer_set.cpp">
+      <Filter>sources\tetengo2::gui\message</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.message.size_observer_set.cpp">
+      <Filter>sources\tetengo2::gui\message</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.message.text_box_observer_set.cpp">
+      <Filter>sources\tetengo2::gui\message</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.message.window_observer_set.cpp">
+      <Filter>sources\tetengo2::gui\message</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

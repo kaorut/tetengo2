@@ -53,12 +53,6 @@ namespace tetengo2::gui::widget {
         //! The traits type.
         using traits_type = Traits;
 
-        //! The size type.
-        using size_type = typename traits_type::size_type;
-
-        //! The difference type.
-        using difference_type = typename traits_type::difference_type;
-
         //! The string type.
         using string_type = typename traits_type::string_type;
 
@@ -90,8 +84,7 @@ namespace tetengo2::gui::widget {
         using scroll_details_type = typename details_traits_type::scroll_details_type;
 
         //! The canvas traits type.
-        using canvas_traits_type =
-            gui::drawing::canvas_traits<size_type, string_type, position_type, dimension_type, encoder_type>;
+        using canvas_traits_type = gui::drawing::canvas_traits<encoder_type>;
 
         //! The canvas type.
         using canvas_type = gui::drawing::canvas<canvas_traits_type, drawing_details_type>;
@@ -103,7 +96,7 @@ namespace tetengo2::gui::widget {
         using background_type = gui::drawing::background<drawing_details_type>;
 
         //! The font type.
-        using font_type = gui::drawing::font<string_type, size_type, drawing_details_type>;
+        using font_type = gui::drawing::font<drawing_details_type>;
 
         //! The cursor type.
         using cursor_type = gui::cursor::cursor_base;
@@ -112,7 +105,7 @@ namespace tetengo2::gui::widget {
         using system_cursor_type = gui::cursor::system;
 
         //! The scroll bar type.
-        using scroll_bar_type = gui::scroll_bar<size_type, scroll_details_type>;
+        using scroll_bar_type = gui::scroll_bar<scroll_details_type>;
 
         //! The message handler details type.
         using message_handler_details_type = typename details_traits_type::message_handler_details_type;
@@ -152,7 +145,7 @@ namespace tetengo2::gui::widget {
             gui::message::keyboard_observer_set<virtual_key_type, typename string_type::value_type>;
 
         //! The mouse observer set type.
-        using mouse_observer_set_type = gui::message::mouse_observer_set<position_type, difference_type>;
+        using mouse_observer_set_type = gui::message::mouse_observer_set;
 
 
         // constructors and destructor

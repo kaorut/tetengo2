@@ -8,12 +8,23 @@ extra_headers =
 
 sources = \
     tetengo2.gui.alert.cpp \
+    tetengo2.gui.common_dialog.message_box.cpp \
     tetengo2.gui.cursor.cursor_base.cpp \
     tetengo2.gui.cursor.system.cpp \
     tetengo2.gui.dimension.cpp \
     tetengo2.gui.drawing.system_color_set.cpp \
     tetengo2.gui.fixture.cpp \
     tetengo2.gui.icon.cpp \
+    tetengo2.gui.menu.shortcut_key.cpp \
+    tetengo2.gui.message.file_drop_observer_set.cpp \
+    tetengo2.gui.message.focus_observer_set.cpp \
+    tetengo2.gui.message.list_selection_observer_set.cpp \
+    tetengo2.gui.message.menu_observer_set.cpp \
+    tetengo2.gui.message.mouse_observer_set.cpp \
+    tetengo2.gui.message.scroll_bar_observer_set.cpp \
+    tetengo2.gui.message.size_observer_set.cpp \
+    tetengo2.gui.message.text_box_observer_set.cpp \
+    tetengo2.gui.message.window_observer_set.cpp \
     tetengo2.gui.position.cpp \
     tetengo2.gui.shell.cpp \
     tetengo2.gui.unit.em.cpp \

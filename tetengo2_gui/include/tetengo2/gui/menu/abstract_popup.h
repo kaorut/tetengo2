@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_MENU_ABSTRACTPOPUP_H)
 #define TETENGO2_GUI_MENU_ABSTRACTPOPUP_H
 
+#include <algorithm>
 #include <memory>
 #include <stdexcept>
 #include <vector>
@@ -16,24 +17,24 @@
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/menu/menu_base.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::menu {
     /*!
         \brief The base class template for an abstract popup menu.
 
-        \tparam String      A string type.
         \tparam Encoder     An encoder type.
         \tparam MenuDetails A detail implementation type of a menu.
    */
-    template <typename String, typename Encoder, typename MenuDetails>
-    class abstract_popup : public menu_base<String, Encoder, MenuDetails>
+    template <typename Encoder, typename MenuDetails>
+    class abstract_popup : public menu_base<Encoder, MenuDetails>
     {
     public:
         // types
 
         //! The string type.
-        using string_type = String;
+        using string_type = tetengo2::type_list::string_type;
 
         //! The encoder type.
         using encoder_type = Encoder;
@@ -48,7 +49,7 @@ namespace tetengo2::gui::menu {
         using details_ptr_type = typename menu_details_type::menu_details_ptr_type;
 
         //! The base type.
-        using base_type = menu_base<string_type, encoder_type, menu_details_type>;
+        using base_type = menu_base<encoder_type, menu_details_type>;
 
         //! The shortcut key type.
         using shortcut_key_type = typename base_type::shortcut_key_type;
