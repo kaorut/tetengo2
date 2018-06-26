@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_MESSAGE_TEXTBOXOBSERVERSET_H)
 #define TETENGO2_GUI_MESSAGE_TEXTBOXOBSERVERSET_H
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
@@ -32,6 +34,19 @@ namespace tetengo2::gui::message {
         using changed_signal_type = boost::signals2::signal<changed_type>;
 
 
+        // constructors and destructor
+
+        /*!
+            \brief Creates a text box observer set.
+        */
+        text_box_observer_set();
+
+        /*!
+            \brief Destroys the text box observer set.
+        */
+        ~text_box_observer_set();
+
+
         // functions
 
         /*!
@@ -39,26 +54,25 @@ namespace tetengo2::gui::message {
 
             \return The observer called when a text is changed.
         */
-        const changed_signal_type& changed() const
-        {
-            return m_changed;
-        }
+        const changed_signal_type& changed() const;
 
         /*!
             \brief Returns the observer called when a text is changed.
 
             \return The observer called when a text is changed.
         */
-        changed_signal_type& changed()
-        {
-            return m_changed;
-        }
+        changed_signal_type& changed();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        changed_signal_type m_changed;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 
