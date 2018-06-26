@@ -44,7 +44,7 @@ namespace tetengo2::gui::message {
     };
 
 
-    text_box_observer_set::text_box_observer_set() : m_p_impl{ std::unique_ptr<impl>() } {}
+    text_box_observer_set::text_box_observer_set() : m_p_impl{ std::make_unique<impl>() } {}
 
     text_box_observer_set::~text_box_observer_set() = default;
 
