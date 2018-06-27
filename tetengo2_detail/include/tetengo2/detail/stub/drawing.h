@@ -127,7 +127,7 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Creates a solid background.
 
->
+
             \param color A color.
 
             \return A unique pointer to a solid background.
@@ -195,7 +195,7 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Draws a line.
 
->
+
             \param canvas A canvas.
             \param from   A beginning position.
             \param to     An ending position.
@@ -231,7 +231,7 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Draws a rectangle.
 
->
+
             \param canvas     A canvas.
             \param position   A position of a region.
             \param dimension  A dimension of a region.
@@ -273,22 +273,17 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Draws a polygon.
 
-            \tparam PositionIterator A position iterator type.
->
-            \param canvas         A canvas.
-            \param position_first A first position of a region.
-            \param position_last  A last position of a region.
-            \param width          A width.
-            \param style          A style.
-            \param color          A color.
+            \param canvas    A canvas.
+            \param positions A positions of a region.
+            \param width     A width.
+            \param style     A style.
+            \param color     A color.
 
             \throw std::system_error When the polygon cannot be filled.
         */
-        template <typename PositionIterator>
         static void draw_polygon(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
-            TETENGO2_STDALT_MAYBE_UNUSED const PositionIterator position_first,
-            TETENGO2_STDALT_MAYBE_UNUSED const PositionIterator position_last,
+            TETENGO2_STDALT_MAYBE_UNUSED const std::vector<gui::type_list::position_type>& positions,
             TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_unit_type& width,
             TETENGO2_STDALT_MAYBE_UNUSED const int                                  style,
             TETENGO2_STDALT_MAYBE_UNUSED const tetengo2::gui::drawing::color& color)
@@ -297,21 +292,18 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Fills a polygon region.
 
-            \tparam PositionIterator A position iterator type.
             \tparam Background       A background type.
 
-            \param canvas         A canvas.
-            \param position_first A first position of a region.
-            \param position_last  A last position of a region.
-            \param background     A background.
+            \param canvas     A canvas.
+            \param positions  A positions of a region.
+            \param background A background.
 
             \throw std::system_error When the polygon cannot be filled.
         */
-        template <typename PositionIterator, typename Background>
+        template <typename Background>
         static void fill_polygon(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
-            TETENGO2_STDALT_MAYBE_UNUSED const PositionIterator position_first,
-            TETENGO2_STDALT_MAYBE_UNUSED const PositionIterator position_last,
+            TETENGO2_STDALT_MAYBE_UNUSED const std::vector<gui::type_list::position_type>& positions,
             TETENGO2_STDALT_MAYBE_UNUSED const Background& background)
         {}
 
@@ -392,7 +384,7 @@ namespace tetengo2::detail::stub {
             \tparam Font          A font type.
             \tparam String        A string type.
             \tparam Encoder       An encoder type.
->
+
             \param canvas    A canvas.
             \param font      A font.
             \param text      A text to draw.

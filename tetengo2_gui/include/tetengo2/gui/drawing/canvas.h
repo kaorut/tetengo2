@@ -277,31 +277,23 @@ namespace tetengo2::gui::drawing {
         /*!
             \brief Draws a polygon.
 
-            \tparam PositionIterator A position iterator type.
-
-            \param position_first A first position.
-            \param position_last  A last position.
+            \param positions Positions of a region.
         */
-        template <typename PositionIterator>
-        void draw_polygon(const PositionIterator position_first, const PositionIterator position_last)
+        void draw_polygon(const std::vector<position_type>& positions)
         {
             drawing_details_type::draw_polygon(
-                *m_p_details, position_first, position_last, m_line_width, static_cast<int>(m_line_style), m_color);
+                *m_p_details, positions, m_line_width, static_cast<int>(m_line_style), m_color);
         }
 
         /*!
             \brief Fills a polygon region.
 
-            \tparam PositionIterator A position iterator type.
-
-            \param position_first A first position of a region.
-            \param position_last  A last position of a region.
+            \param positions Positions of a region.
         */
-        template <typename PositionIterator>
-        void fill_polygon(const PositionIterator position_first, const PositionIterator position_last)
+        void fill_polygon(const std::vector<position_type>& positions)
         {
             assert(m_p_background);
-            drawing_details_type::fill_polygon(*m_p_details, position_first, position_last, *m_p_background);
+            drawing_details_type::fill_polygon(*m_p_details, positions, *m_p_background);
         }
 
         /*!

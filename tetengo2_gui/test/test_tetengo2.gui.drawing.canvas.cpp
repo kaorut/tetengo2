@@ -303,7 +303,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                                                                 make_position(56, 78),
                                                                 make_position(90, 12) };
 
-                    canvas.draw_polygon(positions.begin(), positions.end());
+                    canvas.draw_polygon(positions);
                 }
 
                 BOOST_AUTO_TEST_CASE(fill_polygon)
@@ -316,7 +316,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                                                                 make_position(56, 78),
                                                                 make_position(90, 12) };
 
-                    canvas.fill_polygon(positions.begin(), positions.end());
+                    canvas.fill_polygon(positions);
                 }
 
                 BOOST_AUTO_TEST_CASE(calc_text_dimension)

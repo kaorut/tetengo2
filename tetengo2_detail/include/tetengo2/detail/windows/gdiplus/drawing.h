@@ -240,7 +240,7 @@ namespace tetengo2::detail::windows::gdiplus {
         /*!
             \brief Creates a solid background.
 
->
+
             \param color A color.
 
             \return A unique pointer to a solid background.
@@ -305,7 +305,7 @@ namespace tetengo2::detail::windows::gdiplus {
         /*!
             \brief Draws a line.
 
->
+
             \param canvas A canvas.
             \param from   A beginning position.
             \param to     An ending position.
@@ -364,7 +364,7 @@ namespace tetengo2::detail::windows::gdiplus {
         /*!
             \brief Draws a rectangle.
 
->
+
             \param canvas     A canvas.
             \param position   A position of a region.
             \param dimension  A dimension of a region.
@@ -420,29 +420,24 @@ namespace tetengo2::detail::windows::gdiplus {
         /*!
             \brief Draws a polygon.
 
-            \tparam PositionIterator A position iterator type.
->
-            \param canvas         A canvas.
-            \param position_first A first position of a region.
-            \param position_last  A last position of a region.
-            \param width          A width.
-            \param style          A style.
-            \param color          A color.
+            \param canvas    A canvas.
+            \param positions A positions of a region.
+            \param width     A width.
+            \param style     A style.
+            \param color     A color.
 
             \throw std::system_error When the polygon cannot be filled.
         */
-        template <typename PositionIterator>
         static void draw_polygon(
-            canvas_details_type&                       canvas,
-            const PositionIterator                     position_first,
-            const PositionIterator                     position_last,
-            const gui::type_list::dimension_unit_type& width,
-            TETENGO2_STDALT_MAYBE_UNUSED const int     style,
-            const tetengo2::gui::drawing::color&       color)
+            canvas_details_type&                              canvas,
+            const std::vector<gui::type_list::position_type>& positions,
+            const gui::type_list::dimension_unit_type&        width,
+            TETENGO2_STDALT_MAYBE_UNUSED const int            style,
+            const tetengo2::gui::drawing::color&              color)
         {
             const Gdiplus::Pen pen{ Gdiplus::Color{ color.alpha(), color.red(), color.green(), color.blue() },
                                     static_cast<Gdiplus::REAL>(width.to_pixels()) };
-            const auto         points = to_gdiplus_points(position_first, position_last);
+            const auto         points = to_gdiplus_points(positions);
             const auto status = canvas.get().DrawPolygon(&pen, points.data(), static_cast<::INT>(points.size()));
             if (status != Gdiplus::Ok)
             {
@@ -454,28 +449,25 @@ namespace tetengo2::detail::windows::gdiplus {
         /*!
             \brief Fills a polygon region.
 
-            \tparam PositionIterator A position iterator type.
             \tparam Background       A background type.
 
-            \param canvas         A canvas.
-            \param position_first A first position of a region.
-            \param position_last  A last position of a region.
-            \param background     A background.
+            \param canvas     A canvas.
+            \param positions  A positions of a region.
+            \param background A background.
 
             \throw std::system_error When the polygon cannot be filled.
         */
-        template <typename PositionIterator, typename Background>
+        template <typename Background>
         static void fill_polygon(
-            canvas_details_type&   canvas,
-            const PositionIterator position_first,
-            const PositionIterator position_last,
-            const Background&      background)
+            canvas_details_type&                              canvas,
+            const std::vector<gui::type_list::position_type>& positions,
+            const Background&                                 background)
         {
             const auto& background_details = background.details();
             if (!background_details.get())
                 return;
 
-            const auto points = to_gdiplus_points(position_first, position_last);
+            const auto points = to_gdiplus_points(positions);
             const auto status =
                 canvas.get().FillPolygon(background_details.get(), points.data(), static_cast<::INT>(points.size()));
             if (status != Gdiplus::Ok)
@@ -584,7 +576,7 @@ namespace tetengo2::detail::windows::gdiplus {
             \tparam Font          A font type.
             \tparam String        A string type.
             \tparam Encoder       An encoder type.
->
+
             \param canvas    A canvas.
             \param font      A font.
             \param text      A text to draw.
@@ -664,7 +656,7 @@ namespace tetengo2::detail::windows::gdiplus {
             \tparam Font      A font type.
             \tparam String    A string type.
             \tparam Encoder   An encoder type.
->
+
             \param canvas   A canvas.
             \param font     A font.
             \param text     A text to draw.
@@ -793,18 +785,21 @@ namespace tetengo2::detail::windows::gdiplus {
     private:
         // static functions
 
-        template <typename Iterator>
-        static std::vector<Gdiplus::PointF> to_gdiplus_points(const Iterator first, const Iterator last)
+        static std::vector<Gdiplus::PointF>
+        to_gdiplus_points(const std::vector<gui::type_list::position_type>& positions)
         {
             std::vector<Gdiplus::PointF> points{};
-            points.reserve(std::distance(first, last));
+            points.reserve(positions.size());
 
-            using position_type = typename Iterator::value_type;
-            std::transform(first, last, std::back_inserter(points), [](const position_type& position) {
-                return Gdiplus::PointF(
-                    static_cast<Gdiplus::REAL>(position.left().to_pixels()),
-                    static_cast<Gdiplus::REAL>(position.top().to_pixels()));
-            });
+            std::transform(
+                positions.begin(),
+                positions.end(),
+                std::back_inserter(points),
+                [](const gui::type_list::position_type& position) {
+                    return Gdiplus::PointF(
+                        static_cast<Gdiplus::REAL>(position.left().to_pixels()),
+                        static_cast<Gdiplus::REAL>(position.top().to_pixels()));
+                });
 
             return points;
         }
