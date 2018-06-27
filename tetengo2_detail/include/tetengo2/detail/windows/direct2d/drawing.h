@@ -1033,7 +1033,7 @@ namespace tetengo2::detail::windows::direct2d {
 
         static int character_rotation(const type_list::string_type& char_as_string)
         {
-            using internal_encoding_type = typename Encoder::internal_encoding_type;
+            using internal_encoding_type = type_list::internal_encoding_type;
             using utf8_encoder_type = text::encoder<internal_encoding_type, text::encoding::utf8>;
 
             static const utf8_encoder_type utf8_encoder{};
