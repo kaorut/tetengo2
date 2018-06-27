@@ -328,8 +328,7 @@ namespace tetengo2::gui::drawing {
         */
         dimension_type calc_text_dimension(const string_type& text, const dimension_unit_type& max_width) const
         {
-            return drawing_details_type::template calc_text_dimension<dimension_type>(
-                *m_p_details, m_font, text, encoder(), max_width);
+            return drawing_details_type::template calc_text_dimension(*m_p_details, m_font, text, encoder(), max_width);
         }
 
         /*!
@@ -341,8 +340,7 @@ namespace tetengo2::gui::drawing {
         */
         dimension_type calc_vertical_text_dimension(const string_type& text) const
         {
-            return drawing_details_type::template calc_vertical_text_dimension<dimension_type>(
-                *m_p_details, m_font, text, encoder());
+            return drawing_details_type::template calc_vertical_text_dimension(*m_p_details, m_font, text, encoder());
         }
 
         /*!

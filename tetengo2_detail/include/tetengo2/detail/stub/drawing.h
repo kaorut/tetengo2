@@ -15,6 +15,8 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/gui/drawing/color.h>
+#include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
@@ -101,17 +103,14 @@ namespace tetengo2::detail::stub {
 
             Some platform may not support a transuction. On such platforms, this function do nothing.
 
-            \tparam Dimension A dimension type.
-
             \param canvas    A canvas.
             \param dimension A dimension.
 
             \throw std::logic_error When another transaction has not ended yet.
         */
-        template <typename Dimension>
         static void begin_transaction(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
-            TETENGO2_STDALT_MAYBE_UNUSED const Dimension& dimension)
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_type& dimension)
         {}
 
         /*!
@@ -128,15 +127,13 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Creates a solid background.
 
-            \tparam Color A color type.
-
+>
             \param color A color.
 
             \return A unique pointer to a solid background.
         */
-        template <typename Color>
         static std::unique_ptr<background_details_type>
-        create_solid_background(TETENGO2_STDALT_MAYBE_UNUSED const Color& color)
+        create_solid_background(TETENGO2_STDALT_MAYBE_UNUSED const tetengo2::gui::drawing::color& color)
         {
             return std::make_unique<background_details_type>();
         }
@@ -154,14 +151,12 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Creates a picture.
 
-            \tparam Dimension A dimension type.
 
             \param dimension A dimension.
 
             \return A unique pointer to a picture.
         */
-        template <typename Dimension>
-        static std::unique_ptr<picture_details_type> create_picture(const Dimension& dimension)
+        static std::unique_ptr<picture_details_type> create_picture(const gui::type_list::dimension_type& dimension)
         {
             const auto& width = dimension.width();
             const auto& height = dimension.height();
@@ -186,26 +181,21 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Returns the dimension of a picture.
 
-            \tparam Dimension A dimension type.
 
             \param picture A picture.
 
             \return The dimension of the picture.
         */
-        template <typename Dimension>
-        static Dimension picture_dimension(const picture_details_type& picture)
+        static gui::type_list::dimension_type picture_dimension(const picture_details_type& picture)
         {
-            return { Dimension::unit_type::from_pixels(picture.dimension().first),
-                     Dimension::unit_type::from_pixels(picture.dimension().second) };
+            return { gui::type_list::dimension_unit_type::from_pixels(picture.dimension().first),
+                     gui::type_list::dimension_unit_type::from_pixels(picture.dimension().second) };
         }
 
         /*!
             \brief Draws a line.
 
-            \tparam Position A position type.
-            \tparam Size     A size type.
-            \tparam Color    A color type.
-
+>
             \param canvas A canvas.
             \param from   A beginning position.
             \param to     An ending position.
@@ -213,21 +203,18 @@ namespace tetengo2::detail::stub {
             \param style  A style.
             \param color  A color.
         */
-        template <typename Position, typename Size, typename Color>
         static void draw_line(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
-            TETENGO2_STDALT_MAYBE_UNUSED const Position& from,
-            TETENGO2_STDALT_MAYBE_UNUSED const Position& to,
-            TETENGO2_STDALT_MAYBE_UNUSED const Size width,
-            TETENGO2_STDALT_MAYBE_UNUSED const int  style,
-            TETENGO2_STDALT_MAYBE_UNUSED const Color& color)
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& from,
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& to,
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_unit_type& width,
+            TETENGO2_STDALT_MAYBE_UNUSED const int                                  style,
+            TETENGO2_STDALT_MAYBE_UNUSED const tetengo2::gui::drawing::color& color)
         {}
 
         /*!
             \brief Draws a focus indication.
 
-            \tparam Position  A position type.
-            \tparam Dimension A dimension type.
 
             \param canvas    A canvas.
             \param position  A position of a region.
@@ -235,21 +222,16 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the focus indication cannot be drawn.
         */
-        template <typename Position, typename Dimension>
         static void draw_focus_indication(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
-            TETENGO2_STDALT_MAYBE_UNUSED const Position& position,
-            TETENGO2_STDALT_MAYBE_UNUSED const Dimension& dimension)
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position,
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_type& dimension)
         {}
 
         /*!
             \brief Draws a rectangle.
 
-            \tparam Position   A position type.
-            \tparam Dimension  A dimension type.
-            \tparam Size       A size type.
-            \tparam Color      A color type.
-
+>
             \param canvas     A canvas.
             \param position   A position of a region.
             \param dimension  A dimension of a region.
@@ -259,21 +241,18 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the rectangle cannot be filled.
         */
-        template <typename Position, typename Dimension, typename Size, typename Color>
         static void draw_rectangle(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
-            TETENGO2_STDALT_MAYBE_UNUSED const Position& position,
-            TETENGO2_STDALT_MAYBE_UNUSED const Dimension& dimension,
-            TETENGO2_STDALT_MAYBE_UNUSED const Size width,
-            TETENGO2_STDALT_MAYBE_UNUSED const int  style,
-            TETENGO2_STDALT_MAYBE_UNUSED const Color& color)
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position,
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_type& dimension,
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_unit_type& width,
+            TETENGO2_STDALT_MAYBE_UNUSED const int                                  style,
+            TETENGO2_STDALT_MAYBE_UNUSED const tetengo2::gui::drawing::color& color)
         {}
 
         /*!
             \brief Fills a rectangle region.
 
-            \tparam Position   A position type.
-            \tparam Dimension  A dimension type.
             \tparam Background A background type.
 
             \param canvas     A canvas.
@@ -283,11 +262,11 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the rectangle cannot be filled.
         */
-        template <typename Position, typename Dimension, typename Background>
+        template <typename Background>
         static void fill_rectangle(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
-            TETENGO2_STDALT_MAYBE_UNUSED const Position& position,
-            TETENGO2_STDALT_MAYBE_UNUSED const Dimension& dimension,
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position,
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_type& dimension,
             TETENGO2_STDALT_MAYBE_UNUSED const Background& background)
         {}
 
@@ -295,9 +274,7 @@ namespace tetengo2::detail::stub {
             \brief Draws a polygon.
 
             \tparam PositionIterator A position iterator type.
-            \tparam Size             A size type.
-            \tparam Color            A color type.
-
+>
             \param canvas         A canvas.
             \param position_first A first position of a region.
             \param position_last  A last position of a region.
@@ -307,14 +284,14 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the polygon cannot be filled.
         */
-        template <typename PositionIterator, typename Size, typename Color>
+        template <typename PositionIterator>
         static void draw_polygon(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
             TETENGO2_STDALT_MAYBE_UNUSED const PositionIterator position_first,
             TETENGO2_STDALT_MAYBE_UNUSED const PositionIterator position_last,
-            TETENGO2_STDALT_MAYBE_UNUSED const Size width,
-            TETENGO2_STDALT_MAYBE_UNUSED const int  style,
-            TETENGO2_STDALT_MAYBE_UNUSED const Color& color)
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_unit_type& width,
+            TETENGO2_STDALT_MAYBE_UNUSED const int                                  style,
+            TETENGO2_STDALT_MAYBE_UNUSED const tetengo2::gui::drawing::color& color)
         {}
 
         /*!
@@ -354,7 +331,6 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Calculates the dimension of a text.
 
-            \tparam Dimension A dimension type.
             \tparam Font      A font type.
             \tparam String    A string type.
             \tparam Encoder   An encoder type.
@@ -369,24 +345,23 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the dimention of a text cannot be calculated.
         */
-        template <typename Dimension, typename Font, typename String, typename Encoder>
-        static Dimension calc_text_dimension(
+        template <typename Font, typename String, typename Encoder>
+        static gui::type_list::dimension_type calc_text_dimension(
             TETENGO2_STDALT_MAYBE_UNUSED const canvas_details_type& canvas,
             TETENGO2_STDALT_MAYBE_UNUSED const Font& font,
             TETENGO2_STDALT_MAYBE_UNUSED const String& text,
-            TETENGO2_STDALT_MAYBE_UNUSED const Encoder&                       encoder,
-            TETENGO2_STDALT_MAYBE_UNUSED const typename Dimension::unit_type& max_width)
+            TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder,
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_unit_type& max_width)
         {
-            using dimension_unit_type = typename Dimension::unit_type;
+            using dimension_unit_type = gui::type_list::dimension_unit_type;
             return max_width == dimension_unit_type{} || max_width >= dimension_unit_type{ 123 } ?
-                       Dimension{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } } :
-                       Dimension{ dimension_unit_type{ 46 }, dimension_unit_type{ 890 } };
+                       gui::type_list::dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } } :
+                       gui::type_list::dimension_type{ dimension_unit_type{ 46 }, dimension_unit_type{ 890 } };
         }
 
         /*!
             \brief Calculates the dimension of a vertical text.
 
-            \tparam Dimension A dimension type.
             \tparam Font      A font type.
             \tparam String    A string type.
             \tparam Encoder   An encoder type.
@@ -400,15 +375,15 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the dimention of a vertical text cannot be calculated.
         */
-        template <typename Dimension, typename Font, typename String, typename Encoder>
-        static Dimension calc_vertical_text_dimension(
+        template <typename Font, typename String, typename Encoder>
+        static gui::type_list::dimension_type calc_vertical_text_dimension(
             TETENGO2_STDALT_MAYBE_UNUSED const canvas_details_type& canvas,
             TETENGO2_STDALT_MAYBE_UNUSED const Font& font,
             TETENGO2_STDALT_MAYBE_UNUSED const String& text,
             TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder)
         {
-            using dimension_unit_type = typename Dimension::unit_type;
-            return Dimension{ dimension_unit_type{ 456 }, dimension_unit_type{ 123 } };
+            using dimension_unit_type = gui::type_list::dimension_unit_type;
+            return gui::type_list::dimension_type{ dimension_unit_type{ 456 }, dimension_unit_type{ 123 } };
         }
 
         /*!
@@ -417,10 +392,7 @@ namespace tetengo2::detail::stub {
             \tparam Font          A font type.
             \tparam String        A string type.
             \tparam Encoder       An encoder type.
-            \tparam Position      A position type.
-            \tparam DimensionUnit A dimension unit type.
-            \tparam Color         A color type.
-
+>
             \param canvas    A canvas.
             \param font      A font.
             \param text      A text to draw.
@@ -432,22 +404,16 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <
-            typename Font,
-            typename String,
-            typename Encoder,
-            typename Position,
-            typename DimensionUnit,
-            typename Color>
+        template <typename Font, typename String, typename Encoder>
         static void draw_text(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
             TETENGO2_STDALT_MAYBE_UNUSED const Font& font,
             TETENGO2_STDALT_MAYBE_UNUSED const String& text,
             TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder,
-            TETENGO2_STDALT_MAYBE_UNUSED const Position& position,
-            TETENGO2_STDALT_MAYBE_UNUSED const DimensionUnit& max_width,
-            TETENGO2_STDALT_MAYBE_UNUSED const Color& color,
-            TETENGO2_STDALT_MAYBE_UNUSED const double angle)
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position,
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_unit_type& max_width,
+            TETENGO2_STDALT_MAYBE_UNUSED const tetengo2::gui::drawing::color& color,
+            TETENGO2_STDALT_MAYBE_UNUSED const double                         angle)
         {}
 
         /*!
@@ -456,9 +422,6 @@ namespace tetengo2::detail::stub {
             \tparam Font      A font type.
             \tparam String    A string type.
             \tparam Encoder   An encoder type.
-            \tparam Position  A position type.
-            \tparam Dimension A dimension type.
-            \tparam Color     A color type.
 
             \param canvas   A canvas.
             \param font     A font.
@@ -469,28 +432,20 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <
-            typename Font,
-            typename String,
-            typename Encoder,
-            typename Position,
-            typename Dimension,
-            typename Color>
+        template <typename Font, typename String, typename Encoder>
         static void draw_vertical_text(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
             TETENGO2_STDALT_MAYBE_UNUSED const Font& font,
             TETENGO2_STDALT_MAYBE_UNUSED const String& text,
             TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder,
-            TETENGO2_STDALT_MAYBE_UNUSED const Position& position,
-            TETENGO2_STDALT_MAYBE_UNUSED const Color& color)
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position,
+            TETENGO2_STDALT_MAYBE_UNUSED const tetengo2::gui::drawing::color& color)
         {}
 
         /*!
             \brief Paints a picture.
 
             \tparam Picture   A picture type.
-            \tparam Position  A position type.
-            \tparam Dimension A dimension type.
 
             \param canvas    A canvas.
             \param picture   A picture to paint.
@@ -499,19 +454,18 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the picture cannot be painted.
         */
-        template <typename Picture, typename Position, typename Dimension>
+        template <typename Picture>
         static void paint_picture(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
             TETENGO2_STDALT_MAYBE_UNUSED const Picture& picture,
-            TETENGO2_STDALT_MAYBE_UNUSED const Position& position,
-            TETENGO2_STDALT_MAYBE_UNUSED const Dimension& dimension)
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position,
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_type& dimension)
         {}
 
         /*!
             \brief Paints an icon.
 
             \tparam Icon     A icon type.
-            \tparam Position A position type.
 
             \param canvas   A canvas.
             \param icon     An icon to paint.
@@ -519,11 +473,11 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the icon cannot be painted.
         */
-        template <typename Icon, typename Position>
+        template <typename Icon>
         static void paint_icon(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
             TETENGO2_STDALT_MAYBE_UNUSED const Icon& icon,
-            TETENGO2_STDALT_MAYBE_UNUSED const Position& position)
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position)
         {}
 
 

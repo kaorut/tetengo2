@@ -51,6 +51,8 @@
 #include <tetengo2/detail/windows/gdiplus/error_category.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/icon.h>
 #include <tetengo2/detail/windows/picture.h>
+#include <tetengo2/gui/drawing/color.h>
+#include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
 
 
@@ -210,15 +212,12 @@ namespace tetengo2::detail::windows::gdiplus {
 
             Some platform may not support a transuction. On such platforms, this function do nothing.
 
-            \tparam Dimension A dimension type.
-
             \param canvas    A canvas.
             \param dimension A dimension.
 
             \throw std::logic_error When another transaction has not ended yet.
         */
-        template <typename Dimension>
-        static void begin_transaction(canvas_details_type& canvas, const Dimension& dimension)
+        static void begin_transaction(canvas_details_type& canvas, const gui::type_list::dimension_type& dimension)
         {
             canvas.begin_transaction(
                 static_cast<::INT>(dimension.width().to_pixels()), static_cast<::INT>(dimension.height().to_pixels()));
@@ -241,14 +240,13 @@ namespace tetengo2::detail::windows::gdiplus {
         /*!
             \brief Creates a solid background.
 
-            \tparam Color A color type.
-
+>
             \param color A color.
 
             \return A unique pointer to a solid background.
         */
-        template <typename Color>
-        static std::unique_ptr<background_details_type> create_solid_background(const Color& color)
+        static std::unique_ptr<background_details_type>
+        create_solid_background(const tetengo2::gui::drawing::color& color)
         {
             return std::make_unique<background_details_type>(std::make_unique<Gdiplus::SolidBrush>(
                 Gdiplus::Color(color.alpha(), color.red(), color.green(), color.blue())));
@@ -267,14 +265,12 @@ namespace tetengo2::detail::windows::gdiplus {
         /*!
             \brief Creates a picture.
 
-            \tparam Dimension A dimension type.
 
             \param dimension A dimension.
 
             \return A unique pointer to a picture.
         */
-        template <typename Dimension>
-        static picture_details_ptr_type create_picture(const Dimension& dimension)
+        static picture_details_ptr_type create_picture(const gui::type_list::dimension_type& dimension)
         {
             return picture::instance().create(dimension);
         }
@@ -296,14 +292,12 @@ namespace tetengo2::detail::windows::gdiplus {
         /*!
             \brief Returns the dimension of a picture.
 
-            \tparam Dimension A dimension type.
 
             \param picture A picture.
 
             \return The dimension of the picture.
         */
-        template <typename Dimension>
-        static Dimension picture_dimension(const picture_details_type& picture)
+        static gui::type_list::dimension_type picture_dimension(const picture_details_type& picture)
         {
             return picture::instance().dimension(picture);
         }
@@ -311,10 +305,7 @@ namespace tetengo2::detail::windows::gdiplus {
         /*!
             \brief Draws a line.
 
-            \tparam Position A position type.
-            \tparam Size     A size type.
-            \tparam Color    A color type.
-
+>
             \param canvas A canvas.
             \param from   A beginning position.
             \param to     An ending position.
@@ -322,14 +313,13 @@ namespace tetengo2::detail::windows::gdiplus {
             \param style  A style.
             \param color  A color.
         */
-        template <typename Position, typename Size, typename Color>
         static void draw_line(
-            canvas_details_type&                   canvas,
-            const Position&                        from,
-            const Position&                        to,
-            const Size                             width,
-            TETENGO2_STDALT_MAYBE_UNUSED const int style,
-            const Color&                           color)
+            canvas_details_type&                       canvas,
+            const gui::type_list::position_type&       from,
+            const gui::type_list::position_type&       to,
+            const gui::type_list::dimension_unit_type& width,
+            TETENGO2_STDALT_MAYBE_UNUSED const int     style,
+            const tetengo2::gui::drawing::color&       color)
         {
             const Gdiplus::Pen    pen{ Gdiplus::Color{ color.alpha(), color.red(), color.green(), color.blue() },
                                     static_cast<Gdiplus::REAL>(width.to_pixels()) };
@@ -348,8 +338,6 @@ namespace tetengo2::detail::windows::gdiplus {
         /*!
             \brief Draws a focus indication.
 
-            \tparam Position  A position type.
-            \tparam Dimension A dimension type.
 
             \param canvas    A canvas.
             \param position  A position of a region.
@@ -357,9 +345,10 @@ namespace tetengo2::detail::windows::gdiplus {
 
             \throw std::system_error When the focus indication cannot be drawn.
         */
-        template <typename Position, typename Dimension>
-        static void
-        draw_focus_indication(canvas_details_type& canvas, const Position& position, const Dimension& dimension)
+        static void draw_focus_indication(
+            canvas_details_type&                  canvas,
+            const gui::type_list::position_type&  position,
+            const gui::type_list::dimension_type& dimension)
         {
             const ::RECT rect{ static_cast<::LONG>(position.left().to_pixels()),
                                static_cast<::LONG>(position.top().to_pixels()),
@@ -375,11 +364,7 @@ namespace tetengo2::detail::windows::gdiplus {
         /*!
             \brief Draws a rectangle.
 
-            \tparam Position   A position type.
-            \tparam Dimension  A dimension type.
-            \tparam Size       A size type.
-            \tparam Color      A color type.
-
+>
             \param canvas     A canvas.
             \param position   A position of a region.
             \param dimension  A dimension of a region.
@@ -389,20 +374,17 @@ namespace tetengo2::detail::windows::gdiplus {
 
             \throw std::system_error When the rectangle cannot be filled.
         */
-        template <typename Position, typename Dimension, typename Size, typename Color>
         static void draw_rectangle(
-            canvas_details_type& canvas,
-            const Position&      position,
-            const Dimension&     dimension,
-            const Size           width,
-            const int            style,
-            const Color&         color);
+            canvas_details_type&                       canvas,
+            const gui::type_list::position_type&       position,
+            const gui::type_list::dimension_type&      dimension,
+            const gui::type_list::dimension_unit_type& width,
+            const int                                  style,
+            const tetengo2::gui::drawing::color&       color);
 
         /*!
             \brief Fills a rectangle region.
 
-            \tparam Position   A position type.
-            \tparam Dimension  A dimension type.
             \tparam Background A background type.
 
             \param canvas     A canvas.
@@ -412,12 +394,12 @@ namespace tetengo2::detail::windows::gdiplus {
 
             \throw std::system_error When the rectangle cannot be filled.
         */
-        template <typename Position, typename Dimension, typename Background>
+        template <typename Background>
         static void fill_rectangle(
-            canvas_details_type& canvas,
-            const Position&      position,
-            const Dimension&     dimension,
-            const Background&    background)
+            canvas_details_type&                  canvas,
+            const gui::type_list::position_type&  position,
+            const gui::type_list::dimension_type& dimension,
+            const Background&                     background)
         {
             const auto& background_details = background.details();
             if (!background_details.get())
@@ -439,9 +421,7 @@ namespace tetengo2::detail::windows::gdiplus {
             \brief Draws a polygon.
 
             \tparam PositionIterator A position iterator type.
-            \tparam Size             A size type.
-            \tparam Color            A color type.
-
+>
             \param canvas         A canvas.
             \param position_first A first position of a region.
             \param position_last  A last position of a region.
@@ -451,14 +431,14 @@ namespace tetengo2::detail::windows::gdiplus {
 
             \throw std::system_error When the polygon cannot be filled.
         */
-        template <typename PositionIterator, typename Size, typename Color>
+        template <typename PositionIterator>
         static void draw_polygon(
-            canvas_details_type&                   canvas,
-            const PositionIterator                 position_first,
-            const PositionIterator                 position_last,
-            const Size                             width,
-            TETENGO2_STDALT_MAYBE_UNUSED const int style,
-            const Color&                           color)
+            canvas_details_type&                       canvas,
+            const PositionIterator                     position_first,
+            const PositionIterator                     position_last,
+            const gui::type_list::dimension_unit_type& width,
+            TETENGO2_STDALT_MAYBE_UNUSED const int     style,
+            const tetengo2::gui::drawing::color&       color)
         {
             const Gdiplus::Pen pen{ Gdiplus::Color{ color.alpha(), color.red(), color.green(), color.blue() },
                                     static_cast<Gdiplus::REAL>(width.to_pixels()) };
@@ -526,7 +506,6 @@ namespace tetengo2::detail::windows::gdiplus {
         /*!
             \brief Calculates the dimension of a text.
 
-            \tparam Dimension A dimension type.
             \tparam Font      A font type.
             \tparam String    A string type.
             \tparam Encoder   An encoder type.
@@ -541,20 +520,20 @@ namespace tetengo2::detail::windows::gdiplus {
 
             \throw std::system_error When the dimention of a text cannot be calculated.
         */
-        template <typename Dimension, typename Font, typename String, typename Encoder>
-        static Dimension calc_text_dimension(
-            const canvas_details_type&           canvas,
-            const Font&                          font,
-            const String&                        text,
-            const Encoder&                       encoder,
-            const typename Dimension::unit_type& max_width)
+        template <typename Font, typename String, typename Encoder>
+        static gui::type_list::dimension_type calc_text_dimension(
+            const canvas_details_type&                 canvas,
+            const Font&                                font,
+            const String&                              text,
+            const Encoder&                             encoder,
+            const gui::type_list::dimension_unit_type& max_width)
         {
             const auto encoded_text = encoder.encode(text);
 
             const Gdiplus::InstalledFontCollection font_collection;
             const auto p_gdiplus_font = create_gdiplus_font<String>(font, font_collection, encoder);
 
-            const Gdiplus::REAL gdiplus_max_width = max_width == typename Dimension::unit_type{} ?
+            const Gdiplus::REAL gdiplus_max_width = max_width == gui::type_list::dimension_unit_type{} ?
                                                         std::numeric_limits<Gdiplus::REAL>::max() :
                                                         static_cast<Gdiplus::REAL>(max_width.to_pixels());
             const Gdiplus::RectF layout{ 0, 0, gdiplus_max_width, std::numeric_limits<Gdiplus::REAL>::max() };
@@ -572,14 +551,13 @@ namespace tetengo2::detail::windows::gdiplus {
                     (std::system_error{ std::error_code{ status, gdiplus_category() }, "Can't measure text!" }));
             }
 
-            return { Dimension::unit_type::from_pixels(bounding.Width),
-                     Dimension::unit_type::from_pixels(bounding.Height) };
+            return { gui::type_list::dimension_unit_type::from_pixels(bounding.Width),
+                     gui::type_list::dimension_unit_type::from_pixels(bounding.Height) };
         }
 
         /*!
             \brief Calculates the dimension of a vertical text.
 
-            \tparam Dimension A dimension type.
             \tparam Font      A font type.
             \tparam String    A string type.
             \tparam Encoder   An encoder type.
@@ -593,8 +571,8 @@ namespace tetengo2::detail::windows::gdiplus {
 
             \throw std::system_error When the dimention of a vertical text cannot be calculated.
         */
-        template <typename Dimension, typename Font, typename String, typename Encoder>
-        static Dimension calc_vertical_text_dimension(
+        template <typename Font, typename String, typename Encoder>
+        static gui::type_list::dimension_type calc_vertical_text_dimension(
             const canvas_details_type& canvas,
             const Font&                font,
             const String&              text,
@@ -606,10 +584,7 @@ namespace tetengo2::detail::windows::gdiplus {
             \tparam Font          A font type.
             \tparam String        A string type.
             \tparam Encoder       An encoder type.
-            \tparam Position      A position type.
-            \tparam DimensionUnit A dimension unit type.
-            \tparam Color         A color type.
-
+>
             \param canvas    A canvas.
             \param font      A font.
             \param text      A text to draw.
@@ -621,22 +596,16 @@ namespace tetengo2::detail::windows::gdiplus {
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <
-            typename Font,
-            typename String,
-            typename Encoder,
-            typename Position,
-            typename DimensionUnit,
-            typename Color>
+        template <typename Font, typename String, typename Encoder>
         static void draw_text(
-            canvas_details_type& canvas,
-            const Font&          font,
-            const String&        text,
-            const Encoder&       encoder,
-            const Position&      position,
-            const DimensionUnit& max_width,
-            const Color&         color,
-            const double         angle)
+            canvas_details_type&                       canvas,
+            const Font&                                font,
+            const String&                              text,
+            const Encoder&                             encoder,
+            const gui::type_list::position_type&       position,
+            const gui::type_list::dimension_unit_type& max_width,
+            const tetengo2::gui::drawing::color&       color,
+            const double                               angle)
         {
             const auto encoded_text = encoder.encode(text);
 
@@ -647,7 +616,7 @@ namespace tetengo2::detail::windows::gdiplus {
 
             const Gdiplus::PointF gdiplus_point{ static_cast<Gdiplus::REAL>(position.left().to_pixels()),
                                                  static_cast<Gdiplus::REAL>(position.top().to_pixels()) };
-            const Gdiplus::REAL   gdiplus_max_width = max_width == DimensionUnit{} ?
+            const Gdiplus::REAL   gdiplus_max_width = max_width == gui::type_list::dimension_unit_type{} ?
                                                         std::numeric_limits<Gdiplus::REAL>::max() :
                                                         static_cast<Gdiplus::REAL>(max_width.to_pixels());
             const Gdiplus::RectF layout{
@@ -695,10 +664,7 @@ namespace tetengo2::detail::windows::gdiplus {
             \tparam Font      A font type.
             \tparam String    A string type.
             \tparam Encoder   An encoder type.
-            \tparam Position  A position type.
-            \tparam Dimension A dimension type.
-            \tparam Color     A color type.
-
+>
             \param canvas   A canvas.
             \param font     A font.
             \param text     A text to draw.
@@ -712,23 +678,21 @@ namespace tetengo2::detail::windows::gdiplus {
             typename Font,
             typename String,
             typename Encoder,
-            typename Position,
-            typename Dimension,
-            typename Color>
+
+
+            >
         static void draw_vertical_text(
-            canvas_details_type& canvas,
-            const Font&          font,
-            const String&        text,
-            const Encoder&       encoder,
-            const Position&      position,
-            const Color&         color);
+            canvas_details_type&                 canvas,
+            const Font&                          font,
+            const String&                        text,
+            const Encoder&                       encoder,
+            const gui::type_list::position_type& position,
+            const tetengo2::gui::drawing::color& color);
 
         /*!
             \brief Paints a picture.
 
             \tparam Picture   A picture type.
-            \tparam Position  A position type.
-            \tparam Dimension A dimension type.
 
             \param canvas    A canvas.
             \param picture   A picture to paint.
@@ -737,12 +701,12 @@ namespace tetengo2::detail::windows::gdiplus {
 
             \throw std::system_error When the picture cannot be painted.
         */
-        template <typename Picture, typename Position, typename Dimension>
+        template <typename Picture>
         static void paint_picture(
-            canvas_details_type& canvas,
-            const Picture&       picture,
-            const Position&      position,
-            const Dimension&     dimension)
+            canvas_details_type&                  canvas,
+            const Picture&                        picture,
+            const gui::type_list::position_type&  position,
+            const gui::type_list::dimension_type& dimension)
         {
             auto& picture_details = const_cast<Picture&>(picture).details();
 
@@ -796,7 +760,6 @@ namespace tetengo2::detail::windows::gdiplus {
             \brief Paints an icon.
 
             \tparam Icon     A icon type.
-            \tparam Position A position type.
 
             \param canvas   A canvas.
             \param icon     An icon to paint.
@@ -804,8 +767,9 @@ namespace tetengo2::detail::windows::gdiplus {
 
             \throw std::system_error When the icon cannot be painted.
         */
-        template <typename Icon, typename Position>
-        static void paint_icon(canvas_details_type& canvas, const Icon& icon, const Position& position)
+        template <typename Icon>
+        static void
+        paint_icon(canvas_details_type& canvas, const Icon& icon, const gui::type_list::position_type& position)
         {
             using dimension_type = typename Icon::dimension_type;
             const ::BOOL result = ::DrawIconEx(
