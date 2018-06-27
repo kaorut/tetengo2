@@ -16,6 +16,7 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/gui/drawing/color.h>
+#include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
@@ -454,18 +455,15 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Paints an icon.
 
-            \tparam Icon     A icon type.
-
             \param canvas   A canvas.
             \param icon     An icon to paint.
             \param position A position where the picture is painted.
 
             \throw std::system_error When the icon cannot be painted.
         */
-        template <typename Icon>
         static void paint_icon(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
-            TETENGO2_STDALT_MAYBE_UNUSED const Icon& icon,
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::icon& icon,
             TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position)
         {}
 

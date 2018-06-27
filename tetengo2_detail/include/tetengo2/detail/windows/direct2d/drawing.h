@@ -41,6 +41,7 @@
 #include <tetengo2/detail/windows/font.h>
 #include <tetengo2/detail/windows/picture.h>
 #include <tetengo2/gui/drawing/color.h>
+#include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text/character_iterator.h>
@@ -717,17 +718,14 @@ namespace tetengo2::detail::windows::direct2d {
         /*!
             \brief Paints an icon.
 
-            \tparam Icon     A icon type.
-
             \param canvas   A canvas.
             \param icon     An icon to paint.
             \param position A position where the picture is painted.
 
             \throw std::system_error When the icon cannot be painted.
         */
-        template <typename Icon>
         static void
-        paint_icon(canvas_details_type& canvas, const Icon& icon, const gui::type_list::position_type& position);
+        paint_icon(canvas_details_type& canvas, const gui::icon& icon, const gui::type_list::position_type& position);
 
 
     private:
