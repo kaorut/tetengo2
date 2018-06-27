@@ -378,8 +378,7 @@ namespace tetengo2::gui::drawing {
         */
         void draw_vertical_text(const string_type& text, const position_type& position)
         {
-            drawing_details_type::template draw_vertical_text<font_type, string_type, position_type, dimension_type>(
-                *m_p_details, m_font, text, position, m_color);
+            drawing_details_type::draw_vertical_text(*m_p_details, m_font, text, position, m_color);
         }
 
         /*!

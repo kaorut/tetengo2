@@ -145,7 +145,7 @@ namespace tetengo2::detail::windows::direct2d {
         using native_encoder_type =
             text::encoder<type_list::internal_encoding_type, text::encoding::locale<std::wstring>>;
 
-        const native_encoder_type& native_encoder()
+        inline const native_encoder_type& native_encoder()
         {
             static const native_encoder_type singleton;
             return singleton;
@@ -153,7 +153,7 @@ namespace tetengo2::detail::windows::direct2d {
 
         using utf8_encoder_type = text::encoder<type_list::internal_encoding_type, text::encoding::utf8>;
 
-        const utf8_encoder_type& utf8_encoder()
+        inline const utf8_encoder_type& utf8_encoder()
         {
             static const utf8_encoder_type singleton;
             return singleton;
@@ -298,7 +298,7 @@ namespace tetengo2::detail::windows::direct2d {
         */
         static picture_details_ptr_type create_picture(const gui::type_list::dimension_type& dimension)
         {
-            return picture::create(dimension);
+            return picture::instance().create(dimension);
         }
 
         /*!
@@ -506,7 +506,7 @@ namespace tetengo2::detail::windows::direct2d {
             const type_list::string_type&                           text,
             const gui::type_list::dimension_unit_type&              max_width)
         {
-            const auto p_layout = create_text_layout(text, font, encoder, max_width);
+            const auto p_layout = create_text_layout(text, font, max_width);
 
             ::DWRITE_TEXT_METRICS metrics{};
             const auto            get_metrics_hr = p_layout->GetMetrics(&metrics);
@@ -539,18 +539,17 @@ namespace tetengo2::detail::windows::direct2d {
             const Font&                   font,
             const type_list::string_type& text)
         {
-            const auto chunks = split_to_vertical_text_chunks(text, encoder);
+            const auto chunks = split_to_vertical_text_chunks(text);
 
             using dimension_unit_type = gui::type_list::dimension_unit_type;
             dimension_unit_type max_width{};
             dimension_unit_type total_height{};
             for (const auto& chunk : chunks)
             {
-                const auto chunk_dimension = calc_text_dimension<gui::type_list::dimension_type>(
-                    canvas, font, chunk, encoder, dimension_unit_type{});
+                const auto  chunk_dimension = calc_text_dimension(canvas, font, chunk, dimension_unit_type{});
                 const auto& chunk_width = chunk_dimension.width();
                 const auto& chunk_height = chunk_dimension.height();
-                if (character_rotation(chunk, encoder) % 2 == 0)
+                if (character_rotation(chunk) % 2 == 0)
                 {
                     if (chunk_width > max_width)
                         max_width = chunk_width;
@@ -592,7 +591,7 @@ namespace tetengo2::detail::windows::direct2d {
             const tetengo2::gui::drawing::color&       color,
             const double                               angle)
         {
-            const auto p_layout = create_text_layout(text, font, encoder, max_width);
+            const auto p_layout = create_text_layout(text, font, max_width);
 
             const auto p_background_details = create_solid_background(color);
             const auto p_brush = create_brush(canvas, *p_background_details);
@@ -632,11 +631,10 @@ namespace tetengo2::detail::windows::direct2d {
             const gui::type_list::position_type& position,
             const tetengo2::gui::drawing::color& color)
         {
-            const auto dimension =
-                calc_vertical_text_dimension<gui::type_list::dimension_type>(canvas, font, text, encoder);
+            const auto  dimension = calc_vertical_text_dimension(canvas, font, text);
             const auto& max_width = dimension.width();
 
-            const auto chunks = split_to_vertical_text_chunks(text, encoder);
+            const auto chunks = split_to_vertical_text_chunks(text);
 
             using position_unit_type = gui::type_list::dimension_unit_type;
             using dimension_unit_type = gui::type_list::dimension_unit_type;
@@ -645,12 +643,11 @@ namespace tetengo2::detail::windows::direct2d {
             auto        next_chunk_top = base_top;
             for (const auto& chunk : chunks)
             {
-                const auto chunk_dimension = calc_text_dimension<gui::type_list::dimension_type>(
-                    canvas, font, chunk, encoder, dimension_unit_type{});
+                const auto  chunk_dimension = calc_text_dimension(canvas, font, chunk, dimension_unit_type{});
                 const auto& chunk_width = chunk_dimension.width();
                 const auto& chunk_height = chunk_dimension.height();
 
-                const int    rotation = character_rotation(chunk, encoder);
+                const int    rotation = character_rotation(chunk);
                 const double angle = rotation * boost::math::constants::pi<double>() / 2.0;
 
                 const auto chunk_left = rotation % 2 == 0 ?
@@ -675,8 +672,7 @@ namespace tetengo2::detail::windows::direct2d {
                 }
 
 
-                draw_text<Font, type_list::string_type, gui::type_list::position_type, dimension_unit_type, Color>(
-                    canvas, font, chunk, encoder, chunk_position, dimension_unit_type{}, color, angle);
+                draw_text(canvas, font, chunk, chunk_position, dimension_unit_type{}, color, angle);
 
                 next_chunk_top +=
                     rotation % 2 == 0 ? position_unit_type::from(chunk_height) : position_unit_type::from(chunk_width);

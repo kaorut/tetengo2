@@ -167,7 +167,7 @@ namespace tetengo2::detail::windows::gdiplus {
         using native_encoder_type =
             text::encoder<type_list::internal_encoding_type, text::encoding::locale<std::wstring>>;
 
-        const native_encoder_type& native_encoder()
+        inline const native_encoder_type& native_encoder()
         {
             static const native_encoder_type singleton;
             return singleton;
@@ -532,7 +532,7 @@ namespace tetengo2::detail::windows::gdiplus {
             const auto encoded_text = detail::native_encoder().encode(text);
 
             const Gdiplus::InstalledFontCollection font_collection;
-            const auto p_gdiplus_font = create_gdiplus_font<type_list::string_type>(font, font_collection);
+            const auto p_gdiplus_font = create_gdiplus_font(font, font_collection);
 
             const Gdiplus::REAL gdiplus_max_width = max_width == gui::type_list::dimension_unit_type{} ?
                                                         std::numeric_limits<Gdiplus::REAL>::max() :
@@ -603,7 +603,7 @@ namespace tetengo2::detail::windows::gdiplus {
             const auto encoded_text = detail::native_encoder().encode(text);
 
             const Gdiplus::InstalledFontCollection font_collection;
-            const auto p_gdiplus_font = create_gdiplus_font<type_list::string_type>(font, font_collection, encoder);
+            const auto p_gdiplus_font = create_gdiplus_font(font, font_collection);
 
             const auto p_solid_brush = create_solid_background(color);
 
@@ -808,7 +808,7 @@ namespace tetengo2::detail::windows::gdiplus {
                                                            &font_collection };
             if (!gdiplus_font_family.IsAvailable())
             {
-                return create_gdiplus_font<type_list::string_type>(font, font_collection, encoder, fallback_level + 1);
+                return create_gdiplus_font(font, font_collection, fallback_level + 1);
             }
 
             const auto font_size = fallback_level < 2 ? static_cast<Gdiplus::REAL>(font.size()) :
@@ -817,7 +817,7 @@ namespace tetengo2::detail::windows::gdiplus {
             auto       p_gdiplus_font =
                 std::make_unique<Gdiplus::Font>(&gdiplus_font_family, font_size, font_style, Gdiplus::UnitPixel);
             if (!p_gdiplus_font->IsAvailable())
-                return create_gdiplus_font<type_list::string_type>(font, font_collection, encoder, fallback_level + 1);
+                return create_gdiplus_font(font, font_collection,fallback_level + 1);
 
             return std::move(p_gdiplus_font);
         }
