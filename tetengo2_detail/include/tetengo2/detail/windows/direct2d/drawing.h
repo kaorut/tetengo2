@@ -47,6 +47,7 @@
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/polymorphic.h>
 #include <tetengo2/text/encoding/utf8.h> // IWYU pragma: keep
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::detail::windows::direct2d {
@@ -469,7 +470,6 @@ namespace tetengo2::detail::windows::direct2d {
             \brief Calculates the dimension of a text.
 
             \tparam Font      A font type.
-            \tparam String    A string type.
             \tparam Encoder   An encoder type.
 
             \param canvas    A canvas.
@@ -482,11 +482,11 @@ namespace tetengo2::detail::windows::direct2d {
 
             \throw std::system_error When the dimention of a text cannot be calculated.
         */
-        template <typename Font, typename String, typename Encoder>
+        template <typename Font, typename Encoder>
         static gui::type_list::dimension_type calc_text_dimension(
             TETENGO2_STDALT_MAYBE_UNUSED const canvas_details_type& canvas,
             const Font&                                             font,
-            const String&                                           text,
+            const type_list::string_type&                           text,
             const Encoder&                                          encoder,
             const gui::type_list::dimension_unit_type&              max_width)
         {
@@ -508,7 +508,6 @@ namespace tetengo2::detail::windows::direct2d {
             \brief Calculates the dimension of a vertical text.
 
             \tparam Font      A font type.
-            \tparam String    A string type.
             \tparam Encoder   An encoder type.
 
             \param canvas  A canvas.
@@ -520,12 +519,12 @@ namespace tetengo2::detail::windows::direct2d {
 
             \throw std::system_error When the dimention of a vertical text cannot be calculated.
         */
-        template <typename Font, typename String, typename Encoder>
+        template <typename Font, typename Encoder>
         static gui::type_list::dimension_type calc_vertical_text_dimension(
-            const canvas_details_type& canvas,
-            const Font&                font,
-            const String&              text,
-            const Encoder&             encoder)
+            const canvas_details_type&    canvas,
+            const Font&                   font,
+            const type_list::string_type& text,
+            const Encoder&                encoder)
         {
             const auto chunks = split_to_vertical_text_chunks(text, encoder);
 
@@ -559,7 +558,6 @@ namespace tetengo2::detail::windows::direct2d {
             \brief Draws a text.
 
             \tparam Font          A font type.
-            \tparam String        A string type.
             \tparam Encoder       An encoder type.
 
             \param canvas    A canvas.
@@ -573,11 +571,11 @@ namespace tetengo2::detail::windows::direct2d {
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename String, typename Encoder>
+        template <typename Font, typename Encoder>
         static void draw_text(
             canvas_details_type&                       canvas,
             const Font&                                font,
-            const String&                              text,
+            const type_list::string_type&              text,
             const Encoder&                             encoder,
             const gui::type_list::position_type&       position,
             const gui::type_list::dimension_unit_type& max_width,
@@ -607,7 +605,6 @@ namespace tetengo2::detail::windows::direct2d {
             \brief Draws a vertical text.
 
             \tparam Font      A font type.
-            \tparam String    A string type.
             \tparam Encoder   An encoder type.
 
             \param canvas   A canvas.
@@ -619,17 +616,11 @@ namespace tetengo2::detail::windows::direct2d {
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <
-            typename Font,
-            typename String,
-            typename Encoder,
-
-
-            >
+        template <typename Font, typename Encoder>
         static void draw_vertical_text(
             canvas_details_type&                 canvas,
             const Font&                          font,
-            const String&                        text,
+            const type_list::string_type&        text,
             const Encoder&                       encoder,
             const gui::type_list::position_type& position,
             const tetengo2::gui::drawing::color& color)
@@ -677,8 +668,13 @@ namespace tetengo2::detail::windows::direct2d {
                 }
 
 
-                draw_text<Font, String, Encoder, gui::type_list::position_type, dimension_unit_type, Color>(
-                    canvas, font, chunk, encoder, chunk_position, dimension_unit_type{}, color, angle);
+                draw_text<
+                    Font,
+                    type_list::string_type,
+                    Encoder,
+                    gui::type_list::position_type,
+                    dimension_unit_type,
+                    Color>(canvas, font, chunk, encoder, chunk_position, dimension_unit_type{}, color, angle);
 
                 next_chunk_top +=
                     rotation % 2 == 0 ? position_unit_type::from(chunk_height) : position_unit_type::from(chunk_width);
@@ -922,9 +918,9 @@ namespace tetengo2::detail::windows::direct2d {
             }
         }
 
-        template <typename String, typename Font, typename Encoder, Unit>
+        template <typename Font, typename Encoder, Unit>
         static unique_com_ptr<::IDWriteTextLayout> create_text_layout(
-            const String&                              text,
+            const type_list::string_type&              text,
             const Font&                                font,
             const Encoder&                             encoder,
             const gui::type_list::dimension_unit_type& max_width)
@@ -972,17 +968,18 @@ namespace tetengo2::detail::windows::direct2d {
             return std::move(p_layout);
         }
 
-        template <typename String, typename Encoder>
-        static std::vector<String> split_to_vertical_text_chunks(const String& text, const Encoder& encoder)
+        template <typename Encoder>
+        static std::vector<type_list::string_type>
+        split_to_vertical_text_chunks(const type_list::string_type& text, const Encoder& encoder)
         {
             using internal_encoding_type = typename Encoder::internal_encoding_type;
             using utf8_encoder_type = text::encoder<internal_encoding_type, text::encoding::utf8>;
-            using character_iterator_type = text::character_iterator<String>;
+            using character_iterator_type = text::character_iterator<type_list::string_type>;
 
-            static const utf8_encoder_type utf8_encoder{};
-            std::vector<String>            chunks{};
-            String                         tatechuyoko{};
-            const character_iterator_type  end{};
+            static const utf8_encoder_type      utf8_encoder{};
+            std::vector<type_list::string_type> chunks{};
+            type_list::string_type              tatechuyoko{};
+            const character_iterator_type       end{};
             for (auto i = character_iterator_type(
                      text, text::encoding::make_polymorphic<internal_encoding_type>(encoder.internal_encoding()));
                  i != end;
@@ -1011,8 +1008,9 @@ namespace tetengo2::detail::windows::direct2d {
             return std::move(chunks);
         }
 
-        template <typename String, typename Utf8Encoder>
-        static bool is_tatechuyoko_character(const String& char_as_string, const Utf8Encoder& utf8_encoder)
+        template <typename Utf8Encoder>
+        static bool
+        is_tatechuyoko_character(const type_list::string_type& char_as_string, const Utf8Encoder& utf8_encoder)
         {
             const auto char_in_utf8 = utf8_encoder.encode(char_as_string);
 
@@ -1034,8 +1032,8 @@ namespace tetengo2::detail::windows::direct2d {
             return false;
         }
 
-        template <typename String, typename Utf8Encoder>
-        static bool is_dakuten_character(const String& char_as_string, const Utf8Encoder& utf8_encoder)
+        template <typename Utf8Encoder>
+        static bool is_dakuten_character(const type_list::string_type& char_as_string, const Utf8Encoder& utf8_encoder)
         {
             const auto char_in_utf8 = utf8_encoder.encode(char_as_string);
 
@@ -1049,8 +1047,8 @@ namespace tetengo2::detail::windows::direct2d {
             return false;
         }
 
-        template <typename String, typename Encoder>
-        static int character_rotation(const String& char_as_string, const Encoder&)
+        template <typename Encoder>
+        static int character_rotation(const type_list::string_type& char_as_string, const Encoder&)
         {
             using internal_encoding_type = typename Encoder::internal_encoding_type;
             using utf8_encoder_type = text::encoder<internal_encoding_type, text::encoding::utf8>;
