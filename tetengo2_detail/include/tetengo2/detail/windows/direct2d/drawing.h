@@ -47,6 +47,7 @@
 #include <tetengo2/text/character_iterator.h>
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
+#include <tetengo2/text/encoding/polymorphic.h>
 #include <tetengo2/text/encoding/utf8.h> // IWYU pragma: keep
 #include <tetengo2/type_list.h>
 
@@ -147,6 +148,14 @@ namespace tetengo2::detail::windows::direct2d {
         const native_encoder_type& native_encoder()
         {
             static const native_encoder_type singleton;
+            return singleton;
+        }
+
+        using utf8_encoder_type = text::encoder<type_list::internal_encoding_type, text::encoding::utf8>;
+
+        const utf8_encoder_type& utf8_encoder()
+        {
+            static const utf8_encoder_type singleton;
             return singleton;
         }
     }
@@ -959,18 +968,19 @@ namespace tetengo2::detail::windows::direct2d {
 
         static std::vector<type_list::string_type> split_to_vertical_text_chunks(const type_list::string_type& text)
         {
-            using internal_encoding_type = type_list::internal_encoding_type;
-            using utf8_encoder_type = text::encoder<internal_encoding_type, text::encoding::utf8>;
             using character_iterator_type = text::character_iterator<type_list::string_type>;
 
-            static const utf8_encoder_type      utf8_encoder{};
             std::vector<type_list::string_type> chunks{};
             type_list::string_type              tatechuyoko{};
             const character_iterator_type       end{};
-            for (auto i = character_iterator_type(text, detail::native_encoder().internal_encoding()); i != end; ++i)
+            for (auto i = character_iterator_type{ text,
+                                                   text::encoding::make_polymorphic<type_list::internal_encoding_type>(
+                                                       detail::native_encoder().internal_encoding()) };
+                 i != end;
+                 ++i)
             {
                 const auto& char_as_string = *i;
-                if (is_tatechuyoko_character(char_as_string, utf8_encoder))
+                if (is_tatechuyoko_character(char_as_string))
                 {
                     tatechuyoko.append(char_as_string);
                     continue;
@@ -981,7 +991,7 @@ namespace tetengo2::detail::windows::direct2d {
                     tatechuyoko.clear();
                 }
 
-                if (!chunks.empty() && is_dakuten_character(char_as_string, utf8_encoder))
+                if (!chunks.empty() && is_dakuten_character(char_as_string))
                     chunks.back().append(char_as_string);
                 else
                     chunks.push_back(char_as_string);
@@ -992,11 +1002,9 @@ namespace tetengo2::detail::windows::direct2d {
             return std::move(chunks);
         }
 
-        template <typename Utf8Encoder>
-        static bool
-        is_tatechuyoko_character(const type_list::string_type& char_as_string, const Utf8Encoder& utf8_encoder)
+        static bool is_tatechuyoko_character(const type_list::string_type& char_as_string)
         {
-            const auto char_in_utf8 = utf8_encoder.encode(char_as_string);
+            const auto char_in_utf8 = detail::utf8_encoder().encode(char_as_string);
 
             static const std::vector<std::string> digits{
                 std::string{ to_char(0x30) }, // 0
@@ -1016,10 +1024,9 @@ namespace tetengo2::detail::windows::direct2d {
             return false;
         }
 
-        template <typename Utf8Encoder>
-        static bool is_dakuten_character(const type_list::string_type& char_as_string, const Utf8Encoder& utf8_encoder)
+        static bool is_dakuten_character(const type_list::string_type& char_as_string)
         {
-            const auto char_in_utf8 = utf8_encoder.encode(char_as_string);
+            const auto char_in_utf8 = detail::utf8_encoder().encode(char_as_string);
 
             static const std::vector<std::string> dakutens{
                 std::string{ to_char(0xEF), to_char(0xBE), to_char(0x9E) }, // halfwidth katakana dakuten
@@ -1033,11 +1040,7 @@ namespace tetengo2::detail::windows::direct2d {
 
         static int character_rotation(const type_list::string_type& char_as_string)
         {
-            using internal_encoding_type = type_list::internal_encoding_type;
-            using utf8_encoder_type = text::encoder<internal_encoding_type, text::encoding::utf8>;
-
-            static const utf8_encoder_type utf8_encoder{};
-            const auto                     char_in_utf8 = utf8_encoder.encode(char_as_string);
+            const auto char_in_utf8 = detail::utf8_encoder().encode(char_as_string);
 
             static const std::vector<std::string> r90degs{
                 std::string{ to_char(0x29) }, // right parenthesis
