@@ -46,7 +46,7 @@
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text/character_iterator.h>
 #include <tetengo2/text/encoder.h>
-#include <tetengo2/text/encoding/polymorphic.h>
+#include <tetengo2/text/encoding/locale.h>
 #include <tetengo2/text/encoding/utf8.h> // IWYU pragma: keep
 #include <tetengo2/type_list.h>
 
@@ -140,6 +140,15 @@ namespace tetengo2::detail::windows::direct2d {
                 return true;
             }
         };
+
+        using native_encoder_type =
+            text::encoder<type_list::internal_encoding_type, text::encoding::locale<std::wstring>>;
+
+        const native_encoder_type& native_encoder()
+        {
+            static const native_encoder_type singleton;
+            return singleton;
+        }
     }
 #endif
 
@@ -470,25 +479,22 @@ namespace tetengo2::detail::windows::direct2d {
         /*!
             \brief Calculates the dimension of a text.
 
-            \tparam Font      A font type.
-            \tparam Encoder   An encoder type.
+            \tparam Font A font type.
 
             \param canvas    A canvas.
             \param font      A font.
             \param text      A text.
-            \param encoder   An encoder.
             \param max_width A maximum width. When 0 is specified, the width is infinite.
 
             \return The dimension of the text.
 
             \throw std::system_error When the dimention of a text cannot be calculated.
         */
-        template <typename Font, typename Encoder>
+        template <typename Font>
         static gui::type_list::dimension_type calc_text_dimension(
             TETENGO2_STDALT_MAYBE_UNUSED const canvas_details_type& canvas,
             const Font&                                             font,
             const type_list::string_type&                           text,
-            const Encoder&                                          encoder,
             const gui::type_list::dimension_unit_type&              max_width)
         {
             const auto p_layout = create_text_layout(text, font, encoder, max_width);
@@ -508,24 +514,21 @@ namespace tetengo2::detail::windows::direct2d {
         /*!
             \brief Calculates the dimension of a vertical text.
 
-            \tparam Font      A font type.
-            \tparam Encoder   An encoder type.
+            \tparam Font A font type.
 
-            \param canvas  A canvas.
-            \param font    A font.
-            \param text    A text.
-            \param encoder An encoder.
+            \param canvas A canvas.
+            \param font   A font.
+            \param text   A text.
 
             \return The dimension of the vertical text.
 
             \throw std::system_error When the dimention of a vertical text cannot be calculated.
         */
-        template <typename Font, typename Encoder>
+        template <typename Font>
         static gui::type_list::dimension_type calc_vertical_text_dimension(
             const canvas_details_type&    canvas,
             const Font&                   font,
-            const type_list::string_type& text,
-            const Encoder&                encoder)
+            const type_list::string_type& text)
         {
             const auto chunks = split_to_vertical_text_chunks(text, encoder);
 
@@ -558,13 +561,11 @@ namespace tetengo2::detail::windows::direct2d {
         /*!
             \brief Draws a text.
 
-            \tparam Font          A font type.
-            \tparam Encoder       An encoder type.
+            \tparam Font A font type.
 
             \param canvas    A canvas.
             \param font      A font.
             \param text      A text to draw.
-            \param encoder   An encoder.
             \param position  A position where the text is drawn.
             \param max_width A maximum width. When 0 is specified, the width is infinite.
             \param color     A color.
@@ -572,12 +573,11 @@ namespace tetengo2::detail::windows::direct2d {
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename Encoder>
+        template <typename Font>
         static void draw_text(
             canvas_details_type&                       canvas,
             const Font&                                font,
             const type_list::string_type&              text,
-            const Encoder&                             encoder,
             const gui::type_list::position_type&       position,
             const gui::type_list::dimension_unit_type& max_width,
             const tetengo2::gui::drawing::color&       color,
@@ -605,24 +605,21 @@ namespace tetengo2::detail::windows::direct2d {
         /*!
             \brief Draws a vertical text.
 
-            \tparam Font      A font type.
-            \tparam Encoder   An encoder type.
+            \tparam Font A font type.
 
             \param canvas   A canvas.
             \param font     A font.
             \param text     A text to draw.
-            \param encoder  An encoder.
             \param position A position where the text is drawn.
             \param color    A color.
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename Encoder>
+        template <typename Font>
         static void draw_vertical_text(
             canvas_details_type&                 canvas,
             const Font&                          font,
             const type_list::string_type&        text,
-            const Encoder&                       encoder,
             const gui::type_list::position_type& position,
             const tetengo2::gui::drawing::color& color)
         {
@@ -669,13 +666,8 @@ namespace tetengo2::detail::windows::direct2d {
                 }
 
 
-                draw_text<
-                    Font,
-                    type_list::string_type,
-                    Encoder,
-                    gui::type_list::position_type,
-                    dimension_unit_type,
-                    Color>(canvas, font, chunk, encoder, chunk_position, dimension_unit_type{}, color, angle);
+                draw_text<Font, type_list::string_type, gui::type_list::position_type, dimension_unit_type, Color>(
+                    canvas, font, chunk, encoder, chunk_position, dimension_unit_type{}, color, angle);
 
                 next_chunk_top +=
                     rotation % 2 == 0 ? position_unit_type::from(chunk_height) : position_unit_type::from(chunk_width);
@@ -916,16 +908,15 @@ namespace tetengo2::detail::windows::direct2d {
             }
         }
 
-        template <typename Font, typename Encoder, Unit>
+        template <typename Font>
         static unique_com_ptr<::IDWriteTextLayout> create_text_layout(
             const type_list::string_type&              text,
             const Font&                                font,
-            const Encoder&                             encoder,
             const gui::type_list::dimension_unit_type& max_width)
         {
             ::IDWriteTextFormat* rp_format = nullptr;
             const auto           create_format_hr = direct_write_factory().CreateTextFormat(
-                encoder.encode(font.family()).c_str(),
+                detail::native_encoder().encode(font.family()).c_str(),
                 nullptr,
                 font.bold() ? ::DWRITE_FONT_WEIGHT_BOLD : ::DWRITE_FONT_WEIGHT_NORMAL,
                 font.italic() ? ::DWRITE_FONT_STYLE_ITALIC : ::DWRITE_FONT_STYLE_NORMAL,
@@ -940,7 +931,7 @@ namespace tetengo2::detail::windows::direct2d {
             }
             const typename unique_com_ptr<::IDWriteTextFormat> p_format{ rp_format };
 
-            const auto    encoded_text = encoder.encode(text);
+            const auto    encoded_text = detail::native_encoder().encode(text);
             const ::FLOAT max_width_in_dip = max_width == gui::type_list::dimension_unit_type{} ?
                                                  std::numeric_limits<::FLOAT>::max() :
                                                  to_dip_x(static_cast<::FLOAT>(max_width.to_pixels()));
@@ -966,11 +957,9 @@ namespace tetengo2::detail::windows::direct2d {
             return std::move(p_layout);
         }
 
-        template <typename Encoder>
-        static std::vector<type_list::string_type>
-        split_to_vertical_text_chunks(const type_list::string_type& text, const Encoder& encoder)
+        static std::vector<type_list::string_type> split_to_vertical_text_chunks(const type_list::string_type& text)
         {
-            using internal_encoding_type = typename Encoder::internal_encoding_type;
+            using internal_encoding_type = type_list::internal_encoding_type;
             using utf8_encoder_type = text::encoder<internal_encoding_type, text::encoding::utf8>;
             using character_iterator_type = text::character_iterator<type_list::string_type>;
 
@@ -978,10 +967,7 @@ namespace tetengo2::detail::windows::direct2d {
             std::vector<type_list::string_type> chunks{};
             type_list::string_type              tatechuyoko{};
             const character_iterator_type       end{};
-            for (auto i = character_iterator_type(
-                     text, text::encoding::make_polymorphic<internal_encoding_type>(encoder.internal_encoding()));
-                 i != end;
-                 ++i)
+            for (auto i = character_iterator_type(text, detail::native_encoder().internal_encoding()); i != end; ++i)
             {
                 const auto& char_as_string = *i;
                 if (is_tatechuyoko_character(char_as_string, utf8_encoder))
@@ -1045,8 +1031,7 @@ namespace tetengo2::detail::windows::direct2d {
             return false;
         }
 
-        template <typename Encoder>
-        static int character_rotation(const type_list::string_type& char_as_string, const Encoder&)
+        static int character_rotation(const type_list::string_type& char_as_string)
         {
             using internal_encoding_type = typename Encoder::internal_encoding_type;
             using utf8_encoder_type = text::encoder<internal_encoding_type, text::encoding::utf8>;

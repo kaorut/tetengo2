@@ -53,9 +53,6 @@ namespace tetengo2::gui::drawing {
         //! The dimension unit type.
         using dimension_unit_type = typename dimension_type::unit_type;
 
-        //! The encoder type.
-        using encoder_type = typename traits_type::encoder_type;
-
         //! The drawing details type.
         using drawing_details_type = DrawingDetails;
 
@@ -320,7 +317,7 @@ namespace tetengo2::gui::drawing {
         */
         dimension_type calc_text_dimension(const string_type& text, const dimension_unit_type& max_width) const
         {
-            return drawing_details_type::template calc_text_dimension(*m_p_details, m_font, text, encoder(), max_width);
+            return drawing_details_type::calc_text_dimension(*m_p_details, m_font, text, max_width);
         }
 
         /*!
@@ -332,7 +329,7 @@ namespace tetengo2::gui::drawing {
         */
         dimension_type calc_vertical_text_dimension(const string_type& text) const
         {
-            return drawing_details_type::template calc_vertical_text_dimension(*m_p_details, m_font, text, encoder());
+            return drawing_details_type::calc_vertical_text_dimension(*m_p_details, m_font, text);
         }
 
         /*!
@@ -367,7 +364,7 @@ namespace tetengo2::gui::drawing {
             const dimension_unit_type& max_width,
             const double               angle = 0.0)
         {
-            drawing_details_type::draw_text(*m_p_details, m_font, text, encoder(), position, max_width, m_color, angle);
+            drawing_details_type::draw_text(*m_p_details, m_font, text, position, max_width, m_color, angle);
         }
 
         /*!
@@ -380,9 +377,8 @@ namespace tetengo2::gui::drawing {
         */
         void draw_vertical_text(const string_type& text, const position_type& position)
         {
-            drawing_details_type::
-                template draw_vertical_text<font_type, string_type, encoder_type, position_type, dimension_type>(
-                    *m_p_details, m_font, text, encoder(), position, m_color);
+            drawing_details_type::template draw_vertical_text<font_type, string_type, position_type, dimension_type>(
+                *m_p_details, m_font, text, position, m_color);
         }
 
         /*!
@@ -469,15 +465,6 @@ namespace tetengo2::gui::drawing {
 
 
     private:
-        // static functions
-
-        static const encoder_type& encoder()
-        {
-            static const encoder_type singleton{};
-            return singleton;
-        }
-
-
         // variables
 
         const details_ptr_type m_p_details;

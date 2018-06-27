@@ -55,6 +55,8 @@
 #include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
+#include <tetengo2/text/encoder.h>
+#include <tetengo2/text/encoding/locale.h>
 #include <tetengo2/type_list.h>
 
 
@@ -161,6 +163,15 @@ namespace tetengo2::detail::windows::gdiplus {
 
             std::unique_ptr<Gdiplus::Graphics> m_p_memory_graphics;
         };
+
+        using native_encoder_type =
+            text::encoder<type_list::internal_encoding_type, text::encoding::locale<std::wstring>>;
+
+        const native_encoder_type& native_encoder()
+        {
+            static const native_encoder_type singleton;
+            return singleton;
+        }
     }
 #endif
 
@@ -500,31 +511,28 @@ namespace tetengo2::detail::windows::gdiplus {
         /*!
             \brief Calculates the dimension of a text.
 
-            \tparam Font      A font type.
-            \tparam Encoder   An encoder type.
+            \tparam Font A font type.
 
             \param canvas    A canvas.
             \param font      A font.
             \param text      A text.
-            \param encoder   An encoder.
             \param max_width A maximum width. When 0 is specified, the width is infinite.
 
             \return The dimension of the text.
 
             \throw std::system_error When the dimention of a text cannot be calculated.
         */
-        template <typename Font, typename Encoder>
+        template <typename Font>
         static gui::type_list::dimension_type calc_text_dimension(
             const canvas_details_type&                 canvas,
             const Font&                                font,
             const type_list::string_type&              text,
-            const Encoder&                             encoder,
             const gui::type_list::dimension_unit_type& max_width)
         {
-            const auto encoded_text = encoder.encode(text);
+            const auto encoded_text = detail::native_encoder().encode(text);
 
             const Gdiplus::InstalledFontCollection font_collection;
-            const auto p_gdiplus_font = create_gdiplus_font<type_list::string_type>(font, font_collection, encoder);
+            const auto p_gdiplus_font = create_gdiplus_font<type_list::string_type>(font, font_collection);
 
             const Gdiplus::REAL gdiplus_max_width = max_width == gui::type_list::dimension_unit_type{} ?
                                                         std::numeric_limits<Gdiplus::REAL>::max() :
@@ -551,35 +559,30 @@ namespace tetengo2::detail::windows::gdiplus {
         /*!
             \brief Calculates the dimension of a vertical text.
 
-            \tparam Font      A font type.
-            \tparam Encoder   An encoder type.
+            \tparam Font A font type.
 
-            \param canvas  A canvas.
-            \param font    A font.
-            \param text    A text.
-            \param encoder An encoder.
+            \param canvas A canvas.
+            \param font   A font.
+            \param text   A text.
 
             \return The dimension of the vertical text.
 
             \throw std::system_error When the dimention of a vertical text cannot be calculated.
         */
-        template <typename Font, typename Encoder>
+        template <typename Font>
         static gui::type_list::dimension_type calc_vertical_text_dimension(
             const canvas_details_type&    canvas,
             const Font&                   font,
-            const type_list::string_type& text,
-            const Encoder&                encoder);
+            const type_list::string_type& text);
 
         /*!
             \brief Draws a text.
 
-            \tparam Font          A font type.
-            \tparam Encoder       An encoder type.
+            \tparam Font A font type.
 
             \param canvas    A canvas.
             \param font      A font.
             \param text      A text to draw.
-            \param encoder   An encoder.
             \param position  A position where the text is drawn.
             \param max_width A maximum width. When 0 is specified, the width is infinite.
             \param color     A color.
@@ -587,18 +590,17 @@ namespace tetengo2::detail::windows::gdiplus {
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename Encoder>
+        template <typename Font>
         static void draw_text(
             canvas_details_type&                       canvas,
             const Font&                                font,
             const type_list::string_type&              text,
-            const Encoder&                             encoder,
             const gui::type_list::position_type&       position,
             const gui::type_list::dimension_unit_type& max_width,
             const tetengo2::gui::drawing::color&       color,
             const double                               angle)
         {
-            const auto encoded_text = encoder.encode(text);
+            const auto encoded_text = detail::native_encoder().encode(text);
 
             const Gdiplus::InstalledFontCollection font_collection;
             const auto p_gdiplus_font = create_gdiplus_font<type_list::string_type>(font, font_collection, encoder);
@@ -652,24 +654,21 @@ namespace tetengo2::detail::windows::gdiplus {
         /*!
             \brief Draws a vertical text.
 
-            \tparam Font      A font type.
-            \tparam Encoder   An encoder type.
+            \tparam Font A font type.
 
             \param canvas   A canvas.
             \param font     A font.
             \param text     A text to draw.
-            \param encoder  An encoder.
             \param position A position where the text is drawn.
             \param color    A color.
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename Encoder>
+        template <typename Font>
         static void draw_vertical_text(
             canvas_details_type&                 canvas,
             const Font&                          font,
             const type_list::string_type&        text,
-            const Encoder&                       encoder,
             const gui::type_list::position_type& position,
             const tetengo2::gui::drawing::color& color);
 
@@ -792,11 +791,10 @@ namespace tetengo2::detail::windows::gdiplus {
             return points;
         }
 
-        template <typename Font, typename Encoder>
+        template <typename Font>
         static std::unique_ptr<Gdiplus::Font> create_gdiplus_font(
             const Font&                    font,
             const Gdiplus::FontCollection& font_collection,
-            const Encoder&                 encoder,
             const std::size_t              fallback_level = 0)
         {
             if (fallback_level > 2)
@@ -806,7 +804,8 @@ namespace tetengo2::detail::windows::gdiplus {
             }
 
             const auto&               font_family = fallback_level < 1 ? font.family() : Font::dialog_font().family();
-            const Gdiplus::FontFamily gdiplus_font_family{ encoder.encode(font_family).c_str(), &font_collection };
+            const Gdiplus::FontFamily gdiplus_font_family{ detail::native_encoder().encode(font_family).c_str(),
+                                                           &font_collection };
             if (!gdiplus_font_family.IsAvailable())
             {
                 return create_gdiplus_font<type_list::string_type>(font, font_collection, encoder, fallback_level + 1);

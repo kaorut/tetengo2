@@ -325,25 +325,22 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Calculates the dimension of a text.
 
-            \tparam Font      A font type.
-            \tparam Encoder   An encoder type.
+            \tparam Font A font type.
 
             \param canvas    A canvas.
             \param font      A font.
             \param text      A text.
-            \param encoder   An encoder.
             \param max_width A maximum width. When 0 is specified, the width is infinite.
 
             \return The dimension of the text.
 
             \throw std::system_error When the dimention of a text cannot be calculated.
         */
-        template <typename Font, typename Encoder>
+        template <typename Font>
         static gui::type_list::dimension_type calc_text_dimension(
             TETENGO2_STDALT_MAYBE_UNUSED const canvas_details_type& canvas,
             TETENGO2_STDALT_MAYBE_UNUSED const Font& font,
             TETENGO2_STDALT_MAYBE_UNUSED const type_list::string_type& text,
-            TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder,
             TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_unit_type& max_width)
         {
             using dimension_unit_type = gui::type_list::dimension_unit_type;
@@ -355,24 +352,21 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Calculates the dimension of a vertical text.
 
-            \tparam Font      A font type.
-            \tparam Encoder   An encoder type.
+            \tparam Font A font type.
 
-            \param canvas  A canvas.
-            \param font    A font.
-            \param text    A text.
-            \param encoder An encoder.
+            \param canvas A canvas.
+            \param font   A font.
+            \param text   A text.
 
             \return The dimension of the vertical text.
 
             \throw std::system_error When the dimention of a vertical text cannot be calculated.
         */
-        template <typename Font, typename Encoder>
+        template <typename Font>
         static gui::type_list::dimension_type calc_vertical_text_dimension(
             TETENGO2_STDALT_MAYBE_UNUSED const canvas_details_type& canvas,
             TETENGO2_STDALT_MAYBE_UNUSED const Font& font,
-            TETENGO2_STDALT_MAYBE_UNUSED const type_list::string_type& text,
-            TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder)
+            TETENGO2_STDALT_MAYBE_UNUSED const type_list::string_type& text)
         {
             using dimension_unit_type = gui::type_list::dimension_unit_type;
             return gui::type_list::dimension_type{ dimension_unit_type{ 456 }, dimension_unit_type{ 123 } };
@@ -381,13 +375,11 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Draws a text.
 
-            \tparam Font          A font type.
-            \tparam Encoder       An encoder type.
+            \tparam Font A font type.
 
             \param canvas    A canvas.
             \param font      A font.
             \param text      A text to draw.
-            \param encoder   An encoder.
             \param position  A position where the text is drawn.
             \param max_width A maximum width. When 0 is specified, the width is infinite.
             \param color     A color.
@@ -395,12 +387,11 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename Encoder>
+        template <typename Font>
         static void draw_text(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
             TETENGO2_STDALT_MAYBE_UNUSED const Font& font,
             TETENGO2_STDALT_MAYBE_UNUSED const type_list::string_type& text,
-            TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder,
             TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position,
             TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_unit_type& max_width,
             TETENGO2_STDALT_MAYBE_UNUSED const tetengo2::gui::drawing::color& color,
@@ -410,24 +401,21 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Draws a vertical text.
 
-            \tparam Font      A font type.
-            \tparam Encoder   An encoder type.
+            \tparam Font A font type.
 
             \param canvas   A canvas.
             \param font     A font.
             \param text     A text to draw.
-            \param encoder  An encoder.
             \param position A position where the text is drawn.
             \param color    A color.
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename Encoder>
+        template <typename Font>
         static void draw_vertical_text(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
             TETENGO2_STDALT_MAYBE_UNUSED const Font& font,
             TETENGO2_STDALT_MAYBE_UNUSED const type_list::string_type& text,
-            TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder,
             TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position,
             TETENGO2_STDALT_MAYBE_UNUSED const tetengo2::gui::drawing::color& color)
         {}
