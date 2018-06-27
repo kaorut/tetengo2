@@ -13,6 +13,7 @@
 #include <memory>
 #include <stdexcept>
 #include <utility>
+#include <vector>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>

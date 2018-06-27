@@ -12,15 +12,22 @@
 #include <cstddef>
 #include <memory>
 #include <utility>
+#include <vector>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/operators.hpp>
 
 #include <tetengo2/gui/drawing/color.h>
-#include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/type_list.h>
+#include <tetengo2/gui/unit/em.h>
+#include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 #include <tetengo2/type_list.h>
+
+namespace tetengo2::gui {
+    class icon;
+}
 
 
 namespace tetengo2::detail::stub {
