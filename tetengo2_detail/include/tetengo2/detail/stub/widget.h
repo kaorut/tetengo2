@@ -23,6 +23,7 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
@@ -795,16 +796,16 @@ namespace tetengo2::detail::stub {
             \brief Assigns an icon on a widget.
 
             \tparam Widget A widget type.
-            \tparam Icon   An icon type.
 
             \param widget A widget.
             \param p_icon A pointer to an icon.
 
             \throw std::system_error When an icon cannot be set.
         */
-        template <typename Widget, typename Icon>
-        static void
-        set_icon(TETENGO2_STDALT_MAYBE_UNUSED Widget& widget, TETENGO2_STDALT_MAYBE_UNUSED const Icon* const p_icon)
+        template <typename Widget>
+        static void set_icon(
+            TETENGO2_STDALT_MAYBE_UNUSED Widget& widget,
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::icon* const p_icon)
         {}
 
         /*!

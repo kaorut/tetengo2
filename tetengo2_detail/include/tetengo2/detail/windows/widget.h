@@ -40,6 +40,7 @@
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/icon.h>
 #include <tetengo2/gui/alert.h> // IWYU pragma: keep
+#include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text/encoder.h>
@@ -772,7 +773,7 @@ namespace tetengo2::detail::windows {
                     {
                         if (::IsZoomed(widget.details().handle.get()))
                             command = SW_SHOWMAXIMIZED;
-                        else if (::IsIconic(widget.details().handle.get()))
+                        else if (::Isgui::iconic(widget.details().handle.get()))
                             command = SW_MINIMIZE;
                         else
                             command = SW_RESTORE;
@@ -788,7 +789,7 @@ namespace tetengo2::detail::windows {
                     {
                         if (::IsZoomed(widget.details().handle.get()))
                             widget.details().window_state_when_hidden = SW_SHOWMAXIMIZED;
-                        else if (::IsIconic(widget.details().handle.get()))
+                        else if (::Isgui::iconic(widget.details().handle.get()))
                             widget.details().window_state_when_hidden = SW_MINIMIZE;
                         else
                             widget.details().window_state_when_hidden = SW_RESTORE;
@@ -883,7 +884,7 @@ namespace tetengo2::detail::windows {
                 {
                     if (::IsZoomed(const_cast<::HWND>(widget.details().handle.get())))
                         return WindowState::maximized;
-                    else if (::IsIconic(const_cast<::HWND>(widget.details().handle.get())))
+                    else if (::Isgui::iconic(const_cast<::HWND>(widget.details().handle.get())))
                         return WindowState::minimized;
                     else
                         return WindowState::normal;
@@ -1412,15 +1413,14 @@ namespace tetengo2::detail::windows {
                 \brief Assigns an icon on a widget.
 
                 \tparam Widget A widget type.
-                \tparam Icon   An icon type.
 
                 \param widget A widget.
                 \param p_icon A pointer to an icon.
 
                 \throw std::system_error When an icon cannot be set.
             */
-            template <typename Widget, typename Icon>
-            static void set_icon(Widget& widget, const Icon* const p_icon)
+            template <typename Widget>
+            static void set_icon(Widget& widget, const gui::icon* const p_icon)
             {
                 ::HICON icon_handle = nullptr;
                 ::HICON small_icon_handle = nullptr;
@@ -2203,8 +2203,8 @@ namespace tetengo2::detail::windows {
                 window_class.cbClsExtra = 0;
                 window_class.cbWndExtra = 0;
                 window_class.hInstance = instance_handle;
-                window_class.hIcon = nullptr;
-                window_class.hIconSm = nullptr;
+                window_class.hgui::icon = nullptr;
+                window_class.hgui::iconSm = nullptr;
                 window_class.hCursor = reinterpret_cast<::HICON>(::LoadImageW(
                     0, MAKEINTRESOURCEW(OCR_NORMAL), IMAGE_CURSOR, 0, 0, LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR));
                 window_class.hbrBackground = reinterpret_cast<::HBRUSH>(::GetSysColorBrush(COLOR_WINDOW));
@@ -2230,8 +2230,8 @@ namespace tetengo2::detail::windows {
                 window_class.cbClsExtra = 0;
                 window_class.cbWndExtra = DLGWINDOWEXTRA;
                 window_class.hInstance = instance_handle;
-                window_class.hIcon = nullptr;
-                window_class.hIconSm = nullptr;
+                window_class.hgui::icon = nullptr;
+                window_class.hgui::iconSm = nullptr;
                 window_class.hCursor = reinterpret_cast<::HICON>(::LoadImageW(
                     0, MAKEINTRESOURCEW(OCR_NORMAL), IMAGE_CURSOR, 0, 0, LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR));
                 window_class.hbrBackground = reinterpret_cast<::HBRUSH>(::GetSysColorBrush(COLOR_3DFACE));
@@ -2257,8 +2257,8 @@ namespace tetengo2::detail::windows {
                 window_class.cbClsExtra = 0;
                 window_class.cbWndExtra = 0;
                 window_class.hInstance = instance_handle;
-                window_class.hIcon = nullptr;
-                window_class.hIconSm = nullptr;
+                window_class.hgui::icon = nullptr;
+                window_class.hgui::iconSm = nullptr;
                 window_class.hCursor = reinterpret_cast<::HICON>(::LoadImageW(
                     0, MAKEINTRESOURCEW(OCR_NORMAL), IMAGE_CURSOR, 0, 0, LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR));
                 window_class.hbrBackground = reinterpret_cast<::HBRUSH>(::GetSysColorBrush(COLOR_WINDOW));
@@ -2284,9 +2284,9 @@ namespace tetengo2::detail::windows {
                 window_class.cbClsExtra = 0;
                 window_class.cbWndExtra = 0;
                 window_class.hInstance = instance_handle;
-                window_class.hIcon = reinterpret_cast<::HICON>(::LoadImageW(
+                window_class.hgui::icon = reinterpret_cast<::HICON>(::LoadImageW(
                     0, MAKEINTRESOURCEW(OIC_WINLOGO), IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR));
-                window_class.hIconSm = reinterpret_cast<::HICON>(::LoadImageW(
+                window_class.hgui::iconSm = reinterpret_cast<::HICON>(::LoadImageW(
                     0, MAKEINTRESOURCEW(OIC_WINLOGO), IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR));
                 window_class.hCursor = reinterpret_cast<::HICON>(::LoadImageW(
                     0, MAKEINTRESOURCEW(OCR_NORMAL), IMAGE_CURSOR, 0, 0, LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR));
