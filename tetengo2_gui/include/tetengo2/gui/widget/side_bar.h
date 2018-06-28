@@ -354,8 +354,8 @@ namespace tetengo2::gui::widget {
                 canvas.set_background(std::make_unique<solid_background_type>(*m_p_current_background_color));
 
                 const auto triangle = make_triangle();
-                canvas.fill_polygon(triangle.begin(), triangle.end());
-                canvas.draw_polygon(triangle.begin(), triangle.end());
+                canvas.fill_polygon(triangle);
+                canvas.draw_polygon(triangle);
 
                 canvas.set_background(std::move(original_background));
                 canvas.set_line_width(std::move(original_line_width));

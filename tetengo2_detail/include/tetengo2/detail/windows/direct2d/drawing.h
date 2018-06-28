@@ -40,11 +40,16 @@
 #include <tetengo2/detail/windows/direct2d/error_category.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/font.h>
 #include <tetengo2/detail/windows/picture.h>
+#include <tetengo2/gui/drawing/color.h>
+#include <tetengo2/gui/icon.h>
+#include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text/character_iterator.h>
 #include <tetengo2/text/encoder.h>
+#include <tetengo2/text/encoding/locale.h>
 #include <tetengo2/text/encoding/polymorphic.h>
 #include <tetengo2/text/encoding/utf8.h> // IWYU pragma: keep
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::detail::windows::direct2d {
@@ -136,6 +141,23 @@ namespace tetengo2::detail::windows::direct2d {
                 return true;
             }
         };
+
+        using native_encoder_type =
+            text::encoder<type_list::internal_encoding_type, text::encoding::locale<std::wstring>>;
+
+        inline const native_encoder_type& native_encoder()
+        {
+            static const native_encoder_type singleton;
+            return singleton;
+        }
+
+        using utf8_encoder_type = text::encoder<type_list::internal_encoding_type, text::encoding::utf8>;
+
+        inline const utf8_encoder_type& utf8_encoder()
+        {
+            static const utf8_encoder_type singleton;
+            return singleton;
+        }
     }
 #endif
 
@@ -221,17 +243,14 @@ namespace tetengo2::detail::windows::direct2d {
 
             Some platform may not support a transuction. On such platforms, this function do nothing.
 
-            \tparam Dimension A dimension type.
-
             \param canvas    A canvas.
             \param dimension A dimension.
 
             \throw std::logic_error When another transaction has not ended yet.
         */
-        template <typename Dimension>
         static void begin_transaction(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
-            TETENGO2_STDALT_MAYBE_UNUSED const Dimension& dimension)
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_type& dimension)
         {}
 
         /*!
@@ -248,14 +267,12 @@ namespace tetengo2::detail::windows::direct2d {
         /*!
             \brief Creates a solid background.
 
-            \tparam Color A color type.
 
             \param color A color.
 
             \return A unique pointer to a solid background.
         */
-        template <typename Color>
-        static background_details_ptr_type create_solid_background(const Color& color)
+        static background_details_ptr_type create_solid_background(const tetengo2::gui::drawing::color& color)
         {
             return std::make_unique<detail::solid_background_details>(
                 color.red(), color.green(), color.blue(), color.alpha());
@@ -274,16 +291,14 @@ namespace tetengo2::detail::windows::direct2d {
         /*!
             \brief Creates a picture.
 
-            \tparam Dimension A dimension type.
 
             \param dimension A dimension.
 
             \return A unique pointer to a picture.
         */
-        template <typename Dimension>
-        static picture_details_ptr_type create_picture(const Dimension& dimension)
+        static picture_details_ptr_type create_picture(const gui::type_list::dimension_type& dimension)
         {
-            return picture::create(dimension);
+            return picture::instance().create(dimension);
         }
 
         /*!
@@ -303,14 +318,12 @@ namespace tetengo2::detail::windows::direct2d {
         /*!
             \brief Returns the dimension of a picture.
 
-            \tparam Dimension A dimension type.
 
             \param picture A picture.
 
             \return The dimension of the picture.
         */
-        template <typename Dimension>
-        static Dimension picture_dimension(const picture_details_type& picture)
+        static gui::type_list::dimension_type picture_dimension(const picture_details_type& picture)
         {
             return picture::instance().dimension(picture);
         }
@@ -318,9 +331,6 @@ namespace tetengo2::detail::windows::direct2d {
         /*!
             \brief Draws a line.
 
-            \tparam Position A position type.
-            \tparam Size     A size type.
-            \tparam Color    A color type.
 
             \param canvas A canvas.
             \param from   A beginning position.
@@ -329,14 +339,13 @@ namespace tetengo2::detail::windows::direct2d {
             \param style  A style.
             \param color  A color.
         */
-        template <typename Position, typename Size, typename Color>
         static void draw_line(
-            canvas_details_type& canvas,
-            const Position&      from,
-            const Position&      to,
-            const Size           width,
-            const int            style,
-            const Color&         color)
+            canvas_details_type&                       canvas,
+            const gui::type_list::position_type&       from,
+            const gui::type_list::position_type&       to,
+            const gui::type_list::dimension_unit_type& width,
+            const int                                  style,
+            const tetengo2::gui::drawing::color&       color)
         {
             const auto p_background_details = create_solid_background(color);
             const auto p_brush = create_brush(canvas, *p_background_details);
@@ -352,8 +361,6 @@ namespace tetengo2::detail::windows::direct2d {
         /*!
             \brief Draws a focus indication.
 
-            \tparam Position  A position type.
-            \tparam Dimension A dimension type.
 
             \param canvas    A canvas.
             \param position  A position of a region.
@@ -361,17 +368,14 @@ namespace tetengo2::detail::windows::direct2d {
 
             \throw std::system_error When the focus indication cannot be drawn.
         */
-        template <typename Position, typename Dimension>
-        static void
-        draw_focus_indication(canvas_details_type& canvas, const Position& position, const Dimension& dimension);
+        static void draw_focus_indication(
+            canvas_details_type&                  canvas,
+            const gui::type_list::position_type&  position,
+            const gui::type_list::dimension_type& dimension);
 
         /*!
             \brief Draws a rectangle.
 
-            \tparam Position   A position type.
-            \tparam Dimension  A dimension type.
-            \tparam Size       A size type.
-            \tparam Color      A color type.
 
             \param canvas     A canvas.
             \param position   A position of a region.
@@ -382,14 +386,13 @@ namespace tetengo2::detail::windows::direct2d {
 
             \throw std::system_error When the rectangle cannot be filled.
         */
-        template <typename Position, typename Dimension, typename Size, typename Color>
         static void draw_rectangle(
-            canvas_details_type& canvas,
-            const Position&      position,
-            const Dimension&     dimension,
-            const Size           width,
-            const int            style,
-            const Color&         color)
+            canvas_details_type&                       canvas,
+            const gui::type_list::position_type&       position,
+            const gui::type_list::dimension_type&      dimension,
+            const gui::type_list::dimension_unit_type& width,
+            const int                                  style,
+            const tetengo2::gui::drawing::color&       color)
         {
             const auto p_background_details = create_solid_background(color);
             const auto p_brush = create_brush(canvas, *p_background_details);
@@ -404,8 +407,6 @@ namespace tetengo2::detail::windows::direct2d {
         /*!
             \brief Fills a rectangle region.
 
-            \tparam Position   A position type.
-            \tparam Dimension  A dimension type.
             \tparam Background A background type.
 
             \param canvas     A canvas.
@@ -415,12 +416,12 @@ namespace tetengo2::detail::windows::direct2d {
 
             \throw std::system_error When the rectangle cannot be filled.
         */
-        template <typename Position, typename Dimension, typename Background>
+        template <typename Background>
         static void fill_rectangle(
-            canvas_details_type& canvas,
-            const Position&      position,
-            const Dimension&     dimension,
-            const Background&    background)
+            canvas_details_type&                  canvas,
+            const gui::type_list::position_type&  position,
+            const gui::type_list::dimension_type& dimension,
+            const Background&                     background)
         {
             const auto& background_details = background.details();
             if (background_details.is_transparent())
@@ -434,47 +435,37 @@ namespace tetengo2::detail::windows::direct2d {
         /*!
             \brief Draws a polygon.
 
-            \tparam PositionIterator A position iterator type.
-            \tparam Size             A size type.
-            \tparam Color            A color type.
-
-            \param canvas         A canvas.
-            \param position_first A first position of a region.
-            \param position_last  A last position of a region.
-            \param width          A width.
-            \param style          A style.
-            \param color          A color.
+            \param canvas    A canvas.
+            \param positions A positions of a region.
+            \param width     A width.
+            \param style     A style.
+            \param color     A color.
 
             \throw std::system_error When the polygon cannot be filled.
         */
-        template <typename PositionIterator, typename Size, typename Color>
         static void draw_polygon(
-            canvas_details_type&   canvas,
-            const PositionIterator position_first,
-            const PositionIterator position_last,
-            const Size             width,
-            const int              style,
-            const Color&           color);
+            canvas_details_type&                              canvas,
+            const std::vector<gui::type_list::position_type>& positions,
+            const gui::type_list::dimension_unit_type&        width,
+            const int                                         style,
+            const tetengo2::gui::drawing::color&              color);
 
         /*!
             \brief Fills a polygon region.
 
-            \tparam PositionIterator A position iterator type.
             \tparam Background       A background type.
 
-            \param canvas         A canvas.
-            \param position_first A first position of a region.
-            \param position_last  A last position of a region.
-            \param background     A background.
+            \param canvas     A canvas.
+            \param positions  A positions of a region.
+            \param background A background.
 
             \throw std::system_error When the polygon cannot be filled.
         */
-        template <typename PositionIterator, typename Background>
+        template <typename Background>
         static void fill_polygon(
-            canvas_details_type&   canvas,
-            const PositionIterator position_first,
-            const PositionIterator position_last,
-            const Background&      background);
+            canvas_details_type&                              canvas,
+            const std::vector<gui::type_list::position_type>& positions,
+            const Background&                                 background);
 
         /*!
             \brief Makes a dialog font.
@@ -497,30 +488,25 @@ namespace tetengo2::detail::windows::direct2d {
         /*!
             \brief Calculates the dimension of a text.
 
-            \tparam Dimension A dimension type.
-            \tparam Font      A font type.
-            \tparam String    A string type.
-            \tparam Encoder   An encoder type.
+            \tparam Font A font type.
 
             \param canvas    A canvas.
             \param font      A font.
             \param text      A text.
-            \param encoder   An encoder.
             \param max_width A maximum width. When 0 is specified, the width is infinite.
 
             \return The dimension of the text.
 
             \throw std::system_error When the dimention of a text cannot be calculated.
         */
-        template <typename Dimension, typename Font, typename String, typename Encoder>
-        static Dimension calc_text_dimension(
+        template <typename Font>
+        static gui::type_list::dimension_type calc_text_dimension(
             TETENGO2_STDALT_MAYBE_UNUSED const canvas_details_type& canvas,
             const Font&                                             font,
-            const String&                                           text,
-            const Encoder&                                          encoder,
-            const typename Dimension::unit_type&                    max_width)
+            const type_list::string_type&                           text,
+            const gui::type_list::dimension_unit_type&              max_width)
         {
-            const auto p_layout = create_text_layout(text, font, encoder, max_width);
+            const auto p_layout = create_text_layout(text, font, max_width);
 
             ::DWRITE_TEXT_METRICS metrics{};
             const auto            get_metrics_hr = p_layout->GetMetrics(&metrics);
@@ -530,46 +516,40 @@ namespace tetengo2::detail::windows::direct2d {
                                                           "Can't get text metrics." }));
             }
 
-            return { Dimension::unit_type::from_pixels(to_ddp_x(metrics.width)),
-                     Dimension::unit_type::from_pixels(to_ddp_y(metrics.height)) };
+            return { gui::type_list::dimension_unit_type::from_pixels(to_ddp_x(metrics.width)),
+                     gui::type_list::dimension_unit_type::from_pixels(to_ddp_y(metrics.height)) };
         }
 
         /*!
             \brief Calculates the dimension of a vertical text.
 
-            \tparam Dimension A dimension type.
-            \tparam Font      A font type.
-            \tparam String    A string type.
-            \tparam Encoder   An encoder type.
+            \tparam Font A font type.
 
-            \param canvas  A canvas.
-            \param font    A font.
-            \param text    A text.
-            \param encoder An encoder.
+            \param canvas A canvas.
+            \param font   A font.
+            \param text   A text.
 
             \return The dimension of the vertical text.
 
             \throw std::system_error When the dimention of a vertical text cannot be calculated.
         */
-        template <typename Dimension, typename Font, typename String, typename Encoder>
-        static Dimension calc_vertical_text_dimension(
-            const canvas_details_type& canvas,
-            const Font&                font,
-            const String&              text,
-            const Encoder&             encoder)
+        template <typename Font>
+        static gui::type_list::dimension_type calc_vertical_text_dimension(
+            const canvas_details_type&    canvas,
+            const Font&                   font,
+            const type_list::string_type& text)
         {
-            const auto chunks = split_to_vertical_text_chunks(text, encoder);
+            const auto chunks = split_to_vertical_text_chunks(text);
 
-            using dimension_unit_type = typename Dimension::unit_type;
+            using dimension_unit_type = gui::type_list::dimension_unit_type;
             dimension_unit_type max_width{};
             dimension_unit_type total_height{};
             for (const auto& chunk : chunks)
             {
-                const auto chunk_dimension =
-                    calc_text_dimension<Dimension>(canvas, font, chunk, encoder, dimension_unit_type{});
+                const auto  chunk_dimension = calc_text_dimension(canvas, font, chunk, dimension_unit_type{});
                 const auto& chunk_width = chunk_dimension.width();
                 const auto& chunk_height = chunk_dimension.height();
-                if (character_rotation(chunk, encoder) % 2 == 0)
+                if (character_rotation(chunk) % 2 == 0)
                 {
                     if (chunk_width > max_width)
                         max_width = chunk_width;
@@ -583,23 +563,17 @@ namespace tetengo2::detail::windows::direct2d {
                 }
             }
 
-            return Dimension{ max_width, total_height };
+            return gui::type_list::dimension_type{ max_width, total_height };
         }
 
         /*!
             \brief Draws a text.
 
-            \tparam Font          A font type.
-            \tparam String        A string type.
-            \tparam Encoder       An encoder type.
-            \tparam Position      A position type.
-            \tparam DimensionUnit A dimension unit type.
-            \tparam Color         A color type.
+            \tparam Font A font type.
 
             \param canvas    A canvas.
             \param font      A font.
             \param text      A text to draw.
-            \param encoder   An encoder.
             \param position  A position where the text is drawn.
             \param max_width A maximum width. When 0 is specified, the width is infinite.
             \param color     A color.
@@ -607,24 +581,17 @@ namespace tetengo2::detail::windows::direct2d {
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <
-            typename Font,
-            typename String,
-            typename Encoder,
-            typename Position,
-            typename DimensionUnit,
-            typename Color>
+        template <typename Font>
         static void draw_text(
-            canvas_details_type& canvas,
-            const Font&          font,
-            const String&        text,
-            const Encoder&       encoder,
-            const Position&      position,
-            const DimensionUnit& max_width,
-            const Color&         color,
-            const double         angle)
+            canvas_details_type&                       canvas,
+            const Font&                                font,
+            const type_list::string_type&              text,
+            const gui::type_list::position_type&       position,
+            const gui::type_list::dimension_unit_type& max_width,
+            const tetengo2::gui::drawing::color&       color,
+            const double                               angle)
         {
-            const auto p_layout = create_text_layout(text, font, encoder, max_width);
+            const auto p_layout = create_text_layout(text, font, max_width);
 
             const auto p_background_details = create_solid_background(color);
             const auto p_brush = create_brush(canvas, *p_background_details);
@@ -646,70 +613,58 @@ namespace tetengo2::detail::windows::direct2d {
         /*!
             \brief Draws a vertical text.
 
-            \tparam Font      A font type.
-            \tparam String    A string type.
-            \tparam Encoder   An encoder type.
-            \tparam Position  A position type.
-            \tparam Dimension A dimension type.
-            \tparam Color     A color type.
+            \tparam Font A font type.
 
             \param canvas   A canvas.
             \param font     A font.
             \param text     A text to draw.
-            \param encoder  An encoder.
             \param position A position where the text is drawn.
             \param color    A color.
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <
-            typename Font,
-            typename String,
-            typename Encoder,
-            typename Position,
-            typename Dimension,
-            typename Color>
+        template <typename Font>
         static void draw_vertical_text(
-            canvas_details_type& canvas,
-            const Font&          font,
-            const String&        text,
-            const Encoder&       encoder,
-            const Position&      position,
-            const Color&         color)
+            canvas_details_type&                 canvas,
+            const Font&                          font,
+            const type_list::string_type&        text,
+            const gui::type_list::position_type& position,
+            const tetengo2::gui::drawing::color& color)
         {
-            const auto  dimension = calc_vertical_text_dimension<Dimension>(canvas, font, text, encoder);
+            const auto  dimension = calc_vertical_text_dimension(canvas, font, text);
             const auto& max_width = dimension.width();
 
-            const auto chunks = split_to_vertical_text_chunks(text, encoder);
+            const auto chunks = split_to_vertical_text_chunks(text);
 
-            using position_unit_type = typename Position::unit_type;
-            using dimension_unit_type = typename Dimension::unit_type;
+            using position_unit_type = gui::type_list::dimension_unit_type;
+            using dimension_unit_type = gui::type_list::dimension_unit_type;
             const auto& base_left = position.left();
             const auto& base_top = position.top();
             auto        next_chunk_top = base_top;
             for (const auto& chunk : chunks)
             {
-                const auto chunk_dimension =
-                    calc_text_dimension<Dimension>(canvas, font, chunk, encoder, dimension_unit_type{});
+                const auto  chunk_dimension = calc_text_dimension(canvas, font, chunk, dimension_unit_type{});
                 const auto& chunk_width = chunk_dimension.width();
                 const auto& chunk_height = chunk_dimension.height();
 
-                const int    rotation = character_rotation(chunk, encoder);
+                const int    rotation = character_rotation(chunk);
                 const double angle = rotation * boost::math::constants::pi<double>() / 2.0;
 
                 const auto chunk_left = rotation % 2 == 0 ?
                                             base_left + position_unit_type::from(max_width - chunk_width) / 2 :
                                             base_left + position_unit_type::from(max_width - chunk_height) / 2;
 
-                Position chunk_position{ chunk_left, next_chunk_top };
+                gui::type_list::position_type chunk_position{ chunk_left, next_chunk_top };
                 if (rotation == 1)
                 {
-                    chunk_position = Position{ chunk_left + position_unit_type::from(chunk_height), next_chunk_top };
+                    chunk_position = gui::type_list::position_type{ chunk_left + position_unit_type::from(chunk_height),
+                                                                    next_chunk_top };
                 }
                 else if (rotation == 2)
                 {
-                    chunk_position = Position{ chunk_left + position_unit_type::from(chunk_width),
-                                               next_chunk_top + position_unit_type::from(chunk_height) };
+                    chunk_position =
+                        gui::type_list::position_type{ chunk_left + position_unit_type::from(chunk_width),
+                                                       next_chunk_top + position_unit_type::from(chunk_height) };
                 }
                 else
                 {
@@ -717,8 +672,7 @@ namespace tetengo2::detail::windows::direct2d {
                 }
 
 
-                draw_text<Font, String, Encoder, Position, dimension_unit_type, Color>(
-                    canvas, font, chunk, encoder, chunk_position, dimension_unit_type{}, color, angle);
+                draw_text(canvas, font, chunk, chunk_position, dimension_unit_type{}, color, angle);
 
                 next_chunk_top +=
                     rotation % 2 == 0 ? position_unit_type::from(chunk_height) : position_unit_type::from(chunk_width);
@@ -729,8 +683,6 @@ namespace tetengo2::detail::windows::direct2d {
             \brief Paints a picture.
 
             \tparam Picture   A picture type.
-            \tparam Position  A position type.
-            \tparam Dimension A dimension type.
 
             \param canvas    A canvas.
             \param picture   A picture to paint.
@@ -739,12 +691,12 @@ namespace tetengo2::detail::windows::direct2d {
 
             \throw std::system_error When the picture cannot be painted.
         */
-        template <typename Picture, typename Position, typename Dimension>
+        template <typename Picture>
         static void paint_picture(
-            canvas_details_type& canvas,
-            const Picture&       picture,
-            const Position&      position,
-            const Dimension&     dimension)
+            canvas_details_type&                  canvas,
+            const Picture&                        picture,
+            const gui::type_list::position_type&  position,
+            const gui::type_list::dimension_type& dimension)
         {
             auto& picture_details = const_cast<Picture&>(picture).details();
 
@@ -763,17 +715,14 @@ namespace tetengo2::detail::windows::direct2d {
         /*!
             \brief Paints an icon.
 
-            \tparam Icon     A icon type.
-            \tparam Position A position type.
-
             \param canvas   A canvas.
             \param icon     An icon to paint.
             \param position A position where the picture is painted.
 
             \throw std::system_error When the icon cannot be painted.
         */
-        template <typename Icon, typename Position>
-        static void paint_icon(canvas_details_type& canvas, const Icon& icon, const Position& position);
+        static void
+        paint_icon(canvas_details_type& canvas, const gui::icon& icon, const gui::type_list::position_type& position);
 
 
     private:
@@ -861,22 +810,21 @@ namespace tetengo2::detail::windows::direct2d {
             return ddp * 96.0f / dpi().second;
         }
 
-        template <typename Size>
-        static ::FLOAT size_to_float(const Size size)
+        static ::FLOAT size_to_float(const gui::type_list::dimension_unit_type& size)
         {
             return to_dip_y(static_cast<::FLOAT>(size.to_pixels()));
         }
 
-        template <typename Position>
-        static ::D2D1_POINT_2F position_to_point_2f(const Position& position)
+        static ::D2D1_POINT_2F position_to_point_2f(const gui::type_list::position_type& position)
         {
             const auto left = to_dip_x(static_cast<::FLOAT>(position.left().to_pixels()));
             const auto top = to_dip_y(static_cast<::FLOAT>(position.top().to_pixels()));
             return { left - 0.5f, top - 0.5f };
         }
 
-        template <typename Position, typename Dimension>
-        static ::D2D1_RECT_F position_and_dimension_to_rect_f(const Position& position, const Dimension& dimension)
+        static ::D2D1_RECT_F position_and_dimension_to_rect_f(
+            const gui::type_list::position_type&  position,
+            const gui::type_list::dimension_type& dimension)
         {
             const auto left = to_dip_x(static_cast<::FLOAT>(position.left().to_pixels()));
             const auto top = to_dip_y(static_cast<::FLOAT>(position.top().to_pixels()));
@@ -965,13 +913,15 @@ namespace tetengo2::detail::windows::direct2d {
             }
         }
 
-        template <typename String, typename Font, typename Encoder, typename DimensionUnit>
-        static unique_com_ptr<::IDWriteTextLayout>
-        create_text_layout(const String& text, const Font& font, const Encoder& encoder, const DimensionUnit& max_width)
+        template <typename Font>
+        static unique_com_ptr<::IDWriteTextLayout> create_text_layout(
+            const type_list::string_type&              text,
+            const Font&                                font,
+            const gui::type_list::dimension_unit_type& max_width)
         {
             ::IDWriteTextFormat* rp_format = nullptr;
             const auto           create_format_hr = direct_write_factory().CreateTextFormat(
-                encoder.encode(font.family()).c_str(),
+                detail::native_encoder().encode(font.family()).c_str(),
                 nullptr,
                 font.bold() ? ::DWRITE_FONT_WEIGHT_BOLD : ::DWRITE_FONT_WEIGHT_NORMAL,
                 font.italic() ? ::DWRITE_FONT_STYLE_ITALIC : ::DWRITE_FONT_STYLE_NORMAL,
@@ -986,8 +936,8 @@ namespace tetengo2::detail::windows::direct2d {
             }
             const typename unique_com_ptr<::IDWriteTextFormat> p_format{ rp_format };
 
-            const auto    encoded_text = encoder.encode(text);
-            const ::FLOAT max_width_in_dip = max_width == DimensionUnit{} ?
+            const auto    encoded_text = detail::native_encoder().encode(text);
+            const ::FLOAT max_width_in_dip = max_width == gui::type_list::dimension_unit_type{} ?
                                                  std::numeric_limits<::FLOAT>::max() :
                                                  to_dip_x(static_cast<::FLOAT>(max_width.to_pixels()));
             ::IDWriteTextLayout* rp_layout = nullptr;
@@ -1012,24 +962,21 @@ namespace tetengo2::detail::windows::direct2d {
             return std::move(p_layout);
         }
 
-        template <typename String, typename Encoder>
-        static std::vector<String> split_to_vertical_text_chunks(const String& text, const Encoder& encoder)
+        static std::vector<type_list::string_type> split_to_vertical_text_chunks(const type_list::string_type& text)
         {
-            using internal_encoding_type = typename Encoder::internal_encoding_type;
-            using utf8_encoder_type = text::encoder<internal_encoding_type, text::encoding::utf8>;
-            using character_iterator_type = text::character_iterator<String>;
+            using character_iterator_type = text::character_iterator<type_list::string_type>;
 
-            static const utf8_encoder_type utf8_encoder{};
-            std::vector<String>            chunks{};
-            String                         tatechuyoko{};
-            const character_iterator_type  end{};
-            for (auto i = character_iterator_type(
-                     text, text::encoding::make_polymorphic<internal_encoding_type>(encoder.internal_encoding()));
+            std::vector<type_list::string_type> chunks{};
+            type_list::string_type              tatechuyoko{};
+            const character_iterator_type       end{};
+            for (auto i = character_iterator_type{ text,
+                                                   text::encoding::make_polymorphic<type_list::internal_encoding_type>(
+                                                       detail::native_encoder().internal_encoding()) };
                  i != end;
                  ++i)
             {
                 const auto& char_as_string = *i;
-                if (is_tatechuyoko_character(char_as_string, utf8_encoder))
+                if (is_tatechuyoko_character(char_as_string))
                 {
                     tatechuyoko.append(char_as_string);
                     continue;
@@ -1040,7 +987,7 @@ namespace tetengo2::detail::windows::direct2d {
                     tatechuyoko.clear();
                 }
 
-                if (!chunks.empty() && is_dakuten_character(char_as_string, utf8_encoder))
+                if (!chunks.empty() && is_dakuten_character(char_as_string))
                     chunks.back().append(char_as_string);
                 else
                     chunks.push_back(char_as_string);
@@ -1051,10 +998,9 @@ namespace tetengo2::detail::windows::direct2d {
             return std::move(chunks);
         }
 
-        template <typename String, typename Utf8Encoder>
-        static bool is_tatechuyoko_character(const String& char_as_string, const Utf8Encoder& utf8_encoder)
+        static bool is_tatechuyoko_character(const type_list::string_type& char_as_string)
         {
-            const auto char_in_utf8 = utf8_encoder.encode(char_as_string);
+            const auto char_in_utf8 = detail::utf8_encoder().encode(char_as_string);
 
             static const std::vector<std::string> digits{
                 std::string{ to_char(0x30) }, // 0
@@ -1074,10 +1020,9 @@ namespace tetengo2::detail::windows::direct2d {
             return false;
         }
 
-        template <typename String, typename Utf8Encoder>
-        static bool is_dakuten_character(const String& char_as_string, const Utf8Encoder& utf8_encoder)
+        static bool is_dakuten_character(const type_list::string_type& char_as_string)
         {
-            const auto char_in_utf8 = utf8_encoder.encode(char_as_string);
+            const auto char_in_utf8 = detail::utf8_encoder().encode(char_as_string);
 
             static const std::vector<std::string> dakutens{
                 std::string{ to_char(0xEF), to_char(0xBE), to_char(0x9E) }, // halfwidth katakana dakuten
@@ -1089,14 +1034,9 @@ namespace tetengo2::detail::windows::direct2d {
             return false;
         }
 
-        template <typename String, typename Encoder>
-        static int character_rotation(const String& char_as_string, const Encoder&)
+        static int character_rotation(const type_list::string_type& char_as_string)
         {
-            using internal_encoding_type = typename Encoder::internal_encoding_type;
-            using utf8_encoder_type = text::encoder<internal_encoding_type, text::encoding::utf8>;
-
-            static const utf8_encoder_type utf8_encoder{};
-            const auto                     char_in_utf8 = utf8_encoder.encode(char_as_string);
+            const auto char_in_utf8 = detail::utf8_encoder().encode(char_as_string);
 
             static const std::vector<std::string> r90degs{
                 std::string{ to_char(0x29) }, // right parenthesis
