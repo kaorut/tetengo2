@@ -38,7 +38,7 @@ namespace tetengo2::detail::stub {
         // types
 
         //! The string type.
-        using string_type = std::wstring;
+        using string_type = type_list::string_type;
 
 #if !defined(DOCUMENTATION)
         struct details_font_type
@@ -641,35 +641,31 @@ namespace tetengo2::detail::stub {
             \brief Sets a text.
 
             \tparam Widget  A widget type.
-            \tparam Encoder An eocder type.
 
             \param widget  A widget.
             \param text    A text.
-            \param encoder An encoder.
 
             \throw std::system_error When the text cannot be set.
         */
-        template <typename Widget, typename Encoder>
-        static void set_text(Widget& widget, type_list::string_type text, const Encoder& encoder)
+        template <typename Widget>
+        static void set_text(Widget& widget, type_list::string_type text)
         {
-            widget.details().text = encoder.encode(std::move(text));
+            widget.details().text = std::move(text);
         }
 
         /*!
             \brief Retuns the text.
 
             \tparam Widget  A widget type.
-            \tparam Encoder An eocder type.
 
             \param widget  A widget.
-            \param encoder An encoder.
 
             \return The text.
         */
-        template <typename Widget, typename Encoder>
-        static type_list::string_type text(const Widget& widget, const Encoder& encoder)
+        template <typename Widget>
+        static type_list::string_type text(const Widget& widget)
         {
-            return encoder.decode(widget.details().text);
+            return widget.details().text;
         }
 
         /*!
@@ -677,23 +673,17 @@ namespace tetengo2::detail::stub {
 
             \tparam Widget  A widget type.
             \tparam Font    A font type.
-            \tparam Encoder An encoder type.
 
             \param widget  A widget.
             \param font    A font.
-            \param encoder An encoder.
 
             \throw std::system_error When the font cannot be set.
         */
-        template <typename Widget, typename Font, typename Encoder>
-        static void set_font(Widget& widget, const Font& font, const Encoder& encoder)
+        template <typename Widget, typename Font>
+        static void set_font(Widget& widget, const Font& font)
         {
-            widget.details().font = details_font_type{ encoder.encode(font.family()),
-                                                       font.size(),
-                                                       font.bold(),
-                                                       font.italic(),
-                                                       font.underline(),
-                                                       font.strikeout() };
+            widget.details().font = details_font_type{ font.family(), font.size(),      font.bold(),
+                                                       font.italic(), font.underline(), font.strikeout() };
         }
 
         /*!
@@ -701,22 +691,18 @@ namespace tetengo2::detail::stub {
 
             \tparam Font   A font type.
             \tparam Widget A widget type.
-            \tparam Encoder An encoder type.
 
             \param widget  A widget.
-            \param encoder An encoder.
 
             \return The font.
 
             \throw std::system_error When the font cannot be obtained.
         */
-        template <typename Font, typename Widget, typename Encoder>
-        static Font font(const Widget& widget, const Encoder& encoder)
+        template <typename Font, typename Widget>
+        static Font font(const Widget& widget)
         {
             const auto& font = widget.details().font;
-            return Font{
-                encoder.decode(font.family), font.size, font.bold, font.italic, font.underline, font.strikeout
-            };
+            return Font{ font.family, font.size, font.bold, font.italic, font.underline, font.strikeout };
         }
 
         /*!
@@ -949,68 +935,60 @@ namespace tetengo2::detail::stub {
             \brief Returns the dropdown box value.
 
             \tparam DropdownBox A dropdown box type.
-            \tparam Encoder     An encoder type.
 
             \param dropdown_box A dropdown box.
             \param index        An index.
-            \param encoder      An encoder.
 
             \return The dropdown box value.
 
             \throw std::system_error When the value cannot be obtained.
         */
-        template <typename DropdownBox, typename Encoder>
+        template <typename DropdownBox>
         static type_list::string_type
-        dropdown_box_value(const DropdownBox& dropdown_box, const type_list::size_type index, const Encoder& encoder)
+        dropdown_box_value(const DropdownBox& dropdown_box, const type_list::size_type index)
         {
-            return encoder.decode(dropdown_box.details().list_box_values[index]);
+            return dropdown_box.details().list_box_values[index];
         }
 
         /*!
             \brief Sets a dropdown box value.
 
             \tparam DropdownBox A dropdown box type.
-            \tparam Encoder     An encoder type.
 
             \param dropdown_box A dropdown box.
             \param index        An index.
             \param value         An value.
-            \param encoder      An encoder.
 
             \throw std::system_error When the value cannot be set.
         */
-        template <typename DropdownBox, typename Encoder>
+        template <typename DropdownBox>
         static void set_dropdown_box_value(
             DropdownBox&               dropdown_box,
             const type_list::size_type index,
-            type_list::string_type     value,
-            const Encoder&             encoder)
+            type_list::string_type     value)
         {
-            dropdown_box.details().list_box_values[index] = encoder.encode(std::move(value));
+            dropdown_box.details().list_box_values[index] = std::move(value);
         }
 
         /*!
             \brief Inserts a dropdown box value.
 
             \tparam DropdownBox A dropdown box type.
-            \tparam Encoder     An encoder type.
 
             \param dropdown_box A dropdown box.
             \param index        An index.
             \param value         An value.
-            \param encoder      An encoder.
 
             \throw std::system_error When the value cannot be inserted.
         */
-        template <typename DropdownBox, typename Encoder>
+        template <typename DropdownBox>
         static void insert_dropdown_box_value(
             DropdownBox&               dropdown_box,
             const type_list::size_type index,
-            type_list::string_type     value,
-            const Encoder&             encoder)
+            type_list::string_type     value)
         {
             dropdown_box.details().list_box_values.insert(
-                std::next(dropdown_box.details().list_box_values.begin(), index), encoder.encode(std::move(value)));
+                std::next(dropdown_box.details().list_box_values.begin(), index), std::move(value));
         }
 
         /*!
@@ -1107,68 +1085,55 @@ namespace tetengo2::detail::stub {
             \brief Returns the list box value.
 
             \tparam ListBox A list box type.
-            \tparam Encoder An encoder type.
 
             \param list_box A list box.
             \param index    An index.
-            \param encoder  An encoder.
 
             \return The list box value.
 
             \throw std::system_error When the value cannot be obtained.
         */
-        template <typename ListBox, typename Encoder>
-        static type_list::string_type
-        list_box_value(const ListBox& list_box, const type_list::size_type index, const Encoder& encoder)
+        template <typename ListBox>
+        static type_list::string_type list_box_value(const ListBox& list_box, const type_list::size_type index)
         {
-            return encoder.decode(list_box.details().list_box_values[index]);
+            return list_box.details().list_box_values[index];
         }
 
         /*!
             \brief Sets a list box value.
 
             \tparam ListBox A list box type.
-            \tparam Encoder An encoder type.
 
             \param list_box A list box.
             \param index    An index.
             \param value    An value.
-            \param encoder  An encoder.
 
             \throw std::system_error When the value cannot be set.
         */
-        template <typename ListBox, typename Encoder>
-        static void set_list_box_value(
-            ListBox&                   list_box,
-            const type_list::size_type index,
-            type_list::string_type     value,
-            const Encoder&             encoder)
+        template <typename ListBox>
+        static void
+        set_list_box_value(ListBox& list_box, const type_list::size_type index, type_list::string_type value)
         {
-            list_box.details().list_box_values[index] = encoder.encode(std::move(value));
+            list_box.details().list_box_values[index] = std::move(value);
         }
 
         /*!
             \brief Inserts a list box value.
 
             \tparam ListBox A list box type.
-            \tparam Encoder An encoder type.
 
             \param list_box A list box.
             \param index    An index.
             \param value    An value.
-            \param encoder  An encoder.
 
             \throw std::system_error When the value cannot be inserted.
         */
-        template <typename ListBox, typename Encoder>
-        static void insert_list_box_value(
-            ListBox&                   list_box,
-            const type_list::size_type index,
-            type_list::string_type     value,
-            const Encoder&             encoder)
+        template <typename ListBox>
+        static void
+        insert_list_box_value(ListBox& list_box, const type_list::size_type index, type_list::string_type value)
         {
             list_box.details().list_box_values.insert(
-                std::next(list_box.details().list_box_values.begin(), index), encoder.encode(std::move(value)));
+                std::next(list_box.details().list_box_values.begin(), index), std::move(value));
         }
 
         /*!

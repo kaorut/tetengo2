@@ -133,7 +133,7 @@ namespace tetengo2::gui::widget {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            return widget_details_type::list_box_value(*this, index, widget_type::encoder());
+            return widget_details_type::list_box_value(*this, index);
         }
 
         /*!
@@ -149,7 +149,7 @@ namespace tetengo2::gui::widget {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            widget_details_type::set_list_box_value(*this, index, std::move(value), widget_type::encoder());
+            widget_details_type::set_list_box_value(*this, index, std::move(value));
         }
 
         /*!
@@ -165,7 +165,7 @@ namespace tetengo2::gui::widget {
             if (index > value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            widget_details_type::insert_list_box_value(*this, index, std::move(value), widget_type::encoder());
+            widget_details_type::insert_list_box_value(*this, index, std::move(value));
         }
 
         /*!
