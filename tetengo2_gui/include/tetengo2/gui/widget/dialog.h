@@ -160,7 +160,7 @@ namespace tetengo2::gui::widget {
 
             this->window_observer_set().closing().connect([this](bool& cancel) { this->on_close_impl(cancel); });
             this->window_observer_set().destroyed().connect([]() { message_loop_break_type{}(0); });
-            this->set_position(widget_details_type::dialog_position(*this, parent_window));
+            this->set_position(widget_details_type::template dialog_position<position_type>(*this, parent_window));
             this->set_visible(true);
 
             message_loop_type{ *this }();

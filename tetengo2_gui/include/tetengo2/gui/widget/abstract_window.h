@@ -126,7 +126,7 @@ namespace tetengo2::gui::widget {
         */
         dimension_type normal_dimension() const
         {
-            return widget_details_type::normal_dimension(*this);
+            return widget_details_type::template normal_dimension<dimension_type>(*this);
         }
 
         /*!

@@ -28,6 +28,7 @@
 #include <tetengo2/gui/widget/progress_dialog.h>
 #include <tetengo2/gui/widget/window.h>
 #include <tetengo2/text.h>
+#include <tetengo2/text/encoding/locale.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"

@@ -71,6 +71,11 @@ namespace {
     class concrete_widget : public widget_type
     {
     public:
+        static const encoder_type& test_encoder()
+        {
+            return encoder();
+        }
+
         explicit concrete_widget(
             widget_type* const                       p_parent = nullptr,
             const widget_type::scroll_bar_style_type scroll_bar_style = widget_type::scroll_bar_style_type::none)
@@ -885,6 +890,14 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     const concrete_widget widget{};
 
                     widget.message_handler_map();
+                }
+
+                BOOST_AUTO_TEST_CASE(encoder)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    // encoder() is called in test_encoder().
+                    concrete_widget::test_encoder();
                 }
 
                 BOOST_AUTO_TEST_CASE(initialize)
