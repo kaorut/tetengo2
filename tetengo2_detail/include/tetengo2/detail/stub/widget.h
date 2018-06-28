@@ -23,7 +23,9 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::detail::stub {
@@ -503,8 +505,6 @@ namespace tetengo2::detail::stub {
             \brief Moves a widget.
 
             \tparam Widget    A widget type.
-            \tparam Position  A position type.
-            \tparam Dimension A dimension type.
 
             \param widget    A widget.
             \param position  A position.
@@ -512,8 +512,11 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the widget cannot be moved.
         */
-        template <typename Widget, typename Position, typename Dimension>
-        static void move(Widget& widget, const Position& position, const Dimension& dimension)
+        template <typename Widget>
+        static void move(
+            Widget&                               widget,
+            const gui::type_list::position_type&  position,
+            const gui::type_list::dimension_type& dimension)
         {
             widget.details().position = std::make_pair(position.left().to_pixels(), position.top().to_pixels());
             widget.details().dimension = std::make_pair(dimension.width().to_pixels(), dimension.height().to_pixels());
@@ -522,7 +525,6 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Returns the position.
 
-            \tparam Position  A position type.
             \tparam Widget A widget type.
 
             \param widget A widget.
@@ -531,17 +533,16 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the position cannot be obtained.
         */
-        template <typename Position, typename Widget>
-        static Position position(const Widget& widget)
+        template <typename Widget>
+        static gui::type_list::position_type position(const Widget& widget)
         {
-            return { Position::unit_type::from_pixels(widget.details().position.first),
-                     Position::unit_type::from_pixels(widget.details().position.second) };
+            return { gui::type_list::position_unit_type::from_pixels(widget.details().position.first),
+                     gui::type_list::position_unit_type::from_pixels(widget.details().position.second) };
         }
 
         /*!
             \brief Calculates a position suitable for a dialog.
 
-            \tparam Position     A position type.
             \tparam Widget       A widget type.
             \tparam ParentWidget A parent widget type.
 
@@ -552,16 +553,16 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When a position cannot be calculated.
         */
-        template <typename Position, typename Widget, typename ParentWidget>
-        static Position dialog_position(TETENGO2_STDALT_MAYBE_UNUSED const Widget& widget, const ParentWidget& parent)
+        template <typename Widget, typename ParentWidget>
+        static gui::type_list::position_type
+        dialog_position(TETENGO2_STDALT_MAYBE_UNUSED const Widget& widget, const ParentWidget& parent)
         {
-            return position<Position>(parent);
+            return position(parent);
         }
 
         /*!
             \brief Returns the dimension.
 
-            \tparam Dimension A dimension type.
             \tparam Widget    A widget type.
 
             \param widget A widget.
@@ -570,27 +571,27 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the dimension cannot be obtained.
         */
-        template <typename Dimension, typename Widget>
-        static Dimension dimension(const Widget& widget)
+        template <typename Widget>
+        static gui::type_list::dimension_type dimension(const Widget& widget)
         {
-            return Dimension{ Dimension::unit_type::from_pixels(widget.details().dimension.first),
-                              Dimension::unit_type::from_pixels(widget.details().dimension.second) };
+            return gui::type_list::dimension_type{
+                gui::type_list::dimension_unit_type::from_pixels(widget.details().dimension.first),
+                gui::type_list::dimension_unit_type::from_pixels(widget.details().dimension.second)
+            };
         }
 
         /*!
             \brief Sets a client dimension.
 
-            \tparam Position  A position type.
             \tparam Widget    A widget type.
-            \tparam Dimension A dimension type.
 
             \param widget           A widget.
             \param client_dimension A client dimension.
 
             \throw std::system_error When a client dimension cannot be set.
         */
-        template <typename Position, typename Widget, typename Dimension>
-        static void set_client_dimension(Widget& widget, const Dimension& client_dimension)
+        template <typename Widget>
+        static void set_client_dimension(Widget& widget, const gui::type_list::dimension_type& client_dimension)
         {
             widget.details().dimension =
                 std::make_pair(client_dimension.width().to_pixels(), client_dimension.height().to_pixels());
@@ -599,7 +600,6 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Returns the client dimension.
 
-            \tparam Dimension A dimension type.
             \tparam Widget    A widget type.
 
             \param widget A widget.
@@ -608,17 +608,18 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the client dimension cannot be obtained.
         */
-        template <typename Dimension, typename Widget>
-        static Dimension client_dimension(const Widget& widget)
+        template <typename Widget>
+        static gui::type_list::dimension_type client_dimension(const Widget& widget)
         {
-            return Dimension{ Dimension::unit_type::from_pixels(widget.details().dimension.first),
-                              Dimension::unit_type::from_pixels(widget.details().dimension.second) };
+            return gui::type_list::dimension_type{
+                gui::type_list::dimension_unit_type::from_pixels(widget.details().dimension.first),
+                gui::type_list::dimension_unit_type::from_pixels(widget.details().dimension.second)
+            };
         }
 
         /*!
             \brief Returns the normal dimension.
 
-            \tparam Dimension A dimension type.
             \tparam Widget    A widget type.
 
             \param widget A widget.
@@ -627,18 +628,19 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the normal dimension cannot be obtained.
         */
-        template <typename Dimension, typename Widget>
-        static Dimension normal_dimension(const Widget& widget)
+        template <typename Widget>
+        static gui::type_list::dimension_type normal_dimension(const Widget& widget)
         {
-            return Dimension{ Dimension::unit_type::from_pixels(widget.details().dimension.first),
-                              Dimension::unit_type::from_pixels(widget.details().dimension.second) };
+            return gui::type_list::dimension_type{
+                gui::type_list::dimension_unit_type::from_pixels(widget.details().dimension.first),
+                gui::type_list::dimension_unit_type::from_pixels(widget.details().dimension.second)
+            };
         }
 
         /*!
             \brief Sets a text.
 
             \tparam Widget  A widget type.
-            \tparam String  A string type.
             \tparam Encoder An eocder type.
 
             \param widget  A widget.
@@ -647,8 +649,8 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the text cannot be set.
         */
-        template <typename Widget, typename String, typename Encoder>
-        static void set_text(Widget& widget, String text, const Encoder& encoder)
+        template <typename Widget, typename Encoder>
+        static void set_text(Widget& widget, type_list::string_type text, const Encoder& encoder)
         {
             widget.details().text = encoder.encode(std::move(text));
         }
@@ -656,7 +658,6 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Retuns the text.
 
-            \tparam String  A string type.
             \tparam Widget  A widget type.
             \tparam Encoder An eocder type.
 
@@ -665,8 +666,8 @@ namespace tetengo2::detail::stub {
 
             \return The text.
         */
-        template <typename String, typename Widget, typename Encoder>
-        static String text(const Widget& widget, const Encoder& encoder)
+        template <typename Widget, typename Encoder>
+        static type_list::string_type text(const Widget& widget, const Encoder& encoder)
         {
             return encoder.decode(widget.details().text);
         }
@@ -760,8 +761,6 @@ namespace tetengo2::detail::stub {
             \brief Repaints a widget partially.
 
             \tparam Widget    A widget type.
-            \tparam Position  A position type.
-            \tparam Dimension A dimension type.
 
             \param widget    A widget.
             \param position  The position of a region to repaint.
@@ -769,11 +768,11 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the widget cannot be repainted.
         */
-        template <typename Widget, typename Position, typename Dimension>
+        template <typename Widget>
         static void repaint_partially(
             TETENGO2_STDALT_MAYBE_UNUSED Widget& widget,
-            TETENGO2_STDALT_MAYBE_UNUSED const Position& position,
-            TETENGO2_STDALT_MAYBE_UNUSED const Dimension& dimension)
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position,
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_type& dimension)
         {}
 
         /*!
@@ -932,7 +931,6 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Returns the dropdown box value count.
 
-            \tparam Size        A size type.
             \tparam DropdownBox A dropdown box type.
 
             \param dropdown_box A dropdown box.
@@ -941,8 +939,8 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the value cannot be obtained.
         */
-        template <typename Size, typename DropdownBox>
-        static Size dropdown_box_value_count(const DropdownBox& dropdown_box)
+        template <typename DropdownBox>
+        static type_list::size_type dropdown_box_value_count(const DropdownBox& dropdown_box)
         {
             return dropdown_box.details().list_box_values.size();
         }
@@ -950,9 +948,7 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Returns the dropdown box value.
 
-            \tparam String      A string type.
             \tparam DropdownBox A dropdown box type.
-            \tparam Size        A size type.
             \tparam Encoder     An encoder type.
 
             \param dropdown_box A dropdown box.
@@ -963,8 +959,9 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the value cannot be obtained.
         */
-        template <typename String, typename DropdownBox, typename Size, typename Encoder>
-        static String dropdown_box_value(const DropdownBox& dropdown_box, const Size index, const Encoder& encoder)
+        template <typename DropdownBox, typename Encoder>
+        static type_list::string_type
+        dropdown_box_value(const DropdownBox& dropdown_box, const type_list::size_type index, const Encoder& encoder)
         {
             return encoder.decode(dropdown_box.details().list_box_values[index]);
         }
@@ -973,8 +970,6 @@ namespace tetengo2::detail::stub {
             \brief Sets a dropdown box value.
 
             \tparam DropdownBox A dropdown box type.
-            \tparam Size        A size type.
-            \tparam String      A string type.
             \tparam Encoder     An encoder type.
 
             \param dropdown_box A dropdown box.
@@ -984,9 +979,12 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the value cannot be set.
         */
-        template <typename DropdownBox, typename Size, typename String, typename Encoder>
-        static void
-        set_dropdown_box_value(DropdownBox& dropdown_box, const Size index, String value, const Encoder& encoder)
+        template <typename DropdownBox, typename Encoder>
+        static void set_dropdown_box_value(
+            DropdownBox&               dropdown_box,
+            const type_list::size_type index,
+            type_list::string_type     value,
+            const Encoder&             encoder)
         {
             dropdown_box.details().list_box_values[index] = encoder.encode(std::move(value));
         }
@@ -995,8 +993,6 @@ namespace tetengo2::detail::stub {
             \brief Inserts a dropdown box value.
 
             \tparam DropdownBox A dropdown box type.
-            \tparam Size        A size type.
-            \tparam String      A string type.
             \tparam Encoder     An encoder type.
 
             \param dropdown_box A dropdown box.
@@ -1006,9 +1002,12 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the value cannot be inserted.
         */
-        template <typename DropdownBox, typename Size, typename String, typename Encoder>
-        static void
-        insert_dropdown_box_value(DropdownBox& dropdown_box, const Size index, String value, const Encoder& encoder)
+        template <typename DropdownBox, typename Encoder>
+        static void insert_dropdown_box_value(
+            DropdownBox&               dropdown_box,
+            const type_list::size_type index,
+            type_list::string_type     value,
+            const Encoder&             encoder)
         {
             dropdown_box.details().list_box_values.insert(
                 std::next(dropdown_box.details().list_box_values.begin(), index), encoder.encode(std::move(value)));
@@ -1018,15 +1017,14 @@ namespace tetengo2::detail::stub {
             \brief Erases a dropdown box value.
 
             \tparam DropdownBox A dropdown box type.
-            \tparam Size    A size type.
 
             \param dropdown_box A dropdown box.
             \param index    An index.
 
             \throw std::system_error When the value cannot be erased.
         */
-        template <typename DropdownBox, typename Size>
-        static void erase_dropdown_box_value(DropdownBox& dropdown_box, const Size index)
+        template <typename DropdownBox>
+        static void erase_dropdown_box_value(DropdownBox& dropdown_box, const type_list::size_type index)
         {
             dropdown_box.details().list_box_values.erase(
                 std::next(dropdown_box.details().list_box_values.begin(), index));
@@ -1056,7 +1054,6 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Returns the selected dropdown box value index.
 
-            \tparam Size    A size type.
             \tparam DropdownBox A dropdown box type.
 
             \param dropdown_box A dropdown box.
@@ -1065,8 +1062,9 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the selected value index cannot be obtained.
         */
-        template <typename Size, typename DropdownBox>
-        static tetengo2::stdalt::optional<Size> selected_dropdown_box_value_index(const DropdownBox& dropdown_box)
+        template <typename DropdownBox>
+        static tetengo2::stdalt::optional<type_list::size_type>
+        selected_dropdown_box_value_index(const DropdownBox& dropdown_box)
         {
             return dropdown_box.details().selected_list_box_value_index;
         }
@@ -1075,15 +1073,14 @@ namespace tetengo2::detail::stub {
             \brief Selects a dropdown box value.
 
             \tparam DropdownBox A dropdown box type.
-            \tparam Size    A size type.
 
             \param dropdown_box A dropdown box.
             \param index    An index.
 
             \throw std::system_error When the value cannot be selected.
         */
-        template <typename DropdownBox, typename Size>
-        static void select_dropdown_box_value(DropdownBox& dropdown_box, const Size index)
+        template <typename DropdownBox>
+        static void select_dropdown_box_value(DropdownBox& dropdown_box, const type_list::size_type index)
         {
             dropdown_box.details().selected_list_box_value_index =
                 tetengo2::stdalt::make_optional(static_cast<std::size_t>(index));
@@ -1092,7 +1089,6 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Returns the list box value count.
 
-            \tparam Size    A size type.
             \tparam ListBox A list box type.
 
             \param list_box A list box.
@@ -1101,8 +1097,8 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the value cannot be obtained.
         */
-        template <typename Size, typename ListBox>
-        static Size list_box_value_count(const ListBox& list_box)
+        template <typename ListBox>
+        static type_list::size_type list_box_value_count(const ListBox& list_box)
         {
             return list_box.details().list_box_values.size();
         }
@@ -1110,9 +1106,7 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Returns the list box value.
 
-            \tparam String  A string type.
             \tparam ListBox A list box type.
-            \tparam Size    A size type.
             \tparam Encoder An encoder type.
 
             \param list_box A list box.
@@ -1123,8 +1117,9 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the value cannot be obtained.
         */
-        template <typename String, typename ListBox, typename Size, typename Encoder>
-        static String list_box_value(const ListBox& list_box, const Size index, const Encoder& encoder)
+        template <typename ListBox, typename Encoder>
+        static type_list::string_type
+        list_box_value(const ListBox& list_box, const type_list::size_type index, const Encoder& encoder)
         {
             return encoder.decode(list_box.details().list_box_values[index]);
         }
@@ -1133,8 +1128,6 @@ namespace tetengo2::detail::stub {
             \brief Sets a list box value.
 
             \tparam ListBox A list box type.
-            \tparam Size    A size type.
-            \tparam String  A string type.
             \tparam Encoder An encoder type.
 
             \param list_box A list box.
@@ -1144,8 +1137,12 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the value cannot be set.
         */
-        template <typename ListBox, typename Size, typename String, typename Encoder>
-        static void set_list_box_value(ListBox& list_box, const Size index, String value, const Encoder& encoder)
+        template <typename ListBox, typename Encoder>
+        static void set_list_box_value(
+            ListBox&                   list_box,
+            const type_list::size_type index,
+            type_list::string_type     value,
+            const Encoder&             encoder)
         {
             list_box.details().list_box_values[index] = encoder.encode(std::move(value));
         }
@@ -1154,8 +1151,6 @@ namespace tetengo2::detail::stub {
             \brief Inserts a list box value.
 
             \tparam ListBox A list box type.
-            \tparam Size    A size type.
-            \tparam String  A string type.
             \tparam Encoder An encoder type.
 
             \param list_box A list box.
@@ -1165,8 +1160,12 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the value cannot be inserted.
         */
-        template <typename ListBox, typename Size, typename String, typename Encoder>
-        static void insert_list_box_value(ListBox& list_box, const Size index, String value, const Encoder& encoder)
+        template <typename ListBox, typename Encoder>
+        static void insert_list_box_value(
+            ListBox&                   list_box,
+            const type_list::size_type index,
+            type_list::string_type     value,
+            const Encoder&             encoder)
         {
             list_box.details().list_box_values.insert(
                 std::next(list_box.details().list_box_values.begin(), index), encoder.encode(std::move(value)));
@@ -1176,15 +1175,14 @@ namespace tetengo2::detail::stub {
             \brief Erases a list box value.
 
             \tparam ListBox A list box type.
-            \tparam Size    A size type.
 
             \param list_box A list box.
             \param index    An index.
 
             \throw std::system_error When the value cannot be erased.
         */
-        template <typename ListBox, typename Size>
-        static void erase_list_box_value(ListBox& list_box, const Size index)
+        template <typename ListBox>
+        static void erase_list_box_value(ListBox& list_box, const type_list::size_type index)
         {
             list_box.details().list_box_values.erase(std::next(list_box.details().list_box_values.begin(), index));
             if (list_box.details().selected_list_box_value_index &&
@@ -1213,7 +1211,6 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Returns the selected list box value index.
 
-            \tparam Size    A size type.
             \tparam ListBox A list box type.
 
             \param list_box A list box.
@@ -1222,8 +1219,8 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the selected value index cannot be obtained.
         */
-        template <typename Size, typename ListBox>
-        static tetengo2::stdalt::optional<Size> selected_list_box_value_index(const ListBox& list_box)
+        template <typename ListBox>
+        static tetengo2::stdalt::optional<type_list::size_type> selected_list_box_value_index(const ListBox& list_box)
         {
             return list_box.details().selected_list_box_value_index;
         }
@@ -1232,15 +1229,14 @@ namespace tetengo2::detail::stub {
             \brief Selects a list box value.
 
             \tparam ListBox A list box type.
-            \tparam Size    A size type.
 
             \param list_box A list box.
             \param index    An index.
 
             \throw std::system_error When the value cannot be selected.
         */
-        template <typename ListBox, typename Size>
-        static void select_list_box_value(ListBox& list_box, const Size index)
+        template <typename ListBox>
+        static void select_list_box_value(ListBox& list_box, const type_list::size_type index)
         {
             list_box.details().selected_list_box_value_index =
                 tetengo2::stdalt::make_optional(static_cast<std::size_t>(index));
@@ -1249,7 +1245,6 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Returns the progress bar goal.
 
-            \tparam Size        A size type.
             \tparam ProgressBar A progress bar type.
 
             \param progress_bar A progress bar.
@@ -1258,8 +1253,8 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the goal cannot be obtained.
         */
-        template <typename Size, typename ProgressBar>
-        static Size progress_bar_goal(ProgressBar& progress_bar)
+        template <typename ProgressBar>
+        static type_list::size_type progress_bar_goal(ProgressBar& progress_bar)
         {
             return progress_bar.details().progress_bar_goal;
         }
@@ -1268,15 +1263,14 @@ namespace tetengo2::detail::stub {
             \brief Sets a progress bar goal.
 
             \tparam ProgressBar A progress bar type.
-            \tparam Size        A size type.
 
             \param progress_bar A progress bar.
             \param goal         A goal.
 
             \throw std::system_error When the goal cannot be set.
         */
-        template <typename ProgressBar, typename Size>
-        static void set_progress_bar_goal(ProgressBar& progress_bar, const Size goal)
+        template <typename ProgressBar>
+        static void set_progress_bar_goal(ProgressBar& progress_bar, const type_list::size_type goal)
         {
             progress_bar.details().progress_bar_goal = goal;
         }
@@ -1284,7 +1278,6 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Returns the progress bar progress.
 
-            \tparam Size        A size type.
             \tparam ProgressBar A progress bar type.
 
             \param progress_bar A progress bar.
@@ -1293,8 +1286,8 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the progress cannot be obtained.
         */
-        template <typename Size, typename ProgressBar>
-        static Size progress_bar_progress(ProgressBar& progress_bar)
+        template <typename ProgressBar>
+        static type_list::size_type progress_bar_progress(ProgressBar& progress_bar)
         {
             return progress_bar.details().progress_bar_progress;
         }
@@ -1303,15 +1296,14 @@ namespace tetengo2::detail::stub {
             \brief Sets a progress bar progress.
 
             \tparam ProgressBar A progress bar type.
-            \tparam Size        A size type.
 
             \param progress_bar A progress bar.
             \param progress     A progress.
 
             \throw std::system_error When the progress cannot be set.
         */
-        template <typename ProgressBar, typename Size>
-        static void set_progress_bar_progress(ProgressBar& progress_bar, const Size progress)
+        template <typename ProgressBar>
+        static void set_progress_bar_progress(ProgressBar& progress_bar, const type_list::size_type progress)
         {
             progress_bar.details().progress_bar_progress = progress;
         }
