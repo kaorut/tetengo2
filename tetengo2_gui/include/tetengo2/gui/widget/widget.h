@@ -290,7 +290,7 @@ namespace tetengo2::gui::widget {
         */
         position_type position() const
         {
-            return widget_details_type::template position<position_type>(*this);
+            return widget_details_type::position(*this);
         }
 
         /*!
@@ -313,7 +313,7 @@ namespace tetengo2::gui::widget {
         */
         dimension_type dimension() const
         {
-            return widget_details_type::template dimension<dimension_type>(*this);
+            return widget_details_type::dimension(*this);
         }
 
         /*!
@@ -336,7 +336,7 @@ namespace tetengo2::gui::widget {
         */
         dimension_type client_dimension() const
         {
-            return widget_details_type::template client_dimension<dimension_type>(*this);
+            return widget_details_type::client_dimension(*this);
         }
 
         /*!
@@ -356,7 +356,7 @@ namespace tetengo2::gui::widget {
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "Client dimension has zero value." }));
             }
 
-            widget_details_type::template set_client_dimension<position_type>(*this, client_dimension);
+            widget_details_type::set_client_dimension(*this, client_dimension);
         }
 
         /*!
@@ -381,7 +381,7 @@ namespace tetengo2::gui::widget {
         */
         string_type text() const
         {
-            return widget_details_type::template text<string_type>(*this, encoder());
+            return widget_details_type::text(*this);
         }
 
         /*!
@@ -391,7 +391,7 @@ namespace tetengo2::gui::widget {
         */
         void set_text(string_type text)
         {
-            widget_details_type::set_text(*this, std::move(text), encoder());
+            widget_details_type::set_text(*this, std::move(text));
         }
 
         /*!
@@ -425,7 +425,7 @@ namespace tetengo2::gui::widget {
         */
         font_type font() const
         {
-            return widget_details_type::template font<font_type>(*this, encoder());
+            return widget_details_type::template font<font_type>(*this);
         }
 
         /*!
@@ -435,7 +435,7 @@ namespace tetengo2::gui::widget {
         */
         void set_font(const font_type& font)
         {
-            widget_details_type::set_font(*this, font, encoder());
+            widget_details_type::set_font(*this, font);
         }
 
         /*!
@@ -787,17 +787,6 @@ namespace tetengo2::gui::widget {
 
     protected:
         // static functions
-
-        /*!
-            \brief Returns the encoder.
-
-            \return The encoder.
-        */
-        static const encoder_type& encoder()
-        {
-            static const encoder_type singleton{};
-            return singleton;
-        }
 
         /*!
             \brief Initializes the widget.
