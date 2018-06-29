@@ -182,9 +182,6 @@ namespace tetengo2::gui::common_dialog {
         //! The widget traits type.
         using widget_traits_type = WidgetTraits;
 
-        //! The encoder type.
-        using encoder_type = typename widget_traits_type::encoder_type;
-
         //! The common dialog details type.
         using common_dialog_details_type = CommonDialogDetails;
 
@@ -253,8 +250,7 @@ namespace tetengo2::gui::common_dialog {
               to_details_button_style(button_style.style()),
               to_details_icon_style(icon_style),
               button_style.ok_button_label(),
-              button_style.yes_no_button_labels(),
-              encoder()) }
+              button_style.yes_no_button_labels()) }
         {}
 
 
@@ -343,12 +339,6 @@ namespace tetengo2::gui::common_dialog {
                 assert(false);
                 BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid button ID."));
             }
-        }
-
-        static const encoder_type& encoder()
-        {
-            static const encoder_type singleton{};
-            return singleton;
         }
 
 

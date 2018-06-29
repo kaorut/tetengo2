@@ -40,9 +40,6 @@ namespace tetengo2::gui::common_dialog {
         //! The widget traits type.
         using widget_traits_type = WidgetTraits;
 
-        //! The encoder type.
-        using encoder_type = typename widget_traits_type::encoder_type;
-
         //! The common dialog details type.
         using common_dialog_details_type = CommonDialogDetails;
 
@@ -88,8 +85,7 @@ namespace tetengo2::gui::common_dialog {
               parent,
               std::move(title),
               path,
-              std::move(file_filters),
-              encoder()) },
+              std::move(file_filters)) },
           m_result{ path ? *path : tetengo2::stdalt::filesystem::path{} }
         {}
 
@@ -114,7 +110,7 @@ namespace tetengo2::gui::common_dialog {
         */
         bool do_modal()
         {
-            const auto result = common_dialog_details_type::show_file_save_dialog(*m_p_details, encoder());
+            const auto result = common_dialog_details_type::show_file_save_dialog(*m_p_details);
             if (!result)
                 return false;
 
@@ -144,15 +140,6 @@ namespace tetengo2::gui::common_dialog {
 
 
     private:
-        // static functions
-
-        static const encoder_type& encoder()
-        {
-            static const encoder_type singleton{};
-            return singleton;
-        }
-
-
         // variables
 
         details_ptr_type m_p_details;

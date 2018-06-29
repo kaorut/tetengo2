@@ -42,9 +42,6 @@ namespace tetengo2::gui::common_dialog {
         //! The widget traits type.
         using widget_traits_type = WidgetTraits;
 
-        //! The encoder type.
-        using encoder_type = typename widget_traits_type::encoder_type;
-
         //! The common dialog details type.
         using common_dialog_details_type = CommonDialogDetails;
 
@@ -74,7 +71,7 @@ namespace tetengo2::gui::common_dialog {
             \param parent A parent widget.
         */
         font(const tetengo2::stdalt::optional<font_type>& font, abstract_window_type& parent)
-        : m_p_details{ common_dialog_details_type::create_font_dialog(parent, font, encoder()) }, m_result{
+        : m_p_details{ common_dialog_details_type::create_font_dialog(parent, font) }, m_result{
               font ? *font : font_type::dialog_font()
           }
         {}
@@ -100,8 +97,7 @@ namespace tetengo2::gui::common_dialog {
         */
         bool do_modal()
         {
-            const auto result =
-                common_dialog_details_type::template show_font_dialog<font_type>(*m_p_details, encoder());
+            const auto result = common_dialog_details_type::template show_font_dialog<font_type>(*m_p_details);
             if (!result)
                 return false;
 
@@ -131,15 +127,6 @@ namespace tetengo2::gui::common_dialog {
 
 
     private:
-        // static functions
-
-        static const encoder_type& encoder()
-        {
-            static const encoder_type singleton{};
-            return singleton;
-        }
-
-
         // variables
 
         details_ptr_type m_p_details;
