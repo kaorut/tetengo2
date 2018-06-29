@@ -30,6 +30,7 @@
 #include <windowsx.h>
 
 #include <tetengo2/detail/windows/cursor.h> // IWYU pragma: keep
+#include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
 
@@ -109,11 +110,10 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
         return tetengo2::stdalt::make_optional<::LRESULT>(0);
     }
 
-    template <typename Position>
-    Position l_param_to_position(const ::LPARAM l_param)
+    inline gui::type_list::position_type l_param_to_position(const ::LPARAM l_param)
     {
-        return { Position::unit_type::from_pixels(GET_X_LPARAM(l_param)),
-                 Position::unit_type::from_pixels(GET_Y_LPARAM(l_param)) };
+        return { gui::type_list::position_type::unit_type::from_pixels(GET_X_LPARAM(l_param)),
+                 gui::type_list::position_type::unit_type::from_pixels(GET_Y_LPARAM(l_param)) };
     }
 
     template <typename Widget>
@@ -128,7 +128,7 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
 
         widget.mouse_observer_set().pressed()(
             button,
-            l_param_to_position<typename Widget::position_type>(l_param),
+            l_param_to_position(l_param),
             (w_param & MK_SHIFT) != 0,
             (w_param & MK_CONTROL) != 0,
             ::GetKeyState(VK_MENU) < 0);
@@ -162,7 +162,7 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
 
         widget.mouse_observer_set().released()(
             button,
-            l_param_to_position<typename Widget::position_type>(l_param),
+            l_param_to_position(l_param),
             (w_param & MK_SHIFT) != 0,
             (w_param & MK_CONTROL) != 0,
             ::GetKeyState(VK_MENU) < 0);
@@ -189,7 +189,7 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
             return TETENGO2_STDALT_NULLOPT;
 
         widget.mouse_observer_set().moved()(
-            l_param_to_position<typename Widget::position_type>(l_param),
+            l_param_to_position(l_param),
             (w_param & MK_SHIFT) != 0,
             (w_param & MK_CONTROL) != 0,
             ::GetKeyState(VK_MENU) < 0);
@@ -328,7 +328,8 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
         return TETENGO2_STDALT_NULLOPT;
     }
 
-    type_list::size_type new_scroll_bar_position(const ::HWND window_handle, const int scroll_code, const int style)
+    inline type_list::size_type
+    new_scroll_bar_position(const ::HWND window_handle, const int scroll_code, const int style)
     {
         ::SCROLLINFO info{};
         info.cbSize = sizeof(::SCROLLINFO);

@@ -14,9 +14,10 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
-
+#include <tetengo2/type_list.h>
 
 namespace tetengo2::detail::stub {
     /*!
@@ -59,6 +60,9 @@ namespace tetengo2::detail::stub {
         //! The message box details pointer type.
         using message_box_details_ptr_type = std::unique_ptr<message_box_details_type>;
 
+        //! The filters type.
+        using filters_type = std::vector<std::pair<type_list::string_type, type_list::string_type>>;
+
         //! The file open dialog details type.
         struct file_open_dialog_details_type
         {
@@ -98,7 +102,6 @@ namespace tetengo2::detail::stub {
             \brief Creates a message box.
 
             \tparam AbstractWindow An abstract window type.
-            \tparam String         A string type.
             \tparam Encoder        An encoder type.
 
             \param parent                      A parent window.
@@ -114,18 +117,18 @@ namespace tetengo2::detail::stub {
 
             \return A unique pointer to a message box.
         */
-        template <typename AbstractWindow, typename String, typename Encoder>
+        template <typename AbstractWindow, typename Encoder>
         static message_box_details_ptr_type create_message_box(
             TETENGO2_STDALT_MAYBE_UNUSED AbstractWindow& parent,
-            TETENGO2_STDALT_MAYBE_UNUSED String title,
-            TETENGO2_STDALT_MAYBE_UNUSED String main_content,
-            TETENGO2_STDALT_MAYBE_UNUSED String     sub_content,
-            TETENGO2_STDALT_MAYBE_UNUSED const bool cancellable,
+            TETENGO2_STDALT_MAYBE_UNUSED type_list::string_type title,
+            TETENGO2_STDALT_MAYBE_UNUSED type_list::string_type main_content,
+            TETENGO2_STDALT_MAYBE_UNUSED type_list::string_type sub_content,
+            TETENGO2_STDALT_MAYBE_UNUSED const bool             cancellable,
             TETENGO2_STDALT_MAYBE_UNUSED const message_box_button_style_type button_style,
             TETENGO2_STDALT_MAYBE_UNUSED const message_box_icon_style_type icon_style,
-            TETENGO2_STDALT_MAYBE_UNUSED tetengo2::stdalt::optional<String> custom_ok_button_label,
-            TETENGO2_STDALT_MAYBE_UNUSED       tetengo2::stdalt::optional<std::pair<String, String>>
-                                               custom_yes_no_button_labels,
+            TETENGO2_STDALT_MAYBE_UNUSED tetengo2::stdalt::optional<type_list::string_type> custom_ok_button_label,
+            TETENGO2_STDALT_MAYBE_UNUSED                                                    tetengo2::stdalt::optional<
+                std::pair<type_list::string_type, type_list::string_type>> custom_yes_no_button_labels,
             TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder)
         {
             return std::make_unique<message_box_details_type>();
@@ -150,8 +153,6 @@ namespace tetengo2::detail::stub {
             \brief Creates a file open dialog.
 
             \tparam AbstractWindow An abstract window type.
-            \tparam String         A string type.
-            \tparam Filters        A filters type.
             \tparam Encoder        An encoder type.
 
             \param parent  A parent window.
@@ -163,11 +164,11 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the file open dialog cannot be created.
         */
-        template <typename AbstractWindow, typename String, typename Filters, typename Encoder>
+        template <typename AbstractWindow, typename Encoder>
         static file_open_dialog_details_ptr_type create_file_open_dialog(
             TETENGO2_STDALT_MAYBE_UNUSED AbstractWindow& parent,
-            TETENGO2_STDALT_MAYBE_UNUSED String title,
-            TETENGO2_STDALT_MAYBE_UNUSED const Filters& filters,
+            TETENGO2_STDALT_MAYBE_UNUSED type_list::string_type title,
+            TETENGO2_STDALT_MAYBE_UNUSED const filters_type& filters,
             TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder)
         {
             return std::make_unique<file_open_dialog_details_type>();
@@ -200,9 +201,6 @@ namespace tetengo2::detail::stub {
             \brief Creates a file save dialog.
 
             \tparam AbstractWindow An abstract window type.
-            \tparam String         A string type.
-            \tparam OptionalPath   An optional path type.
-            \tparam Filters        A filters type.
             \tparam Encoder        An encoder type.
 
             \param parent  A parent window.
@@ -215,12 +213,12 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the file save dialog cannot be created.
         */
-        template <typename AbstractWindow, typename String, typename OptionalPath, typename Filters, typename Encoder>
+        template <typename AbstractWindow, typename Encoder>
         static file_save_dialog_details_ptr_type create_file_save_dialog(
             TETENGO2_STDALT_MAYBE_UNUSED AbstractWindow& parent,
-            TETENGO2_STDALT_MAYBE_UNUSED String title,
-            TETENGO2_STDALT_MAYBE_UNUSED const OptionalPath& path,
-            TETENGO2_STDALT_MAYBE_UNUSED const Filters& filters,
+            TETENGO2_STDALT_MAYBE_UNUSED type_list::string_type title,
+            TETENGO2_STDALT_MAYBE_UNUSED const tetengo2::stdalt::optional<tetengo2::stdalt::filesystem::path>& path,
+            TETENGO2_STDALT_MAYBE_UNUSED const filters_type& filters,
             TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder)
         {
             return std::make_unique<file_save_dialog_details_type>();
@@ -298,7 +296,6 @@ namespace tetengo2::detail::stub {
             \brief Creates a color dialog.
 
             \tparam AbstractWindow An abstract window type.
-            \tparam OptionalColor  An optional color type.
 
             \param parent A parent window.
             \param color  A color.
@@ -307,10 +304,10 @@ namespace tetengo2::detail::stub {
 
             \throw std::system_error When the color dialog cannot be created.
         */
-        template <typename AbstractWindow, typename OptionalColor>
+        template <typename AbstractWindow>
         static color_dialog_details_ptr_type create_color_dialog(
             TETENGO2_STDALT_MAYBE_UNUSED AbstractWindow& parent,
-            TETENGO2_STDALT_MAYBE_UNUSED const OptionalColor& color)
+            TETENGO2_STDALT_MAYBE_UNUSED const tetengo2::stdalt::optional<gui::drawing::color>& color)
         {
             return std::make_unique<color_dialog_details_type>();
         }
@@ -318,19 +315,16 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Shows a color dialog and return a font.
 
-            \tparam Color A color type.
-
             \param dialog A color dialog.
 
             \return The color.
 
             \throw std::system_error When the color dialog cannot be shown.
         */
-        template <typename Color>
-        static tetengo2::stdalt::optional<Color>
+        static tetengo2::stdalt::optional<gui::drawing::color>
         show_color_dialog(TETENGO2_STDALT_MAYBE_UNUSED color_dialog_details_type& dialog)
         {
-            return tetengo2::stdalt::make_optional(Color{ 0xAB, 0xCD, 0xEF });
+            return tetengo2::stdalt::make_optional(gui::drawing::color{ 0xAB, 0xCD, 0xEF });
         }
     };
 }

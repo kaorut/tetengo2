@@ -41,8 +41,10 @@
 
 #include <tetengo2/detail/windows/com_ptr.h> // IWYU pragma: keep
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
+#include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::detail::windows {
@@ -125,6 +127,9 @@ namespace tetengo2::detail::windows {
         //! The message box details pointer type.
         using message_box_details_ptr_type = std::unique_ptr<message_box_details_type>;
 
+        //! The filters type.
+        using filters_type = std::vector<std::pair<type_list::string_type, type_list::string_type>>;
+
         //! The file open dialog details type.
         struct file_open_dialog_details_type
         {
@@ -195,7 +200,6 @@ namespace tetengo2::detail::windows {
 #endif
         };
 
-
         //! The font dialog details pointer type.
         using font_dialog_details_ptr_type = std::unique_ptr<font_dialog_details_type>;
 
@@ -222,7 +226,6 @@ namespace tetengo2::detail::windows {
             \brief Creates a message box.
 
             \tparam AbstractWindow An abstract window type.
-            \tparam String         A string type.
             \tparam Encoder        An encoder type.
 
             \param parent                      A parent window.
@@ -238,18 +241,19 @@ namespace tetengo2::detail::windows {
 
             \return A unique pointer to a message box.
         */
-        template <typename AbstractWindow, typename String, typename Encoder>
+        template <typename AbstractWindow, typename Encoder>
         static message_box_details_ptr_type create_message_box(
-            AbstractWindow&                                       parent,
-            String                                                title,
-            String                                                main_content,
-            String                                                sub_content,
-            const bool                                            cancellable,
-            const message_box_button_style_type                   button_style,
-            const message_box_icon_style_type                     icon_style,
-            tetengo2::stdalt::optional<String>                    custom_ok_button_label,
-            tetengo2::stdalt::optional<std::pair<String, String>> custom_yes_no_button_labels,
-            const Encoder&                                        encoder)
+            AbstractWindow&                                    parent,
+            type_list::string_type                             title,
+            type_list::string_type                             main_content,
+            type_list::string_type                             sub_content,
+            const bool                                         cancellable,
+            const message_box_button_style_type                button_style,
+            const message_box_icon_style_type                  icon_style,
+            tetengo2::stdalt::optional<type_list::string_type> custom_ok_button_label,
+            tetengo2::stdalt::optional<std::pair<type_list::string_type, type_list::string_type>>
+                           custom_yes_no_button_labels,
+            const Encoder& encoder)
         {
             return std::make_unique<message_box_details_type>(
                 parent.details().handle.get(),
@@ -311,8 +315,6 @@ namespace tetengo2::detail::windows {
             \brief Creates a file open dialog.
 
             \tparam AbstractWindow An abstract window type.
-            \tparam String         A string type.
-            \tparam Filters        A filters type.
             \tparam Encoder        An encoder type.
 
             \param parent  A parent window.
@@ -324,9 +326,12 @@ namespace tetengo2::detail::windows {
 
             \throw std::system_error When the file open dialog cannot be created.
         */
-        template <typename AbstractWindow, typename String, typename Filters, typename Encoder>
-        static file_open_dialog_details_ptr_type
-        create_file_open_dialog(AbstractWindow& parent, String title, const Filters& filters, const Encoder& encoder)
+        template <typename AbstractWindow, typename Encoder>
+        static file_open_dialog_details_ptr_type create_file_open_dialog(
+            AbstractWindow&        parent,
+            type_list::string_type title,
+            const filters_type&    filters,
+            const Encoder&         encoder)
         {
             ::IFileOpenDialog* p_raw_dialog = nullptr;
             const auto         creation_result =
@@ -422,9 +427,6 @@ namespace tetengo2::detail::windows {
             \brief Creates a file save dialog.
 
             \tparam AbstractWindow An abstract window type.
-            \tparam String         A string type.
-            \tparam OptionalPath   An optional path type.
-            \tparam Filters        A filters type.
             \tparam Encoder        An encoder type.
 
             \param parent  A parent window.
@@ -437,13 +439,13 @@ namespace tetengo2::detail::windows {
 
             \throw std::system_error When the file save dialog cannot be created.
         */
-        template <typename AbstractWindow, typename String, typename OptionalPath, typename Filters, typename Encoder>
+        template <typename AbstractWindow, typename Encoder>
         static file_save_dialog_details_ptr_type create_file_save_dialog(
-            AbstractWindow&     parent,
-            String              title,
-            const OptionalPath& path,
-            const Filters&      filters,
-            const Encoder&      encoder)
+            AbstractWindow&                                           parent,
+            type_list::string_type                                    title,
+            const tetengo2::stdalt::optional<std::is_swappable_with>& path,
+            const filters_type&                                       filters,
+            const Encoder&                                            encoder)
         {
             ::IFileSaveDialog* p_raw_dialog = nullptr;
             const auto         creation_result =
@@ -458,7 +460,7 @@ namespace tetengo2::detail::windows {
                 std::move(p_dialog),
                 parent.details().handle.get(),
                 encoder.encode(std::move(title)),
-                encoder.encode(to_native_path<String>(path)),
+                encoder.encode(to_native_path<type_list::string_type>(path)),
                 encoder.encode(to_default_extension(filters)),
                 to_native_filters(filters, encoder),
                 find_filter_index(filters, path));
@@ -467,7 +469,6 @@ namespace tetengo2::detail::windows {
         /*!
             \brief Shows a file save dialog and return a path.
 
-            \tparam tetengo2::stdalt::filesystem::path    A path type.
             \tparam Encoder An encoder type.
 
             \param dialog  A file save dialog.
@@ -693,7 +694,6 @@ namespace tetengo2::detail::windows {
             \brief Creates a color dialog.
 
             \tparam AbstractWindow An abstract window type.
-            \tparam OptionalColor  An optional color type.
 
             \param parent A parent window.
             \param color  A color.
@@ -702,8 +702,9 @@ namespace tetengo2::detail::windows {
 
             \throw std::system_error When the color dialog cannot be created.
         */
-        template <typename AbstractWindow, typename OptionalColor>
-        static color_dialog_details_ptr_type create_color_dialog(AbstractWindow& parent, const OptionalColor& color)
+        template <typename AbstractWindow>
+        static color_dialog_details_ptr_type
+        create_color_dialog(AbstractWindow& parent, const tetengo2::stdalt::optional<gui::drawing::color>& color)
         {
             const ::COLORREF native_color = color ? RGB(color->red(), color->green(), color->blue()) : 0;
             return std::make_unique<color_dialog_details_type>(parent.details().handle.get(), native_color);
@@ -712,16 +713,13 @@ namespace tetengo2::detail::windows {
         /*!
             \brief Shows a color dialog and return a font.
 
-            \tparam Color A color type.
-
             \param dialog A color dialog.
 
             \return The color.
 
             \throw std::system_error When the color dialog cannot be shown.
         */
-        template <typename Color>
-        static tetengo2::stdalt::optional<Color> show_color_dialog(color_dialog_details_type& dialog)
+        static tetengo2::stdalt::optional<gui::drawing::color> show_color_dialog(color_dialog_details_type& dialog)
         {
             static std::vector<::COLORREF> custom_colors(16, RGB(0xFF, 0xFF, 0xFF));
             ::CHOOSECOLORW                 choose_color{};
@@ -739,20 +737,21 @@ namespace tetengo2::detail::windows {
             if (result == FALSE)
                 return TETENGO2_STDALT_NULLOPT;
 
-            return tetengo2::stdalt::make_optional(Color{ GetRValue(choose_color.rgbResult),
-                                                          GetGValue(choose_color.rgbResult),
-                                                          GetBValue(choose_color.rgbResult) });
+            return tetengo2::stdalt::make_optional(gui::drawing::color{ GetRValue(choose_color.rgbResult),
+                                                                        GetGValue(choose_color.rgbResult),
+                                                                        GetBValue(choose_color.rgbResult) });
         }
 
 
     private:
         // static functions
 
-        template <typename String, typename Encoder>
+        template <typename Encoder>
         static std::vector<tetengo2::stdalt::optional<std::wstring>> to_custom_button_labels(
-            const tetengo2::stdalt::optional<String>&                    ok_button_label,
-            const tetengo2::stdalt::optional<std::pair<String, String>>& yes_no_button_labels,
-            const Encoder&                                               encoder)
+            const tetengo2::stdalt::optional<type_list::string_type>& ok_button_label,
+            const tetengo2::stdalt::optional<std::pair<type_list::string_type, type_list::string_type>>&
+                           yes_no_button_labels,
+            const Encoder& encoder)
         {
             std::vector<tetengo2::stdalt::optional<std::wstring>> labels{};
             labels.reserve(3);
@@ -878,28 +877,29 @@ namespace tetengo2::detail::windows {
             }
         }
 
-        template <typename String, typename OptionalPath>
-        static String to_native_path(const OptionalPath& path)
+        static type_list::string_type
+        to_native_path(const tetengo2::stdalt::optional<tetengo2::stdalt::filesystem::path>& path)
         {
-            return path ? path->template string<typename String::value_type>() : String{};
+            return path ? path->template string<type_list::string_type::value_type>() : type_list::string_type{};
         }
 
-        template <typename String>
-        static bool match_extension(const tetengo2::stdalt::filesystem::path& path, const String& extension)
+        static bool
+        match_extension(const tetengo2::stdalt::filesystem::path& path, const type_list::string_type& extension)
         {
-            const auto path_string = path.template string<typename String::value_type>();
-            const auto dotted_extension = String{ TETENGO2_TEXT(".") } + extension;
+            const auto path_string = path.template string<type_list::string_type::value_type>();
+            const auto dotted_extension = type_list::string_type{ TETENGO2_TEXT(".") } + extension;
             if (path_string.length() < dotted_extension.length())
                 return false;
 
-            const String path_extension{ std::prev(path_string.end(), dotted_extension.length()), path_string.end() };
+            const type_list::string_type path_extension{ std::prev(path_string.end(), dotted_extension.length()),
+                                                         path_string.end() };
 
             return path_extension == dotted_extension;
         }
 
-        template <typename String, typename OptionalPath>
-        static std::size_t
-        find_filter_index(const std::vector<std::pair<String, String>>& filters, const OptionalPath& path)
+        static std::size_t find_filter_index(
+            const std::vector<std::pair<type_list::string_type, type_list::string_type>>& filters,
+            const tetengo2::stdalt::optional<tetengo2::stdalt::filesystem::path>&         path)
         {
             if (!path)
                 return 0;
@@ -913,22 +913,24 @@ namespace tetengo2::detail::windows {
             return 0;
         }
 
-        template <typename String>
-        static String to_default_extension(const std::vector<std::pair<String, String>>& filters)
+        static type_list::string_type
+        to_default_extension(const std::vector<std::pair<type_list::string_type, type_list::string_type>>& filters)
         {
-            return filters.empty() ? String{} : filters[0].second;
+            return filters.empty() ? type_list::string_type{} : filters[0].second;
         }
 
-        template <typename String, typename Encoder>
-        static detail::native_filter_type
-        to_native_filter(const std::pair<String, String>& filter, const Encoder& encoder)
+        template <typename Encoder>
+        static detail::native_filter_type to_native_filter(
+            const std::pair<type_list::string_type, type_list::string_type>& filter,
+            const Encoder&                                                   encoder)
         {
             return { encoder.encode(filter.first), std::wstring{ L"*." } + encoder.encode(filter.second) };
         }
 
-        template <typename String, typename Encoder>
-        static detail::native_filters_type
-        to_native_filters(const std::vector<std::pair<String, String>>& filters, const Encoder& encoder)
+        template <typename Encoder>
+        static detail::native_filters_type to_native_filters(
+            const std::vector<std::pair<type_list::string_type, type_list::string_type>>& filters,
+            const Encoder&                                                                encoder)
         {
             detail::native_filters_type native_filters;
             native_filters.reserve(filters.size());
@@ -937,7 +939,9 @@ namespace tetengo2::detail::windows {
                 filters.begin(),
                 filters.end(),
                 std::back_inserter(native_filters),
-                [&encoder](const std::pair<String, String>& filter) { return to_native_filter(filter, encoder); });
+                [&encoder](const std::pair<type_list::string_type, type_list::string_type>& filter) {
+                    return to_native_filter(filter, encoder);
+                });
 
             return native_filters;
         }
