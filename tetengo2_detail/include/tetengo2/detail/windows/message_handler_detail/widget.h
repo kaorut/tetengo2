@@ -31,6 +31,7 @@
 
 #include <tetengo2/detail/windows/cursor.h> // IWYU pragma: keep
 #include <tetengo2/stdalt.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::detail::windows::message_handler_detail::widget {
@@ -327,8 +328,7 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
         return TETENGO2_STDALT_NULLOPT;
     }
 
-    template <typename Size>
-    Size new_scroll_bar_position(const ::HWND window_handle, const int scroll_code, const int style)
+    type_list::size_type new_scroll_bar_position(const ::HWND window_handle, const int scroll_code, const int style)
     {
         ::SCROLLINFO info{};
         info.cbSize = sizeof(::SCROLLINFO);
@@ -378,7 +378,6 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
             return TETENGO2_STDALT_NULLOPT;
 
         const int scroll_code = LOWORD(w_param);
-        using size_type = typename Widget::scroll_bar_type::scroll_bar_observer_set_type::size_type;
         if (scroll_code == SB_ENDSCROLL)
         {
             return TETENGO2_STDALT_NULLOPT;
@@ -387,14 +386,12 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
         {
             if (widget.vertical_scroll_bar().scroll_bar_observer_set().scrolling().empty())
                 return TETENGO2_STDALT_NULLOPT;
-            const auto new_position =
-                new_scroll_bar_position<size_type>(widget.details().handle.get(), scroll_code, SB_VERT);
+            const auto new_position = new_scroll_bar_position(widget.details().handle.get(), scroll_code, SB_VERT);
             widget.vertical_scroll_bar().scroll_bar_observer_set().scrolling()(new_position);
         }
         else
         {
-            const auto new_position =
-                new_scroll_bar_position<size_type>(widget.details().handle.get(), scroll_code, SB_VERT);
+            const auto new_position = new_scroll_bar_position(widget.details().handle.get(), scroll_code, SB_VERT);
             if (widget.vertical_scroll_bar().scroll_bar_observer_set().scrolled().empty())
             {
                 widget.vertical_scroll_bar().set_position(new_position);
@@ -415,7 +412,6 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
             return TETENGO2_STDALT_NULLOPT;
 
         const int scroll_code = LOWORD(w_param);
-        using size_type = typename Widget::scroll_bar_type::scroll_bar_observer_set_type::size_type;
         if (scroll_code == SB_ENDSCROLL)
         {
             return TETENGO2_STDALT_NULLOPT;
@@ -424,14 +420,12 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
         {
             if (widget.horizontal_scroll_bar().scroll_bar_observer_set().scrolling().empty())
                 return TETENGO2_STDALT_NULLOPT;
-            const auto new_position =
-                new_scroll_bar_position<size_type>(widget.details().handle.get(), scroll_code, SB_HORZ);
+            const auto new_position = new_scroll_bar_position(widget.details().handle.get(), scroll_code, SB_HORZ);
             widget.horizontal_scroll_bar().scroll_bar_observer_set().scrolling()(new_position);
         }
         else
         {
-            const auto new_position =
-                new_scroll_bar_position<size_type>(widget.details().handle.get(), scroll_code, SB_HORZ);
+            const auto new_position = new_scroll_bar_position(widget.details().handle.get(), scroll_code, SB_HORZ);
             if (widget.horizontal_scroll_bar().scroll_bar_observer_set().scrolled().empty())
             {
                 widget.horizontal_scroll_bar().set_position(new_position);
