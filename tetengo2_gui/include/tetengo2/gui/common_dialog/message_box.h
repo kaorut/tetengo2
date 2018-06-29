@@ -91,14 +91,14 @@ namespace tetengo2::gui::common_dialog {
             /*!
                 \brief Copies a button style.
 
-                \tparam another Another button style.
+                \param another Another button style.
             */
             button_style(const button_style& another);
 
             /*!
                 \brief Moves a button style.
 
-                \tparam another Another button style.
+                \param another Another button style.
             */
             button_style(button_style&& another);
 
