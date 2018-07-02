@@ -62,12 +62,12 @@ namespace tetengo2::detail::windows {
 
         using native_filters_type = std::vector<native_filter_type>;
 
-        using native_encoder_type =
+        using native_common_dialog_encoder_type =
             text::encoder<type_list::internal_encoding_type, text::encoding::locale<std::wstring>>;
 
-        inline const native_encoder_type& native_encoder()
+        inline const native_common_dialog_encoder_type& native_common_dialog_encoder()
         {
-            static const native_encoder_type singleton;
+            static const native_common_dialog_encoder_type singleton;
             return singleton;
         }
     }
@@ -265,9 +265,9 @@ namespace tetengo2::detail::windows {
         {
             return std::make_unique<message_box_details_type>(
                 parent.details().handle.get(),
-                detail::native_encoder().encode(std::move(title)),
-                detail::native_encoder().encode(std::move(main_content)),
-                detail::native_encoder().encode(std::move(sub_content)),
+                detail::native_common_dialog_encoder().encode(std::move(title)),
+                detail::native_common_dialog_encoder().encode(std::move(main_content)),
+                detail::native_common_dialog_encoder().encode(std::move(sub_content)),
                 cancellable,
                 button_style,
                 icon_style,
@@ -347,8 +347,8 @@ namespace tetengo2::detail::windows {
             return std::make_unique<file_open_dialog_details_type>(
                 std::move(p_dialog),
                 parent.details().handle.get(),
-                detail::native_encoder().encode(std::move(title)),
-                detail::native_encoder().encode(to_default_extension(filters)),
+                detail::native_common_dialog_encoder().encode(std::move(title)),
+                detail::native_common_dialog_encoder().encode(to_default_extension(filters)),
                 to_native_filters(filters));
         }
 
@@ -420,7 +420,7 @@ namespace tetengo2::detail::windows {
             BOOST_SCOPE_EXIT_END;
 
             return tetengo2::stdalt::make_optional(
-                tetengo2::stdalt::filesystem::path{ detail::native_encoder().decode(file_name) });
+                tetengo2::stdalt::filesystem::path{ detail::native_common_dialog_encoder().decode(file_name) });
         }
 
         /*!
@@ -439,10 +439,10 @@ namespace tetengo2::detail::windows {
         */
         template <typename AbstractWindow>
         static file_save_dialog_details_ptr_type create_file_save_dialog(
-            AbstractWindow&                                           parent,
-            type_list::string_type                                    title,
-            const tetengo2::stdalt::optional<std::is_swappable_with>& path,
-            const filters_type&                                       filters)
+            AbstractWindow&                                                       parent,
+            type_list::string_type                                                title,
+            const tetengo2::stdalt::optional<tetengo2::stdalt::filesystem::path>& path,
+            const filters_type&                                                   filters)
         {
             ::IFileSaveDialog* p_raw_dialog = nullptr;
             const auto         creation_result =
@@ -456,9 +456,9 @@ namespace tetengo2::detail::windows {
             return std::make_unique<file_save_dialog_details_type>(
                 std::move(p_dialog),
                 parent.details().handle.get(),
-                detail::native_encoder().encode(std::move(title)),
-                detail::native_encoder().encode(to_native_path<type_list::string_type>(path)),
-                detail::native_encoder().encode(to_default_extension(filters)),
+                detail::native_common_dialog_encoder().encode(std::move(title)),
+                detail::native_common_dialog_encoder().encode(to_native_path(path)),
+                detail::native_common_dialog_encoder().encode(to_default_extension(filters)),
                 to_native_filters(filters),
                 find_filter_index(filters, path));
         }
@@ -569,7 +569,7 @@ namespace tetengo2::detail::windows {
             BOOST_SCOPE_EXIT_END;
 
             return tetengo2::stdalt::make_optional(
-                tetengo2::stdalt::filesystem::path{ detail::native_encoder().decode(file_name) });
+                tetengo2::stdalt::filesystem::path{ detail::native_common_dialog_encoder().decode(file_name) });
         }
 
         /*!
@@ -597,7 +597,7 @@ namespace tetengo2::detail::windows {
                 p_log_font->lfUnderline = font->underline() ? TRUE : FALSE;
                 p_log_font->lfStrikeOut = font->strikeout() ? TRUE : FALSE;
 
-                const auto native_face_name = detail::native_encoder().encode(font->family());
+                const auto native_face_name = detail::native_common_dialog_encoder().encode(font->family());
                 const auto native_face_name_length = std::min<std::size_t>(native_face_name.length(), LF_FACESIZE - 1);
                 std::copy(
                     native_face_name.begin(),
@@ -616,7 +616,7 @@ namespace tetengo2::detail::windows {
                 p_log_font->lfUnderline = dialog_font.underline() ? TRUE : FALSE;
                 p_log_font->lfStrikeOut = dialog_font.strikeout() ? TRUE : FALSE;
 
-                const auto native_face_name = detail::native_encoder().encode(dialog_font.family());
+                const auto native_face_name = detail::native_common_dialog_encoder().encode(dialog_font.family());
                 const auto native_face_name_length = std::min<std::size_t>(native_face_name.length(), LF_FACESIZE - 1);
                 std::copy(
                     native_face_name.begin(),
@@ -669,7 +669,7 @@ namespace tetengo2::detail::windows {
                 return TETENGO2_STDALT_NULLOPT;
 
             return tetengo2::stdalt::make_optional(
-                Font{ detail::native_encoder().decode(choose_font.lpLogFont->lfFaceName),
+                Font{ detail::native_common_dialog_encoder().decode(choose_font.lpLogFont->lfFaceName),
                       static_cast<typename Font::size_type>(
                           choose_font.lpLogFont->lfHeight < 0 ? -choose_font.lpLogFont->lfHeight :
                                                                 choose_font.lpLogFont->lfHeight),
@@ -744,14 +744,14 @@ namespace tetengo2::detail::windows {
             labels.reserve(3);
 
             if (ok_button_label)
-                labels.emplace_back(detail::native_encoder().encode(*ok_button_label));
+                labels.emplace_back(detail::native_common_dialog_encoder().encode(*ok_button_label));
             else
                 labels.push_back(TETENGO2_STDALT_NULLOPT);
 
             if (yes_no_button_labels)
             {
-                labels.emplace_back(detail::native_encoder().encode(yes_no_button_labels->first));
-                labels.emplace_back(detail::native_encoder().encode(yes_no_button_labels->second));
+                labels.emplace_back(detail::native_common_dialog_encoder().encode(yes_no_button_labels->first));
+                labels.emplace_back(detail::native_common_dialog_encoder().encode(yes_no_button_labels->second));
             }
             else
             {
@@ -909,8 +909,8 @@ namespace tetengo2::detail::windows {
         static detail::native_filter_type
         to_native_filter(const std::pair<type_list::string_type, type_list::string_type>& filter)
         {
-            return { detail::native_encoder().encode(filter.first),
-                     std::wstring{ L"*." } + detail::native_encoder().encode(filter.second) };
+            return { detail::native_common_dialog_encoder().encode(filter.first),
+                     std::wstring{ L"*." } + detail::native_common_dialog_encoder().encode(filter.second) };
         }
 
         static detail::native_filters_type
@@ -923,7 +923,7 @@ namespace tetengo2::detail::windows {
                 filters.begin(),
                 filters.end(),
                 std::back_inserter(native_filters),
-                [&encoder](const std::pair<type_list::string_type, type_list::string_type>& filter) {
+                [](const std::pair<type_list::string_type, type_list::string_type>& filter) {
                     return to_native_filter(filter);
                 });
 
