@@ -155,21 +155,18 @@ namespace tetengo2::detail::stub {
             \tparam PopupMenu       A popup menu type.
             \tparam ForwardIterator An forward iterator type.
             \tparam MenuBase        A menu base type.
-            \tparam Encoder         An encoder type.
 
             \param popup_menu A popup menu to which a menu is inserted.
             \param offset     An offset.
             \param menu       A menu to insert.
-            \param encoder    An encoder.
 
             \throw std::system_error When a menu cannot be inserted.
         */
-        template <typename PopupMenu, typename ForwardIterator, typename MenuBase, typename Encoder>
+        template <typename PopupMenu, typename ForwardIterator, typename MenuBase>
         static void insert_menu(
             TETENGO2_STDALT_MAYBE_UNUSED PopupMenu& popup_menu,
             TETENGO2_STDALT_MAYBE_UNUSED const ForwardIterator offset,
-            TETENGO2_STDALT_MAYBE_UNUSED MenuBase& menu,
-            TETENGO2_STDALT_MAYBE_UNUSED const Encoder& encoder)
+            TETENGO2_STDALT_MAYBE_UNUSED MenuBase& menu)
         {}
 
         /*!

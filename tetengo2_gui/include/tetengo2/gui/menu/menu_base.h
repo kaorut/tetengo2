@@ -31,10 +31,9 @@ namespace tetengo2::gui::menu {
     /*!
         \brief The base class template for a menu base.
 
-        \tparam Encoder     An encoder type.
         \tparam MenuDetails A detail implementation type of a menu.
    */
-    template <typename Encoder, typename MenuDetails>
+    template <typename MenuDetails>
     class menu_base : private boost::noncopyable
     {
     public:
@@ -42,9 +41,6 @@ namespace tetengo2::gui::menu {
 
         //! The string type.
         using string_type = tetengo2::type_list::string_type;
-
-        //! The encoder type.
-        using encoder_type = Encoder;
 
         //! The menu details type.
         using menu_details_type = MenuDetails;

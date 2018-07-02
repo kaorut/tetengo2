@@ -59,9 +59,6 @@ namespace tetengo2::gui::widget {
         //! The dimension type.
         using dimension_type = typename base_type::dimension_type;
 
-        //! The encoder type.
-        using encoder_type = typename base_type::encoder_type;
-
         //! The scroll bar style type.
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
@@ -69,10 +66,10 @@ namespace tetengo2::gui::widget {
         using icon_type = gui::icon;
 
         //! The shortcut key table type.
-        using shortcut_key_table_type = gui::menu::shortcut_key_table<encoder_type, menu_details_type>;
+        using shortcut_key_table_type = gui::menu::shortcut_key_table<menu_details_type>;
 
         //! The menu bar type.
-        using menu_bar_type = gui::menu::menu_bar<shortcut_key_table_type, encoder_type, menu_details_type>;
+        using menu_bar_type = gui::menu::menu_bar<shortcut_key_table_type, menu_details_type>;
 
         //! The window observer set type.
         using window_observer_set_type = gui::message::window_observer_set;
