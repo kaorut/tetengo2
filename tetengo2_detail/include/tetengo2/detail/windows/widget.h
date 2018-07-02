@@ -62,12 +62,12 @@ namespace tetengo2::detail::windows {
             }
         };
 
-        using native_encoder_type =
+        using native_widget_encoder_type =
             text::encoder<type_list::internal_encoding_type, text::encoding::locale<std::wstring>>;
 
-        inline const native_encoder_type& native_encoder()
+        inline const native_widget_encoder_type& native_widget_encoder()
         {
-            static const native_encoder_type singleton;
+            static const native_widget_encoder_type singleton;
             return singleton;
         }
     }
@@ -1160,7 +1160,7 @@ namespace tetengo2::detail::windows {
         static void set_text(Widget& widget, type_list::string_type text)
         {
             const auto result = ::SetWindowTextW(
-                widget.details().handle.get(), detail::native_encoder().encode(std::move(text)).c_str());
+                widget.details().handle.get(), detail::native_widget_encoder().encode(std::move(text)).c_str());
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION((std::system_error{
@@ -1187,7 +1187,7 @@ namespace tetengo2::detail::windows {
             std::vector<wchar_t> text(length + 1, L'\0');
             ::GetWindowTextW(const_cast<::HWND>(widget.details().handle.get()), text.data(), length + 1);
 
-            return detail::native_encoder().decode(std::wstring{ text.begin(), text.begin() + length });
+            return detail::native_widget_encoder().decode(std::wstring{ text.begin(), text.begin() + length });
         }
 
         /*!
@@ -1221,7 +1221,7 @@ namespace tetengo2::detail::windows {
                                  static_cast<::BYTE>(DEFAULT_QUALITY),
                                  static_cast<::BYTE>(DEFAULT_PITCH | FF_DONTCARE),
                                  L"" };
-            const auto font_family = detail::native_encoder().encode(font.family());
+            const auto font_family = detail::native_widget_encoder().encode(font.family());
             assert(font_family.length() < LF_FACESIZE);
             std::copy(font_family.begin(), font_family.end(), log_font.lfFaceName);
             log_font.lfFaceName[font_family.length()] = L'\0';
@@ -1272,7 +1272,7 @@ namespace tetengo2::detail::windows {
                                                           "Can't get log font." }));
             }
 
-            return Font{ detail::native_encoder().decode(log_font.lfFaceName),
+            return Font{ detail::native_widget_encoder().decode(log_font.lfFaceName),
                          static_cast<typename Font::size_type>(
                              log_font.lfHeight < 0 ? -log_font.lfHeight : log_font.lfHeight),
                          log_font.lfWeight >= FW_BOLD,
@@ -1667,7 +1667,7 @@ namespace tetengo2::detail::windows {
                                         "Can't obtain the dropdown box value." }));
             }
 
-            return detail::native_encoder().decode(std::wstring{ value.data() });
+            return detail::native_widget_encoder().decode(std::wstring{ value.data() });
         }
 
         /*!
@@ -1712,7 +1712,7 @@ namespace tetengo2::detail::windows {
                 dropdown_box.details().handle.get(),
                 CB_INSERTSTRING,
                 index,
-                reinterpret_cast<::LPARAM>(detail::native_encoder().encode(std::move(value)).c_str()));
+                reinterpret_cast<::LPARAM>(detail::native_widget_encoder().encode(std::move(value)).c_str()));
             if (result == CB_ERR || result == CB_ERRSPACE)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1857,7 +1857,7 @@ namespace tetengo2::detail::windows {
                                         "Can't obtain the list box value." }));
             }
 
-            return detail::native_encoder().decode(std::wstring{ value.data() });
+            return detail::native_widget_encoder().decode(std::wstring{ value.data() });
         }
 
         /*!
@@ -1898,7 +1898,7 @@ namespace tetengo2::detail::windows {
                 list_box.details().handle.get(),
                 LB_INSERTSTRING,
                 index,
-                reinterpret_cast<::LPARAM>(detail::native_encoder().encode(std::move(value)).c_str()));
+                reinterpret_cast<::LPARAM>(detail::native_widget_encoder().encode(std::move(value)).c_str()));
             if (result == LB_ERR || result == LB_ERRSPACE)
             {
                 BOOST_THROW_EXCEPTION(

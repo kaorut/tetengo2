@@ -164,12 +164,12 @@ namespace tetengo2::detail::windows::gdiplus {
             std::unique_ptr<Gdiplus::Graphics> m_p_memory_graphics;
         };
 
-        using native_encoder_type =
+        using native_drawing_encoder_type =
             text::encoder<type_list::internal_encoding_type, text::encoding::locale<std::wstring>>;
 
-        inline const native_encoder_type& native_encoder()
+        inline const native_drawing_encoder_type& native_drawing_encoder()
         {
-            static const native_encoder_type singleton;
+            static const native_drawing_encoder_type singleton;
             return singleton;
         }
     }
@@ -529,7 +529,7 @@ namespace tetengo2::detail::windows::gdiplus {
             const type_list::string_type&              text,
             const gui::type_list::dimension_unit_type& max_width)
         {
-            const auto encoded_text = detail::native_encoder().encode(text);
+            const auto encoded_text = detail::native_drawing_encoder().encode(text);
 
             const Gdiplus::InstalledFontCollection font_collection;
             const auto                             p_gdiplus_font = create_gdiplus_font(font, font_collection);
@@ -600,7 +600,7 @@ namespace tetengo2::detail::windows::gdiplus {
             const tetengo2::gui::drawing::color&       color,
             const double                               angle)
         {
-            const auto encoded_text = detail::native_encoder().encode(text);
+            const auto encoded_text = detail::native_drawing_encoder().encode(text);
 
             const Gdiplus::InstalledFontCollection font_collection;
             const auto                             p_gdiplus_font = create_gdiplus_font(font, font_collection);
@@ -804,7 +804,7 @@ namespace tetengo2::detail::windows::gdiplus {
             }
 
             const auto&               font_family = fallback_level < 1 ? font.family() : Font::dialog_font().family();
-            const Gdiplus::FontFamily gdiplus_font_family{ detail::native_encoder().encode(font_family).c_str(),
+            const Gdiplus::FontFamily gdiplus_font_family{ detail::native_drawing_encoder().encode(font_family).c_str(),
                                                            &font_collection };
             if (!gdiplus_font_family.IsAvailable())
             {

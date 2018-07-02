@@ -142,12 +142,12 @@ namespace tetengo2::detail::windows::direct2d {
             }
         };
 
-        using native_encoder_type =
+        using native_drawing_encoder_type =
             text::encoder<type_list::internal_encoding_type, text::encoding::locale<std::wstring>>;
 
-        inline const native_encoder_type& native_encoder()
+        inline const native_drawing_encoder_type& native_drawing_encoder()
         {
-            static const native_encoder_type singleton;
+            static const native_drawing_encoder_type singleton;
             return singleton;
         }
 
@@ -921,7 +921,7 @@ namespace tetengo2::detail::windows::direct2d {
         {
             ::IDWriteTextFormat* rp_format = nullptr;
             const auto           create_format_hr = direct_write_factory().CreateTextFormat(
-                detail::native_encoder().encode(font.family()).c_str(),
+                detail::native_drawing_encoder().encode(font.family()).c_str(),
                 nullptr,
                 font.bold() ? ::DWRITE_FONT_WEIGHT_BOLD : ::DWRITE_FONT_WEIGHT_NORMAL,
                 font.italic() ? ::DWRITE_FONT_STYLE_ITALIC : ::DWRITE_FONT_STYLE_NORMAL,
@@ -936,7 +936,7 @@ namespace tetengo2::detail::windows::direct2d {
             }
             const typename unique_com_ptr<::IDWriteTextFormat> p_format{ rp_format };
 
-            const auto    encoded_text = detail::native_encoder().encode(text);
+            const auto    encoded_text = detail::native_drawing_encoder().encode(text);
             const ::FLOAT max_width_in_dip = max_width == gui::type_list::dimension_unit_type{} ?
                                                  std::numeric_limits<::FLOAT>::max() :
                                                  to_dip_x(static_cast<::FLOAT>(max_width.to_pixels()));
@@ -971,7 +971,7 @@ namespace tetengo2::detail::windows::direct2d {
             const character_iterator_type       end{};
             for (auto i = character_iterator_type{ text,
                                                    text::encoding::make_polymorphic<type_list::internal_encoding_type>(
-                                                       detail::native_encoder().internal_encoding()) };
+                                                       detail::native_drawing_encoder().internal_encoding()) };
                  i != end;
                  ++i)
             {
