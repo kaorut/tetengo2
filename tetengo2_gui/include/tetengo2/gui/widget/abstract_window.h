@@ -28,18 +28,14 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The class template for an abstract window.
 
-        \tparam Traits        A traits type.
         \tparam DetailsTraits A detail implementation type traits.
         \tparam MenuDetails   A detail implementation type of a menu.
     */
-    template <typename Traits, typename DetailsTraits, typename MenuDetails>
-    class abstract_window : public widget<Traits, DetailsTraits>
+    template <typename DetailsTraits, typename MenuDetails>
+    class abstract_window : public widget<DetailsTraits>
     {
     public:
         // types
-
-        //! The traits type.
-        using traits_type = Traits;
 
         //! The details traits type.
         using details_traits_type = DetailsTraits;
@@ -54,13 +50,10 @@ namespace tetengo2::gui::widget {
         using menu_details_type = MenuDetails;
 
         //! The base type.
-        using base_type = widget<traits_type, details_traits_type>;
+        using base_type = widget<details_traits_type>;
 
         //! The dimension type.
         using dimension_type = typename base_type::dimension_type;
-
-        //! The encoder type.
-        using encoder_type = typename base_type::encoder_type;
 
         //! The scroll bar style type.
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
@@ -69,10 +62,10 @@ namespace tetengo2::gui::widget {
         using icon_type = gui::icon;
 
         //! The shortcut key table type.
-        using shortcut_key_table_type = gui::menu::shortcut_key_table<encoder_type, menu_details_type>;
+        using shortcut_key_table_type = gui::menu::shortcut_key_table<menu_details_type>;
 
         //! The menu bar type.
-        using menu_bar_type = gui::menu::menu_bar<shortcut_key_table_type, encoder_type, menu_details_type>;
+        using menu_bar_type = gui::menu::menu_bar<shortcut_key_table_type, menu_details_type>;
 
         //! The window observer set type.
         using window_observer_set_type = gui::message::window_observer_set;

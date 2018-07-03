@@ -24,20 +24,16 @@ namespace tetengo2::gui::menu {
     /*!
         \brief The base class template for an abstract popup menu.
 
-        \tparam Encoder     An encoder type.
         \tparam MenuDetails A detail implementation type of a menu.
    */
-    template <typename Encoder, typename MenuDetails>
-    class abstract_popup : public menu_base<Encoder, MenuDetails>
+    template <typename MenuDetails>
+    class abstract_popup : public menu_base<MenuDetails>
     {
     public:
         // types
 
         //! The string type.
         using string_type = tetengo2::type_list::string_type;
-
-        //! The encoder type.
-        using encoder_type = Encoder;
 
         //! The menu details type.
         using menu_details_type = MenuDetails;
@@ -49,7 +45,7 @@ namespace tetengo2::gui::menu {
         using details_ptr_type = typename menu_details_type::menu_details_ptr_type;
 
         //! The base type.
-        using base_type = menu_base<encoder_type, menu_details_type>;
+        using base_type = menu_base<menu_details_type>;
 
         //! The shortcut key type.
         using shortcut_key_type = typename base_type::shortcut_key_type;
@@ -87,15 +83,6 @@ namespace tetengo2::gui::menu {
 
 
     private:
-        // static functions
-
-        static const encoder_type& encoder()
-        {
-            static const encoder_type singleton{};
-            return singleton;
-        }
-
-
         // variables
 
         std::vector<std::unique_ptr<base_type>> m_children;
@@ -148,7 +135,7 @@ namespace tetengo2::gui::menu {
             if (!p_menu)
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "The unique pointer to a menu is nullptr." }));
 
-            menu_details_type::insert_menu(*this, offset, *p_menu, encoder());
+            menu_details_type::insert_menu(*this, offset, *p_menu);
 
             m_children.insert(offset.base(), std::move(p_menu));
         }

@@ -96,9 +96,6 @@
     <ClInclude Include="include\tetengo2\gui\drawing\canvas.h">
       <Filter>headers\tetengo2::gui\drawing</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\drawing\canvas_traits.h">
-      <Filter>headers\tetengo2::gui\drawing</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2\gui\common_dialog\color.h">
       <Filter>headers\tetengo2::gui\common_dialog</Filter>
     </ClInclude>
@@ -284,9 +281,6 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2\gui\message\menu_observer_set.h">
       <Filter>headers\tetengo2::gui\message</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2\gui\widget\widget_traits.h">
-      <Filter>headers\tetengo2::gui\widget</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2\gui\widget\widget_details_traits.h">
       <Filter>headers\tetengo2::gui\widget</Filter>

@@ -20,18 +20,14 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a window.
 
-        \tparam Traits        A traits type.
         \tparam DetailsTraits A detail implementation type traits.
         \tparam MenuDetails   A detail implementation type of a menu.
     */
-    template <typename Traits, typename DetailsTraits, typename MenuDetails>
-    class window : public abstract_window<Traits, DetailsTraits, MenuDetails>
+    template <typename DetailsTraits, typename MenuDetails>
+    class window : public abstract_window<DetailsTraits, MenuDetails>
     {
     public:
         // types
-
-        //! The traits type.
-        using traits_type = Traits;
 
         //! The details traits type.
         using details_traits_type = DetailsTraits;
@@ -52,7 +48,7 @@ namespace tetengo2::gui::widget {
         using menu_details_type = MenuDetails;
 
         //! The base type.
-        using base_type = abstract_window<traits_type, details_traits_type, menu_details_type>;
+        using base_type = abstract_window<details_traits_type, menu_details_type>;
 
         //! The scroll bar style type.
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;

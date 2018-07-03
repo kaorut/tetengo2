@@ -27,15 +27,13 @@ namespace {
 
     using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-    using ui_encoder_type = common_type_list_type::ui_encoder_type;
-
     using menu_details_type = detail_type_list_type::menu_type;
 
-    using menu_base_type = tetengo2::gui::menu::menu_base<ui_encoder_type, menu_details_type>;
+    using menu_base_type = tetengo2::gui::menu::menu_base<menu_details_type>;
 
-    using shortcut_key_table_type = tetengo2::gui::menu::shortcut_key_table<ui_encoder_type, menu_details_type>;
+    using shortcut_key_table_type = tetengo2::gui::menu::shortcut_key_table<menu_details_type>;
 
-    using menu_bar_type = tetengo2::gui::menu::menu_bar<shortcut_key_table_type, ui_encoder_type, menu_details_type>;
+    using menu_bar_type = tetengo2::gui::menu::menu_bar<shortcut_key_table_type, menu_details_type>;
 }
 
 

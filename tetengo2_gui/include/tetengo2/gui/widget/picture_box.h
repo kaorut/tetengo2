@@ -23,18 +23,14 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a picture box.
 
-        \tparam Traits             A traits type.
         \tparam DetailsTraits      A detail implementation type traits.
         \tparam FastDrawingDetails A detail implementation type of fast drawing.
     */
-    template <typename Traits, typename DetailsTraits, typename FastDrawingDetails>
-    class picture_box : public control<Traits, DetailsTraits>
+    template <typename DetailsTraits, typename FastDrawingDetails>
+    class picture_box : public control<DetailsTraits>
     {
     public:
         // types
-
-        //! The traits type.
-        using traits_type = Traits;
 
         //! The details traits type.
         using details_traits_type = DetailsTraits;
@@ -49,7 +45,7 @@ namespace tetengo2::gui::widget {
         using fast_drawing_details_type = FastDrawingDetails;
 
         //! The base type.
-        using base_type = control<traits_type, details_traits_type>;
+        using base_type = control<details_traits_type>;
 
         //! The widget type.
         using widget_type = typename base_type::base_type;
@@ -57,14 +53,11 @@ namespace tetengo2::gui::widget {
         //! The scroll bar style type.
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
-        //! The fast canvas traits type.
-        using canvas_traits_type = typename base_type::canvas_traits_type;
-
         //! The fast canvas type.
-        using fast_canvas_type = gui::drawing::canvas<canvas_traits_type, fast_drawing_details_type>;
+        using fast_canvas_type = gui::drawing::canvas<fast_drawing_details_type>;
 
         //! The fast widget canvas type.
-        using fast_widget_canvas_type = gui::drawing::widget_canvas<canvas_traits_type, fast_drawing_details_type>;
+        using fast_widget_canvas_type = gui::drawing::widget_canvas<fast_drawing_details_type>;
 
         //! The fast paint observer set type.
         using fast_paint_observer_set_type = gui::message::paint_observer_set<fast_canvas_type>;

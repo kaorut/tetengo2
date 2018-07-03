@@ -13,18 +13,19 @@
 #include <functional>
 #include <memory>
 #include <stdexcept>
+#include <string>
 #include <utility>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/predef.h>
+#include <boost/shared_ptr.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/cursor/cursor_base.h>
 #include <tetengo2/gui/cursor/system.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
-#include <tetengo2/gui/drawing/canvas_traits.h>
 #include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/gui/drawing/widget_canvas.h>
 #include <tetengo2/gui/message/child_observer_set.h>
@@ -34,36 +35,31 @@
 #include <tetengo2/gui/message/paint_observer_set.h>
 #include <tetengo2/gui/message/size_observer_set.h>
 #include <tetengo2/gui/scroll_bar.h>
+#include <tetengo2/gui/type_list.h>
 #include <tetengo2/gui/virtual_key.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::widget {
     /*!
         \brief The base class template for a GUI widget.
 
-        \tparam Traits        A traits type.
         \tparam DetailsTraits A detail implementation type traits.
     */
-    template <typename Traits, typename DetailsTraits>
+    template <typename DetailsTraits>
     class widget : private boost::noncopyable
     {
     public:
         // types
 
-        //! The traits type.
-        using traits_type = Traits;
-
         //! The string type.
-        using string_type = typename traits_type::string_type;
+        using string_type = tetengo2::type_list::string_type;
 
         //! The position type.
-        using position_type = typename traits_type::position_type;
+        using position_type = tetengo2::gui::type_list::position_type;
 
         //! The dimension type.
-        using dimension_type = typename traits_type::dimension_type;
-
-        //! The encoder type.
-        using encoder_type = typename traits_type::encoder_type;
+        using dimension_type = tetengo2::gui::type_list::dimension_type;
 
         //! The details traits type.
         using details_traits_type = DetailsTraits;
@@ -83,14 +79,11 @@ namespace tetengo2::gui::widget {
         //! The scroll details type.
         using scroll_details_type = typename details_traits_type::scroll_details_type;
 
-        //! The canvas traits type.
-        using canvas_traits_type = gui::drawing::canvas_traits<encoder_type>;
-
         //! The canvas type.
-        using canvas_type = gui::drawing::canvas<canvas_traits_type, drawing_details_type>;
+        using canvas_type = gui::drawing::canvas<drawing_details_type>;
 
         //! The widget canvas type.
-        using widget_canvas_type = gui::drawing::widget_canvas<canvas_traits_type, drawing_details_type>;
+        using widget_canvas_type = gui::drawing::widget_canvas<drawing_details_type>;
 
         //! The background type.
         using background_type = gui::drawing::background<drawing_details_type>;

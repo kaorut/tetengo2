@@ -28,18 +28,14 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a custom control.
 
-        \tparam Traits              A traits type.
         \tparam DetailsTraits       A detail implementation type traits.
         \tparam MouseCaptureDetails A detail implementation type of a mouse capture.
     */
-    template <typename Traits, typename DetailsTraits, typename MouseCaptureDetails>
-    class custom_control : public control<Traits, DetailsTraits>
+    template <typename DetailsTraits, typename MouseCaptureDetails>
+    class custom_control : public control<DetailsTraits>
     {
     public:
         // types
-
-        //! The traits type.
-        using traits_type = Traits;
 
         //! The details traits type.
         using details_traits_type = DetailsTraits;
@@ -54,7 +50,7 @@ namespace tetengo2::gui::widget {
         using mouse_capture_details_type = MouseCaptureDetails;
 
         //! The base type.
-        using base_type = control<traits_type, details_traits_type>;
+        using base_type = control<details_traits_type>;
 
         //! The widget type.
         using widget_type = typename base_type::base_type;

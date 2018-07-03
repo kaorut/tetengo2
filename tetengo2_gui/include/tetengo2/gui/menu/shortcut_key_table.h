@@ -24,17 +24,13 @@ namespace tetengo2::gui::menu {
     /*!
         \brief The class template for a shortcut key table.
 
-        \tparam Encoder     An encoder type.
         \tparam MenuDetails A detail implementation type of a menu.
    */
-    template <typename Encoder, typename MenuDetails>
+    template <typename MenuDetails>
     class shortcut_key_table : private boost::noncopyable
     {
     public:
         // types
-
-        //! The encoder type.
-        using encoder_type = Encoder;
 
         //! The menu details type.
         using menu_details_type = MenuDetails;
@@ -49,7 +45,7 @@ namespace tetengo2::gui::menu {
         using shortcut_key_type = shortcut_key;
 
         //! The menu base type.
-        using menu_base_type = menu_base<encoder_type, menu_details_type>;
+        using menu_base_type = menu_base<menu_details_type>;
 
         //! The entry type.
         using entry_type = std::pair<shortcut_key_type, const menu_base_type*>;

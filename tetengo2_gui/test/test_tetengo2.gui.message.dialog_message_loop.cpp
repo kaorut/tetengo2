@@ -32,10 +32,8 @@ namespace {
 
     using menu_details_type = detail_type_list_type::menu_type;
 
-    using abstract_window_type = tetengo2::gui::widget::abstract_window<
-        common_type_list_type::widget_traits_type,
-        common_type_list_type::widget_details_traits_type,
-        menu_details_type>;
+    using abstract_window_type =
+        tetengo2::gui::widget::abstract_window<common_type_list_type::widget_details_traits_type, menu_details_type>;
 
     using message_loop_details_type = detail_type_list_type::message_loop_type;
 

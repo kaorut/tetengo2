@@ -32,25 +32,18 @@ namespace {
 
     using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-    using widget_traits_type = common_type_list_type::widget_traits_type;
-
     using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
 
     using menu_details_type = detail_type_list_type::menu_type;
 
-    using window_type =
-        tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
+    using window_type = tetengo2::gui::widget::window<widget_details_traits_type, menu_details_type>;
 
     using color_type = tetengo2::gui::drawing::color;
 
     using common_dialog_details_type = detail_type_list_type::common_dialog_type;
 
-    using color_dialog_type = tetengo2::gui::common_dialog::color<
-        color_type,
-        widget_traits_type,
-        common_dialog_details_type,
-        widget_details_traits_type,
-        menu_details_type>;
+    using color_dialog_type = tetengo2::gui::common_dialog::
+        color<color_type, common_dialog_details_type, widget_details_traits_type, menu_details_type>;
 }
 
 

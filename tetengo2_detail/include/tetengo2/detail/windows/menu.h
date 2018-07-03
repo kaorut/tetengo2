@@ -34,6 +34,9 @@
 #include <tetengo2/detail/windows/error_category.h> // IWYU pragma: keep
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
+#include <tetengo2/text/encoder.h>
+#include <tetengo2/text/encoding/locale.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::detail::windows {
@@ -92,6 +95,15 @@ namespace tetengo2::detail::windows {
         private:
             const accelerator_table_handle_ptr_type m_accelerator_table_handle;
         };
+
+        using native_menu_encoder_type =
+            text::encoder<type_list::internal_encoding_type, text::encoding::locale<std::wstring>>;
+
+        inline const native_menu_encoder_type& native_menu_encoder()
+        {
+            static const native_menu_encoder_type singleton;
+            return singleton;
+        }
     }
 #endif
 
@@ -281,24 +293,21 @@ namespace tetengo2::detail::windows {
             \tparam PopupMenu       A popup menu type.
             \tparam ForwardIterator An forward iterator type.
             \tparam MenuBase        A menu base type.
-            \tparam Encoder         An encoder type.
 
             \param popup_menu A popup menu to which a menu is inserted.
             \param offset     An offset.
             \param menu       A menu to insert.
-            \param encoder    An encoder.
 
             \throw std::system_error When a menu cannot be inserted.
         */
-        template <typename PopupMenu, typename ForwardIterator, typename MenuBase, typename Encoder>
-        static void
-        insert_menu(PopupMenu& popup_menu, const ForwardIterator offset, MenuBase& menu, const Encoder& encoder)
+        template <typename PopupMenu, typename ForwardIterator, typename MenuBase>
+        static void insert_menu(PopupMenu& popup_menu, const ForwardIterator offset, MenuBase& menu)
         {
             assert(!menu.details().parent_handle);
 
             ::MENUITEMINFOW menu_info{};
             menu_info.cbSize = sizeof(::MENUITEMINFO);
-            auto duplicated_text = make_text(menu, encoder);
+            auto duplicated_text = make_text(menu);
             menu.style().set_style(menu.details(), menu_info, duplicated_text, menu.enabled(), menu.state());
 
             const auto result = ::InsertMenuItem(
@@ -549,8 +558,8 @@ namespace tetengo2::detail::windows {
             return id++;
         }
 
-        template <typename MenuBase, typename Encoder>
-        static std::vector<::WCHAR> make_text(const MenuBase& menu, const Encoder& encoder)
+        template <typename MenuBase>
+        static std::vector<::WCHAR> make_text(const MenuBase& menu)
         {
             auto text = menu.text();
             if (menu.has_shortcut_key())
@@ -558,7 +567,7 @@ namespace tetengo2::detail::windows {
                 text += typename MenuBase::string_type{ TETENGO2_TEXT("\t") };
                 text += menu.get_shortcut_key().to_string();
             }
-            const auto native_string = encoder.encode(text);
+            const auto native_string = detail::native_menu_encoder().encode(text);
 
             std::vector<::WCHAR> duplicated{};
             duplicated.reserve(native_string.length() + 1);

@@ -23,12 +23,11 @@ namespace tetengo2::gui::common_dialog {
     /*!
         \brief The class template for a file save dialog.
 
-        \tparam WidgetTraits        A widget traits type.
         \tparam CommonDialogDetails A detail implementation type of common dialogs.
         \tparam WidgetDetailsTraits A detail implementation type traits of a widget.
         \tparam MenuDetails         A detail implementation type of a menu.
     */
-    template <typename WidgetTraits, typename CommonDialogDetails, typename WidgetDetailsTraits, typename MenuDetails>
+    template <typename CommonDialogDetails, typename WidgetDetailsTraits, typename MenuDetails>
     class file_save : private boost::noncopyable
     {
     public:
@@ -36,9 +35,6 @@ namespace tetengo2::gui::common_dialog {
 
         //! The string type.
         using string_type = tetengo2::type_list::string_type;
-
-        //! The widget traits type.
-        using widget_traits_type = WidgetTraits;
 
         //! The common dialog details type.
         using common_dialog_details_type = CommonDialogDetails;
@@ -56,8 +52,7 @@ namespace tetengo2::gui::common_dialog {
         using menu_details_type = MenuDetails;
 
         //! The abstract window type.
-        using abstract_window_type =
-            gui::widget::abstract_window<widget_traits_type, widget_details_traits_type, menu_details_type>;
+        using abstract_window_type = gui::widget::abstract_window<widget_details_traits_type, menu_details_type>;
 
         //! The file filter type.
         using file_filter_type = std::pair<string_type, string_type>;

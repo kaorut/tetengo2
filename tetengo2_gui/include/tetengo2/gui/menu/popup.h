@@ -19,11 +19,10 @@ namespace tetengo2::gui::menu {
     /*!
         \brief The class template for a popup menu.
 
-        \tparam Encoder     An encoder type.
         \tparam MenuDetails A detail implementation type of a menu.
    */
-    template <typename Encoder, typename MenuDetails>
-    class popup : public abstract_popup<Encoder, MenuDetails>
+    template <typename MenuDetails>
+    class popup : public abstract_popup<MenuDetails>
     {
     public:
         // types
@@ -31,14 +30,11 @@ namespace tetengo2::gui::menu {
         //! The string type.
         using string_type = tetengo2::type_list::string_type;
 
-        //! The encoder type.
-        using encoder_type = Encoder;
-
         //! The menu details type.
         using menu_details_type = MenuDetails;
 
         //! The base type.
-        using base_type = abstract_popup<encoder_type, menu_details_type>;
+        using base_type = abstract_popup<menu_details_type>;
 
 
         // constructors and destructor
