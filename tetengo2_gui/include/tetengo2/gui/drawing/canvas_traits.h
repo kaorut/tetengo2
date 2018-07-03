@@ -15,11 +15,8 @@
 
 namespace tetengo2::gui::drawing {
     /*!
-        \brief The traits class template for a canvas.
-
-        \tparam Encoder An encoder type.
+        \brief The traits class for a canvas.
     */
-    template <typename Encoder>
     class canvas_traits
     {
     public:
@@ -36,9 +33,6 @@ namespace tetengo2::gui::drawing {
 
         //! The dimension type.
         using dimension_type = gui::type_list::dimension_type;
-
-        //! The encoder type.
-        using encoder_type = Encoder;
     };
 }
 

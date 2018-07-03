@@ -15,11 +15,8 @@
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The traits class template for a GUI widget.
-
-        \tparam Encoder An encoder type.
+        \brief The traits class for a GUI widget.
    */
-    template <typename Encoder>
     struct widget_traits
     {
         // types
@@ -38,9 +35,6 @@ namespace tetengo2::gui::widget {
 
         //! The dimension type.
         using dimension_type = gui::type_list::dimension_type;
-
-        //! The encoder type.
-        using encoder_type = Encoder;
     };
 }
 

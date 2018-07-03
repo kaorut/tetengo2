@@ -17,8 +17,6 @@
 #include <tetengo2/gui/widget/widget_details_traits.h>
 #include <tetengo2/gui/widget/widget_traits.h>
 #include <tetengo2/message/message_catalog.h>
-#include <tetengo2/text/encoder.h>
-#include <tetengo2/text/encoding/locale.h>
 
 
 namespace test_tetengo2::gui::type_list {
@@ -41,18 +39,7 @@ namespace test_tetengo2::gui::type_list {
 
         using exception_string_type = std::string;
 
-        template <typename DetailTypeList>
-        using internal_encoding_type = tetengo2::text::encoding::locale<string_type>;
-
-        template <typename DetailTypeList>
-        using ui_encoding_type = tetengo2::text::encoding::locale<string_type>;
-
-        template <typename DetailTypeList>
-        using ui_encoder_type =
-            tetengo2::text::encoder<internal_encoding_type<DetailTypeList>, ui_encoding_type<DetailTypeList>>;
-
-        template <typename DetailTypeList>
-        using widget_traits_type = tetengo2::gui::widget::widget_traits<ui_encoder_type<DetailTypeList>>;
+        using widget_traits_type = tetengo2::gui::widget::widget_traits;
 
         template <typename DetailTypeList>
         using widget_details_traits_type = tetengo2::gui::widget::widget_details_traits<
@@ -89,11 +76,8 @@ namespace test_tetengo2::gui::type_list {
         //! The dimension type.
         using dimension_type = detail::common::dimension_type;
 
-        //! The UI encoder_type.
-        using ui_encoder_type = detail::common::ui_encoder_type<DetailTypeList>;
-
         //! The widget traits type.
-        using widget_traits_type = detail::common::widget_traits_type<DetailTypeList>;
+        using widget_traits_type = detail::common::widget_traits_type;
 
         //! The widget details traits type.
         using widget_details_traits_type = detail::common::widget_details_traits_type<DetailTypeList>;

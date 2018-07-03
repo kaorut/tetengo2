@@ -52,9 +52,6 @@ namespace tetengo2::gui::widget {
         //! The font type.
         using font_type = typename base_type::font_type;
 
-        //! The encoder type.
-        using encoder_type = typename base_type::encoder_type;
-
         //! The system cursor type.
         using system_cursor_type = typename base_type::system_cursor_type;
 

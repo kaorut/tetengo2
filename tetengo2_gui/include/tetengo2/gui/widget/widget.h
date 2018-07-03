@@ -62,9 +62,6 @@ namespace tetengo2::gui::widget {
         //! The dimension type.
         using dimension_type = typename traits_type::dimension_type;
 
-        //! The encoder type.
-        using encoder_type = typename traits_type::encoder_type;
-
         //! The details traits type.
         using details_traits_type = DetailsTraits;
 
@@ -84,7 +81,7 @@ namespace tetengo2::gui::widget {
         using scroll_details_type = typename details_traits_type::scroll_details_type;
 
         //! The canvas traits type.
-        using canvas_traits_type = gui::drawing::canvas_traits<encoder_type>;
+        using canvas_traits_type = gui::drawing::canvas_traits;
 
         //! The canvas type.
         using canvas_type = gui::drawing::canvas<canvas_traits_type, drawing_details_type>;
