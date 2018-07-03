@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_WIDGET_PROGRESSDIALOG_H)
 #define TETENGO2_GUI_WIDGET_PROGRESSDIALOG_H
 
+#include <algorithm>
 #include <chrono>
 #include <functional>
 #include <future>
@@ -23,18 +24,19 @@
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/timer.h>
+#include <tetengo2/gui/type_list.h>
 #include <tetengo2/gui/widget/button.h>
 #include <tetengo2/gui/widget/dialog.h>
 #include <tetengo2/gui/widget/label.h>
 #include <tetengo2/gui/widget/progress_bar.h>
 #include <tetengo2/text.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a progress dialog.
 
-        \tparam Traits             A traits type.
         \tparam TaskResult         A task result type.
         \tparam MessageCatalog     A message catalog type.
         \tparam DetailsTraits      A detail implementation type traits.
@@ -43,23 +45,19 @@ namespace tetengo2::gui::widget {
         \tparam TimerDetails       A detail implementation type of a timer.
     */
     template <
-        typename Traits,
         typename TaskResult,
         typename MessageCatalog,
         typename DetailsTraits,
         typename MenuDetails,
         typename MessageLoopDetails,
         typename TimerDetails>
-    class progress_dialog : public dialog<Traits, DetailsTraits, MenuDetails, MessageLoopDetails>
+    class progress_dialog : public dialog<DetailsTraits, MenuDetails, MessageLoopDetails>
     {
     public:
         // types
 
-        //! The traits type.
-        using traits_type = Traits;
-
         //! The string type.
-        using string_type = typename traits_type::string_type;
+        using string_type = tetengo2::type_list::string_type;
 
         //! The task result type.
         using task_result_type = TaskResult;
@@ -80,7 +78,7 @@ namespace tetengo2::gui::widget {
         using timer_details_type = TimerDetails;
 
         //! The base type.
-        using base_type = dialog<traits_type, details_traits_type, menu_details_type, message_loop_details_type>;
+        using base_type = dialog<details_traits_type, menu_details_type, message_loop_details_type>;
 
         //! The abstract window type.
         using abstract_window_type = typename base_type::base_type;
@@ -154,21 +152,21 @@ namespace tetengo2::gui::widget {
     private:
         // types
 
-        using position_type = typename traits_type::position_type;
+        using position_type = tetengo2::gui::type_list::position_type;
 
         using position_unit_type = typename position_type::unit_type;
 
-        using dimension_type = typename traits_type::dimension_type;
+        using dimension_type = tetengo2::gui::type_list::dimension_type;
 
         using dimension_unit_type = typename dimension_type::unit_type;
 
         using widget_type = typename abstract_window_type::base_type;
 
-        using label_type = label<traits_type, details_traits_type>;
+        using label_type = label<details_traits_type>;
 
-        using progress_bar_type = progress_bar<traits_type, details_traits_type>;
+        using progress_bar_type = progress_bar<details_traits_type>;
 
-        using button_type = button<traits_type, details_traits_type>;
+        using button_type = button<details_traits_type>;
 
         using drawing_details_type = typename details_traits_type::drawing_details_type;
 

@@ -22,19 +22,15 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a modal dialog.
 
-        \tparam Traits             A traits type.
         \tparam DetailsTraits      A detail implementation type traits.
         \tparam MenuDetails        A detail implementation type of a menu.
         \tparam MessageLoopDetails A detail implementation type of a message loop.
     */
-    template <typename Traits, typename DetailsTraits, typename MenuDetails, typename MessageLoopDetails>
-    class dialog : public abstract_window<Traits, DetailsTraits, MenuDetails>
+    template <typename DetailsTraits, typename MenuDetails, typename MessageLoopDetails>
+    class dialog : public abstract_window<DetailsTraits, MenuDetails>
     {
     public:
         // types
-
-        //! The traits type.
-        using traits_type = Traits;
 
         //! The details traits type.
         using details_traits_type = DetailsTraits;
@@ -58,7 +54,7 @@ namespace tetengo2::gui::widget {
         using message_loop_details_type = MessageLoopDetails;
 
         //! The base type.
-        using base_type = abstract_window<traits_type, details_traits_type, menu_details_type>;
+        using base_type = abstract_window<details_traits_type, menu_details_type>;
 
         //! The position type.
         using position_type = typename base_type::position_type;

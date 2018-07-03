@@ -30,8 +30,7 @@ namespace {
 
     using color_type = tetengo2::gui::drawing::color;
 
-    using control_type = tetengo2::gui::widget::
-        control<common_type_list_type::widget_traits_type, common_type_list_type::widget_details_traits_type>;
+    using control_type = tetengo2::gui::widget::control<common_type_list_type::widget_details_traits_type>;
 
     class concrete_control : public control_type
     {

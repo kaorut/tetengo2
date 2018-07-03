@@ -30,18 +30,14 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a tab frame.
 
-        \tparam Traits              A traits type.
         \tparam DetailsTraits       A detail implementation type traits.
         \tparam MouseCaptureDetails A detail implementation type of a mouse capture.
     */
-    template <typename Traits, typename DetailsTraits, typename MouseCaptureDetails>
-    class tab_frame : public custom_control<Traits, DetailsTraits, MouseCaptureDetails>
+    template <typename DetailsTraits, typename MouseCaptureDetails>
+    class tab_frame : public custom_control<DetailsTraits, MouseCaptureDetails>
     {
     public:
         // types
-
-        //! The traits type.
-        using traits_type = Traits;
 
         //! The details traits type.
         using details_traits_type = DetailsTraits;
@@ -50,7 +46,7 @@ namespace tetengo2::gui::widget {
         using mouse_capture_details_type = MouseCaptureDetails;
 
         //! The base type.
-        using base_type = custom_control<traits_type, details_traits_type, mouse_capture_details_type>;
+        using base_type = custom_control<details_traits_type, mouse_capture_details_type>;
 
         //! The widget type.
         using widget_type = typename base_type::base_type::base_type;
@@ -65,7 +61,7 @@ namespace tetengo2::gui::widget {
         using dimension_type = typename base_type::dimension_type;
 
         //! The string type.
-        using string_type = typename traits_type::string_type;
+        using string_type = tetengo2::type_list::string_type;
 
         //! The control type.
         using control_type = typename base_type::base_type;

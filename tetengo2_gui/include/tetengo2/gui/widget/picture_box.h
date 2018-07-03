@@ -23,18 +23,14 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a picture box.
 
-        \tparam Traits             A traits type.
         \tparam DetailsTraits      A detail implementation type traits.
         \tparam FastDrawingDetails A detail implementation type of fast drawing.
     */
-    template <typename Traits, typename DetailsTraits, typename FastDrawingDetails>
-    class picture_box : public control<Traits, DetailsTraits>
+    template <typename DetailsTraits, typename FastDrawingDetails>
+    class picture_box : public control<DetailsTraits>
     {
     public:
         // types
-
-        //! The traits type.
-        using traits_type = Traits;
 
         //! The details traits type.
         using details_traits_type = DetailsTraits;
@@ -49,7 +45,7 @@ namespace tetengo2::gui::widget {
         using fast_drawing_details_type = FastDrawingDetails;
 
         //! The base type.
-        using base_type = control<traits_type, details_traits_type>;
+        using base_type = control<details_traits_type>;
 
         //! The widget type.
         using widget_type = typename base_type::base_type;

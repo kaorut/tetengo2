@@ -13,11 +13,13 @@
 #include <functional>
 #include <memory>
 #include <stdexcept>
+#include <string>
 #include <utility>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/predef.h>
+#include <boost/shared_ptr.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/cursor/cursor_base.h>
@@ -33,33 +35,31 @@
 #include <tetengo2/gui/message/paint_observer_set.h>
 #include <tetengo2/gui/message/size_observer_set.h>
 #include <tetengo2/gui/scroll_bar.h>
+#include <tetengo2/gui/type_list.h>
 #include <tetengo2/gui/virtual_key.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::widget {
     /*!
         \brief The base class template for a GUI widget.
 
-        \tparam Traits        A traits type.
         \tparam DetailsTraits A detail implementation type traits.
     */
-    template <typename Traits, typename DetailsTraits>
+    template <typename DetailsTraits>
     class widget : private boost::noncopyable
     {
     public:
         // types
 
-        //! The traits type.
-        using traits_type = Traits;
-
         //! The string type.
-        using string_type = typename traits_type::string_type;
+        using string_type = tetengo2::type_list::string_type;
 
         //! The position type.
-        using position_type = typename traits_type::position_type;
+        using position_type = tetengo2::gui::type_list::position_type;
 
         //! The dimension type.
-        using dimension_type = typename traits_type::dimension_type;
+        using dimension_type = tetengo2::gui::type_list::dimension_type;
 
         //! The details traits type.
         using details_traits_type = DetailsTraits;

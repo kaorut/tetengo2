@@ -21,17 +21,13 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a label.
 
-        \tparam Traits        A traits type.
         \tparam DetailsTraits A detail implementation type traits.
     */
-    template <typename Traits, typename DetailsTraits>
-    class label : public control<Traits, DetailsTraits>
+    template <typename DetailsTraits>
+    class label : public control<DetailsTraits>
     {
     public:
         // types
-
-        //! The traits type.
-        using traits_type = Traits;
 
         //! The details traits type.
         using details_traits_type = DetailsTraits;
@@ -43,7 +39,7 @@ namespace tetengo2::gui::widget {
         using message_handler_details_type = typename details_traits_type::message_handler_details_type;
 
         //! The base type.
-        using base_type = control<traits_type, details_traits_type>;
+        using base_type = control<details_traits_type>;
 
         //! The widget type.
         using widget_type = typename base_type::base_type;

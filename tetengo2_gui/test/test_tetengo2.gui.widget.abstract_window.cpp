@@ -45,10 +45,8 @@ namespace {
 
     using menu_bar_type = tetengo2::gui::menu::menu_bar<shortcut_key_table_type, menu_details_type>;
 
-    using abstract_window_type = tetengo2::gui::widget::abstract_window<
-        common_type_list_type::widget_traits_type,
-        common_type_list_type::widget_details_traits_type,
-        menu_details_type>;
+    using abstract_window_type =
+        tetengo2::gui::widget::abstract_window<common_type_list_type::widget_details_traits_type, menu_details_type>;
 
     class concrete_window : public abstract_window_type
     {

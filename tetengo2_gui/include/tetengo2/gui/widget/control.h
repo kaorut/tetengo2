@@ -23,17 +23,13 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a control.
 
-        \tparam Traits        A traits type.
         \tparam DetailsTraits A detail implementation type traits.
     */
-    template <typename Traits, typename DetailsTraits>
-    class control : public widget<Traits, DetailsTraits>
+    template <typename DetailsTraits>
+    class control : public widget<DetailsTraits>
     {
     public:
         // types
-
-        //! The traits type.
-        using traits_type = Traits;
 
         //! The details traits type.
         using details_traits_type = DetailsTraits;
@@ -51,7 +47,7 @@ namespace tetengo2::gui::widget {
         using message_handler_details_type = typename details_traits_type::message_handler_details_type;
 
         //! The base type.
-        using base_type = widget<traits_type, details_traits_type>;
+        using base_type = widget<details_traits_type>;
 
         //! The scroll bar style type.
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;

@@ -15,7 +15,6 @@
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/position.h>
 #include <tetengo2/gui/widget/widget_details_traits.h>
-#include <tetengo2/gui/widget/widget_traits.h>
 #include <tetengo2/message/message_catalog.h>
 
 
@@ -38,8 +37,6 @@ namespace test_tetengo2::gui::type_list {
         using widget_details_type = typename DetailTypeList::widget_type;
 
         using exception_string_type = std::string;
-
-        using widget_traits_type = tetengo2::gui::widget::widget_traits;
 
         template <typename DetailTypeList>
         using widget_details_traits_type = tetengo2::gui::widget::widget_details_traits<
@@ -75,9 +72,6 @@ namespace test_tetengo2::gui::type_list {
 
         //! The dimension type.
         using dimension_type = detail::common::dimension_type;
-
-        //! The widget traits type.
-        using widget_traits_type = detail::common::widget_traits_type;
 
         //! The widget details traits type.
         using widget_details_traits_type = detail::common::widget_details_traits_type<DetailTypeList>;

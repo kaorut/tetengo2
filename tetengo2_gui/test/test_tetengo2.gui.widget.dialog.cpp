@@ -30,22 +30,18 @@ namespace {
 
     using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-    using widget_traits_type = common_type_list_type::widget_traits_type;
-
     using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
 
     using menu_details_type = detail_type_list_type::menu_type;
 
-    using abstract_window_type =
-        tetengo2::gui::widget::abstract_window<widget_traits_type, widget_details_traits_type, menu_details_type>;
+    using abstract_window_type = tetengo2::gui::widget::abstract_window<widget_details_traits_type, menu_details_type>;
 
-    using window_type =
-        tetengo2::gui::widget::window<widget_traits_type, widget_details_traits_type, menu_details_type>;
+    using window_type = tetengo2::gui::widget::window<widget_details_traits_type, menu_details_type>;
 
     using message_loop_details_type = detail_type_list_type::message_loop_type;
 
-    using dialog_type = tetengo2::gui::widget::
-        dialog<widget_traits_type, widget_details_traits_type, menu_details_type, message_loop_details_type>;
+    using dialog_type =
+        tetengo2::gui::widget::dialog<widget_details_traits_type, menu_details_type, message_loop_details_type>;
 
     class concrete_dialog : public dialog_type
     {
