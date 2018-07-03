@@ -17,7 +17,6 @@
 #include <tetengo2/gui/drawing/widget_canvas.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
-#include "test_tetengo2.gui.type_list.h"
 
 
 namespace {
