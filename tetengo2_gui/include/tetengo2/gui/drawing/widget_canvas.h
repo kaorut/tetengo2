@@ -16,17 +16,16 @@ namespace tetengo2::gui::drawing {
     /*!
         \brief The class template for a widget canvas.
 
-        \tparam Traits         A traits type.
         \tparam DrawingDetails A detail implementation type of a drawing.
     */
-    template <typename Traits, typename DrawingDetails>
-    class widget_canvas : public canvas<Traits, DrawingDetails>
+    template <typename DrawingDetails>
+    class widget_canvas : public canvas<DrawingDetails>
     {
     public:
         // types
 
         //! The base type.
-        using base_type = canvas<Traits, DrawingDetails>;
+        using base_type = canvas<DrawingDetails>;
 
 
         // constructors and destructor

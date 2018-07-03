@@ -15,7 +15,6 @@ pkg_headers = \
     gui/dimension.h \
     gui/drawing/background.h \
     gui/drawing/canvas.h \
-    gui/drawing/canvas_traits.h \
     gui/drawing/color.h \
     gui/drawing/font.h \
     gui/drawing/picture.h \

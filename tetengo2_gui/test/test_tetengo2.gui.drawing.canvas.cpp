@@ -19,7 +19,6 @@
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
-#include <tetengo2/gui/drawing/canvas_traits.h>
 #include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/gui/drawing/picture.h>
@@ -72,9 +71,7 @@ namespace {
 
     using canvas_details_ptr_type = drawing_details_type::canvas_details_ptr_type;
 
-    using canvas_traits_type = tetengo2::gui::drawing::canvas_traits;
-
-    using canvas_type = tetengo2::gui::drawing::canvas<canvas_traits_type, drawing_details_type>;
+    using canvas_type = tetengo2::gui::drawing::canvas<drawing_details_type>;
 
     struct concrete_canvas : public canvas_type
     {

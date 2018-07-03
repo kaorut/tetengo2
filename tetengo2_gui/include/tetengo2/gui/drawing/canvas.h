@@ -24,32 +24,31 @@
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/icon.h>
+#include <tetengo2/gui/type_list.h>
+#include <tetengo2/gui/unit/em.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::drawing {
     /*!
         \brief The class template for a canvas.
 
-        \tparam Traits         A traits type.
         \tparam DrawingDetails A detail implementation type of a drawing.
     */
-    template <typename Traits, typename DrawingDetails>
+    template <typename DrawingDetails>
     class canvas : private boost::noncopyable
     {
     public:
         // types
 
-        //! The traits type.
-        using traits_type = Traits;
-
         //! The string type.
-        using string_type = typename traits_type::string_type;
+        using string_type = tetengo2::type_list::string_type;
 
         //! The position type.
-        using position_type = typename traits_type::position_type;
+        using position_type = gui::type_list::position_type;
 
         //! The dimension type.
-        using dimension_type = typename traits_type::dimension_type;
+        using dimension_type = gui::type_list::dimension_type;
 
         //! The dimension unit type.
         using dimension_unit_type = typename dimension_type::unit_type;

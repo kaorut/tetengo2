@@ -36,7 +36,6 @@
     <ClInclude Include="include\tetengo2\gui\drawing\0namespace.dox" />
     <ClInclude Include="include\tetengo2\gui\drawing\background.h" />
     <ClInclude Include="include\tetengo2\gui\drawing\canvas.h" />
-    <ClInclude Include="include\tetengo2\gui\drawing\canvas_traits.h" />
     <ClInclude Include="include\tetengo2\gui\drawing\color.h" />
     <ClInclude Include="include\tetengo2\gui\drawing\font.h" />
     <ClInclude Include="include\tetengo2\gui\drawing\picture.h" />

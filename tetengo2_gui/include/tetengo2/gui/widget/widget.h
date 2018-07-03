@@ -24,7 +24,6 @@
 #include <tetengo2/gui/cursor/system.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
-#include <tetengo2/gui/drawing/canvas_traits.h>
 #include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/gui/drawing/widget_canvas.h>
 #include <tetengo2/gui/message/child_observer_set.h>
@@ -80,14 +79,11 @@ namespace tetengo2::gui::widget {
         //! The scroll details type.
         using scroll_details_type = typename details_traits_type::scroll_details_type;
 
-        //! The canvas traits type.
-        using canvas_traits_type = gui::drawing::canvas_traits;
-
         //! The canvas type.
-        using canvas_type = gui::drawing::canvas<canvas_traits_type, drawing_details_type>;
+        using canvas_type = gui::drawing::canvas<drawing_details_type>;
 
         //! The widget canvas type.
-        using widget_canvas_type = gui::drawing::widget_canvas<canvas_traits_type, drawing_details_type>;
+        using widget_canvas_type = gui::drawing::widget_canvas<drawing_details_type>;
 
         //! The background type.
         using background_type = gui::drawing::background<drawing_details_type>;

@@ -12,7 +12,6 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/gui/drawing/canvas_traits.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/widget_canvas.h>
 
@@ -24,11 +23,9 @@ namespace {
 
     using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-    using canvas_traits_type = tetengo2::gui::drawing::canvas_traits;
-
     using drawing_details_type = detail_type_list_type::drawing_type;
 
-    using canvas_type = tetengo2::gui::drawing::widget_canvas<canvas_traits_type, drawing_details_type>;
+    using canvas_type = tetengo2::gui::drawing::widget_canvas<drawing_details_type>;
 }
 
 
