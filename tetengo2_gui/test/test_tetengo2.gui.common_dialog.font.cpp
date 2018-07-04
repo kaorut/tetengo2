@@ -53,8 +53,14 @@ namespace {
 
     using common_dialog_details_type = detail_type_list_type::common_dialog_type;
 
-    using font_dialog_type = tetengo2::gui::common_dialog::
-        font<font_type, common_dialog_details_type, widget_details_traits_type, menu_details_type>;
+    using font_dialog_type = tetengo2::gui::common_dialog::font<
+        font_type,
+        common_dialog_details_type,
+        typename widget_details_traits_type::widget_details_type,
+        typename widget_details_traits_type::drawing_details_type,
+        typename widget_details_traits_type::scroll_details_type,
+        typename widget_details_traits_type::message_handler_details_type,
+        menu_details_type>;
 }
 
 
