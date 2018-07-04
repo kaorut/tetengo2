@@ -14,7 +14,6 @@
 
 #include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/widget/widget.h>
-#include <tetengo2/gui/widget/widget_details_traits.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
@@ -28,10 +27,10 @@ namespace {
     using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
     using widget_type = tetengo2::gui::widget::widget<
-        typename common_type_list_type::widget_details_traits_type::widget_details_type,
-        typename common_type_list_type::widget_details_traits_type::drawing_details_type,
-        typename common_type_list_type::widget_details_traits_type::scroll_details_type,
-        typename common_type_list_type::widget_details_traits_type::message_handler_details_type>;
+        common_type_list_type::widget_details_type,
+        common_type_list_type::drawing_details_type,
+        common_type_list_type::scroll_details_type,
+        common_type_list_type::message_handler_details_type>;
 
     using child_observer_set_type = tetengo2::gui::message::child_observer_set<widget_type>;
 }

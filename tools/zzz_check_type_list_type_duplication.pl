@@ -31,8 +31,7 @@ while(<$fh>)
 		last;
 	}
 	if (
-		/[ <:]([0-9A-Za-z_:]+_type_list_type::[0-9A-Za-z_:]+)/ ||
-		/[ <:](DetailTypeList::[0-9A-Za-z_:]+)/
+		/([0-9A-Za-z_:]+_type_list_type::[0-9A-Za-z_:]+);/
 	)
 	{
 		if ($1 ne 'type::value')

@@ -66,10 +66,10 @@ namespace {
     using system_cursor_type = tetengo2::gui::cursor::system;
 
     using widget_type = tetengo2::gui::widget::widget<
-        typename common_type_list_type::widget_details_traits_type::widget_details_type,
-        typename common_type_list_type::widget_details_traits_type::drawing_details_type,
-        typename common_type_list_type::widget_details_traits_type::scroll_details_type,
-        typename common_type_list_type::widget_details_traits_type::message_handler_details_type>;
+        common_type_list_type::widget_details_type,
+        common_type_list_type::drawing_details_type,
+        common_type_list_type::scroll_details_type,
+        common_type_list_type::message_handler_details_type>;
 
     class concrete_widget : public widget_type
     {

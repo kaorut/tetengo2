@@ -36,15 +36,13 @@ namespace {
 
     using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-    using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
-
     using menu_details_type = detail_type_list_type::menu_type;
 
     using window_type = tetengo2::gui::widget::window<
-        typename widget_details_traits_type::widget_details_type,
-        typename widget_details_traits_type::drawing_details_type,
-        typename widget_details_traits_type::scroll_details_type,
-        typename widget_details_traits_type::message_handler_details_type,
+        common_type_list_type::widget_details_type,
+        common_type_list_type::drawing_details_type,
+        common_type_list_type::scroll_details_type,
+        common_type_list_type::message_handler_details_type,
         menu_details_type>;
 
     using mouse_capture_details_type = detail_type_list_type::mouse_capture_type;
@@ -52,10 +50,10 @@ namespace {
     using timer_details_type = detail_type_list_type::timer_type;
 
     using side_bar_type = tetengo2::gui::widget::side_bar<
-        typename widget_details_traits_type::widget_details_type,
-        typename widget_details_traits_type::drawing_details_type,
-        typename widget_details_traits_type::scroll_details_type,
-        typename widget_details_traits_type::message_handler_details_type,
+        common_type_list_type::widget_details_type,
+        common_type_list_type::drawing_details_type,
+        common_type_list_type::scroll_details_type,
+        common_type_list_type::message_handler_details_type,
         mouse_capture_details_type,
         timer_details_type>;
 

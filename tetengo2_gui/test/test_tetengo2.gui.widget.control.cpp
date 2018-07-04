@@ -31,10 +31,10 @@ namespace {
     using color_type = tetengo2::gui::drawing::color;
 
     using control_type = tetengo2::gui::widget::control<
-        typename common_type_list_type::widget_details_traits_type::widget_details_type,
-        typename common_type_list_type::widget_details_traits_type::drawing_details_type,
-        typename common_type_list_type::widget_details_traits_type::scroll_details_type,
-        typename common_type_list_type::widget_details_traits_type::message_handler_details_type>;
+        common_type_list_type::widget_details_type,
+        common_type_list_type::drawing_details_type,
+        common_type_list_type::scroll_details_type,
+        common_type_list_type::message_handler_details_type>;
 
     class concrete_control : public control_type
     {

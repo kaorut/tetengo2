@@ -36,15 +36,13 @@ namespace {
 
     using string_type = common_type_list_type::string_type;
 
-    using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
-
     using menu_details_type = detail_type_list_type::menu_type;
 
     using window_type = tetengo2::gui::widget::window<
-        typename widget_details_traits_type::widget_details_type,
-        typename widget_details_traits_type::drawing_details_type,
-        typename widget_details_traits_type::scroll_details_type,
-        typename widget_details_traits_type::message_handler_details_type,
+        common_type_list_type::widget_details_type,
+        common_type_list_type::drawing_details_type,
+        common_type_list_type::scroll_details_type,
+        common_type_list_type::message_handler_details_type,
         menu_details_type>;
 
     using drawing_details_type = detail_type_list_type::drawing_type;
@@ -56,10 +54,10 @@ namespace {
     using font_dialog_type = tetengo2::gui::common_dialog::font<
         font_type,
         common_dialog_details_type,
-        typename widget_details_traits_type::widget_details_type,
-        typename widget_details_traits_type::drawing_details_type,
-        typename widget_details_traits_type::scroll_details_type,
-        typename widget_details_traits_type::message_handler_details_type,
+        common_type_list_type::widget_details_type,
+        common_type_list_type::drawing_details_type,
+        common_type_list_type::scroll_details_type,
+        common_type_list_type::message_handler_details_type,
         menu_details_type>;
 }
 

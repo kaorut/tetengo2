@@ -14,7 +14,6 @@
 
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/position.h>
-#include <tetengo2/gui/widget/widget_details_traits.h>
 #include <tetengo2/message/message_catalog.h>
 
 
@@ -36,15 +35,14 @@ namespace test_tetengo2::gui::type_list {
         template <typename DetailTypeList>
         using widget_details_type = typename DetailTypeList::widget_type;
 
-        using exception_string_type = std::string;
+        template <typename DetailTypeList>
+        using drawing_details_type = typename DetailTypeList::drawing_type;
 
         template <typename DetailTypeList>
-        using widget_details_traits_type = tetengo2::gui::widget::widget_details_traits<
-            widget_details_type<DetailTypeList>,
-            typename DetailTypeList::drawing_type,
-            typename DetailTypeList::icon_type,
-            typename DetailTypeList::scroll_type,
-            typename DetailTypeList::message_handler_type>;
+        using scroll_details_type = typename DetailTypeList::scroll_type;
+
+        template <typename DetailTypeList>
+        using message_handler_details_type = typename DetailTypeList::message_handler_type;
 
         using message_catalog_type = tetengo2::message::message_catalog;
     }
@@ -73,8 +71,17 @@ namespace test_tetengo2::gui::type_list {
         //! The dimension type.
         using dimension_type = detail::common::dimension_type;
 
-        //! The widget details traits type.
-        using widget_details_traits_type = detail::common::widget_details_traits_type<DetailTypeList>;
+        //! The detail implementation type of widget.
+        using widget_details_type = detail::common::widget_details_type<DetailTypeList>;
+
+        //! The detail implementation type of drawing.
+        using drawing_details_type = detail::common::drawing_details_type<DetailTypeList>;
+
+        //! The detail implementation type of scroll.
+        using scroll_details_type = detail::common::scroll_details_type<DetailTypeList>;
+
+        //! The detail implementation type of message handler.
+        using message_handler_details_type = detail::common::message_handler_details_type<DetailTypeList>;
 
         //! The message catalog type.
         using message_catalog_type = detail::common::message_catalog_type;
