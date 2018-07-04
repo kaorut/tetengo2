@@ -40,14 +40,24 @@ namespace {
 
     using menu_details_type = detail_type_list_type::menu_type;
 
-    using window_type = tetengo2::gui::widget::window<widget_details_traits_type, menu_details_type>;
+    using window_type = tetengo2::gui::widget::window<
+        typename widget_details_traits_type::widget_details_type,
+        typename widget_details_traits_type::drawing_details_type,
+        typename widget_details_traits_type::scroll_details_type,
+        typename widget_details_traits_type::message_handler_details_type,
+        menu_details_type>;
 
     using mouse_capture_details_type = detail_type_list_type::mouse_capture_type;
 
     using timer_details_type = detail_type_list_type::timer_type;
 
-    using side_bar_type =
-        tetengo2::gui::widget::side_bar<widget_details_traits_type, mouse_capture_details_type, timer_details_type>;
+    using side_bar_type = tetengo2::gui::widget::side_bar<
+        typename widget_details_traits_type::widget_details_type,
+        typename widget_details_traits_type::drawing_details_type,
+        typename widget_details_traits_type::scroll_details_type,
+        typename widget_details_traits_type::message_handler_details_type,
+        mouse_capture_details_type,
+        timer_details_type>;
 
     using dimension_unit_type = side_bar_type::dimension_unit_type;
 }

@@ -28,29 +28,34 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a custom control.
 
-        \tparam DetailsTraits       A detail implementation type traits.
-        \tparam MouseCaptureDetails A detail implementation type of a mouse capture.
+        \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam DrawingDetails        A detail implementation type of drawing.
+        \tparam ScrollDetails         A detail implementation type of a scroll.
+        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \tparam MouseCaptureDetails   A detail implementation type of a mouse capture.
     */
-    template <typename DetailsTraits, typename MouseCaptureDetails>
-    class custom_control : public control<DetailsTraits>
+    template <
+        typename WidgetDetails,
+        typename DrawingDetails,
+        typename ScrollDetails,
+        typename MessageHandlerDetails,
+        typename MouseCaptureDetails>
+    class custom_control : public control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
     {
     public:
         // types
 
-        //! The details traits type.
-        using details_traits_type = DetailsTraits;
-
         //! The widget details type.
-        using widget_details_type = typename details_traits_type::widget_details_type;
+        using widget_details_type = WidgetDetails;
 
         //! The message handler details type.
-        using message_handler_details_type = typename details_traits_type::message_handler_details_type;
+        using message_handler_details_type = MessageHandlerDetails;
 
         //! The mouse capture details type.
         using mouse_capture_details_type = MouseCaptureDetails;
 
         //! The base type.
-        using base_type = control<details_traits_type>;
+        using base_type = control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
 
         //! The widget type.
         using widget_type = typename base_type::base_type;

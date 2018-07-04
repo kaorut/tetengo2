@@ -21,6 +21,7 @@
 #include <tetengo2/gui/menu/shortcut_key_table.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/gui/widget/widget.h>
+#include <tetengo2/gui/widget/widget_details_traits.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
 
@@ -45,8 +46,12 @@ namespace {
 
     using menu_bar_type = tetengo2::gui::menu::menu_bar<shortcut_key_table_type, menu_details_type>;
 
-    using abstract_window_type =
-        tetengo2::gui::widget::abstract_window<common_type_list_type::widget_details_traits_type, menu_details_type>;
+    using abstract_window_type = tetengo2::gui::widget::abstract_window<
+        typename common_type_list_type::widget_details_traits_type::widget_details_type,
+        typename common_type_list_type::widget_details_traits_type::drawing_details_type,
+        typename common_type_list_type::widget_details_traits_type::scroll_details_type,
+        typename common_type_list_type::widget_details_traits_type::message_handler_details_type,
+        menu_details_type>;
 
     class concrete_window : public abstract_window_type
     {

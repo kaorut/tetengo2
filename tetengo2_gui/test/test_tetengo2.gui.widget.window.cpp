@@ -16,6 +16,7 @@
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_bar.h>
 #include <tetengo2/gui/widget/abstract_window.h>
+#include <tetengo2/gui/widget/widget_details_traits.h>
 #include <tetengo2/gui/widget/window.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
@@ -33,9 +34,19 @@ namespace {
 
     using menu_details_type = detail_type_list_type::menu_type;
 
-    using abstract_window_type = tetengo2::gui::widget::abstract_window<widget_details_traits_type, menu_details_type>;
+    using abstract_window_type = tetengo2::gui::widget::abstract_window<
+        typename widget_details_traits_type::widget_details_type,
+        typename widget_details_traits_type::drawing_details_type,
+        typename widget_details_traits_type::scroll_details_type,
+        typename widget_details_traits_type::message_handler_details_type,
+        menu_details_type>;
 
-    using window_type = tetengo2::gui::widget::window<widget_details_traits_type, menu_details_type>;
+    using window_type = tetengo2::gui::widget::window<
+        typename widget_details_traits_type::widget_details_type,
+        typename widget_details_traits_type::drawing_details_type,
+        typename widget_details_traits_type::scroll_details_type,
+        typename widget_details_traits_type::message_handler_details_type,
+        menu_details_type>;
 }
 
 

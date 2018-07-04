@@ -28,29 +28,34 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The class template for an abstract window.
 
-        \tparam DetailsTraits A detail implementation type traits.
-        \tparam MenuDetails   A detail implementation type of a menu.
+        \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam DrawingDetails        A detail implementation type of drawing.
+        \tparam ScrollDetails         A detail implementation type of a scroll.
+        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \tparam MenuDetails           A detail implementation type of a menu.
     */
-    template <typename DetailsTraits, typename MenuDetails>
-    class abstract_window : public widget<DetailsTraits>
+    template <
+        typename WidgetDetails,
+        typename DrawingDetails,
+        typename ScrollDetails,
+        typename MessageHandlerDetails,
+        typename MenuDetails>
+    class abstract_window : public widget<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
     {
     public:
         // types
 
-        //! The details traits type.
-        using details_traits_type = DetailsTraits;
-
         //! The widget details type.
-        using widget_details_type = typename details_traits_type::widget_details_type;
+        using widget_details_type = WidgetDetails;
 
         //! The message handler details type.
-        using message_handler_details_type = typename details_traits_type::message_handler_details_type;
+        using message_handler_details_type = MessageHandlerDetails;
 
         //! The menu details type.
         using menu_details_type = MenuDetails;
 
         //! The base type.
-        using base_type = widget<details_traits_type>;
+        using base_type = widget<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
 
         //! The dimension type.
         using dimension_type = typename base_type::dimension_type;

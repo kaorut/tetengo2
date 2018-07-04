@@ -19,6 +19,7 @@
 #include <tetengo2/gui/menu/menu_bar.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/picture_box.h>
+#include <tetengo2/gui/widget/widget_details_traits.h>
 #include <tetengo2/gui/widget/window.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
@@ -36,11 +37,21 @@ namespace {
 
     using menu_details_type = detail_type_list_type::menu_type;
 
-    using window_type = tetengo2::gui::widget::window<widget_details_traits_type, menu_details_type>;
+    using window_type = tetengo2::gui::widget::window<
+        typename widget_details_traits_type::widget_details_type,
+        typename widget_details_traits_type::drawing_details_type,
+        typename widget_details_traits_type::scroll_details_type,
+        typename widget_details_traits_type::message_handler_details_type,
+        menu_details_type>;
 
     using fast_drawing_details_type = detail_type_list_type::drawing_type;
 
-    using picture_box_type = tetengo2::gui::widget::picture_box<widget_details_traits_type, fast_drawing_details_type>;
+    using picture_box_type = tetengo2::gui::widget::picture_box<
+        typename widget_details_traits_type::widget_details_type,
+        typename widget_details_traits_type::drawing_details_type,
+        typename widget_details_traits_type::scroll_details_type,
+        typename widget_details_traits_type::message_handler_details_type,
+        fast_drawing_details_type>;
 }
 
 

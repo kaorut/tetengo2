@@ -18,25 +18,25 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a button.
 
-        \tparam DetailsTraits A detail implementation type traits.
+        \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam DrawingDetails        A detail implementation type of drawing.
+        \tparam ScrollDetails         A detail implementation type of a scroll.
+        \tparam MessageHandlerDetails A detail implementation type of a message handler.
     */
-    template <typename DetailsTraits>
-    class button : public control<DetailsTraits>
+    template <typename WidgetDetails, typename DrawingDetails, typename ScrollDetails, typename MessageHandlerDetails>
+    class button : public control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
     {
     public:
         // types
 
-        //! The details traits type.
-        using details_traits_type = DetailsTraits;
-
         //! The widget details type.
-        using widget_details_type = typename details_traits_type::widget_details_type;
+        using widget_details_type = WidgetDetails;
 
         //! The message handler details type.
-        using message_handler_details_type = typename details_traits_type::message_handler_details_type;
+        using message_handler_details_type = MessageHandlerDetails;
 
         //! The base type.
-        using base_type = control<details_traits_type>;
+        using base_type = control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
 
         //! The widget type.
         using widget_type = typename base_type::base_type;
