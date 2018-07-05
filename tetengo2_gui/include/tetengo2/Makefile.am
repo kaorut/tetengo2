@@ -78,7 +78,6 @@ pkg_headers = \
     gui/widget/tab_frame.h \
     gui/widget/text_box.h \
     gui/widget/widget.h \
-    gui/widget/widget_details_traits.h \
     gui/widget/window.h
 
 extra_headers = \
