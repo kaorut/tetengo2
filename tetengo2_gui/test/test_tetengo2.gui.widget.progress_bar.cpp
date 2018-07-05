@@ -30,13 +30,20 @@ namespace {
 
     using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-    using widget_details_traits_type = common_type_list_type::widget_details_traits_type;
-
     using menu_details_type = detail_type_list_type::menu_type;
 
-    using window_type = tetengo2::gui::widget::window<widget_details_traits_type, menu_details_type>;
+    using window_type = tetengo2::gui::widget::window<
+        common_type_list_type::widget_details_type,
+        common_type_list_type::drawing_details_type,
+        common_type_list_type::scroll_details_type,
+        common_type_list_type::message_handler_details_type,
+        menu_details_type>;
 
-    using progress_bar_type = tetengo2::gui::widget::progress_bar<widget_details_traits_type>;
+    using progress_bar_type = tetengo2::gui::widget::progress_bar<
+        common_type_list_type::widget_details_type,
+        common_type_list_type::drawing_details_type,
+        common_type_list_type::scroll_details_type,
+        common_type_list_type::message_handler_details_type>;
 }
 
 

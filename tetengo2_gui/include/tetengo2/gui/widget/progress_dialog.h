@@ -37,21 +37,33 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a progress dialog.
 
-        \tparam TaskResult         A task result type.
-        \tparam MessageCatalog     A message catalog type.
-        \tparam DetailsTraits      A detail implementation type traits.
-        \tparam MenuDetails        A detail implementation type of a menu.
-        \tparam MessageLoopDetails A detail implementation type of a message loop.
-        \tparam TimerDetails       A detail implementation type of a timer.
+        \tparam TaskResult            A task result type.
+        \tparam MessageCatalog        A message catalog type.
+        \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam DrawingDetails        A detail implementation type of drawing.
+        \tparam ScrollDetails         A detail implementation type of a scroll.
+        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \tparam MenuDetails           A detail implementation type of a menu.
+        \tparam MessageLoopDetails    A detail implementation type of a message loop.
+        \tparam TimerDetails          A detail implementation type of a timer.
     */
     template <
         typename TaskResult,
         typename MessageCatalog,
-        typename DetailsTraits,
+        typename WidgetDetails,
+        typename DrawingDetails,
+        typename ScrollDetails,
+        typename MessageHandlerDetails,
         typename MenuDetails,
         typename MessageLoopDetails,
         typename TimerDetails>
-    class progress_dialog : public dialog<DetailsTraits, MenuDetails, MessageLoopDetails>
+    class progress_dialog : public dialog<
+                                WidgetDetails,
+                                DrawingDetails,
+                                ScrollDetails,
+                                MessageHandlerDetails,
+                                MenuDetails,
+                                MessageLoopDetails>
     {
     public:
         // types
@@ -65,9 +77,6 @@ namespace tetengo2::gui::widget {
         //! The message catalog type.
         using message_catalog_type = MessageCatalog;
 
-        //! The details traits type.
-        using details_traits_type = DetailsTraits;
-
         //! The menu details type.
         using menu_details_type = MenuDetails;
 
@@ -78,7 +87,13 @@ namespace tetengo2::gui::widget {
         using timer_details_type = TimerDetails;
 
         //! The base type.
-        using base_type = dialog<details_traits_type, menu_details_type, message_loop_details_type>;
+        using base_type = dialog<
+            WidgetDetails,
+            DrawingDetails,
+            ScrollDetails,
+            MessageHandlerDetails,
+            MenuDetails,
+            MessageLoopDetails>;
 
         //! The abstract window type.
         using abstract_window_type = typename base_type::base_type;
@@ -162,13 +177,13 @@ namespace tetengo2::gui::widget {
 
         using widget_type = typename abstract_window_type::base_type;
 
-        using label_type = label<details_traits_type>;
+        using label_type = label<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
 
-        using progress_bar_type = progress_bar<details_traits_type>;
+        using progress_bar_type = progress_bar<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
 
-        using button_type = button<details_traits_type>;
+        using button_type = button<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
 
-        using drawing_details_type = typename details_traits_type::drawing_details_type;
+        using drawing_details_type = DrawingDetails;
 
         using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
 

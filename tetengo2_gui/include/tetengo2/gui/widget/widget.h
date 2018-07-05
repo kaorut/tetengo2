@@ -44,9 +44,12 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The base class template for a GUI widget.
 
-        \tparam DetailsTraits A detail implementation type traits.
+        \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam DrawingDetails        A detail implementation type of drawing.
+        \tparam ScrollDetails         A detail implementation type of a scroll.
+        \tparam MessageHandlerDetails A detail implementation type of a message handler.
     */
-    template <typename DetailsTraits>
+    template <typename WidgetDetails, typename DrawingDetails, typename ScrollDetails, typename MessageHandlerDetails>
     class widget : private boost::noncopyable
     {
     public:
@@ -61,11 +64,8 @@ namespace tetengo2::gui::widget {
         //! The dimension type.
         using dimension_type = tetengo2::gui::type_list::dimension_type;
 
-        //! The details traits type.
-        using details_traits_type = DetailsTraits;
-
         //! The widget details type.
-        using widget_details_type = typename details_traits_type::widget_details_type;
+        using widget_details_type = WidgetDetails;
 
         //! The details type.
         using details_type = typename widget_details_type::widget_details_type;
@@ -74,10 +74,10 @@ namespace tetengo2::gui::widget {
         using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
 
         //! The drawing details type.
-        using drawing_details_type = typename details_traits_type::drawing_details_type;
+        using drawing_details_type = DrawingDetails;
 
         //! The scroll details type.
-        using scroll_details_type = typename details_traits_type::scroll_details_type;
+        using scroll_details_type = ScrollDetails;
 
         //! The canvas type.
         using canvas_type = gui::drawing::canvas<drawing_details_type>;
@@ -101,7 +101,7 @@ namespace tetengo2::gui::widget {
         using scroll_bar_type = gui::scroll_bar<scroll_details_type>;
 
         //! The message handler details type.
-        using message_handler_details_type = typename details_traits_type::message_handler_details_type;
+        using message_handler_details_type = MessageHandlerDetails;
 
         //! The scroll bar style type.
         enum class scroll_bar_style_type

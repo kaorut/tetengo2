@@ -22,22 +22,22 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a link label.
 
-        \tparam DetailsTraits A detail implementation type traits.
+        \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam DrawingDetails        A detail implementation type of drawing.
+        \tparam ScrollDetails         A detail implementation type of a scroll.
+        \tparam MessageHandlerDetails A detail implementation type of a message handler.
     */
-    template <typename DetailsTraits>
-    class link_label : public label<DetailsTraits>
+    template <typename WidgetDetails, typename DrawingDetails, typename ScrollDetails, typename MessageHandlerDetails>
+    class link_label : public label<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
     {
     public:
         // types
 
-        //! The details traits type.
-        using details_traits_type = DetailsTraits;
-
         //! The drawing details type.
-        using drawing_details_type = typename details_traits_type::drawing_details_type;
+        using drawing_details_type = DrawingDetails;
 
         //! The base type.
-        using base_type = label<details_traits_type>;
+        using base_type = label<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
 
         //! The widget type.
         using widget_type = typename base_type::base_type::base_type;

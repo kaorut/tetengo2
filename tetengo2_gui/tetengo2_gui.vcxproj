@@ -103,7 +103,6 @@
     <ClInclude Include="include\tetengo2\gui\widget\tab_frame.h" />
     <ClInclude Include="include\tetengo2\gui\widget\text_box.h" />
     <ClInclude Include="include\tetengo2\gui\widget\widget.h" />
-    <ClInclude Include="include\tetengo2\gui\widget\widget_details_traits.h" />
     <ClInclude Include="include\tetengo2\gui\widget\window.h" />
   </ItemGroup>
   <ItemGroup>

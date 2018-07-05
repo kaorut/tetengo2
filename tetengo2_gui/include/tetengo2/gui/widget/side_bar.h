@@ -29,21 +29,28 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a side bar.
 
-        \tparam DetailsTraits       A detail implementation type traits.
-        \tparam MouseCaptureDetails A detail implementation type of a mouse capture.
-        \tparam TimerDetails        A detail implementation type of a timer.
+        \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam DrawingDetails        A detail implementation type of drawing.
+        \tparam ScrollDetails         A detail implementation type of a scroll.
+        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \tparam MouseCaptureDetails   A detail implementation type of a mouse capture.
+        \tparam TimerDetails          A detail implementation type of a timer.
     */
-    template <typename DetailsTraits, typename MouseCaptureDetails, typename TimerDetails>
-    class side_bar : public custom_control<DetailsTraits, MouseCaptureDetails>
+    template <
+        typename WidgetDetails,
+        typename DrawingDetails,
+        typename ScrollDetails,
+        typename MessageHandlerDetails,
+        typename MouseCaptureDetails,
+        typename TimerDetails>
+    class side_bar
+    : public custom_control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, MouseCaptureDetails>
     {
     public:
         // types
 
-        //! The details traits type.
-        using details_traits_type = DetailsTraits;
-
         //! The drawing details type.
-        using drawing_details_type = typename details_traits_type::drawing_details_type;
+        using drawing_details_type = DrawingDetails;
 
         //! The mouse capture details type.
         using mouse_capture_details_type = MouseCaptureDetails;
@@ -52,7 +59,8 @@ namespace tetengo2::gui::widget {
         using timer_details_type = TimerDetails;
 
         //! The base type.
-        using base_type = custom_control<details_traits_type, mouse_capture_details_type>;
+        using base_type =
+            custom_control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, MouseCaptureDetails>;
 
         //! The widget type.
         using widget_type = typename base_type::base_type::base_type;

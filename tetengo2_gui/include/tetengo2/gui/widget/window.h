@@ -20,20 +20,26 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a window.
 
-        \tparam DetailsTraits A detail implementation type traits.
-        \tparam MenuDetails   A detail implementation type of a menu.
+        \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam DrawingDetails        A detail implementation type of drawing.
+        \tparam ScrollDetails         A detail implementation type of a scroll.
+        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \tparam MenuDetails           A detail implementation type of a menu.
     */
-    template <typename DetailsTraits, typename MenuDetails>
-    class window : public abstract_window<DetailsTraits, MenuDetails>
+    template <
+        typename WidgetDetails,
+        typename DrawingDetails,
+        typename ScrollDetails,
+        typename MessageHandlerDetails,
+        typename MenuDetails>
+    class window
+    : public abstract_window<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, MenuDetails>
     {
     public:
         // types
 
-        //! The details traits type.
-        using details_traits_type = DetailsTraits;
-
         //! The widget details type.
-        using widget_details_type = typename details_traits_type::widget_details_type;
+        using widget_details_type = WidgetDetails;
 
         //! The details type.
         using details_type = typename widget_details_type::widget_details_type;
@@ -42,13 +48,14 @@ namespace tetengo2::gui::widget {
         using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
 
         //! The message handler details type.
-        using message_handler_details_type = typename details_traits_type::message_handler_details_type;
+        using message_handler_details_type = MessageHandlerDetails;
 
         //! The menu details type.
         using menu_details_type = MenuDetails;
 
         //! The base type.
-        using base_type = abstract_window<details_traits_type, menu_details_type>;
+        using base_type =
+            abstract_window<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, MenuDetails>;
 
         //! The scroll bar style type.
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;

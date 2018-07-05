@@ -19,12 +19,22 @@ namespace tetengo2::gui::common_dialog {
     /*!
         \brief The class template for a color dialog.
 
-        \tparam Color               A color type.
-        \tparam CommonDialogDetails A detail implementation type of common dialogs.
-        \tparam WidgetDetailsTraits A detail implementation type traits of a widget.
-        \tparam MenuDetails         A detail implementation type of a menu.
+        \tparam Color                 A color type.
+        \tparam CommonDialogDetails   A detail implementation type of common dialogs.
+        \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam DrawingDetails        A detail implementation type of drawing.
+        \tparam ScrollDetails         A detail implementation type of a scroll.
+        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \tparam MenuDetails           A detail implementation type of a menu.
     */
-    template <typename Color, typename CommonDialogDetails, typename WidgetDetailsTraits, typename MenuDetails>
+    template <
+        typename Color,
+        typename CommonDialogDetails,
+        typename WidgetDetails,
+        typename DrawingDetails,
+        typename ScrollDetails,
+        typename MessageHandlerDetails,
+        typename MenuDetails>
     class color : private boost::noncopyable
     {
     public:
@@ -42,14 +52,12 @@ namespace tetengo2::gui::common_dialog {
         //! The details pointer type;
         using details_ptr_type = typename common_dialog_details_type::color_dialog_details_ptr_type;
 
-        //! The widget details traits type.
-        using widget_details_traits_type = WidgetDetailsTraits;
-
         //! The menu details type.
         using menu_details_type = MenuDetails;
 
         //! The abstract window type.
-        using abstract_window_type = gui::widget::abstract_window<widget_details_traits_type, menu_details_type>;
+        using abstract_window_type = gui::widget::
+            abstract_window<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, menu_details_type>;
 
 
         // constructors and destructor
