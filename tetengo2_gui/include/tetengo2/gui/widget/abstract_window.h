@@ -18,7 +18,6 @@
 
 #include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/menu/menu_bar.h>
-#include <tetengo2/gui/menu/shortcut_key_table.h>
 #include <tetengo2/gui/message/file_drop_observer_set.h>
 #include <tetengo2/gui/message/window_observer_set.h>
 #include <tetengo2/gui/widget/widget.h>
@@ -66,11 +65,8 @@ namespace tetengo2::gui::widget {
         //! The icon type.
         using icon_type = gui::icon;
 
-        //! The shortcut key table type.
-        using shortcut_key_table_type = gui::menu::shortcut_key_table<menu_details_type>;
-
         //! The menu bar type.
-        using menu_bar_type = gui::menu::menu_bar<shortcut_key_table_type, menu_details_type>;
+        using menu_bar_type = gui::menu::menu_bar<menu_details_type>;
 
         //! The window observer set type.
         using window_observer_set_type = gui::message::window_observer_set;

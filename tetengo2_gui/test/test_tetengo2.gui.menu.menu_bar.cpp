@@ -14,7 +14,6 @@
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_bar.h>
 #include <tetengo2/gui/menu/menu_base.h>
-#include <tetengo2/gui/menu/shortcut_key_table.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
 #include "test_tetengo2.gui.type_list.h"
@@ -31,9 +30,7 @@ namespace {
 
     using menu_base_type = tetengo2::gui::menu::menu_base<menu_details_type>;
 
-    using shortcut_key_table_type = tetengo2::gui::menu::shortcut_key_table<menu_details_type>;
-
-    using menu_bar_type = tetengo2::gui::menu::menu_bar<shortcut_key_table_type, menu_details_type>;
+    using menu_bar_type = tetengo2::gui::menu::menu_bar<menu_details_type>;
 }
 
 
