@@ -36,7 +36,6 @@
 #include <tetengo2/gui/message/size_observer_set.h>
 #include <tetengo2/gui/scroll_bar.h>
 #include <tetengo2/gui/type_list.h>
-#include <tetengo2/gui/virtual_key.h>
 #include <tetengo2/type_list.h>
 
 
@@ -130,12 +129,8 @@ namespace tetengo2::gui::widget {
         //! The paint observer set type.
         using paint_observer_set_type = gui::message::paint_observer_set<canvas_type>;
 
-        //! The virtual key type.
-        using virtual_key_type = gui::virtual_key;
-
         //! The keyboard observer set type.
-        using keyboard_observer_set_type =
-            gui::message::keyboard_observer_set<virtual_key_type, typename string_type::value_type>;
+        using keyboard_observer_set_type = gui::message::keyboard_observer_set;
 
         //! The mouse observer set type.
         using mouse_observer_set_type = gui::message::mouse_observer_set;

@@ -12,25 +12,24 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/signals2.hpp>
 
+#include <tetengo2/gui/virtual_key.h>
+#include <tetengo2/type_list.h>
+
 
 namespace tetengo2::gui::message {
     /*!
-        \brief The class template for a keyboard observer set.
-
-        \tparam VirtualKey A virtual key type.
-        \tparam Char       A character type.
+        \brief The class for a keyboard observer set.
     */
-    template <typename VirtualKey, typename Char>
     class keyboard_observer_set : private boost::noncopyable
     {
     public:
         // types
 
         //! The virtual key type.
-        using virtual_key_type = VirtualKey;
+        using virtual_key_type = gui::virtual_key;
 
         //! The character type.
-        using char_type = Char;
+        using char_type = tetengo2::type_list::string_type::value_type;
 
         /*!
             \brief The observer type of key down.
@@ -63,7 +62,7 @@ namespace tetengo2::gui::message {
 
             \param character A character.
         */
-        using character_input_type = void(typename keyboard_observer_set::char_type character);
+        using character_input_type = void(char_type character);
 
         //! The signal type of character input.
         using character_input_signal_type = boost::signals2::signal<character_input_type>;
