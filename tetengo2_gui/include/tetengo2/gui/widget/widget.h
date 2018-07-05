@@ -13,13 +13,11 @@
 #include <functional>
 #include <memory>
 #include <stdexcept>
-#include <string>
 #include <utility>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/predef.h>
-#include <boost/shared_ptr.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/cursor/cursor_base.h>

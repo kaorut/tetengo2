@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_MESSAGE_KEYBOARDOBSERVERSET_H)
 #define TETENGO2_GUI_MESSAGE_KEYBOARDOBSERVERSET_H
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
 #include <boost/signals2.hpp>
 
@@ -68,6 +70,19 @@ namespace tetengo2::gui::message {
         using character_input_signal_type = boost::signals2::signal<character_input_type>;
 
 
+        // constructors and destructor
+
+        /*!
+            \brief Creates a keyboard observer set.
+        */
+        keyboard_observer_set();
+
+        /*!
+            \brief Destroys the keyboard observer set.
+        */
+        ~keyboard_observer_set();
+
+
         // functions
 
         /*!
@@ -75,70 +90,53 @@ namespace tetengo2::gui::message {
 
             \return The observer called when a key is pushed down.
         */
-        const key_down_signal_type& key_down() const
-        {
-            return m_key_down;
-        }
+        const key_down_signal_type& key_down() const;
 
         /*!
             \brief Returns the observer called when a key is pushed down.
 
             \return The observer called when a key is pushed down.
         */
-        key_down_signal_type& key_down()
-        {
-            return m_key_down;
-        }
+        key_down_signal_type& key_down();
 
         /*!
             \brief Returns the observer called when a key is released up.
 
             \return The observer called when a key is released up.
         */
-        const key_up_signal_type& key_up() const
-        {
-            return m_key_up;
-        }
+        const key_up_signal_type& key_up() const;
 
         /*!
             \brief Returns the observer called when a key is released up.
 
             \return The observer called when a key is released up.
         */
-        key_up_signal_type& key_up()
-        {
-            return m_key_up;
-        }
+        key_up_signal_type& key_up();
 
         /*!
             \brief Returns the observer called when a character is input.
 
             \return The observer called when a character is input.
         */
-        const character_input_signal_type& character_input() const
-        {
-            return m_character_input;
-        }
+        const character_input_signal_type& character_input() const;
 
         /*!
             \brief Returns the observer called when a character is input.
 
             \return The observer called when a character is input.
         */
-        character_input_signal_type& character_input()
-        {
-            return m_character_input;
-        }
+        character_input_signal_type& character_input();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        key_down_signal_type m_key_down;
-
-        key_up_signal_type m_key_up;
-
-        character_input_signal_type m_character_input;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

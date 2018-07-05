@@ -6,6 +6,9 @@
     $Id$
 */
 
+#include <sstream>
+
+#include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/message/keyboard_observer_set.h>
@@ -23,6 +26,13 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
         BOOST_AUTO_TEST_SUITE(message)
             BOOST_AUTO_TEST_SUITE(keyboard_observer_set)
                 // test cases
+
+                BOOST_AUTO_TEST_CASE(construction)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    const keyboard_observer_set_type observer_set{};
+                }
 
                 BOOST_AUTO_TEST_CASE(key_up)
                 {
