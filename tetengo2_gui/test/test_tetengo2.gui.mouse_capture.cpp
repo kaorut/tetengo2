@@ -17,7 +17,6 @@
 #include <tetengo2/gui/menu/menu_bar.h>
 #include <tetengo2/gui/message/mouse_observer_set.h>
 #include <tetengo2/gui/mouse_capture.h>
-#include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/gui/widget/window.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
@@ -31,12 +30,6 @@ namespace {
 
     using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-    using widget_type = tetengo2::gui::widget::widget<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type>;
-
     using menu_details_type = detail_type_list_type::menu_type;
 
     using window_type = tetengo2::gui::widget::window<
@@ -48,8 +41,12 @@ namespace {
 
     using mouse_button_type = tetengo2::gui::message::mouse_observer_set::mouse_button_type;
 
-    using mouse_capture_type =
-        tetengo2::gui::mouse_capture<widget_type, mouse_button_type, detail_type_list_type::mouse_capture_type>;
+    using mouse_capture_type = tetengo2::gui::mouse_capture<
+        common_type_list_type::widget_details_type,
+        common_type_list_type::drawing_details_type,
+        common_type_list_type::scroll_details_type,
+        common_type_list_type::message_handler_details_type,
+        detail_type_list_type::mouse_capture_type>;
 }
 
 

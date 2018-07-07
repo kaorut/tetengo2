@@ -79,7 +79,12 @@ namespace tetengo2::gui::widget {
         using mouse_button_type = typename mouse_observer_set_type::mouse_button_type;
 
         //! The mouse capture type.
-        using mouse_capture_type = gui::mouse_capture<widget_type, mouse_button_type, mouse_capture_details_type>;
+        using mouse_capture_type = gui::mouse_capture<
+            WidgetDetails,
+            DrawingDetails,
+            ScrollDetails,
+            MessageHandlerDetails,
+            mouse_capture_details_type>;
 
         //! The inner item type.
         using inner_item_type = inner_item<custom_control>;

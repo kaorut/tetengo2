@@ -11,29 +11,39 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/gui/message/mouse_observer_set.h>
+#include <tetengo2/gui/widget/widget.h>
+
 
 namespace tetengo2::gui {
     /*!
         \brief The class template for a mouse capture.
 
-        \tparam Widget              A widget type.
-        \tparam MouseButton         A mouse button type.
-        \tparam MouseCaptureDetails A detail implementation type of a mouse_capture.
+        \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam DrawingDetails        A detail implementation type of drawing.
+        \tparam ScrollDetails         A detail implementation type of a scroll.
+        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \tparam MouseCaptureDetails   A detail implementation type of a mouse capture.
     */
-    template <typename Widget, typename MouseButton, typename MouseCaptureDetails>
+    template <
+        typename WidgetDetails,
+        typename DrawingDetails,
+        typename ScrollDetails,
+        typename MessageHandlerDetails,
+        typename MouseCaptureDetails>
     class mouse_capture : private boost::noncopyable
     {
     public:
         // types
 
-        //! The widget type.
-        using widget_type = Widget;
-
-        //! The mouse button type.
-        using mouse_button_type = MouseButton;
-
         //! The mouse capture details type.
         using mouse_capture_details_type = MouseCaptureDetails;
+
+        //! The widget type.
+        using widget_type = widget::widget<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
+
+        //! The mouse button type.
+        using mouse_button_type = message::mouse_observer_set::mouse_button_type;
 
 
         // constructors and destructor
