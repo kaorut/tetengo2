@@ -18,7 +18,6 @@
 #include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_bar.h>
-#include <tetengo2/gui/menu/shortcut_key_table.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/stdalt.h>
@@ -41,9 +40,7 @@ namespace {
 
     using string_type = common_type_list_type::string_type;
 
-    using shortcut_key_table_type = tetengo2::gui::menu::shortcut_key_table<menu_details_type>;
-
-    using menu_bar_type = tetengo2::gui::menu::menu_bar<shortcut_key_table_type, menu_details_type>;
+    using menu_bar_type = tetengo2::gui::menu::menu_bar<menu_details_type>;
 
     using abstract_window_type = tetengo2::gui::widget::abstract_window<
         common_type_list_type::widget_details_type,

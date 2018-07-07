@@ -11,6 +11,7 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/stdalt.h>
 
@@ -19,7 +20,6 @@ namespace tetengo2::gui::common_dialog {
     /*!
         \brief The class template for a color dialog.
 
-        \tparam Color                 A color type.
         \tparam CommonDialogDetails   A detail implementation type of common dialogs.
         \tparam WidgetDetails         A detail implementation type of a widget.
         \tparam DrawingDetails        A detail implementation type of drawing.
@@ -28,7 +28,6 @@ namespace tetengo2::gui::common_dialog {
         \tparam MenuDetails           A detail implementation type of a menu.
     */
     template <
-        typename Color,
         typename CommonDialogDetails,
         typename WidgetDetails,
         typename DrawingDetails,
@@ -41,7 +40,7 @@ namespace tetengo2::gui::common_dialog {
         // types
 
         //! The color type.
-        using color_type = Color;
+        using color_type = gui::drawing::color;
 
         //! The common dialog details type.
         using common_dialog_details_type = CommonDialogDetails;

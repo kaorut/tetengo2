@@ -9,28 +9,29 @@
 #if !defined(TETENGO2_GUI_MESSAGE_KEYBOARDOBSERVERSET_H)
 #define TETENGO2_GUI_MESSAGE_KEYBOARDOBSERVERSET_H
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
 #include <boost/signals2.hpp>
+
+#include <tetengo2/gui/virtual_key.h>
+#include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::message {
     /*!
-        \brief The class template for a keyboard observer set.
-
-        \tparam VirtualKey A virtual key type.
-        \tparam Char       A character type.
+        \brief The class for a keyboard observer set.
     */
-    template <typename VirtualKey, typename Char>
     class keyboard_observer_set : private boost::noncopyable
     {
     public:
         // types
 
         //! The virtual key type.
-        using virtual_key_type = VirtualKey;
+        using virtual_key_type = gui::virtual_key;
 
         //! The character type.
-        using char_type = Char;
+        using char_type = tetengo2::type_list::string_type::value_type;
 
         /*!
             \brief The observer type of key down.
@@ -63,10 +64,23 @@ namespace tetengo2::gui::message {
 
             \param character A character.
         */
-        using character_input_type = void(typename keyboard_observer_set::char_type character);
+        using character_input_type = void(char_type character);
 
         //! The signal type of character input.
         using character_input_signal_type = boost::signals2::signal<character_input_type>;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a keyboard observer set.
+        */
+        keyboard_observer_set();
+
+        /*!
+            \brief Destroys the keyboard observer set.
+        */
+        ~keyboard_observer_set();
 
 
         // functions
@@ -76,70 +90,53 @@ namespace tetengo2::gui::message {
 
             \return The observer called when a key is pushed down.
         */
-        const key_down_signal_type& key_down() const
-        {
-            return m_key_down;
-        }
+        const key_down_signal_type& key_down() const;
 
         /*!
             \brief Returns the observer called when a key is pushed down.
 
             \return The observer called when a key is pushed down.
         */
-        key_down_signal_type& key_down()
-        {
-            return m_key_down;
-        }
+        key_down_signal_type& key_down();
 
         /*!
             \brief Returns the observer called when a key is released up.
 
             \return The observer called when a key is released up.
         */
-        const key_up_signal_type& key_up() const
-        {
-            return m_key_up;
-        }
+        const key_up_signal_type& key_up() const;
 
         /*!
             \brief Returns the observer called when a key is released up.
 
             \return The observer called when a key is released up.
         */
-        key_up_signal_type& key_up()
-        {
-            return m_key_up;
-        }
+        key_up_signal_type& key_up();
 
         /*!
             \brief Returns the observer called when a character is input.
 
             \return The observer called when a character is input.
         */
-        const character_input_signal_type& character_input() const
-        {
-            return m_character_input;
-        }
+        const character_input_signal_type& character_input() const;
 
         /*!
             \brief Returns the observer called when a character is input.
 
             \return The observer called when a character is input.
         */
-        character_input_signal_type& character_input()
-        {
-            return m_character_input;
-        }
+        character_input_signal_type& character_input();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        key_down_signal_type m_key_down;
-
-        key_up_signal_type m_key_up;
-
-        character_input_signal_type m_character_input;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

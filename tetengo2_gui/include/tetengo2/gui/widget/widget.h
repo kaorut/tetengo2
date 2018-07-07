@@ -13,17 +13,16 @@
 #include <functional>
 #include <memory>
 #include <stdexcept>
-#include <string>
 #include <utility>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/predef.h>
-#include <boost/shared_ptr.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/cursor/cursor_base.h>
 #include <tetengo2/gui/cursor/system.h>
+#include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
 #include <tetengo2/gui/drawing/font.h>
@@ -36,7 +35,7 @@
 #include <tetengo2/gui/message/size_observer_set.h>
 #include <tetengo2/gui/scroll_bar.h>
 #include <tetengo2/gui/type_list.h>
-#include <tetengo2/gui/virtual_key.h>
+#include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/type_list.h>
 
 
@@ -130,12 +129,8 @@ namespace tetengo2::gui::widget {
         //! The paint observer set type.
         using paint_observer_set_type = gui::message::paint_observer_set<canvas_type>;
 
-        //! The virtual key type.
-        using virtual_key_type = gui::virtual_key;
-
         //! The keyboard observer set type.
-        using keyboard_observer_set_type =
-            gui::message::keyboard_observer_set<virtual_key_type, typename string_type::value_type>;
+        using keyboard_observer_set_type = gui::message::keyboard_observer_set;
 
         //! The mouse observer set type.
         using mouse_observer_set_type = gui::message::mouse_observer_set;
@@ -289,12 +284,9 @@ namespace tetengo2::gui::widget {
         /*!
             \brief Sets a position.
 
-            \tparam P A position type.
-
             \param position A position.
         */
-        template <typename P>
-        void set_position(const P& position)
+        void set_position(const position_type& position)
         {
             widget_details_type::move(*this, position, dimension());
         }
@@ -312,12 +304,9 @@ namespace tetengo2::gui::widget {
         /*!
             \brief Sets a dimension.
 
-            \tparam D A dimension type.
-
             \param dimension A dimension.
         */
-        template <typename D>
-        void set_dimension(const D& dimension)
+        void set_dimension(const dimension_type& dimension)
         {
             widget_details_type::move(*this, position(), dimension);
         }
@@ -335,14 +324,11 @@ namespace tetengo2::gui::widget {
         /*!
             \brief Sets a client dimension.
 
-            \tparam D A dimension type.
-
             \param client_dimension A client dimension.
 
             \throw std::invalid_argument When either client_dimension.first or client_dimension.second is equal to 0.
         */
-        template <typename D>
-        void set_client_dimension(const D& client_dimension)
+        void set_client_dimension(const dimension_type& client_dimension)
         {
             if (client_dimension.width() == dimension_unit_type{} || client_dimension.height() == dimension_unit_type{})
             {
@@ -355,14 +341,10 @@ namespace tetengo2::gui::widget {
         /*!
             \brief Sets a position and a dimension.
 
-            \tparam P A position type.
-            \tparam D A dimension type.
-
             \param position  A position.
             \param dimension A dimension.
         */
-        template <typename P, typename D>
-        void set_position_and_dimension(const P& position, const D& dimension)
+        void set_position_and_dimension(const position_type& position, const dimension_type& dimension)
         {
             widget_details_type::move(*this, position, dimension);
         }

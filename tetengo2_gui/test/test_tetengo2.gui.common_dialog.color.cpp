@@ -46,7 +46,6 @@ namespace {
     using common_dialog_details_type = detail_type_list_type::common_dialog_type;
 
     using color_dialog_type = tetengo2::gui::common_dialog::color<
-        color_type,
         common_dialog_details_type,
         common_type_list_type::widget_details_type,
         common_type_list_type::drawing_details_type,

@@ -18,6 +18,7 @@ sources = \
     tetengo2.gui.menu.shortcut_key.cpp \
     tetengo2.gui.message.file_drop_observer_set.cpp \
     tetengo2.gui.message.focus_observer_set.cpp \
+    tetengo2.gui.message.keyboard_observer_set.cpp \
     tetengo2.gui.message.list_selection_observer_set.cpp \
     tetengo2.gui.message.menu_observer_set.cpp \
     tetengo2.gui.message.mouse_observer_set.cpp \
