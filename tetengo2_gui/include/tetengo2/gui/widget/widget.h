@@ -22,6 +22,7 @@
 
 #include <tetengo2/gui/cursor/cursor_base.h>
 #include <tetengo2/gui/cursor/system.h>
+#include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
 #include <tetengo2/gui/drawing/font.h>
@@ -34,6 +35,7 @@
 #include <tetengo2/gui/message/size_observer_set.h>
 #include <tetengo2/gui/scroll_bar.h>
 #include <tetengo2/gui/type_list.h>
+#include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/type_list.h>
 
 
@@ -282,12 +284,9 @@ namespace tetengo2::gui::widget {
         /*!
             \brief Sets a position.
 
-            \tparam P A position type.
-
             \param position A position.
         */
-        template <typename P>
-        void set_position(const P& position)
+        void set_position(const position_type& position)
         {
             widget_details_type::move(*this, position, dimension());
         }
@@ -305,12 +304,9 @@ namespace tetengo2::gui::widget {
         /*!
             \brief Sets a dimension.
 
-            \tparam D A dimension type.
-
             \param dimension A dimension.
         */
-        template <typename D>
-        void set_dimension(const D& dimension)
+        void set_dimension(const dimension_type& dimension)
         {
             widget_details_type::move(*this, position(), dimension);
         }
@@ -328,14 +324,11 @@ namespace tetengo2::gui::widget {
         /*!
             \brief Sets a client dimension.
 
-            \tparam D A dimension type.
-
             \param client_dimension A client dimension.
 
             \throw std::invalid_argument When either client_dimension.first or client_dimension.second is equal to 0.
         */
-        template <typename D>
-        void set_client_dimension(const D& client_dimension)
+        void set_client_dimension(const dimension_type& client_dimension)
         {
             if (client_dimension.width() == dimension_unit_type{} || client_dimension.height() == dimension_unit_type{})
             {
@@ -348,14 +341,10 @@ namespace tetengo2::gui::widget {
         /*!
             \brief Sets a position and a dimension.
 
-            \tparam P A position type.
-            \tparam D A dimension type.
-
             \param position  A position.
             \param dimension A dimension.
         */
-        template <typename P, typename D>
-        void set_position_and_dimension(const P& position, const D& dimension)
+        void set_position_and_dimension(const position_type& position, const dimension_type& dimension)
         {
             widget_details_type::move(*this, position, dimension);
         }
