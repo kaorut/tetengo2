@@ -167,8 +167,7 @@ namespace tetengo2::gui::widget {
             detail::stub::scroll,
             detail::stub::message_handler>;
 
-        using button_type =
-            button<detail::stub::widget, detail::stub::drawing, detail::stub::scroll, detail::stub::message_handler>;
+        using button_type = button;
 
         using drawing_details_type = detail::stub::drawing;
 
