@@ -10,7 +10,6 @@
 #include <sstream>
 
 #include <boost/preprocessor.hpp>
-#include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/timer.h>
@@ -32,12 +31,7 @@ namespace {
 
     using menu_details_type = detail_type_list_type::menu_type;
 
-    using window_type = tetengo2::gui::widget::window<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type,
-        menu_details_type>;
+    using window_type = tetengo2::gui::widget::window;
 
     using timer_type = tetengo2::gui::timer<widget_type, detail_type_list_type::timer_type>;
 

@@ -43,12 +43,7 @@ namespace {
 
     using menu_details_type = detail_type_list_type::menu_type;
 
-    using window_type = tetengo2::gui::widget::window<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type,
-        menu_details_type>;
+    using window_type = tetengo2::gui::widget::window;
 
     using mouse_capture_details_type = detail_type_list_type::mouse_capture_type;
 
