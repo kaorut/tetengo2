@@ -29,7 +29,6 @@
 #include <tetengo2/gui/timer.h>
 #include <tetengo2/gui/type_list.h>
 #include <tetengo2/gui/widget/button.h>
-#include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/dialog.h>
 #include <tetengo2/gui/widget/label.h>
 #include <tetengo2/gui/widget/progress_bar.h>

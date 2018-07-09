@@ -21,21 +21,15 @@
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for a control.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \brief The class for a control.
     */
-    template <typename WidgetDetails, typename DrawingDetails, typename ScrollDetails, typename MessageHandlerDetails>
     class control : public widget
     {
     public:
         // types
 
         //! The widget details type.
-        using widget_details_type = WidgetDetails;
+        using widget_details_type = widget::widget_details_type;
 
         //! The details type.
         using details_type = typename widget_details_type::widget_details_type;
@@ -44,7 +38,7 @@ namespace tetengo2::gui::widget {
         using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
 
         //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
+        using message_handler_details_type = widget::message_handler_details_type;
 
         //! The base type.
         using base_type = widget;

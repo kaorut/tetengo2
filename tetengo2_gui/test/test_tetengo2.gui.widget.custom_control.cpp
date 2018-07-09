@@ -16,7 +16,6 @@
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/position.h>
 #include <tetengo2/gui/unit/em.h>
-#include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/custom_control.h>
 #include <tetengo2/gui/widget/window.h>
 

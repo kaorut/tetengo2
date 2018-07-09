@@ -15,7 +15,6 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/drawing/solid_background.h>
-#include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/picture_box.h>
 #include <tetengo2/gui/widget/window.h>
 

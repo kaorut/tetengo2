@@ -20,7 +20,6 @@
 #include <tetengo2/concurrent/progressive_future.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/widget/abstract_window.h>
-#include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/progress_dialog.h>
 #include <tetengo2/gui/widget/window.h>
 #include <tetengo2/text.h>

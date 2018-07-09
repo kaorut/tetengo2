@@ -15,7 +15,6 @@
 
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/canvas.h>
-#include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/label.h>
 #include <tetengo2/gui/widget/window.h>
 #include <tetengo2/text.h>

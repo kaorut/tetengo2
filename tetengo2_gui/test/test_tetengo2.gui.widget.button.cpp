@@ -13,7 +13,6 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/widget/button.h>
-#include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/window.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"

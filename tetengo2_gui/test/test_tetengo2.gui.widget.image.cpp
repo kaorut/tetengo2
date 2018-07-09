@@ -20,7 +20,6 @@
 #include <tetengo2/gui/drawing/picture_reader.h>
 #include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/unit/em.h>
-#include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/image.h>
 #include <tetengo2/gui/widget/window.h>
 #include <tetengo2/stdalt.h>

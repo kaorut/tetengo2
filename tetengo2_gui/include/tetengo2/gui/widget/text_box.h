@@ -13,6 +13,7 @@
 
 #include <tetengo2/gui/message/text_box_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
+#include <tetengo2/gui/widget/widget.h>
 
 
 namespace tetengo2::gui::widget {
@@ -25,7 +26,7 @@ namespace tetengo2::gui::widget {
         \tparam MessageHandlerDetails A detail implementation type of a message handler.
     */
     template <typename WidgetDetails, typename DrawingDetails, typename ScrollDetails, typename MessageHandlerDetails>
-    class text_box : public control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
+    class text_box : public control
     {
     public:
         // types
@@ -37,7 +38,7 @@ namespace tetengo2::gui::widget {
         using message_handler_details_type = MessageHandlerDetails;
 
         //! The base type.
-        using base_type = control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
+        using base_type = control;
 
         //! The widget type.
         using widget_type = typename base_type::base_type;

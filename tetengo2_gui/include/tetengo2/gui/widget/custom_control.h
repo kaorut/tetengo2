@@ -17,6 +17,7 @@
 
 #include <tetengo2/gui/mouse_capture.h>
 #include <tetengo2/gui/widget/control.h>
+#include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/stdalt.h>
 
 
@@ -40,7 +41,7 @@ namespace tetengo2::gui::widget {
         typename ScrollDetails,
         typename MessageHandlerDetails,
         typename MouseCaptureDetails>
-    class custom_control : public control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
+    class custom_control : public control
     {
     public:
         // types
@@ -55,7 +56,7 @@ namespace tetengo2::gui::widget {
         using mouse_capture_details_type = MouseCaptureDetails;
 
         //! The base type.
-        using base_type = control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
+        using base_type = control;
 
         //! The widget type.
         using widget_type = typename base_type::base_type;
