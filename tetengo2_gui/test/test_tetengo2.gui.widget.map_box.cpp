@@ -6,25 +6,15 @@
     $Id$
 */
 
-#include <memory>
 #include <sstream>
 #include <stdexcept>
 #include <string>
 #include <utility>
 
-#include <boost/operators.hpp>
 #include <boost/preprocessor.hpp>
-#include <boost/shared_ptr.hpp>
-#include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/gui/dimension.h>
-#include <tetengo2/gui/drawing/solid_background.h>
-#include <tetengo2/gui/menu/abstract_popup.h>
-#include <tetengo2/gui/menu/menu_bar.h>
-#include <tetengo2/gui/unit/pixel.h>
 #include <tetengo2/gui/unit/unit.h>
-#include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/map_box.h>
 #include <tetengo2/gui/widget/window.h>
 #include <tetengo2/stdalt.h>
@@ -47,12 +37,7 @@ namespace {
 
     using mouse_capture_details_type = detail_type_list_type::mouse_capture_type;
 
-    using map_box_type = tetengo2::gui::widget::map_box<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type,
-        mouse_capture_details_type>;
+    using map_box_type = tetengo2::gui::widget::map_box;
 
     using value_type = map_box_type::value_type;
 

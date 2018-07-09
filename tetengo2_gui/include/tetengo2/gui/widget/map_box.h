@@ -31,36 +31,24 @@
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for a map box.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam MouseCaptureDetails   A detail implementation type of a mouse capture.
+        \brief The class for a map box.
     */
-    template <
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename MouseCaptureDetails>
     class map_box : public custom_control
     {
     public:
         // types
 
         //! The drawing details type.
-        using drawing_details_type = DrawingDetails;
+        using drawing_details_type = custom_control::drawing_details_type;
 
         //! The mouse capture details type.
-        using mouse_capture_details_type = MouseCaptureDetails;
+        using mouse_capture_details_type = custom_control::mouse_capture_details_type;
 
         //! The base type.
         using base_type = custom_control;
 
         //! The widget type.
-        using widget_type = typename base_type::base_type::base_type;
+        using widget_type = widget;
 
         //! The cursor type.
         using cursor_type = typename base_type::cursor_type;

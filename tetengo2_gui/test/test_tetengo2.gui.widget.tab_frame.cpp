@@ -11,7 +11,6 @@
 #include <stdexcept>
 #include <string>
 
-#include <boost/operators.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>

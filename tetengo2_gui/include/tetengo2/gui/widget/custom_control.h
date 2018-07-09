@@ -52,7 +52,7 @@ namespace tetengo2::gui::widget {
         using base_type = control;
 
         //! The widget type.
-        using widget_type = typename base_type::base_type;
+        using widget_type = widget;
 
         //! The canvas type.
         using canvas_type = typename base_type::canvas_type;
