@@ -15,6 +15,11 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/predef.h>
 
+#include <tetengo2/detail/stub/drawing.h>
+#include <tetengo2/detail/stub/message_handler.h>
+#include <tetengo2/detail/stub/mouse_capture.h>
+#include <tetengo2/detail/stub/scroll.h>
+#include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/gui/mouse_capture.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/widget.h>
@@ -27,33 +32,21 @@ namespace tetengo2::gui::widget {
 
 
     /*!
-        \brief The class template for a custom control.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam MouseCaptureDetails   A detail implementation type of a mouse capture.
+        \brief The class for a custom control.
     */
-    template <
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename MouseCaptureDetails>
     class custom_control : public control
     {
     public:
         // types
 
         //! The widget details type.
-        using widget_details_type = WidgetDetails;
+        using widget_details_type = control::widget_details_type;
 
         //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
+        using message_handler_details_type = control::message_handler_details_type;
 
         //! The mouse capture details type.
-        using mouse_capture_details_type = MouseCaptureDetails;
+        using mouse_capture_details_type = detail::stub::mouse_capture;
 
         //! The base type.
         using base_type = control;
@@ -81,10 +74,10 @@ namespace tetengo2::gui::widget {
 
         //! The mouse capture type.
         using mouse_capture_type = gui::mouse_capture<
-            WidgetDetails,
-            DrawingDetails,
-            ScrollDetails,
-            MessageHandlerDetails,
+            detail::stub::widget,
+            detail::stub::drawing,
+            detail::stub::scroll,
+            detail::stub::message_handler,
             mouse_capture_details_type>;
 
         //! The inner item type.

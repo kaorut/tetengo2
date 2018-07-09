@@ -45,8 +45,7 @@ namespace tetengo2::gui::widget {
         typename ScrollDetails,
         typename MessageHandlerDetails,
         typename MouseCaptureDetails>
-    class map_box
-    : public custom_control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, MouseCaptureDetails>
+    class map_box : public custom_control
     {
     public:
         // types
@@ -58,8 +57,7 @@ namespace tetengo2::gui::widget {
         using mouse_capture_details_type = MouseCaptureDetails;
 
         //! The base type.
-        using base_type =
-            custom_control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, MouseCaptureDetails>;
+        using base_type = custom_control;
 
         //! The widget type.
         using widget_type = typename base_type::base_type::base_type;

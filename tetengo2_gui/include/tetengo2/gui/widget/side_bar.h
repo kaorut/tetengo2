@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_WIDGET_SIDEBAR_H)
 #define TETENGO2_GUI_WIDGET_SIDEBAR_H
 
+#include <algorithm>
 #include <cassert>
 #include <chrono>
 #include <cmath>
@@ -17,10 +18,16 @@
 #include <vector>
 
 #include <boost/math/constants/constants.hpp>
+#include <boost/operators.hpp>
 
+#include <tetengo2/gui/drawing/background.h>
+#include <tetengo2/gui/drawing/canvas.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
+#include <tetengo2/gui/position.h>
 #include <tetengo2/gui/timer.h>
+#include <tetengo2/gui/unit/em.h>
+#include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/gui/widget/custom_control.h>
 #include <tetengo2/stdalt.h>
 
@@ -43,8 +50,7 @@ namespace tetengo2::gui::widget {
         typename MessageHandlerDetails,
         typename MouseCaptureDetails,
         typename TimerDetails>
-    class side_bar
-    : public custom_control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, MouseCaptureDetails>
+    class side_bar : public custom_control
     {
     public:
         // types
@@ -59,8 +65,7 @@ namespace tetengo2::gui::widget {
         using timer_details_type = TimerDetails;
 
         //! The base type.
-        using base_type =
-            custom_control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, MouseCaptureDetails>;
+        using base_type = custom_control;
 
         //! The widget type.
         using widget_type = typename base_type::base_type::base_type;

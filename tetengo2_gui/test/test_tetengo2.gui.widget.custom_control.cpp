@@ -10,7 +10,6 @@
 #include <sstream>
 
 #include <boost/preprocessor.hpp>
-#include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/dimension.h>
@@ -36,12 +35,7 @@ namespace {
 
     using mouse_capture_details_type = detail_type_list_type::mouse_capture_type;
 
-    using custom_control_type = tetengo2::gui::widget::custom_control<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type,
-        mouse_capture_details_type>;
+    using custom_control_type = tetengo2::gui::widget::custom_control;
 
     using mouse_button_type = custom_control_type::mouse_button_type;
 
