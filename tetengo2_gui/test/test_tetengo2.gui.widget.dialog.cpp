@@ -40,13 +40,7 @@ namespace {
 
     using message_loop_details_type = detail_type_list_type::message_loop_type;
 
-    using dialog_type = tetengo2::gui::widget::dialog<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type,
-        menu_details_type,
-        message_loop_details_type>;
+    using dialog_type = tetengo2::gui::widget::dialog;
 
     class concrete_dialog : public dialog_type
     {

@@ -13,6 +13,7 @@
 
 #include <boost/predef.h>
 
+#include <tetengo2/detail/stub/message_loop.h>
 #include <tetengo2/gui/message/dialog_message_loop.h>
 #include <tetengo2/gui/message/message_loop_break.h>
 #include <tetengo2/gui/widget/abstract_window.h>
@@ -21,29 +22,15 @@
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for a modal dialog.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam MenuDetails           A detail implementation type of a menu.
-        \tparam MessageLoopDetails    A detail implementation type of a message loop.
+        \brief The class for a modal dialog.
     */
-    template <
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename MenuDetails,
-        typename MessageLoopDetails>
     class dialog : public abstract_window
     {
     public:
         // types
 
         //! The widget details type.
-        using widget_details_type = WidgetDetails;
+        using widget_details_type = abstract_window::widget_details_type;
 
         //! The details type.
         using details_type = typename widget_details_type::widget_details_type;
@@ -52,13 +39,13 @@ namespace tetengo2::gui::widget {
         using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
 
         //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
+        using message_handler_details_type = abstract_window::message_handler_details_type;
 
         //! The menu details type.
-        using menu_details_type = MenuDetails;
+        using menu_details_type = abstract_window::menu_details_type;
 
         //! The message loop details type.
-        using message_loop_details_type = MessageLoopDetails;
+        using message_loop_details_type = detail::stub::message_loop;
 
         //! The base type.
         using base_type = abstract_window;

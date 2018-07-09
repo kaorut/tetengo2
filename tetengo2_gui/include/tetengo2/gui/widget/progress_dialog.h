@@ -57,13 +57,7 @@ namespace tetengo2::gui::widget {
         typename MenuDetails,
         typename MessageLoopDetails,
         typename TimerDetails>
-    class progress_dialog : public dialog<
-                                WidgetDetails,
-                                DrawingDetails,
-                                ScrollDetails,
-                                MessageHandlerDetails,
-                                MenuDetails,
-                                MessageLoopDetails>
+    class progress_dialog : public dialog
     {
     public:
         // types
@@ -87,13 +81,7 @@ namespace tetengo2::gui::widget {
         using timer_details_type = TimerDetails;
 
         //! The base type.
-        using base_type = dialog<
-            WidgetDetails,
-            DrawingDetails,
-            ScrollDetails,
-            MessageHandlerDetails,
-            MenuDetails,
-            MessageLoopDetails>;
+        using base_type = dialog;
 
         //! The abstract window type.
         using abstract_window_type = typename base_type::base_type;
