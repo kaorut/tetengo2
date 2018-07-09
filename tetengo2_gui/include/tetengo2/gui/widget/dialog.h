@@ -16,6 +16,7 @@
 #include <tetengo2/gui/message/dialog_message_loop.h>
 #include <tetengo2/gui/message/message_loop_break.h>
 #include <tetengo2/gui/widget/abstract_window.h>
+#include <tetengo2/gui/widget/widget.h>
 
 
 namespace tetengo2::gui::widget {
@@ -36,8 +37,7 @@ namespace tetengo2::gui::widget {
         typename MessageHandlerDetails,
         typename MenuDetails,
         typename MessageLoopDetails>
-    class dialog
-    : public abstract_window<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, MenuDetails>
+    class dialog : public abstract_window
     {
     public:
         // types
@@ -61,8 +61,7 @@ namespace tetengo2::gui::widget {
         using message_loop_details_type = MessageLoopDetails;
 
         //! The base type.
-        using base_type =
-            abstract_window<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, MenuDetails>;
+        using base_type = abstract_window;
 
         //! The position type.
         using position_type = typename base_type::position_type;

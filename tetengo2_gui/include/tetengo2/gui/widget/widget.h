@@ -18,6 +18,8 @@
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/predef.h>
+#include <boost/shared_ptr.hpp>
+#include <boost/signals2.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/detail/stub/drawing.h>
@@ -30,6 +32,7 @@
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
 #include <tetengo2/gui/drawing/font.h>
+#include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/widget_canvas.h>
 #include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/message/focus_observer_set.h>

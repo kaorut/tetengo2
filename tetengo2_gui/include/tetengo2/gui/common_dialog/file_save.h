@@ -58,8 +58,7 @@ namespace tetengo2::gui::common_dialog {
         using menu_details_type = MenuDetails;
 
         //! The abstract window type.
-        using abstract_window_type = gui::widget::
-            abstract_window<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, menu_details_type>;
+        using abstract_window_type = gui::widget::abstract_window;
 
         //! The file filter type.
         using file_filter_type = std::pair<string_type, string_type>;

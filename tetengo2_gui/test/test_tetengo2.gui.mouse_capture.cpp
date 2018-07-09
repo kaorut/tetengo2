@@ -9,12 +9,9 @@
 #include <sstream>
 
 #include <boost/preprocessor.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/gui/menu/abstract_popup.h>
-#include <tetengo2/gui/menu/menu_bar.h>
 #include <tetengo2/gui/message/mouse_observer_set.h>
 #include <tetengo2/gui/mouse_capture.h>
 #include <tetengo2/gui/widget/window.h>

@@ -56,8 +56,7 @@ namespace tetengo2::gui::common_dialog {
         using menu_details_type = MenuDetails;
 
         //! The abstract window type.
-        using abstract_window_type = gui::widget::
-            abstract_window<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, menu_details_type>;
+        using abstract_window_type = gui::widget::abstract_window;
 
 
         // constructors and destructor

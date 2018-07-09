@@ -12,7 +12,6 @@
 #include <utility>
 
 #include <boost/preprocessor.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -20,8 +19,6 @@
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/drawing/picture_reader.h>
 #include <tetengo2/gui/icon.h>
-#include <tetengo2/gui/menu/abstract_popup.h>
-#include <tetengo2/gui/menu/menu_bar.h>
 #include <tetengo2/gui/unit/em.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/image.h>

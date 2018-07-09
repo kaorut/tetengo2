@@ -14,6 +14,7 @@
 #include <boost/predef.h>
 
 #include <tetengo2/gui/widget/abstract_window.h>
+#include <tetengo2/gui/widget/widget.h>
 
 
 namespace tetengo2::gui::widget {
@@ -32,8 +33,7 @@ namespace tetengo2::gui::widget {
         typename ScrollDetails,
         typename MessageHandlerDetails,
         typename MenuDetails>
-    class window
-    : public abstract_window<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, MenuDetails>
+    class window : public abstract_window
     {
     public:
         // types
@@ -54,8 +54,7 @@ namespace tetengo2::gui::widget {
         using menu_details_type = MenuDetails;
 
         //! The base type.
-        using base_type =
-            abstract_window<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, MenuDetails>;
+        using base_type = abstract_window;
 
         //! The scroll bar style type.
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;

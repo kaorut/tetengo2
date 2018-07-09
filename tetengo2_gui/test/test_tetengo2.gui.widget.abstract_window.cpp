@@ -12,7 +12,6 @@
 #include <utility>
 
 #include <boost/preprocessor.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/icon.h>
@@ -42,12 +41,7 @@ namespace {
 
     using menu_bar_type = tetengo2::gui::menu::menu_bar<menu_details_type>;
 
-    using abstract_window_type = tetengo2::gui::widget::abstract_window<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type,
-        menu_details_type>;
+    using abstract_window_type = tetengo2::gui::widget::abstract_window;
 
     class concrete_window : public abstract_window_type
     {
