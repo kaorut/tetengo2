@@ -21,7 +21,6 @@
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/gui/widget/control.h>
-#include <tetengo2/gui/widget/dialog.h>
 #include <tetengo2/gui/widget/progress_dialog.h>
 #include <tetengo2/gui/widget/window.h>
 #include <tetengo2/text.h>
@@ -56,16 +55,7 @@ namespace {
 
     using message_catalog_type = common_type_list_type::message_catalog_type;
 
-    using dialog_type = tetengo2::gui::widget::progress_dialog<
-        int,
-        message_catalog_type,
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type,
-        menu_details_type,
-        message_loop_details_type,
-        timer_details_type>;
+    using dialog_type = tetengo2::gui::widget::progress_dialog<int, message_catalog_type, timer_details_type>;
 
     using promise_type = dialog_type::promise_type;
 

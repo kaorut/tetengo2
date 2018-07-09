@@ -21,16 +21,25 @@
 
 #include <tetengo2/concurrent/progressive_future.h>
 #include <tetengo2/concurrent/progressive_promise.h>
+#include <tetengo2/detail/stub/drawing.h>
+#include <tetengo2/detail/stub/message_handler.h>
+#include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/timer.h>
 #include <tetengo2/gui/type_list.h>
 #include <tetengo2/gui/widget/button.h>
+#include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/dialog.h>
 #include <tetengo2/gui/widget/label.h>
 #include <tetengo2/gui/widget/progress_bar.h>
+#include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/text.h>
 #include <tetengo2/type_list.h>
+
+namespace tetengo2 { namespace detail { namespace stub {
+    class scroll;
+}}}
 
 
 namespace tetengo2::gui::widget {
@@ -39,24 +48,9 @@ namespace tetengo2::gui::widget {
 
         \tparam TaskResult            A task result type.
         \tparam MessageCatalog        A message catalog type.
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam MenuDetails           A detail implementation type of a menu.
-        \tparam MessageLoopDetails    A detail implementation type of a message loop.
         \tparam TimerDetails          A detail implementation type of a timer.
     */
-    template <
-        typename TaskResult,
-        typename MessageCatalog,
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename MenuDetails,
-        typename MessageLoopDetails,
-        typename TimerDetails>
+    template <typename TaskResult, typename MessageCatalog, typename TimerDetails>
     class progress_dialog : public dialog
     {
     public:
@@ -72,10 +66,10 @@ namespace tetengo2::gui::widget {
         using message_catalog_type = MessageCatalog;
 
         //! The menu details type.
-        using menu_details_type = MenuDetails;
+        using menu_details_type = dialog::menu_details_type;
 
         //! The message loop details type.
-        using message_loop_details_type = MessageLoopDetails;
+        using message_loop_details_type = dialog::message_loop_details_type;
 
         //! The timer details type.
         using timer_details_type = TimerDetails;
@@ -165,13 +159,19 @@ namespace tetengo2::gui::widget {
 
         using widget_type = typename abstract_window_type::base_type;
 
-        using label_type = label<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
+        using label_type =
+            label<detail::stub::widget, detail::stub::drawing, detail::stub::scroll, detail::stub::message_handler>;
 
-        using progress_bar_type = progress_bar<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
+        using progress_bar_type = progress_bar<
+            detail::stub::widget,
+            detail::stub::drawing,
+            detail::stub::scroll,
+            detail::stub::message_handler>;
 
-        using button_type = button<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
+        using button_type =
+            button<detail::stub::widget, detail::stub::drawing, detail::stub::scroll, detail::stub::message_handler>;
 
-        using drawing_details_type = DrawingDetails;
+        using drawing_details_type = detail::stub::drawing;
 
         using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
 
