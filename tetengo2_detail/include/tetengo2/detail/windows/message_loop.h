@@ -149,7 +149,7 @@ namespace tetengo2::detail::windows {
         {
             if (!window.has_menu_bar())
                 return false;
-            if (!window.menu_bar().shortcut_key_table().details().get())
+            if (!window.menu_bar().get_shortcut_key_table().details().get())
                 return false;
 
             return true;
@@ -158,7 +158,7 @@ namespace tetengo2::detail::windows {
         template <typename AbstractWindow>
         static ::HACCEL accelerator_table_handle(AbstractWindow& window)
         {
-            return window.menu_bar().shortcut_key_table().details().get();
+            return window.menu_bar().get_shortcut_key_table().details().get();
         }
 
 

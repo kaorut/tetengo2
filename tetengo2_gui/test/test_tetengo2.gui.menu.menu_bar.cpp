@@ -56,13 +56,13 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_CHECK(&menu_bar.style() == &menu_details_type::menu_bar_style<menu_base_type>());
                 }
 
-                BOOST_AUTO_TEST_CASE(shortcut_key_table)
+                BOOST_AUTO_TEST_CASE(get_shortcut_key_table)
                 {
                     BOOST_TEST_PASSPOINT();
 
                     const menu_bar_type menu_bar;
 
-                    menu_bar.shortcut_key_table();
+                    menu_bar.get_shortcut_key_table();
                 }
 
                 BOOST_AUTO_TEST_CASE(update_shortcut_key_table)

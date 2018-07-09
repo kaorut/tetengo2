@@ -66,7 +66,7 @@ namespace tetengo2::gui::menu {
 
             \return The shortcut key table.
         */
-        const shortcut_key_table_type& shortcut_key_table() const
+        const shortcut_key_table_type& get_shortcut_key_table() const
         {
             assert(m_p_shortcut_key_table);
             return *m_p_shortcut_key_table;
