@@ -20,6 +20,10 @@
 #include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/detail/stub/drawing.h>
+#include <tetengo2/detail/stub/message_handler.h>
+#include <tetengo2/detail/stub/scroll.h>
+#include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/gui/cursor/cursor_base.h>
 #include <tetengo2/gui/cursor/system.h>
 #include <tetengo2/gui/dimension.h>
@@ -41,14 +45,8 @@
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The base class template for a GUI widget.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \brief The base class for a GUI widget.
     */
-    template <typename WidgetDetails, typename DrawingDetails, typename ScrollDetails, typename MessageHandlerDetails>
     class widget : private boost::noncopyable
     {
     public:
@@ -64,7 +62,7 @@ namespace tetengo2::gui::widget {
         using dimension_type = tetengo2::gui::type_list::dimension_type;
 
         //! The widget details type.
-        using widget_details_type = WidgetDetails;
+        using widget_details_type = detail::stub::widget;
 
         //! The details type.
         using details_type = typename widget_details_type::widget_details_type;
@@ -73,10 +71,10 @@ namespace tetengo2::gui::widget {
         using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
 
         //! The drawing details type.
-        using drawing_details_type = DrawingDetails;
+        using drawing_details_type = detail::stub::drawing;
 
         //! The scroll details type.
-        using scroll_details_type = ScrollDetails;
+        using scroll_details_type = detail::stub::scroll;
 
         //! The canvas type.
         using canvas_type = gui::drawing::canvas<drawing_details_type>;
@@ -100,7 +98,7 @@ namespace tetengo2::gui::widget {
         using scroll_bar_type = gui::scroll_bar<scroll_details_type>;
 
         //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
+        using message_handler_details_type = detail::stub::message_handler;
 
         //! The scroll bar style type.
         enum class scroll_bar_style_type

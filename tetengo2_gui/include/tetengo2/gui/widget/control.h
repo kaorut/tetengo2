@@ -29,7 +29,7 @@ namespace tetengo2::gui::widget {
         \tparam MessageHandlerDetails A detail implementation type of a message handler.
     */
     template <typename WidgetDetails, typename DrawingDetails, typename ScrollDetails, typename MessageHandlerDetails>
-    class control : public widget<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
+    class control : public widget
     {
     public:
         // types
@@ -47,7 +47,7 @@ namespace tetengo2::gui::widget {
         using message_handler_details_type = MessageHandlerDetails;
 
         //! The base type.
-        using base_type = widget<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
+        using base_type = widget;
 
         //! The scroll bar style type.
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;

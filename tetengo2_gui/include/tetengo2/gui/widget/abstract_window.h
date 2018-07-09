@@ -39,7 +39,7 @@ namespace tetengo2::gui::widget {
         typename ScrollDetails,
         typename MessageHandlerDetails,
         typename MenuDetails>
-    class abstract_window : public widget<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
+    class abstract_window : public widget
     {
     public:
         // types
@@ -54,7 +54,7 @@ namespace tetengo2::gui::widget {
         using menu_details_type = MenuDetails;
 
         //! The base type.
-        using base_type = widget<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
+        using base_type = widget;
 
         //! The dimension type.
         using dimension_type = typename base_type::dimension_type;

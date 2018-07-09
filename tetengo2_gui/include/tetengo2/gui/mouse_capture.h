@@ -40,7 +40,7 @@ namespace tetengo2::gui {
         using mouse_capture_details_type = MouseCaptureDetails;
 
         //! The widget type.
-        using widget_type = widget::widget<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
+        using widget_type = widget::widget;
 
         //! The mouse button type.
         using mouse_button_type = message::mouse_observer_set::mouse_button_type;
