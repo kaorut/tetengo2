@@ -12,7 +12,6 @@
 #include <utility>
 
 #include <boost/preprocessor.hpp>
-#include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/dimension.h>
@@ -52,11 +51,7 @@ namespace {
 
     using icon_type = tetengo2::gui::icon;
 
-    using image_type = tetengo2::gui::widget::image<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type>;
+    using image_type = tetengo2::gui::widget::image;
 
     using path_type = tetengo2::stdalt::filesystem::path;
 
