@@ -22,8 +22,6 @@
 #include <tetengo2/concurrent/progressive_future.h>
 #include <tetengo2/concurrent/progressive_promise.h>
 #include <tetengo2/detail/stub/drawing.h>
-#include <tetengo2/detail/stub/message_handler.h>
-#include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/timer.h>
@@ -35,10 +33,6 @@
 #include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/text.h>
 #include <tetengo2/type_list.h>
-
-namespace tetengo2 { namespace detail { namespace stub {
-    class scroll;
-}}}
 
 
 namespace tetengo2::gui::widget {
@@ -160,11 +154,7 @@ namespace tetengo2::gui::widget {
 
         using label_type = label;
 
-        using progress_bar_type = progress_bar<
-            detail::stub::widget,
-            detail::stub::drawing,
-            detail::stub::scroll,
-            detail::stub::message_handler>;
+        using progress_bar_type = progress_bar;
 
         using button_type = button;
 
