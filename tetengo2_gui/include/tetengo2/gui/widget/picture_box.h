@@ -24,28 +24,19 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a picture box.
 
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam FastDrawingDetails    A detail implementation type of fast drawing.
+        \tparam FastDrawingDetails A detail implementation type of fast drawing.
     */
-    template <
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename FastDrawingDetails>
+    template <typename FastDrawingDetails>
     class picture_box : public control
     {
     public:
         // types
 
         //! The widget details type.
-        using widget_details_type = WidgetDetails;
+        using widget_details_type = control::widget_details_type;
 
         //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
+        using message_handler_details_type = control::message_handler_details_type;
 
         //! The fast drawing details type.
         using fast_drawing_details_type = FastDrawingDetails;
@@ -54,7 +45,7 @@ namespace tetengo2::gui::widget {
         using base_type = control;
 
         //! The widget type.
-        using widget_type = typename base_type::base_type;
+        using widget_type = widget;
 
         //! The scroll bar style type.
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;

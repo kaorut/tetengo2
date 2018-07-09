@@ -35,12 +35,7 @@ namespace {
 
     using fast_drawing_details_type = detail_type_list_type::drawing_type;
 
-    using picture_box_type = tetengo2::gui::widget::picture_box<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type,
-        fast_drawing_details_type>;
+    using picture_box_type = tetengo2::gui::widget::picture_box<fast_drawing_details_type>;
 }
 
 
