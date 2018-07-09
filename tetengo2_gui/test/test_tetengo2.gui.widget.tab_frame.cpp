@@ -11,7 +11,6 @@
 #include <string>
 
 #include <boost/preprocessor.hpp>
-#include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/widget/label.h>
@@ -42,11 +41,7 @@ namespace {
 
     using string_type = tab_frame_type::string_type;
 
-    using label_type = tetengo2::gui::widget::label<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type>;
+    using label_type = tetengo2::gui::widget::label;
 }
 
 

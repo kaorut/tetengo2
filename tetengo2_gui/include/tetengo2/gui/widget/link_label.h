@@ -9,12 +9,14 @@
 #if !defined(TETENGO2_GUI_WIDGET_LINKLABEL_H)
 #define TETENGO2_GUI_WIDGET_LINKLABEL_H
 
+#include <algorithm>
 #include <cassert>
 #include <memory>
 
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/shell.h>
+#include <tetengo2/gui/virtual_key.h>
 #include <tetengo2/gui/widget/label.h>
 
 
@@ -28,7 +30,7 @@ namespace tetengo2::gui::widget {
         \tparam MessageHandlerDetails A detail implementation type of a message handler.
     */
     template <typename WidgetDetails, typename DrawingDetails, typename ScrollDetails, typename MessageHandlerDetails>
-    class link_label : public label<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
+    class link_label : public label
     {
     public:
         // types
@@ -37,7 +39,7 @@ namespace tetengo2::gui::widget {
         using drawing_details_type = DrawingDetails;
 
         //! The base type.
-        using base_type = label<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
+        using base_type = label;
 
         //! The widget type.
         using widget_type = typename base_type::base_type::base_type;

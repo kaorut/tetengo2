@@ -10,7 +10,6 @@
 #include <sstream>
 
 #include <boost/preprocessor.hpp>
-#include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/dimension.h>
@@ -40,11 +39,7 @@ namespace {
 
     using dimension_unit_type = dimension_type::unit_type;
 
-    using label_type = tetengo2::gui::widget::label<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type>;
+    using label_type = tetengo2::gui::widget::label;
 }
 
 

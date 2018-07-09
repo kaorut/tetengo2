@@ -158,8 +158,7 @@ namespace tetengo2::gui::widget {
 
         using widget_type = typename abstract_window_type::base_type;
 
-        using label_type =
-            label<detail::stub::widget, detail::stub::drawing, detail::stub::scroll, detail::stub::message_handler>;
+        using label_type = label;
 
         using progress_bar_type = progress_bar<
             detail::stub::widget,
