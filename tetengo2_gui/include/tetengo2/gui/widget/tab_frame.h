@@ -19,15 +19,22 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/math/constants/constants.hpp>
 #include <boost/operators.hpp>
+#include <boost/signals2.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
 #include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
+#include <tetengo2/gui/message/mouse_observer_set.h>
+#include <tetengo2/gui/message/size_observer_set.h>
 #include <tetengo2/gui/position.h>
+#include <tetengo2/gui/type_list.h>
 #include <tetengo2/gui/unit/em.h>
+#include <tetengo2/gui/unit/unit.h>
+#include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/custom_control.h>
 #include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/type_list.h>
@@ -35,33 +42,21 @@
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for a tab frame.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam MouseCaptureDetails   A detail implementation type of a mouse capture.
+        \brief The class for a tab frame.
     */
-    template <
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename MouseCaptureDetails>
     class tab_frame : public custom_control
     {
     public:
         // types
 
         //! The mouse capture details type.
-        using mouse_capture_details_type = MouseCaptureDetails;
+        using mouse_capture_details_type = custom_control::mouse_capture_details_type;
 
         //! The base type.
         using base_type = custom_control;
 
         //! The widget type.
-        using widget_type = typename base_type::base_type::base_type;
+        using widget_type = widget;
 
         //! The canvas type.
         using canvas_type = typename base_type::canvas_type;
@@ -157,9 +152,9 @@ namespace tetengo2::gui::widget {
         private:
             // types
 
-            using position_unit_type = typename tab_frame::position_unit_type;
+            using position_unit_type = gui::type_list::position_unit_type;
 
-            using dimension_unit_type = typename tab_frame::dimension_unit_type;
+            using dimension_unit_type = gui::type_list::dimension_unit_type;
 
             using font_type = typename canvas_type::font_type;
 
@@ -348,9 +343,9 @@ namespace tetengo2::gui::widget {
         private:
             // types
 
-            using position_unit_type = typename tab_frame::position_unit_type;
+            using position_unit_type = gui::type_list::position_unit_type;
 
-            using dimension_unit_type = typename tab_frame::dimension_unit_type;
+            using dimension_unit_type = gui::type_list::dimension_unit_type;
 
 
             // variables
@@ -641,7 +636,7 @@ namespace tetengo2::gui::widget {
     private:
         // types
 
-        using drawing_details_type = DrawingDetails;
+        using drawing_details_type = custom_control::drawing_details_type;
 
         using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
 

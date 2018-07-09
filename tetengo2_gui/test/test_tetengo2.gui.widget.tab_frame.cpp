@@ -6,7 +6,6 @@
     $Id$
 */
 
-#include <memory>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -15,8 +14,6 @@
 #include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/gui/drawing/solid_background.h>
-#include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/gui/widget/label.h>
 #include <tetengo2/gui/widget/tab_frame.h>
 #include <tetengo2/gui/widget/window.h>
@@ -39,12 +36,7 @@ namespace {
 
     using mouse_capture_details_type = detail_type_list_type::mouse_capture_type;
 
-    using tab_frame_type = tetengo2::gui::widget::tab_frame<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type,
-        mouse_capture_details_type>;
+    using tab_frame_type = tetengo2::gui::widget::tab_frame;
 
     using tab_type = tab_frame_type::tab_type;
 

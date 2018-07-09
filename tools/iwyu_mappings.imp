@@ -5,6 +5,7 @@
   { include: ["<experimental/bits/fs_ops.h>", "private", "<tetengo2/stdalt.h>", "public"] },
   { include: ["<experimental/filesystem>",    "private", "<tetengo2/stdalt.h>", "public"] },
   { include: ["<experimental/optional>",      "private", "<tetengo2/stdalt.h>", "public"] },
+  { include: ["<ext/alloc_traits.h>",         "private", "<memory>",            "public"] },
 
   { include: ["@<boost/algorithm/string/.+>",                         "private", "<boost/algorithm/string.hpp>",                  "public"] },
   { include: ["<boost/detail/basic_pointerbuf.hpp>",                  "private", "<boost/lexical_cast.hpp>",                      "public"] },
