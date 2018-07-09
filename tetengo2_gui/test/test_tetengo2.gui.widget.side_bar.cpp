@@ -44,13 +44,7 @@ namespace {
 
     using timer_details_type = detail_type_list_type::timer_type;
 
-    using side_bar_type = tetengo2::gui::widget::side_bar<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type,
-        mouse_capture_details_type,
-        timer_details_type>;
+    using side_bar_type = tetengo2::gui::widget::side_bar<timer_details_type>;
 
     using dimension_unit_type = side_bar_type::dimension_unit_type;
 }

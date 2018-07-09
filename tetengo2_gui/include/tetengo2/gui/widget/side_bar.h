@@ -29,6 +29,7 @@
 #include <tetengo2/gui/unit/em.h>
 #include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/gui/widget/custom_control.h>
+#include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/stdalt.h>
 
 
@@ -36,30 +37,19 @@ namespace tetengo2::gui::widget {
     /*!
         \brief The class template for a side bar.
 
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam MouseCaptureDetails   A detail implementation type of a mouse capture.
         \tparam TimerDetails          A detail implementation type of a timer.
     */
-    template <
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename MouseCaptureDetails,
-        typename TimerDetails>
+    template <typename TimerDetails>
     class side_bar : public custom_control
     {
     public:
         // types
 
         //! The drawing details type.
-        using drawing_details_type = DrawingDetails;
+        using drawing_details_type = custom_control::drawing_details_type;
 
         //! The mouse capture details type.
-        using mouse_capture_details_type = MouseCaptureDetails;
+        using mouse_capture_details_type = custom_control::mouse_capture_details_type;
 
         //! THe timer details type.
         using timer_details_type = TimerDetails;
@@ -68,7 +58,7 @@ namespace tetengo2::gui::widget {
         using base_type = custom_control;
 
         //! The widget type.
-        using widget_type = typename base_type::base_type::base_type;
+        using widget_type = widget;
 
         //! The cursor type.
         using cursor_type = typename base_type::cursor_type;
