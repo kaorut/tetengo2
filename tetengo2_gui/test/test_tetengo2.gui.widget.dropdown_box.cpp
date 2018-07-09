@@ -11,7 +11,6 @@
 #include <string>
 
 #include <boost/preprocessor.hpp>
-#include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/widget/dropdown_box.h>
@@ -36,11 +35,7 @@ namespace {
 
     using window_type = tetengo2::gui::widget::window;
 
-    using dropdown_box_type = tetengo2::gui::widget::dropdown_box<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type>;
+    using dropdown_box_type = tetengo2::gui::widget::dropdown_box;
 }
 
 
