@@ -24,18 +24,6 @@ namespace tetengo2::gui::widget {
     public:
         // types
 
-        //! The widget details type.
-        using widget_details_type = control::widget_details_type;
-
-        //! The message handler details type.
-        using message_handler_details_type = control::message_handler_details_type;
-
-        //! The base type.
-        using base_type = control;
-
-        //! The widget type.
-        using widget_type = widget;
-
         //! The style type.
         enum class style_type
         {
@@ -57,14 +45,14 @@ namespace tetengo2::gui::widget {
             \param parent A parent widget.
             \param style  A style.
         */
-        explicit button(widget_type& parent, const style_type style = style_type::normal)
+        explicit button(widget& parent, const style_type style = style_type::normal)
         :
 #if BOOST_COMP_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type{
-              base_type::scroll_bar_style_type::none,
+          control{
+              control::scroll_bar_style_type::none,
               message_handler_details_type::make_button_message_handler_map(*this, message_handler_map_type{}),
               widget_details_type::create_button(parent, style == style_type::default_, style == style_type::cancel)
           },
@@ -73,7 +61,7 @@ namespace tetengo2::gui::widget {
 #endif
           m_style{ style }
         {
-            base_type::initialize(this);
+            control::initialize(this);
 
             parent.child_observer_set().created()(*this);
         }
