@@ -31,27 +31,6 @@ namespace tetengo2::gui::widget {
     public:
         // types
 
-        //! The widget details type.
-        using widget_details_type = control::widget_details_type;
-
-        //! The message handler details type.
-        using message_handler_details_type = control::message_handler_details_type;
-
-        //! The base type.
-        using base_type = control;
-
-        //! The widget type.
-        using widget_type = widget;
-
-        //! The canvas type.
-        using canvas_type = typename base_type::canvas_type;
-
-        //! The position type.
-        using position_type = typename base_type::position_type;
-
-        //! The dimension type.
-        using dimension_type = typename base_type::dimension_type;
-
         //! The dimension unit type.
         using dimension_unit_type = typename dimension_type::unit_type;
 
@@ -63,15 +42,15 @@ namespace tetengo2::gui::widget {
 
             \param parent A parent widget.
         */
-        explicit label(widget_type& parent)
+        explicit label(widget& parent)
         :
 #if BOOST_COMP_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type
+          control
         {
-            base_type::scroll_bar_style_type::none,
+            control::scroll_bar_style_type::none,
                 message_handler_details_type::make_label_message_handler_map(*this, message_handler_map_type{}),
                 widget_details_type::create_label(parent)
         }
@@ -168,7 +147,7 @@ namespace tetengo2::gui::widget {
 
         static void initialize_label(label* const p_label)
         {
-            base_type::initialize(p_label);
+            control::initialize(p_label);
 
             p_label->paint_observer_set().paint_background().disconnect_all_slots();
             p_label->paint_observer_set().paint_background().connect(paint_background(*p_label));
