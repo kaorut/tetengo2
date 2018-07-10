@@ -29,32 +29,11 @@ namespace tetengo2::gui::widget {
     public:
         // types
 
-        //! The widget details type.
-        using widget_details_type = abstract_window::widget_details_type;
-
-        //! The details type.
-        using details_type = typename widget_details_type::widget_details_type;
-
-        //! The detail implementation pointer type.
-        using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
-
-        //! The message handler details type.
-        using message_handler_details_type = abstract_window::message_handler_details_type;
-
-        //! The menu details type.
-        using menu_details_type = abstract_window::menu_details_type;
-
         //! The message loop details type.
         using message_loop_details_type = detail::stub::message_loop;
 
-        //! The base type.
-        using base_type = abstract_window;
-
-        //! The position type.
-        using position_type = typename base_type::position_type;
-
         //! The message loop type.
-        using message_loop_type = gui::message::dialog_message_loop<base_type, message_loop_details_type>;
+        using message_loop_type = gui::message::dialog_message_loop<abstract_window, message_loop_details_type>;
 
         //! The message loop break type.
         using message_loop_break_type = gui::message::message_loop_break<message_loop_details_type>;
@@ -76,15 +55,17 @@ namespace tetengo2::gui::widget {
             \param parent         A parent window.
             \param file_droppable Set true to enable file drop.
         */
-        explicit dialog(base_type& parent, const bool file_droppable = false)
+        explicit dialog(abstract_window& parent, const bool file_droppable = false)
         :
 #if BOOST_COMP_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type{ base_type::scroll_bar_style_type::none,
-                     file_droppable,
-                     message_handler_details_type::make_dialog_message_handler_map(*this, message_handler_map_type{}) },
+          abstract_window{
+              abstract_window::scroll_bar_style_type::none,
+              file_droppable,
+              message_handler_details_type::make_dialog_message_handler_map(*this, message_handler_map_type{})
+          },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
@@ -145,7 +126,7 @@ namespace tetengo2::gui::widget {
             do_modal_impl();
 
             assert(this->has_parent());
-            auto& parent_window = dynamic_cast<base_type&>(this->parent());
+            auto& parent_window = dynamic_cast<abstract_window&>(this->parent());
             parent_window.set_enabled(false);
 
             this->window_observer_set().closing().connect([this](bool& cancel) { this->on_close_impl(cancel); });
@@ -170,7 +151,7 @@ namespace tetengo2::gui::widget {
         */
         void initialize_dialog()
         {
-            base_type::initialize(this);
+            abstract_window::initialize(this);
         }
 
 
@@ -184,7 +165,7 @@ namespace tetengo2::gui::widget {
 
         result_type m_result;
 
-        const details_ptr_type m_p_details;
+        const typename widget_details_type::widget_details_ptr_type m_p_details;
 
 
         // virtual functions

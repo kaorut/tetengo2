@@ -26,6 +26,7 @@
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/timer.h>
 #include <tetengo2/gui/type_list.h>
+#include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/gui/widget/button.h>
 #include <tetengo2/gui/widget/dialog.h>
 #include <tetengo2/gui/widget/label.h>
@@ -71,7 +72,7 @@ namespace tetengo2::gui::widget {
         using base_type = dialog;
 
         //! The abstract window type.
-        using abstract_window_type = typename base_type::base_type;
+        using abstract_window_type = abstract_window;
 
         //! The promise type.
         using promise_type = concurrent::progressive_promise<task_result_type>;
