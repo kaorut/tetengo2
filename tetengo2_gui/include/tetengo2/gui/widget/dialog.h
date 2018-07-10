@@ -89,7 +89,7 @@ namespace tetengo2::gui::widget {
 #pragma warning(pop)
 #endif
           m_result{ result_type::undecided }, m_p_details{
-              widget_details_type::template create_dialog<typename base_type::base_type>(&parent, file_droppable)
+              widget_details_type::template create_dialog<widget>(&parent, file_droppable)
           }
         {
             initialize_dialog();

@@ -34,26 +34,11 @@ namespace tetengo2::gui::widget {
     public:
         // types
 
-        //! The widget details type.
-        using widget_details_type = widget::widget_details_type;
-
-        //! The message handler details type.
-        using message_handler_details_type = widget::message_handler_details_type;
+        //! The icon type.
+        using icon_type = gui::icon;
 
         //! The menu details type.
         using menu_details_type = detail::stub::menu;
-
-        //! The base type.
-        using base_type = widget;
-
-        //! The dimension type.
-        using dimension_type = typename base_type::dimension_type;
-
-        //! The scroll bar style type.
-        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
-
-        //! The icon type.
-        using icon_type = gui::icon;
 
         //! The menu bar type.
         using menu_bar_type = gui::menu::menu_bar<menu_details_type>;
@@ -308,7 +293,7 @@ namespace tetengo2::gui::widget {
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type{ scroll_bar_style,
+          widget{ scroll_bar_style,
                      message_handler_details_type::make_abstract_window_message_handler_map(
                          *this,
                          std::move(message_handler_map)) },

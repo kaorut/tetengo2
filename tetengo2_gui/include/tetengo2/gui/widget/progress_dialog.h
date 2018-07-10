@@ -150,7 +150,7 @@ namespace tetengo2::gui::widget {
 
         using dimension_unit_type = typename dimension_type::unit_type;
 
-        using widget_type = typename abstract_window_type::base_type;
+        using widget_type = widget;
 
         using label_type = label;
 
