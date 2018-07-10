@@ -47,8 +47,6 @@ namespace {
 
     using dimension_unit_type = dimension_type::unit_type;
 
-    using inner_item_type = custom_control_type::inner_item_type;
-
     class concrete_custom_control : public custom_control_type
     {
     public:
@@ -57,13 +55,13 @@ namespace {
         {}
     };
 
-    class concrete_inner_item : public inner_item_type
+    class concrete_inner_item : public tetengo2::gui::widget::inner_item
     {
     public:
         concrete_inner_item(custom_control_type& parent)
-        : inner_item_type{ parent,
-                           position_type{ position_unit_type{ 42 }, position_unit_type{ 24 } },
-                           dimension_type{ dimension_unit_type{ 12 }, dimension_unit_type{ 34 } } }
+        : tetengo2::gui::widget::inner_item{ parent,
+                                             position_type{ position_unit_type{ 42 }, position_unit_type{ 24 } },
+                                             dimension_type{ dimension_unit_type{ 12 }, dimension_unit_type{ 34 } } }
         {}
 
         const custom_control_type& call_parent() const

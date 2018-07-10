@@ -311,14 +311,12 @@ namespace tetengo2::gui::widget {
 
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
-        using inner_item_type = typename base_type::inner_item_type;
-
-        class splitter : public inner_item_type
+        class splitter : public inner_item
         {
         public:
             // constructors and destructor
 
-            explicit splitter(map_box& map_box_) : inner_item_type{ map_box_, position_type{}, dimension_type{} } {}
+            explicit splitter(map_box& map_box_) : inner_item{ map_box_, position_type{}, dimension_type{} } {}
 
 
             // functions
@@ -414,13 +412,13 @@ namespace tetengo2::gui::widget {
             }
         };
 
-        class value_item : public inner_item_type
+        class value_item : public inner_item
         {
         public:
             // constructors and destructor
 
             explicit value_item(map_box& map_box_, value_type value)
-            : inner_item_type{ map_box_, position_type{}, dimension_type{} }, m_value{ std::move(value) }
+            : inner_item{ map_box_, position_type{}, dimension_type{} }, m_value{ std::move(value) }
             {}
 
 

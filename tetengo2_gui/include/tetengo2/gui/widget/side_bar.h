@@ -240,15 +240,13 @@ namespace tetengo2::gui::widget {
 
         using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
-        using inner_item_type = typename base_type::inner_item_type;
-
-        class state_button : public inner_item_type
+        class state_button : public inner_item
         {
         public:
             // constructors and destructor
 
             explicit state_button(side_bar& side_bar_)
-            : inner_item_type{ side_bar_,
+            : inner_item{ side_bar_,
                                position_type{},
                                dimension_type{ dimension_unit_type{ 1 }, dimension_unit_type{ 1 } } },
               m_p_current_background_color{ &background_color() }, m_p_timer{}, m_animation_step{ 0 }
@@ -440,13 +438,13 @@ namespace tetengo2::gui::widget {
             }
         };
 
-        class caption : public inner_item_type
+        class caption : public inner_item
         {
         public:
             // constructors and destructor
 
             explicit caption(side_bar& side_bar_)
-            : inner_item_type{ side_bar_, position_type{}, dimension_type{} }, m_text_position{}
+            : inner_item{ side_bar_, position_type{}, dimension_type{} }, m_text_position{}
             {}
 
             virtual ~caption() = default;
@@ -609,13 +607,13 @@ namespace tetengo2::gui::widget {
             }
         };
 
-        class splitter : public inner_item_type
+        class splitter : public inner_item
         {
         public:
             // constructors and destructor
 
             explicit splitter(side_bar& side_bar_)
-            : inner_item_type{ side_bar_, position_type{}, dimension_type{} }, m_need_size_recalculation{ true },
+            : inner_item{ side_bar_, position_type{}, dimension_type{} }, m_need_size_recalculation{ true },
               m_pressed_position{ position_type{} }
             {}
 

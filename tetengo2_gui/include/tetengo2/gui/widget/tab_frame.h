@@ -71,21 +71,15 @@ namespace tetengo2::gui::widget {
         using string_type = tetengo2::type_list::string_type;
 
         //! The control type.
-        using control_type = typename base_type::base_type;
+        using control_type = control;
 
         //! The size type.
         using size_type = tetengo2::type_list::size_type;
 
         //! The tab label type.
-        class tab_label_type : public inner_item<typename tab_frame::base_type>
+        class tab_label_type : public inner_item
         {
         public:
-            // types
-
-            //! The base type.
-            using base_type = inner_item<typename tab_frame::base_type>;
-
-
             // constructors and destructor
 
             /*!
@@ -95,7 +89,7 @@ namespace tetengo2::gui::widget {
                 \param index  A tab index.
                 */
             tab_label_type(tab_frame& parent, const size_type index)
-            : base_type{ parent, position_type{}, dimension_type{} }, m_index{ index }, m_title{}
+            : inner_item{ parent, position_type{}, dimension_type{} }, m_index{ index }, m_title{}
             {}
 
             /*!
@@ -282,15 +276,9 @@ namespace tetengo2::gui::widget {
         };
 
         //! The tab body type.
-        class tab_body_type : public inner_item<typename tab_frame::base_type>
+        class tab_body_type : public inner_item
         {
         public:
-            // types
-
-            //! The base type.
-            using base_type = inner_item<typename tab_frame::base_type>;
-
-
             // constructors and destructor
 
             /*!
@@ -300,7 +288,7 @@ namespace tetengo2::gui::widget {
                 \param control A control.
             */
             tab_body_type(tab_frame& parent, control_type& control)
-            : base_type{ parent, position_type{}, dimension_type{} }, m_control{ control }
+            : inner_item{ parent, position_type{}, dimension_type{} }, m_control{ control }
             {}
 
             /*!
