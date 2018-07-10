@@ -28,39 +28,6 @@ namespace tetengo2::gui::widget {
     class link_label : public label
     {
     public:
-        // types
-
-        //! The drawing details type.
-        using drawing_details_type = label::drawing_details_type;
-
-        //! The base type.
-        using base_type = label;
-
-        //! The widget type.
-        using widget_type = widget;
-
-        //! The string type.
-        using string_type = typename base_type::string_type;
-
-        //! The font type.
-        using font_type = typename base_type::font_type;
-
-        //! The mouse observer set type.
-        using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
-
-        //! The keyboard observer set type.
-        using keyboard_observer_set_type = typename base_type::keyboard_observer_set_type;
-
-        //! The solid background type.
-        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
-
-        //! The system color set type.
-        using system_color_set_type = gui::drawing::system_color_set;
-
-        //! The shell type.
-        using shell_type = gui::shell;
-
-
         // constructors and destructor
 
         /*!
@@ -68,7 +35,7 @@ namespace tetengo2::gui::widget {
 
             \param parent A parent widget.
         */
-        explicit link_label(widget_type& parent) : base_type{ parent }, m_target{}, m_mouse_button_pressing{ false }
+        explicit link_label(widget& parent) : label{ parent }, m_target{}, m_mouse_button_pressing{ false }
         {
             initialize_link_label(this);
         }
@@ -105,11 +72,13 @@ namespace tetengo2::gui::widget {
     private:
         // types
 
+        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
+
+        using system_color_set_type = gui::drawing::system_color_set;
+
+        using shell_type = gui::shell;
+
         using system_cursor_type = cursor::system;
-
-        using canvas_type = typename base_type::canvas_type;
-
-        using position_type = typename base_type::position_type;
 
         class paint_background
         {
