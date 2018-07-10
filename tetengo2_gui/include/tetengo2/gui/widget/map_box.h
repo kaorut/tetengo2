@@ -21,6 +21,7 @@
 #include <boost/rational.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/gui/cursor/system.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/message/list_selection_observer_set.h>
@@ -52,9 +53,6 @@ namespace tetengo2::gui::widget {
 
         //! The cursor type.
         using cursor_type = typename base_type::cursor_type;
-
-        //! The system cursor type.
-        using system_cursor_type = typename base_type::system_cursor_type;
 
         //! The integer size type.
         using size_type = tetengo2::type_list::size_type;
@@ -340,6 +338,11 @@ namespace tetengo2::gui::widget {
 
 
         private:
+            // types
+
+            using system_cursor_type = cursor::system;
+
+
             // static functions
 
             static const dimension_unit_type& width()

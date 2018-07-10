@@ -24,30 +24,6 @@ namespace tetengo2::gui::widget {
     class window : public abstract_window
     {
     public:
-        // types
-
-        //! The widget details type.
-        using widget_details_type = abstract_window::widget_details_type;
-
-        //! The details type.
-        using details_type = typename widget_details_type::widget_details_type;
-
-        //! The detail implementation pointer type.
-        using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
-
-        //! The message handler details type.
-        using message_handler_details_type = abstract_window::message_handler_details_type;
-
-        //! The menu details type.
-        using menu_details_type = abstract_window::menu_details_type;
-
-        //! The base type.
-        using base_type = abstract_window;
-
-        //! The scroll bar style type.
-        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
-
-
         // constructors and destructor
 
         /*!
@@ -57,9 +33,9 @@ namespace tetengo2::gui::widget {
             \param file_droppable   Set true to enable file drop.
         */
         explicit window(
-            const scroll_bar_style_type scroll_bar_style = base_type::scroll_bar_style_type::none,
+            const scroll_bar_style_type scroll_bar_style = abstract_window::scroll_bar_style_type::none,
             const bool                  file_droppable = false)
-        : base_type{ scroll_bar_style, file_droppable, message_handler_map_type{} }, m_p_details{
+        : abstract_window{ scroll_bar_style, file_droppable, message_handler_map_type{} }, m_p_details{
               widget_details_type::template create_window<widget>(nullptr, scroll_bar_style, file_droppable)
           }
         {
@@ -73,15 +49,17 @@ namespace tetengo2::gui::widget {
             \param scroll_bar_style A scroll bar style.
             \param file_droppable   Set true to enable file drop.
         */
-        window(base_type& parent, const scroll_bar_style_type scroll_bar_style, const bool file_droppable)
+        window(abstract_window& parent, const scroll_bar_style_type scroll_bar_style, const bool file_droppable)
         :
 #if BOOST_COMP_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type{ scroll_bar_style,
-                     file_droppable,
-                     message_handler_details_type::make_window_message_handler_map(*this, message_handler_map_type{}) },
+          abstract_window{
+              scroll_bar_style,
+              file_droppable,
+              message_handler_details_type::make_window_message_handler_map(*this, message_handler_map_type{})
+          },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
@@ -116,7 +94,7 @@ namespace tetengo2::gui::widget {
 
         // variables
 
-        const details_ptr_type m_p_details;
+        const typename widget_details_type::widget_details_ptr_type m_p_details;
 
 
         // virtual functions
@@ -138,7 +116,7 @@ namespace tetengo2::gui::widget {
 
         void initialize_window()
         {
-            base_type::initialize(this);
+            abstract_window::initialize(this);
         }
     };
 }

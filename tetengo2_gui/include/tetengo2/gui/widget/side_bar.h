@@ -21,7 +21,6 @@
 #include <boost/operators.hpp>
 
 #include <tetengo2/gui/cursor/system.h>
-#include <tetengo2/gui/cursor/system_cursor_style.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
 #include <tetengo2/gui/drawing/solid_background.h>
@@ -64,9 +63,6 @@ namespace tetengo2::gui::widget {
 
         //! The cursor type.
         using cursor_type = typename base_type::cursor_type;
-
-        //! The system cursor type.
-        using system_cursor_type = typename base_type::system_cursor_type;
 
         //! The canvas type.
         using canvas_type = typename base_type::canvas_type;
@@ -625,6 +621,11 @@ namespace tetengo2::gui::widget {
 
 
         private:
+            // types
+
+            using system_cursor_type = cursor::system;
+
+
             // variables
 
             bool m_need_size_recalculation;
