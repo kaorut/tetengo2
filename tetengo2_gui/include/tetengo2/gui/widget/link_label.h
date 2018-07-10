@@ -13,6 +13,7 @@
 #include <cassert>
 #include <memory>
 
+#include <tetengo2/gui/cursor/system.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/shell.h>
@@ -43,9 +44,6 @@ namespace tetengo2::gui::widget {
 
         //! The font type.
         using font_type = typename base_type::font_type;
-
-        //! The system cursor type.
-        using system_cursor_type = typename base_type::system_cursor_type;
 
         //! The mouse observer set type.
         using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
@@ -106,6 +104,8 @@ namespace tetengo2::gui::widget {
 
     private:
         // types
+
+        using system_cursor_type = cursor::system;
 
         using canvas_type = typename base_type::canvas_type;
 
