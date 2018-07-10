@@ -15,6 +15,7 @@
 
 #include <tetengo2/gui/widget/label.h>
 #include <tetengo2/gui/widget/tab_frame.h>
+#include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/gui/widget/window.h>
 #include <tetengo2/text.h>
 

@@ -13,6 +13,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/widget/link_label.h>
+#include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/gui/widget/window.h>
 #include <tetengo2/text.h>
 
