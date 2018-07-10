@@ -39,41 +39,11 @@ namespace tetengo2::gui::widget {
     public:
         // types
 
-        //! The drawing details type.
-        using drawing_details_type = custom_control::drawing_details_type;
-
-        //! The mouse capture details type.
-        using mouse_capture_details_type = custom_control::mouse_capture_details_type;
-
-        //! The base type.
-        using base_type = custom_control;
-
-        //! The widget type.
-        using widget_type = widget;
-
-        //! The cursor type.
-        using cursor_type = typename base_type::cursor_type;
-
         //! The integer size type.
         using size_type = tetengo2::type_list::size_type;
 
-        //! The string type.
-        using string_type = typename base_type::string_type;
-
-        //! The position type.
-        using position_type = typename base_type::position_type;
-
-        //! The mouse observer set type.
-        using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
-
         //! The position unit type.
         using position_unit_type = typename position_type::unit_type;
-
-        //! The solid background type.
-        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
-
-        //! The system color set type.
-        using system_color_set_type = gui::drawing::system_color_set;
 
         //! The list selection observer set type.
         using list_selection_observer_set_type = gui::message::list_selection_observer_set;
@@ -89,9 +59,9 @@ namespace tetengo2::gui::widget {
 
             \param parent A parent widget.
         */
-        explicit map_box(widget_type& parent)
-        : base_type{ parent, true, scroll_bar_style_type::vertical }, m_splitter_position{ position_unit_type{ 8 } },
-          m_p_splitter{}, m_p_value_items{}, m_selected_value_index{},
+        explicit map_box(widget& parent)
+        : custom_control{ parent, true, scroll_bar_style_type::vertical },
+          m_splitter_position{ position_unit_type{ 8 } }, m_p_splitter{}, m_p_value_items{}, m_selected_value_index{},
           m_list_selection_observer_call_requested{ false }, m_list_selection_observer_set{}
         {
             initialize_map_box(*this);
@@ -289,7 +259,9 @@ namespace tetengo2::gui::widget {
     private:
         // types
 
-        using keyboard_observer_set_type = typename base_type::keyboard_observer_set_type;
+        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
+
+        using system_color_set_type = gui::drawing::system_color_set;
 
         using virtual_key_type = typename keyboard_observer_set_type::virtual_key_type;
 
@@ -299,17 +271,9 @@ namespace tetengo2::gui::widget {
 
         using direction_type = typename mouse_observer_set_type::direction_type;
 
-        using canvas_type = typename base_type::canvas_type;
-
-        using dimension_type = typename base_type::dimension_type;
-
         using dimension_unit_type = typename dimension_type::unit_type;
 
-        using scroll_bar_type = typename base_type::scroll_bar_type;
-
         using scroll_bar_size_type = typename scroll_bar_type::size_type;
-
-        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
         class splitter : public inner_item
         {
