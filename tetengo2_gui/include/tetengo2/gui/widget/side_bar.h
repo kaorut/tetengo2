@@ -46,44 +46,14 @@ namespace tetengo2::gui::widget {
     public:
         // types
 
-        //! The drawing details type.
-        using drawing_details_type = custom_control::drawing_details_type;
-
-        //! The mouse capture details type.
-        using mouse_capture_details_type = custom_control::mouse_capture_details_type;
-
         //! THe timer details type.
         using timer_details_type = TimerDetails;
 
-        //! The base type.
-        using base_type = custom_control;
-
-        //! The widget type.
-        using widget_type = widget;
-
-        //! The cursor type.
-        using cursor_type = typename base_type::cursor_type;
-
-        //! The canvas type.
-        using canvas_type = typename base_type::canvas_type;
-
-        //! The position type.
-        using position_type = typename base_type::position_type;
-
-        //! The dimension type.
-        using dimension_type = typename base_type::dimension_type;
+        //! The timer type.
+        using timer_type = gui::timer<widget, timer_details_type>;
 
         //! The dimension unit type.
         using dimension_unit_type = typename dimension_type::unit_type;
-
-        //! The solid background type.
-        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
-
-        //! The system color set type.
-        using system_color_set_type = gui::drawing::system_color_set;
-
-        //! The timer type.
-        using timer_type = gui::timer<widget_type, timer_details_type>;
 
 
         // constructors and destructor
@@ -93,8 +63,8 @@ namespace tetengo2::gui::widget {
 
             \param parent A parent widget.
         */
-        side_bar(widget_type& parent)
-        : base_type{ parent, false, scroll_bar_style_type::none }, m_p_caption{}, m_p_splitter{},
+        side_bar(widget& parent)
+        : custom_control{ parent, false, scroll_bar_style_type::none }, m_p_caption{}, m_p_splitter{},
           m_preferred_width{ dimension_unit_type{} }, m_minimized{ false }
         {
             initialize_side_bar(*this);
@@ -230,7 +200,11 @@ namespace tetengo2::gui::widget {
     private:
         // types
 
-        using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
+        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
+
+        using system_color_set_type = gui::drawing::system_color_set;
+
+        using mouse_observer_set_type = typename custom_control::mouse_observer_set_type;
 
         using mouse_button_type = typename mouse_observer_set_type::mouse_button_type;
 
@@ -238,7 +212,7 @@ namespace tetengo2::gui::widget {
 
         using position_unit_type = typename position_type::unit_type;
 
-        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
+        using scroll_bar_style_type = typename custom_control::scroll_bar_style_type;
 
         class state_button : public inner_item
         {
@@ -247,8 +221,8 @@ namespace tetengo2::gui::widget {
 
             explicit state_button(side_bar& side_bar_)
             : inner_item{ side_bar_,
-                               position_type{},
-                               dimension_type{ dimension_unit_type{ 1 }, dimension_unit_type{ 1 } } },
+                          position_type{},
+                          dimension_type{ dimension_unit_type{ 1 }, dimension_unit_type{ 1 } } },
               m_p_current_background_color{ &background_color() }, m_p_timer{}, m_animation_step{ 0 }
             {}
 
