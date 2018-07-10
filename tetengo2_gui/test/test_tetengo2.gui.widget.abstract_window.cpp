@@ -53,7 +53,7 @@ namespace {
                                 message_handler_map_type{} },
           m_p_details{ std::make_unique<details_type>() }
         {
-            base_type::initialize(this);
+            abstract_window_type::initialize(this);
         }
 
         virtual ~concrete_window() = default;
