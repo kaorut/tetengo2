@@ -28,24 +28,6 @@ namespace tetengo2::gui::widget {
     public:
         // types
 
-        //! The widget details type.
-        using widget_details_type = widget::widget_details_type;
-
-        //! The details type.
-        using details_type = typename widget_details_type::widget_details_type;
-
-        //! The detail implementation pointer type.
-        using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
-
-        //! The message handler details type.
-        using message_handler_details_type = widget::message_handler_details_type;
-
-        //! The base type.
-        using base_type = widget;
-
-        //! The scroll bar style type.
-        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
-
         //! The color type.
         using color_type = gui::drawing::color;
 
@@ -119,15 +101,15 @@ namespace tetengo2::gui::widget {
             \param p_details           A unique pointer to a detail implementation.
         */
         control(
-            const scroll_bar_style_type scroll_bar_style,
-            message_handler_map_type&&  message_handler_map,
-            details_ptr_type            p_details)
+            const scroll_bar_style_type                           scroll_bar_style,
+            message_handler_map_type&&                            message_handler_map,
+            typename widget_details_type::widget_details_ptr_type p_details)
         :
 #if BOOST_COMP_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type{
+          widget{
               scroll_bar_style,
               message_handler_details_type::make_control_message_handler_map(*this, std::move(message_handler_map))
           },
@@ -141,7 +123,7 @@ namespace tetengo2::gui::widget {
     private:
         // variables
 
-        const details_ptr_type m_p_details;
+        const typename widget_details_type::widget_details_ptr_type m_p_details;
 
         tetengo2::stdalt::optional<color_type> m_text_color;
 

@@ -41,7 +41,7 @@ namespace {
                         widget_details_type::widget_details_ptr_type(
                             std::make_unique<widget_details_type::widget_details_type>()) }
         {
-            base_type::initialize(this);
+            tetengo2::gui::widget::widget::initialize(this);
         }
 
         virtual ~concrete_control() = default;
