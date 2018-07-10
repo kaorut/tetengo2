@@ -27,7 +27,6 @@
 #include <tetengo2/detail/stub/scroll.h>
 #include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/gui/cursor/cursor_base.h>
-#include <tetengo2/gui/cursor/system.h>
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
@@ -70,20 +69,11 @@ namespace tetengo2::gui::widget {
         //! The details type.
         using details_type = typename widget_details_type::widget_details_type;
 
-        //! The detail implementation pointer type.
-        using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
-
         //! The drawing details type.
         using drawing_details_type = detail::stub::drawing;
 
-        //! The scroll details type.
-        using scroll_details_type = detail::stub::scroll;
-
         //! The canvas type.
         using canvas_type = gui::drawing::canvas<drawing_details_type>;
-
-        //! The widget canvas type.
-        using widget_canvas_type = gui::drawing::widget_canvas<drawing_details_type>;
 
         //! The background type.
         using background_type = gui::drawing::background<drawing_details_type>;
@@ -94,14 +84,11 @@ namespace tetengo2::gui::widget {
         //! The cursor type.
         using cursor_type = gui::cursor::cursor_base;
 
-        //! The system cursor type.
-        using system_cursor_type = gui::cursor::system;
+        //! The scroll details type.
+        using scroll_details_type = detail::stub::scroll;
 
         //! The scroll bar type.
         using scroll_bar_type = gui::scroll_bar<scroll_details_type>;
-
-        //! The message handler details type.
-        using message_handler_details_type = detail::stub::message_handler;
 
         //! The scroll bar style type.
         enum class scroll_bar_style_type
@@ -111,6 +98,9 @@ namespace tetengo2::gui::widget {
             horizontal, //!< The widget has a horizontal scroll bar.
             both, //!< The widget has both vertiacal and horizontal scroll bars.
         };
+
+        //! The message handler details type.
+        using message_handler_details_type = detail::stub::message_handler;
 
         //! The message handler map type.
         using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
@@ -819,6 +809,8 @@ namespace tetengo2::gui::widget {
         // types
 
         using dimension_unit_type = typename dimension_type::unit_type;
+
+        using widget_canvas_type = gui::drawing::widget_canvas<drawing_details_type>;
 
         class paint_background
         {

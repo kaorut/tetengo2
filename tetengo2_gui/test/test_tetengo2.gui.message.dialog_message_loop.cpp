@@ -12,6 +12,7 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/gui/message/dialog_message_loop.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/gui/widget/widget.h>
@@ -50,7 +51,7 @@ namespace {
 
 
     private:
-        details_ptr_type m_p_details;
+        typename widget_details_type::widget_details_ptr_type m_p_details;
 
         virtual const details_type& details_impl() const override
         {

@@ -14,6 +14,7 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_bar.h>
@@ -46,8 +47,6 @@ namespace {
     class concrete_window : public abstract_window_type
     {
     public:
-        using details_ptr_type = abstract_window_type::details_ptr_type;
-
         concrete_window(const bool file_droppable = false)
         : abstract_window_type{ abstract_window_type::scroll_bar_style_type::none,
                                 file_droppable,
@@ -61,7 +60,7 @@ namespace {
 
 
     private:
-        details_ptr_type m_p_details;
+        typename widget_details_type::widget_details_ptr_type m_p_details;
 
         virtual const details_type& details_impl() const override
         {

@@ -14,7 +14,6 @@
 
 #include <boost/lexical_cast.hpp>
 #include <boost/preprocessor.hpp>
-#include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/concurrent/progressive_future.h>

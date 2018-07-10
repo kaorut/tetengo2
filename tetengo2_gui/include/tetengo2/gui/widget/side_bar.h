@@ -20,6 +20,8 @@
 #include <boost/math/constants/constants.hpp>
 #include <boost/operators.hpp>
 
+#include <tetengo2/gui/cursor/system.h>
+#include <tetengo2/gui/cursor/system_cursor_style.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
 #include <tetengo2/gui/drawing/solid_background.h>
