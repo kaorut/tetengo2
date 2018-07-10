@@ -31,21 +31,6 @@ namespace tetengo2::gui::widget {
     public:
         // types
 
-        //! The widget details type.
-        using widget_details_type = control::widget_details_type;
-
-        //! The drawing details type.
-        using drawing_details_type = control::drawing_details_type;
-
-        //! The message handler details type.
-        using message_handler_details_type = control::message_handler_details_type;
-
-        //! The base type.
-        using base_type = control;
-
-        //! The widget type.
-        using widget_type = widget;
-
         //! The picture type.
         using picture_type = gui::drawing::picture<drawing_details_type>;
 
@@ -60,13 +45,13 @@ namespace tetengo2::gui::widget {
 
             \param parent A parent widget.
         */
-        explicit image(widget_type& parent)
+        explicit image(widget& parent)
         :
 #if BOOST_COMP_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type{ base_type::scroll_bar_style_type::none,
+          control{ control::scroll_bar_style_type::none,
                      message_handler_details_type::make_image_message_handler_map(*this, message_handler_map_type{}),
                      widget_details_type::create_image(parent) },
 #if BOOST_COMP_MSVC
@@ -215,10 +200,6 @@ namespace tetengo2::gui::widget {
 
     private:
         // types
-
-        using canvas_type = typename base_type::canvas_type;
-
-        using position_type = typename base_type::position_type;
 
         using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
 
