@@ -25,18 +25,6 @@ namespace tetengo2::gui::widget {
     public:
         // types
 
-        //! The widget details type.
-        using widget_details_type = control::widget_details_type;
-
-        //! The message handler details type.
-        using message_handler_details_type = control::message_handler_details_type;
-
-        //! The base type.
-        using base_type = control;
-
-        //! The widget type.
-        using widget_type = widget;
-
         //! The size type.
         using size_type = tetengo2::type_list::size_type;
 
@@ -56,15 +44,15 @@ namespace tetengo2::gui::widget {
 
             \param parent A parent widget.
         */
-        explicit progress_bar(widget_type& parent)
+        explicit progress_bar(widget& parent)
         :
 #if BOOST_COMP_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type
+          control
         {
-            base_type::scroll_bar_style_type::none,
+            control::scroll_bar_style_type::none,
                 message_handler_details_type::make_button_message_handler_map(*this, message_handler_map_type{}),
                 widget_details_type::create_progress_bar(parent)
         }
@@ -72,7 +60,7 @@ namespace tetengo2::gui::widget {
 #pragma warning(pop)
 #endif
         {
-            base_type::initialize(this);
+            control::initialize(this);
 
             parent.child_observer_set().created()(*this);
         }
