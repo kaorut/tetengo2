@@ -25,15 +25,16 @@
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/timer.h>
-#include <tetengo2/gui/type_list.h>
-#include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/gui/widget/button.h>
 #include <tetengo2/gui/widget/dialog.h>
 #include <tetengo2/gui/widget/label.h>
 #include <tetengo2/gui/widget/progress_bar.h>
 #include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/text.h>
-#include <tetengo2/type_list.h>
+
+namespace tetengo2 { namespace gui { namespace widget {
+    class abstract_window;
+}}}
 
 
 namespace tetengo2::gui::widget {
@@ -50,29 +51,14 @@ namespace tetengo2::gui::widget {
     public:
         // types
 
-        //! The string type.
-        using string_type = tetengo2::type_list::string_type;
-
         //! The task result type.
         using task_result_type = TaskResult;
 
         //! The message catalog type.
         using message_catalog_type = MessageCatalog;
 
-        //! The menu details type.
-        using menu_details_type = dialog::menu_details_type;
-
-        //! The message loop details type.
-        using message_loop_details_type = dialog::message_loop_details_type;
-
         //! The timer details type.
         using timer_details_type = TimerDetails;
-
-        //! The base type.
-        using base_type = dialog;
-
-        //! The abstract window type.
-        using abstract_window_type = abstract_window;
 
         //! The promise type.
         using promise_type = concurrent::progressive_promise<task_result_type>;
@@ -97,13 +83,13 @@ namespace tetengo2::gui::widget {
             \param message_catalog   A message catalog.
         */
         progress_dialog(
-            abstract_window_type&       parent,
+            abstract_window&            parent,
             string_type                 title,
             string_type                 waiting_message,
             string_type                 canceling_message,
             task_type                   task,
             const message_catalog_type& message_catalog)
-        : base_type{ parent, false }, m_canceling_message{ std::move(canceling_message) }, m_p_message_label{},
+        : dialog{ parent, false }, m_canceling_message{ std::move(canceling_message) }, m_p_message_label{},
           m_p_progress_label{}, m_p_progress_bar{},
           m_p_cancel_button{}, m_promise{ 0 }, m_future{ m_promise.get_future() }, m_task{ std::move(task) },
           m_p_thread{}, m_p_timer{}, m_previous_progress{}, m_message_catalog{ message_catalog }
@@ -143,31 +129,17 @@ namespace tetengo2::gui::widget {
     private:
         // types
 
-        using position_type = tetengo2::gui::type_list::position_type;
-
         using position_unit_type = typename position_type::unit_type;
 
-        using dimension_type = tetengo2::gui::type_list::dimension_type;
-
         using dimension_unit_type = typename dimension_type::unit_type;
-
-        using widget_type = widget;
-
-        using label_type = label;
-
-        using progress_bar_type = progress_bar;
-
-        using button_type = button;
 
         using drawing_details_type = detail::stub::drawing;
 
         using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
 
-        using timer_type = gui::timer<widget_type, timer_details_type>;
+        using timer_type = gui::timer<widget, timer_details_type>;
 
         using system_color_set_type = gui::drawing::system_color_set;
-
-        using message_loop_break_type = typename base_type::message_loop_break_type;
 
         using progress_type = typename future_type::progress_type;
 
@@ -176,13 +148,13 @@ namespace tetengo2::gui::widget {
 
         const string_type m_canceling_message;
 
-        std::unique_ptr<label_type> m_p_message_label;
+        std::unique_ptr<label> m_p_message_label;
 
-        std::unique_ptr<label_type> m_p_progress_label;
+        std::unique_ptr<label> m_p_progress_label;
 
-        std::unique_ptr<progress_bar_type> m_p_progress_bar;
+        std::unique_ptr<progress_bar> m_p_progress_bar;
 
-        std::unique_ptr<button_type> m_p_cancel_button;
+        std::unique_ptr<button> m_p_cancel_button;
 
         promise_type m_promise;
 
@@ -217,7 +189,7 @@ namespace tetengo2::gui::widget {
 
                 m_p_message_label->set_text(m_canceling_message);
                 m_p_progress_label->set_text(string_type{});
-                m_p_progress_bar->set_state(progress_bar_type::state_type::pausing);
+                m_p_progress_bar->set_state(progress_bar::state_type::pausing);
                 m_p_cancel_button->set_enabled(false);
 
                 cancel = true;
@@ -243,9 +215,9 @@ namespace tetengo2::gui::widget {
             locate_controls();
         }
 
-        std::unique_ptr<label_type> create_message_label(string_type waiting_message)
+        std::unique_ptr<label> create_message_label(string_type waiting_message)
         {
-            auto p_label = std::make_unique<label_type>(*this);
+            auto p_label = std::make_unique<label>(*this);
 
             p_label->set_text(std::move(waiting_message));
             auto p_background =
@@ -255,9 +227,9 @@ namespace tetengo2::gui::widget {
             return std::move(p_label);
         }
 
-        std::unique_ptr<label_type> create_progress_label()
+        std::unique_ptr<label> create_progress_label()
         {
-            auto p_label = std::make_unique<label_type>(*this);
+            auto p_label = std::make_unique<label>(*this);
 
             p_label->set_text(string_type{ TETENGO2_TEXT("0%") });
             auto p_background =
@@ -267,18 +239,18 @@ namespace tetengo2::gui::widget {
             return std::move(p_label);
         }
 
-        std::unique_ptr<progress_bar_type> create_progress_bar()
+        std::unique_ptr<progress_bar> create_progress_bar()
         {
-            auto p_progress_bar = std::make_unique<progress_bar_type>(*this);
+            auto p_progress_bar = std::make_unique<progress_bar>(*this);
 
             p_progress_bar->set_goal(100);
 
             return std::move(p_progress_bar);
         }
 
-        std::unique_ptr<button_type> create_cancel_button()
+        std::unique_ptr<button> create_cancel_button()
         {
-            auto p_button = std::make_unique<button_type>(*this, button_type::style_type::cancel);
+            auto p_button = std::make_unique<button>(*this, button::style_type::cancel);
 
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Common:Cancel")));
             p_button->mouse_observer_set().clicked().connect([this]() { this->close(); });
