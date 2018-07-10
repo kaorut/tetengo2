@@ -31,26 +31,8 @@ namespace tetengo2::gui::widget {
     public:
         // types
 
-        //! The widget details type.
-        using widget_details_type = control::widget_details_type;
-
-        //! The message handler details type.
-        using message_handler_details_type = control::message_handler_details_type;
-
-        //! The base type.
-        using base_type = control;
-
-        //! The widget type.
-        using widget_type = widget;
-
         //! The integer size type.
         using size_type = tetengo2::type_list::size_type;
-
-        //! The string type.
-        using string_type = typename base_type::string_type;
-
-        //! The scroll bar style type.
-        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
         //! The list selection observer set type.
         using list_selection_observer_set_type = gui::message::list_selection_observer_set;
@@ -64,13 +46,13 @@ namespace tetengo2::gui::widget {
             \param parent           A parent widget.
             \param scroll_bar_style A scroll bar style type.
         */
-        list_box(widget_type& parent, const scroll_bar_style_type scroll_bar_style)
+        list_box(widget& parent, const scroll_bar_style_type scroll_bar_style)
         :
 #if BOOST_COMP_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type{ scroll_bar_style,
+          control{ scroll_bar_style,
                      message_handler_details_type::make_list_box_message_handler_map(*this, message_handler_map_type{}),
                      widget_details_type::create_list_box(parent, scroll_bar_style) },
 #if BOOST_COMP_MSVC
@@ -78,7 +60,7 @@ namespace tetengo2::gui::widget {
 #endif
           m_list_selection_observer_set{}
         {
-            base_type::initialize(this);
+            control::initialize(this);
 
             parent.child_observer_set().created()(*this);
         }
