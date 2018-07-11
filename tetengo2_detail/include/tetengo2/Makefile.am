@@ -16,6 +16,7 @@ pkg_headers = \
     detail/base/system_color.h \
     detail/base/unit.h \
     detail/base/virtual_key.h \
+    detail/base/widget.h \
     detail/stub/alert.h \
     detail/stub/common_dialog.h \
     detail/stub/cursor.h \
