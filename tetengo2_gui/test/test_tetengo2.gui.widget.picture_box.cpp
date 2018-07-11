@@ -6,15 +6,11 @@
     $Id$
 */
 
-#include <memory>
 #include <sstream>
 
 #include <boost/preprocessor.hpp>
-#include <boost/shared_ptr.hpp>
-#include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/widget/picture_box.h>
 #include <tetengo2/gui/widget/window.h>
 
@@ -33,9 +29,7 @@ namespace {
 
     using window_type = tetengo2::gui::widget::window;
 
-    using fast_drawing_details_type = detail_type_list_type::drawing_type;
-
-    using picture_box_type = tetengo2::gui::widget::picture_box<fast_drawing_details_type>;
+    using picture_box_type = tetengo2::gui::widget::picture_box;
 }
 
 

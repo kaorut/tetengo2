@@ -13,6 +13,7 @@
 
 #include <boost/predef.h>
 
+#include <tetengo2/detail/stub/drawing.h>
 #include <tetengo2/gui/drawing/canvas.h>
 #include <tetengo2/gui/drawing/widget_canvas.h>
 #include <tetengo2/gui/message/paint_observer_set.h>
@@ -22,18 +23,15 @@
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for a picture box.
-
-        \tparam FastDrawingDetails A detail implementation type of fast drawing.
+        \brief The class for a picture box.
     */
-    template <typename FastDrawingDetails>
     class picture_box : public control
     {
     public:
         // types
 
         //! The fast drawing details type.
-        using fast_drawing_details_type = FastDrawingDetails;
+        using fast_drawing_details_type = detail::stub::drawing;
 
         //! The fast canvas type.
         using fast_canvas_type = gui::drawing::canvas<fast_drawing_details_type>;
