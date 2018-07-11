@@ -44,12 +44,6 @@ namespace tetengo2::gui::widget {
     public:
         // types
 
-        //! THe timer details type.
-        using timer_details_type = detail::stub::timer;
-
-        //! The timer type.
-        using timer_type = gui::timer<widget, timer_details_type>;
-
         //! The dimension unit type.
         using dimension_unit_type = typename dimension_type::unit_type;
 
@@ -197,6 +191,10 @@ namespace tetengo2::gui::widget {
 
     private:
         // types
+
+        using timer_details_type = detail::stub::timer;
+
+        using timer_type = gui::timer<widget, timer_details_type>;
 
         using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
 
