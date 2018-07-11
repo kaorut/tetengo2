@@ -14,6 +14,8 @@
 #include <functional>
 #include <future>
 #include <memory>
+#include <ratio>
+#include <string>
 #include <thread>
 
 #include <boost/lexical_cast.hpp>
@@ -25,6 +27,7 @@
 #include <tetengo2/detail/stub/timer.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
+#include <tetengo2/gui/message/mouse_observer_set.h>
 #include <tetengo2/gui/timer.h>
 #include <tetengo2/gui/widget/button.h>
 #include <tetengo2/gui/widget/dialog.h>
@@ -41,27 +44,114 @@ namespace tetengo2 { namespace gui { namespace widget {
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for a progress dialog.
-
-        \tparam TaskResult            A task result type.
+        \brief The base class for a task result.
     */
-    template <typename TaskResult>
+    class task_result_base
+    {
+    public:
+        // constructors and destructor
+
+        /*!
+            \brief Destroys the task result.
+        */
+        virtual ~task_result_base() = default;
+    };
+
+
+    /*!
+        \brief The class for a task result.
+
+        \tparam T A type.
+    */
+    template <typename T>
+    struct task_result : public task_result_base
+    {
+    public:
+        // static functions
+
+        /*!
+            \brief Returns the value.
+
+            \return The value.
+        */
+        static T get(const task_result_base& task_result_)
+        {
+            return static_cast<const task_result<T>&>(task_result_).get_value();
+        }
+
+        /*!
+            \brief Returns the value.
+
+            \return The value.
+        */
+        static T get(task_result_base& task_result_)
+        {
+            return static_cast<task_result<T>&>(task_result_).get_value();
+        }
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a task result.
+
+            \param value A value.
+        */
+        explicit task_result(T value) : m_value{ std::move(value) } {}
+
+        /*!
+            \brief Destroys the task result.
+        */
+        virtual ~task_result() = default;
+
+
+        // functions
+
+        /*!
+            \brief Returns the value.
+
+            \return The value.
+        */
+        const T& get_value() const
+        {
+            return m_value;
+        }
+
+        /*!
+            \brief Returns the value.
+
+            \return The value.
+        */
+        T& get_value()
+        {
+            return m_value;
+        }
+
+
+    private:
+        // variables
+
+        T m_value;
+    };
+
+
+    /*!
+        \brief The class template for a progress dialog.
+    */
     class progress_dialog : public dialog
     {
     public:
         // types
 
-        //! The task result type.
-        using task_result_type = TaskResult;
 
         //! The message catalog type.
         using message_catalog_type = tetengo2::message::message_catalog;
 
         //! The promise type.
-        using promise_type = concurrent::progressive_promise<task_result_type>;
+        using promise_type = concurrent::progressive_promise<std::unique_ptr<task_result_base>>;
 
         //! The future type.
-        using future_type = concurrent::progressive_future<task_result_type>;
+        using future_type = concurrent::progressive_future<std::unique_ptr<task_result_base>>;
 
         //! The task type.
         using task_type = std::function<void(promise_type& promise)>;

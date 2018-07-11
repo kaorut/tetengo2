@@ -12,12 +12,10 @@
 #include <ratio>
 #include <sstream>
 
-#include <boost/lexical_cast.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/concurrent/progressive_future.h>
-#include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/gui/widget/progress_dialog.h>
 #include <tetengo2/gui/widget/window.h>
@@ -46,7 +44,9 @@ namespace {
 
     using message_catalog_type = common_type_list_type::message_catalog_type;
 
-    using dialog_type = tetengo2::gui::widget::progress_dialog<int>;
+    using task_result_type = tetengo2::gui::widget::task_result<int>;
+
+    using dialog_type = tetengo2::gui::widget::progress_dialog;
 
     using promise_type = dialog_type::promise_type;
 
@@ -57,7 +57,7 @@ namespace {
 
     void task(promise_type& promise)
     {
-        promise.set_value(42);
+        promise.set_value(std::make_unique<task_result_type>(42));
     }
 }
 
@@ -65,6 +65,50 @@ namespace {
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
     BOOST_AUTO_TEST_SUITE(gui)
         BOOST_AUTO_TEST_SUITE(widget)
+            BOOST_AUTO_TEST_SUITE(task_result)
+                // test cases
+
+                BOOST_AUTO_TEST_CASE(get)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    const task_result_type task_result{ 42 };
+                }
+
+                BOOST_AUTO_TEST_CASE(construction)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    {
+                        const task_result_type task_result{ 42 };
+
+                        BOOST_TEST(task_result_type::get(task_result) == 42);
+                    }
+                    {
+                        task_result_type task_result{ 42 };
+
+                        BOOST_TEST(task_result_type::get(task_result) == 42);
+                    }
+                }
+
+                BOOST_AUTO_TEST_CASE(get_value)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    {
+                        const task_result_type task_result{ 42 };
+
+                        BOOST_TEST(task_result.get_value() == 42);
+                    }
+                    {
+                        task_result_type task_result{ 42 };
+
+                        BOOST_TEST(task_result.get_value() == 42);
+                    }
+                }
+
+
+            BOOST_AUTO_TEST_SUITE_END()
             BOOST_AUTO_TEST_SUITE(progress_dialog)
                 // test cases
 
@@ -99,7 +143,6 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_CHECK(future.wait_for(std::chrono::seconds{ 0 }) == std::future_status::timeout);
                 }
 
-
                 BOOST_AUTO_TEST_CASE(do_modal)
                 {
                     BOOST_TEST_PASSPOINT();
@@ -116,7 +159,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     dialog.do_modal();
 
-                    BOOST_TEST(future.get() == 42);
+                    BOOST_TEST(task_result_type::get(*future.get()) == 42);
                 }
 
 
