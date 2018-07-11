@@ -20,6 +20,7 @@
 #include <boost/math/constants/constants.hpp>
 #include <boost/operators.hpp>
 
+#include <tetengo2/detail/stub/timer.h>
 #include <tetengo2/gui/cursor/system.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
@@ -36,18 +37,15 @@
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for a side bar.
-
-        \tparam TimerDetails          A detail implementation type of a timer.
+        \brief The class for a side bar.
     */
-    template <typename TimerDetails>
     class side_bar : public custom_control
     {
     public:
         // types
 
         //! THe timer details type.
-        using timer_details_type = TimerDetails;
+        using timer_details_type = detail::stub::timer;
 
         //! The timer type.
         using timer_type = gui::timer<widget, timer_details_type>;
