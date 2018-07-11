@@ -72,6 +72,8 @@ namespace tetengo2::gui::widget {
         /*!
             \brief Returns the value.
 
+            \param task_result_ A task result.
+
             \return The value.
         */
         static T get(const task_result_base& task_result_)
@@ -81,6 +83,8 @@ namespace tetengo2::gui::widget {
 
         /*!
             \brief Returns the value.
+
+            \param task_result_ A task result.
 
             \return The value.
         */
@@ -136,13 +140,12 @@ namespace tetengo2::gui::widget {
 
 
     /*!
-        \brief The class template for a progress dialog.
+        \brief The class for a progress dialog.
     */
     class progress_dialog : public dialog
     {
     public:
         // types
-
 
         //! The message catalog type.
         using message_catalog_type = tetengo2::message::message_catalog;

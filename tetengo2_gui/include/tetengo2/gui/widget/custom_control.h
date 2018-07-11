@@ -178,9 +178,7 @@ namespace tetengo2::gui::widget {
 
 
     /*!
-        \brief The class template for a inner item.
-
-        \tparam CustomControl A custom control type.
+        \brief The class for a inner item.
     */
     class inner_item : private boost::noncopyable
     {
