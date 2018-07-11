@@ -10,30 +10,26 @@
 #define TETENGO2_DETAIL_BASE_WIDGET_H
 
 #include <algorithm>
-#include <cassert>
-#include <cstddef>
 #include <functional>
-#include <iterator>
 #include <memory>
-#include <stdexcept>
-#include <string>
-#include <utility>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/throw_exception.hpp>
 
-#include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
 
-namespace tetengo2 { namespace gui { namespace widget {
-    class dropdown_box;
-    class list_box;
-    class progress_bar;
-    class widget;
-}}}
+namespace tetengo2 { namespace gui {
+    class icon;
+
+    namespace widget {
+        class dropdown_box;
+        class list_box;
+        class progress_bar;
+        class widget;
+    }
+}}
 
 
 namespace tetengo2::detail::base {
@@ -102,6 +98,14 @@ namespace tetengo2::detail::base {
         using widget_details_ptr_type = std::unique_ptr<widget_details_type>;
 
 
+        // constructors and destructor;
+
+        /*!
+            \brief Destroys the detail implementation.
+        */
+        ~widget();
+
+
         // functions
 
         /*!
@@ -143,7 +147,7 @@ namespace tetengo2::detail::base {
 
             \throw std::system_error When a dialog cannot be created.
         */
-        widget_details_ptr_type create_dialog(gui::widget::widget* const p_parent, bool file_droppable) const;
+        widget_details_ptr_type create_dialog(gui::widget::widget* p_parent, bool file_droppable) const;
 
         /*!
             \brief Creates a dropdown box.
@@ -239,10 +243,8 @@ namespace tetengo2::detail::base {
 
             \throw std::system_error When a window cannot be created.
         */
-        widget_details_ptr_type create_window(
-            gui::widget::widget* const p_parent,
-            scroll_bar_style_type      scroll_bar_style,
-            bool                       file_droppable) const;
+        widget_details_ptr_type
+        create_window(gui::widget::widget* p_parent, scroll_bar_style_type scroll_bar_style, bool file_droppable) const;
 
         /*!
             \brief Associates a widget to the native window system.
@@ -373,7 +375,6 @@ namespace tetengo2::detail::base {
 
             \throw std::system_error When a position cannot be calculated.
         */
-        template <typename Widget, typename ParentWidget>
         gui::type_list::position_type
         dialog_position(const gui::widget::widget& widget, const gui::widget::widget& parent) const;
 
@@ -821,7 +822,21 @@ namespace tetengo2::detail::base {
     protected:
         // constructors
 
-        widget() = default;
+        /*!
+            \brief Creates a detail implementation.
+        */
+        widget();
+
+
+    private:
+        // types
+
+        class impl;
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 
