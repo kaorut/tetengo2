@@ -316,7 +316,7 @@ namespace tetengo2::gui::widget {
                 std::make_unique<solid_background_type>(system_color_set_type::instance().dialog_background());
             p_label->set_background(std::move(p_background));
 
-            return std::move(p_label);
+            return p_label;
         }
 
         std::unique_ptr<label> create_progress_label()
@@ -328,7 +328,7 @@ namespace tetengo2::gui::widget {
                 std::make_unique<solid_background_type>(system_color_set_type::instance().dialog_background());
             p_label->set_background(std::move(p_background));
 
-            return std::move(p_label);
+            return p_label;
         }
 
         std::unique_ptr<progress_bar> create_progress_bar()
@@ -337,7 +337,7 @@ namespace tetengo2::gui::widget {
 
             p_progress_bar->set_goal(100);
 
-            return std::move(p_progress_bar);
+            return p_progress_bar;
         }
 
         std::unique_ptr<button> create_cancel_button()
@@ -347,7 +347,7 @@ namespace tetengo2::gui::widget {
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Common:Cancel")));
             p_button->mouse_observer_set().clicked().connect([this]() { this->close(); });
 
-            return std::move(p_button);
+            return p_button;
         }
 
         void locate_controls()
