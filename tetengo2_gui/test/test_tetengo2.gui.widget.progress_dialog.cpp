@@ -44,11 +44,9 @@ namespace {
 
     using message_loop_details_type = detail_type_list_type::message_loop_type;
 
-    using timer_details_type = detail_type_list_type::timer_type;
-
     using message_catalog_type = common_type_list_type::message_catalog_type;
 
-    using dialog_type = tetengo2::gui::widget::progress_dialog<int, message_catalog_type, timer_details_type>;
+    using dialog_type = tetengo2::gui::widget::progress_dialog<int>;
 
     using promise_type = dialog_type::promise_type;
 

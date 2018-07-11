@@ -22,6 +22,7 @@
 #include <tetengo2/concurrent/progressive_future.h>
 #include <tetengo2/concurrent/progressive_promise.h>
 #include <tetengo2/detail/stub/drawing.h>
+#include <tetengo2/detail/stub/timer.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/timer.h>
@@ -30,6 +31,7 @@
 #include <tetengo2/gui/widget/label.h>
 #include <tetengo2/gui/widget/progress_bar.h>
 #include <tetengo2/gui/widget/widget.h>
+#include <tetengo2/message/message_catalog.h>
 #include <tetengo2/text.h>
 
 namespace tetengo2 { namespace gui { namespace widget {
@@ -42,10 +44,8 @@ namespace tetengo2::gui::widget {
         \brief The class template for a progress dialog.
 
         \tparam TaskResult            A task result type.
-        \tparam MessageCatalog        A message catalog type.
-        \tparam TimerDetails          A detail implementation type of a timer.
     */
-    template <typename TaskResult, typename MessageCatalog, typename TimerDetails>
+    template <typename TaskResult>
     class progress_dialog : public dialog
     {
     public:
@@ -55,10 +55,7 @@ namespace tetengo2::gui::widget {
         using task_result_type = TaskResult;
 
         //! The message catalog type.
-        using message_catalog_type = MessageCatalog;
-
-        //! The timer details type.
-        using timer_details_type = TimerDetails;
+        using message_catalog_type = tetengo2::message::message_catalog;
 
         //! The promise type.
         using promise_type = concurrent::progressive_promise<task_result_type>;
@@ -136,6 +133,8 @@ namespace tetengo2::gui::widget {
         using drawing_details_type = detail::stub::drawing;
 
         using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
+
+        using timer_details_type = detail::stub::timer;
 
         using timer_type = gui::timer<widget, timer_details_type>;
 
