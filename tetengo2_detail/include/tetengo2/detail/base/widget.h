@@ -922,7 +922,8 @@ namespace tetengo2::detail::base {
 
         virtual font_type font_impl(const gui::widget::widget& widget_) const = 0;
 
-        virtual std::vector<std::reference_wrapper<gui::widget::widget>> children_impl(gui::widget::widget& widget_) const = 0;
+        virtual std::vector<std::reference_wrapper<gui::widget::widget>>
+        children_impl(gui::widget::widget& widget_) const = 0;
 
         virtual void repaint_impl(gui::widget::widget& widget_, const bool immediately) const = 0;
 
@@ -951,7 +952,8 @@ namespace tetengo2::detail::base {
 
         virtual size_type dropdown_box_value_count_impl(const gui::widget::dropdown_box& dropdown_box) const = 0;
 
-        virtual string_type dropdown_box_value_impl(const gui::widget::dropdown_box& dropdown_box, const size_type index) const = 0;
+        virtual string_type
+        dropdown_box_value_impl(const gui::widget::dropdown_box& dropdown_box, const size_type index) const = 0;
 
         virtual void set_dropdown_box_value_impl(
             gui::widget::dropdown_box& dropdown_box,
@@ -963,20 +965,23 @@ namespace tetengo2::detail::base {
             const size_type            index,
             string_type                value) const = 0;
 
-        virtual void erase_dropdown_box_value_impl(gui::widget::dropdown_box& dropdown_box, const size_type index) const = 0;
+        virtual void
+        erase_dropdown_box_value_impl(gui::widget::dropdown_box& dropdown_box, const size_type index) const = 0;
 
         virtual void clear_dropdown_box_impl(gui::widget::dropdown_box& dropdown_box) const = 0;
 
         virtual tetengo2::stdalt::optional<size_type>
         selected_dropdown_box_value_index_impl(const gui::widget::dropdown_box& dropdown_box) const = 0;
 
-        virtual void select_dropdown_box_value_impl(gui::widget::dropdown_box& dropdown_box, const size_type index) const = 0;
+        virtual void
+        select_dropdown_box_value_impl(gui::widget::dropdown_box& dropdown_box, const size_type index) const = 0;
 
         virtual size_type list_box_value_count_impl(const gui::widget::list_box& list_box) const = 0;
 
         virtual string_type list_box_value_impl(const gui::widget::list_box& list_box, const size_type index) const = 0;
 
-        virtual void set_list_box_value_impl(gui::widget::list_box& list_box, const size_type index, string_type value) const = 0;
+        virtual void
+        set_list_box_value_impl(gui::widget::list_box& list_box, const size_type index, string_type value) const = 0;
 
         virtual void
         insert_list_box_value_impl(gui::widget::list_box& list_box, const size_type index, string_type value) const = 0;
@@ -992,16 +997,19 @@ namespace tetengo2::detail::base {
 
         virtual size_type progress_bar_goal_impl(gui::widget::progress_bar& progress_bar) const = 0;
 
-        virtual void set_progress_bar_goal_impl(gui::widget::progress_bar& progress_bar, const size_type goal) const = 0;
+        virtual void
+        set_progress_bar_goal_impl(gui::widget::progress_bar& progress_bar, const size_type goal) const = 0;
 
         virtual size_type progress_bar_progress_impl(gui::widget::progress_bar& progress_bar) const = 0;
 
-        virtual void set_progress_bar_progress_impl(gui::widget::progress_bar& progress_bar, const size_type progress) const = 0;
+        virtual void
+        set_progress_bar_progress_impl(gui::widget::progress_bar& progress_bar, const size_type progress) const = 0;
 
         virtual progress_bar_state_type progress_bar_state_impl(gui::widget::progress_bar& progress_bar) const = 0;
 
-        virtual void
-        set_progress_bar_state_impl(gui::widget::progress_bar& progress_bar, const progress_bar_state_type state) const = 0;
+        virtual void set_progress_bar_state_impl(
+            gui::widget::progress_bar&    progress_bar,
+            const progress_bar_state_type state) const = 0;
     };
 }
 
