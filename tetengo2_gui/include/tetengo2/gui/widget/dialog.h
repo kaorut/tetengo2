@@ -14,8 +14,11 @@
 #include <boost/predef.h>
 
 #include <tetengo2/detail/stub/message_loop.h>
+#include <tetengo2/detail/stub/widget.h>
+#include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/message/dialog_message_loop.h>
 #include <tetengo2/gui/message/message_loop_break.h>
+#include <tetengo2/gui/message/window_observer_set.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/gui/widget/widget.h>
 

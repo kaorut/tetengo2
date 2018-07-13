@@ -14,10 +14,13 @@
 #include <stdexcept>
 
 #include <boost/predef.h>
+#include <boost/signals2.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/icon.h>
+#include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/widget.h>
 

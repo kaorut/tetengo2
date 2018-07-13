@@ -13,6 +13,8 @@
 
 #include <boost/predef.h>
 
+#include <tetengo2/detail/stub/widget.h>
+#include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/gui/widget/widget.h>
 

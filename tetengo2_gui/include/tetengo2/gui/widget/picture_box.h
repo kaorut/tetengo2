@@ -12,10 +12,15 @@
 #include <memory>
 
 #include <boost/predef.h>
+#include <boost/shared_ptr.hpp>
+#include <boost/signals2.hpp>
 
 #include <tetengo2/detail/stub/drawing.h>
+#include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/gui/drawing/canvas.h>
+#include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/widget_canvas.h>
+#include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/message/paint_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/widget.h>

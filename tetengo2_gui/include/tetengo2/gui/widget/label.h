@@ -12,10 +12,16 @@
 #include <algorithm>
 #include <cmath>
 #include <cstddef>
+#include <memory>
 
 #include <boost/operators.hpp>
 #include <boost/predef.h>
+#include <boost/signals2.hpp>
 
+#include <tetengo2/detail/stub/widget.h>
+#include <tetengo2/gui/dimension.h>
+#include <tetengo2/gui/drawing/canvas.h>
+#include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/unit/em.h>
 #include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/gui/widget/control.h>

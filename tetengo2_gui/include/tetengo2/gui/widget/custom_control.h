@@ -9,21 +9,29 @@
 #if !defined(TETENGO2_GUI_WIDGET_CUSTOMCONTROL_H)
 #define TETENGO2_GUI_WIDGET_CUSTOMCONTROL_H
 
+#include <algorithm>
 #include <cassert>
 #include <memory>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/operators.hpp>
 #include <boost/predef.h>
 
-#include <tetengo2/detail/stub/drawing.h>
-#include <tetengo2/detail/stub/message_handler.h>
 #include <tetengo2/detail/stub/mouse_capture.h>
-#include <tetengo2/detail/stub/scroll.h>
 #include <tetengo2/detail/stub/widget.h>
+#include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/mouse_capture.h>
+#include <tetengo2/gui/unit/em.h>
+#include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/stdalt.h>
+
+namespace tetengo2 { namespace detail { namespace stub {
+    class drawing;
+    class message_handler;
+    class scroll;
+}}}
 
 
 namespace tetengo2::gui::widget {

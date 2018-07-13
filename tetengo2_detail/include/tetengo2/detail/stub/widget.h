@@ -9,34 +9,28 @@
 #if !defined(TETENGO2_DETAIL_STUB_WIDGET_H)
 #define TETENGO2_DETAIL_STUB_WIDGET_H
 
-#include <algorithm>
-#include <cassert>
 #include <cstddef>
 #include <functional>
-#include <iterator>
 #include <memory>
-#include <stdexcept>
-#include <string>
 #include <utility>
 #include <vector>
 
-#include <boost/core/noncopyable.hpp>
-#include <boost/throw_exception.hpp>
-
 #include <tetengo2/detail/base/widget.h>
-#include <tetengo2/gui/icon.h>
 
 #include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
-#include <tetengo2/type_list.h>
 
-namespace tetengo2 { namespace gui { namespace widget {
-    class dropdown_box;
-    class list_box;
-    class progress_bar;
-    class widget;
+namespace tetengo2 { namespace gui {
+    class icon;
 
-}}}
+    namespace widget {
+        class dropdown_box;
+        class list_box;
+        class progress_bar;
+        class widget;
+    }
+}}
+
 
 namespace tetengo2::detail::stub {
     /*!
