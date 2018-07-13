@@ -52,7 +52,7 @@ namespace tetengo2::gui::widget {
         {
             control::scroll_bar_style_type::none,
                 message_handler_details_type::make_label_message_handler_map(*this, message_handler_map_type{}),
-                widget_details_type::create_label(parent)
+                widget_details_type::instance().create_label(parent)
         }
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
@@ -158,8 +158,8 @@ namespace tetengo2::gui::widget {
 
         dimension_type calc_text_dimension() const
         {
-            return widget_details_type::template use_canvas<dimension_type>(
-                *this, [this](const canvas_type& canvas) { return canvas.calc_text_dimension(this->text()); });
+            std::unique_ptr<canvas_type> p_canvas = create_canvas();
+            return p_canvas->calc_text_dimension(this->text());
         }
     };
 }

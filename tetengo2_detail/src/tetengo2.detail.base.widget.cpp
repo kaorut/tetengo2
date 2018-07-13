@@ -123,12 +123,12 @@ namespace tetengo2::detail::base {
             return self.has_parent_impl(widget_);
         }
 
-        gui::widget::widget& parent(gui::widget::widget& widget_, const widget& self) const
+        gui::widget::widget& parent(const gui::widget::widget& widget_, const widget& self) const
         {
             return self.parent_impl(widget_);
         }
 
-        gui::widget::widget& root_ancestor(gui::widget::widget& widget_, const widget& self) const
+        gui::widget::widget& root_ancestor(const gui::widget::widget& widget_, const widget& self) const
         {
             return self.root_ancestor_impl(widget_);
         }
@@ -232,13 +232,13 @@ namespace tetengo2::detail::base {
             return self.children_impl(widget_);
         }
 
-        void repaint(gui::widget::widget& widget_, const bool immediately, const widget& self) const
+        void repaint(const gui::widget::widget& widget_, const bool immediately, const widget& self) const
         {
             self.repaint_impl(widget_, immediately);
         }
 
         void repaint_partially(
-            gui::widget::widget&                  widget_,
+            const gui::widget::widget&            widget_,
             const gui::type_list::position_type&  position,
             const gui::type_list::dimension_type& dimension,
             const widget&                         self) const
@@ -399,7 +399,7 @@ namespace tetengo2::detail::base {
             self.select_list_box_value_impl(list_box, index);
         }
 
-        size_type progress_bar_goal(gui::widget::progress_bar& progress_bar, const widget& self) const
+        size_type progress_bar_goal(const gui::widget::progress_bar& progress_bar, const widget& self) const
         {
             return self.progress_bar_goal_impl(progress_bar);
         }
@@ -410,7 +410,7 @@ namespace tetengo2::detail::base {
             self.set_progress_bar_goal_impl(progress_bar, goal);
         }
 
-        size_type progress_bar_progress(gui::widget::progress_bar& progress_bar, const widget& self) const
+        size_type progress_bar_progress(const gui::widget::progress_bar& progress_bar, const widget& self) const
         {
             return self.progress_bar_progress_impl(progress_bar);
         }
@@ -423,7 +423,7 @@ namespace tetengo2::detail::base {
             self.set_progress_bar_progress_impl(progress_bar, progress);
         }
 
-        progress_bar_state_type progress_bar_state(gui::widget::progress_bar& progress_bar, const widget& self) const
+        progress_bar_state_type progress_bar_state(const gui::widget::progress_bar& progress_bar, const widget& self) const
         {
             return self.progress_bar_state_impl(progress_bar);
         }
@@ -516,12 +516,12 @@ namespace tetengo2::detail::base {
         return m_p_impl->has_parent(widget, *this);
     }
 
-    gui::widget::widget& widget::parent(gui::widget::widget& widget) const
+    gui::widget::widget& widget::parent(const gui::widget::widget& widget) const
     {
         return m_p_impl->parent(widget, *this);
     }
 
-    gui::widget::widget& widget::root_ancestor(gui::widget::widget& widget) const
+    gui::widget::widget& widget::root_ancestor(const gui::widget::widget& widget) const
     {
         return m_p_impl->root_ancestor(widget, *this);
     }
@@ -622,13 +622,13 @@ namespace tetengo2::detail::base {
         return m_p_impl->children(widget, *this);
     }
 
-    void widget::repaint(gui::widget::widget& widget, const bool immediately) const
+    void widget::repaint(const gui::widget::widget& widget, const bool immediately) const
     {
         m_p_impl->repaint(widget, immediately, *this);
     }
 
     void widget::repaint_partially(
-        gui::widget::widget&                  widget,
+        const gui::widget::widget&            widget,
         const gui::type_list::position_type&  position,
         const gui::type_list::dimension_type& dimension) const
     {
@@ -769,7 +769,7 @@ namespace tetengo2::detail::base {
         m_p_impl->select_list_box_value(list_box, index, *this);
     }
 
-    widget::size_type widget::progress_bar_goal(gui::widget::progress_bar& progress_bar) const
+    widget::size_type widget::progress_bar_goal(const gui::widget::progress_bar& progress_bar) const
     {
         return m_p_impl->progress_bar_goal(progress_bar, *this);
     }
@@ -779,7 +779,7 @@ namespace tetengo2::detail::base {
         m_p_impl->set_progress_bar_goal(progress_bar, goal, *this);
     }
 
-    widget::size_type widget::progress_bar_progress(gui::widget::progress_bar& progress_bar) const
+    widget::size_type widget::progress_bar_progress(const gui::widget::progress_bar& progress_bar) const
     {
         return m_p_impl->progress_bar_progress(progress_bar, *this);
     }
@@ -789,7 +789,7 @@ namespace tetengo2::detail::base {
         m_p_impl->set_progress_bar_progress(progress_bar, progress, *this);
     }
 
-    widget::progress_bar_state_type widget::progress_bar_state(gui::widget::progress_bar& progress_bar) const
+    widget::progress_bar_state_type widget::progress_bar_state(const gui::widget::progress_bar& progress_bar) const
     {
         return m_p_impl->progress_bar_state(progress_bar, *this);
     }

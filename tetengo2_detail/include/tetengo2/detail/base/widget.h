@@ -78,9 +78,7 @@ namespace tetengo2::detail::base {
         };
 
         //! The menu base type.
-        struct menu_base_type
-        {
-        };
+        using menu_base_type = void;
 
         //! The progress bar state type.
         using progress_bar_state_type = int;
@@ -274,7 +272,7 @@ namespace tetengo2::detail::base {
 
             \throw std::logic_error When the widget has no parent.
         */
-        gui::widget::widget& parent(gui::widget::widget& widget) const;
+        gui::widget::widget& parent(const gui::widget::widget& widget) const;
 
         /*!
             \brief Returns the root ancestor.
@@ -285,7 +283,7 @@ namespace tetengo2::detail::base {
 
             \throw std::logic_error When the widget has no root ancestor.
         */
-        gui::widget::widget& root_ancestor(gui::widget::widget& widget) const;
+        gui::widget::widget& root_ancestor(const gui::widget::widget& widget) const;
 
         /*!
             \brief Sets an enabled status.
@@ -479,7 +477,7 @@ namespace tetengo2::detail::base {
 
             \throw std::system_error When the widget cannot be repainted.
         */
-        void repaint(gui::widget::widget& widget, bool immediately) const;
+        void repaint(const gui::widget::widget& widget, bool immediately) const;
 
         /*!
             \brief Repaints a widget partially.
@@ -491,7 +489,7 @@ namespace tetengo2::detail::base {
             \throw std::system_error When the widget cannot be repainted.
         */
         void repaint_partially(
-            gui::widget::widget&                  widget,
+            const gui::widget::widget&            widget,
             const gui::type_list::position_type&  position,
             const gui::type_list::dimension_type& dimension) const;
 
@@ -764,7 +762,7 @@ namespace tetengo2::detail::base {
 
             \throw std::system_error When the goal cannot be obtained.
         */
-        size_type progress_bar_goal(gui::widget::progress_bar& progress_bar) const;
+        size_type progress_bar_goal(const gui::widget::progress_bar& progress_bar) const;
 
         /*!
             \brief Sets a progress bar goal.
@@ -785,7 +783,7 @@ namespace tetengo2::detail::base {
 
             \throw std::system_error When the progress cannot be obtained.
         */
-        size_type progress_bar_progress(gui::widget::progress_bar& progress_bar) const;
+        size_type progress_bar_progress(const gui::widget::progress_bar& progress_bar) const;
 
         /*!
             \brief Sets a progress bar progress.
@@ -806,7 +804,7 @@ namespace tetengo2::detail::base {
 
             \throw std::system_error When the state cannot be obtained.
         */
-        progress_bar_state_type progress_bar_state(gui::widget::progress_bar& progress_bar) const;
+        progress_bar_state_type progress_bar_state(const gui::widget::progress_bar& progress_bar) const;
 
         /*!
             \brief Sets a progress bar state.
@@ -878,9 +876,9 @@ namespace tetengo2::detail::base {
 
         virtual bool has_parent_impl(const gui::widget::widget& widget_) const = 0;
 
-        virtual gui::widget::widget& parent_impl(gui::widget::widget& widget_) const = 0;
+        virtual gui::widget::widget& parent_impl(const gui::widget::widget& widget_) const = 0;
 
-        virtual gui::widget::widget& root_ancestor_impl(gui::widget::widget& widget_) const = 0;
+        virtual gui::widget::widget& root_ancestor_impl(const gui::widget::widget& widget_) const = 0;
 
         virtual void set_enabled_impl(gui::widget::widget& widget_, const bool enabled) const = 0;
 
@@ -925,10 +923,10 @@ namespace tetengo2::detail::base {
         virtual std::vector<std::reference_wrapper<gui::widget::widget>>
         children_impl(gui::widget::widget& widget_) const = 0;
 
-        virtual void repaint_impl(gui::widget::widget& widget_, const bool immediately) const = 0;
+        virtual void repaint_impl(const gui::widget::widget& widget_, const bool immediately) const = 0;
 
         virtual void repaint_partially_impl(
-            gui::widget::widget&                  widget_,
+            const gui::widget::widget&            widget_,
             const gui::type_list::position_type&  position,
             const gui::type_list::dimension_type& dimension) const = 0;
 
@@ -995,17 +993,18 @@ namespace tetengo2::detail::base {
 
         virtual void select_list_box_value_impl(gui::widget::list_box& list_box, const size_type index) const = 0;
 
-        virtual size_type progress_bar_goal_impl(gui::widget::progress_bar& progress_bar) const = 0;
+        virtual size_type progress_bar_goal_impl(const gui::widget::progress_bar& progress_bar) const = 0;
 
         virtual void
         set_progress_bar_goal_impl(gui::widget::progress_bar& progress_bar, const size_type goal) const = 0;
 
-        virtual size_type progress_bar_progress_impl(gui::widget::progress_bar& progress_bar) const = 0;
+        virtual size_type progress_bar_progress_impl(const gui::widget::progress_bar& progress_bar) const = 0;
 
         virtual void
         set_progress_bar_progress_impl(gui::widget::progress_bar& progress_bar, const size_type progress) const = 0;
 
-        virtual progress_bar_state_type progress_bar_state_impl(gui::widget::progress_bar& progress_bar) const = 0;
+        virtual progress_bar_state_type
+        progress_bar_state_impl(const gui::widget::progress_bar& progress_bar) const = 0;
 
         virtual void set_progress_bar_state_impl(
             gui::widget::progress_bar&    progress_bar,

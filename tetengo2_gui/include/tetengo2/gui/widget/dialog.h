@@ -70,7 +70,7 @@ namespace tetengo2::gui::widget {
 #pragma warning(pop)
 #endif
           m_result{ result_type::undecided }, m_p_details{
-              widget_details_type::template create_dialog<widget>(&parent, file_droppable)
+              widget_details_type::instance().create_dialog(&parent, file_droppable)
           }
         {
             initialize_dialog();
@@ -131,7 +131,7 @@ namespace tetengo2::gui::widget {
 
             this->window_observer_set().closing().connect([this](bool& cancel) { this->on_close_impl(cancel); });
             this->window_observer_set().destroyed().connect([]() { message_loop_break_type{}(0); });
-            this->set_position(widget_details_type::dialog_position(*this, parent_window));
+            this->set_position(widget_details_type::instance().dialog_position(*this, parent_window));
             this->set_visible(true);
 
             message_loop_type{ *this }();
@@ -179,13 +179,13 @@ namespace tetengo2::gui::widget {
         virtual const details_type& details_impl() const override
         {
             assert(m_p_details);
-            return *m_p_details;
+            return *static_cast<const details_type*>(m_p_details.get());
         }
 
         virtual details_type& details_impl() override
         {
             assert(m_p_details);
-            return *m_p_details;
+            return *static_cast<details_type*>(m_p_details.get());
         }
     };
 }

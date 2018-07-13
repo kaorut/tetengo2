@@ -45,7 +45,7 @@ namespace {
 
     using string_type = common_type_list_type::string_type;
 
-    using details_font_type = detail_type_list_type::widget_type::details_font_type;
+    using details_font_type = detail_type_list_type::widget_type::font_type;
 
     using position_type = common_type_list_type::position_type;
 

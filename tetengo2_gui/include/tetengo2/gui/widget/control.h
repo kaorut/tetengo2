@@ -70,7 +70,7 @@ namespace tetengo2::gui::widget {
         */
         bool focusable() const
         {
-            return widget_details_type::focusable(*this);
+            return widget_details_type::instance().focusable(*this);
         }
 
         /*!
@@ -80,7 +80,7 @@ namespace tetengo2::gui::widget {
         */
         void set_focusable(const bool focusable)
         {
-            widget_details_type::set_focusable(*this, focusable);
+            widget_details_type::instance().set_focusable(*this, focusable);
         }
 
 
@@ -133,13 +133,13 @@ namespace tetengo2::gui::widget {
         virtual const details_type& details_impl() const override
         {
             assert(m_p_details);
-            return *m_p_details;
+            return *static_cast<const details_type*>(m_p_details.get());
         }
 
         virtual details_type& details_impl() override
         {
             assert(m_p_details);
-            return *m_p_details;
+            return *static_cast<details_type*>(m_p_details.get());
         }
     };
 }

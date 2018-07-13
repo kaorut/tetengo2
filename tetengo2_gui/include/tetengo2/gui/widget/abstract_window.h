@@ -65,7 +65,7 @@ namespace tetengo2::gui::widget {
         */
         void activate()
         {
-            widget_details_type::activate(*this);
+            widget_details_type::instance().activate(*this);
         }
 
         /*!
@@ -75,7 +75,7 @@ namespace tetengo2::gui::widget {
         */
         window_state_type window_state() const
         {
-            return widget_details_type::template window_state<window_state_type>(*this);
+            return static_cast<window_state_type>(widget_details_type::instance().window_state(*this));
         }
 
         /*!
@@ -85,7 +85,8 @@ namespace tetengo2::gui::widget {
         */
         void set_window_state(const window_state_type state)
         {
-            return widget_details_type::template set_window_state<window_state_type>(*this, state);
+            return widget_details_type::instance().set_window_state(
+                *this, static_cast<widget_details_type::window_state_type>(state));
         }
 
         /*!
@@ -95,7 +96,7 @@ namespace tetengo2::gui::widget {
         */
         dimension_type normal_dimension() const
         {
-            return widget_details_type::normal_dimension(*this);
+            return widget_details_type::instance().normal_dimension(*this);
         }
 
         /*!
@@ -142,7 +143,7 @@ namespace tetengo2::gui::widget {
         */
         void set_icon(std::unique_ptr<icon_type> p_icon)
         {
-            widget_details_type::set_icon(*this, p_icon.get());
+            widget_details_type::instance().set_icon(*this, p_icon.get());
             m_p_icon = std::move(p_icon);
         }
 
@@ -198,12 +199,12 @@ namespace tetengo2::gui::widget {
         */
         void set_menu_bar(std::unique_ptr<menu_bar_type> p_menu_bar)
         {
-            widget_details_type::set_menu_bar(*this, static_cast<const menu_bar_type*>(nullptr));
+            widget_details_type::instance().set_menu_bar(*this, static_cast<const menu_bar_type*>(nullptr));
 
             if (p_menu_bar)
             {
                 p_menu_bar->update_shortcut_key_table();
-                widget_details_type::set_menu_bar(*this, p_menu_bar.get());
+                widget_details_type::instance().set_menu_bar(*this, p_menu_bar.get());
             }
             m_p_menu_bar = std::move(p_menu_bar);
         }
@@ -264,7 +265,7 @@ namespace tetengo2::gui::widget {
         */
         void close()
         {
-            widget_details_type::close(*this);
+            widget_details_type::instance().close(*this);
         }
 
 

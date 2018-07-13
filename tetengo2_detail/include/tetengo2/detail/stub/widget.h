@@ -23,51 +23,53 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/detail/base/widget.h>
 #include <tetengo2/gui/icon.h>
+
 #include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
 
+namespace tetengo2 { namespace gui { namespace widget {
+    class dropdown_box;
+    class list_box;
+    class progress_bar;
+    class widget;
+
+}}}
 
 namespace tetengo2::detail::stub {
     /*!
         \brief The class for a detail implementation of a widget.
     */
-    class widget : private boost::noncopyable
+    class widget : public base::widget
     {
     public:
         // types
 
+        //! The size type.
+        using size_type = base::widget::size_type;
+
         //! The string type.
-        using string_type = type_list::string_type;
+        using string_type = base::widget::string_type;
 
-#if !defined(DOCUMENTATION)
-        struct details_font_type
-        {
-            string_type family;
-            std::size_t size;
-            bool        bold;
-            bool        italic;
-            bool        underline;
-            bool        strikeout;
+        //! The scroll bar style type.
+        using scroll_bar_style_type = base::widget::scroll_bar_style_type;
 
-            details_font_type() : family{}, size{}, bold{}, italic{}, underline{}, strikeout{} {}
+        //! The window state type.
+        using window_state_type = base::widget::window_state_type;
 
-            details_font_type(
-                string_type       family,
-                const std::size_t size,
-                const bool        bold,
-                const bool        italic,
-                const bool        underline,
-                const bool        strikeout)
-            : family{ std::move(family) }, size{ size }, bold{ bold }, italic{ italic }, underline{ underline },
-              strikeout{ strikeout }
-            {}
-        };
-#endif
+        //! The font type.
+        using font_type = base::widget::font_type;
+
+        //! The menu base type.
+        using menu_base_type = base::widget::menu_base_type;
+
+        //! The progress bar state type.
+        using progress_bar_state_type = base::widget::progress_bar_state_type;
 
         //! The widget details type.
-        struct widget_details_type
+        struct widget_details_type : public base::widget::widget_details_type
         {
 #if !defined(DOCUMENTATION)
             void*                                     p_parent;
@@ -77,7 +79,7 @@ namespace tetengo2::detail::stub {
             std::pair<std::ptrdiff_t, std::ptrdiff_t> position;
             std::pair<std::size_t, std::size_t>       dimension;
             string_type                               text;
-            details_font_type                         font;
+            font_type                                 font;
             std::vector<void*>                        children;
             bool                                      focusable;
             bool                                      read_only;
@@ -101,7 +103,7 @@ namespace tetengo2::detail::stub {
                 std::pair<std::ptrdiff_t, std::ptrdiff_t> position,
                 std::pair<std::size_t, std::size_t>       dimension,
                 string_type                               text,
-                details_font_type                         font,
+                font_type                                 font,
                 std::vector<void*>                        children,
                 const bool                                focusable,
                 const bool                                read_only,
@@ -118,1253 +120,226 @@ namespace tetengo2::detail::stub {
               progress_bar_goal{ progress_bar_goal }, progress_bar_progress{ progress_bar_progress },
               progress_bar_state{ progress_bar_state }
             {}
+
+            virtual ~widget_details_type() = default;
 #endif
         };
 
         //! The widget details pointer type.
-        using widget_details_ptr_type = std::unique_ptr<widget_details_type>;
+        using widget_details_ptr_type = base::widget::widget_details_ptr_type;
 
 
         // static functions
 
         /*!
-            \brief Creates a button.
+            \brief Returns the instance.
 
-            \tparam Widget A widget type.
-
-            \param parent     A parent widget.
-            \param is_default Set true to create a default button.
-            \param is_cancel  Set true to create a cancel button.
-
-            \return A unique pointer to a button.
-
-            \throw std::invalid_argument When a default button already exists and is_default is true.
-            \throw std::invalid_argument When a cancel button already exists and is_cancel is true.
-            \throw std::system_error     When a button cannot be created.
-        */
-        template <typename Widget>
-        static widget_details_ptr_type create_button(
-            Widget&                                 parent,
-            TETENGO2_STDALT_MAYBE_UNUSED const bool is_default,
-            TETENGO2_STDALT_MAYBE_UNUSED const bool is_cancel)
-        {
-            return create_details<Widget>(&parent);
-        }
-
-        /*!
-            \brief Creates a custom control.
-
-            \tparam Widget A widget type.
-
-            \param parent           A parent widget.
-            \param border           Set true to add border lines.
-            \param scroll_bar_style A scroll bar style.
-
-            \return A unique pointer to a custom control.
-
-            \throw std::system_error When a custom control cannot be created.
-        */
-        template <typename Widget>
-        static widget_details_ptr_type create_custom_control(
-            Widget&                                                                   parent,
-            TETENGO2_STDALT_MAYBE_UNUSED const bool                                   border,
-            TETENGO2_STDALT_MAYBE_UNUSED const typename Widget::scroll_bar_style_type scroll_bar_style)
-        {
-            return create_details<Widget>(&parent);
-        }
-
-        /*!
-            \brief Creates a dialog.
-
-            \tparam Widget A widget type.
-
-            \param p_parent       A pointer to a parent widget. When nullptr, the dialog has no parent.
-            \param file_droppable Set true to enable file drop.
-
-            \return A unique pointer to a dialog.
-
-            \throw std::system_error When a dialog cannot be created.
-        */
-        template <typename Widget>
-        static widget_details_ptr_type
-        create_dialog(Widget* const p_parent, TETENGO2_STDALT_MAYBE_UNUSED const bool file_droppable)
-        {
-            return create_details<Widget>(p_parent);
-        }
-
-        /*!
-            \brief Creates a dropdown box.
-
-            \tparam Widget A widget type.
-
-            \param parent A parent widget.
-
-            \return A unique pointer to a dropdown box.
-
-            \throw std::system_error When a dropdown box cannot be created.
-        */
-        template <typename Widget>
-        static widget_details_ptr_type create_dropdown_box(Widget& parent)
-        {
-            return create_details<Widget>(&parent);
-        }
-
-        /*!
-            \brief Creates an image.
-
-            \tparam Widget A widget type.
-
-            \param parent A parent widget.
-
-            \return A unique pointer to an image.
-
-            \throw std::system_error When an image cannot be created.
-        */
-        template <typename Widget>
-        static widget_details_ptr_type create_image(Widget& parent)
-        {
-            return create_details<Widget>(&parent);
-        }
-
-        /*!
-            \brief Creates a label.
-
-            \tparam Widget A widget type.
-
-            \param parent A parent widget.
-
-            \return A unique pointer to a label.
-
-            \throw std::system_error When a label cannot be created.
-        */
-        template <typename Widget>
-        static widget_details_ptr_type create_label(Widget& parent)
-        {
-            return create_details<Widget>(&parent);
-        }
-
-        /*!
-            \brief Creates a list box.
-
-            \tparam Widget A widget type.
-
-            \param parent           A parent widget.
-            \param scroll_bar_style A scroll bar style.
-
-            \return A unique pointer to a list box.
-
-            \throw std::system_error When a list box cannot be created.
-        */
-        template <typename Widget>
-        static widget_details_ptr_type create_list_box(
-            Widget&                                                                   parent,
-            TETENGO2_STDALT_MAYBE_UNUSED const typename Widget::scroll_bar_style_type scroll_bar_style)
-        {
-            return create_details<Widget>(&parent);
-        }
-
-        /*!
-            \brief Creates a picture box.
-
-            \tparam Widget A widget type.
-
-            \param parent           A parent widget.
-            \param scroll_bar_style A scroll bar style.
-
-            \return A unique pointer to a picture box.
-
-            \throw std::system_error When a picture box cannot be created.
-        */
-        template <typename Widget>
-        static widget_details_ptr_type create_picture_box(
-            Widget&                                                                   parent,
-            TETENGO2_STDALT_MAYBE_UNUSED const typename Widget::scroll_bar_style_type scroll_bar_style)
-        {
-            return create_details<Widget>(&parent);
-        }
-
-        /*!
-            \brief Creates a progress bar.
-
-            \tparam Widget A widget type.
-
-            \param parent A parent widget.
-
-            \return A unique pointer to a picture box.
-
-            \throw std::system_error When a picture box cannot be created.
-        */
-        template <typename Widget>
-        static widget_details_ptr_type create_progress_bar(Widget& parent)
-        {
-            return create_details<Widget>(&parent);
-        }
-
-        /*!
-            \brief Creates a text box.
-
-            \tparam Widget A widget type.
-
-            \param parent           A parent widget.
-            \param scroll_bar_style A scroll bar style.
-
-            \return A unique pointer to a text box.
-
-            \throw std::system_error When a text box cannot be created.
-        */
-        template <typename Widget>
-        static widget_details_ptr_type create_text_box(
-            Widget&                                                                   parent,
-            TETENGO2_STDALT_MAYBE_UNUSED const typename Widget::scroll_bar_style_type scroll_bar_style)
-        {
-            return create_details<Widget>(&parent);
-        }
-
-        /*!
-            \brief Creates a window.
-
-            \tparam Widget A widget type.
-
-            \param p_parent         A pointer to a parent widget. When nullptr, the dialog has no parent.
-            \param scroll_bar_style A scroll bar style.
-            \param file_droppable   Set true to enable file drop.
-
-            \return A unique pointer to a window.
-
-            \throw std::system_error When a window cannot be created.
-        */
-        template <typename Widget>
-        static widget_details_ptr_type create_window(
-            Widget* const                                                             p_parent,
-            TETENGO2_STDALT_MAYBE_UNUSED const typename Widget::scroll_bar_style_type scroll_bar_style,
-            TETENGO2_STDALT_MAYBE_UNUSED const bool                                   file_droppable)
-        {
-            return create_details<Widget>(p_parent);
-        }
-
-        /*!
-            \brief Associates a widget to the native window system.
-
-            \tparam Widget A widget type.
-
-            \param widget A widget.
-
-            \throw std::system_error When the widget cannot be associated.
-        */
-        template <typename Widget>
-        static void associate_to_native_window_system(Widget& widget)
-        {
-            if (widget.has_parent())
-                widget.parent().details().children.push_back(reinterpret_cast<void*>(&widget));
-        }
-
-        /*!
-            \brief Returns whether the widget has a parent.
-
-            \tparam Widget A widget type.
-
-            \param widget A widget.
-
-            \retval true  When the widget has a parent.
-            \retval false Otherwise.
-        */
-        template <typename Widget>
-        static bool has_parent(const Widget& widget)
-        {
-            return widget.details().p_parent != nullptr;
-        }
-
-        /*!
-            \brief Returns the parent.
-
-            \tparam Widget A widget type.
-
-            \param widget A widget.
-
-            \return The parent.
-
-            \throw std::logic_error When the widget has no parent.
-        */
-        template <typename Widget>
-        static Widget& parent(Widget& widget)
-        {
-            if (!has_parent(widget))
-                BOOST_THROW_EXCEPTION((std::logic_error{ "The widget has no parent." }));
-
-            return *reinterpret_cast<Widget*>(widget.details().p_parent);
-        }
-
-        /*!
-            \brief Returns the root ancestor.
-
-            \tparam Widget A widget type.
-
-            \param widget A widget.
-
-            \return The root ancestor.
-
-            \throw std::logic_error When the widget has no root ancestor.
-        */
-        template <typename Widget>
-        static Widget& root_ancestor(Widget& widget)
-        {
-            return parent(widget);
-        }
-
-        /*!
-            \brief Sets an enabled status.
-
-            \tparam Widget A widget type.
-
-            \param widget A widget.
-            \param enabled An enabled status.
-        */
-        template <typename Widget>
-        static void set_enabled(Widget& widget, const bool enabled)
-        {
-            widget.details().enabled = enabled;
-        }
-
-        /*!
-            \brief Returns the enabled status.
-
-            \tparam Widget A widget type.
-
-            \param widget A widget.
-
-            \return The enabled status.
-        */
-        template <typename Widget>
-        static bool enabled(const Widget& widget)
-        {
-            return widget.details().enabled;
-        }
-
-        /*!
-            \brief Sets a visible status.
-
-            \tparam Widget A widget type.
-
-            \param widget A widget.
-            \param visible A visible status.
-        */
-        template <typename Widget>
-        static void set_visible(Widget& widget, const bool visible)
-        {
-            widget.details().visible = visible;
-        }
-
-        /*!
-            \brief Returns the visible status.
-
-            \tparam Widget A widget type.
-
-            \param widget A widget.
-
-            \return The visible status.
-        */
-        template <typename Widget>
-        static bool visible(const Widget& widget)
-        {
-            return widget.details().visible;
-        }
-
-        /*!
-            \brief Sets a window state.
-
-            \tparam WindowState A window state type.
-            \tparam Widget      A widget type.
-
-            \param widget A widget.
-            \param state  A window state.
-
-            \throw std::system_error When a window state cannot be set.
-        */
-        template <typename WindowState, typename Widget>
-        static void set_window_state(Widget& widget, const WindowState state)
-        {
-            widget.details().window_state = static_cast<int>(state);
-        }
-
-        /*!
-            \brief Returns the window state.
-
-            \tparam WindowState A window state type.
-            \tparam Widget      A widget type.
-
-            \param widget A widget.
-
-            \return The window state.
-        */
-        template <typename WindowState, typename Widget>
-        static WindowState window_state(const Widget& widget)
-        {
-            return static_cast<WindowState>(widget.details().window_state);
-        }
-
-        /*!
-            \brief Moves a widget.
-
-            \tparam Widget    A widget type.
-
-            \param widget    A widget.
-            \param position  A position.
-            \param dimension A dimension.
-
-            \throw std::system_error When the widget cannot be moved.
-        */
-        template <typename Widget>
-        static void move(
-            Widget&                               widget,
-            const gui::type_list::position_type&  position,
-            const gui::type_list::dimension_type& dimension)
-        {
-            widget.details().position = std::make_pair(position.left().to_pixels(), position.top().to_pixels());
-            widget.details().dimension = std::make_pair(dimension.width().to_pixels(), dimension.height().to_pixels());
-        }
-
-        /*!
-            \brief Returns the position.
-
-            \tparam Widget A widget type.
-
-            \param widget A widget.
-
-            \return The position.
-
-            \throw std::system_error When the position cannot be obtained.
-        */
-        template <typename Widget>
-        static gui::type_list::position_type position(const Widget& widget)
-        {
-            return { gui::type_list::position_unit_type::from_pixels(widget.details().position.first),
-                     gui::type_list::position_unit_type::from_pixels(widget.details().position.second) };
-        }
-
-        /*!
-            \brief Calculates a position suitable for a dialog.
-
-            \tparam Widget       A widget type.
-            \tparam ParentWidget A parent widget type.
-
-            \param widget A widget.
-            \param parent A parent widget.
-
-            \return A position.
-
-            \throw std::system_error When a position cannot be calculated.
-        */
-        template <typename Widget, typename ParentWidget>
-        static gui::type_list::position_type
-        dialog_position(TETENGO2_STDALT_MAYBE_UNUSED const Widget& widget, const ParentWidget& parent)
-        {
-            return position(parent);
-        }
-
-        /*!
-            \brief Returns the dimension.
-
-            \tparam Widget    A widget type.
-
-            \param widget A widget.
-
-            \return The dimension.
-
-            \throw std::system_error When the dimension cannot be obtained.
-        */
-        template <typename Widget>
-        static gui::type_list::dimension_type dimension(const Widget& widget)
-        {
-            return gui::type_list::dimension_type{
-                gui::type_list::dimension_unit_type::from_pixels(widget.details().dimension.first),
-                gui::type_list::dimension_unit_type::from_pixels(widget.details().dimension.second)
-            };
-        }
-
-        /*!
-            \brief Sets a client dimension.
-
-            \tparam Widget    A widget type.
-
-            \param widget           A widget.
-            \param client_dimension A client dimension.
-
-            \throw std::system_error When a client dimension cannot be set.
-        */
-        template <typename Widget>
-        static void set_client_dimension(Widget& widget, const gui::type_list::dimension_type& client_dimension)
-        {
-            widget.details().dimension =
-                std::make_pair(client_dimension.width().to_pixels(), client_dimension.height().to_pixels());
-        }
-
-        /*!
-            \brief Returns the client dimension.
-
-            \tparam Widget    A widget type.
-
-            \param widget A widget.
-
-            \return The client dimension.
-
-            \throw std::system_error When the client dimension cannot be obtained.
-        */
-        template <typename Widget>
-        static gui::type_list::dimension_type client_dimension(const Widget& widget)
-        {
-            return gui::type_list::dimension_type{
-                gui::type_list::dimension_unit_type::from_pixels(widget.details().dimension.first),
-                gui::type_list::dimension_unit_type::from_pixels(widget.details().dimension.second)
-            };
-        }
-
-        /*!
-            \brief Returns the normal dimension.
-
-            \tparam Widget    A widget type.
-
-            \param widget A widget.
-
-            \return The normal dimension.
-
-            \throw std::system_error When the normal dimension cannot be obtained.
-        */
-        template <typename Widget>
-        static gui::type_list::dimension_type normal_dimension(const Widget& widget)
-        {
-            return gui::type_list::dimension_type{
-                gui::type_list::dimension_unit_type::from_pixels(widget.details().dimension.first),
-                gui::type_list::dimension_unit_type::from_pixels(widget.details().dimension.second)
-            };
-        }
-
-        /*!
-            \brief Sets a text.
-
-            \tparam Widget  A widget type.
-
-            \param widget  A widget.
-            \param text    A text.
-
-            \throw std::system_error When the text cannot be set.
-        */
-        template <typename Widget>
-        static void set_text(Widget& widget, type_list::string_type text)
-        {
-            widget.details().text = std::move(text);
-        }
-
-        /*!
-            \brief Retuns the text.
-
-            \tparam Widget  A widget type.
-
-            \param widget  A widget.
-
-            \return The text.
-        */
-        template <typename Widget>
-        static type_list::string_type text(const Widget& widget)
-        {
-            return widget.details().text;
-        }
-
-        /*!
-            \brief Sets a font.
-
-            \tparam Widget  A widget type.
-            \tparam Font    A font type.
-
-            \param widget  A widget.
-            \param font    A font.
-
-            \throw std::system_error When the font cannot be set.
-        */
-        template <typename Widget, typename Font>
-        static void set_font(Widget& widget, const Font& font)
-        {
-            widget.details().font = details_font_type{ font.family(), font.size(),      font.bold(),
-                                                       font.italic(), font.underline(), font.strikeout() };
-        }
-
-        /*!
-            \brief Retuns the font.
-
-            \tparam Font   A font type.
-            \tparam Widget A widget type.
-
-            \param widget  A widget.
-
-            \return The font.
-
-            \throw std::system_error When the font cannot be obtained.
-        */
-        template <typename Font, typename Widget>
-        static Font font(const Widget& widget)
-        {
-            const auto& font = widget.details().font;
-            return Font{ font.family, font.size, font.bold, font.italic, font.underline, font.strikeout };
-        }
-
-        /*!
-            \brief Returns the children.
-
-            \tparam Child A child type.
-            \tparam Widget A widget type.
-
-            \param widget A widget.
-
-            \return The children.
-        */
-        template <typename Child, typename Widget>
-        static std::vector<std::reference_wrapper<Child>> children(Widget& widget)
-        {
-            const auto&                                children_as_void = widget.details().children;
-            std::vector<std::reference_wrapper<Child>> children{};
-            children.reserve(children_as_void.size());
-
-            std::transform(
-                children_as_void.begin(), children_as_void.end(), std::back_inserter(children), as_child<Child>);
-
-            return children;
-        }
-
-        /*!
-            \brief Repaints a widget.
-
-            \tparam Widget A widget type.
-
-            \param widget      A widget.
-            \param immediately Set true to request an immediate repaint.
-
-            \throw std::system_error When the widget cannot be repainted.
-        */
-        template <typename Widget>
-        static void
-        repaint(TETENGO2_STDALT_MAYBE_UNUSED Widget& widget, TETENGO2_STDALT_MAYBE_UNUSED const bool immediately)
-        {}
-
-        /*!
-            \brief Repaints a widget partially.
-
-            \tparam Widget    A widget type.
-
-            \param widget    A widget.
-            \param position  The position of a region to repaint.
-            \param dimension The dimension of a region to repaint.
-
-            \throw std::system_error When the widget cannot be repainted.
-        */
-        template <typename Widget>
-        static void repaint_partially(
-            TETENGO2_STDALT_MAYBE_UNUSED Widget& widget,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_type& dimension)
-        {}
-
-        /*!
-            \brief Uses a widget canvas.
-
-            \tparam Result   A result type.
-            \tparam Widget   A widget type.
-            \tparam Function A function type.
-
-            \param widget   A widget.
-            \param function A function.
-
-            \return A result.
-        */
-        template <typename Result, typename Widget, typename Function>
-        static Result use_canvas(const Widget& widget, const Function function)
-        {
-            const std::unique_ptr<typename Widget::canvas_type> p_canvas(widget.create_canvas());
-            return function(*p_canvas);
-        }
-
-        /*!
-            \brief Activates a widget.
-
-            \tparam Widget A widget type.
-
-            \param widget A widget.
-        */
-        template <typename Widget>
-        static void activate(TETENGO2_STDALT_MAYBE_UNUSED Widget& widget)
-        {}
-
-        /*!
-            \brief Assigns an icon on a widget.
-
-            \tparam Widget A widget type.
-
-            \param widget A widget.
-            \param p_icon A pointer to an icon.
-
-            \throw std::system_error When an icon cannot be set.
-        */
-        template <typename Widget>
-        static void set_icon(
-            TETENGO2_STDALT_MAYBE_UNUSED Widget& widget,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::icon* const p_icon)
-        {}
-
-        /*!
-            \brief Assigns a menu bar on a widget.
-
-            \tparam Widget   A widget type.
-            \tparam MenuBase A menu base type.
-
-            \param widget A widget.
-            \param p_menu A pointer to a menu. It may be nullptr to remove a menu bar.
-
-            \throw std::system_error When a menu bar cannot be set.
-        */
-        template <typename Widget, typename MenuBase>
-        static void set_menu_bar(
-            TETENGO2_STDALT_MAYBE_UNUSED Widget& widget,
-            TETENGO2_STDALT_MAYBE_UNUSED const MenuBase* const p_menu = nullptr)
-        {}
-
-        /*!
-            \brief Checks whether a widget accepts a focus.
-
-            \tparam Widget A widget type.
-
-            \param widget A widget.
-
-            \retval true  When the widget accepts a focus.
-            \retval false Otherwise.
-
-            \throw std::system_error When the focusable status cannot be obtained.
-        */
-        template <typename Widget>
-        static bool focusable(const Widget& widget)
-        {
-            return widget.details().focusable;
-        }
-
-        /*!
-            \brief Sets whether a widget accepts a focus.
-
-            \tparam Widget A widget type.
-
-            \param widget    A widget.
-            \param focusable True when the widget accepts a focus.
-
-            \throw std::system_error When a focusable status cannot be set.
-        */
-        template <typename Widget>
-        static void set_focusable(Widget& widget, const bool focusable)
-        {
-            widget.details().focusable = focusable;
-        }
-
-        /*!
-            \brief Focuses on a widget.
-
-            \param widget A widget.
-        */
-        template <typename Widget>
-        static void set_focus(TETENGO2_STDALT_MAYBE_UNUSED Widget& widget)
-        {}
-
-        /*!
-            \brief Checks whether a widget is read-only.
-
-            \tparam Widget A widget type.
-
-            \param widget A widget.
-
-            \retval true  When the widget is read-only.
-            \retval false Otherwise.
-
-            \throw std::system_error When the read-only status cannot be obtained.
-        */
-        template <typename Widget>
-        static bool read_only(const Widget& widget)
-        {
-            return widget.details().read_only;
-        }
-
-        /*!
-            \brief Sets whether a widget is read-only.
-
-            \tparam Widget A widget type.
-
-            \param widget    A widget.
-            \param read_only True when the widget is read-only.
-
-            \throw std::system_error When the read-only status cannot be set.
-        */
-        template <typename Widget>
-        static void set_read_only(Widget& widget, const bool read_only)
-        {
-            widget.details().read_only = read_only;
-        }
-
-        /*!
-            \brief Closes a widget.
-
-            \tparam Widget A widget type.
-
-            \param widget A widget.
-
-            \throw std::system_error When the widget cannot be closed.
-        */
-        template <typename Widget>
-        static void close(TETENGO2_STDALT_MAYBE_UNUSED Widget& widget)
-        {}
-
-        /*!
-            \brief Returns the dropdown box value count.
-
-            \tparam DropdownBox A dropdown box type.
-
-            \param dropdown_box A dropdown box.
-
-            \return The dropdown box value count.
-
-            \throw std::system_error When the value cannot be obtained.
-        */
-        template <typename DropdownBox>
-        static type_list::size_type dropdown_box_value_count(const DropdownBox& dropdown_box)
-        {
-            return dropdown_box.details().list_box_values.size();
-        }
-
-        /*!
-            \brief Returns the dropdown box value.
-
-            \tparam DropdownBox A dropdown box type.
-
-            \param dropdown_box A dropdown box.
-            \param index        An index.
-
-            \return The dropdown box value.
-
-            \throw std::system_error When the value cannot be obtained.
-        */
-        template <typename DropdownBox>
-        static type_list::string_type
-        dropdown_box_value(const DropdownBox& dropdown_box, const type_list::size_type index)
-        {
-            return dropdown_box.details().list_box_values[index];
-        }
-
-        /*!
-            \brief Sets a dropdown box value.
-
-            \tparam DropdownBox A dropdown box type.
-
-            \param dropdown_box A dropdown box.
-            \param index        An index.
-            \param value         An value.
-
-            \throw std::system_error When the value cannot be set.
-        */
-        template <typename DropdownBox>
-        static void set_dropdown_box_value(
-            DropdownBox&               dropdown_box,
-            const type_list::size_type index,
-            type_list::string_type     value)
-        {
-            dropdown_box.details().list_box_values[index] = std::move(value);
-        }
-
-        /*!
-            \brief Inserts a dropdown box value.
-
-            \tparam DropdownBox A dropdown box type.
-
-            \param dropdown_box A dropdown box.
-            \param index        An index.
-            \param value         An value.
-
-            \throw std::system_error When the value cannot be inserted.
-        */
-        template <typename DropdownBox>
-        static void insert_dropdown_box_value(
-            DropdownBox&               dropdown_box,
-            const type_list::size_type index,
-            type_list::string_type     value)
-        {
-            dropdown_box.details().list_box_values.insert(
-                std::next(dropdown_box.details().list_box_values.begin(), index), std::move(value));
-        }
-
-        /*!
-            \brief Erases a dropdown box value.
-
-            \tparam DropdownBox A dropdown box type.
-
-            \param dropdown_box A dropdown box.
-            \param index    An index.
-
-            \throw std::system_error When the value cannot be erased.
-        */
-        template <typename DropdownBox>
-        static void erase_dropdown_box_value(DropdownBox& dropdown_box, const type_list::size_type index)
-        {
-            dropdown_box.details().list_box_values.erase(
-                std::next(dropdown_box.details().list_box_values.begin(), index));
-            if (dropdown_box.details().selected_list_box_value_index &&
-                *dropdown_box.details().selected_list_box_value_index >= dropdown_box.details().list_box_values.size())
-            {
-                dropdown_box.details().selected_list_box_value_index = TETENGO2_STDALT_NULLOPT;
-            }
-        }
-
-        /*!
-            \brief Clears a dropdown box.
-
-            \tparam DropdownBox A dropdown box type.
-
-            \param dropdown_box A dropdown box.
-
-            \throw std::system_error When the dropdown box cannot be cleared.
-        */
-        template <typename DropdownBox>
-        static void clear_dropdown_box(DropdownBox& dropdown_box)
-        {
-            dropdown_box.details().list_box_values.clear();
-            dropdown_box.details().selected_list_box_value_index = TETENGO2_STDALT_NULLOPT;
-        }
-
-        /*!
-            \brief Returns the selected dropdown box value index.
-
-            \tparam DropdownBox A dropdown box type.
-
-            \param dropdown_box A dropdown box.
-
-            \return The selected dropdown box value index.
-
-            \throw std::system_error When the selected value index cannot be obtained.
-        */
-        template <typename DropdownBox>
-        static tetengo2::stdalt::optional<type_list::size_type>
-        selected_dropdown_box_value_index(const DropdownBox& dropdown_box)
-        {
-            return dropdown_box.details().selected_list_box_value_index;
-        }
-
-        /*!
-            \brief Selects a dropdown box value.
-
-            \tparam DropdownBox A dropdown box type.
-
-            \param dropdown_box A dropdown box.
-            \param index    An index.
-
-            \throw std::system_error When the value cannot be selected.
-        */
-        template <typename DropdownBox>
-        static void select_dropdown_box_value(DropdownBox& dropdown_box, const type_list::size_type index)
-        {
-            dropdown_box.details().selected_list_box_value_index =
-                tetengo2::stdalt::make_optional(static_cast<std::size_t>(index));
-        }
-
-        /*!
-            \brief Returns the list box value count.
-
-            \tparam ListBox A list box type.
-
-            \param list_box A list box.
-
-            \return The list box value count.
-
-            \throw std::system_error When the value cannot be obtained.
-        */
-        template <typename ListBox>
-        static type_list::size_type list_box_value_count(const ListBox& list_box)
-        {
-            return list_box.details().list_box_values.size();
-        }
-
-        /*!
-            \brief Returns the list box value.
-
-            \tparam ListBox A list box type.
-
-            \param list_box A list box.
-            \param index    An index.
-
-            \return The list box value.
-
-            \throw std::system_error When the value cannot be obtained.
-        */
-        template <typename ListBox>
-        static type_list::string_type list_box_value(const ListBox& list_box, const type_list::size_type index)
-        {
-            return list_box.details().list_box_values[index];
-        }
-
-        /*!
-            \brief Sets a list box value.
-
-            \tparam ListBox A list box type.
-
-            \param list_box A list box.
-            \param index    An index.
-            \param value    An value.
-
-            \throw std::system_error When the value cannot be set.
-        */
-        template <typename ListBox>
-        static void
-        set_list_box_value(ListBox& list_box, const type_list::size_type index, type_list::string_type value)
-        {
-            list_box.details().list_box_values[index] = std::move(value);
-        }
-
-        /*!
-            \brief Inserts a list box value.
-
-            \tparam ListBox A list box type.
-
-            \param list_box A list box.
-            \param index    An index.
-            \param value    An value.
-
-            \throw std::system_error When the value cannot be inserted.
-        */
-        template <typename ListBox>
-        static void
-        insert_list_box_value(ListBox& list_box, const type_list::size_type index, type_list::string_type value)
-        {
-            list_box.details().list_box_values.insert(
-                std::next(list_box.details().list_box_values.begin(), index), std::move(value));
-        }
-
-        /*!
-            \brief Erases a list box value.
-
-            \tparam ListBox A list box type.
-
-            \param list_box A list box.
-            \param index    An index.
-
-            \throw std::system_error When the value cannot be erased.
+            \return The instance.
         */
-        template <typename ListBox>
-        static void erase_list_box_value(ListBox& list_box, const type_list::size_type index)
-        {
-            list_box.details().list_box_values.erase(std::next(list_box.details().list_box_values.begin(), index));
-            if (list_box.details().selected_list_box_value_index &&
-                *list_box.details().selected_list_box_value_index >= list_box.details().list_box_values.size())
-            {
-                list_box.details().selected_list_box_value_index = TETENGO2_STDALT_NULLOPT;
-            }
-        }
+        static const widget& instance();
 
-        /*!
-            \brief Clears a list box.
-
-            \tparam ListBox A list box type.
-
-            \param list_box A list box.
-
-            \throw std::system_error When the list box cannot be cleared.
-        */
-        template <typename ListBox>
-        static void clear_list_box(ListBox& list_box)
-        {
-            list_box.details().list_box_values.clear();
-            list_box.details().selected_list_box_value_index = TETENGO2_STDALT_NULLOPT;
-        }
-
-        /*!
-            \brief Returns the selected list box value index.
-
-            \tparam ListBox A list box type.
-
-            \param list_box A list box.
-
-            \return The selected list box value index.
-
-            \throw std::system_error When the selected value index cannot be obtained.
-        */
-        template <typename ListBox>
-        static tetengo2::stdalt::optional<type_list::size_type> selected_list_box_value_index(const ListBox& list_box)
-        {
-            return list_box.details().selected_list_box_value_index;
-        }
-
-        /*!
-            \brief Selects a list box value.
-
-            \tparam ListBox A list box type.
-
-            \param list_box A list box.
-            \param index    An index.
-
-            \throw std::system_error When the value cannot be selected.
-        */
-        template <typename ListBox>
-        static void select_list_box_value(ListBox& list_box, const type_list::size_type index)
-        {
-            list_box.details().selected_list_box_value_index =
-                tetengo2::stdalt::make_optional(static_cast<std::size_t>(index));
-        }
-
-        /*!
-            \brief Returns the progress bar goal.
-
-            \tparam ProgressBar A progress bar type.
-
-            \param progress_bar A progress bar.
-
-            \return The goal.
-
-            \throw std::system_error When the goal cannot be obtained.
-        */
-        template <typename ProgressBar>
-        static type_list::size_type progress_bar_goal(ProgressBar& progress_bar)
-        {
-            return progress_bar.details().progress_bar_goal;
-        }
-
-        /*!
-            \brief Sets a progress bar goal.
-
-            \tparam ProgressBar A progress bar type.
-
-            \param progress_bar A progress bar.
-            \param goal         A goal.
-
-            \throw std::system_error When the goal cannot be set.
-        */
-        template <typename ProgressBar>
-        static void set_progress_bar_goal(ProgressBar& progress_bar, const type_list::size_type goal)
-        {
-            progress_bar.details().progress_bar_goal = goal;
-        }
-
-        /*!
-            \brief Returns the progress bar progress.
-
-            \tparam ProgressBar A progress bar type.
-
-            \param progress_bar A progress bar.
-
-            \return The progress.
-
-            \throw std::system_error When the progress cannot be obtained.
-        */
-        template <typename ProgressBar>
-        static type_list::size_type progress_bar_progress(ProgressBar& progress_bar)
-        {
-            return progress_bar.details().progress_bar_progress;
-        }
-
-        /*!
-            \brief Sets a progress bar progress.
-
-            \tparam ProgressBar A progress bar type.
-
-            \param progress_bar A progress bar.
-            \param progress     A progress.
-
-            \throw std::system_error When the progress cannot be set.
-        */
-        template <typename ProgressBar>
-        static void set_progress_bar_progress(ProgressBar& progress_bar, const type_list::size_type progress)
-        {
-            progress_bar.details().progress_bar_progress = progress;
-        }
-
-        /*!
-            \brief Returns the progress bar state.
 
-            \tparam ProgressBar A progress bar type.
+        // constructors and destructor
 
-            \param progress_bar A progress bar.
-
-            \return The state.
-
-            \throw std::system_error When the state cannot be obtained.
-        */
-        template <typename ProgressBar>
-        static typename ProgressBar::state_type progress_bar_state(ProgressBar& progress_bar)
-        {
-            switch (progress_bar.details().progress_bar_state)
-            {
-            case 0:
-                return ProgressBar::state_type::running;
-            case 1:
-                return ProgressBar::state_type::pausing;
-            default:
-                return ProgressBar::state_type::error;
-            }
-        }
-
         /*!
-            \brief Sets a progress bar state.
-
-            \tparam ProgressBar A progress bar type.
-
-            \param progress_bar A progress bar.
-            \param state        A state.
-
-            \throw std::system_error When the progress cannot be set.
+            \brief Destroys the detail implementation.
         */
-        template <typename ProgressBar>
-        static void set_progress_bar_state(ProgressBar& progress_bar, const typename ProgressBar::state_type state)
-        {
-            switch (state)
-            {
-            case ProgressBar::state_type::running:
-                progress_bar.details().progress_bar_state = 0;
-                break;
-            case ProgressBar::state_type::pausing:
-                progress_bar.details().progress_bar_state = 1;
-                break;
-            default:
-                assert(state == ProgressBar::state_type::error);
-                progress_bar.details().progress_bar_state = 2;
-                break;
-            }
-        }
+        virtual ~widget();
 
 
     private:
-        // static functions
+        // types
 
-        template <typename Widget>
-        static widget_details_ptr_type create_details(Widget* const p_parent)
-        {
-            widget_details_ptr_type p_details{ std::make_unique<widget_details_type>(
-                p_parent,
-                true,
-                true,
-                0,
-                std::make_pair(0, 0),
-                std::make_pair(1, 1),
-                string_type{},
-                details_font_type{ string_type{}, 12, false, false, false, false },
-                std::vector<void*>{},
-                false,
-                false,
-                std::vector<string_type>{},
-                TETENGO2_STDALT_NULLOPT,
-                100,
-                0,
-                0) };
-
-            return p_details;
-        }
-
-        template <typename Child>
-        static std::reference_wrapper<Child> as_child(void* const pointer)
-        {
-            return std::ref(*reinterpret_cast<Child*>(pointer));
-        }
+        class impl;
 
 
-        // forbidden operations
+        // variables
 
-        widget() = delete;
+        const std::unique_ptr<impl> m_p_impl;
+
+
+        // constructors
+
+        widget();
+
+
+        // virtual functions
+
+        virtual widget_details_ptr_type
+        create_button_impl(gui::widget::widget& parent, const bool is_default, const bool is_cancel) const override;
+
+        virtual widget_details_ptr_type create_custom_control_impl(
+            gui::widget::widget&        parent,
+            const bool                  border,
+            const scroll_bar_style_type scroll_bar_style) const override;
+
+        virtual widget_details_ptr_type
+        create_dialog_impl(gui::widget::widget* const p_parent, const bool file_droppable) const override;
+
+        virtual widget_details_ptr_type create_dropdown_box_impl(gui::widget::widget& parent) const override;
+
+        virtual widget_details_ptr_type create_image_impl(gui::widget::widget& parent) const override;
+
+        virtual widget_details_ptr_type create_label_impl(gui::widget::widget& parent) const override;
+
+        virtual widget_details_ptr_type
+        create_list_box_impl(gui::widget::widget& parent, const scroll_bar_style_type scroll_bar_style) const override;
+
+        virtual widget_details_ptr_type create_picture_box_impl(
+            gui::widget::widget&        parent,
+            const scroll_bar_style_type scroll_bar_style) const override;
+
+        virtual widget_details_ptr_type create_progress_bar_impl(gui::widget::widget& parent) const override;
+
+        virtual widget_details_ptr_type
+        create_text_box_impl(gui::widget::widget& parent, const scroll_bar_style_type scroll_bar_style) const override;
+
+        virtual widget_details_ptr_type create_window_impl(
+            gui::widget::widget* const  p_parent,
+            const scroll_bar_style_type scroll_bar_style,
+            const bool                  file_droppable) const override;
+
+        virtual void associate_to_native_window_system_impl(gui::widget::widget& widget) const override;
+
+        virtual bool has_parent_impl(const gui::widget::widget& widget) const override;
+
+        virtual gui::widget::widget& parent_impl(const gui::widget::widget& widget) const override;
+
+        virtual gui::widget::widget& root_ancestor_impl(const gui::widget::widget& widget) const override;
+
+        virtual void set_enabled_impl(gui::widget::widget& widget, const bool enabled) const override;
+
+        virtual bool enabled_impl(const gui::widget::widget& widget) const override;
+
+        virtual void set_visible_impl(gui::widget::widget& widget, const bool visible) const override;
+
+        virtual bool visible_impl(const gui::widget::widget& widget) const override;
+
+        virtual void set_window_state_impl(gui::widget::widget& widget, const window_state_type state) const override;
+
+        virtual window_state_type window_state_impl(const gui::widget::widget& widget) const override;
+
+        virtual void move_impl(
+            gui::widget::widget&                  widget,
+            const gui::type_list::position_type&  position,
+            const gui::type_list::dimension_type& dimension) const override;
+
+        virtual gui::type_list::position_type position_impl(const gui::widget::widget& widget) const override;
+
+        virtual gui::type_list::position_type
+        dialog_position_impl(const gui::widget::widget& widget, const gui::widget::widget& parent) const override;
+
+        virtual gui::type_list::dimension_type dimension_impl(const gui::widget::widget& widget) const override;
+
+        virtual void set_client_dimension_impl(
+            gui::widget::widget&                  widget,
+            const gui::type_list::dimension_type& client_dimension) const override;
+
+        virtual gui::type_list::dimension_type client_dimension_impl(const gui::widget::widget& widget) const override;
+
+        virtual gui::type_list::dimension_type normal_dimension_impl(const gui::widget::widget& widget) const override;
+
+        virtual void set_text_impl(gui::widget::widget& widget, string_type text) const override;
+
+        virtual string_type text_impl(const gui::widget::widget& widget) const override;
+
+        virtual void set_font_impl(gui::widget::widget& widget, const font_type& font) const override;
+
+        virtual font_type font_impl(const gui::widget::widget& widget) const override;
+
+        virtual std::vector<std::reference_wrapper<gui::widget::widget>>
+        children_impl(gui::widget::widget& widget) const override;
+
+        virtual void repaint_impl(const gui::widget::widget& widget, const bool immediately) const override;
+
+        virtual void repaint_partially_impl(
+            const gui::widget::widget&            widget,
+            const gui::type_list::position_type&  position,
+            const gui::type_list::dimension_type& dimension) const override;
+
+        virtual void activate_impl(gui::widget::widget& widget) const override;
+
+        virtual void set_icon_impl(gui::widget::widget& widget, const gui::icon* const p_icon) const override;
+
+        virtual void
+        set_menu_bar_impl(gui::widget::widget& widget, const menu_base_type* const p_menu = nullptr) const override;
+
+        virtual bool focusable_impl(const gui::widget::widget& widget) const override;
+
+        virtual void set_focusable_impl(gui::widget::widget& widget, const bool focusable) const override;
+
+        virtual void set_focus_impl(gui::widget::widget& widget) const override;
+
+        virtual bool read_only_impl(const gui::widget::widget& widget) const override;
+
+        virtual void set_read_only_impl(gui::widget::widget& widget, const bool read_only) const override;
+
+        virtual void close_impl(gui::widget::widget& widget) const override;
+
+        virtual size_type dropdown_box_value_count_impl(const gui::widget::dropdown_box& dropdown_box) const override;
+
+        virtual string_type
+        dropdown_box_value_impl(const gui::widget::dropdown_box& dropdown_box, const size_type index) const override;
+
+        virtual void set_dropdown_box_value_impl(
+            gui::widget::dropdown_box& dropdown_box,
+            const size_type            index,
+            string_type                value) const override;
+
+        virtual void insert_dropdown_box_value_impl(
+            gui::widget::dropdown_box& dropdown_box,
+            const size_type            index,
+            string_type                value) const override;
+
+        virtual void
+        erase_dropdown_box_value_impl(gui::widget::dropdown_box& dropdown_box, const size_type index) const override;
+
+        virtual void clear_dropdown_box_impl(gui::widget::dropdown_box& dropdown_box) const override;
+
+        virtual tetengo2::stdalt::optional<size_type>
+        selected_dropdown_box_value_index_impl(const gui::widget::dropdown_box& dropdown_box) const override;
+
+        virtual void
+        select_dropdown_box_value_impl(gui::widget::dropdown_box& dropdown_box, const size_type index) const override;
+
+        virtual size_type list_box_value_count_impl(const gui::widget::list_box& list_box) const override;
+
+        virtual string_type
+        list_box_value_impl(const gui::widget::list_box& list_box, const size_type index) const override;
+
+        virtual void set_list_box_value_impl(gui::widget::list_box& list_box, const size_type index, string_type value)
+            const override;
+
+        virtual void insert_list_box_value_impl(
+            gui::widget::list_box& list_box,
+            const size_type        index,
+            string_type            value) const override;
+
+        virtual void erase_list_box_value_impl(gui::widget::list_box& list_box, const size_type index) const override;
+
+        virtual void clear_list_box_impl(gui::widget::list_box& list_box) const override;
+
+        virtual tetengo2::stdalt::optional<size_type>
+        selected_list_box_value_index_impl(const gui::widget::list_box& list_box) const override;
+
+        virtual void select_list_box_value_impl(gui::widget::list_box& list_box, const size_type index) const override;
+
+        virtual size_type progress_bar_goal_impl(const gui::widget::progress_bar& progress_bar) const override;
+
+        virtual void
+        set_progress_bar_goal_impl(gui::widget::progress_bar& progress_bar, const size_type goal) const override;
+
+        virtual size_type progress_bar_progress_impl(const gui::widget::progress_bar& progress_bar) const override;
+
+        virtual void set_progress_bar_progress_impl(gui::widget::progress_bar& progress_bar, const size_type progress)
+            const override;
+
+        virtual progress_bar_state_type
+        progress_bar_state_impl(const gui::widget::progress_bar& progress_bar) const override;
+
+        virtual void set_progress_bar_state_impl(
+            gui::widget::progress_bar&    progress_bar,
+            const progress_bar_state_type state) const override;
     };
 }
 

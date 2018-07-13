@@ -145,7 +145,7 @@ namespace tetengo2::gui::widget {
         */
         bool has_parent() const
         {
-            return widget_details_type::has_parent(*this);
+            return widget_details_type::instance().has_parent(*this);
         }
 
         /*!
@@ -160,7 +160,7 @@ namespace tetengo2::gui::widget {
             if (!has_parent())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "Has no parent." }));
 
-            return widget_details_type::parent(*this);
+            return widget_details_type::instance().parent(*this);
         }
 
         /*!
@@ -175,7 +175,7 @@ namespace tetengo2::gui::widget {
             if (!has_parent())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "Has no parent." }));
 
-            return widget_details_type::parent(*this);
+            return widget_details_type::instance().parent(*this);
         }
 
         /*!
@@ -188,7 +188,7 @@ namespace tetengo2::gui::widget {
             if (!has_parent())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "Has no parent." }));
 
-            return widget_details_type::root_ancestor(*this);
+            return widget_details_type::instance().root_ancestor(*this);
         }
 
         /*!
@@ -201,7 +201,7 @@ namespace tetengo2::gui::widget {
             if (!has_parent())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "Has no parent." }));
 
-            return widget_details_type::root_ancestor(*this);
+            return widget_details_type::instance().root_ancestor(*this);
         }
 
         /*!
@@ -211,7 +211,7 @@ namespace tetengo2::gui::widget {
         */
         bool enabled() const
         {
-            return widget_details_type::enabled(*this);
+            return widget_details_type::instance().enabled(*this);
         }
 
         /*!
@@ -221,7 +221,7 @@ namespace tetengo2::gui::widget {
         */
         void set_enabled(const bool enabled)
         {
-            widget_details_type::set_enabled(*this, enabled);
+            widget_details_type::instance().set_enabled(*this, enabled);
         }
 
         /*!
@@ -231,7 +231,7 @@ namespace tetengo2::gui::widget {
         */
         bool visible() const
         {
-            return widget_details_type::visible(*this);
+            return widget_details_type::instance().visible(*this);
         }
 
         /*!
@@ -241,7 +241,7 @@ namespace tetengo2::gui::widget {
         */
         void set_visible(const bool visible)
         {
-            widget_details_type::set_visible(*this, visible);
+            widget_details_type::instance().set_visible(*this, visible);
         }
 
         /*!
@@ -259,7 +259,7 @@ namespace tetengo2::gui::widget {
         */
         void set_focus()
         {
-            widget_details_type::set_focus(*this);
+            widget_details_type::instance().set_focus(*this);
         }
 
         /*!
@@ -269,7 +269,7 @@ namespace tetengo2::gui::widget {
         */
         position_type position() const
         {
-            return widget_details_type::position(*this);
+            return widget_details_type::instance().position(*this);
         }
 
         /*!
@@ -279,7 +279,7 @@ namespace tetengo2::gui::widget {
         */
         void set_position(const position_type& position)
         {
-            widget_details_type::move(*this, position, dimension());
+            widget_details_type::instance().move(*this, position, dimension());
         }
 
         /*!
@@ -289,7 +289,7 @@ namespace tetengo2::gui::widget {
         */
         dimension_type dimension() const
         {
-            return widget_details_type::dimension(*this);
+            return widget_details_type::instance().dimension(*this);
         }
 
         /*!
@@ -299,7 +299,7 @@ namespace tetengo2::gui::widget {
         */
         void set_dimension(const dimension_type& dimension)
         {
-            widget_details_type::move(*this, position(), dimension);
+            widget_details_type::instance().move(*this, position(), dimension);
         }
 
         /*!
@@ -309,7 +309,7 @@ namespace tetengo2::gui::widget {
         */
         dimension_type client_dimension() const
         {
-            return widget_details_type::client_dimension(*this);
+            return widget_details_type::instance().client_dimension(*this);
         }
 
         /*!
@@ -326,7 +326,7 @@ namespace tetengo2::gui::widget {
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "Client dimension has zero value." }));
             }
 
-            widget_details_type::set_client_dimension(*this, client_dimension);
+            widget_details_type::instance().set_client_dimension(*this, client_dimension);
         }
 
         /*!
@@ -337,7 +337,7 @@ namespace tetengo2::gui::widget {
         */
         void set_position_and_dimension(const position_type& position, const dimension_type& dimension)
         {
-            widget_details_type::move(*this, position, dimension);
+            widget_details_type::instance().move(*this, position, dimension);
         }
 
         /*!
@@ -347,7 +347,7 @@ namespace tetengo2::gui::widget {
         */
         string_type text() const
         {
-            return widget_details_type::text(*this);
+            return widget_details_type::instance().text(*this);
         }
 
         /*!
@@ -357,7 +357,7 @@ namespace tetengo2::gui::widget {
         */
         void set_text(string_type text)
         {
-            widget_details_type::set_text(*this, std::move(text));
+            widget_details_type::instance().set_text(*this, std::move(text));
         }
 
         /*!
@@ -391,7 +391,9 @@ namespace tetengo2::gui::widget {
         */
         font_type font() const
         {
-            return widget_details_type::template font<font_type>(*this);
+            const widget_details_type::font_type detail_font = widget_details_type::instance().font(*this);
+            return font_type{ detail_font.family, detail_font.size,      detail_font.bold,
+                              detail_font.italic, detail_font.underline, detail_font.strikeout };
         }
 
         /*!
@@ -401,7 +403,9 @@ namespace tetengo2::gui::widget {
         */
         void set_font(const font_type& font)
         {
-            widget_details_type::set_font(*this, font);
+            const widget_details_type::font_type detail_font{ font.family(), font.size(),      font.bold(),
+                                                              font.italic(), font.underline(), font.strikeout() };
+            widget_details_type::instance().set_font(*this, detail_font);
         }
 
         /*!
@@ -511,7 +515,9 @@ namespace tetengo2::gui::widget {
         */
         std::vector<std::reference_wrapper<const child_type>> children() const
         {
-            return widget_details_type::template children<const child_type>(*this);
+            const std::vector<std::reference_wrapper<child_type>> children_ =
+                widget_details_type::instance().children(const_cast<widget&>(*this));
+            return std::vector<std::reference_wrapper<const child_type>>{ children_.begin(), children_.end() };
         }
 
         /*!
@@ -521,7 +527,7 @@ namespace tetengo2::gui::widget {
         */
         std::vector<std::reference_wrapper<child_type>> children()
         {
-            return widget_details_type::template children<child_type>(*this);
+            return widget_details_type::instance().children(*this);
         }
 
         /*!
@@ -531,7 +537,7 @@ namespace tetengo2::gui::widget {
         */
         void repaint(const bool immediately = false) const
         {
-            widget_details_type::repaint(*this, immediately);
+            widget_details_type::instance().repaint(*this, immediately);
         }
 
         /*!
@@ -542,7 +548,7 @@ namespace tetengo2::gui::widget {
         */
         void repaint_partially(const position_type& position, const dimension_type& dimension) const
         {
-            widget_details_type::repaint_partially(*this, position, dimension);
+            widget_details_type::instance().repaint_partially(*this, position, dimension);
         }
 
         /*!
@@ -765,7 +771,7 @@ namespace tetengo2::gui::widget {
         {
             assert(p_widget);
 
-            widget_details_type::associate_to_native_window_system(*p_widget);
+            widget_details_type::instance().associate_to_native_window_system(*p_widget);
 
             p_widget->set_font(font_type::dialog_font());
 

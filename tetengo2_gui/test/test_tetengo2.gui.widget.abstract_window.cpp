@@ -64,12 +64,12 @@ namespace {
 
         virtual const details_type& details_impl() const override
         {
-            return *m_p_details;
+            return *static_cast<const details_type*>(m_p_details.get());
         }
 
         virtual details_type& details_impl() override
         {
-            return *m_p_details;
+            return *static_cast<details_type*>(m_p_details.get());
         }
     };
 }

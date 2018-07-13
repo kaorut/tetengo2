@@ -54,7 +54,7 @@ namespace tetengo2::gui::widget {
           control{
               control::scroll_bar_style_type::none,
               message_handler_details_type::make_button_message_handler_map(*this, message_handler_map_type{}),
-              widget_details_type::create_button(parent, style == style_type::default_, style == style_type::cancel)
+              widget_details_type::instance().create_button(parent, style == style_type::default_, style == style_type::cancel)
           },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)

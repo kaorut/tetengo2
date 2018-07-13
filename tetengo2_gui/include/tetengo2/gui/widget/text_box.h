@@ -45,7 +45,9 @@ namespace tetengo2::gui::widget {
 #endif
           control{ scroll_bar_style,
                    message_handler_details_type::make_text_box_message_handler_map(*this, message_handler_map_type{}),
-                   widget_details_type::create_text_box(parent, scroll_bar_style) },
+                   widget_details_type::instance().create_text_box(
+                       parent,
+                       static_cast<widget_details_type::scroll_bar_style_type>(scroll_bar_style)) },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
@@ -82,7 +84,7 @@ namespace tetengo2::gui::widget {
         */
         bool read_only() const
         {
-            return widget_details_type::read_only(*this);
+            return widget_details_type::instance().read_only(*this);
         }
 
         /*!
@@ -92,7 +94,7 @@ namespace tetengo2::gui::widget {
         */
         void set_read_only(const bool read_only)
         {
-            widget_details_type::set_read_only(*this, read_only);
+            widget_details_type::instance().set_read_only(*this, read_only);
         }
 
         /*!
