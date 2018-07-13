@@ -837,6 +837,171 @@ namespace tetengo2::detail::base {
         // variables
 
         const std::unique_ptr<impl> m_p_impl;
+
+
+        // virtual functions
+
+        virtual widget_details_ptr_type
+        create_button_impl(gui::widget::widget& parent, const bool is_default, const bool is_cancel) const = 0;
+
+        virtual widget_details_ptr_type create_custom_control_impl(
+            gui::widget::widget&  parent,
+            const bool            border,
+            scroll_bar_style_type scroll_bar_style) const = 0;
+
+        virtual widget_details_ptr_type
+        create_dialog_impl(gui::widget::widget* const p_parent, const bool file_droppable) const = 0;
+
+        virtual widget_details_ptr_type create_dropdown_box_impl(gui::widget::widget& parent) const = 0;
+
+        virtual widget_details_ptr_type create_image_impl(gui::widget::widget& parent) const = 0;
+
+        virtual widget_details_ptr_type create_label_impl(gui::widget::widget& parent) const = 0;
+
+        virtual widget_details_ptr_type
+        create_list_box_impl(gui::widget::widget& parent, const scroll_bar_style_type scroll_bar_style) const = 0;
+
+        virtual widget_details_ptr_type
+        create_picture_box_impl(gui::widget::widget& parent, const scroll_bar_style_type scroll_bar_style) const = 0;
+
+        virtual widget_details_ptr_type create_progress_bar_impl(gui::widget::widget& parent) const = 0;
+
+        virtual widget_details_ptr_type
+        create_text_box_impl(gui::widget::widget& parent, const scroll_bar_style_type scroll_bar_style) const = 0;
+
+        virtual widget_details_ptr_type create_window_impl(
+            gui::widget::widget* const p_parent,
+            scroll_bar_style_type      scroll_bar_style,
+            bool                       file_droppable) const = 0;
+
+        virtual void associate_to_native_window_system_impl(gui::widget::widget& widget_) const = 0;
+
+        virtual bool has_parent_impl(const gui::widget::widget& widget_) const = 0;
+
+        virtual gui::widget::widget& parent_impl(gui::widget::widget& widget_) const = 0;
+
+        virtual gui::widget::widget& root_ancestor_impl(gui::widget::widget& widget_) const = 0;
+
+        virtual void set_enabled_impl(gui::widget::widget& widget_, const bool enabled) const = 0;
+
+        virtual bool enabled_impl(const gui::widget::widget& widget_) const = 0;
+
+        virtual void set_visible_impl(gui::widget::widget& widget_, const bool visible) const = 0;
+
+        virtual bool visible_impl(const gui::widget::widget& widget_) const = 0;
+
+        virtual void set_window_state_impl(gui::widget::widget& widget_, const window_state_type state) const = 0;
+
+        virtual window_state_type window_state_impl(const gui::widget::widget& widget_) const = 0;
+
+        virtual void move_impl(
+            gui::widget::widget&                  widget_,
+            const gui::type_list::position_type&  position,
+            const gui::type_list::dimension_type& dimension) const = 0;
+
+        virtual gui::type_list::position_type position_impl(const gui::widget::widget& widget_) const = 0;
+
+        virtual gui::type_list::position_type
+        dialog_position_impl(const gui::widget::widget& widget_, const gui::widget::widget& parent) const = 0;
+
+        virtual gui::type_list::dimension_type dimension_impl(const gui::widget::widget& widget_) const = 0;
+
+        virtual void set_client_dimension_impl(
+            gui::widget::widget&                  widget_,
+            const gui::type_list::dimension_type& client_dimension) const = 0;
+
+        virtual gui::type_list::dimension_type client_dimension_impl(const gui::widget::widget& widget_) const = 0;
+
+        virtual gui::type_list::dimension_type normal_dimension_impl(const gui::widget::widget& widget_) const = 0;
+
+        virtual void set_text_impl(gui::widget::widget& widget_, string_type text) const = 0;
+
+        virtual string_type text_impl(const gui::widget::widget& widget_) const = 0;
+
+        virtual void set_font_impl(gui::widget::widget& widget_, const font_type& font) const = 0;
+
+        virtual font_type font_impl(const gui::widget::widget& widget_) const = 0;
+
+        virtual std::vector<std::reference_wrapper<gui::widget::widget>> children_impl(gui::widget::widget& widget_) const = 0;
+
+        virtual void repaint_impl(gui::widget::widget& widget_, const bool immediately) const = 0;
+
+        virtual void repaint_partially_impl(
+            gui::widget::widget&                  widget_,
+            const gui::type_list::position_type&  position,
+            const gui::type_list::dimension_type& dimension) const = 0;
+
+        virtual void activate_impl(gui::widget::widget& widget_) const = 0;
+
+        virtual void set_icon_impl(gui::widget::widget& widget_, const gui::icon* p_icon) const = 0;
+
+        virtual void set_menu_bar_impl(gui::widget::widget& widget_, const menu_base_type* p_menu) const = 0;
+
+        virtual bool focusable_impl(const gui::widget::widget& widget_) const = 0;
+
+        virtual void set_focusable_impl(gui::widget::widget& widget_, const bool focusable) const = 0;
+
+        virtual void set_focus_impl(gui::widget::widget& widget_) const = 0;
+
+        virtual bool read_only_impl(const gui::widget::widget& widget_) const = 0;
+
+        virtual void set_read_only_impl(gui::widget::widget& widget_, const bool read_only) const = 0;
+
+        virtual void close_impl(gui::widget::widget& widget_) const = 0;
+
+        virtual size_type dropdown_box_value_count_impl(const gui::widget::dropdown_box& dropdown_box) const = 0;
+
+        virtual string_type dropdown_box_value_impl(const gui::widget::dropdown_box& dropdown_box, const size_type index) const = 0;
+
+        virtual void set_dropdown_box_value_impl(
+            gui::widget::dropdown_box& dropdown_box,
+            const size_type            index,
+            string_type                value) const = 0;
+
+        virtual void insert_dropdown_box_value_impl(
+            gui::widget::dropdown_box& dropdown_box,
+            const size_type            index,
+            string_type                value) const = 0;
+
+        virtual void erase_dropdown_box_value_impl(gui::widget::dropdown_box& dropdown_box, const size_type index) const = 0;
+
+        virtual void clear_dropdown_box_impl(gui::widget::dropdown_box& dropdown_box) const = 0;
+
+        virtual tetengo2::stdalt::optional<size_type>
+        selected_dropdown_box_value_index_impl(const gui::widget::dropdown_box& dropdown_box) const = 0;
+
+        virtual void select_dropdown_box_value_impl(gui::widget::dropdown_box& dropdown_box, const size_type index) const = 0;
+
+        virtual size_type list_box_value_count_impl(const gui::widget::list_box& list_box) const = 0;
+
+        virtual string_type list_box_value_impl(const gui::widget::list_box& list_box, const size_type index) const = 0;
+
+        virtual void set_list_box_value_impl(gui::widget::list_box& list_box, const size_type index, string_type value) const = 0;
+
+        virtual void
+        insert_list_box_value_impl(gui::widget::list_box& list_box, const size_type index, string_type value) const = 0;
+
+        virtual void erase_list_box_value_impl(gui::widget::list_box& list_box, const size_type index) const = 0;
+
+        virtual void clear_list_box_impl(gui::widget::list_box& list_box) const = 0;
+
+        virtual tetengo2::stdalt::optional<size_type>
+        selected_list_box_value_index_impl(const gui::widget::list_box& list_box) const = 0;
+
+        virtual void select_list_box_value_impl(gui::widget::list_box& list_box, const size_type index) const = 0;
+
+        virtual size_type progress_bar_goal_impl(gui::widget::progress_bar& progress_bar) const = 0;
+
+        virtual void set_progress_bar_goal_impl(gui::widget::progress_bar& progress_bar, const size_type goal) const = 0;
+
+        virtual size_type progress_bar_progress_impl(gui::widget::progress_bar& progress_bar) const = 0;
+
+        virtual void set_progress_bar_progress_impl(gui::widget::progress_bar& progress_bar, const size_type progress) const = 0;
+
+        virtual progress_bar_state_type progress_bar_state_impl(gui::widget::progress_bar& progress_bar) const = 0;
+
+        virtual void
+        set_progress_bar_state_impl(gui::widget::progress_bar& progress_bar, const progress_bar_state_type state) const = 0;
     };
 }
 
