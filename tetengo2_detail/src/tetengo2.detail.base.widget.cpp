@@ -423,7 +423,8 @@ namespace tetengo2::detail::base {
             self.set_progress_bar_progress_impl(progress_bar, progress);
         }
 
-        progress_bar_state_type progress_bar_state(const gui::widget::progress_bar& progress_bar, const widget& self) const
+        progress_bar_state_type
+        progress_bar_state(const gui::widget::progress_bar& progress_bar, const widget& self) const
         {
             return self.progress_bar_state_impl(progress_bar);
         }
