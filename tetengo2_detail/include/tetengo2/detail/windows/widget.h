@@ -60,61 +60,7 @@ namespace tetengo2::detail::windows {
         using progress_bar_state_type = base::widget::progress_bar_state_type;
 
         //! The widget details type.
-        struct widget_details_type : public base::widget::widget_details_type
-        {
-#if !defined(DOCUMENTATION)
-            void*                                     p_parent;
-            bool                                      enabled;
-            bool                                      visible;
-            int                                       window_state;
-            std::pair<std::ptrdiff_t, std::ptrdiff_t> position;
-            std::pair<std::size_t, std::size_t>       dimension;
-            string_type                               text;
-            font_type                                 font;
-            std::vector<void*>                        children;
-            bool                                      focusable;
-            bool                                      read_only;
-            std::vector<string_type>                  list_box_values;
-            tetengo2::stdalt::optional<std::size_t>   selected_list_box_value_index;
-            std::size_t                               progress_bar_goal;
-            std::size_t                               progress_bar_progress;
-            int                                       progress_bar_state;
-
-            widget_details_type()
-            : p_parent{}, enabled{}, visible{}, window_state{}, position{}, dimension{}, text{}, font{}, children{},
-              focusable{}, read_only{}, list_box_values{}, selected_list_box_value_index{}, progress_bar_goal{},
-              progress_bar_progress{}, progress_bar_state{}
-            {}
-
-            widget_details_type(
-                void* const                               p_parent,
-                const bool                                enabled,
-                const bool                                visible,
-                const int                                 window_state,
-                std::pair<std::ptrdiff_t, std::ptrdiff_t> position,
-                std::pair<std::size_t, std::size_t>       dimension,
-                string_type                               text,
-                font_type                                 font,
-                std::vector<void*>                        children,
-                const bool                                focusable,
-                const bool                                read_only,
-                std::vector<string_type>                  list_box_values,
-                tetengo2::stdalt::optional<std::size_t>   selected_list_box_value_index,
-                const std::size_t                         progress_bar_goal,
-                const std::size_t                         progress_bar_progress,
-                const int                                 progress_bar_state)
-            : p_parent{ p_parent }, enabled{ enabled }, visible{ visible }, window_state{ window_state },
-              position{ std::move(position) }, dimension{ std::move(dimension) }, text{ std::move(text) },
-              font{ std::move(font) }, children{ std::move(children) }, focusable{ focusable }, read_only{ read_only },
-              list_box_values{ std::move(list_box_values) }, selected_list_box_value_index{ std::move(
-                                                                 selected_list_box_value_index) },
-              progress_bar_goal{ progress_bar_goal }, progress_bar_progress{ progress_bar_progress },
-              progress_bar_state{ progress_bar_state }
-            {}
-
-            virtual ~widget_details_type() = default;
-#endif
-        };
+        using widget_details_type = base::widget::widget_details_type;
 
         //! The widget details pointer type.
         using widget_details_ptr_type = base::widget::widget_details_ptr_type;
