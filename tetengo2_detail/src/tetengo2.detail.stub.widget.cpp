@@ -508,11 +508,13 @@ namespace tetengo2::detail::stub {
 
         static const widget_details_type& as_stub_widget_details(const base::widget::widget_details_type& base)
         {
+            assert(dynamic_cast<const widget_details_type*>(&base));
             return static_cast<const widget_details_type&>(base);
         }
 
         static widget_details_type& as_stub_widget_details(base::widget::widget_details_type& base)
         {
+            assert(dynamic_cast<widget_details_type*>(&base));
             return static_cast<widget_details_type&>(base);
         }
 

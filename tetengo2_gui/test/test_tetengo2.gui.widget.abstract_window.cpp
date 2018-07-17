@@ -51,7 +51,7 @@ namespace {
         : abstract_window_type{ abstract_window_type::scroll_bar_style_type::none,
                                 file_droppable,
                                 message_handler_map_type{} },
-          m_p_details{ std::make_unique<details_type>() }
+          m_p_details{ std::make_unique<tetengo2::detail::stub::widget::widget_details_type>() }
         {
             abstract_window_type::initialize(this);
         }
