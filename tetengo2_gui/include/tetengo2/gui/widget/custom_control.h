@@ -17,8 +17,8 @@
 #include <boost/operators.hpp>
 #include <boost/predef.h>
 
+#include <tetengo2/detail/base/widget.h>
 #include <tetengo2/detail/stub/mouse_capture.h>
-#include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/mouse_capture.h>
 #include <tetengo2/gui/unit/em.h>
@@ -31,6 +31,7 @@ namespace tetengo2 { namespace detail { namespace stub {
     class drawing;
     class message_handler;
     class scroll;
+    class widget;
 }}}
 
 

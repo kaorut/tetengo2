@@ -14,6 +14,7 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/base/widget.h>
 #include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/menu/abstract_popup.h>

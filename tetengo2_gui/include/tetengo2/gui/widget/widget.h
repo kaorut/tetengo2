@@ -23,10 +23,10 @@
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/widget.h>
 #include <tetengo2/detail/stub/drawing.h>
 #include <tetengo2/detail/stub/message_handler.h>
 #include <tetengo2/detail/stub/scroll.h>
-#include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/gui/cursor/cursor_base.h>
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/background.h>

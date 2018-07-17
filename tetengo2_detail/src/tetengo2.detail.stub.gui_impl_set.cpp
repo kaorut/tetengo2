@@ -16,6 +16,7 @@
 #include <tetengo2/detail/base/system_color.h>
 #include <tetengo2/detail/base/unit.h>
 #include <tetengo2/detail/base/virtual_key.h>
+#include <tetengo2/detail/base/widget.h>
 #include <tetengo2/detail/stub/alert.h>
 #include <tetengo2/detail/stub/cursor.h>
 #include <tetengo2/detail/stub/gui_fixture.h>

@@ -894,6 +894,14 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     const concrete_widget widget{};
                 }
 
+                BOOST_AUTO_TEST_CASE(widget_details)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    // widget_details() is called in the constructor of concrete_widget.
+                    const concrete_widget widget{};
+                }
+
 
             BOOST_AUTO_TEST_SUITE_END()
         BOOST_AUTO_TEST_SUITE_END()

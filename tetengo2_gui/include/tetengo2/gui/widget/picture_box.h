@@ -15,8 +15,8 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
 
+#include <tetengo2/detail/base/widget.h>
 #include <tetengo2/detail/stub/drawing.h>
-#include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/gui/drawing/canvas.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/widget_canvas.h>

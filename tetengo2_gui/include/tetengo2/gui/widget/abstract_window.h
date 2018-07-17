@@ -16,8 +16,8 @@
 #include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/detail/base/widget.h>
 #include <tetengo2/detail/stub/menu.h>
-#include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_bar.h>
