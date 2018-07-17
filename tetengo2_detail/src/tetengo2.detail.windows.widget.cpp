@@ -92,6 +92,7 @@ namespace tetengo2::detail::windows {
             TETENGO2_STDALT_MAYBE_UNUSED const bool           is_default,
             TETENGO2_STDALT_MAYBE_UNUSED const bool           is_cancel) const
         {
+#if 0
             assert(!is_default || !is_cancel);
 
             const ::DWORD create_window_style = is_default ? WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_DEFPUSHBUTTON :
@@ -133,6 +134,10 @@ namespace tetengo2::detail::windows {
             const auto p_original_window_procedure = replace_window_procedure(p_widget.get());
 
             return std::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
+#else
+            assert(false);
+            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+#endif
         }
 
         widget_details_ptr_type create_custom_control_impl(
@@ -636,6 +641,7 @@ namespace tetengo2::detail::windows {
             return static_cast<windows_widget_details_type&>(base);
         }
 
+#if 0
         static const std::wstring& property_key_for_cpp_instance()
         {
             static const std::wstring singleton{ L"C++ Instance" };
@@ -710,7 +716,8 @@ namespace tetengo2::detail::windows {
 #pragma warning(push)
 #pragma warning(disable : 4244)
 #endif
-            const auto result = ::SetWindowLongPtrW(handle, GWLP_WNDPROC, reinterpret_cast<::LONG_PTR>(window_procedure));
+            const auto result =
+                ::SetWindowLongPtrW(handle, GWLP_WNDPROC, reinterpret_cast<::LONG_PTR>(window_procedure));
 #if BOOST_COMP_MSVC && BOOST_ARCH_X86_32
 #pragma warning(pop)
 #endif
@@ -723,6 +730,7 @@ namespace tetengo2::detail::windows {
 
             return reinterpret_cast<::WNDPROC>(result);
         }
+#endif
     };
 
 
