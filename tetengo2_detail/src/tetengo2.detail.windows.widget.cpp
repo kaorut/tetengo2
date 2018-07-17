@@ -125,12 +125,12 @@ namespace tetengo2::detail::windows {
         void associate_to_native_window_system_impl(gui::widget::widget& widget) const
         {
             if (widget.has_parent())
-                widget.parent().details().children.push_back(reinterpret_cast<void*>(&widget));
+                as_stub_widget_details(widget.parent().details()).children.push_back(reinterpret_cast<void*>(&widget));
         }
 
         bool has_parent_impl(const gui::widget::widget& widget) const
         {
-            return widget.details().p_parent != nullptr;
+            return as_stub_widget_details(widget.details()).p_parent != nullptr;
         }
 
         gui::widget::widget& parent_impl(const gui::widget::widget& widget) const
@@ -138,7 +138,7 @@ namespace tetengo2::detail::windows {
             if (!has_parent_impl(widget))
                 BOOST_THROW_EXCEPTION((std::logic_error{ "The widget has no parent." }));
 
-            return *reinterpret_cast<gui::widget::widget*>(widget.details().p_parent);
+            return *reinterpret_cast<gui::widget::widget*>(as_stub_widget_details(widget.details()).p_parent);
         }
 
         gui::widget::widget& root_ancestor_impl(const gui::widget::widget& widget) const
@@ -148,32 +148,32 @@ namespace tetengo2::detail::windows {
 
         void set_enabled_impl(gui::widget::widget& widget, const bool enabled) const
         {
-            widget.details().enabled = enabled;
+            as_stub_widget_details(widget.details()).enabled = enabled;
         }
 
         bool enabled_impl(const gui::widget::widget& widget) const
         {
-            return widget.details().enabled;
+            return as_stub_widget_details(widget.details()).enabled;
         }
 
         void set_visible_impl(gui::widget::widget& widget, const bool visible) const
         {
-            widget.details().visible = visible;
+            as_stub_widget_details(widget.details()).visible = visible;
         }
 
         bool visible_impl(const gui::widget::widget& widget) const
         {
-            return widget.details().visible;
+            return as_stub_widget_details(widget.details()).visible;
         }
 
         void set_window_state_impl(gui::widget::widget& widget, const window_state_type state) const
         {
-            widget.details().window_state = static_cast<int>(state);
+            as_stub_widget_details(widget.details()).window_state = static_cast<int>(state);
         }
 
         window_state_type window_state_impl(const gui::widget::widget& widget) const
         {
-            return static_cast<window_state_type>(widget.details().window_state);
+            return static_cast<window_state_type>(as_stub_widget_details(widget.details()).window_state);
         }
 
         void move_impl(
@@ -181,14 +181,18 @@ namespace tetengo2::detail::windows {
             const gui::type_list::position_type&  position,
             const gui::type_list::dimension_type& dimension) const
         {
-            widget.details().position = std::make_pair(position.left().to_pixels(), position.top().to_pixels());
-            widget.details().dimension = std::make_pair(dimension.width().to_pixels(), dimension.height().to_pixels());
+            as_stub_widget_details(widget.details()).position =
+                std::make_pair(position.left().to_pixels(), position.top().to_pixels());
+            as_stub_widget_details(widget.details()).dimension =
+                std::make_pair(dimension.width().to_pixels(), dimension.height().to_pixels());
         }
 
         gui::type_list::position_type position_impl(const gui::widget::widget& widget) const
         {
-            return { gui::type_list::position_unit_type::from_pixels(widget.details().position.first),
-                     gui::type_list::position_unit_type::from_pixels(widget.details().position.second) };
+            return { gui::type_list::position_unit_type::from_pixels(
+                         as_stub_widget_details(widget.details()).position.first),
+                     gui::type_list::position_unit_type::from_pixels(
+                         as_stub_widget_details(widget.details()).position.second) };
         }
 
         gui::type_list::position_type dialog_position_impl(
@@ -200,59 +204,59 @@ namespace tetengo2::detail::windows {
 
         gui::type_list::dimension_type dimension_impl(const gui::widget::widget& widget) const
         {
-            return gui::type_list::dimension_type{
-                gui::type_list::dimension_unit_type::from_pixels(widget.details().dimension.first),
-                gui::type_list::dimension_unit_type::from_pixels(widget.details().dimension.second)
-            };
+            return gui::type_list::dimension_type{ gui::type_list::dimension_unit_type::from_pixels(
+                                                       as_stub_widget_details(widget.details()).dimension.first),
+                                                   gui::type_list::dimension_unit_type::from_pixels(
+                                                       as_stub_widget_details(widget.details()).dimension.second) };
         }
 
         void set_client_dimension_impl(
             gui::widget::widget&                  widget,
             const gui::type_list::dimension_type& client_dimension) const
         {
-            widget.details().dimension =
+            as_stub_widget_details(widget.details()).dimension =
                 std::make_pair(client_dimension.width().to_pixels(), client_dimension.height().to_pixels());
         }
 
         gui::type_list::dimension_type client_dimension_impl(const gui::widget::widget& widget) const
         {
-            return gui::type_list::dimension_type{
-                gui::type_list::dimension_unit_type::from_pixels(widget.details().dimension.first),
-                gui::type_list::dimension_unit_type::from_pixels(widget.details().dimension.second)
-            };
+            return gui::type_list::dimension_type{ gui::type_list::dimension_unit_type::from_pixels(
+                                                       as_stub_widget_details(widget.details()).dimension.first),
+                                                   gui::type_list::dimension_unit_type::from_pixels(
+                                                       as_stub_widget_details(widget.details()).dimension.second) };
         }
 
         gui::type_list::dimension_type normal_dimension_impl(const gui::widget::widget& widget) const
         {
-            return gui::type_list::dimension_type{
-                gui::type_list::dimension_unit_type::from_pixels(widget.details().dimension.first),
-                gui::type_list::dimension_unit_type::from_pixels(widget.details().dimension.second)
-            };
+            return gui::type_list::dimension_type{ gui::type_list::dimension_unit_type::from_pixels(
+                                                       as_stub_widget_details(widget.details()).dimension.first),
+                                                   gui::type_list::dimension_unit_type::from_pixels(
+                                                       as_stub_widget_details(widget.details()).dimension.second) };
         }
 
         void set_text_impl(gui::widget::widget& widget, string_type text) const
         {
-            widget.details().text = std::move(text);
+            as_stub_widget_details(widget.details()).text = std::move(text);
         }
 
         string_type text_impl(const gui::widget::widget& widget) const
         {
-            return widget.details().text;
+            return as_stub_widget_details(widget.details()).text;
         }
 
         void set_font_impl(gui::widget::widget& widget, const font_type& font) const
         {
-            widget.details().font = font;
+            as_stub_widget_details(widget.details()).font = font;
         }
 
         font_type font_impl(const gui::widget::widget& widget) const
         {
-            return widget.details().font;
+            return as_stub_widget_details(widget.details()).font;
         }
 
         std::vector<std::reference_wrapper<gui::widget::widget>> children_impl(gui::widget::widget& widget) const
         {
-            const auto&                                              children_as_void = widget.details().children;
+            const auto& children_as_void = as_stub_widget_details(widget.details()).children;
             std::vector<std::reference_wrapper<gui::widget::widget>> children{};
             children.reserve(children_as_void.size());
 
@@ -286,36 +290,36 @@ namespace tetengo2::detail::windows {
 
         bool focusable_impl(const gui::widget::widget& widget) const
         {
-            return widget.details().focusable;
+            return as_stub_widget_details(widget.details()).focusable;
         }
 
         void set_focusable_impl(gui::widget::widget& widget, const bool focusable) const
         {
-            widget.details().focusable = focusable;
+            as_stub_widget_details(widget.details()).focusable = focusable;
         }
 
         void set_focus_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget) const {}
 
         bool read_only_impl(const gui::widget::widget& widget) const
         {
-            return widget.details().read_only;
+            return as_stub_widget_details(widget.details()).read_only;
         }
 
         void set_read_only_impl(gui::widget::widget& widget, const bool read_only) const
         {
-            widget.details().read_only = read_only;
+            as_stub_widget_details(widget.details()).read_only = read_only;
         }
 
         void close_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget) const {}
 
         size_type dropdown_box_value_count_impl(const gui::widget::dropdown_box& dropdown_box) const
         {
-            return dropdown_box.details().list_box_values.size();
+            return as_stub_widget_details(dropdown_box.details()).list_box_values.size();
         }
 
         string_type dropdown_box_value_impl(const gui::widget::dropdown_box& dropdown_box, const size_type index) const
         {
-            return dropdown_box.details().list_box_values[index];
+            return as_stub_widget_details(dropdown_box.details()).list_box_values[index];
         }
 
         void set_dropdown_box_value_impl(
@@ -323,7 +327,7 @@ namespace tetengo2::detail::windows {
             const size_type            index,
             string_type                value) const
         {
-            dropdown_box.details().list_box_values[index] = std::move(value);
+            as_stub_widget_details(dropdown_box.details()).list_box_values[index] = std::move(value);
         }
 
         void insert_dropdown_box_value_impl(
@@ -331,111 +335,120 @@ namespace tetengo2::detail::windows {
             const size_type            index,
             string_type                value) const
         {
-            dropdown_box.details().list_box_values.insert(
-                std::next(dropdown_box.details().list_box_values.begin(), index), std::move(value));
+            as_stub_widget_details(dropdown_box.details())
+                .list_box_values.insert(
+                    std::next(as_stub_widget_details(dropdown_box.details()).list_box_values.begin(), index),
+                    std::move(value));
         }
 
         void erase_dropdown_box_value_impl(gui::widget::dropdown_box& dropdown_box, const size_type index) const
         {
-            dropdown_box.details().list_box_values.erase(
-                std::next(dropdown_box.details().list_box_values.begin(), index));
-            if (dropdown_box.details().selected_list_box_value_index &&
-                *dropdown_box.details().selected_list_box_value_index >= dropdown_box.details().list_box_values.size())
+            as_stub_widget_details(dropdown_box.details())
+                .list_box_values.erase(
+                    std::next(as_stub_widget_details(dropdown_box.details()).list_box_values.begin(), index));
+            if (as_stub_widget_details(dropdown_box.details()).selected_list_box_value_index &&
+                *as_stub_widget_details(dropdown_box.details()).selected_list_box_value_index >=
+                    as_stub_widget_details(dropdown_box.details()).list_box_values.size())
             {
-                dropdown_box.details().selected_list_box_value_index = TETENGO2_STDALT_NULLOPT;
+                as_stub_widget_details(dropdown_box.details()).selected_list_box_value_index = TETENGO2_STDALT_NULLOPT;
             }
         }
 
         void clear_dropdown_box_impl(gui::widget::dropdown_box& dropdown_box) const
         {
-            dropdown_box.details().list_box_values.clear();
-            dropdown_box.details().selected_list_box_value_index = TETENGO2_STDALT_NULLOPT;
+            as_stub_widget_details(dropdown_box.details()).list_box_values.clear();
+            as_stub_widget_details(dropdown_box.details()).selected_list_box_value_index = TETENGO2_STDALT_NULLOPT;
         }
 
         tetengo2::stdalt::optional<size_type>
         selected_dropdown_box_value_index_impl(const gui::widget::dropdown_box& dropdown_box) const
         {
-            return dropdown_box.details().selected_list_box_value_index;
+            return as_stub_widget_details(dropdown_box.details()).selected_list_box_value_index;
         }
 
         void select_dropdown_box_value_impl(gui::widget::dropdown_box& dropdown_box, const size_type index) const
         {
-            dropdown_box.details().selected_list_box_value_index =
+            as_stub_widget_details(dropdown_box.details()).selected_list_box_value_index =
                 tetengo2::stdalt::make_optional(static_cast<std::size_t>(index));
         }
 
         size_type list_box_value_count_impl(const gui::widget::list_box& list_box) const
         {
-            return list_box.details().list_box_values.size();
+            return as_stub_widget_details(list_box.details()).list_box_values.size();
         }
 
         string_type list_box_value_impl(const gui::widget::list_box& list_box, const size_type index) const
         {
-            return list_box.details().list_box_values[index];
+            return as_stub_widget_details(list_box.details()).list_box_values[index];
         }
 
         void set_list_box_value_impl(gui::widget::list_box& list_box, const size_type index, string_type value) const
         {
-            list_box.details().list_box_values[index] = std::move(value);
+            as_stub_widget_details(list_box.details()).list_box_values[index] = std::move(value);
         }
 
         void insert_list_box_value_impl(gui::widget::list_box& list_box, const size_type index, string_type value) const
         {
-            list_box.details().list_box_values.insert(
-                std::next(list_box.details().list_box_values.begin(), index), std::move(value));
+            as_stub_widget_details(list_box.details())
+                .list_box_values.insert(
+                    std::next(as_stub_widget_details(list_box.details()).list_box_values.begin(), index),
+                    std::move(value));
         }
 
         void erase_list_box_value_impl(gui::widget::list_box& list_box, const size_type index) const
         {
-            list_box.details().list_box_values.erase(std::next(list_box.details().list_box_values.begin(), index));
-            if (list_box.details().selected_list_box_value_index &&
-                *list_box.details().selected_list_box_value_index >= list_box.details().list_box_values.size())
+            as_stub_widget_details(list_box.details())
+                .list_box_values.erase(
+                    std::next(as_stub_widget_details(list_box.details()).list_box_values.begin(), index));
+            if (as_stub_widget_details(list_box.details()).selected_list_box_value_index &&
+                *as_stub_widget_details(list_box.details()).selected_list_box_value_index >=
+                    as_stub_widget_details(list_box.details()).list_box_values.size())
             {
-                list_box.details().selected_list_box_value_index = TETENGO2_STDALT_NULLOPT;
+                as_stub_widget_details(list_box.details()).selected_list_box_value_index = TETENGO2_STDALT_NULLOPT;
             }
         }
 
         void clear_list_box_impl(gui::widget::list_box& list_box) const
         {
-            list_box.details().list_box_values.clear();
-            list_box.details().selected_list_box_value_index = TETENGO2_STDALT_NULLOPT;
+            as_stub_widget_details(list_box.details()).list_box_values.clear();
+            as_stub_widget_details(list_box.details()).selected_list_box_value_index = TETENGO2_STDALT_NULLOPT;
         }
 
         tetengo2::stdalt::optional<size_type>
         selected_list_box_value_index_impl(const gui::widget::list_box& list_box) const
         {
-            return list_box.details().selected_list_box_value_index;
+            return as_stub_widget_details(list_box.details()).selected_list_box_value_index;
         }
 
         void select_list_box_value_impl(gui::widget::list_box& list_box, const size_type index) const
         {
-            list_box.details().selected_list_box_value_index =
+            as_stub_widget_details(list_box.details()).selected_list_box_value_index =
                 tetengo2::stdalt::make_optional(static_cast<std::size_t>(index));
         }
 
         size_type progress_bar_goal_impl(const gui::widget::progress_bar& progress_bar) const
         {
-            return progress_bar.details().progress_bar_goal;
+            return as_stub_widget_details(progress_bar.details()).progress_bar_goal;
         }
 
         void set_progress_bar_goal_impl(gui::widget::progress_bar& progress_bar, const size_type goal) const
         {
-            progress_bar.details().progress_bar_goal = goal;
+            as_stub_widget_details(progress_bar.details()).progress_bar_goal = goal;
         }
 
         size_type progress_bar_progress_impl(const gui::widget::progress_bar& progress_bar) const
         {
-            return progress_bar.details().progress_bar_progress;
+            return as_stub_widget_details(progress_bar.details()).progress_bar_progress;
         }
 
         void set_progress_bar_progress_impl(gui::widget::progress_bar& progress_bar, const size_type progress) const
         {
-            progress_bar.details().progress_bar_progress = progress;
+            as_stub_widget_details(progress_bar.details()).progress_bar_progress = progress;
         }
 
         progress_bar_state_type progress_bar_state_impl(const gui::widget::progress_bar& progress_bar) const
         {
-            switch (progress_bar.details().progress_bar_state)
+            switch (as_stub_widget_details(progress_bar.details()).progress_bar_state)
             {
             case 0:
                 return static_cast<progress_bar_state_type>(gui::widget::progress_bar::state_type::running);
@@ -452,16 +465,16 @@ namespace tetengo2::detail::windows {
             switch (static_cast<gui::widget::progress_bar::state_type>(state))
             {
             case gui::widget::progress_bar::state_type::running:
-                progress_bar.details().progress_bar_state = 0;
+                as_stub_widget_details(progress_bar.details()).progress_bar_state = 0;
                 break;
             case gui::widget::progress_bar::state_type::pausing:
-                progress_bar.details().progress_bar_state = 1;
+                as_stub_widget_details(progress_bar.details()).progress_bar_state = 1;
                 break;
             default:
                 assert(
                     static_cast<gui::widget::progress_bar::state_type>(state) ==
                     gui::widget::progress_bar::state_type::error);
-                progress_bar.details().progress_bar_state = 2;
+                as_stub_widget_details(progress_bar.details()).progress_bar_state = 2;
                 break;
             }
         }
@@ -491,6 +504,16 @@ namespace tetengo2::detail::windows {
                 0) };
 
             return p_details;
+        }
+
+        static const widget_details_type& as_stub_widget_details(const base::widget::widget_details_type& base)
+        {
+            return static_cast<const widget_details_type&>(base);
+        }
+
+        static widget_details_type& as_stub_widget_details(base::widget::widget_details_type& base)
+        {
+            return static_cast<widget_details_type&>(base);
         }
 
         static std::reference_wrapper<gui::widget::widget> as_child(void* const pointer)

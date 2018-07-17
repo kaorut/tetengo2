@@ -23,6 +23,7 @@ namespace tetengo2::detail::base {
     class system_color;
     class unit;
     class virtual_key;
+    class widget;
 }
 
 
@@ -68,6 +69,11 @@ namespace tetengo2::detail {
         const virtual_key& gui_impl_set::virtual_key_() const
         {
             return virtual_key_impl();
+        }
+
+        const widget& gui_impl_set::widget_() const
+        {
+            return widget_impl();
         }
 
         gui_impl_set::gui_impl_set() = default;

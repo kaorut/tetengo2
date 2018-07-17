@@ -25,6 +25,7 @@
 #include <tetengo2/detail/stub/system_color.h>
 #include <tetengo2/detail/stub/unit.h>
 #include <tetengo2/detail/stub/virtual_key.h>
+#include <tetengo2/detail/stub/widget.h>
 
 
 namespace tetengo2::detail::stub {
@@ -76,5 +77,10 @@ namespace tetengo2::detail::stub {
     const base::virtual_key& gui_impl_set::virtual_key_impl() const
     {
         return virtual_key::instance();
+    }
+
+    const base::widget& gui_impl_set::widget_impl() const
+    {
+        return widget::instance();
     }
 }

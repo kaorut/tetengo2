@@ -24,6 +24,7 @@ namespace tetengo2::detail {
         class system_color;
         class unit;
         class virtual_key;
+        class widget;
 
 
         /*!
@@ -98,6 +99,13 @@ namespace tetengo2::detail {
             */
             const virtual_key& virtual_key_() const;
 
+            /*!
+                \brief Returns the detail implementation of widget.
+
+                \return The detail implementation.
+            */
+            const widget& widget_() const;
+
 
         protected:
             // constructors
@@ -126,6 +134,8 @@ namespace tetengo2::detail {
             virtual const unit& unit_impl() const = 0;
 
             virtual const virtual_key& virtual_key_impl() const = 0;
+
+            virtual const widget& widget_impl() const = 0;
         };
     }
 

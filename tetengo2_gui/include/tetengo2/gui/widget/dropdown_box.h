@@ -54,7 +54,7 @@ namespace tetengo2::gui::widget {
           control{
               control::scroll_bar_style_type::none,
               message_handler_details_type::make_dropdown_box_message_handler_map(*this, message_handler_map_type{}),
-              widget_details_type::instance().create_dropdown_box(parent)
+              widget_details().create_dropdown_box(parent)
           },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
@@ -91,7 +91,7 @@ namespace tetengo2::gui::widget {
         */
         size_type value_count() const
         {
-            return widget_details_type::instance().dropdown_box_value_count(*this);
+            return widget_details().dropdown_box_value_count(*this);
         }
 
         /*!
@@ -108,7 +108,7 @@ namespace tetengo2::gui::widget {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            return widget_details_type::instance().dropdown_box_value(*this, index);
+            return widget_details().dropdown_box_value(*this, index);
         }
 
         /*!
@@ -124,7 +124,7 @@ namespace tetengo2::gui::widget {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            widget_details_type::instance().set_dropdown_box_value(*this, index, std::move(value));
+            widget_details().set_dropdown_box_value(*this, index, std::move(value));
         }
 
         /*!
@@ -140,7 +140,7 @@ namespace tetengo2::gui::widget {
             if (index > value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            widget_details_type::instance().insert_dropdown_box_value(*this, index, std::move(value));
+            widget_details().insert_dropdown_box_value(*this, index, std::move(value));
         }
 
         /*!
@@ -155,7 +155,7 @@ namespace tetengo2::gui::widget {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            widget_details_type::instance().erase_dropdown_box_value(*this, index);
+            widget_details().erase_dropdown_box_value(*this, index);
         }
 
         /*!
@@ -163,7 +163,7 @@ namespace tetengo2::gui::widget {
         */
         void clear()
         {
-            widget_details_type::instance().clear_dropdown_box(*this);
+            widget_details().clear_dropdown_box(*this);
         }
 
         /*!
@@ -173,7 +173,7 @@ namespace tetengo2::gui::widget {
         */
         tetengo2::stdalt::optional<size_type> selected_value_index() const
         {
-            return widget_details_type::instance().selected_dropdown_box_value_index(*this);
+            return widget_details().selected_dropdown_box_value_index(*this);
         }
 
         /*!
@@ -188,7 +188,7 @@ namespace tetengo2::gui::widget {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            widget_details_type::instance().select_dropdown_box_value(*this, index);
+            widget_details().select_dropdown_box_value(*this, index);
         }
 
         /*!

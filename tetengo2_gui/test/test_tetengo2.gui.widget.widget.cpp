@@ -74,7 +74,7 @@ namespace {
             widget_type* const                       p_parent = nullptr,
             const widget_type::scroll_bar_style_type scroll_bar_style = widget_type::scroll_bar_style_type::none)
         : widget_type{ scroll_bar_style, message_handler_map_type{} }, m_p_details{
-              std::make_unique<widget_details_type::widget_details_type>(
+              std::make_unique<tetengo2::detail::stub::widget::widget_details_type>(
                   p_parent,
                   true,
                   true,

@@ -56,7 +56,7 @@ namespace tetengo2::gui::widget {
         {
             control::scroll_bar_style_type::none,
                 message_handler_details_type::make_button_message_handler_map(*this, message_handler_map_type{}),
-                widget_details_type::instance().create_progress_bar(parent)
+                widget_details().create_progress_bar(parent)
         }
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
@@ -92,7 +92,7 @@ namespace tetengo2::gui::widget {
         */
         size_type goal() const
         {
-            return widget_details_type::instance().progress_bar_goal(*this);
+            return widget_details().progress_bar_goal(*this);
         }
 
         /*!
@@ -102,7 +102,7 @@ namespace tetengo2::gui::widget {
         */
         void set_goal(const size_type goal)
         {
-            widget_details_type::instance().set_progress_bar_goal(*this, goal);
+            widget_details().set_progress_bar_goal(*this, goal);
         }
 
         /*!
@@ -112,7 +112,7 @@ namespace tetengo2::gui::widget {
         */
         size_type progress() const
         {
-            return widget_details_type::instance().progress_bar_progress(*this);
+            return widget_details().progress_bar_progress(*this);
         }
 
         /*!
@@ -122,7 +122,7 @@ namespace tetengo2::gui::widget {
         */
         void set_progress(const size_type progress)
         {
-            widget_details_type::instance().set_progress_bar_progress(*this, progress);
+            widget_details().set_progress_bar_progress(*this, progress);
         }
 
         /*!
@@ -132,7 +132,7 @@ namespace tetengo2::gui::widget {
         */
         state_type state() const
         {
-            return static_cast<state_type>(widget_details_type::instance().progress_bar_state(*this));
+            return static_cast<state_type>(widget_details().progress_bar_state(*this));
         }
 
         /*!
@@ -142,7 +142,7 @@ namespace tetengo2::gui::widget {
         */
         void set_state(const state_type state)
         {
-            widget_details_type::instance().set_progress_bar_state(
+            widget_details().set_progress_bar_state(
                 *this, static_cast<widget_details_type::progress_bar_state_type>(state));
         }
 

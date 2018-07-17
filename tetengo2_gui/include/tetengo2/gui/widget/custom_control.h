@@ -79,7 +79,7 @@ namespace tetengo2::gui::widget {
           control{
               scroll_bar_style,
               message_handler_details_type::make_custom_control_message_handler_map(*this, message_handler_map_type{}),
-              widget_details_type::instance().create_custom_control(
+              widget_details().create_custom_control(
                   parent,
                   border,
                   static_cast<widget_details_type::scroll_bar_style_type>(scroll_bar_style))

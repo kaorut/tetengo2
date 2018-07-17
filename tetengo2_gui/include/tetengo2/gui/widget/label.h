@@ -58,7 +58,7 @@ namespace tetengo2::gui::widget {
         {
             control::scroll_bar_style_type::none,
                 message_handler_details_type::make_label_message_handler_map(*this, message_handler_map_type{}),
-                widget_details_type::instance().create_label(parent)
+                widget_details().create_label(parent)
         }
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
@@ -158,7 +158,6 @@ namespace tetengo2::gui::widget {
             p_label->paint_observer_set().paint_background().disconnect_all_slots();
             p_label->paint_observer_set().paint_background().connect(paint_background(*p_label));
         }
-
 
         // functions
 

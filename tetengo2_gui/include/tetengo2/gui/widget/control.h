@@ -70,7 +70,7 @@ namespace tetengo2::gui::widget {
         */
         bool focusable() const
         {
-            return widget_details_type::instance().focusable(*this);
+            return widget_details().focusable(*this);
         }
 
         /*!
@@ -80,7 +80,7 @@ namespace tetengo2::gui::widget {
         */
         void set_focusable(const bool focusable)
         {
-            widget_details_type::instance().set_focusable(*this, focusable);
+            widget_details().set_focusable(*this, focusable);
         }
 
 
