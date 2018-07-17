@@ -86,8 +86,7 @@ namespace tetengo2::gui::widget {
         */
         void set_window_state(const window_state_type state)
         {
-            return widget_details().set_window_state(
-                *this, static_cast<widget_details_type::window_state_type>(state));
+            return widget_details().set_window_state(*this, static_cast<widget_details_type::window_state_type>(state));
         }
 
         /*!

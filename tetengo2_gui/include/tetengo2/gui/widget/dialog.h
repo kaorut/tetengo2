@@ -72,9 +72,7 @@ namespace tetengo2::gui::widget {
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
-          m_result{ result_type::undecided }, m_p_details{
-              widget_details().create_dialog(&parent, file_droppable)
-          }
+          m_result{ result_type::undecided }, m_p_details{ widget_details().create_dialog(&parent, file_droppable) }
         {
             initialize_dialog();
 
