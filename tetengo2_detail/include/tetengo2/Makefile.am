@@ -11,6 +11,7 @@ pkg_headers = \
     detail/base/gui_impl_set.h \
     detail/base/icon.h \
     detail/base/impl_set.h \
+    detail/base/message_handler.h \
     detail/base/messages.h \
     detail/base/shell.h \
     detail/base/system_color.h \

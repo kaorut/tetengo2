@@ -312,6 +312,9 @@
     <ClInclude Include="include\tetengo2\detail\base\widget.h">
       <Filter>headers\tetengo2::detail\base</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\base\message_handler.h">
+      <Filter>headers\tetengo2::detail\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\tetengo2.detail.base.config.cpp">
@@ -469,6 +472,9 @@
     </ClCompile>
     <ClCompile Include="src\tetengo2.detail.windows.widget.cpp">
       <Filter>sources\tetengo2::detail\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.base.message_handler.cpp">
+      <Filter>sources\tetengo2::detail\base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

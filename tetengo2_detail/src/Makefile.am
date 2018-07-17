@@ -15,6 +15,7 @@ sources = \
     tetengo2.detail.base.gui_impl_set.cpp \
     tetengo2.detail.base.icon.cpp \
     tetengo2.detail.base.impl_set.cpp \
+    tetengo2.detail.base.message_handler.cpp \
     tetengo2.detail.base.messages.cpp \
     tetengo2.detail.base.shell.cpp \
     tetengo2.detail.base.system_color.cpp \
