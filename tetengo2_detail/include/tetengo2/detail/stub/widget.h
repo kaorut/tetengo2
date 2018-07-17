@@ -16,7 +16,6 @@
 #include <vector>
 
 #include <tetengo2/detail/base/widget.h>
-
 #include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
 
