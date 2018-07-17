@@ -22,6 +22,7 @@ namespace tetengo2::detail::base {
     class system_color;
     class unit;
     class virtual_key;
+    class widget;
 }
 
 
@@ -79,6 +80,12 @@ namespace tetengo2::detail::unixos {
     }
 
     const base::virtual_key& gui_impl_set::virtual_key_impl() const
+    {
+        assert(false);
+        throw std::logic_error("No implementation.");
+    }
+
+    const base::widget& gui_impl_set::widget_impl() const
     {
         assert(false);
         throw std::logic_error("No implementation.");

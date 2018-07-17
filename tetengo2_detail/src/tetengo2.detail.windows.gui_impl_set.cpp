@@ -7,9 +7,6 @@
 */
 
 #include <memory>
-#include <stdexcept>
-
-#include <boost/throw_exception.hpp>
 
 #include <tetengo2/detail/base/alert.h>
 #include <tetengo2/detail/base/cursor.h>
@@ -28,6 +25,7 @@
 #include <tetengo2/detail/windows/system_color.h>
 #include <tetengo2/detail/windows/unit.h>
 #include <tetengo2/detail/windows/virtual_key.h>
+#include <tetengo2/detail/windows/widget.h>
 
 
 namespace tetengo2::detail::windows {
@@ -83,7 +81,6 @@ namespace tetengo2::detail::windows {
 
     const base::widget& gui_impl_set::widget_impl() const
     {
-        BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
-        //return widget::instance();
+        return widget::instance();
     }
 }
