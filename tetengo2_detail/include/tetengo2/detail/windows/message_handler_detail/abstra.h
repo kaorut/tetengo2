@@ -26,13 +26,13 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
-    template <typename AbstractWindow>
     tetengo2::stdalt::optional<::LRESULT> on_command(
-        AbstractWindow&                             abstract_window,
+        gui::widget::abstract_window&               abstract_window,
         const ::WPARAM                              w_param,
         TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
@@ -41,7 +41,7 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
         if (!abstract_window.has_menu_bar())
             return TETENGO2_STDALT_NULLOPT;
 
-        using menu_bar_type = typename AbstractWindow::menu_bar_type;
+        using menu_bar_type = typename gui::widget::abstract_window::menu_bar_type;
         const typename menu_bar_type::recursive_iterator_type found = std::find_if(
             abstract_window.menu_bar().recursive_begin(),
             abstract_window.menu_bar().recursive_end(),
@@ -53,9 +53,8 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
         return tetengo2::stdalt::make_optional<::LRESULT>(0);
     }
 
-    template <typename AbstractWindow>
     tetengo2::stdalt::optional<::LRESULT> on_initmenupopup(
-        AbstractWindow&                             abstract_window,
+        gui::widget::abstract_window&               abstract_window,
         const ::WPARAM                              w_param,
         TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
@@ -64,7 +63,7 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
         if (!abstract_window.has_menu_bar())
             return TETENGO2_STDALT_NULLOPT;
 
-        using menu_bar_type = typename AbstractWindow::menu_bar_type;
+        using menu_bar_type = typename gui::widget::abstract_window::menu_bar_type;
         const auto found = std::find_if(
             abstract_window.menu_bar().recursive_begin(),
             abstract_window.menu_bar().recursive_end(),
@@ -107,9 +106,8 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
         return paths;
     }
 
-    template <typename AbstractWindow>
     tetengo2::stdalt::optional<::LRESULT> on_drop_files(
-        AbstractWindow&                             abstract_window,
+        gui::widget::abstract_window&               abstract_window,
         TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
         TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
@@ -121,9 +119,8 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
         return tetengo2::stdalt::make_optional<::LRESULT>(0);
     }
 
-    template <typename AbstractWindow>
     tetengo2::stdalt::optional<::LRESULT> on_close(
-        AbstractWindow&                             abstract_window,
+        gui::widget::abstract_window&               abstract_window,
         TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
         TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
@@ -135,9 +132,8 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
         return cancel ? tetengo2::stdalt::make_optional<::LRESULT>(0) : TETENGO2_STDALT_NULLOPT;
     }
 
-    template <typename AbstractWindow>
     tetengo2::stdalt::optional<::LRESULT> on_query_end_session(
-        AbstractWindow&                             abstract_window,
+        gui::widget::abstract_window&               abstract_window,
         TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
         TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
@@ -149,9 +145,8 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
         return cancel ? tetengo2::stdalt::make_optional<::LRESULT>(FALSE) : TETENGO2_STDALT_NULLOPT;
     }
 
-    template <typename AbstractWindow>
     tetengo2::stdalt::optional<::LRESULT> on_destroy(
-        AbstractWindow&                             abstract_window,
+        gui::widget::abstract_window&               abstract_window,
         TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
         TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {

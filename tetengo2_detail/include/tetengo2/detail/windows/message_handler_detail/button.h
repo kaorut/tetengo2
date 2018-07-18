@@ -19,13 +19,13 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include <tetengo2/gui/widget/button.h>
 #include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::windows::message_handler_detail::button {
-    template <typename Button>
     tetengo2::stdalt::optional<::LRESULT> on_tetengo2_command(
-        Button&                                     button,
+        gui::widget::button&                        button,
         TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
         TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
