@@ -18,6 +18,7 @@
 
 #include <tetengo2/detail/base/widget.h>
 #include <tetengo2/detail/stub/menu.h>
+#include <tetengo2/detail/stub/message_handler.h>
 #include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_bar.h>
@@ -295,7 +296,7 @@ namespace tetengo2::gui::widget {
 #pragma warning(disable : 4355)
 #endif
           widget{ scroll_bar_style,
-                  message_handler_details_type::make_abstract_window_message_handler_map(
+                  message_handler_details_type::instance().make_abstract_window_message_handler_map(
                       *this,
                       std::move(message_handler_map)) },
 #if BOOST_COMP_MSVC

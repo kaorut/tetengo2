@@ -26,6 +26,7 @@ namespace tetengo2 { namespace gui { namespace widget {
     class label;
     class list_box;
     class picture_box;
+    class progress_bar;
     class text_box;
     class widget;
     class window;
@@ -79,7 +80,7 @@ namespace tetengo2::detail::base {
             \return A message handler map.
         */
         message_handler_map_type
-        make_button_message_handler_map(gui::widget ::button& button, message_handler_map_type&& initial_map) const;
+        make_button_message_handler_map(gui::widget::button& button, message_handler_map_type&& initial_map) const;
 
         /*!
             \brief Make a message handler map for a control.
@@ -174,6 +175,18 @@ namespace tetengo2::detail::base {
             message_handler_map_type&& initial_map) const;
 
         /*!
+            \brief Make a message handler map for a progress bar.
+
+            \param progress_bar A progress bar.
+            \param initial_map  An initial message handler map.
+
+            \return A message handler map.
+        */
+        message_handler_map_type make_progress_bar_message_handler_map(
+            gui::widget::progress_bar& progress_bar,
+            message_handler_map_type&& initial_map) const;
+
+        /*!
             \brief Make a message handler map for a text box.
 
             \param text_box    A text box.
@@ -235,7 +248,7 @@ namespace tetengo2::detail::base {
             message_handler_map_type&&    initial_map) const = 0;
 
         virtual message_handler_map_type make_button_message_handler_map_impl(
-            gui::widget ::button&      button,
+            gui::widget::button&       button,
             message_handler_map_type&& initial_map) const = 0;
 
         virtual message_handler_map_type make_control_message_handler_map_impl(
@@ -268,6 +281,10 @@ namespace tetengo2::detail::base {
 
         virtual message_handler_map_type make_picture_box_message_handler_map_impl(
             gui::widget::picture_box&  picture_box,
+            message_handler_map_type&& initial_map) const = 0;
+
+        virtual message_handler_map_type make_progress_bar_message_handler_map_impl(
+            gui::widget::progress_bar& progress_bar,
             message_handler_map_type&& initial_map) const = 0;
 
         virtual message_handler_map_type make_text_box_message_handler_map_impl(

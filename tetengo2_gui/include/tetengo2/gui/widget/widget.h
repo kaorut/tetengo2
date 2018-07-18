@@ -806,9 +806,9 @@ namespace tetengo2::gui::widget {
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          m_message_handler_map{
-              message_handler_details_type::make_widget_message_handler_map(*this, std::move(message_handler_map))
-          },
+          m_message_handler_map{ message_handler_details_type::instance().make_widget_message_handler_map(
+              *this,
+              std::move(message_handler_map)) },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif

@@ -14,6 +14,7 @@
 #include <boost/predef.h>
 
 #include <tetengo2/detail/base/widget.h>
+#include <tetengo2/detail/stub/message_handler.h>
 #include <tetengo2/detail/stub/message_loop.h>
 #include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/message/dialog_message_loop.h>
@@ -64,11 +65,11 @@ namespace tetengo2::gui::widget {
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          abstract_window{
-              abstract_window::scroll_bar_style_type::none,
-              file_droppable,
-              message_handler_details_type::make_dialog_message_handler_map(*this, message_handler_map_type{})
-          },
+          abstract_window{ abstract_window::scroll_bar_style_type::none,
+                           file_droppable,
+                           message_handler_details_type::instance().make_dialog_message_handler_map(
+                               *this,
+                               message_handler_map_type{}) },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif

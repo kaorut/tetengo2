@@ -9,273 +9,135 @@
 #if !defined(TETENGO2_DETAIL_STUB_MESSAGEHANDLER_H)
 #define TETENGO2_DETAIL_STUB_MESSAGEHANDLER_H
 
-#include <functional>
-#include <unordered_map>
-#include <utility>
-#include <vector>
+#include <memory>
 
-#include <boost/core/noncopyable.hpp>
+#include <tetengo2/detail/base/message_handler.h>
 
-#include <tetengo2/stdalt.h>
+namespace tetengo2 { namespace gui { namespace widget {
+    class abstract_window;
+    class button;
+    class control;
+    class custom_control;
+    class dialog;
+    class dropdown_box;
+    class image;
+    class label;
+    class list_box;
+    class picture_box;
+    class progress_bar;
+    class text_box;
+    class widget;
+    class window;
+}}}
 
 
 namespace tetengo2::detail::stub {
     /*!
         \brief The class for a detail implementation of a message handler.
     */
-    class message_handler : private boost::noncopyable
+    class message_handler : public base::message_handler
     {
     public:
         // types
 
         //! The message handler type.
-        using message_handler_type = std::function<void()>;
+        using message_handler_type = base::message_handler::message_handler_type;
 
         //! The message handler map type.
-        using message_handler_map_type = std::unordered_map<int, std::vector<message_handler_type>>;
+        using message_handler_map_type = base::message_handler::message_handler_map_type;
 
 
         // static functions
 
         /*!
-            \brief Make a message handler map for an abstract window.
+            \brief Returns the instance.
 
-            \tparam AbstractWindow An abstract window type.
-
-            \param abstract_window An abstract window.
-            \param initial_map     An initial message handler map.
-
-            \return A message handler map.
+            \return The instance.
         */
-        template <typename AbstractWindow>
-        static message_handler_map_type make_abstract_window_message_handler_map(
-            TETENGO2_STDALT_MAYBE_UNUSED AbstractWindow& abstract_window,
-            message_handler_map_type&&                   initial_map)
-        {
-            return std::move(initial_map);
-        }
+        static const message_handler& instance();
+
+
+        // constructors and destructor
 
         /*!
-            \brief Make a message handler map for a button.
-
-            \tparam Button A button type.
-
-            \param button      A button.
-            \param initial_map An initial message handler map.
-
-            \return A message handler map.
+            \brief Destroys the detail implementation.
         */
-        template <typename Button>
-        static message_handler_map_type make_button_message_handler_map(
-            TETENGO2_STDALT_MAYBE_UNUSED Button& button,
-            message_handler_map_type&&           initial_map)
-        {
-            return std::move(initial_map);
-        }
-
-        /*!
-            \brief Make a message handler map for a control.
-
-            \tparam Control A control type.
-
-            \param control     A control.
-            \param initial_map An initial message handler map.
-
-            \return A message handler map.
-        */
-        template <typename Control>
-        static message_handler_map_type make_control_message_handler_map(
-            TETENGO2_STDALT_MAYBE_UNUSED Control& control,
-            message_handler_map_type&&            initial_map)
-        {
-            return std::move(initial_map);
-        }
-
-        /*!
-            \brief Make a message handler map for a custom control.
-
-            \tparam CustomControl A custom control type.
-
-            \param custom_control A custom control.
-            \param initial_map    An initial message handler map.
-
-            \return A message handler map.
-        */
-        template <typename CustomControl>
-        static message_handler_map_type make_custom_control_message_handler_map(
-            TETENGO2_STDALT_MAYBE_UNUSED CustomControl& custom_control,
-            message_handler_map_type&&                  initial_map)
-        {
-            return std::move(initial_map);
-        }
-
-        /*!
-            \brief Make a message handler map for a dialog.
-
-            \tparam Dialog A dialog type.
-
-            \param dialog      A dialog.
-            \param initial_map An initial message handler map.
-
-            \return A message handler map.
-        */
-        template <typename Dialog>
-        static message_handler_map_type make_dialog_message_handler_map(
-            TETENGO2_STDALT_MAYBE_UNUSED Dialog& dialog,
-            message_handler_map_type&&           initial_map)
-        {
-            return std::move(initial_map);
-        }
-
-        /*!
-            \brief Make a message handler map for a dropdown box.
-
-            \tparam DropdownBox A dropdown box type.
-
-            \param dropdown_box A dropdown box.
-            \param initial_map  An initial message handler map.
-
-            \return A message handler map.
-        */
-        template <typename DropdownBox>
-        static message_handler_map_type make_dropdown_box_message_handler_map(
-            TETENGO2_STDALT_MAYBE_UNUSED DropdownBox& dropdown_box,
-            message_handler_map_type&&                initial_map)
-        {
-            return std::move(initial_map);
-        }
-
-        /*!
-            \brief Make a message handler map for an image.
-
-            \tparam Image An image type.
-
-            \param image       An image.
-            \param initial_map An initial message handler map.
-
-            \return A message handler map.
-        */
-        template <typename Image>
-        static message_handler_map_type make_image_message_handler_map(
-            TETENGO2_STDALT_MAYBE_UNUSED Image& image,
-            message_handler_map_type&&          initial_map)
-        {
-            return std::move(initial_map);
-        }
-
-        /*!
-            \brief Make a message handler map for a label.
-
-            \tparam Label A label type.
-
-            \param label       A label.
-            \param initial_map An initial message handler map.
-
-            \return A message handler map.
-        */
-        template <typename Label>
-        static message_handler_map_type make_label_message_handler_map(
-            TETENGO2_STDALT_MAYBE_UNUSED Label& label,
-            message_handler_map_type&&          initial_map)
-        {
-            return std::move(initial_map);
-        }
-
-        /*!
-            \brief Make a message handler map for a list box.
-
-            \tparam ListBox A list box type.
-
-            \param list_box    A list box.
-            \param initial_map An initial message handler map.
-
-            \return A message handler map.
-        */
-        template <typename ListBox>
-        static message_handler_map_type make_list_box_message_handler_map(
-            TETENGO2_STDALT_MAYBE_UNUSED ListBox& list_box,
-            message_handler_map_type&&            initial_map)
-        {
-            return std::move(initial_map);
-        }
-
-        /*!
-            \brief Make a message handler map for a picture box.
-
-            \tparam PictureBox A picture box type.
-
-            \param picture_box A picture box.
-            \param initial_map An initial message handler map.
-
-            \return A message handler map.
-        */
-        template <typename PictureBox>
-        static message_handler_map_type make_picture_box_message_handler_map(
-            TETENGO2_STDALT_MAYBE_UNUSED PictureBox& picture_box,
-            message_handler_map_type&&               initial_map)
-        {
-            return std::move(initial_map);
-        }
-
-        /*!
-            \brief Make a message handler map for a text box.
-
-            \tparam TextBox A text box type.
-
-            \param text_box    A text box.
-            \param initial_map An initial message handler map.
-
-            \return A message handler map.
-        */
-        template <typename TextBox>
-        static message_handler_map_type make_text_box_message_handler_map(
-            TETENGO2_STDALT_MAYBE_UNUSED TextBox& text_box,
-            message_handler_map_type&&            initial_map)
-        {
-            return std::move(initial_map);
-        }
-
-        /*!
-            \brief Make a message handler map for a widget.
-
-            \tparam Widget A widget type.
-
-            \param widget      A widget.
-            \param initial_map An initial message handler map.
-
-            \return A message handler map.
-        */
-        template <typename Widget>
-        static message_handler_map_type make_widget_message_handler_map(
-            TETENGO2_STDALT_MAYBE_UNUSED Widget& widget,
-            message_handler_map_type&&           initial_map)
-        {
-            return std::move(initial_map);
-        }
-
-        /*!
-            \brief Make a message handler map for a window.
-
-            \tparam Window A window type.
-
-            \param window      A window.
-            \param initial_map An initial message handler map.
-
-            \return A message handler map.
-        */
-        template <typename Window>
-        static message_handler_map_type make_window_message_handler_map(
-            TETENGO2_STDALT_MAYBE_UNUSED Window& window,
-            message_handler_map_type&&           initial_map)
-        {
-            return std::move(initial_map);
-        }
+        virtual ~message_handler();
 
 
     private:
-        // forbidden operations
+        // types
 
-        message_handler() = delete;
+        class impl;
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
+
+
+        // constructors
+
+        message_handler();
+
+
+        // virtual functions
+
+        virtual message_handler_map_type make_abstract_window_message_handler_map_impl(
+            gui::widget::abstract_window& abstract_window,
+            message_handler_map_type&&    initial_map) const override;
+
+        virtual message_handler_map_type make_button_message_handler_map_impl(
+            gui::widget::button&       button,
+            message_handler_map_type&& initial_map) const override;
+
+        virtual message_handler_map_type make_control_message_handler_map_impl(
+            gui::widget::control&      control,
+            message_handler_map_type&& initial_map) const override;
+
+        virtual message_handler_map_type make_custom_control_message_handler_map_impl(
+            gui::widget::custom_control& custom_control,
+            message_handler_map_type&&   initial_map) const override;
+
+        virtual message_handler_map_type make_dialog_message_handler_map_impl(
+            gui::widget::dialog&       dialog,
+            message_handler_map_type&& initial_map) const override;
+
+        virtual message_handler_map_type make_dropdown_box_message_handler_map_impl(
+            gui::widget::dropdown_box& dropdown_box,
+            message_handler_map_type&& initial_map) const override;
+
+        virtual message_handler_map_type make_image_message_handler_map_impl(
+            gui::widget::image&        image,
+            message_handler_map_type&& initial_map) const override;
+
+        virtual message_handler_map_type make_label_message_handler_map_impl(
+            gui::widget::label&        label,
+            message_handler_map_type&& initial_map) const override;
+
+        virtual message_handler_map_type make_list_box_message_handler_map_impl(
+            gui::widget::list_box&     list_box,
+            message_handler_map_type&& initial_map) const override;
+
+        virtual message_handler_map_type make_picture_box_message_handler_map_impl(
+            gui::widget::picture_box&  picture_box,
+            message_handler_map_type&& initial_map) const override;
+
+        virtual message_handler_map_type make_progress_bar_message_handler_map_impl(
+            gui::widget::progress_bar& progress_bar,
+            message_handler_map_type&& initial_map) const override;
+
+        virtual message_handler_map_type make_text_box_message_handler_map_impl(
+            gui::widget::text_box&     text_box,
+            message_handler_map_type&& initial_map) const override;
+
+        virtual message_handler_map_type make_widget_message_handler_map_impl(
+            gui::widget::widget&       widget,
+            message_handler_map_type&& initial_map) const override;
+
+        virtual message_handler_map_type make_window_message_handler_map_impl(
+            gui::widget::window&       window,
+            message_handler_map_type&& initial_map) const override;
     };
 }
 

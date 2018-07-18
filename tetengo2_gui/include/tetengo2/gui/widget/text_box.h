@@ -12,6 +12,7 @@
 #include <boost/predef.h>
 
 #include <tetengo2/detail/base/widget.h>
+#include <tetengo2/detail/stub/message_handler.h>
 #include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/message/text_box_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
@@ -46,7 +47,9 @@ namespace tetengo2::gui::widget {
 #pragma warning(disable : 4355)
 #endif
           control{ scroll_bar_style,
-                   message_handler_details_type::make_text_box_message_handler_map(*this, message_handler_map_type{}),
+                   message_handler_details_type::instance().make_text_box_message_handler_map(
+                       *this,
+                       message_handler_map_type{}),
                    widget_details().create_text_box(
                        parent,
                        static_cast<widget_details_type::scroll_bar_style_type>(scroll_bar_style)) },

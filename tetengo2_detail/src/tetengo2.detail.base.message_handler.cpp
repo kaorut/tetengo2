@@ -24,6 +24,7 @@ namespace tetengo2 { namespace gui { namespace widget {
     class label;
     class list_box;
     class picture_box;
+    class progress_bar;
     class text_box;
     class widget;
     class window;
@@ -56,7 +57,7 @@ namespace tetengo2::detail::base {
         }
 
         message_handler_map_type make_button_message_handler_map(
-            gui::widget ::button&      button,
+            gui::widget::button&       button,
             message_handler_map_type&& initial_map,
             const message_handler&     self) const
         {
@@ -127,6 +128,14 @@ namespace tetengo2::detail::base {
             return self.make_picture_box_message_handler_map_impl(picture_box, std::move(initial_map));
         }
 
+        message_handler_map_type make_progress_bar_message_handler_map(
+            gui::widget::progress_bar& progress_bar,
+            message_handler_map_type&& initial_map,
+            const message_handler&     self) const
+        {
+            return self.make_progress_bar_message_handler_map_impl(progress_bar, std::move(initial_map));
+        }
+
         message_handler_map_type make_text_box_message_handler_map(
             gui::widget::text_box&     text_box,
             message_handler_map_type&& initial_map,
@@ -163,7 +172,7 @@ namespace tetengo2::detail::base {
     }
 
     message_handler::message_handler_map_type message_handler::make_button_message_handler_map(
-        gui::widget ::button&      button,
+        gui::widget::button&       button,
         message_handler_map_type&& initial_map) const
     {
         return m_p_impl->make_button_message_handler_map(button, std::move(initial_map), *this);
@@ -223,6 +232,13 @@ namespace tetengo2::detail::base {
         message_handler_map_type&& initial_map) const
     {
         return m_p_impl->make_picture_box_message_handler_map(picture_box, std::move(initial_map), *this);
+    }
+
+    message_handler::message_handler_map_type message_handler::make_progress_bar_message_handler_map(
+        gui::widget::progress_bar& progress_bar,
+        message_handler_map_type&& initial_map) const
+    {
+        return m_p_impl->make_progress_bar_message_handler_map(progress_bar, std::move(initial_map), *this);
     }
 
     message_handler::message_handler_map_type message_handler::make_text_box_message_handler_map(

@@ -28,6 +28,7 @@ sources = \
     tetengo2.detail.stub.gui_impl_set.cpp \
     tetengo2.detail.stub.icon.cpp \
     tetengo2.detail.stub.impl_set.cpp \
+    tetengo2.detail.stub.message_handler.cpp \
     tetengo2.detail.stub.shell.cpp \
     tetengo2.detail.stub.system_color.cpp \
     tetengo2.detail.stub.unit.cpp \
@@ -53,6 +54,7 @@ extra_sources = \
     tetengo2.detail.windows.gui_impl_set.cpp \
     tetengo2.detail.windows.icon.cpp \
     tetengo2.detail.windows.impl_set.cpp \
+    tetengo2.detail.windows.message_handler.cpp \
     tetengo2.detail.windows.messages.cpp \
     tetengo2.detail.windows.picture.cpp \
     tetengo2.detail.windows.shell.cpp \

@@ -53,7 +53,9 @@ namespace tetengo2::gui::widget {
 #pragma warning(disable : 4355)
 #endif
           control{ scroll_bar_style,
-                   message_handler_details_type::make_list_box_message_handler_map(*this, message_handler_map_type{}),
+                   message_handler_details_type::instance().make_list_box_message_handler_map(
+                       *this,
+                       message_handler_map_type{}),
                    widget_details().create_list_box(
                        parent,
                        static_cast<widget_details_type::scroll_bar_style_type>(scroll_bar_style)) },

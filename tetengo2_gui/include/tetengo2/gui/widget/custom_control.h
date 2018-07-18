@@ -18,6 +18,7 @@
 #include <boost/predef.h>
 
 #include <tetengo2/detail/base/widget.h>
+#include <tetengo2/detail/stub/message_handler.h>
 #include <tetengo2/detail/stub/mouse_capture.h>
 #include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/mouse_capture.h>
@@ -29,7 +30,6 @@
 
 namespace tetengo2 { namespace detail { namespace stub {
     class drawing;
-    class message_handler;
     class scroll;
     class widget;
 }}}
@@ -77,14 +77,14 @@ namespace tetengo2::gui::widget {
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          control{
-              scroll_bar_style,
-              message_handler_details_type::make_custom_control_message_handler_map(*this, message_handler_map_type{}),
-              widget_details().create_custom_control(
-                  parent,
-                  border,
-                  static_cast<widget_details_type::scroll_bar_style_type>(scroll_bar_style))
-          },
+          control{ scroll_bar_style,
+                   message_handler_details_type::instance().make_custom_control_message_handler_map(
+                       *this,
+                       message_handler_map_type{}),
+                   widget_details().create_custom_control(
+                       parent,
+                       border,
+                       static_cast<widget_details_type::scroll_bar_style_type>(scroll_bar_style)) },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif

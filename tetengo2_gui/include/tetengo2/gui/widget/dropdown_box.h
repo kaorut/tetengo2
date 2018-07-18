@@ -51,11 +51,11 @@ namespace tetengo2::gui::widget {
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          control{
-              control::scroll_bar_style_type::none,
-              message_handler_details_type::make_dropdown_box_message_handler_map(*this, message_handler_map_type{}),
-              widget_details().create_dropdown_box(parent)
-          },
+          control{ control::scroll_bar_style_type::none,
+                   message_handler_details_type::instance().make_dropdown_box_message_handler_map(
+                       *this,
+                       message_handler_map_type{}),
+                   widget_details().create_dropdown_box(parent) },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
