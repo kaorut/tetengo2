@@ -17,10 +17,8 @@
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/detail/base/widget.h>
-#include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/detail/stub/message_handler.h>
 #include <tetengo2/gui/icon.h>
-#include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_bar.h>
 #include <tetengo2/gui/message/file_drop_observer_set.h>
 #include <tetengo2/gui/message/window_observer_set.h>
@@ -39,11 +37,8 @@ namespace tetengo2::gui::widget {
         //! The icon type.
         using icon_type = gui::icon;
 
-        //! The menu details type.
-        using menu_details_type = detail::stub::menu;
-
         //! The menu bar type.
-        using menu_bar_type = gui::menu::menu_bar<menu_details_type>;
+        using menu_bar_type = gui::menu::menu_bar;
 
         //! The window observer set type.
         using window_observer_set_type = gui::message::window_observer_set;

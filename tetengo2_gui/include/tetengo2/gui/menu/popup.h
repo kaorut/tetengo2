@@ -11,18 +11,16 @@
 
 #include <algorithm>
 
+#include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::menu {
     /*!
-        \brief The class template for a popup menu.
-
-        \tparam MenuDetails A detail implementation type of a menu.
+        \brief The class for a popup menu.
    */
-    template <typename MenuDetails>
-    class popup : public abstract_popup<MenuDetails>
+    class popup : public abstract_popup
     {
     public:
         // types
@@ -31,10 +29,10 @@ namespace tetengo2::gui::menu {
         using string_type = tetengo2::type_list::string_type;
 
         //! The menu details type.
-        using menu_details_type = MenuDetails;
+        using menu_details_type = detail::stub::menu;
 
         //! The base type.
-        using base_type = abstract_popup<menu_details_type>;
+        using base_type = abstract_popup;
 
 
         // constructors and destructor

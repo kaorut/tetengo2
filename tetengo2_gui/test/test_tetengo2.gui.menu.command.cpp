@@ -30,9 +30,9 @@ namespace {
 
     using menu_details_type = detail_type_list_type::menu_type;
 
-    using menu_base_type = tetengo2::gui::menu::menu_base<menu_details_type>;
+    using menu_base_type = tetengo2::gui::menu::menu_base;
 
-    using menu_command_type = tetengo2::gui::menu::command<menu_details_type>;
+    using menu_command_type = tetengo2::gui::menu::command;
 }
 
 

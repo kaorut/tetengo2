@@ -37,9 +37,9 @@ namespace {
 
     using menu_details_type = detail_type_list_type::menu_type;
 
-    using menu_base_type = tetengo2::gui::menu::menu_base<menu_details_type>;
+    using menu_base_type = tetengo2::gui::menu::menu_base;
 
-    using abstract_popup_menu_type = tetengo2::gui::menu::abstract_popup<menu_details_type>;
+    using abstract_popup_menu_type = tetengo2::gui::menu::abstract_popup;
 
     class concrete_popup_menu : public abstract_popup_menu_type
     {

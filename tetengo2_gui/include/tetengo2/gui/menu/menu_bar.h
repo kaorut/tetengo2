@@ -12,6 +12,9 @@
 #include <cassert>
 #include <memory>
 
+#include <boost/iterator/iterator_facade.hpp>
+
+#include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/shortcut_key_table.h>
 #include <tetengo2/type_list.h>
@@ -19,12 +22,9 @@
 
 namespace tetengo2::gui::menu {
     /*!
-        \brief The class template for a menu bar.
-
-        \tparam MenuDetails A detail implementation type of a menu.
+        \brief The class for a menu bar.
    */
-    template <typename MenuDetails>
-    class menu_bar : public abstract_popup<MenuDetails>
+    class menu_bar : public abstract_popup
     {
     public:
         // types
@@ -33,13 +33,13 @@ namespace tetengo2::gui::menu {
         using string_type = tetengo2::type_list::string_type;
 
         //! The menu details type.
-        using menu_details_type = MenuDetails;
+        using menu_details_type = detail::stub::menu;
 
         //! The base type.
-        using base_type = abstract_popup<menu_details_type>;
+        using base_type = abstract_popup;
 
         //! The shortcut key table type.
-        using shortcut_key_table_type = shortcut_key_table<menu_details_type>;
+        using shortcut_key_table_type = shortcut_key_table;
 
 
         // constructors and destructor

@@ -11,7 +11,6 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/gui/menu/popup.h>
 #include <tetengo2/text.h>
@@ -31,9 +30,9 @@ namespace {
 
     using menu_details_type = detail_type_list_type::menu_type;
 
-    using menu_base_type = tetengo2::gui::menu::menu_base<menu_details_type>;
+    using menu_base_type = tetengo2::gui::menu::menu_base;
 
-    using popup_menu_type = tetengo2::gui::menu::popup<menu_details_type>;
+    using popup_menu_type = tetengo2::gui::menu::popup;
 }
 
 

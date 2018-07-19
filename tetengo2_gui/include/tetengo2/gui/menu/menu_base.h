@@ -20,6 +20,7 @@
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/gui/menu/recursive_iterator.h>
 #include <tetengo2/gui/menu/shortcut_key.h>
 #include <tetengo2/gui/message/menu_observer_set.h>
@@ -29,11 +30,8 @@
 
 namespace tetengo2::gui::menu {
     /*!
-        \brief The base class template for a menu base.
-
-        \tparam MenuDetails A detail implementation type of a menu.
+        \brief The base class for a menu base.
    */
-    template <typename MenuDetails>
     class menu_base : private boost::noncopyable
     {
     public:
@@ -43,7 +41,7 @@ namespace tetengo2::gui::menu {
         using string_type = tetengo2::type_list::string_type;
 
         //! The menu details type.
-        using menu_details_type = MenuDetails;
+        using menu_details_type = detail::stub::menu;
 
         //! The details type.
         using details_type = typename menu_details_type::menu_details_type;

@@ -9,20 +9,18 @@
 #if !defined(TETENGO2_GUI_MENU_SEPARATOR_H)
 #define TETENGO2_GUI_MENU_SEPARATOR_H
 
+#include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::menu {
     /*!
-        \brief The class template for a menu separator.
+        \brief The class for a menu separator.
 
         The text is empty.
-
-        \tparam MenuDetails A detail implementation type of a menu.
    */
-    template <typename MenuDetails>
-    class separator : public menu_base<MenuDetails>
+    class separator : public menu_base
     {
     public:
         // types
@@ -31,10 +29,10 @@ namespace tetengo2::gui::menu {
         using string_type = tetengo2::type_list::string_type;
 
         //! The menu details type.
-        using menu_details_type = MenuDetails;
+        using menu_details_type = detail::stub::menu;
 
         //! The base type.
-        using base_type = menu_base<menu_details_type>;
+        using base_type = menu_base;
 
 
         // constructors and destructor

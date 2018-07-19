@@ -38,13 +38,13 @@ namespace {
 
     using menu_details_type = detail_type_list_type::menu_type;
 
-    using menu_base_type = tetengo2::gui::menu::menu_base<menu_details_type>;
+    using menu_base_type = tetengo2::gui::menu::menu_base;
 
     using virtual_key_type = tetengo2::gui::virtual_key;
 
     using shortcut_key_type = tetengo2::gui::menu::shortcut_key;
 
-    using shortcut_key_table_type = tetengo2::gui::menu::shortcut_key_table<menu_details_type>;
+    using shortcut_key_table_type = tetengo2::gui::menu::shortcut_key_table;
 
     class concrete_menu : public menu_base_type
     {

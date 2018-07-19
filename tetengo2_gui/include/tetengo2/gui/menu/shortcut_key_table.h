@@ -11,29 +11,28 @@
 
 #include <cassert>
 #include <iterator>
+#include <memory>
 #include <utility>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/gui/menu/shortcut_key.h>
 
 
 namespace tetengo2::gui::menu {
     /*!
-        \brief The class template for a shortcut key table.
-
-        \tparam MenuDetails A detail implementation type of a menu.
+        \brief The class for a shortcut key table.
    */
-    template <typename MenuDetails>
     class shortcut_key_table : private boost::noncopyable
     {
     public:
         // types
 
         //! The menu details type.
-        using menu_details_type = MenuDetails;
+        using menu_details_type = detail::stub::menu;
 
         //! The details type.
         using details_type = typename menu_details_type::shortcut_key_table_details_type;
@@ -45,7 +44,7 @@ namespace tetengo2::gui::menu {
         using shortcut_key_type = shortcut_key;
 
         //! The menu base type.
-        using menu_base_type = menu_base<menu_details_type>;
+        using menu_base_type = menu_base;
 
         //! The entry type.
         using entry_type = std::pair<shortcut_key_type, const menu_base_type*>;

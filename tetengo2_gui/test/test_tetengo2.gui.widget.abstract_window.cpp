@@ -17,7 +17,6 @@
 #include <tetengo2/detail/base/widget.h>
 #include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/gui/icon.h>
-#include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_bar.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/gui/widget/widget.h>
@@ -37,11 +36,9 @@ namespace {
 
     using icon_type = tetengo2::gui::icon;
 
-    using menu_details_type = detail_type_list_type::menu_type;
-
     using string_type = common_type_list_type::string_type;
 
-    using menu_bar_type = tetengo2::gui::menu::menu_bar<menu_details_type>;
+    using menu_bar_type = tetengo2::gui::menu::menu_bar;
 
     using abstract_window_type = tetengo2::gui::widget::abstract_window;
 
