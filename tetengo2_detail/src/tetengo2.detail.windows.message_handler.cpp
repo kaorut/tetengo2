@@ -6,6 +6,8 @@
     $Id$
 */
 
+#if 0
+
 #include <tetengo2/detail/windows/error_category.h>
 #include <tetengo2/detail/windows/message_handler.h>
 #include <tetengo2/detail/windows/message_handler_detail/abstra.h>
@@ -459,3 +461,5 @@ namespace tetengo2::detail::windows {
         return m_p_impl->make_window_message_handler_map_impl(window, std::move(initial_map));
     }
 }
+
+#endif
