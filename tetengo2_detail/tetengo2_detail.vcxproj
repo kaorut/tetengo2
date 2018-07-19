@@ -28,6 +28,7 @@
     <ClInclude Include="include\tetengo2\detail\base\gui_impl_set.h" />
     <ClInclude Include="include\tetengo2\detail\base\icon.h" />
     <ClInclude Include="include\tetengo2\detail\base\impl_set.h" />
+    <ClInclude Include="include\tetengo2\detail\base\menu.h" />
     <ClInclude Include="include\tetengo2\detail\base\messages.h" />
     <ClInclude Include="include\tetengo2\detail\base\message_handler.h" />
     <ClInclude Include="include\tetengo2\detail\base\shell.h" />
@@ -145,6 +146,7 @@
     <ClCompile Include="src\tetengo2.detail.base.gui_impl_set.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.icon.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.impl_set.cpp" />
+    <ClCompile Include="src\tetengo2.detail.base.menu.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.messages.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.message_handler.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.shell.cpp" />
@@ -158,6 +160,7 @@
     <ClCompile Include="src\tetengo2.detail.stub.gui_impl_set.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.icon.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.impl_set.cpp" />
+    <ClCompile Include="src\tetengo2.detail.stub.menu.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.message_handler.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.shell.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.system_color.cpp" />
@@ -207,6 +210,7 @@
     <ClCompile Include="src\tetengo2.detail.windows.gui_impl_set.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.icon.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.impl_set.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.menu.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.messages.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.message_handler.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.picture.cpp" />
