@@ -26,6 +26,7 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include <tetengo2/detail/windows/menu.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/stdalt.h>
 
@@ -45,7 +46,9 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
         const typename menu_bar_type::recursive_iterator_type found = std::find_if(
             abstract_window.menu_bar().recursive_begin(),
             abstract_window.menu_bar().recursive_end(),
-            [id](const typename menu_bar_type::base_type::base_type& menu) { return menu.details().id == id; });
+            [id](const typename menu_bar_type::base_type::base_type& menu) {
+                return static_cast<const menu::windows_menu_details_type&>(menu.details()).id == id;
+            });
         if (found == abstract_window.menu_bar().recursive_end())
             return TETENGO2_STDALT_NULLOPT;
         found->select();
@@ -70,7 +73,8 @@ namespace tetengo2::detail::windows::message_handler_detail::abstract_window {
             [handle](const typename menu_bar_type::base_type::base_type& popup_menu) {
                 if (!handle)
                     return false;
-                return popup_menu.details().handle.get() == handle;
+                return reinterpret_cast<::HMENU>(
+                           static_cast<const menu::windows_menu_details_type&>(popup_menu.details()).handle) == handle;
             });
         if (found == abstract_window.menu_bar().recursive_end())
             return TETENGO2_STDALT_NULLOPT;
