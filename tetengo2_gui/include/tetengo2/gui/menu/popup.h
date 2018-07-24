@@ -42,7 +42,7 @@ namespace tetengo2::gui::menu {
 
             \param text A text.
         */
-        explicit popup(string_type text) : base_type{ std::move(text), menu_details_type::create_popup_menu() } {}
+        explicit popup(string_type text) : base_type{ std::move(text), menu_details_type::instance().create_popup_menu() } {}
 
         /*!
             \brief Destroys the popup menu.
@@ -60,7 +60,7 @@ namespace tetengo2::gui::menu {
 
         virtual const style_type& style_impl() const override
         {
-            return menu_details_type::template popup_menu_style<typename base_type::base_type>();
+            return menu_details_type::instance().popup_menu_style();
         }
     };
 }

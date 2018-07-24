@@ -11,6 +11,7 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/gui/menu/command.h>
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/text.h>
@@ -55,7 +56,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     const menu_command_type menu_command{ string_type{ TETENGO2_TEXT("Tetengo") } };
 
-                    BOOST_CHECK(&menu_command.style() == &menu_details_type::menu_command_style<menu_base_type>());
+                    BOOST_CHECK(&menu_command.style() == &menu_details_type::instance().menu_command_style());
                 }
 
 

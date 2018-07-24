@@ -17,6 +17,7 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/gui/menu/recursive_iterator.h>
@@ -47,7 +48,7 @@ namespace {
         // constructors and destructor
 
         concrete_popup_menu(string_type text)
-        : abstract_popup_menu_type{ std::move(text), menu_details_type::create_popup_menu() }
+        : abstract_popup_menu_type{ std::move(text), menu_details_type::instance().create_popup_menu() }
         {}
 
 
@@ -56,7 +57,7 @@ namespace {
 
         virtual const style_type& style_impl() const override
         {
-            return menu_details_type::popup_menu_style<menu_base_type>();
+            return menu_details_type::instance().popup_menu_style();
         }
     };
 }

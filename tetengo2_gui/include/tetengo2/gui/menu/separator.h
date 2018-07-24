@@ -40,7 +40,7 @@ namespace tetengo2::gui::menu {
         /*!
             \brief Creates a menu separator.
         */
-        separator() : base_type{ string_type{}, menu_details_type::create_menu() } {}
+        separator() : base_type{ string_type{}, menu_details_type::instance().create_menu() } {}
 
         /*!
             \brief Destroys the menu separator.
@@ -58,7 +58,7 @@ namespace tetengo2::gui::menu {
 
         virtual const style_type& style_impl() const override
         {
-            return menu_details_type::template menu_separator_style<base_type>();
+            return menu_details_type::instance().menu_separator_style();
         }
     };
 }

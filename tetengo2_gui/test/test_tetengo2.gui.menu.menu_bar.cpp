@@ -11,6 +11,7 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/gui/menu/menu_bar.h>
 #include <tetengo2/gui/menu/menu_base.h>
 
@@ -52,7 +53,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     const menu_bar_type menu_bar;
 
-                    BOOST_CHECK(&menu_bar.style() == &menu_details_type::menu_bar_style<menu_base_type>());
+                    BOOST_CHECK(&menu_bar.style() == &menu_details_type::instance().menu_bar_style());
                 }
 
                 BOOST_AUTO_TEST_CASE(get_shortcut_key_table)

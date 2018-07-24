@@ -15,6 +15,7 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/gui/menu/shortcut_key.h>
 #include <tetengo2/gui/virtual_key.h>
@@ -46,10 +47,10 @@ namespace {
     public:
         // constructors and destructor
 
-        concrete_menu(string_type text) : menu_base_type{ std::move(text), menu_details_type::create_menu() } {}
+        concrete_menu(string_type text) : menu_base_type{ std::move(text), menu_details_type::instance().create_menu() } {}
 
         concrete_menu(string_type text, shortcut_key_type shortcut_key_type)
-        : menu_base_type{ std::move(text), std::move(shortcut_key_type), menu_details_type::create_menu() }
+        : menu_base_type{ std::move(text), std::move(shortcut_key_type), menu_details_type::instance().create_menu() }
         {}
 
 
@@ -58,7 +59,7 @@ namespace {
 
         virtual const style_type& style_impl() const override
         {
-            return menu_details_type::menu_command_style<menu_base_type>();
+            return menu_details_type::instance().menu_command_style();
         }
     };
 }
@@ -92,7 +93,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     const concrete_menu menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
 
-                    BOOST_CHECK(&menu.style() == &menu_details_type::menu_command_style<menu_base_type>());
+                    BOOST_CHECK(&menu.style() == &menu_details_type::instance().menu_command_style());
                 }
 
                 BOOST_AUTO_TEST_CASE(enabled)

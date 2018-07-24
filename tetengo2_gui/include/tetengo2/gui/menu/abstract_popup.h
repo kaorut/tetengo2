@@ -14,7 +14,6 @@
 #include <stdexcept>
 #include <vector>
 
-#include <boost/iterator/indirect_iterator.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/detail/stub/menu.h>
@@ -38,10 +37,10 @@ namespace tetengo2::gui::menu {
         using menu_details_type = detail::stub::menu;
 
         //! The details type.
-        using details_type = typename menu_details_type::menu_details_type;
+        using details_type = menu_details_type::menu_details_type;
 
         //! The detail implementation pointer type.
-        using details_ptr_type = typename menu_details_type::menu_details_ptr_type;
+        using details_ptr_type = menu_details_type::menu_details_ptr_type;
 
         //! The base type.
         using base_type = menu_base;
@@ -134,14 +133,14 @@ namespace tetengo2::gui::menu {
             if (!p_menu)
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "The unique pointer to a menu is nullptr." }));
 
-            menu_details_type::insert_menu(*this, offset, *p_menu);
+            menu_details_type::instance().insert_menu(*this, offset, *p_menu);
 
             m_children.insert(offset.base(), std::move(p_menu));
         }
 
         virtual void erase_impl(const iterator first, const iterator last) override
         {
-            menu_details_type::erase_menus(*this, first, last);
+            menu_details_type::instance().erase_menus(*this, first, last);
 
             m_children.erase(first.base(), last.base());
         }

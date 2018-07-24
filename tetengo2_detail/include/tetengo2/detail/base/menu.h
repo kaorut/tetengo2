@@ -10,13 +10,14 @@
 #define TETENGO2_DETAIL_BASE_MENU_H
 
 #include <memory>
+#include <vector>
 
 #include <boost/core/noncopyable.hpp>
-
-#include <tetengo2/gui/menu/menu_base.h>
+#include <boost/iterator/indirect_iterator.hpp>
 
 namespace tetengo2 { namespace gui { namespace menu {
-    class popup;
+    class abstract_popup;
+    class menu_base;
 }}}
 
 
@@ -53,12 +54,17 @@ namespace tetengo2::detail::base {
         //! The shortcut key table details pointer type.
         using shortcut_key_table_details_ptr_type = std::unique_ptr<shortcut_key_table_details_type>;
 
-        /*!
-            \brief The style tag type.
-        */
+        //! The style tag type.
         struct style_tag
         {
         };
+
+        //! The state type.
+        using state_type = int;
+
+        //! The iterator type.
+        using iterator =
+            boost::indirect_iterator<typename std::vector<std::unique_ptr<gui::menu::menu_base>>::const_iterator>;
 
 
         // static functions
@@ -141,7 +147,7 @@ namespace tetengo2::detail::base {
             \param menu  A menu.
             \param state A status.
         */
-        void set_state(gui::menu::menu_base& menu, gui::menu::menu_base::state_type state) const;
+        void set_state(gui::menu::menu_base& menu, state_type state) const;
 
         /*!
             \brief Creates an empty shortcut key table.
@@ -153,17 +159,14 @@ namespace tetengo2::detail::base {
         /*!
             \brief Creates a shortcut key table.
 
-            \param first A first position among shortcut keys.
-            \param last  A last position among shortcut keys.
+            \param root_menu A root menu
 
             \return A unique pointer to a shortcut key table.
 
             \throw std::system_error When a shortcut key table cannot be
                                      created.
         */
-        shortcut_key_table_details_ptr_type create_shortcut_key_table(
-            const gui::menu::menu_base::const_iterator& first,
-            const gui::menu::menu_base::const_iterator& last) const;
+        shortcut_key_table_details_ptr_type create_shortcut_key_table(const gui::menu::menu_base& root_menu) const;
 
         /*!
             \brief Inserts a menu.
@@ -174,10 +177,8 @@ namespace tetengo2::detail::base {
 
             \throw std::system_error When a menu cannot be inserted.
         */
-        void insert_menu(
-            gui::menu::popup&                           popup_menu,
-            const gui::menu::menu_base::const_iterator& offset,
-            gui::menu::menu_base&                       menu) const;
+        void
+        insert_menu(gui::menu::abstract_popup& popup_menu, const iterator& offset, gui::menu::menu_base& menu) const;
 
         /*!
             \brief Erases a menu.
@@ -188,10 +189,7 @@ namespace tetengo2::detail::base {
 
             \throw std::system_error When a menu cannot be erased.
         */
-        void erase_menus(
-            gui::menu::popup&                           popup_menu,
-            const gui::menu::menu_base::const_iterator& first,
-            const gui::menu::menu_base::const_iterator& last) const;
+        void erase_menus(gui::menu::abstract_popup& popup_menu, const iterator& first, const iterator& last) const;
 
 
     protected:
@@ -224,23 +222,20 @@ namespace tetengo2::detail::base {
 
         virtual void set_enabled_impl(gui::menu::menu_base& menu, bool enabled) const = 0;
 
-        virtual void set_state_impl(gui::menu::menu_base& menu, gui::menu::menu_base::state_type state) const = 0;
+        virtual void set_state_impl(gui::menu::menu_base& menu, state_type state) const = 0;
 
         virtual shortcut_key_table_details_ptr_type create_shortcut_key_table_impl() const = 0;
 
-        virtual shortcut_key_table_details_ptr_type create_shortcut_key_table_impl(
-            const gui::menu::menu_base::const_iterator& first,
-            const gui::menu::menu_base::const_iterator& last) const = 0;
+        virtual shortcut_key_table_details_ptr_type
+        create_shortcut_key_table_impl(const gui::menu::menu_base& root_menu) const = 0;
 
         virtual void insert_menu_impl(
-            gui::menu::popup&                           popup_menu,
-            const gui::menu::menu_base::const_iterator& offset,
-            gui::menu::menu_base&                       menu) const = 0;
+            gui::menu::abstract_popup& popup_menu,
+            const iterator&            offset,
+            gui::menu::menu_base&      menu) const = 0;
 
-        virtual void erase_menus_impl(
-            gui::menu::popup&                           popup_menu,
-            const gui::menu::menu_base::const_iterator& first,
-            const gui::menu::menu_base::const_iterator& last) const = 0;
+        virtual void
+        erase_menus_impl(gui::menu::abstract_popup& popup_menu, const iterator& first, const iterator& last) const = 0;
     };
 }
 

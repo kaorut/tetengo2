@@ -20,6 +20,7 @@
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/detail/base/menu.h>
 #include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/gui/menu/recursive_iterator.h>
 #include <tetengo2/gui/menu/shortcut_key.h>
@@ -44,10 +45,10 @@ namespace tetengo2::gui::menu {
         using menu_details_type = detail::stub::menu;
 
         //! The details type.
-        using details_type = typename menu_details_type::menu_details_type;
+        using details_type = menu_details_type::menu_details_type;
 
         //! The detail implementation pointer type.
-        using details_ptr_type = typename menu_details_type::menu_details_ptr_type;
+        using details_ptr_type = menu_details_type::menu_details_ptr_type;
 
         //! The shortcut key type.
         using shortcut_key_type = shortcut_key;
@@ -69,7 +70,7 @@ namespace tetengo2::gui::menu {
         using recursive_iterator_type = recursive_iterator<menu_base>;
 
         //! The style type.
-        using style_type = typename menu_details_type::template style_tag<menu_base>;
+        using style_type = menu_details_type::style_tag;
 
         //! The state type.
         enum class state_type
@@ -127,7 +128,7 @@ namespace tetengo2::gui::menu {
         */
         void set_enabled(const bool enabled)
         {
-            menu_details_type::set_enabled(*this, enabled);
+            menu_details_type::instance().set_enabled(*this, enabled);
             m_enabled = enabled;
         }
 
@@ -148,7 +149,7 @@ namespace tetengo2::gui::menu {
         */
         void set_state(const state_type state)
         {
-            menu_details_type::set_state(*this, state);
+            menu_details_type::instance().set_state(*this, static_cast<detail::base::menu::state_type>(state));
             m_state = state;
         }
 

@@ -12,8 +12,6 @@
 #include <cassert>
 #include <memory>
 
-#include <boost/iterator/iterator_facade.hpp>
-
 #include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/shortcut_key_table.h>
@@ -48,7 +46,7 @@ namespace tetengo2::gui::menu {
             \brief Creates a menu bar.
         */
         menu_bar()
-        : base_type{ string_type{}, menu_details_type::create_menu_bar() }, m_p_shortcut_key_table{
+        : base_type{ string_type{}, menu_details_type::instance().create_menu_bar() }, m_p_shortcut_key_table{
               std::make_unique<shortcut_key_table_type>()
           }
         {}
@@ -77,8 +75,7 @@ namespace tetengo2::gui::menu {
         */
         void update_shortcut_key_table()
         {
-            m_p_shortcut_key_table =
-                std::make_unique<shortcut_key_table_type>(this->recursive_begin(), this->recursive_end());
+            m_p_shortcut_key_table = std::make_unique<shortcut_key_table_type>(*this);
         }
 
 
@@ -97,7 +94,7 @@ namespace tetengo2::gui::menu {
 
         virtual const style_type& style_impl() const override
         {
-            return menu_details_type::template menu_bar_style<typename base_type::base_type>();
+            return menu_details_type::instance().menu_bar_style();
         }
     };
 }

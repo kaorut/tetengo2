@@ -11,6 +11,7 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/gui/menu/separator.h>
 
@@ -52,7 +53,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     const menu_separator_type menu_separator;
 
-                    BOOST_CHECK(&menu_separator.style() == &menu_details_type::menu_separator_style<menu_base_type>());
+                    BOOST_CHECK(&menu_separator.style() == &menu_details_type::instance().menu_separator_style());
                 }
 
 
