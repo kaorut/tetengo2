@@ -24,6 +24,7 @@
 #include <Windows.h>
 
 #include <tetengo2/gui/widget/control.h>
+#include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/stdalt.h>
 
 
@@ -39,7 +40,7 @@ namespace tetengo2::detail::windows::message_handler_detail::control {
         const auto device_context = reinterpret_cast<::HDC>(w_param);
         if (!control.paint_observer_set().paint_background().empty())
         {
-            typename gui::widget::control::base_type::widget_canvas_type canvas{ device_context };
+            gui::widget::widget::widget_canvas_type canvas{ device_context };
             control.paint_observer_set().paint_background()(canvas);
         }
 

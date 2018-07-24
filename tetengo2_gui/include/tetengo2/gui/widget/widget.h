@@ -76,6 +76,9 @@ namespace tetengo2::gui::widget {
         //! The canvas type.
         using canvas_type = gui::drawing::canvas<drawing_details_type>;
 
+        //! The widget canvas type.
+        using widget_canvas_type = gui::drawing::widget_canvas<drawing_details_type>;
+
         //! The background type.
         using background_type = gui::drawing::background<drawing_details_type>;
 
@@ -827,8 +830,6 @@ namespace tetengo2::gui::widget {
         // types
 
         using dimension_unit_type = typename dimension_type::unit_type;
-
-        using widget_canvas_type = gui::drawing::widget_canvas<drawing_details_type>;
 
         class paint_background
         {
