@@ -42,7 +42,9 @@ namespace tetengo2::gui::menu {
 
             \param text A text.
         */
-        explicit popup(string_type text) : base_type{ std::move(text), menu_details_type::instance().create_popup_menu() } {}
+        explicit popup(string_type text)
+        : base_type{ std::move(text), menu_details_type::instance().create_popup_menu() }
+        {}
 
         /*!
             \brief Destroys the popup menu.

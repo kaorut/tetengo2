@@ -173,7 +173,8 @@ namespace tetengo2::detail::windows {
             ::MENUITEMINFOW menu_info{};
             menu_info.cbSize = sizeof(::MENUITEMINFO);
             auto duplicated_text = make_text(menu);
-            // menu.style().set_style(details, menu_info, duplicated_text, menu.enabled(), menu.state());
+            static_cast<const windows_style_tag&>(menu.style())
+                .set_style(details, menu_info, duplicated_text, menu.enabled(), menu.state());
 
             windows_menu_details_type& popup_details = static_cast<windows_menu_details_type&>(popup_menu.details());
             const auto                 result = ::InsertMenuItem(
@@ -227,6 +228,109 @@ namespace tetengo2::detail::windows {
 
         using native_menu_encoder_type =
             text::encoder<type_list::internal_encoding_type, text::encoding::locale<std::wstring>>;
+
+        struct windows_style_tag : public style_tag
+        {
+            virtual ~windows_style_tag() = default;
+
+            virtual void set_style(
+                const windows_menu_details_type& details,
+                ::MENUITEMINFOW&                 menu_info,
+                std::vector<::WCHAR>&            text,
+                bool                             enabled,
+                gui::menu::menu_base::state_type state) const = 0;
+        };
+
+        struct menu_bar_style_tag : public windows_style_tag
+        {
+            virtual ~menu_bar_style_tag() = default;
+
+            virtual void set_style(
+                TETENGO2_STDALT_MAYBE_UNUSED const windows_menu_details_type& details,
+                TETENGO2_STDALT_MAYBE_UNUSED ::MENUITEMINFOW&                 menu_info,
+                TETENGO2_STDALT_MAYBE_UNUSED std::vector<::WCHAR>& text,
+                TETENGO2_STDALT_MAYBE_UNUSED bool                  enabled,
+                TETENGO2_STDALT_MAYBE_UNUSED gui::menu::menu_base::state_type state) const override
+            {
+                assert(false);
+                BOOST_THROW_EXCEPTION((std::logic_error{ "A menu bar cannot be inserted." }));
+            }
+        };
+
+        struct popup_menu_style_tag : public windows_style_tag
+        {
+            virtual ~popup_menu_style_tag() = default;
+
+            virtual void set_style(
+                const windows_menu_details_type& details,
+                ::MENUITEMINFOW&                 menu_info,
+                std::vector<::WCHAR>&            text,
+                bool                             enabled,
+                gui::menu::menu_base::state_type state) const override
+            {
+                menu_info.fMask = MIIM_FTYPE | MIIM_STATE | MIIM_STRING | MIIM_ID | MIIM_SUBMENU;
+
+                menu_info.fType = 0;
+                menu_info.fType |= state == gui::menu::menu_base::state_type::selected ? MFT_RADIOCHECK : 0;
+
+                menu_info.fState = 0;
+                menu_info.fState |= enabled ? MFS_ENABLED : MFS_DISABLED;
+                menu_info.fState |= state == gui::menu::menu_base::state_type::checked ||
+                                            state == gui::menu::menu_base::state_type::selected ?
+                                        MFS_CHECKED :
+                                        MFS_UNCHECKED;
+
+                menu_info.dwTypeData = text.data();
+                menu_info.cch = static_cast<::UINT>(text.size() - 1);
+                menu_info.wID = static_cast<::UINT>(details.id);
+                menu_info.hSubMenu = reinterpret_cast<::HMENU>(details.handle);
+            }
+        };
+
+        struct menu_command_style_tag : public windows_style_tag
+        {
+            virtual ~menu_command_style_tag() = default;
+
+            virtual void set_style(
+                const windows_menu_details_type& details,
+                ::MENUITEMINFOW&                 menu_info,
+                std::vector<::WCHAR>&            text,
+                bool                             enabled,
+                gui::menu::menu_base::state_type state) const override
+            {
+                menu_info.fMask = MIIM_FTYPE | MIIM_STATE | MIIM_STRING | MIIM_ID;
+
+                menu_info.fType = 0;
+                menu_info.fType |= state == gui::menu::menu_base::state_type::selected ? MFT_RADIOCHECK : 0;
+
+                menu_info.fState = 0;
+                menu_info.fState |= enabled ? MFS_ENABLED : MFS_DISABLED;
+                menu_info.fState |= state == gui::menu::menu_base::state_type::checked ||
+                                            state == gui::menu::menu_base::state_type::selected ?
+                                        MFS_CHECKED :
+                                        MFS_UNCHECKED;
+
+                menu_info.dwTypeData = text.data();
+                menu_info.cch = static_cast<::UINT>(text.size() - 1);
+                menu_info.wID = static_cast<::UINT>(details.id);
+            }
+        };
+
+        struct menu_separator_style_tag : public windows_style_tag
+        {
+            virtual ~menu_separator_style_tag() = default;
+
+            virtual void set_style(
+                TETENGO2_STDALT_MAYBE_UNUSED const windows_menu_details_type& details,
+                ::MENUITEMINFOW&                                              menu_info,
+                TETENGO2_STDALT_MAYBE_UNUSED std::vector<::WCHAR>& text,
+                TETENGO2_STDALT_MAYBE_UNUSED bool                  enabled,
+                TETENGO2_STDALT_MAYBE_UNUSED gui::menu::menu_base::state_type state) const override
+            {
+                menu_info.fMask = MIIM_FTYPE;
+                menu_info.fType = MFT_SEPARATOR;
+            }
+        };
 
 
         // static functions

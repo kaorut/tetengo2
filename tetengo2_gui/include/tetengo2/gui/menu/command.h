@@ -45,7 +45,8 @@ namespace tetengo2::gui::menu {
 
             \param text A text.
         */
-        explicit command(string_type text) : base_type{ std::move(text), menu_details_type::instance().create_menu() } {}
+        explicit command(string_type text) : base_type{ std::move(text), menu_details_type::instance().create_menu() }
+        {}
 
         /*!
             \brief Creates a menu command with a shortcut key.
