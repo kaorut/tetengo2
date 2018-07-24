@@ -39,33 +39,6 @@ namespace tetengo2::detail::base {
         using iterator = menu::iterator;
 
 
-        // static functions
-
-        static const style_tag& menu_bar_style()
-        {
-            static const style_tag singleton;
-            return singleton;
-        }
-
-        static const style_tag& popup_menu_style()
-        {
-            static const style_tag singleton;
-            return singleton;
-        }
-
-        static const style_tag& menu_command_style()
-        {
-            static const style_tag singleton;
-            return singleton;
-        }
-
-        static const style_tag& menu_separator_style()
-        {
-            static const style_tag singleton;
-            return singleton;
-        }
-
-
         // functions
 
         menu_details_ptr_type create_menu_bar(const menu& self) const
@@ -121,6 +94,27 @@ namespace tetengo2::detail::base {
         {
             self.erase_menus_impl(popup_menu, first, last);
         }
+
+
+        const style_tag& menu_bar_style(const menu& self) const
+        {
+            return self.menu_bar_style_impl();
+        }
+
+        const style_tag& popup_menu_style(const menu& self) const
+        {
+            return self.popup_menu_style_impl();
+        }
+
+        const style_tag& menu_command_style(const menu& self) const
+        {
+            return self.menu_command_style_impl();
+        }
+
+        const style_tag& menu_separator_style(const menu& self) const
+        {
+            return self.menu_separator_style_impl();
+        }
     };
 
 
@@ -128,25 +122,7 @@ namespace tetengo2::detail::base {
 
     menu::shortcut_key_table_details_type::~shortcut_key_table_details_type() = default;
 
-    const menu::style_tag& menu::menu_bar_style()
-    {
-        return impl::menu_bar_style();
-    }
-
-    const menu::style_tag& menu::popup_menu_style()
-    {
-        return impl::popup_menu_style();
-    }
-
-    const menu::style_tag& menu::menu_command_style()
-    {
-        return impl::menu_command_style();
-    }
-
-    const menu::style_tag& menu::menu_separator_style()
-    {
-        return impl::menu_separator_style();
-    }
+    menu::style_tag::~style_tag() = default;
 
     menu::~menu() = default;
 
@@ -195,6 +171,26 @@ namespace tetengo2::detail::base {
     void menu::erase_menus(gui::menu::abstract_popup& popup_menu, const iterator& first, const iterator& last) const
     {
         m_p_impl->erase_menus(popup_menu, first, last, *this);
+    }
+
+    const menu::style_tag& menu::menu_bar_style() const
+    {
+        return m_p_impl->menu_bar_style(*this);
+    }
+
+    const menu::style_tag& menu::popup_menu_style() const
+    {
+        return m_p_impl->popup_menu_style(*this);
+    }
+
+    const menu::style_tag& menu::menu_command_style() const
+    {
+        return m_p_impl->menu_command_style(*this);
+    }
+
+    const menu::style_tag& menu::menu_separator_style() const
+    {
+        return m_p_impl->menu_separator_style(*this);
     }
 
     menu::menu() : m_p_impl{ std::make_unique<impl>() } {}

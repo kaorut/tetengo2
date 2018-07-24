@@ -110,6 +110,14 @@ namespace tetengo2::detail::stub {
             gui::menu::abstract_popup& popup_menu,
             const iterator&            first,
             const iterator&            last) const override;
+
+        virtual const style_tag& menu_bar_style_impl() const override;
+
+        virtual const style_tag& popup_menu_style_impl() const override;
+
+        virtual const style_tag& menu_command_style_impl() const override;
+
+        virtual const style_tag& menu_separator_style_impl() const override;
     };
 }
 

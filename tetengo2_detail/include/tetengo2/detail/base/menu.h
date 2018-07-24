@@ -57,6 +57,10 @@ namespace tetengo2::detail::base {
         //! The style tag type.
         struct style_tag
         {
+            /*!
+                \brief Destroys the style tag.
+            */
+            virtual ~style_tag();
         };
 
         //! The state type.
@@ -65,37 +69,6 @@ namespace tetengo2::detail::base {
         //! The iterator type.
         using iterator =
             boost::indirect_iterator<typename std::vector<std::unique_ptr<gui::menu::menu_base>>::const_iterator>;
-
-
-        // static functions
-
-        /*!
-            \brief Returns the menu bar style.
-
-            \return The menu bar style.
-        */
-        static const style_tag& menu_bar_style();
-
-        /*!
-            \brief Returns the popup menu style.
-
-            \return The popup menu style.
-        */
-        static const style_tag& popup_menu_style();
-
-        /*!
-            \brief Returns the menu command style.
-
-            \return The menu command style.
-        */
-        static const style_tag& menu_command_style();
-
-        /*!
-            \brief Returns the menu separator style.
-
-            \return The menu separator style.
-        */
-        static const style_tag& menu_separator_style();
 
 
         // constructors and destructor
@@ -192,6 +165,35 @@ namespace tetengo2::detail::base {
         void erase_menus(gui::menu::abstract_popup& popup_menu, const iterator& first, const iterator& last) const;
 
 
+        /*!
+            \brief Returns the menu bar style.
+
+            \return The menu bar style.
+        */
+        const style_tag& menu_bar_style() const;
+
+        /*!
+            \brief Returns the popup menu style.
+
+            \return The popup menu style.
+        */
+        const style_tag& popup_menu_style() const;
+
+        /*!
+            \brief Returns the menu command style.
+
+            \return The menu command style.
+        */
+        const style_tag& menu_command_style() const;
+
+        /*!
+            \brief Returns the menu separator style.
+
+            \return The menu separator style.
+        */
+        const style_tag& menu_separator_style() const;
+
+
     protected:
         // constructors
 
@@ -236,6 +238,14 @@ namespace tetengo2::detail::base {
 
         virtual void
         erase_menus_impl(gui::menu::abstract_popup& popup_menu, const iterator& first, const iterator& last) const = 0;
+
+        virtual const style_tag& menu_bar_style_impl() const = 0;
+
+        virtual const style_tag& popup_menu_style_impl() const = 0;
+
+        virtual const style_tag& menu_command_style_impl() const = 0;
+
+        virtual const style_tag& menu_separator_style_impl() const = 0;
     };
 }
 

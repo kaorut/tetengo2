@@ -197,6 +197,30 @@ namespace tetengo2::detail::windows {
                 erase_menu(popup_menu, i);
         }
 
+        const style_tag& menu_bar_style_impl() const
+        {
+            static const style_tag singleton;
+            return singleton;
+        }
+
+        const style_tag& popup_menu_style_impl() const
+        {
+            static const style_tag singleton;
+            return singleton;
+        }
+
+        const style_tag& menu_command_style_impl() const
+        {
+            static const style_tag singleton;
+            return singleton;
+        }
+
+        const style_tag& menu_separator_style_impl() const
+        {
+            static const style_tag singleton;
+            return singleton;
+        }
+
 
     private:
         // types
@@ -412,5 +436,25 @@ namespace tetengo2::detail::windows {
     menu::erase_menus_impl(gui::menu::abstract_popup& popup_menu, const iterator& first, const iterator& last) const
     {
         m_p_impl->erase_menus_impl(popup_menu, first, last);
+    }
+
+    const menu::style_tag& menu::menu_bar_style_impl() const
+    {
+        return m_p_impl->menu_bar_style_impl();
+    }
+
+    const menu::style_tag& menu::popup_menu_style_impl() const
+    {
+        return m_p_impl->menu_bar_style_impl();
+    }
+
+    const menu::style_tag& menu::menu_command_style_impl() const
+    {
+        return m_p_impl->menu_bar_style_impl();
+    }
+
+    const menu::style_tag& menu::menu_separator_style_impl() const
+    {
+        return m_p_impl->menu_bar_style_impl();
     }
 }
