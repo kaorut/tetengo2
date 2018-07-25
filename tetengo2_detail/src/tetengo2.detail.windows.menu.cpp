@@ -109,7 +109,7 @@ namespace tetengo2::detail::windows {
 
         void set_enabled_impl(gui::menu::menu_base& menu, const bool enabled) const
         {
-            windows_menu_details_type& details = static_cast<windows_menu_details_type&>(menu.details());
+            auto& details = static_cast<windows_menu_details_type&>(menu.details());
             if (!details.parent_handle)
                 return;
 
@@ -122,7 +122,7 @@ namespace tetengo2::detail::windows {
 
         void set_state_impl(gui::menu::menu_base& menu, const state_type state) const
         {
-            windows_menu_details_type& details = static_cast<windows_menu_details_type&>(menu.details());
+            auto& details = static_cast<windows_menu_details_type&>(menu.details());
             if (!details.parent_handle)
                 return;
 
@@ -167,7 +167,7 @@ namespace tetengo2::detail::windows {
         void insert_menu_impl(gui::menu::abstract_popup& popup_menu, const iterator& offset, gui::menu::menu_base& menu)
             const
         {
-            windows_menu_details_type& details = static_cast<windows_menu_details_type&>(menu.details());
+            auto& details = static_cast<windows_menu_details_type&>(menu.details());
             assert(!details.parent_handle);
 
             ::MENUITEMINFOW menu_info{};
@@ -176,8 +176,8 @@ namespace tetengo2::detail::windows {
             static_cast<const windows_style_tag&>(menu.style())
                 .set_style(details, menu_info, duplicated_text, menu.enabled(), menu.state());
 
-            windows_menu_details_type& popup_details = static_cast<windows_menu_details_type&>(popup_menu.details());
-            const auto                 result = ::InsertMenuItem(
+            auto&      popup_details = static_cast<windows_menu_details_type&>(popup_menu.details());
+            const auto result = ::InsertMenuItem(
                 reinterpret_cast<::HMENU>(popup_details.handle),
                 static_cast<::UINT>(std::distance<iterator>(popup_menu.begin(), offset)),
                 TRUE,
@@ -426,8 +426,8 @@ namespace tetengo2::detail::windows {
 
         static void erase_menu(gui::menu::abstract_popup& popup_menu, const iterator& offset)
         {
-            windows_menu_details_type& popup_details = static_cast<windows_menu_details_type&>(popup_menu.details());
-            windows_menu_details_type& offset_details = static_cast<windows_menu_details_type&>(offset->details());
+            auto& popup_details = static_cast<windows_menu_details_type&>(popup_menu.details());
+            auto& offset_details = static_cast<windows_menu_details_type&>(offset->details());
             assert(popup_details.handle);
             assert(offset_details.parent_handle);
 

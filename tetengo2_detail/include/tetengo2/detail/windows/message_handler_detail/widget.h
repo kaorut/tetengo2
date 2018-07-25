@@ -215,7 +215,7 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
     on_mouse_wheel(gui::widget::widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
     {
         const ::POINT point{ GET_X_LPARAM(l_param), GET_Y_LPARAM(l_param) };
-        const ::HWND  pointing_window_handle = ::WindowFromPoint(point);
+        const auto    pointing_window_handle = ::WindowFromPoint(point);
         if (pointing_window_handle &&
             pointing_window_handle !=
                 reinterpret_cast<::HWND>(
@@ -245,7 +245,7 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
     on_mouse_h_wheel(gui::widget::widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
     {
         const ::POINT point{ GET_X_LPARAM(l_param), GET_Y_LPARAM(l_param) };
-        const ::HWND  pointing_window_handle = ::WindowFromPoint(point);
+        const auto    pointing_window_handle = ::WindowFromPoint(point);
         if (pointing_window_handle &&
             pointing_window_handle !=
                 reinterpret_cast<::HWND>(
