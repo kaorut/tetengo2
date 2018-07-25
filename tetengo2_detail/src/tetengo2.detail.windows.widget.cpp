@@ -145,12 +145,48 @@ namespace tetengo2::detail::windows {
         }
 
         widget_details_ptr_type create_custom_control_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& parent,
-            TETENGO2_STDALT_MAYBE_UNUSED const bool           border,
-            TETENGO2_STDALT_MAYBE_UNUSED const scroll_bar_style_type scroll_bar_style) const
+            gui::widget::widget&        parent,
+            const bool                  border,
+            const scroll_bar_style_type scroll_bar_style) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto instance_handle = ::GetModuleHandle(nullptr);
+            if (!instance_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't get the instance handle!" }));
+            }
+
+            if (!window_class_is_registered(custom_control_class_name(), instance_handle))
+                register_window_class_for_custom_control(instance_handle);
+
+            const ::DWORD ex_style = border ? WS_EX_CLIENTEDGE : 0;
+            const auto    window_handle = ::CreateWindowExW(
+                ex_style,
+                custom_control_class_name().c_str(),
+                L"",
+                WS_CHILD | WS_TABSTOP | WS_VISIBLE | WS_CLIPCHILDREN |
+                    window_style_for_scroll_bars(
+                        static_cast<gui::widget::widget::scroll_bar_style_type>(scroll_bar_style)),
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                reinterpret_cast<::HWND>(as_windows_widget_details(parent.details()).handle),
+                nullptr,
+                instance_handle,
+                nullptr);
+            if (!window_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't create a custom control!" }));
+            }
+
+            return std::make_unique<windows_widget_details_type>(
+                reinterpret_cast<std::intptr_t>(window_handle),
+                reinterpret_cast<std::intptr_t>(&::DefWindowProcW),
+                reinterpret_cast<std::intptr_t>(nullptr));
         }
 
         widget_details_ptr_type create_dialog_impl(
@@ -619,6 +655,179 @@ namespace tetengo2::detail::windows {
         {
             assert(dynamic_cast<windows_widget_details_type*>(&base));
             return static_cast<windows_widget_details_type&>(base);
+        }
+
+        static const std::wstring& custom_control_class_name()
+        {
+            static const std::wstring singleton{ L"tetengo2_customcontrol" };
+            return singleton;
+        }
+
+        static const std::wstring& dialog_class_name()
+        {
+            static const std::wstring singleton{ L"tetengo2_dialog" };
+            return singleton;
+        }
+
+        static const std::wstring& picture_box_class_name()
+        {
+            static const std::wstring singleton{ L"tetengo2_picturebox" };
+            return singleton;
+        }
+
+        static const std::wstring& window_class_name()
+        {
+            static const std::wstring singleton{ L"tetengo2_window" };
+            return singleton;
+        }
+
+        static bool window_class_is_registered(const std::wstring& window_class_name, const ::HINSTANCE instance_handle)
+        {
+            ::WNDCLASSEXW window_class{};
+            const auto    result = ::GetClassInfoExW(instance_handle, window_class_name.c_str(), &window_class);
+
+            return result != 0;
+        }
+
+        static void register_window_class_for_custom_control(const ::HINSTANCE instance_handle)
+        {
+            ::WNDCLASSEXW window_class;
+            window_class.cbSize = sizeof(::WNDCLASSEXW);
+            window_class.style = 0;
+            window_class.lpfnWndProc = window_procedure;
+            window_class.cbClsExtra = 0;
+            window_class.cbWndExtra = 0;
+            window_class.hInstance = instance_handle;
+            window_class.hIcon = nullptr;
+            window_class.hIconSm = nullptr;
+            window_class.hCursor = reinterpret_cast<::HICON>(::LoadImageW(
+                0, MAKEINTRESOURCEW(OCR_NORMAL), IMAGE_CURSOR, 0, 0, LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR));
+            window_class.hbrBackground = reinterpret_cast<::HBRUSH>(::GetSysColorBrush(COLOR_WINDOW));
+            window_class.lpszMenuName = nullptr;
+            window_class.lpszClassName = custom_control_class_name().c_str();
+
+            const auto atom = ::RegisterClassExW(&window_class);
+            if (!atom)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't register a window class for a custom control!" }));
+            }
+        }
+
+        static void register_window_class_for_dialog(const ::HINSTANCE instance_handle)
+        {
+            ::WNDCLASSEXW window_class;
+            window_class.cbSize = sizeof(::WNDCLASSEXW);
+            window_class.style = 0;
+            window_class.lpfnWndProc = window_procedure;
+            window_class.cbClsExtra = 0;
+            window_class.cbWndExtra = DLGWINDOWEXTRA;
+            window_class.hInstance = instance_handle;
+            window_class.hIcon = nullptr;
+            window_class.hIconSm = nullptr;
+            window_class.hCursor = reinterpret_cast<::HICON>(::LoadImageW(
+                0, MAKEINTRESOURCEW(OCR_NORMAL), IMAGE_CURSOR, 0, 0, LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR));
+            window_class.hbrBackground = reinterpret_cast<::HBRUSH>(::GetSysColorBrush(COLOR_3DFACE));
+            window_class.lpszMenuName = nullptr;
+            window_class.lpszClassName = dialog_class_name().c_str();
+
+            const auto atom = ::RegisterClassExW(&window_class);
+            if (!atom)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't register a window class for a dialog!" }));
+            }
+        }
+
+        static void register_window_class_for_picture_box(const ::HINSTANCE instance_handle)
+        {
+            ::WNDCLASSEXW window_class;
+            window_class.cbSize = sizeof(::WNDCLASSEXW);
+            window_class.style = 0;
+            window_class.lpfnWndProc = window_procedure;
+            window_class.cbClsExtra = 0;
+            window_class.cbWndExtra = 0;
+            window_class.hInstance = instance_handle;
+            window_class.hIcon = nullptr;
+            window_class.hIconSm = nullptr;
+            window_class.hCursor = reinterpret_cast<::HICON>(::LoadImageW(
+                0, MAKEINTRESOURCEW(OCR_NORMAL), IMAGE_CURSOR, 0, 0, LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR));
+            window_class.hbrBackground = reinterpret_cast<::HBRUSH>(::GetSysColorBrush(COLOR_WINDOW));
+            window_class.lpszMenuName = nullptr;
+            window_class.lpszClassName = picture_box_class_name().c_str();
+
+            const auto atom = ::RegisterClassExW(&window_class);
+            if (!atom)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't register a window class for a picture box!" }));
+            }
+        }
+
+        static void register_window_class_for_window(const ::HINSTANCE instance_handle)
+        {
+            ::WNDCLASSEXW window_class;
+            window_class.cbSize = sizeof(::WNDCLASSEXW);
+            window_class.style = 0;
+            window_class.lpfnWndProc = window_procedure;
+            window_class.cbClsExtra = 0;
+            window_class.cbWndExtra = 0;
+            window_class.hInstance = instance_handle;
+            window_class.hIcon = reinterpret_cast<::HICON>(::LoadImageW(
+                0, MAKEINTRESOURCEW(OIC_WINLOGO), IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR));
+            window_class.hIconSm = reinterpret_cast<::HICON>(::LoadImageW(
+                0, MAKEINTRESOURCEW(OIC_WINLOGO), IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR));
+            window_class.hCursor = reinterpret_cast<::HICON>(::LoadImageW(
+                0, MAKEINTRESOURCEW(OCR_NORMAL), IMAGE_CURSOR, 0, 0, LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR));
+            window_class.hbrBackground = reinterpret_cast<::HBRUSH>(::GetSysColorBrush(COLOR_WINDOW));
+            window_class.lpszMenuName = nullptr;
+            window_class.lpszClassName = window_class_name().c_str();
+
+            const auto atom = ::RegisterClassExW(&window_class);
+            if (!atom)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't register a window class for a window!" }));
+            }
+        }
+
+        static ::DWORD window_style_for_scroll_bars(const gui::widget::widget::scroll_bar_style_type style)
+        {
+            switch (style)
+            {
+            case gui::widget::widget::scroll_bar_style_type::none:
+                return 0;
+            case gui::widget::widget::scroll_bar_style_type::vertical:
+                return WS_VSCROLL;
+            case gui::widget::widget::scroll_bar_style_type::horizontal:
+                return WS_HSCROLL;
+            case gui::widget::widget::scroll_bar_style_type::both:
+                return WS_HSCROLL | WS_VSCROLL;
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION((std::invalid_argument{ "Invalid scroll bar style." }));
+            }
+        }
+
+        static void delete_system_menus(const ::HWND widget_handle)
+        {
+            const auto menu_handle = ::GetSystemMenu(widget_handle, FALSE);
+            if (!menu_handle)
+                return;
+
+            if (::DeleteMenu(menu_handle, SC_SIZE, MF_BYCOMMAND) == 0 ||
+                ::DeleteMenu(menu_handle, SC_MAXIMIZE, MF_BYCOMMAND) == 0 ||
+                ::DeleteMenu(menu_handle, SC_MINIMIZE, MF_BYCOMMAND) == 0 ||
+                ::DeleteMenu(menu_handle, SC_RESTORE, MF_BYCOMMAND) == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't delete system menu value." }));
+            }
         }
 
         static ::LRESULT CALLBACK window_procedure(
