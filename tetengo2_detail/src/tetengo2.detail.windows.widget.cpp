@@ -32,15 +32,6 @@ namespace tetengo2::detail::windows {
     namespace detail {
         // types
 
-        struct widget_deleter
-        {
-            void operator()(const ::HWND window_handle) const
-            {
-                if (::IsWindow(window_handle))
-                    ::DestroyWindow(window_handle);
-            }
-        };
-
         using native_widget_encoder_type =
             text::encoder<type_list::internal_encoding_type, text::encoding::locale<std::wstring>>;
 
@@ -81,6 +72,12 @@ namespace tetengo2::detail::windows {
         static const widget& instance()
         {
             static const widget singleton;
+            return singleton;
+        }
+
+        static const std::wstring& property_key_for_cpp_instance()
+        {
+            static const std::wstring singleton{ L"C++ Instance" };
             return singleton;
         }
 
@@ -602,31 +599,13 @@ namespace tetengo2::detail::windows {
             BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
         }
 
+        gui::widget::widget* p_widget_from(std::intptr_t widget_handle) const
+        {
+            return reinterpret_cast<gui::widget::widget*>(
+                ::GetPropW(reinterpret_cast<::HWND>(widget_handle), property_key_for_cpp_instance().c_str()));
+        }
 
     private:
-        // types
-
-        using handle_type = std::unique_ptr<typename std::remove_pointer<::HWND>::type, detail::widget_deleter>;
-
-        struct windows_widget_details_type : public widget_details_type
-        {
-            handle_type handle;
-            ::WNDPROC   window_procedure;
-            ::HWND      first_child_handle;
-            int         window_state_when_hidden;
-
-            windows_widget_details_type(
-                handle_type     handle,
-                const ::WNDPROC window_procedure,
-                const ::HWND    first_child_handle)
-            : handle{ std::move(handle) }, window_procedure{ window_procedure },
-              first_child_handle{ first_child_handle }, window_state_when_hidden{ SW_RESTORE }
-            {}
-
-            virtual ~windows_widget_details_type() = default;
-        };
-
-
         // static functions
 
         static const windows_widget_details_type& as_windows_widget_details(const widget_details_type& base)
@@ -734,9 +713,29 @@ namespace tetengo2::detail::windows {
     };
 
 
+    widget::windows_widget_details_type::windows_widget_details_type(
+        const std::intptr_t handle,
+        const std::intptr_t window_procedure,
+        const std::intptr_t first_child_handle)
+    : handle{ std::move(handle) }, window_procedure{ window_procedure }, first_child_handle{ first_child_handle },
+      window_state_when_hidden{ SW_RESTORE }
+    {}
+
+    widget::windows_widget_details_type::~windows_widget_details_type() noexcept
+    {
+        const auto window_handle = reinterpret_cast<::HWND>(handle);
+        if (::IsWindow(window_handle))
+            ::DestroyWindow(window_handle);
+    }
+
     const widget& widget::instance()
     {
         return impl::instance();
+    }
+
+    const std::wstring& widget::property_key_for_cpp_instance()
+    {
+        return impl::property_key_for_cpp_instance();
     }
 
     widget::~widget() = default;
@@ -1147,5 +1146,10 @@ namespace tetengo2::detail::windows {
         const progress_bar_state_type state) const
     {
         return m_p_impl->set_progress_bar_state_impl(progress_bar, state);
+    }
+
+    gui::widget::widget* widget::p_widget_from(const std::intptr_t widget_handle) const
+    {
+        return m_p_impl->p_widget_from(widget_handle);
     }
 }

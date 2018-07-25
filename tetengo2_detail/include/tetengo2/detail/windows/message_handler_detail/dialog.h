@@ -34,12 +34,14 @@ namespace tetengo2::detail::windows::message_handler_detail::dialog {
         const ::WORD lo_wparam = LOWORD(w_param);
         if (hi_wparam == 0 && (lo_wparam == IDOK || lo_wparam == IDCANCEL))
         {
-            const auto widget_handle = reinterpret_cast<::HWND>(l_param);
-            assert(widget_handle == ::GetDlgItem(dialog.details().handle.get(), lo_wparam));
+            const auto  widget_handle = reinterpret_cast<::HWND>(l_param);
+            const auto& dialog_details =
+                static_cast<detail::windows::widget::windows_widget_details_type&>(dialog.details());
+            assert(widget_handle == ::GetDlgItem(reinterpret_cast<::HWND>(dialog_details.handle), lo_wparam));
             if (widget_handle)
             {
                 detail::windows::widget::instance()
-                    .p_widget_from<typename gui::widget::dialog::base_type::base_type>(widget_handle)
+                    .p_widget_from(reinterpret_cast<std::intptr_t>(widget_handle))
                     ->click();
             }
             else
@@ -62,11 +64,14 @@ namespace tetengo2::detail::windows::message_handler_detail::dialog {
     {
         if (w_param == SC_CLOSE)
         {
-            const auto widget_handle = ::GetDlgItem(dialog.details().handle.get(), IDCANCEL);
+            const auto widget_handle = ::GetDlgItem(
+                reinterpret_cast<::HWND>(
+                    static_cast<detail::windows::widget::windows_widget_details_type&>(dialog.details()).handle),
+                IDCANCEL);
             if (widget_handle)
             {
                 detail::windows::widget::instance()
-                    .p_widget_from<typename gui::widget::dialog::base_type::base_type>(widget_handle)
+                    .p_widget_from(reinterpret_cast<std::intptr_t>(widget_handle))
                     ->click();
             }
             else
@@ -118,13 +123,14 @@ namespace tetengo2::detail::windows::message_handler_detail::dialog {
         TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
         TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
-        if (dialog.details().first_child_handle)
+        auto& dialog_details = static_cast<detail::windows::widget::windows_widget_details_type&>(dialog.details());
+        if (dialog_details.first_child_handle)
         {
-            ::SetFocus(dialog.details().first_child_handle);
+            ::SetFocus(reinterpret_cast<::HWND>(dialog_details.first_child_handle));
             return tetengo2::stdalt::make_optional<::LRESULT>(0);
         }
 
-        const auto child_handle = first_child_window_handle(dialog.details().handle.get());
+        const auto child_handle = first_child_window_handle(reinterpret_cast<::HWND>(dialog_details.handle));
         if (child_handle)
         {
             ::SetFocus(child_handle);

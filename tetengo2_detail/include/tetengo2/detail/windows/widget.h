@@ -62,6 +62,35 @@ namespace tetengo2::detail::windows {
         //! The widget details type.
         using widget_details_type = base::widget::widget_details_type;
 
+        //! The windows widget details type.
+        struct windows_widget_details_type : public widget_details_type
+        {
+            //! The handle.
+            std::intptr_t handle;
+
+            //! The window procedure.
+            std::intptr_t window_procedure;
+
+            //! The handle to the first child.
+            std::intptr_t first_child_handle;
+
+            //! The window state when hidden.
+            int window_state_when_hidden;
+
+            /*!
+                \brief Creates a windows widget details.
+            */
+            windows_widget_details_type(
+                std::intptr_t handle,
+                std::intptr_t window_procedure,
+                std::intptr_t first_child_handle);
+
+            /*!
+                \brief Destroys the window widget details.
+            */
+            virtual ~windows_widget_details_type() noexcept;
+        };
+
         //! The widget details pointer type.
         using widget_details_ptr_type = base::widget::widget_details_ptr_type;
 
@@ -75,6 +104,15 @@ namespace tetengo2::detail::windows {
         */
         static const widget& instance();
 
+        /*!
+            \brief Returns the window property key.
+
+            This function is for an internal use.
+
+            \return The window property key.
+        */
+        static const std::wstring& property_key_for_cpp_instance();
+
 
         // constructors and destructor
 
@@ -82,6 +120,20 @@ namespace tetengo2::detail::windows {
             \brief Destroys the detail implementation.
         */
         virtual ~widget();
+
+
+        // functions
+
+        /*!
+            \brief Returns a pointer to a widget by a widget handle.
+
+            This function is for an internal use.
+
+            \param widget_handle A widget handle.
+
+            \return A pointer to a widget.
+        */
+        gui::widget::widget* p_widget_from(std::intptr_t widget_handle) const;
 
 
     private:

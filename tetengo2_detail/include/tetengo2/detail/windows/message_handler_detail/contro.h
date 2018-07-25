@@ -23,6 +23,7 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include <tetengo2/detail/windows/widget.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/stdalt.h>
@@ -74,7 +75,8 @@ namespace tetengo2::detail::windows::message_handler_detail::control {
         {
             auto& dialog = control.root_ancestor();
 
-            dialog.details().first_child_handle = control.details().handle.get();
+            static_cast<detail::windows::widget::windows_widget_details_type&>(dialog.details()).first_child_handle =
+                static_cast<detail::windows::widget::windows_widget_details_type&>(control.details()).handle;
         }
 
         return TETENGO2_STDALT_NULLOPT;
