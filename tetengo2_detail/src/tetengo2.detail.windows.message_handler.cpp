@@ -350,6 +350,12 @@ namespace tetengo2::detail::windows {
     };
 
 
+    message_handler::windows_message_handler_type::windows_message_handler_type(function_type&& function)
+    : function{ std::move(function) }
+    {}
+
+    message_handler::windows_message_handler_type::~windows_message_handler_type() = default;
+
     const message_handler& message_handler::instance()
     {
         static const message_handler singleton;

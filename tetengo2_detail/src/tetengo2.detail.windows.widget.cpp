@@ -18,6 +18,7 @@
 #include <Windows.h>
 
 #include <tetengo2/detail/windows/error_category.h>
+#include <tetengo2/detail/windows/message_handler.h>
 #include <tetengo2/detail/windows/widget.h>
 #include <tetengo2/gui/alert.h>
 #include <tetengo2/gui/widget/dropdown_box.h>
@@ -81,6 +82,12 @@ namespace tetengo2::detail::windows {
             return singleton;
         }
 
+        static gui::widget::widget* p_widget_from(const std::intptr_t widget_handle)
+        {
+            return reinterpret_cast<gui::widget::widget*>(
+                ::GetPropW(reinterpret_cast<::HWND>(widget_handle), property_key_for_cpp_instance().c_str()));
+        }
+
 
         // functions
 
@@ -89,7 +96,7 @@ namespace tetengo2::detail::windows {
             TETENGO2_STDALT_MAYBE_UNUSED const bool           is_default,
             TETENGO2_STDALT_MAYBE_UNUSED const bool           is_cancel) const
         {
-#if 0
+#if 1
             assert(!is_default || !is_cancel);
 
             const ::DWORD create_window_style = is_default ? WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_DEFPUSHBUTTON :
@@ -97,18 +104,22 @@ namespace tetengo2::detail::windows {
             ::HMENU id = nullptr;
             if (is_default)
             {
-                if (::GetDlgItem(as_windows_widget_details(parent.root_ancestor().details()).handle.get(), IDOK))
+                if (::GetDlgItem(
+                        reinterpret_cast<::HWND>(as_windows_widget_details(parent.root_ancestor().details()).handle),
+                        IDOK))
                     BOOST_THROW_EXCEPTION((std::invalid_argument{ "Default button already exists." }));
                 id = reinterpret_cast<::HMENU>(IDOK);
             }
             else if (is_cancel)
             {
-                if (::GetDlgItem(as_windows_widget_details(parent.root_ancestor().details()).handle.get(), IDCANCEL))
+                if (::GetDlgItem(
+                        reinterpret_cast<::HWND>(as_windows_widget_details(parent.root_ancestor().details()).handle),
+                        IDCANCEL))
                     BOOST_THROW_EXCEPTION((std::invalid_argument{ "Cancel button already exists." }));
                 id = reinterpret_cast<::HMENU>(IDCANCEL);
             }
 
-            handle_type p_widget{ ::CreateWindowExW(
+            const auto window_handle = ::CreateWindowExW(
                 0,
                 WC_BUTTONW,
                 L"tetengo2_button",
@@ -117,20 +128,23 @@ namespace tetengo2::detail::windows {
                 CW_USEDEFAULT,
                 CW_USEDEFAULT,
                 CW_USEDEFAULT,
-                as_windows_widget_details(parent.details()).handle.get(),
+                reinterpret_cast<::HWND>(as_windows_widget_details(parent.details()).handle),
                 id,
                 ::GetModuleHandle(nullptr),
-                nullptr) };
-            if (!p_widget)
+                nullptr);
+            if (!window_handle)
             {
                 BOOST_THROW_EXCEPTION(
                     (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
                                         "Can't create a button!" }));
             }
 
-            const auto p_original_window_procedure = replace_window_procedure(p_widget.get());
+            const auto p_original_window_procedure = replace_window_procedure(window_handle);
 
-            return std::make_unique<widget_details_type>(std::move(p_widget), p_original_window_procedure, nullptr);
+            return std::make_unique<windows_widget_details_type>(
+                reinterpret_cast<std::intptr_t>(window_handle),
+                reinterpret_cast<std::intptr_t>(p_original_window_procedure),
+                reinterpret_cast<std::intptr_t>(nullptr));
 #else
             assert(false);
             BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
@@ -599,12 +613,6 @@ namespace tetengo2::detail::windows {
             BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
         }
 
-        gui::widget::widget* p_widget_from(std::intptr_t widget_handle) const
-        {
-            return reinterpret_cast<gui::widget::widget*>(
-                ::GetPropW(reinterpret_cast<::HWND>(widget_handle), property_key_for_cpp_instance().c_str()));
-        }
-
     private:
         // static functions
 
@@ -618,6 +626,94 @@ namespace tetengo2::detail::windows {
         {
             assert(dynamic_cast<windows_widget_details_type*>(&base));
             return static_cast<windows_widget_details_type&>(base);
+        }
+
+        static ::LRESULT CALLBACK window_procedure(
+            const ::HWND   window_handle,
+            const ::UINT   message,
+            const ::WPARAM w_param,
+            const ::LPARAM l_param) noexcept
+        {
+            try
+            {
+                auto* const p_widget = p_widget_from(reinterpret_cast<std::intptr_t>(window_handle));
+                if (p_widget)
+                    return window_procedure_impl(*p_widget, message, w_param, l_param);
+                else
+                    return ::CallWindowProcW(::DefWindowProcW, window_handle, message, w_param, l_param);
+            }
+            catch (const boost::exception& e)
+            {
+                gui::alert{ /*window_handle*/ }(e);
+                return 0;
+            }
+            catch (const std::exception& e)
+            {
+                gui::alert{ /*reinterpret_cast<alert::widget_handle_type>(window_handle)*/ }(e);
+                return 0;
+            }
+            catch (...)
+            {
+                gui::alert{ /*reinterpret_cast<alert::widget_handle_type>(window_handle)*/ }();
+                return 0;
+            }
+        }
+
+        static ::LRESULT window_procedure_impl(
+            gui::widget::widget& widget,
+            const ::UINT         message,
+            const ::WPARAM       w_param,
+            const ::LPARAM       l_param)
+        {
+            const auto found = widget.message_handler_map().find(message);
+            if (found != widget.message_handler_map().end())
+            {
+                for (const auto& p_handler : found->second)
+                {
+                    const auto result = static_cast<message_handler::windows_message_handler_type&>(*p_handler)
+                                            .function(w_param, l_param);
+                    if (result)
+                        return *result;
+                }
+            }
+
+            return ::CallWindowProcW(
+                reinterpret_cast<::WNDPROC>(as_windows_widget_details(widget.details()).window_procedure),
+                reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle),
+                message,
+                w_param,
+                l_param);
+        }
+
+        static ::WNDPROC replace_window_procedure(const ::HWND handle)
+        {
+#if BOOST_COMP_MSVC && BOOST_ARCH_X86_32
+#pragma warning(push)
+#pragma warning(disable : 4244)
+#endif
+            const auto proc = window_procedure;
+            const auto result = ::SetWindowLongPtrW(handle, GWLP_WNDPROC, reinterpret_cast<::LONG_PTR>(proc));
+#if BOOST_COMP_MSVC && BOOST_ARCH_X86_32
+#pragma warning(pop)
+#endif
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't replace window procedure." }));
+            }
+
+            return reinterpret_cast<::WNDPROC>(result);
+        }
+
+        template <typename Child>
+        static ::BOOL CALLBACK enum_child_procedure(const ::HWND window_handle, const ::LPARAM parameter)
+        {
+            auto* const p_children = reinterpret_cast<std::vector<std::reference_wrapper<Child>>*>(parameter);
+
+            p_children->push_back(std::ref(*p_widget_from<Child>(window_handle)));
+
+            return TRUE;
         }
 
 #if 0
@@ -736,6 +832,12 @@ namespace tetengo2::detail::windows {
     const std::wstring& widget::property_key_for_cpp_instance()
     {
         return impl::property_key_for_cpp_instance();
+    }
+
+
+    gui::widget::widget* widget::p_widget_from(const std::intptr_t widget_handle)
+    {
+        return impl::p_widget_from(widget_handle);
     }
 
     widget::~widget() = default;
@@ -1146,10 +1248,5 @@ namespace tetengo2::detail::windows {
         const progress_bar_state_type state) const
     {
         return m_p_impl->set_progress_bar_state_impl(progress_bar, state);
-    }
-
-    gui::widget::widget* widget::p_widget_from(const std::intptr_t widget_handle) const
-    {
-        return m_p_impl->p_widget_from(widget_handle);
     }
 }

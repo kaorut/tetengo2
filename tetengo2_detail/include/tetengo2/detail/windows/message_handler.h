@@ -26,6 +26,8 @@
 #include <Windows.h>
 
 #include <tetengo2/detail/base/message_handler.h>
+#include <tetengo2/stdalt.h>
+
 
 namespace tetengo2::detail::windows {
     /*!
@@ -45,12 +47,23 @@ namespace tetengo2::detail::windows {
         //! The Windows message handler type.
         struct windows_message_handler_type : public message_handler_type
         {
-            using function_type = std::function<void(std::uintptr_t, std::intptr_t)>;
+            //! The function type.
+            using function_type =
+                std::function<tetengo2::stdalt::optional<std::intptr_t>(std::uintptr_t, std::intptr_t)>;
 
+            //! The function.
             function_type function;
 
-            explicit windows_message_handler_type(function_type&& function) : function{ std::move(function) } {}
+            /*!
+                \brief Creates a Windows message handler.
 
+                \param function A function.
+            */
+            explicit windows_message_handler_type(function_type&& function);
+
+            /*!
+                \brief Destroys the Windows message handler.
+            */
             virtual ~windows_message_handler_type();
         };
 

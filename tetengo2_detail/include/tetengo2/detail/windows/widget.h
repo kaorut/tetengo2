@@ -27,6 +27,8 @@
 #include <tetengo2/detail/base/widget.h>
 #include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
+#include <tetengo2/text/encoder.h>
+#include <tetengo2/text/encoding/locale.h>
 
 
 namespace tetengo2::detail::windows {
@@ -113,17 +115,6 @@ namespace tetengo2::detail::windows {
         */
         static const std::wstring& property_key_for_cpp_instance();
 
-
-        // constructors and destructor
-
-        /*!
-            \brief Destroys the detail implementation.
-        */
-        virtual ~widget();
-
-
-        // functions
-
         /*!
             \brief Returns a pointer to a widget by a widget handle.
 
@@ -133,7 +124,15 @@ namespace tetengo2::detail::windows {
 
             \return A pointer to a widget.
         */
-        gui::widget::widget* p_widget_from(std::intptr_t widget_handle) const;
+        static gui::widget::widget* p_widget_from(std::intptr_t widget_handle);
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Destroys the detail implementation.
+        */
+        virtual ~widget();
 
 
     private:
