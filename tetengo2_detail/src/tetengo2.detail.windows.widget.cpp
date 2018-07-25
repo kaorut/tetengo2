@@ -91,12 +91,9 @@ namespace tetengo2::detail::windows {
 
         // functions
 
-        widget_details_ptr_type create_button_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& parent,
-            TETENGO2_STDALT_MAYBE_UNUSED const bool           is_default,
-            TETENGO2_STDALT_MAYBE_UNUSED const bool           is_cancel) const
+        widget_details_ptr_type
+        create_button_impl(gui::widget::widget& parent, const bool is_default, const bool is_cancel) const
         {
-#if 1
             assert(!is_default || !is_cancel);
 
             const ::DWORD create_window_style = is_default ? WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_DEFPUSHBUTTON :
@@ -145,10 +142,6 @@ namespace tetengo2::detail::windows {
                 reinterpret_cast<std::intptr_t>(window_handle),
                 reinterpret_cast<std::intptr_t>(p_original_window_procedure),
                 reinterpret_cast<std::intptr_t>(nullptr));
-#else
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
-#endif
         }
 
         widget_details_ptr_type create_custom_control_impl(
