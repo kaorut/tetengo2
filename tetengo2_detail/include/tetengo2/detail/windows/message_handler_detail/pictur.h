@@ -26,6 +26,7 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include <tetengo2/detail/windows/widget.h>
 #include <tetengo2/gui/widget/picture_box.h>
 #include <tetengo2/stdalt.h>
 
@@ -55,15 +56,17 @@ namespace tetengo2::detail::windows::message_handler_detail::picture_box {
         if (picture_box.fast_paint_observer_set().paint().empty())
             return TETENGO2_STDALT_NULLOPT;
 
+        auto& picture_box_details =
+            static_cast<detail::windows::widget::windows_widget_details_type&>(picture_box.details());
         ::PAINTSTRUCT paint_struct{};
-        if (!::BeginPaint(picture_box.details().handle.get(), &paint_struct))
+        if (!::BeginPaint(reinterpret_cast<::HWND>(picture_box_details.handle), &paint_struct))
         {
             BOOST_THROW_EXCEPTION((
                 std::system_error{ std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "Can't begin paint." }));
         }
-        BOOST_SCOPE_EXIT((&picture_box)(&paint_struct))
+        BOOST_SCOPE_EXIT((&picture_box_details)(&paint_struct))
         {
-            ::EndPaint(picture_box.details().handle.get(), &paint_struct);
+            ::EndPaint(reinterpret_cast<::HWND>(picture_box_details.handle), &paint_struct);
         }
         BOOST_SCOPE_EXIT_END;
 

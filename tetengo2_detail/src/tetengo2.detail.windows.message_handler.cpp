@@ -6,8 +6,6 @@
     $Id$
 */
 
-#if 0
-
 #include <tetengo2/detail/windows/error_category.h>
 #include <tetengo2/detail/windows/message_handler.h>
 #include <tetengo2/detail/windows/message_handler_detail/abstra.h>
@@ -23,7 +21,6 @@
 #include <tetengo2/detail/windows/message_handler_detail/widget.h>
 #include <tetengo2/detail/windows/widget.h>
 #include <tetengo2/stdalt.h>
-
 
 
 namespace tetengo2::detail::windows {
@@ -123,15 +120,15 @@ namespace tetengo2::detail::windows {
 
             map[WM_COMMAND].push_back(std::make_unique<windows_message_handler_type>(
                 [&dialog](const ::WPARAM w_param, const ::LPARAM l_param) {
-                    return message_handler_detail::dialog::on_command<widget_details_type>(dialog, w_param, l_param);
+                    return message_handler_detail::dialog::on_command(dialog, w_param, l_param);
                 }));
             map[WM_SYSCOMMAND].push_back(std::make_unique<windows_message_handler_type>(
                 [&dialog](const ::WPARAM w_param, const ::LPARAM l_param) {
-                    return message_handler_detail::dialog::on_syscommand<widget_details_type>(dialog, w_param, l_param);
+                    return message_handler_detail::dialog::on_syscommand(dialog, w_param, l_param);
                 }));
             map[WM_SETFOCUS].push_back(std::make_unique<windows_message_handler_type>(
                 [&dialog](const ::WPARAM w_param, const ::LPARAM l_param) {
-                    return message_handler_detail::dialog::on_set_focus<widget_details_type>(dialog, w_param, l_param);
+                    return message_handler_detail::dialog::on_set_focus(dialog, w_param, l_param);
                 }));
 
             return map;
@@ -332,7 +329,7 @@ namespace tetengo2::detail::windows {
                 }));
             map[WM_NCDESTROY].push_back(std::make_unique<windows_message_handler_type>(
                 [&widget](const ::WPARAM w_param, const ::LPARAM l_param) {
-                    return message_handler_detail::widget::on_ncdestroy<widget_details_type>(widget, w_param, l_param);
+                    return message_handler_detail::widget::on_ncdestroy(widget, w_param, l_param);
                 }));
 
             return map;
@@ -461,5 +458,3 @@ namespace tetengo2::detail::windows {
         return m_p_impl->make_window_message_handler_map_impl(window, std::move(initial_map));
     }
 }
-
-#endif
