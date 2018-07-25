@@ -189,12 +189,51 @@ namespace tetengo2::detail::windows {
                 reinterpret_cast<std::intptr_t>(nullptr));
         }
 
-        widget_details_ptr_type create_dialog_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget* const p_parent,
-            TETENGO2_STDALT_MAYBE_UNUSED const bool                 file_droppable) const
+        widget_details_ptr_type create_dialog_impl(gui::widget::widget* const p_parent, const bool file_droppable) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto instance_handle = ::GetModuleHandle(nullptr);
+            if (!instance_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't get the instance handle!" }));
+            }
+
+            if (!window_class_is_registered(dialog_class_name(), instance_handle))
+                register_window_class_for_dialog(instance_handle);
+
+            ::DWORD ex_style = WS_EX_CONTEXTHELP | WS_EX_DLGMODALFRAME;
+            if (file_droppable)
+                ex_style |= WS_EX_ACCEPTFILES;
+            const auto window_handle = ::CreateWindowExW(
+                ex_style,
+                dialog_class_name().c_str(),
+                dialog_class_name().c_str(),
+                WS_POPUPWINDOW | WS_CAPTION,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                p_parent ? reinterpret_cast<::HWND>(as_windows_widget_details(p_parent->details()).handle) :
+                           HWND_DESKTOP,
+                nullptr,
+                instance_handle,
+                nullptr);
+            if (!window_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't create a dialog!" }));
+            }
+
+            delete_system_menus(window_handle);
+            if (file_droppable)
+                ::DragAcceptFiles(window_handle, TRUE);
+
+            return std::make_unique<windows_widget_details_type>(
+                reinterpret_cast<std::intptr_t>(window_handle),
+                reinterpret_cast<std::intptr_t>(&::DefWindowProcW),
+                reinterpret_cast<std::intptr_t>(nullptr));
         }
 
         widget_details_ptr_type create_dropdown_box_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& parent) const
