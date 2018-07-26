@@ -672,9 +672,10 @@ namespace tetengo2::detail::windows {
         {
             if (visible_impl(widget))
             {
-                if (::IsZoomed(reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle)))
+                const auto widget_handle = reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle);
+                if (::IsZoomed(widget_handle))
                     return static_cast<window_state_type>(gui::widget::abstract_window::window_state_type::maximized);
-                else if (::IsIconic(reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle)))
+                else if (::IsIconic(widget_handle))
                     return static_cast<window_state_type>(gui::widget::abstract_window::window_state_type::minimized);
                 else
                     return static_cast<window_state_type>(gui::widget::abstract_window::window_state_type::normal);
@@ -688,63 +689,179 @@ namespace tetengo2::detail::windows {
                 case SW_SHOWMAXIMIZED:
                     return static_cast<window_state_type>(gui::widget::abstract_window::window_state_type::maximized);
                 default:
-                    assert(as_windows_widget_details(widget.details().window_state_when_hidden) == SW_MINIMIZE);
+                    assert(as_windows_widget_details(widget.details()).window_state_when_hidden == SW_MINIMIZE);
                     return static_cast<window_state_type>(gui::widget::abstract_window::window_state_type::minimized);
                 }
             }
         }
 
         void move_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_type& dimension) const
+            gui::widget::widget&                  widget,
+            const gui::type_list::position_type&  position,
+            const gui::type_list::dimension_type& dimension) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto result = ::MoveWindow(
+                reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle),
+                static_cast<int>(position.left().to_pixels()),
+                static_cast<int>(position.top().to_pixels()),
+                static_cast<int>(dimension.width().to_pixels()),
+                static_cast<int>(dimension.height().to_pixels()),
+                visible_impl(widget) ? TRUE : FALSE);
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't move the widget." }));
+            }
+        }
+
+        gui::type_list::position_type position_impl(const gui::widget::widget& widget) const
+        {
+            ::RECT rectangle{};
+            if (::GetWindowRect(
+                    reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle), &rectangle) == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't get window rectangle." }));
+            }
+
+            return { gui::type_list::position_unit_type::from_pixels(rectangle.left),
+                     gui::type_list::position_unit_type::from_pixels(rectangle.top) };
         }
 
         gui::type_list::position_type
-        position_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+        dialog_position_impl(const gui::widget::widget& widget, const gui::widget::widget& parent) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            ::POINT    point{};
+            const auto x_margin = ::GetSystemMetrics(SM_CYFIXEDFRAME) * 2;
+            const auto y_margin = ::GetSystemMetrics(SM_CXFIXEDFRAME) * 2;
+            if (::ClientToScreen(
+                    reinterpret_cast<::HWND>(as_windows_widget_details(parent.details()).handle), &point) == 0)
+            {
+                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ ERROR_FUNCTION_FAILED, win32_category() },
+                                                          "Can't get parent window client area position." }));
+            }
+            point.x += x_margin;
+            point.y += y_margin;
+
+            const auto    monitor_handle = ::MonitorFromPoint(point, MONITOR_DEFAULTTONEAREST);
+            ::MONITORINFO monitor_info{};
+            monitor_info.cbSize = sizeof(::MONITORINFO);
+            if (::GetMonitorInfoW(monitor_handle, &monitor_info) == 0)
+            {
+                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ ERROR_FUNCTION_FAILED, win32_category() },
+                                                          "Can't get monitor information." }));
+            }
+
+            const auto widget_dimension = widget.dimension();
+            const auto widget_width = static_cast<::LONG>(widget_dimension.width().to_pixels());
+            const auto widget_height = static_cast<::LONG>(widget_dimension.height().to_pixels());
+            if (point.x + widget_width + x_margin > monitor_info.rcWork.right)
+                point.x = monitor_info.rcWork.right - widget_width - x_margin;
+            if (point.y + widget_height + y_margin > monitor_info.rcWork.bottom)
+                point.y = monitor_info.rcWork.bottom - widget_height - y_margin;
+            if (point.x - x_margin < monitor_info.rcWork.left)
+                point.x = monitor_info.rcWork.left + x_margin;
+            if (point.y - y_margin < monitor_info.rcWork.top)
+                point.y = monitor_info.rcWork.top + y_margin;
+
+            return { gui::type_list::position_unit_type::from_pixels(point.x),
+                     gui::type_list::position_unit_type::from_pixels(point.y) };
         }
 
-        gui::type_list::position_type dialog_position_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& parent) const
+        gui::type_list::dimension_type dimension_impl(const gui::widget::widget& widget) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
-        }
+            ::RECT rectangle{};
+            if (::GetWindowRect(
+                    reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle), &rectangle) == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't get window rectangle." }));
+            }
 
-        gui::type_list::dimension_type
-        dimension_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
-        {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            assert(rectangle.right - rectangle.left >= 0);
+            assert(rectangle.bottom - rectangle.top >= 0);
+            return { gui::type_list::dimension_unit_type::from_pixels(rectangle.right - rectangle.left),
+                     gui::type_list::dimension_unit_type::from_pixels(rectangle.bottom - rectangle.top) };
         }
 
         void set_client_dimension_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_type& client_dimension) const
+            gui::widget::widget&                  widget,
+            const gui::type_list::dimension_type& client_dimension) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto widget_handle = reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle);
+            const auto pos = position_impl(widget);
+            const auto window_style = ::GetWindowLongPtrW(widget_handle, GWL_STYLE);
+            const auto extended_window_style = ::GetWindowLongPtrW(widget_handle, GWL_EXSTYLE);
+            const auto left = static_cast<::LONG>(pos.left().to_pixels());
+            const auto top = static_cast<::LONG>(pos.top().to_pixels());
+            const auto width = static_cast<::LONG>(client_dimension.width().to_pixels());
+            const auto height = static_cast<::LONG>(client_dimension.height().to_pixels());
+            ::RECT     rectangle{ left, top, left + width, top + height };
+            if (::AdjustWindowRectEx(
+                    &rectangle,
+                    static_cast<::DWORD>(window_style),
+                    FALSE,
+                    static_cast<::DWORD>(extended_window_style)) == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't adjust window rectangle." }));
+            }
+
+            assert(rectangle.right - rectangle.left > 0);
+            assert(rectangle.bottom - rectangle.top > 0);
+            const auto result = ::MoveWindow(
+                widget_handle,
+                rectangle.left,
+                rectangle.top,
+                rectangle.right - rectangle.left,
+                rectangle.bottom - rectangle.top,
+                visible_impl(widget) ? TRUE : FALSE);
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION((std::system_error{
+                    std::error_code{ static_cast<int>(::GetLastError()), win32_category() }, "Can't move window." }));
+            }
         }
 
-        gui::type_list::dimension_type
-        client_dimension_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+        gui::type_list::dimension_type client_dimension_impl(const gui::widget::widget& widget) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            ::RECT rectangle{};
+            if (::GetClientRect(
+                    reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle), &rectangle) == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't get client rectangle." }));
+            }
+
+            assert(rectangle.right - rectangle.left >= 0);
+            assert(rectangle.bottom - rectangle.top >= 0);
+            return { gui::type_list::dimension_unit_type::from_pixels(rectangle.right - rectangle.left),
+                     gui::type_list::dimension_unit_type::from_pixels(rectangle.bottom - rectangle.top) };
         }
 
-        gui::type_list::dimension_type
-        normal_dimension_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+        gui::type_list::dimension_type normal_dimension_impl(const gui::widget::widget& widget) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            ::WINDOWPLACEMENT window_placement{};
+            window_placement.length = sizeof(::WINDOWPLACEMENT);
+            const auto get_result = ::GetWindowPlacement(
+                reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle), &window_placement);
+            if (get_result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't get window placement." }));
+            }
+
+            const auto& rectangle = window_placement.rcNormalPosition;
+            assert(rectangle.right - rectangle.left >= 0);
+            assert(rectangle.bottom - rectangle.top >= 0);
+            return { gui::type_list::dimension_unit_type::from_pixels(rectangle.right - rectangle.left),
+                     gui::type_list::dimension_unit_type::from_pixels(rectangle.bottom - rectangle.top) };
         }
 
         void set_text_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget, string_type text) const
