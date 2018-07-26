@@ -21,6 +21,7 @@
 #include <tetengo2/detail/windows/message_handler.h>
 #include <tetengo2/detail/windows/widget.h>
 #include <tetengo2/gui/alert.h>
+#include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/gui/widget/dropdown_box.h>
 #include <tetengo2/gui/widget/list_box.h>
 #include <tetengo2/gui/widget/progress_bar.h>
@@ -236,128 +237,461 @@ namespace tetengo2::detail::windows {
                 reinterpret_cast<std::intptr_t>(nullptr));
         }
 
-        widget_details_ptr_type create_dropdown_box_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& parent) const
+        widget_details_ptr_type create_dropdown_box_impl(gui::widget::widget& parent) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto window_handle = ::CreateWindowExW(
+                WS_EX_CLIENTEDGE,
+                WC_COMBOBOXW,
+                L"",
+                WS_CHILD | WS_TABSTOP | WS_VISIBLE | CBS_DROPDOWNLIST,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                reinterpret_cast<::HWND>(as_windows_widget_details(parent.details()).handle),
+                nullptr,
+                ::GetModuleHandle(nullptr),
+                nullptr);
+            if (!window_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't create a dropdown box!" }));
+            }
+
+            const auto p_original_window_procedure = replace_window_procedure(window_handle);
+
+            return std::make_unique<windows_widget_details_type>(
+                reinterpret_cast<std::intptr_t>(window_handle),
+                reinterpret_cast<std::intptr_t>(p_original_window_procedure),
+                reinterpret_cast<std::intptr_t>(nullptr));
         }
 
-        widget_details_ptr_type create_image_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& parent) const
+        widget_details_ptr_type create_image_impl(gui::widget::widget& parent) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto window_handle = ::CreateWindowExW(
+                0,
+                WC_STATICW,
+                L"tetengo2_image",
+                WS_CHILD | WS_VISIBLE,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                reinterpret_cast<::HWND>(as_windows_widget_details(parent.details()).handle),
+                nullptr,
+                ::GetModuleHandle(nullptr),
+                nullptr);
+            if (!window_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't create an image!" }));
+            }
+
+            const auto p_original_window_procedure = replace_window_procedure(window_handle);
+
+            return std::make_unique<windows_widget_details_type>(
+                reinterpret_cast<std::intptr_t>(window_handle),
+                reinterpret_cast<std::intptr_t>(p_original_window_procedure),
+                reinterpret_cast<std::intptr_t>(nullptr));
         }
 
-        widget_details_ptr_type create_label_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& parent) const
+        widget_details_ptr_type create_label_impl(gui::widget::widget& parent) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto window_handle = ::CreateWindowExW(
+                0,
+                WC_STATICW,
+                L"tetengo2_label",
+                WS_CHILD | WS_VISIBLE | SS_NOTIFY,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                reinterpret_cast<::HWND>(as_windows_widget_details(parent.details()).handle),
+                nullptr,
+                ::GetModuleHandle(nullptr),
+                nullptr);
+            if (!window_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't create a label!" }));
+            }
+
+            const auto p_original_window_procedure = replace_window_procedure(window_handle);
+
+            return std::make_unique<windows_widget_details_type>(
+                reinterpret_cast<std::intptr_t>(window_handle),
+                reinterpret_cast<std::intptr_t>(p_original_window_procedure),
+                reinterpret_cast<std::intptr_t>(nullptr));
         }
 
-        widget_details_ptr_type create_list_box_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& parent,
-            TETENGO2_STDALT_MAYBE_UNUSED const scroll_bar_style_type scroll_bar_style) const
+        widget_details_ptr_type
+        create_list_box_impl(gui::widget::widget& parent, const scroll_bar_style_type scroll_bar_style) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto window_handle = ::CreateWindowExW(
+                WS_EX_CLIENTEDGE,
+                WC_LISTBOXW,
+                L"",
+                WS_CHILD | WS_TABSTOP | WS_VISIBLE | LBS_NOTIFY |
+                    window_style_for_scroll_bars(
+                        static_cast<gui::widget::widget::scroll_bar_style_type>(scroll_bar_style)),
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                reinterpret_cast<::HWND>(as_windows_widget_details(parent.details()).handle),
+                nullptr,
+                ::GetModuleHandle(nullptr),
+                nullptr);
+            if (!window_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't create a list box!" }));
+            }
+
+            const auto p_original_window_procedure = replace_window_procedure(window_handle);
+
+            return std::make_unique<windows_widget_details_type>(
+                reinterpret_cast<std::intptr_t>(window_handle),
+                reinterpret_cast<std::intptr_t>(p_original_window_procedure),
+                reinterpret_cast<std::intptr_t>(nullptr));
         }
 
-        widget_details_ptr_type create_picture_box_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& parent,
-            TETENGO2_STDALT_MAYBE_UNUSED const scroll_bar_style_type scroll_bar_style) const
+        widget_details_ptr_type
+        create_picture_box_impl(gui::widget::widget& parent, const scroll_bar_style_type scroll_bar_style) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto instance_handle = ::GetModuleHandle(nullptr);
+            if (!instance_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't get the instance handle!" }));
+            }
+
+            if (!window_class_is_registered(picture_box_class_name(), instance_handle))
+                register_window_class_for_picture_box(instance_handle);
+
+            const auto window_handle = ::CreateWindowExW(
+                WS_EX_CLIENTEDGE,
+                picture_box_class_name().c_str(),
+                L"",
+                WS_CHILD | WS_TABSTOP | WS_VISIBLE |
+                    window_style_for_scroll_bars(
+                        static_cast<gui::widget::widget::scroll_bar_style_type>(scroll_bar_style)),
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                reinterpret_cast<::HWND>(as_windows_widget_details(parent.details()).handle),
+                nullptr,
+                instance_handle,
+                nullptr);
+            if (!window_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't create a picture box!" }));
+            }
+
+            return std::make_unique<windows_widget_details_type>(
+                reinterpret_cast<std::intptr_t>(window_handle),
+                reinterpret_cast<std::intptr_t>(&::DefWindowProcW),
+                reinterpret_cast<std::intptr_t>(nullptr));
         }
 
-        widget_details_ptr_type create_progress_bar_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& parent) const
+        widget_details_ptr_type create_progress_bar_impl(gui::widget::widget& parent) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto window_handle = ::CreateWindowExW(
+                0,
+                PROGRESS_CLASSW,
+                L"",
+                WS_CHILD | WS_VISIBLE,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                reinterpret_cast<::HWND>(as_windows_widget_details(parent.details()).handle),
+                nullptr,
+                ::GetModuleHandle(nullptr),
+                nullptr);
+            if (!window_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't create a progress bar!" }));
+            }
+
+            const auto p_original_window_procedure = replace_window_procedure(window_handle);
+
+            return std::make_unique<windows_widget_details_type>(
+                reinterpret_cast<std::intptr_t>(window_handle),
+                reinterpret_cast<std::intptr_t>(p_original_window_procedure),
+                reinterpret_cast<std::intptr_t>(nullptr));
         }
-        widget_details_ptr_type create_text_box_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& parent,
-            TETENGO2_STDALT_MAYBE_UNUSED const scroll_bar_style_type scroll_bar_style) const
+
+        widget_details_ptr_type
+        create_text_box_impl(gui::widget::widget& parent, const scroll_bar_style_type scroll_bar_style) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto window_handle = ::CreateWindowExW(
+                WS_EX_CLIENTEDGE,
+                WC_EDITW,
+                L"",
+                WS_CHILD | WS_TABSTOP | WS_VISIBLE | ES_AUTOHSCROLL |
+                    window_style_for_scroll_bars(
+                        static_cast<gui::widget::widget::scroll_bar_style_type>(scroll_bar_style)),
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                reinterpret_cast<::HWND>(as_windows_widget_details(parent.details()).handle),
+                nullptr,
+                ::GetModuleHandle(nullptr),
+                nullptr);
+            if (!window_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't create a text box!" }));
+            }
+
+            const auto p_original_window_procedure = replace_window_procedure(window_handle);
+
+            return std::make_unique<windows_widget_details_type>(
+                reinterpret_cast<std::intptr_t>(window_handle),
+                reinterpret_cast<std::intptr_t>(p_original_window_procedure),
+                reinterpret_cast<std::intptr_t>(nullptr));
         }
 
         widget_details_ptr_type create_window_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget* const p_parent,
-            TETENGO2_STDALT_MAYBE_UNUSED const scroll_bar_style_type scroll_bar_style,
-            TETENGO2_STDALT_MAYBE_UNUSED const bool                  file_droppable) const
+            gui::widget::widget* const  p_parent,
+            const scroll_bar_style_type scroll_bar_style,
+            const bool                  file_droppable) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto instance_handle = ::GetModuleHandle(nullptr);
+            if (!instance_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't get the instance handle!" }));
+            }
+
+            if (!window_class_is_registered(window_class_name(), instance_handle))
+                register_window_class_for_window(instance_handle);
+
+            ::DWORD ex_style =
+                WS_EX_APPWINDOW |
+                window_style_for_scroll_bars(static_cast<gui::widget::widget::scroll_bar_style_type>(scroll_bar_style));
+            if (file_droppable)
+                ex_style |= WS_EX_ACCEPTFILES;
+            const auto window_handle = ::CreateWindowExW(
+                ex_style,
+                window_class_name().c_str(),
+                window_class_name().c_str(),
+                WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                p_parent ? reinterpret_cast<::HWND>(as_windows_widget_details(p_parent->details()).handle) :
+                           HWND_DESKTOP,
+                nullptr,
+                instance_handle,
+                nullptr);
+            if (!window_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't create a window!" }));
+            }
+
+            if (file_droppable)
+                ::DragAcceptFiles(window_handle, TRUE);
+
+            return std::make_unique<windows_widget_details_type>(
+                reinterpret_cast<std::intptr_t>(window_handle),
+                reinterpret_cast<std::intptr_t>(&::DefWindowProcW),
+                reinterpret_cast<std::intptr_t>(nullptr));
         }
 
-        void associate_to_native_window_system_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget) const
+        void associate_to_native_window_system_impl(gui::widget::widget& widget) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            auto& widget_details = as_windows_widget_details(widget.details());
+            assert(
+                !::GetPropW(reinterpret_cast<::HWND>(widget_details.handle), property_key_for_cpp_instance().c_str()));
+            const auto result = ::SetPropW(
+                reinterpret_cast<::HWND>(widget_details.handle),
+                property_key_for_cpp_instance().c_str(),
+                reinterpret_cast<::HANDLE>(&widget));
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't set C++ instance." }));
+            }
         }
 
-        bool has_parent_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+        bool has_parent_impl(const gui::widget::widget& widget) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            return ::GetParent(reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle)) != nullptr;
         }
 
-        TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget&
-                                     parent_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+        gui::widget::widget& parent_impl(const gui::widget::widget& widget) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto parent_handle =
+                ::GetParent(reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle));
+            if (!parent_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "The widget has no parent." }));
+            }
+
+            auto* const p_parent = p_widget_from(reinterpret_cast<std::intptr_t>(parent_handle));
+            assert(p_parent);
+            return *p_parent;
         }
 
-        TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget&
-                                     root_ancestor_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+        gui::widget::widget& root_ancestor_impl(const gui::widget::widget& widget) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto root_ancestor_handle =
+                ::GetAncestor(reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle), GA_ROOT);
+            if (!root_ancestor_handle)
+            {
+                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ ERROR_FUNCTION_FAILED, win32_category() },
+                                                          "The widget has no root ancestor." }));
+            }
+
+            auto* const p_root_ancestor = p_widget_from(reinterpret_cast<std::intptr_t>(root_ancestor_handle));
+            assert(p_root_ancestor);
+            return *p_root_ancestor;
         }
 
-        void set_enabled_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget,
-            TETENGO2_STDALT_MAYBE_UNUSED const bool           enabled) const
+        void set_enabled_impl(gui::widget::widget& widget, const bool enabled) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            ::EnableWindow(
+                reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle), enabled ? TRUE : FALSE);
         }
 
-        bool enabled_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+        bool enabled_impl(const gui::widget::widget& widget) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            return ::IsWindowEnabled(reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle)) ==
+                   TRUE;
         }
 
-        void set_visible_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget,
-            TETENGO2_STDALT_MAYBE_UNUSED const bool           visible) const
+        void set_visible_impl(gui::widget::widget& widget, const bool visible) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto widget_handle = reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle);
+            int        command = SW_HIDE;
+            if (visible)
+            {
+                if (visible_impl(widget))
+                {
+                    if (::IsZoomed(widget_handle))
+                        command = SW_SHOWMAXIMIZED;
+                    else if (::IsIconic(widget_handle))
+                        command = SW_MINIMIZE;
+                    else
+                        command = SW_RESTORE;
+                }
+                else
+                {
+                    command = as_windows_widget_details(widget.details()).window_state_when_hidden;
+                }
+            }
+            else
+            {
+                if (visible_impl(widget))
+                {
+                    if (::IsZoomed(widget_handle))
+                        as_windows_widget_details(widget.details()).window_state_when_hidden = SW_SHOWMAXIMIZED;
+                    else if (::IsIconic(widget_handle))
+                        as_windows_widget_details(widget.details()).window_state_when_hidden = SW_MINIMIZE;
+                    else
+                        as_windows_widget_details(widget.details()).window_state_when_hidden = SW_RESTORE;
+                }
+            }
+            ::ShowWindow(widget_handle, command);
+            if (visible)
+                ::UpdateWindow(widget_handle);
         }
 
-        bool visible_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+        bool visible_impl(const gui::widget::widget& widget) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            return ::IsWindowVisible(reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle)) ==
+                   TRUE;
         }
 
-        void set_window_state_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget,
-            TETENGO2_STDALT_MAYBE_UNUSED const window_state_type state) const
+        void set_window_state_impl(gui::widget::widget& widget, const window_state_type state) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            switch (static_cast<gui::widget::abstract_window::window_state_type>(state))
+            {
+            case gui::widget::abstract_window::window_state_type::normal:
+                as_windows_widget_details(widget.details()).window_state_when_hidden = SW_RESTORE;
+                break;
+            case gui::widget::abstract_window::window_state_type::maximized:
+                as_windows_widget_details(widget.details()).window_state_when_hidden = SW_SHOWMAXIMIZED;
+                break;
+            default:
+                assert(
+                    static_cast<gui::widget::abstract_window::window_state_type>(state) ==
+                    gui::widget::abstract_window::window_state_type::minimized);
+                as_windows_widget_details(widget.details()).window_state_when_hidden = SW_MINIMIZE;
+                break;
+            }
+
+            if (!visible_impl(widget))
+                return;
+
+            ::WINDOWPLACEMENT window_placement{};
+            window_placement.length = sizeof(::WINDOWPLACEMENT);
+            const auto get_result = ::GetWindowPlacement(
+                reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle), &window_placement);
+            if (get_result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't get window placement." }));
+            }
+
+            window_placement.showCmd = as_windows_widget_details(widget.details()).window_state_when_hidden;
+
+            const auto set_result = ::SetWindowPlacement(
+                reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle), &window_placement);
+            if (set_result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't set window placement." }));
+            }
         }
 
-        window_state_type window_state_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+        window_state_type window_state_impl(const gui::widget::widget& widget) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            if (visible_impl(widget))
+            {
+                if (::IsZoomed(reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle)))
+                    return static_cast<window_state_type>(gui::widget::abstract_window::window_state_type::maximized);
+                else if (::IsIconic(reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle)))
+                    return static_cast<window_state_type>(gui::widget::abstract_window::window_state_type::minimized);
+                else
+                    return static_cast<window_state_type>(gui::widget::abstract_window::window_state_type::normal);
+            }
+            else
+            {
+                switch (as_windows_widget_details(widget.details()).window_state_when_hidden)
+                {
+                case SW_RESTORE:
+                    return static_cast<window_state_type>(gui::widget::abstract_window::window_state_type::normal);
+                case SW_SHOWMAXIMIZED:
+                    return static_cast<window_state_type>(gui::widget::abstract_window::window_state_type::maximized);
+                default:
+                    assert(as_windows_widget_details(widget.details().window_state_when_hidden) == SW_MINIMIZE);
+                    return static_cast<window_state_type>(gui::widget::abstract_window::window_state_type::minimized);
+                }
+            }
         }
 
         void move_impl(
