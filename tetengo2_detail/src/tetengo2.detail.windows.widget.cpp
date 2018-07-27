@@ -864,16 +864,29 @@ namespace tetengo2::detail::windows {
                      gui::type_list::dimension_unit_type::from_pixels(rectangle.bottom - rectangle.top) };
         }
 
-        void set_text_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget, string_type text) const
+        void set_text_impl(gui::widget::widget& widget, string_type text) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto result = ::SetWindowTextW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle),
+                detail::native_widget_encoder().encode(std::move(text)).c_str());
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION((std::system_error{
+                    std::error_code{ static_cast<int>(::GetLastError()), win32_category() }, "Can't set text!" }));
+            }
         }
 
-        string_type text_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+        string_type text_impl(const gui::widget::widget& widget) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto widget_handle = reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle);
+            const auto length = ::GetWindowTextLengthW(widget_handle);
+            if (length == 0)
+                return type_list::string_type{};
+
+            std::vector<wchar_t> text(length + 1, L'\0');
+            ::GetWindowTextW(widget_handle, text.data(), length + 1);
+
+            return detail::native_widget_encoder().decode(std::wstring{ text.begin(), text.begin() + length });
         }
 
         void set_font_impl(
