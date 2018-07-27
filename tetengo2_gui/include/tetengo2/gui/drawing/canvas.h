@@ -69,7 +69,7 @@ namespace tetengo2::gui::drawing {
         using solid_background_type = solid_background<drawing_details_type>;
 
         //! The font type.
-        using font_type = font<drawing_details_type>;
+        using font_type = font;
 
         //! The picture type.
         using picture_type = picture<drawing_details_type>;

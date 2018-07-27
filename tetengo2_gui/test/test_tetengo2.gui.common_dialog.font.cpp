@@ -42,7 +42,7 @@ namespace {
 
     using drawing_details_type = detail_type_list_type::drawing_type;
 
-    using font_type = tetengo2::gui::drawing::font<drawing_details_type>;
+    using font_type = tetengo2::gui::drawing::font;
 
     using common_dialog_details_type = detail_type_list_type::common_dialog_type;
 

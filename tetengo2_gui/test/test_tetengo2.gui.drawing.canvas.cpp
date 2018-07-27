@@ -9,7 +9,6 @@
 #include <memory>
 #include <sstream>
 #include <stdexcept>
-#include <string>
 #include <utility>
 #include <vector>
 
@@ -61,7 +60,7 @@ namespace {
 
     using transparent_background_type = tetengo2::gui::drawing::transparent_background<drawing_details_type>;
 
-    using font_type = tetengo2::gui::drawing::font<drawing_details_type>;
+    using font_type = tetengo2::gui::drawing::font;
 
     using picture_type = tetengo2::gui::drawing::picture<drawing_details_type>;
 

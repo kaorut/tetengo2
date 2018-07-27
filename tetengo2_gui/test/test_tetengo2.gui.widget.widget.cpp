@@ -61,7 +61,7 @@ namespace {
 
     using transparent_background_type = tetengo2::gui::drawing::transparent_background<drawing_details_type>;
 
-    using font_type = tetengo2::gui::drawing::font<drawing_details_type>;
+    using font_type = tetengo2::gui::drawing::font;
 
     using system_cursor_type = tetengo2::gui::cursor::system;
 

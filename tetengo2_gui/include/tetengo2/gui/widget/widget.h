@@ -83,7 +83,7 @@ namespace tetengo2::gui::widget {
         using background_type = gui::drawing::background<drawing_details_type>;
 
         //! The font type.
-        using font_type = gui::drawing::font<drawing_details_type>;
+        using font_type = gui::drawing::font;
 
         //! The cursor type.
         using cursor_type = gui::cursor::cursor_base;

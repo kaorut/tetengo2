@@ -16,17 +16,11 @@
 #include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/text.h>
 
-#include "test_tetengo2.gui.detail_type_list.h"
-
 
 namespace {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
-
-    using drawing_details_type = detail_type_list_type::drawing_type;
-
-    using font_type = tetengo2::gui::drawing::font<drawing_details_type>;
+    using font_type = tetengo2::gui::drawing::font;
 
     using string_type = font_type::string_type;
 }
