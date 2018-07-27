@@ -389,5 +389,8 @@
     <ClCompile Include="src\tetengo2.gui.message.keyboard_observer_set.cpp">
       <Filter>sources\tetengo2::gui\message</Filter>
     </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.drawing.font.cpp">
+      <Filter>sources\tetengo2::gui\drawing</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
