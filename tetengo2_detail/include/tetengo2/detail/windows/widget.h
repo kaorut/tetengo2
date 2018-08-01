@@ -30,6 +30,10 @@
 #include <tetengo2/text/encoder.h>
 #include <tetengo2/text/encoding/locale.h>
 
+namespace tetengo2 { namespace gui { namespace drawing {
+    class font;
+}}}
+
 
 namespace tetengo2::detail::windows {
     /*!
@@ -51,9 +55,6 @@ namespace tetengo2::detail::windows {
 
         //! The window state type.
         using window_state_type = base::widget::window_state_type;
-
-        //! The font type.
-        using font_type = base::widget::font_type;
 
         //! The menu base type.
         using menu_base_type = base::widget::menu_base_type;
@@ -231,9 +232,9 @@ namespace tetengo2::detail::windows {
 
         virtual string_type text_impl(const gui::widget::widget& widget) const override;
 
-        virtual void set_font_impl(gui::widget::widget& widget, const font_type& font) const override;
+        virtual void set_font_impl(gui::widget::widget& widget, const gui::drawing::font& font) const override;
 
-        virtual font_type font_impl(const gui::widget::widget& widget) const override;
+        virtual gui::drawing::font font_impl(const gui::widget::widget& widget) const override;
 
         virtual std::vector<std::reference_wrapper<gui::widget::widget>>
         children_impl(gui::widget::widget& widget) const override;

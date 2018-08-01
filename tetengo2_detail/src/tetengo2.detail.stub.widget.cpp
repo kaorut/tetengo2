@@ -29,8 +29,6 @@ namespace tetengo2::detail::stub {
 
         using window_state_type = widget::window_state_type;
 
-        using font_type = widget::font_type;
-
         using menu_base_type = widget::menu_base_type;
 
         using progress_bar_state_type = widget::progress_bar_state_type;
@@ -244,12 +242,12 @@ namespace tetengo2::detail::stub {
             return as_stub_widget_details(widget.details()).text;
         }
 
-        void set_font_impl(gui::widget::widget& widget, const font_type& font) const
+        void set_font_impl(gui::widget::widget& widget, const gui::drawing::font& font) const
         {
             as_stub_widget_details(widget.details()).font = font;
         }
 
-        font_type font_impl(const gui::widget::widget& widget) const
+        gui::drawing::font font_impl(const gui::widget::widget& widget) const
         {
             return as_stub_widget_details(widget.details()).font;
         }
@@ -493,7 +491,7 @@ namespace tetengo2::detail::stub {
                 std::make_pair(0, 0),
                 std::make_pair(1, 1),
                 string_type{},
-                font_type{ string_type{}, 12, false, false, false, false },
+                gui::drawing::font{ string_type{}, 12, false, false, false, false },
                 std::vector<void*>{},
                 false,
                 false,
@@ -701,12 +699,12 @@ namespace tetengo2::detail::stub {
         return m_p_impl->text_impl(widget);
     }
 
-    void widget::set_font_impl(gui::widget::widget& widget, const font_type& font) const
+    void widget::set_font_impl(gui::widget::widget& widget, const gui::drawing::font& font) const
     {
         m_p_impl->set_font_impl(widget, font);
     }
 
-    widget::font_type widget::font_impl(const gui::widget::widget& widget) const
+    gui::drawing::font widget::font_impl(const gui::widget::widget& widget) const
     {
         return m_p_impl->font_impl(widget);
     }

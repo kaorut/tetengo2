@@ -9,6 +9,7 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/base/widget.h>
+#include <tetengo2/gui/drawing/font.h>
 
 
 namespace tetengo2::detail::base {
@@ -24,8 +25,6 @@ namespace tetengo2::detail::base {
         using scroll_bar_style_type = widget::scroll_bar_style_type;
 
         using window_state_type = widget::window_state_type;
-
-        using font_type = widget::font_type;
 
         using menu_base_type = widget::menu_base_type;
 
@@ -216,12 +215,12 @@ namespace tetengo2::detail::base {
             return self.text_impl(widget_);
         }
 
-        void set_font(gui::widget::widget& widget_, const font_type& font, const widget& self) const
+        void set_font(gui::widget::widget& widget_, const gui::drawing::font& font, const widget& self) const
         {
             self.set_font_impl(widget_, font);
         }
 
-        font_type font(const gui::widget::widget& widget_, const widget& self) const
+        gui::drawing::font font(const gui::widget::widget& widget_, const widget& self) const
         {
             return self.font_impl(widget_);
         }
@@ -608,12 +607,12 @@ namespace tetengo2::detail::base {
         return m_p_impl->text(widget, *this);
     }
 
-    void widget::set_font(gui::widget::widget& widget, const font_type& font) const
+    void widget::set_font(gui::widget::widget& widget, const gui::drawing::font& font) const
     {
         m_p_impl->set_font(widget, font, *this);
     }
 
-    widget::font_type widget::font(const gui::widget::widget& widget) const
+    gui::drawing::font widget::font(const gui::widget::widget& widget) const
     {
         return m_p_impl->font(widget, *this);
     }

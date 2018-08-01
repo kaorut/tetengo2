@@ -395,9 +395,7 @@ namespace tetengo2::gui::widget {
         */
         font_type font() const
         {
-            const widget_details_type::font_type detail_font = widget_details().font(*this);
-            return font_type{ detail_font.family, detail_font.size,      detail_font.bold,
-                              detail_font.italic, detail_font.underline, detail_font.strikeout };
+            return widget_details().font(*this);
         }
 
         /*!
@@ -407,9 +405,7 @@ namespace tetengo2::gui::widget {
         */
         void set_font(const font_type& font)
         {
-            const widget_details_type::font_type detail_font{ font.family(), font.size(),      font.bold(),
-                                                              font.italic(), font.underline(), font.strikeout() };
-            widget_details().set_font(*this, detail_font);
+            widget_details().set_font(*this, font);
         }
 
         /*!

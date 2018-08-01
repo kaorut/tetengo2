@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_DETAIL_BASE_WIDGET_H)
 #define TETENGO2_DETAIL_BASE_WIDGET_H
 
-#include <algorithm>
 #include <functional>
 #include <memory>
 #include <vector>
@@ -22,6 +21,10 @@
 
 namespace tetengo2 { namespace gui {
     class icon;
+
+    namespace drawing {
+        class font;
+    }
 
     namespace widget {
         class dropdown_box;
@@ -52,30 +55,6 @@ namespace tetengo2::detail::base {
 
         //! The window state type.
         using window_state_type = int;
-
-        //! The font type.
-        struct font_type
-        {
-            string_type family;
-            size_type   size;
-            bool        bold;
-            bool        italic;
-            bool        underline;
-            bool        strikeout;
-
-            font_type() : family{}, size{}, bold{}, italic{}, underline{}, strikeout{} {}
-
-            font_type(
-                string_type     family,
-                const size_type size,
-                const bool      bold,
-                const bool      italic,
-                const bool      underline,
-                const bool      strikeout)
-            : family{ std::move(family) }, size{ size }, bold{ bold }, italic{ italic }, underline{ underline },
-              strikeout{ strikeout }
-            {}
-        };
 
         //! The menu base type.
         using menu_base_type = void;
@@ -447,7 +426,7 @@ namespace tetengo2::detail::base {
 
             \throw std::system_error When the font cannot be set.
         */
-        void set_font(gui::widget::widget& widget, const font_type& font) const;
+        void set_font(gui::widget::widget& widget, const gui::drawing::font& font) const;
 
         /*!
             \brief Retuns the font.
@@ -458,7 +437,7 @@ namespace tetengo2::detail::base {
 
             \throw std::system_error When the font cannot be obtained.
         */
-        font_type font(const gui::widget::widget& widget) const;
+        gui::drawing::font font(const gui::widget::widget& widget) const;
 
         /*!
             \brief Returns the children.
@@ -916,9 +895,9 @@ namespace tetengo2::detail::base {
 
         virtual string_type text_impl(const gui::widget::widget& widget_) const = 0;
 
-        virtual void set_font_impl(gui::widget::widget& widget_, const font_type& font) const = 0;
+        virtual void set_font_impl(gui::widget::widget& widget_, const gui::drawing::font& font) const = 0;
 
-        virtual font_type font_impl(const gui::widget::widget& widget_) const = 0;
+        virtual gui::drawing::font font_impl(const gui::widget::widget& widget_) const = 0;
 
         virtual std::vector<std::reference_wrapper<gui::widget::widget>>
         children_impl(gui::widget::widget& widget_) const = 0;

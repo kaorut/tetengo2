@@ -58,8 +58,6 @@ namespace tetengo2::detail::windows {
 
         using window_state_type = widget::window_state_type;
 
-        using font_type = widget::font_type;
-
         using menu_base_type = widget::menu_base_type;
 
         using progress_bar_state_type = widget::progress_bar_state_type;
@@ -891,13 +889,13 @@ namespace tetengo2::detail::windows {
 
         void set_font_impl(
             TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget,
-            TETENGO2_STDALT_MAYBE_UNUSED const font_type& font) const
+            TETENGO2_STDALT_MAYBE_UNUSED const gui::drawing::font& font) const
         {
             assert(false);
             BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
         }
 
-        font_type font_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+        gui::drawing::font font_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
         {
             assert(false);
             BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
@@ -1735,12 +1733,13 @@ namespace tetengo2::detail::windows {
         return m_p_impl->text_impl(widget);
     }
 
-    void widget::set_font_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget, const font_type& font) const
+    void widget::set_font_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget, const gui::drawing::font& font)
+        const
     {
         m_p_impl->set_font_impl(widget, font);
     }
 
-    widget::font_type widget::font_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+    gui::drawing::font widget::font_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
     {
         return m_p_impl->font_impl(widget);
     }

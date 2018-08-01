@@ -16,6 +16,7 @@
 #include <vector>
 
 #include <tetengo2/detail/base/widget.h>
+#include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
 
@@ -52,9 +53,6 @@ namespace tetengo2::detail::stub {
         //! The window state type.
         using window_state_type = base::widget::window_state_type;
 
-        //! The font type.
-        using font_type = base::widget::font_type;
-
         //! The menu base type.
         using menu_base_type = base::widget::menu_base_type;
 
@@ -72,7 +70,7 @@ namespace tetengo2::detail::stub {
             std::pair<std::ptrdiff_t, std::ptrdiff_t> position;
             std::pair<std::size_t, std::size_t>       dimension;
             string_type                               text;
-            font_type                                 font;
+            gui::drawing::font                        font;
             std::vector<void*>                        children;
             bool                                      focusable;
             bool                                      read_only;
@@ -83,9 +81,9 @@ namespace tetengo2::detail::stub {
             int                                       progress_bar_state;
 
             widget_details_type()
-            : p_parent{}, enabled{}, visible{}, window_state{}, position{}, dimension{}, text{}, font{}, children{},
-              focusable{}, read_only{}, list_box_values{}, selected_list_box_value_index{}, progress_bar_goal{},
-              progress_bar_progress{}, progress_bar_state{}
+            : p_parent{}, enabled{}, visible{}, window_state{}, position{}, dimension{}, text{},
+              font{ gui::drawing::font::dialog_font() }, children{}, focusable{}, read_only{}, list_box_values{},
+              selected_list_box_value_index{}, progress_bar_goal{}, progress_bar_progress{}, progress_bar_state{}
             {}
 
             widget_details_type(
@@ -96,7 +94,7 @@ namespace tetengo2::detail::stub {
                 std::pair<std::ptrdiff_t, std::ptrdiff_t> position,
                 std::pair<std::size_t, std::size_t>       dimension,
                 string_type                               text,
-                font_type                                 font,
+                gui::drawing::font                        font,
                 std::vector<void*>                        children,
                 const bool                                focusable,
                 const bool                                read_only,
@@ -236,9 +234,9 @@ namespace tetengo2::detail::stub {
 
         virtual string_type text_impl(const gui::widget::widget& widget) const override;
 
-        virtual void set_font_impl(gui::widget::widget& widget, const font_type& font) const override;
+        virtual void set_font_impl(gui::widget::widget& widget, const gui::drawing::font& font) const override;
 
-        virtual font_type font_impl(const gui::widget::widget& widget) const override;
+        virtual gui::drawing::font font_impl(const gui::widget::widget& widget) const override;
 
         virtual std::vector<std::reference_wrapper<gui::widget::widget>>
         children_impl(gui::widget::widget& widget) const override;
