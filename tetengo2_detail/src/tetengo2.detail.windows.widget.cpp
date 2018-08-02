@@ -1137,66 +1137,118 @@ namespace tetengo2::detail::windows {
             }
         }
 
-        size_type
-        dropdown_box_value_count_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::dropdown_box& dropdown_box) const
+        size_type dropdown_box_value_count_impl(const gui::widget::dropdown_box& dropdown_box) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto result = ::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(dropdown_box.details()).handle), CB_GETCOUNT, 0, 0);
+            if (result == CB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't obtain the dropdown box value count." }));
+            }
+
+            return result;
         }
 
-        string_type dropdown_box_value_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::dropdown_box& dropdown_box,
-            TETENGO2_STDALT_MAYBE_UNUSED const size_type index) const
+        string_type dropdown_box_value_impl(const gui::widget::dropdown_box& dropdown_box, const size_type index) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto dropdown_box_handle =
+                reinterpret_cast<::HWND>(as_windows_widget_details(dropdown_box.details()).handle);
+            const auto length = ::SendMessageW(dropdown_box_handle, CB_GETLBTEXTLEN, index, 0);
+            if (length == CB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't obtain the dropdown box value length." }));
+            }
+
+            std::vector<wchar_t> value(length + 1, 0);
+            const auto           result =
+                ::SendMessageW(dropdown_box_handle, CB_GETLBTEXT, index, reinterpret_cast<::LPARAM>(value.data()));
+            if (length == CB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't obtain the dropdown box value." }));
+            }
+
+            return detail::native_widget_encoder().decode(std::wstring{ value.data() });
         }
 
         void set_dropdown_box_value_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::dropdown_box& dropdown_box,
-            TETENGO2_STDALT_MAYBE_UNUSED const size_type index,
-            TETENGO2_STDALT_MAYBE_UNUSED string_type value) const
+            gui::widget::dropdown_box& dropdown_box,
+            const size_type            index,
+            string_type                value) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            erase_dropdown_box_value_impl(dropdown_box, index);
+            insert_dropdown_box_value_impl(dropdown_box, index, std::move(value));
         }
 
         void insert_dropdown_box_value_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::dropdown_box& dropdown_box,
-            TETENGO2_STDALT_MAYBE_UNUSED const size_type index,
-            TETENGO2_STDALT_MAYBE_UNUSED string_type value) const
+            gui::widget::dropdown_box& dropdown_box,
+            const size_type            index,
+            string_type                value) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto result = ::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(dropdown_box.details()).handle),
+                CB_INSERTSTRING,
+                index,
+                reinterpret_cast<::LPARAM>(detail::native_widget_encoder().encode(std::move(value)).c_str()));
+            if (result == CB_ERR || result == CB_ERRSPACE)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't append a dropdown box value." }));
+            }
         }
 
-        void erase_dropdown_box_value_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::dropdown_box& dropdown_box,
-            TETENGO2_STDALT_MAYBE_UNUSED const size_type index) const
+        void erase_dropdown_box_value_impl(gui::widget::dropdown_box& dropdown_box, const size_type index) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto result = ::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(dropdown_box.details()).handle),
+                CB_DELETESTRING,
+                index,
+                0);
+            if (result == CB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't delete the old value." }));
+            }
         }
 
-        void clear_dropdown_box_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::dropdown_box& dropdown_box) const
+        void clear_dropdown_box_impl(gui::widget::dropdown_box& dropdown_box) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            ::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(dropdown_box.details()).handle),
+                CB_RESETCONTENT,
+                0,
+                0);
         }
 
-        tetengo2::stdalt::optional<size_type> selected_dropdown_box_value_index_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::dropdown_box& dropdown_box) const
+        tetengo2::stdalt::optional<size_type>
+        selected_dropdown_box_value_index_impl(const gui::widget::dropdown_box& dropdown_box) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            auto index = ::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(dropdown_box.details()).handle), CB_GETCURSEL, 0, 0);
+            return index != CB_ERR ? stdalt::make_optional<type_list::size_type>(std::move(index)) :
+                                     TETENGO2_STDALT_NULLOPT;
         }
 
-        void select_dropdown_box_value_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::dropdown_box& dropdown_box,
-            TETENGO2_STDALT_MAYBE_UNUSED const size_type index) const
+        void select_dropdown_box_value_impl(gui::widget::dropdown_box& dropdown_box, const size_type index) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto result = ::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(dropdown_box.details()).handle),
+                CB_SETCURSEL,
+                index,
+                0);
+            if (result == CB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't select a dropdown box value." }));
+            }
         }
 
         size_type list_box_value_count_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::list_box& list_box) const
