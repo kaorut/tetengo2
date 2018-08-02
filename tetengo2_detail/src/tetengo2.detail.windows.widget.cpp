@@ -18,6 +18,8 @@
 #include <Windows.h>
 
 #include <tetengo2/detail/windows/error_category.h>
+#include <tetengo2/detail/windows/icon.h>
+#include <tetengo2/detail/windows/menu.h>
 #include <tetengo2/detail/windows/message_handler.h>
 #include <tetengo2/detail/windows/widget.h>
 #include <tetengo2/gui/alert.h>
@@ -887,93 +889,253 @@ namespace tetengo2::detail::windows {
             return detail::native_widget_encoder().decode(std::wstring{ text.begin(), text.begin() + length });
         }
 
-        void set_font_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::drawing::font& font) const
+        void set_font_impl(gui::widget::widget& widget, const gui::drawing::font& font) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto widget_handle = reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle);
+            const auto previous_font_handle =
+                reinterpret_cast<::HFONT>(::SendMessageW(widget_handle, WM_GETFONT, 0, 0));
+
+            ::LOGFONTW log_font{ -static_cast<::LONG>(font.size()),
+                                 0,
+                                 0,
+                                 0,
+                                 font.bold() ? FW_BOLD : FW_NORMAL,
+                                 static_cast<::BYTE>(font.italic() ? TRUE : FALSE),
+                                 static_cast<::BYTE>(font.underline() ? TRUE : FALSE),
+                                 static_cast<::BYTE>(font.strikeout() ? TRUE : FALSE),
+                                 static_cast<::BYTE>(DEFAULT_CHARSET),
+                                 static_cast<::BYTE>(OUT_DEFAULT_PRECIS),
+                                 static_cast<::BYTE>(CLIP_DEFAULT_PRECIS),
+                                 static_cast<::BYTE>(DEFAULT_QUALITY),
+                                 static_cast<::BYTE>(DEFAULT_PITCH | FF_DONTCARE),
+                                 L"" };
+            const auto font_family = detail::native_widget_encoder().encode(font.family());
+            assert(font_family.length() < LF_FACESIZE);
+            std::copy(font_family.begin(), font_family.end(), log_font.lfFaceName);
+            log_font.lfFaceName[font_family.length()] = L'\0';
+            const auto font_handle = ::CreateFontIndirectW(&log_font);
+            if (!font_handle)
+            {
+                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ ERROR_FUNCTION_FAILED, win32_category() },
+                                                          "Can't create font." }));
+            }
+            ::SendMessageW(widget_handle, WM_SETFONT, reinterpret_cast<::WPARAM>(font_handle), MAKELPARAM(TRUE, 0));
+
+            if (previous_font_handle && ::DeleteObject(previous_font_handle) == 0)
+            {
+                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ ERROR_FUNCTION_FAILED, win32_category() },
+                                                          "Can't delete previous font." }));
+            }
         }
 
-        gui::drawing::font font_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+        gui::drawing::font font_impl(const gui::widget::widget& widget) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            auto font_handle = reinterpret_cast<::HFONT>(::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle), WM_GETFONT, 0, 0));
+            if (!font_handle)
+                font_handle = reinterpret_cast<::HFONT>(::GetStockObject(SYSTEM_FONT));
+
+            ::LOGFONTW log_font;
+            const auto byte_count = ::GetObjectW(font_handle, sizeof(::LOGFONTW), &log_font);
+            if (byte_count == 0)
+            {
+                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ ERROR_FUNCTION_FAILED, win32_category() },
+                                                          "Can't get log font." }));
+            }
+
+            return gui::drawing::font{ detail::native_widget_encoder().decode(log_font.lfFaceName),
+                                       static_cast<gui::drawing::font::size_type>(
+                                           log_font.lfHeight < 0 ? -log_font.lfHeight : log_font.lfHeight),
+                                       log_font.lfWeight >= FW_BOLD,
+                                       log_font.lfItalic != FALSE,
+                                       log_font.lfUnderline != FALSE,
+                                       log_font.lfStrikeOut != FALSE };
         }
 
-        std::vector<std::reference_wrapper<gui::widget::widget>>
-        children_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget) const
+        std::vector<std::reference_wrapper<gui::widget::widget>> children_impl(gui::widget::widget& widget) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            std::vector<std::reference_wrapper<gui::widget::widget>> children{};
+
+            ::EnumChildWindows(
+                reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle),
+                enum_child_procedure,
+                reinterpret_cast<::LPARAM>(&children));
+
+            return children;
         }
 
-        void repaint_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget,
-            TETENGO2_STDALT_MAYBE_UNUSED const bool                 immediately) const
+        void repaint_impl(const gui::widget::widget& widget, const bool immediately) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto widget_handle = reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle);
+            if (immediately)
+            {
+                if (::UpdateWindow(widget_handle) == 0)
+                {
+                    BOOST_THROW_EXCEPTION(
+                        (std::system_error{ std::error_code{ ERROR_FUNCTION_FAILED, win32_category() },
+                                            "Can't repaint a widget immediately." }));
+                }
+            }
+            else
+            {
+                if (::InvalidateRect(widget_handle, nullptr, FALSE) == 0)
+                {
+                    BOOST_THROW_EXCEPTION((std::system_error{
+                        std::error_code{ ERROR_FUNCTION_FAILED, win32_category() }, "Can't repaint a widget." }));
+                }
+            }
         }
 
         void repaint_partially_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_type& dimension) const
+            const gui::widget::widget&            widget,
+            const gui::type_list::position_type&  position,
+            const gui::type_list::dimension_type& dimension) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto   left = static_cast<::LONG>(position.left().to_pixels());
+            const auto   top = static_cast<::LONG>(position.top().to_pixels());
+            const auto   width = static_cast<::LONG>(dimension.width().to_pixels());
+            const auto   height = static_cast<::LONG>(dimension.height().to_pixels());
+            const ::RECT rectangle{ left, top, left + width, top + height };
+            if (::InvalidateRect(
+                    reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle), &rectangle, FALSE) ==
+                0)
+            {
+                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ ERROR_FUNCTION_FAILED, win32_category() },
+                                                          "Can't repaint a widget." }));
+            }
         }
 
-        void activate_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget) const {}
-
-        void set_icon_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::icon* const p_icon) const
+        void activate_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            ::SetActiveWindow(reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle));
         }
 
-        void set_menu_bar_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget,
-            TETENGO2_STDALT_MAYBE_UNUSED const menu_base_type* const p_menu = nullptr) const
+        void set_icon_impl(gui::widget::widget& widget, const gui::icon* const p_icon) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            ::HICON icon_handle = nullptr;
+            ::HICON small_icon_handle = nullptr;
+            if (p_icon)
+            {
+                icon_handle = static_cast<const icon::icon_details_impl_type&>(p_icon->details()).big_icon_handle.get();
+                small_icon_handle =
+                    static_cast<const icon::icon_details_impl_type&>(p_icon->details()).small_icon_handle.get();
+            }
+
+            const auto widget_handle = reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle);
+            ::SendMessageW(widget_handle, WM_SETICON, ICON_BIG, reinterpret_cast<::LPARAM>(icon_handle));
+            ::SendMessageW(widget_handle, WM_SETICON, ICON_SMALL, reinterpret_cast<::LPARAM>(small_icon_handle));
         }
 
-        bool focusable_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+        void set_menu_bar_impl(gui::widget::widget& widget, const menu_base_type* const p_menu = nullptr) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto widget_handle = reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle);
+            const auto result = ::SetMenu(
+                widget_handle,
+                p_menu ? reinterpret_cast<::HMENU>(
+                             static_cast<const menu::windows_menu_details_type&>(p_menu->details()).handle) :
+                         reinterpret_cast<::HMENU>(nullptr));
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't set a menu bar." }));
+            }
+
+            if (p_menu && ::DrawMenuBar(widget_handle) == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't draw the menu bar." }));
+            }
         }
 
-        void set_focusable_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget,
-            TETENGO2_STDALT_MAYBE_UNUSED const bool           focusable) const
+        bool focusable_impl(const gui::widget::widget& widget) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto style = ::GetWindowLongW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle), GWL_STYLE);
+            if (style == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't get focusable status." }));
+            }
+            return (style & WS_TABSTOP) != 0;
         }
 
-        void set_focus_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget) const {}
-
-        bool read_only_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+        void set_focusable_impl(gui::widget::widget& widget, const bool focusable) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto widget_handle = reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle);
+            auto       style = ::GetWindowLongW(widget_handle, GWL_STYLE);
+            if (style == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't get focusable status." }));
+            }
+
+            auto unsigned_style = style;
+            if (focusable)
+                unsigned_style |= WS_TABSTOP;
+            else
+                unsigned_style &= ~WS_TABSTOP;
+            style = unsigned_style;
+
+            if (::SetWindowLongW(widget_handle, GWL_STYLE, style) == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't set focusable status." }));
+            }
         }
 
-        void set_read_only_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget,
-            TETENGO2_STDALT_MAYBE_UNUSED const bool           read_only) const
+        void set_focus_impl(gui::widget::widget& widget) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            if (::SetFocus(reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle)) == nullptr)
+            {
+                BOOST_THROW_EXCEPTION((std::system_error{
+                    std::error_code{ static_cast<int>(::GetLastError()), win32_category() }, "Can't set focus." }));
+            }
         }
 
-        void close_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget) const {}
+        bool read_only_impl(const gui::widget::widget& widget) const
+        {
+            const auto style = ::GetWindowLongW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle), GWL_STYLE);
+            if (style == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't get read-only status." }));
+            }
+            return (style & ES_READONLY) != 0;
+        }
+
+        void set_read_only_impl(gui::widget::widget& widget, const bool read_only) const
+        {
+            const auto result = ::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle),
+                EM_SETREADONLY,
+                read_only ? TRUE : FALSE,
+                0);
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't set read-only status." }));
+            }
+        }
+
+        void close_impl(gui::widget::widget& widget) const
+        {
+            const auto result = ::PostMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle), WM_CLOSE, 0, 0);
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't close the widget." }));
+            }
+        }
 
         size_type
         dropdown_box_value_count_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::dropdown_box& dropdown_box) const
@@ -1409,12 +1571,12 @@ namespace tetengo2::detail::windows {
             return reinterpret_cast<::WNDPROC>(result);
         }
 
-        template <typename Child>
         static ::BOOL CALLBACK enum_child_procedure(const ::HWND window_handle, const ::LPARAM parameter)
         {
-            auto* const p_children = reinterpret_cast<std::vector<std::reference_wrapper<Child>>*>(parameter);
+            auto* const p_children =
+                reinterpret_cast<std::vector<std::reference_wrapper<gui::widget::widget>>*>(parameter);
 
-            p_children->push_back(std::ref(*p_widget_from<Child>(window_handle)));
+            p_children->push_back(std::ref(*p_widget_from(reinterpret_cast<std::intptr_t>(window_handle))));
 
             return TRUE;
         }

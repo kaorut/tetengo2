@@ -15,6 +15,7 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
@@ -57,7 +58,7 @@ namespace tetengo2::detail::base {
         using window_state_type = int;
 
         //! The menu base type.
-        using menu_base_type = void;
+        using menu_base_type = gui::menu::menu_base;
 
         //! The progress bar state type.
         using progress_bar_state_type = int;
