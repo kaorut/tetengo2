@@ -18,6 +18,8 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/menu.h>
 #include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/gui/menu/recursive_iterator.h>
@@ -60,7 +62,9 @@ namespace tetengo2::gui::menu {
         /*!
             \brief Creates an empty shortcut key table.
         */
-        shortcut_key_table() : m_entries{}, m_p_details{ menu_details_type::instance().create_shortcut_key_table() } {}
+        shortcut_key_table()
+        : m_entries{}, m_p_details{ detail::gui_detail_impl_set().menu_().create_shortcut_key_table() }
+        {}
 
         /*!
             \brief Creates a shortcut key table.
@@ -69,7 +73,7 @@ namespace tetengo2::gui::menu {
         */
         shortcut_key_table(const menu_base_type& root_menu)
         : m_entries{ build_entries(root_menu.recursive_begin(), root_menu.recursive_end()) }, m_p_details{
-              menu_details_type::instance().create_shortcut_key_table(root_menu)
+              detail::gui_detail_impl_set().menu_().create_shortcut_key_table(root_menu)
           }
         {}
 

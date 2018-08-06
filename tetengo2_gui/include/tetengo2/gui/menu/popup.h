@@ -11,7 +11,8 @@
 
 #include <algorithm>
 
-#include <tetengo2/detail/stub/menu.h>
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/menu.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/type_list.h>
 
@@ -28,9 +29,6 @@ namespace tetengo2::gui::menu {
         //! The string type.
         using string_type = tetengo2::type_list::string_type;
 
-        //! The menu details type.
-        using menu_details_type = detail::stub::menu;
-
         //! The base type.
         using base_type = abstract_popup;
 
@@ -43,7 +41,7 @@ namespace tetengo2::gui::menu {
             \param text A text.
         */
         explicit popup(string_type text)
-        : base_type{ std::move(text), menu_details_type::instance().create_popup_menu() }
+        : base_type{ std::move(text), detail::gui_detail_impl_set().menu_().create_popup_menu() }
         {}
 
         /*!
@@ -62,7 +60,7 @@ namespace tetengo2::gui::menu {
 
         virtual const style_type& style_impl() const override
         {
-            return menu_details_type::instance().popup_menu_style();
+            return detail::gui_detail_impl_set().menu_().popup_menu_style();
         }
     };
 }

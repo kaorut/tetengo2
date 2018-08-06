@@ -11,7 +11,8 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/detail/stub/menu.h>
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/menu.h>
 #include <tetengo2/gui/menu/menu_bar.h>
 #include <tetengo2/gui/menu/menu_base.h>
 
@@ -25,8 +26,6 @@ namespace {
     using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
     using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
-
-    using menu_details_type = detail_type_list_type::menu_type;
 
     using menu_base_type = tetengo2::gui::menu::menu_base;
 
@@ -53,7 +52,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     const menu_bar_type menu_bar;
 
-                    BOOST_CHECK(&menu_bar.style() == &menu_details_type::instance().menu_bar_style());
+                    BOOST_CHECK(&menu_bar.style() == &tetengo2::detail::gui_detail_impl_set().menu_().menu_bar_style());
                 }
 
                 BOOST_AUTO_TEST_CASE(get_shortcut_key_table)

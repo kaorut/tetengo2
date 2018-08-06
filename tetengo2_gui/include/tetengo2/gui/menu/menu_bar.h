@@ -12,7 +12,8 @@
 #include <cassert>
 #include <memory>
 
-#include <tetengo2/detail/stub/menu.h>
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/menu.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/shortcut_key_table.h>
 #include <tetengo2/type_list.h>
@@ -30,9 +31,6 @@ namespace tetengo2::gui::menu {
         //! The string type.
         using string_type = tetengo2::type_list::string_type;
 
-        //! The menu details type.
-        using menu_details_type = detail::stub::menu;
-
         //! The base type.
         using base_type = abstract_popup;
 
@@ -46,7 +44,7 @@ namespace tetengo2::gui::menu {
             \brief Creates a menu bar.
         */
         menu_bar()
-        : base_type{ string_type{}, menu_details_type::instance().create_menu_bar() }, m_p_shortcut_key_table{
+        : base_type{ string_type{}, detail::gui_detail_impl_set().menu_().create_menu_bar() }, m_p_shortcut_key_table{
               std::make_unique<shortcut_key_table_type>()
           }
         {}
@@ -94,7 +92,7 @@ namespace tetengo2::gui::menu {
 
         virtual const style_type& style_impl() const override
         {
-            return menu_details_type::instance().menu_bar_style();
+            return detail::gui_detail_impl_set().menu_().menu_bar_style();
         }
     };
 }

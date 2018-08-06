@@ -15,7 +15,8 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/detail/stub/menu.h>
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/menu.h>
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/gui/menu/shortcut_key.h>
 #include <tetengo2/gui/virtual_key.h>
@@ -38,8 +39,6 @@ namespace {
 
     using shortcut_key_type = tetengo2::gui::menu::shortcut_key;
 
-    using menu_details_type = detail_type_list_type::menu_type;
-
     using menu_base_type = tetengo2::gui::menu::menu_base;
 
     class concrete_menu : public menu_base_type
@@ -47,11 +46,14 @@ namespace {
     public:
         // constructors and destructor
 
-        concrete_menu(string_type text) : menu_base_type{ std::move(text), menu_details_type::instance().create_menu() }
+        concrete_menu(string_type text)
+        : menu_base_type{ std::move(text), tetengo2::detail::gui_detail_impl_set().menu_().create_menu() }
         {}
 
         concrete_menu(string_type text, shortcut_key_type shortcut_key_type)
-        : menu_base_type{ std::move(text), std::move(shortcut_key_type), menu_details_type::instance().create_menu() }
+        : menu_base_type{ std::move(text),
+                          std::move(shortcut_key_type),
+                          tetengo2::detail::gui_detail_impl_set().menu_().create_menu() }
         {}
 
 
@@ -60,7 +62,7 @@ namespace {
 
         virtual const style_type& style_impl() const override
         {
-            return menu_details_type::instance().menu_command_style();
+            return tetengo2::detail::gui_detail_impl_set().menu_().menu_command_style();
         }
     };
 }
@@ -94,7 +96,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     const concrete_menu menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
 
-                    BOOST_CHECK(&menu.style() == &menu_details_type::instance().menu_command_style());
+                    BOOST_CHECK(&menu.style() == &tetengo2::detail::gui_detail_impl_set().menu_().menu_command_style());
                 }
 
                 BOOST_AUTO_TEST_CASE(enabled)

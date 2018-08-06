@@ -16,6 +16,8 @@
 
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/menu.h>
 #include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/type_list.h>
@@ -133,14 +135,14 @@ namespace tetengo2::gui::menu {
             if (!p_menu)
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "The unique pointer to a menu is nullptr." }));
 
-            menu_details_type::instance().insert_menu(*this, offset, *p_menu);
+            detail::gui_detail_impl_set().menu_().insert_menu(*this, offset, *p_menu);
 
             m_children.insert(offset.base(), std::move(p_menu));
         }
 
         virtual void erase_impl(const iterator first, const iterator last) override
         {
-            menu_details_type::instance().erase_menus(*this, first, last);
+            detail::gui_detail_impl_set().menu_().erase_menus(*this, first, last);
 
             m_children.erase(first.base(), last.base());
         }

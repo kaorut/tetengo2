@@ -20,6 +20,7 @@
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/base/menu.h>
 #include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/gui/menu/recursive_iterator.h>
@@ -128,7 +129,7 @@ namespace tetengo2::gui::menu {
         */
         void set_enabled(const bool enabled)
         {
-            menu_details_type::instance().set_enabled(*this, enabled);
+            detail::gui_detail_impl_set().menu_().set_enabled(*this, enabled);
             m_enabled = enabled;
         }
 
@@ -149,7 +150,7 @@ namespace tetengo2::gui::menu {
         */
         void set_state(const state_type state)
         {
-            menu_details_type::instance().set_state(*this, static_cast<detail::base::menu::state_type>(state));
+            detail::gui_detail_impl_set().menu_().set_state(*this, static_cast<detail::base::menu::state_type>(state));
             m_state = state;
         }
 
