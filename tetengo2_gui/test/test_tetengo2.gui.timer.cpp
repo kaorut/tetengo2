@@ -17,7 +17,6 @@
 #include <tetengo2/gui/widget/window.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
-#include "test_tetengo2.gui.type_list.h"
 
 
 namespace {
@@ -25,11 +24,7 @@ namespace {
 
     using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
-
     using widget_type = tetengo2::gui::widget::widget;
-
-    using menu_details_type = detail_type_list_type::menu_type;
 
     using window_type = tetengo2::gui::widget::window;
 

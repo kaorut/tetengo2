@@ -31,8 +31,6 @@ namespace {
 
     using string_type = common_type_list_type::string_type;
 
-    using menu_details_type = detail_type_list_type::menu_type;
-
     using window_type = tetengo2::gui::widget::window;
 
     using dimension_type = common_type_list_type::dimension_type;

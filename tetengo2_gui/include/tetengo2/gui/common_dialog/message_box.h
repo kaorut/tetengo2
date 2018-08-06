@@ -177,8 +177,7 @@ namespace tetengo2::gui::common_dialog {
         typename WidgetDetails,
         typename DrawingDetails,
         typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename MenuDetails>
+        typename MessageHandlerDetails>
     class message_box : private boost::noncopyable
     {
     public:
@@ -195,9 +194,6 @@ namespace tetengo2::gui::common_dialog {
 
         //! The detail implementaiton pointer type;
         using details_ptr_type = typename common_dialog_details_type::message_box_details_ptr_type;
-
-        //! The menu details type.
-        using menu_details_type = MenuDetails;
 
         //! The abstract window type.
         using abstract_window_type = gui::widget::abstract_window;

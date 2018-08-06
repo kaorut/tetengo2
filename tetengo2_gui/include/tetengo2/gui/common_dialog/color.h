@@ -25,15 +25,13 @@ namespace tetengo2::gui::common_dialog {
         \tparam DrawingDetails        A detail implementation type of drawing.
         \tparam ScrollDetails         A detail implementation type of a scroll.
         \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam MenuDetails           A detail implementation type of a menu.
     */
     template <
         typename CommonDialogDetails,
         typename WidgetDetails,
         typename DrawingDetails,
         typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename MenuDetails>
+        typename MessageHandlerDetails>
     class color : private boost::noncopyable
     {
     public:
@@ -50,9 +48,6 @@ namespace tetengo2::gui::common_dialog {
 
         //! The details pointer type;
         using details_ptr_type = typename common_dialog_details_type::color_dialog_details_ptr_type;
-
-        //! The menu details type.
-        using menu_details_type = MenuDetails;
 
         //! The abstract window type.
         using abstract_window_type = gui::widget::abstract_window;

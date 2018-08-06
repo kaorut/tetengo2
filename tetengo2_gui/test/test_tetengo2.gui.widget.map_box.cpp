@@ -31,8 +31,6 @@ namespace {
 
     using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
 
-    using menu_details_type = detail_type_list_type::menu_type;
-
     using window_type = tetengo2::gui::widget::window;
 
     using mouse_capture_details_type = detail_type_list_type::mouse_capture_type;
