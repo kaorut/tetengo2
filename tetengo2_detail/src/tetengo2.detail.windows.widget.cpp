@@ -1005,7 +1005,7 @@ namespace tetengo2::detail::windows {
             }
         }
 
-        void activate_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget) const
+        void activate_impl(gui::widget::widget& widget) const
         {
             ::SetActiveWindow(reinterpret_cast<::HWND>(as_windows_widget_details(widget.details()).handle));
         }
@@ -1352,49 +1352,85 @@ namespace tetengo2::detail::windows {
             }
         }
 
-        size_type
-        progress_bar_goal_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::progress_bar& progress_bar) const
+        size_type progress_bar_goal_impl(const gui::widget::progress_bar& progress_bar) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            return ::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(progress_bar.details()).handle),
+                SBM_GETRANGE,
+                FALSE,
+                reinterpret_cast<::LPARAM>(nullptr));
         }
 
-        void set_progress_bar_goal_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::progress_bar& progress_bar,
-            TETENGO2_STDALT_MAYBE_UNUSED const size_type goal) const
+        void set_progress_bar_goal_impl(gui::widget::progress_bar& progress_bar, const size_type goal) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto result = ::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(progress_bar.details()).handle),
+                PBM_SETRANGE,
+                0,
+                MAKELPARAM(0, goal));
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't set progress bar range." }));
+            }
         }
 
-        size_type
-        progress_bar_progress_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::progress_bar& progress_bar) const
+        size_type progress_bar_progress_impl(const gui::widget::progress_bar& progress_bar) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            return ::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(progress_bar.details()).handle), PBM_GETPOS, 0, 0);
         }
 
-        void set_progress_bar_progress_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::progress_bar& progress_bar,
-            TETENGO2_STDALT_MAYBE_UNUSED const size_type progress) const
+        void set_progress_bar_progress_impl(gui::widget::progress_bar& progress_bar, const size_type progress) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            ::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(progress_bar.details()).handle),
+                PBM_SETPOS,
+                progress,
+                0);
         }
 
-        progress_bar_state_type
-        progress_bar_state_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::progress_bar& progress_bar) const
+        progress_bar_state_type progress_bar_state_impl(const gui::widget::progress_bar& progress_bar) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto state = ::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(progress_bar.details()).handle), PBM_GETSTATE, 0, 0);
+            switch (state)
+            {
+            case PBST_NORMAL:
+                return static_cast<progress_bar_state_type>(gui::widget::progress_bar::state_type::running);
+            case PBST_PAUSED:
+                return static_cast<progress_bar_state_type>(gui::widget::progress_bar::state_type::pausing);
+            default:
+                assert(state == PBST_ERROR);
+                return static_cast<progress_bar_state_type>(gui::widget::progress_bar::state_type::error);
+            }
         }
 
-        void set_progress_bar_state_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::progress_bar& progress_bar,
-            TETENGO2_STDALT_MAYBE_UNUSED const progress_bar_state_type state) const
+        void
+        set_progress_bar_state_impl(gui::widget::progress_bar& progress_bar, const progress_bar_state_type state) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            ::WPARAM native_state = PBST_ERROR;
+            switch (static_cast<gui::widget::progress_bar::state_type>(state))
+            {
+            case gui::widget::progress_bar::state_type::running:
+                native_state = PBST_NORMAL;
+                break;
+            case gui::widget::progress_bar::state_type::pausing:
+                native_state = PBST_PAUSED;
+                break;
+            default:
+                assert(
+                    static_cast<gui::widget::progress_bar::state_type>(state) ==
+                    gui::widget::progress_bar::state_type::error);
+                native_state = PBST_ERROR;
+                break;
+            }
+            ::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(progress_bar.details()).handle),
+                PBM_SETSTATE,
+                native_state,
+                0);
         }
 
     private:
@@ -1801,18 +1837,16 @@ namespace tetengo2::detail::windows {
 
     widget::widget() : m_p_impl{ std::make_unique<impl>() } {}
 
-    widget::widget_details_ptr_type widget::create_button_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& parent,
-        const bool                                        is_default,
-        const bool                                        is_cancel) const
+    widget::widget_details_ptr_type
+    widget::create_button_impl(gui::widget::widget& parent, const bool is_default, const bool is_cancel) const
     {
         return m_p_impl->create_button_impl(parent, is_default, is_cancel);
     }
 
     widget::widget_details_ptr_type widget::create_custom_control_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& parent,
-        const bool                                        border,
-        const scroll_bar_style_type                       scroll_bar_style) const
+        gui::widget::widget&        parent,
+        const bool                  border,
+        const scroll_bar_style_type scroll_bar_style) const
     {
         return m_p_impl->create_custom_control_impl(parent, border, scroll_bar_style);
     }
@@ -1823,189 +1857,169 @@ namespace tetengo2::detail::windows {
         return m_p_impl->create_dialog_impl(p_parent, file_droppable);
     }
 
-    widget::widget_details_ptr_type
-    widget::create_dropdown_box_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& parent) const
+    widget::widget_details_ptr_type widget::create_dropdown_box_impl(gui::widget::widget& parent) const
     {
         return m_p_impl->create_dropdown_box_impl(parent);
     }
 
-    widget::widget_details_ptr_type
-    widget::create_image_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& parent) const
+    widget::widget_details_ptr_type widget::create_image_impl(gui::widget::widget& parent) const
     {
         return m_p_impl->create_image_impl(parent);
     }
 
-    widget::widget_details_ptr_type
-    widget::create_label_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& parent) const
+    widget::widget_details_ptr_type widget::create_label_impl(gui::widget::widget& parent) const
     {
         return m_p_impl->create_label_impl(parent);
     }
 
-    widget::widget_details_ptr_type widget::create_list_box_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& parent,
-        const scroll_bar_style_type                       scroll_bar_style) const
+    widget::widget_details_ptr_type
+    widget::create_list_box_impl(gui::widget::widget& parent, const scroll_bar_style_type scroll_bar_style) const
     {
         return m_p_impl->create_list_box_impl(parent, scroll_bar_style);
     }
 
-    widget::widget_details_ptr_type widget::create_picture_box_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& parent,
-        const scroll_bar_style_type                       scroll_bar_style) const
+    widget::widget_details_ptr_type
+    widget::create_picture_box_impl(gui::widget::widget& parent, const scroll_bar_style_type scroll_bar_style) const
     {
         return m_p_impl->create_picture_box_impl(parent, scroll_bar_style);
     }
 
-    widget::widget_details_ptr_type
-    widget::create_progress_bar_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& parent) const
+    widget::widget_details_ptr_type widget::create_progress_bar_impl(gui::widget::widget& parent) const
     {
         return m_p_impl->create_progress_bar_impl(parent);
     }
 
-    widget::widget_details_ptr_type widget::create_text_box_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& parent,
-        const scroll_bar_style_type                       scroll_bar_style) const
+    widget::widget_details_ptr_type
+    widget::create_text_box_impl(gui::widget::widget& parent, const scroll_bar_style_type scroll_bar_style) const
     {
         return m_p_impl->create_text_box_impl(parent, scroll_bar_style);
     }
 
     widget::widget_details_ptr_type widget::create_window_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget* const p_parent,
-        const scroll_bar_style_type                             scroll_bar_style,
-        const bool                                              file_droppable) const
+        gui::widget::widget* const  p_parent,
+        const scroll_bar_style_type scroll_bar_style,
+        const bool                  file_droppable) const
     {
         return m_p_impl->create_window_impl(p_parent, scroll_bar_style, file_droppable);
     }
 
-    void widget::associate_to_native_window_system_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget) const
+    void widget::associate_to_native_window_system_impl(gui::widget::widget& widget) const
     {
         m_p_impl->associate_to_native_window_system_impl(widget);
     }
 
-    bool widget::has_parent_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+    bool widget::has_parent_impl(const gui::widget::widget& widget) const
     {
         return m_p_impl->has_parent_impl(widget);
     }
 
-    TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget&
-                                 widget::parent_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+    gui::widget::widget& widget::parent_impl(const gui::widget::widget& widget) const
     {
         return m_p_impl->parent_impl(widget);
     }
 
-    TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget&
-                                 widget::root_ancestor_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+    gui::widget::widget& widget::root_ancestor_impl(const gui::widget::widget& widget) const
     {
         return m_p_impl->root_ancestor_impl(widget);
     }
 
-    void widget::set_enabled_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget, const bool enabled) const
+    void widget::set_enabled_impl(gui::widget::widget& widget, const bool enabled) const
     {
         m_p_impl->set_enabled_impl(widget, enabled);
     }
 
-    bool widget::enabled_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+    bool widget::enabled_impl(const gui::widget::widget& widget) const
     {
         return m_p_impl->enabled_impl(widget);
     }
 
-    void widget::set_visible_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget, const bool visible) const
+    void widget::set_visible_impl(gui::widget::widget& widget, const bool visible) const
     {
         m_p_impl->set_visible_impl(widget, visible);
     }
 
-    bool widget::visible_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+    bool widget::visible_impl(const gui::widget::widget& widget) const
     {
         return m_p_impl->visible_impl(widget);
     }
 
-    void widget::set_window_state_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget,
-        const window_state_type                           state) const
+    void widget::set_window_state_impl(gui::widget::widget& widget, const window_state_type state) const
     {
         m_p_impl->set_window_state_impl(widget, state);
     }
 
-    widget::window_state_type
-    widget::window_state_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+    widget::window_state_type widget::window_state_impl(const gui::widget::widget& widget) const
     {
         return m_p_impl->window_state_impl(widget);
     }
 
     void widget::move_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget,
-        const gui::type_list::position_type&              position,
-        const gui::type_list::dimension_type&             dimension) const
+        gui::widget::widget&                  widget,
+        const gui::type_list::position_type&  position,
+        const gui::type_list::dimension_type& dimension) const
     {
         m_p_impl->move_impl(widget, position, dimension);
     }
 
-    gui::type_list::position_type
-    widget::position_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+    gui::type_list::position_type widget::position_impl(const gui::widget::widget& widget) const
     {
         return m_p_impl->position_impl(widget);
     }
 
-    gui::type_list::position_type widget::dialog_position_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget,
-        const gui::widget::widget&                              parent) const
+    gui::type_list::position_type
+    widget::dialog_position_impl(const gui::widget::widget& widget, const gui::widget::widget& parent) const
     {
         return m_p_impl->dialog_position_impl(widget, parent);
     }
 
-    gui::type_list::dimension_type
-    widget::dimension_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+    gui::type_list::dimension_type widget::dimension_impl(const gui::widget::widget& widget) const
     {
         return m_p_impl->dimension_impl(widget);
     }
 
     void widget::set_client_dimension_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget,
-        const gui::type_list::dimension_type&             client_dimension) const
+        gui::widget::widget&                  widget,
+        const gui::type_list::dimension_type& client_dimension) const
     {
         m_p_impl->set_client_dimension_impl(widget, client_dimension);
     }
 
-    gui::type_list::dimension_type
-    widget::client_dimension_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+    gui::type_list::dimension_type widget::client_dimension_impl(const gui::widget::widget& widget) const
     {
         return m_p_impl->client_dimension_impl(widget);
     }
 
-    gui::type_list::dimension_type
-    widget::normal_dimension_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+    gui::type_list::dimension_type widget::normal_dimension_impl(const gui::widget::widget& widget) const
     {
         return m_p_impl->normal_dimension_impl(widget);
     }
 
-    void widget::set_text_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget, string_type text) const
+    void widget::set_text_impl(gui::widget::widget& widget, string_type text) const
     {
         m_p_impl->set_text_impl(widget, std::move(text));
     }
 
-    widget::string_type widget::text_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+    widget::string_type widget::text_impl(const gui::widget::widget& widget) const
     {
         return m_p_impl->text_impl(widget);
     }
 
-    void widget::set_font_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget, const gui::drawing::font& font)
-        const
+    void widget::set_font_impl(gui::widget::widget& widget, const gui::drawing::font& font) const
     {
         m_p_impl->set_font_impl(widget, font);
     }
 
-    gui::drawing::font widget::font_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+    gui::drawing::font widget::font_impl(const gui::widget::widget& widget) const
     {
         return m_p_impl->font_impl(widget);
     }
 
-    std::vector<std::reference_wrapper<gui::widget::widget>>
-    widget::children_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget) const
+    std::vector<std::reference_wrapper<gui::widget::widget>> widget::children_impl(gui::widget::widget& widget) const
     {
         return m_p_impl->children_impl(widget);
     }
 
-    void
-    widget::repaint_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget, const bool immediately) const
+    void widget::repaint_impl(const gui::widget::widget& widget, const bool immediately) const
     {
         m_p_impl->repaint_impl(widget, immediately);
     }
@@ -2018,65 +2032,58 @@ namespace tetengo2::detail::windows {
         m_p_impl->repaint_partially_impl(widget, position, dimension);
     }
 
-    void widget::activate_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget) const
+    void widget::activate_impl(gui::widget::widget& widget) const
     {
         m_p_impl->activate_impl(widget);
     }
 
-    void
-    widget::set_icon_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget, const gui::icon* const p_icon) const
+    void widget::set_icon_impl(gui::widget::widget& widget, const gui::icon* const p_icon) const
     {
         m_p_impl->set_icon_impl(widget, p_icon);
     }
 
-    void widget::set_menu_bar_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget,
-        const menu_base_type* const                       p_menu /*= nullptr*/) const
+    void widget::set_menu_bar_impl(gui::widget::widget& widget, const menu_base_type* const p_menu /*= nullptr*/) const
     {
         m_p_impl->set_menu_bar_impl(widget, p_menu);
     }
 
-    bool widget::focusable_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+    bool widget::focusable_impl(const gui::widget::widget& widget) const
     {
         return m_p_impl->focusable_impl(widget);
     }
 
-    void
-    widget::set_focusable_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget, const bool focusable) const
+    void widget::set_focusable_impl(gui::widget::widget& widget, const bool focusable) const
     {
         m_p_impl->set_focusable_impl(widget, focusable);
     }
 
-    void widget::set_focus_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget) const
+    void widget::set_focus_impl(gui::widget::widget& widget) const
     {
         m_p_impl->set_focus_impl(widget);
     }
 
-    bool widget::read_only_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
+    bool widget::read_only_impl(const gui::widget::widget& widget) const
     {
         return m_p_impl->read_only_impl(widget);
     }
 
-    void
-    widget::set_read_only_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget, const bool read_only) const
+    void widget::set_read_only_impl(gui::widget::widget& widget, const bool read_only) const
     {
         m_p_impl->set_read_only_impl(widget, read_only);
     }
 
-    void widget::close_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::widget& widget) const
+    void widget::close_impl(gui::widget::widget& widget) const
     {
         m_p_impl->close_impl(widget);
     }
 
-    widget::size_type widget::dropdown_box_value_count_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::dropdown_box& dropdown_box) const
+    widget::size_type widget::dropdown_box_value_count_impl(const gui::widget::dropdown_box& dropdown_box) const
     {
         return m_p_impl->dropdown_box_value_count_impl(dropdown_box);
     }
 
-    widget::string_type widget::dropdown_box_value_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::dropdown_box& dropdown_box,
-        const size_type                                               index) const
+    widget::string_type
+    widget::dropdown_box_value_impl(const gui::widget::dropdown_box& dropdown_box, const size_type index) const
     {
         return m_p_impl->dropdown_box_value_impl(dropdown_box, index);
     }
@@ -2097,81 +2104,66 @@ namespace tetengo2::detail::windows {
         return m_p_impl->insert_dropdown_box_value_impl(dropdown_box, index, std::move(value));
     }
 
-    void widget::erase_dropdown_box_value_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED gui::widget::dropdown_box& dropdown_box,
-        const size_type                                         index) const
+    void widget::erase_dropdown_box_value_impl(gui::widget::dropdown_box& dropdown_box, const size_type index) const
     {
         m_p_impl->erase_dropdown_box_value_impl(dropdown_box, index);
     }
 
-    void widget::clear_dropdown_box_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::dropdown_box& dropdown_box) const
+    void widget::clear_dropdown_box_impl(gui::widget::dropdown_box& dropdown_box) const
     {
         m_p_impl->clear_dropdown_box_impl(dropdown_box);
     }
 
-    tetengo2::stdalt::optional<widget::size_type> widget::selected_dropdown_box_value_index_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::dropdown_box& dropdown_box) const
+    tetengo2::stdalt::optional<widget::size_type>
+    widget::selected_dropdown_box_value_index_impl(const gui::widget::dropdown_box& dropdown_box) const
     {
         return m_p_impl->selected_dropdown_box_value_index_impl(dropdown_box);
     }
 
-    void widget::select_dropdown_box_value_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED gui::widget::dropdown_box& dropdown_box,
-        const size_type                                         index) const
+    void widget::select_dropdown_box_value_impl(gui::widget::dropdown_box& dropdown_box, const size_type index) const
     {
         m_p_impl->select_dropdown_box_value_impl(dropdown_box, index);
     }
 
-    widget::size_type
-    widget::list_box_value_count_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::list_box& list_box) const
+    widget::size_type widget::list_box_value_count_impl(const gui::widget::list_box& list_box) const
     {
         return m_p_impl->list_box_value_count_impl(list_box);
     }
 
-    widget::string_type widget::list_box_value_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::list_box& list_box,
-        const size_type                                           index) const
+    widget::string_type widget::list_box_value_impl(const gui::widget::list_box& list_box, const size_type index) const
     {
         return m_p_impl->list_box_value_impl(list_box, index);
     }
 
-    void widget::set_list_box_value_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED gui::widget::list_box& list_box,
-        const size_type                                     index,
-        string_type                                         value) const
+    void
+    widget::set_list_box_value_impl(gui::widget::list_box& list_box, const size_type index, string_type value) const
     {
         m_p_impl->set_list_box_value_impl(list_box, index, std::move(value));
     }
 
-    void widget::insert_list_box_value_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED gui::widget::list_box& list_box,
-        const size_type                                     index,
-        string_type                                         value) const
+    void
+    widget::insert_list_box_value_impl(gui::widget::list_box& list_box, const size_type index, string_type value) const
     {
         m_p_impl->insert_list_box_value_impl(list_box, index, std::move(value));
     }
 
-    void widget::erase_list_box_value_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED gui::widget::list_box& list_box,
-        const size_type                                     index) const
+    void widget::erase_list_box_value_impl(gui::widget::list_box& list_box, const size_type index) const
     {
         m_p_impl->erase_list_box_value_impl(list_box, index);
     }
 
-    void widget::clear_list_box_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::list_box& list_box) const
+    void widget::clear_list_box_impl(gui::widget::list_box& list_box) const
     {
         m_p_impl->clear_list_box_impl(list_box);
     }
 
     tetengo2::stdalt::optional<widget::size_type>
-    widget::selected_list_box_value_index_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::list_box& list_box) const
+    widget::selected_list_box_value_index_impl(const gui::widget::list_box& list_box) const
     {
         return m_p_impl->selected_list_box_value_index_impl(list_box);
     }
 
-    void widget::select_list_box_value_impl(
-        TETENGO2_STDALT_MAYBE_UNUSED gui::widget::list_box& list_box,
-        const size_type                                     index) const
+    void widget::select_list_box_value_impl(gui::widget::list_box& list_box, const size_type index) const
     {
         m_p_impl->select_list_box_value_impl(list_box, index);
     }
