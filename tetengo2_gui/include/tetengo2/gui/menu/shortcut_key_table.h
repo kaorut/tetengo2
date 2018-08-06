@@ -20,7 +20,6 @@
 
 #include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/base/menu.h>
-#include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/gui/menu/recursive_iterator.h>
 #include <tetengo2/gui/menu/shortcut_key.h>
@@ -35,14 +34,8 @@ namespace tetengo2::gui::menu {
     public:
         // types
 
-        //! The menu details type.
-        using menu_details_type = detail::stub::menu;
-
         //! The details type.
-        using details_type = menu_details_type::shortcut_key_table_details_type;
-
-        //! The detail implementation pointer type.
-        using details_ptr_type = menu_details_type::shortcut_key_table_details_ptr_type;
+        using details_type = detail::base::menu::shortcut_key_table_details_type;
 
         //! The virtual key type.
         using shortcut_key_type = shortcut_key;
@@ -124,6 +117,11 @@ namespace tetengo2::gui::menu {
 
 
     private:
+        // types
+
+        using details_ptr_type = detail::base::menu::shortcut_key_table_details_ptr_type;
+
+
         // static functions
 
         template <typename ForwardIterator>

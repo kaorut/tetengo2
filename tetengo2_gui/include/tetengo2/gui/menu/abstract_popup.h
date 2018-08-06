@@ -18,7 +18,6 @@
 
 #include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/base/menu.h>
-#include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/type_list.h>
 
@@ -35,14 +34,8 @@ namespace tetengo2::gui::menu {
         //! The string type.
         using string_type = tetengo2::type_list::string_type;
 
-        //! The menu details type.
-        using menu_details_type = detail::stub::menu;
-
-        //! The details type.
-        using details_type = menu_details_type::menu_details_type;
-
         //! The detail implementation pointer type.
-        using details_ptr_type = menu_details_type::menu_details_ptr_type;
+        using details_ptr_type = detail::base::menu::menu_details_ptr_type;
 
         //! The base type.
         using base_type = menu_base;

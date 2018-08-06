@@ -22,7 +22,6 @@
 
 #include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/base/menu.h>
-#include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/gui/menu/recursive_iterator.h>
 #include <tetengo2/gui/menu/shortcut_key.h>
 #include <tetengo2/gui/message/menu_observer_set.h>
@@ -42,14 +41,11 @@ namespace tetengo2::gui::menu {
         //! The string type.
         using string_type = tetengo2::type_list::string_type;
 
-        //! The menu details type.
-        using menu_details_type = detail::stub::menu;
-
         //! The details type.
-        using details_type = menu_details_type::menu_details_type;
+        using details_type = detail::base::menu::menu_details_type;
 
         //! The detail implementation pointer type.
-        using details_ptr_type = menu_details_type::menu_details_ptr_type;
+        using details_ptr_type = detail::base::menu::menu_details_ptr_type;
 
         //! The shortcut key type.
         using shortcut_key_type = shortcut_key;
@@ -71,7 +67,7 @@ namespace tetengo2::gui::menu {
         using recursive_iterator_type = recursive_iterator<menu_base>;
 
         //! The style type.
-        using style_type = menu_details_type::style_tag;
+        using style_type = detail::base::menu::style_tag;
 
         //! The state type.
         enum class state_type
