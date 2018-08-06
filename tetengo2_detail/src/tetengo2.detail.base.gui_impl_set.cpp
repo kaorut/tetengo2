@@ -19,6 +19,7 @@ namespace tetengo2::detail::base {
     class alert;
     class cursor;
     class icon;
+    class menu;
     class shell;
     class system_color;
     class unit;
@@ -49,6 +50,11 @@ namespace tetengo2::detail {
         const icon& gui_impl_set::icon_() const
         {
             return icon_impl();
+        }
+
+        const menu& gui_impl_set::menu_() const
+        {
+            return menu_impl();
         }
 
         const shell& gui_impl_set::shell_() const

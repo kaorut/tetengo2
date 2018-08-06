@@ -20,6 +20,7 @@ namespace tetengo2::detail {
         class cursor;
         class gui_fixture;
         class icon;
+        class menu;
         class shell;
         class system_color;
         class unit;
@@ -70,6 +71,13 @@ namespace tetengo2::detail {
                 \return The detail implementation.
             */
             const icon& icon_() const;
+
+            /*!
+                \brief Returns the detail implementation of menu.
+
+                \return The detail implementation.
+            */
+            const menu& menu_() const;
 
             /*!
                 \brief Returns the detail implementation of shell.
@@ -126,6 +134,8 @@ namespace tetengo2::detail {
             virtual std::unique_ptr<gui_fixture> create_gui_fixture_impl() const = 0;
 
             virtual const icon& icon_impl() const = 0;
+
+            virtual const menu& menu_impl() const = 0;
 
             virtual const shell& shell_impl() const = 0;
 

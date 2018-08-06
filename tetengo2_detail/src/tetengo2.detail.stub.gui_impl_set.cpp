@@ -12,6 +12,7 @@
 #include <tetengo2/detail/base/cursor.h>
 #include <tetengo2/detail/base/gui_fixture.h>
 #include <tetengo2/detail/base/icon.h>
+#include <tetengo2/detail/base/menu.h>
 #include <tetengo2/detail/base/shell.h>
 #include <tetengo2/detail/base/system_color.h>
 #include <tetengo2/detail/base/unit.h>
@@ -22,6 +23,7 @@
 #include <tetengo2/detail/stub/gui_fixture.h>
 #include <tetengo2/detail/stub/gui_impl_set.h>
 #include <tetengo2/detail/stub/icon.h>
+#include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/detail/stub/shell.h>
 #include <tetengo2/detail/stub/system_color.h>
 #include <tetengo2/detail/stub/unit.h>
@@ -58,6 +60,11 @@ namespace tetengo2::detail::stub {
     const base::icon& gui_impl_set::icon_impl() const
     {
         return icon::instance();
+    }
+
+    const base::menu& gui_impl_set::menu_impl() const
+    {
+        return menu::instance();
     }
 
     const base::shell& gui_impl_set::shell_impl() const
