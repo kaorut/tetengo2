@@ -1251,65 +1251,105 @@ namespace tetengo2::detail::windows {
             }
         }
 
-        size_type list_box_value_count_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::list_box& list_box) const
+        size_type list_box_value_count_impl(const gui::widget::list_box& list_box) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto result = ::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(list_box.details()).handle), LB_GETCOUNT, 0, 0);
+            if (result == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't obtain the list box value count." }));
+            }
+
+            return result;
         }
 
-        string_type list_box_value_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::list_box& list_box,
-            TETENGO2_STDALT_MAYBE_UNUSED const size_type index) const
+        string_type list_box_value_impl(const gui::widget::list_box& list_box, const size_type index) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto list_box_handle = reinterpret_cast<::HWND>(as_windows_widget_details(list_box.details()).handle);
+            const auto length = ::SendMessageW(list_box_handle, LB_GETTEXTLEN, index, 0);
+            if (length == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't obtain the list box value length." }));
+            }
+
+            std::vector<wchar_t> value(length + 1, 0);
+            const auto           result =
+                ::SendMessageW(list_box_handle, LB_GETTEXT, index, reinterpret_cast<::LPARAM>(value.data()));
+            if (length == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't obtain the list box value." }));
+            }
+
+            return detail::native_widget_encoder().decode(std::wstring{ value.data() });
         }
 
-        void set_list_box_value_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::list_box& list_box,
-            TETENGO2_STDALT_MAYBE_UNUSED const size_type index,
-            TETENGO2_STDALT_MAYBE_UNUSED string_type value) const
+        void set_list_box_value_impl(gui::widget::list_box& list_box, const size_type index, string_type value) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            erase_list_box_value_impl(list_box, index);
+            insert_list_box_value_impl(list_box, index, std::move(value));
         }
 
-        void insert_list_box_value_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::list_box& list_box,
-            TETENGO2_STDALT_MAYBE_UNUSED const size_type index,
-            TETENGO2_STDALT_MAYBE_UNUSED string_type value) const
+        void insert_list_box_value_impl(gui::widget::list_box& list_box, const size_type index, string_type value) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto result = ::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(list_box.details()).handle),
+                LB_INSERTSTRING,
+                index,
+                reinterpret_cast<::LPARAM>(detail::native_widget_encoder().encode(std::move(value)).c_str()));
+            if (result == LB_ERR || result == LB_ERRSPACE)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't append a list box value." }));
+            }
         }
 
-        void erase_list_box_value_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::list_box& list_box,
-            TETENGO2_STDALT_MAYBE_UNUSED const size_type index) const
+        void erase_list_box_value_impl(gui::widget::list_box& list_box, const size_type index) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto result = ::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(list_box.details()).handle),
+                LB_DELETESTRING,
+                index,
+                0);
+            if (result == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't delete the old value." }));
+            }
         }
 
-        void clear_list_box_impl(TETENGO2_STDALT_MAYBE_UNUSED gui::widget::list_box& list_box) const
+        void clear_list_box_impl(gui::widget::list_box& list_box) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            ::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(list_box.details()).handle), LB_RESETCONTENT, 0, 0);
         }
 
         tetengo2::stdalt::optional<size_type>
-        selected_list_box_value_index_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::list_box& list_box) const
+        selected_list_box_value_index_impl(const gui::widget::list_box& list_box) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            auto index = ::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(list_box.details()).handle), LB_GETCURSEL, 0, 0);
+            return index != LB_ERR ? stdalt::make_optional<type_list::size_type>(std::move(index)) :
+                                     TETENGO2_STDALT_NULLOPT;
         }
 
-        void select_list_box_value_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED gui::widget::list_box& list_box,
-            TETENGO2_STDALT_MAYBE_UNUSED const size_type index) const
+        void select_list_box_value_impl(gui::widget::list_box& list_box, const size_type index) const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Implement it."));
+            const auto result = ::SendMessageW(
+                reinterpret_cast<::HWND>(as_windows_widget_details(list_box.details()).handle), LB_SETCURSEL, index, 0);
+            if (result == LB_ERR)
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                        "Can't select a list box value." }));
+            }
         }
 
         size_type
