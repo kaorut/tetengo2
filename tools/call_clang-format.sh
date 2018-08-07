@@ -17,13 +17,46 @@ function call_clangformat_iter()
     FILE=$3
 
     "$UNIX2DOS" < "$FILE" > "$FILE.tmp"
-    test $? -eq 0 && mv -f "$FILE.tmp" "$FILE"
+    if [ $? -eq 0 ];
+    then
+        diff -q "$FILE.tmp" "$FILE";
+        if [ $? -ne 0 ];
+        then
+            mv -f "$FILE.tmp" "$FILE";
+        else
+            rm -f "$FILE.tmp";
+        fi;
+    else
+        rm -f "$FILE.tmp";
+    fi
 
     sed -e "s/ \+\(\r\?\)$/\1/g" < "$FILE" > "$FILE.tmp"
-    test $? -eq 0 && mv -f "$FILE.tmp" "$FILE"
+    if [ $? -eq 0 ];
+    then
+        diff -q "$FILE.tmp" "$FILE";
+        if [ $? -ne 0 ];
+        then
+            mv -f "$FILE.tmp" "$FILE";
+        else
+            rm -f "$FILE.tmp";
+        fi;
+    else
+        rm -f "$FILE.tmp";
+    fi
 
     "$CLANGFORMAT" -style=file -fallback-style=none "$FILE" > "$FILE.tmp"
-    test $? -eq 0 && mv -f "$FILE.tmp" "$FILE"
+    if [ $? -eq 0 ];
+    then
+        diff -q "$FILE.tmp" "$FILE";
+        if [ $? -ne 0 ];
+        then
+            mv -f "$FILE.tmp" "$FILE";
+        else
+            rm -f "$FILE.tmp";
+        fi;
+    else
+        rm -f "$FILE.tmp";
+    fi
 }
 export -f call_clangformat_iter
 
