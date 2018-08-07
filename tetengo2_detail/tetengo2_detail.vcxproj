@@ -23,6 +23,7 @@
     <ClInclude Include="include\tetengo2\detail\base\alert.h" />
     <ClInclude Include="include\tetengo2\detail\base\config.h" />
     <ClInclude Include="include\tetengo2\detail\base\cursor.h" />
+    <ClInclude Include="include\tetengo2\detail\base\drawing.h" />
     <ClInclude Include="include\tetengo2\detail\base\encoding.h" />
     <ClInclude Include="include\tetengo2\detail\base\gui_fixture.h" />
     <ClInclude Include="include\tetengo2\detail\base\gui_impl_set.h" />
@@ -141,6 +142,7 @@
     <ClCompile Include="src\tetengo2.detail.base.alert.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.config.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.cursor.cpp" />
+    <ClCompile Include="src\tetengo2.detail.base.drawing.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.encoding.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.gui_fixture.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.gui_impl_set.cpp" />
@@ -156,6 +158,7 @@
     <ClCompile Include="src\tetengo2.detail.base.widget.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.alert.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.cursor.cpp" />
+    <ClCompile Include="src\tetengo2.detail.stub.drawing.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.gui_fixture.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.gui_impl_set.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.icon.cpp" />
@@ -200,10 +203,12 @@
     <ClCompile Include="src\tetengo2.detail.windows.alert.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.config.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.cursor.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.direct2d.drawing.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.direct2d.error_category.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.encoding.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.error_category.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.font.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.gdiplus.drawing.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.gdiplus.error_category.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.gdiplus.gui_fixture.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.gui_fixture.cpp" />

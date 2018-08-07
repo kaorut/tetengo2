@@ -10,6 +10,7 @@ sources = \
     tetengo2.detail.base.alert.cpp \
     tetengo2.detail.base.config.cpp \
     tetengo2.detail.base.cursor.cpp \
+    tetengo2.detail.base.drawing.cpp \
     tetengo2.detail.base.encoding.cpp \
     tetengo2.detail.base.gui_fixture.cpp \
     tetengo2.detail.base.gui_impl_set.cpp \
@@ -25,6 +26,7 @@ sources = \
     tetengo2.detail.base.widget.cpp \
     tetengo2.detail.stub.alert.cpp \
     tetengo2.detail.stub.cursor.cpp \
+    tetengo2.detail.stub.drawing.cpp \
     tetengo2.detail.stub.gui_fixture.cpp \
     tetengo2.detail.stub.gui_impl_set.cpp \
     tetengo2.detail.stub.icon.cpp \
@@ -46,10 +48,12 @@ extra_sources = \
     tetengo2.detail.windows.alert.cpp \
     tetengo2.detail.windows.config.cpp \
     tetengo2.detail.windows.cursor.cpp \
+    tetengo2.detail.windows.direct2d.drawing.cpp \
     tetengo2.detail.windows.direct2d.error_category.cpp \
     tetengo2.detail.windows.encoding.cpp \
     tetengo2.detail.windows.error_category.cpp \
     tetengo2.detail.windows.font.cpp \
+    tetengo2.detail.windows.gdiplus.drawing.cpp \
     tetengo2.detail.windows.gdiplus.error_category.cpp \
     tetengo2.detail.windows.gdiplus.gui_fixture.cpp \
     tetengo2.detail.windows.gui_fixture.cpp \
