@@ -29,10 +29,10 @@ namespace tetengo2::gui::drawing {
         using drawing_details_type = detail::stub::drawing;
 
         //! The details type.
-        using details_type = typename drawing_details_type::background_details_type;
+        using details_type = drawing_details_type::background_details_type;
 
         //! The detail implementation pointer type.
-        using details_ptr_type = typename drawing_details_type::background_details_ptr_type;
+        using details_ptr_type = drawing_details_type::background_details_ptr_type;
 
 
         // constructors and destructor

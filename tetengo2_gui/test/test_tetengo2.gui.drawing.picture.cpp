@@ -13,6 +13,7 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/stub/drawing.h>
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/unit/em.h>
@@ -53,7 +54,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                                                                     dimension_unit_type{ 456 } } };
                     }
                     {
-                        picture_type::details_ptr_type p_details{ drawing_details_type::create_picture(
+                        picture_type::details_ptr_type p_details{ drawing_details_type::instance().create_picture(
                             dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } }) };
                         const picture_type             picture2{ std::move(p_details) };
                     }

@@ -36,10 +36,10 @@ namespace tetengo2::gui::drawing {
         using drawing_details_type = detail::stub::drawing;
 
         //! The details type.
-        using details_type = typename drawing_details_type::picture_details_type;
+        using details_type = drawing_details_type::picture_details_type;
 
         //! The detail implementation pointer type.
-        using details_ptr_type = typename drawing_details_type::picture_details_ptr_type;
+        using details_ptr_type = drawing_details_type::picture_details_ptr_type;
 
 
         // constructors and destructor
@@ -50,7 +50,7 @@ namespace tetengo2::gui::drawing {
             \param dimension A dimension.
         */
         explicit picture(const dimension_type& dimension)
-        : m_p_details{ drawing_details_type::create_picture(dimension) }
+        : m_p_details{ drawing_details_type::instance().create_picture(dimension) }
         {}
 
         /*!
@@ -76,7 +76,7 @@ namespace tetengo2::gui::drawing {
         */
         dimension_type dimension() const
         {
-            return drawing_details_type::picture_dimension(*m_p_details);
+            return drawing_details_type::instance().picture_dimension(*m_p_details);
         }
 
         /*!

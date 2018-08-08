@@ -31,7 +31,7 @@ namespace tetengo2::gui::drawing {
 
         static const font& dialog_font()
         {
-            static const font singleton{ drawing_details_type::template make_dialog_font<font>() };
+            static const font singleton{ drawing_details_type::instance().make_dialog_font() };
             return singleton;
         }
 

@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(TETENGO2_DETAIL_STUB_DRAWING_H)
-#define TETENGO2_DETAIL_STUB_DRAWING_H
+#if !defined(TETENGO2_DETAIL_BASE_DRAWING_H)
+#define TETENGO2_DETAIL_BASE_DRAWING_H
 
 #include <cstdint>
 #include <memory>
@@ -15,6 +15,8 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/detail/base/widget.h>
+#include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
@@ -24,7 +26,6 @@ namespace tetengo2::gui {
 
     namespace drawing {
         class background;
-        class color;
         class font;
         class picture;
     }
@@ -32,9 +33,6 @@ namespace tetengo2::gui {
 
 
 namespace tetengo2::detail::base {
-    class widget;
-
-
     /*!
         \brief The class for a detail implementation of a drawing.
     */
@@ -97,7 +95,7 @@ namespace tetengo2::detail::base {
 
             \return A unique pointer to a canvas.
         */
-        std::unique_ptr<canvas_details_type> create_canvas(const widget& widget_details) const;
+        std::unique_ptr<canvas_details_type> create_canvas(const widget::widget_details_type& widget_details) const;
 
         /*!
             \brief Creates a canvas.
@@ -412,7 +410,8 @@ namespace tetengo2::detail::base {
 
         // virtual functions
 
-        virtual std::unique_ptr<canvas_details_type> create_canvas_impl(const widget& widget_details) const = 0;
+        virtual std::unique_ptr<canvas_details_type>
+        create_canvas_impl(const widget::widget_details_type& widget_details) const = 0;
 
         virtual std::unique_ptr<canvas_details_type> create_canvas_impl(std::intptr_t canvas_handle) const = 0;
 

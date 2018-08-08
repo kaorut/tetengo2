@@ -457,7 +457,8 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
         if (widget.paint_observer_set().paint_background().empty())
             return TETENGO2_STDALT_NULLOPT;
 
-        gui::widget::widget::widget_canvas_type canvas{ reinterpret_cast<::HDC>(w_param) };
+        gui::widget::widget::widget_canvas_type canvas{ reinterpret_cast<std::intptr_t>(
+            reinterpret_cast<::HDC>(w_param)) };
         if (!widget.paint_observer_set().paint_background()(canvas))
             return TETENGO2_STDALT_NULLOPT;
 
@@ -484,7 +485,7 @@ namespace tetengo2::detail::windows::message_handler_detail::widget {
             ::EndPaint(reinterpret_cast<::HWND>(widget_details.handle), &paint_struct);
         }
         BOOST_SCOPE_EXIT_END;
-        gui::widget::widget::widget_canvas_type canvas{ paint_struct.hdc };
+        gui::widget::widget::widget_canvas_type canvas{ reinterpret_cast<std::intptr_t>(paint_struct.hdc) };
 
         widget.paint_observer_set().paint()(canvas);
 

@@ -13,6 +13,8 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/base/drawing.h>
+#include <tetengo2/detail/base/widget.h>
+#include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
@@ -23,15 +25,12 @@ namespace tetengo2::gui {
 
     namespace drawing {
         class background;
-        class color;
         class picture;
     }
 }
 
 
 namespace tetengo2::detail::base {
-    class widget;
-
     class drawing::impl : private boost::noncopyable
     {
     public:
@@ -52,7 +51,8 @@ namespace tetengo2::detail::base {
 
         // functions
 
-        std::unique_ptr<canvas_details_type> create_canvas(const widget& widget_details, const drawing& self) const
+        std::unique_ptr<canvas_details_type>
+        create_canvas(const widget::widget_details_type& widget_details, const drawing& self) const
         {
             return self.create_canvas_impl(widget_details);
         }
@@ -243,7 +243,8 @@ namespace tetengo2::detail::base {
 
     drawing::~drawing() = default;
 
-    std::unique_ptr<drawing::canvas_details_type> drawing::create_canvas(const widget& widget_details) const
+    std::unique_ptr<drawing::canvas_details_type>
+    drawing::create_canvas(const widget::widget_details_type& widget_details) const
     {
         return m_p_impl->create_canvas(widget_details, *this);
     }

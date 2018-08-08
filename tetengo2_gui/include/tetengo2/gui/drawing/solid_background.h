@@ -13,6 +13,7 @@
 #include <memory>
 #include <utility>
 
+#include <tetengo2/detail/stub/drawing.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/color.h>
 
@@ -42,7 +43,7 @@ namespace tetengo2::gui::drawing {
         */
         explicit solid_background(color_type color)
         : base_type{}, m_color{ std::move(color) }, m_p_details{
-              base_type::drawing_details_type::create_solid_background(m_color)
+              base_type::drawing_details_type::instance().create_solid_background(m_color)
           }
         {}
 

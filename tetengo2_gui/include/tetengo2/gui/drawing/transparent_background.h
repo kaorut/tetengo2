@@ -12,6 +12,7 @@
 #include <cassert>
 #include <memory>
 
+#include <tetengo2/detail/stub/drawing.h>
 #include <tetengo2/gui/drawing/background.h>
 
 
@@ -34,7 +35,7 @@ namespace tetengo2::gui::drawing {
             \brief Creates a transparent background.
         */
         transparent_background()
-        : base_type{}, m_p_details{ base_type::drawing_details_type::create_transparent_background() }
+        : base_type{}, m_p_details{ base_type::drawing_details_type::instance().create_transparent_background() }
         {}
 
         /*!

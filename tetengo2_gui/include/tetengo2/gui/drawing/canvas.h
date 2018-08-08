@@ -51,7 +51,7 @@ namespace tetengo2::gui::drawing {
         using dimension_type = gui::type_list::dimension_type;
 
         //! The dimension unit type.
-        using dimension_unit_type = typename dimension_type::unit_type;
+        using dimension_unit_type = dimension_type::unit_type;
 
         //! The drawing details type.
         using drawing_details_type = DrawingDetails;
@@ -107,7 +107,7 @@ namespace tetengo2::gui::drawing {
         */
         void begin_transaction(const dimension_type& dimension)
         {
-            drawing_details_type::begin_transaction(*m_p_details, dimension);
+            drawing_details_type::instance().begin_transaction(*m_p_details, dimension);
         }
 
         /*!
@@ -115,7 +115,7 @@ namespace tetengo2::gui::drawing {
         */
         void end_transaction()
         {
-            drawing_details_type::end_transaction(*m_p_details);
+            drawing_details_type::instance().end_transaction(*m_p_details);
         }
 
         /*!
@@ -231,7 +231,7 @@ namespace tetengo2::gui::drawing {
         */
         void draw_line(const position_type& from, const position_type& to)
         {
-            drawing_details_type::draw_line(
+            drawing_details_type::instance().draw_line(
                 *m_p_details, from, to, m_line_width, static_cast<int>(m_line_style), m_color);
         }
 
@@ -243,7 +243,7 @@ namespace tetengo2::gui::drawing {
         */
         void draw_focus_indication(const position_type& position, const dimension_type& dimension)
         {
-            drawing_details_type::draw_focus_indication(*m_p_details, position, dimension);
+            drawing_details_type::instance().draw_focus_indication(*m_p_details, position, dimension);
         }
 
         /*!
@@ -255,7 +255,7 @@ namespace tetengo2::gui::drawing {
         void draw_rectangle(const position_type& position, const dimension_type& dimension)
         {
             assert(m_p_background);
-            drawing_details_type::draw_rectangle(
+            drawing_details_type::instance().draw_rectangle(
                 *m_p_details, position, dimension, m_line_width, static_cast<int>(m_line_style), m_color);
         }
 
@@ -268,7 +268,7 @@ namespace tetengo2::gui::drawing {
         void fill_rectangle(const position_type& position, const dimension_type& dimension)
         {
             assert(m_p_background);
-            drawing_details_type::fill_rectangle(*m_p_details, position, dimension, *m_p_background);
+            drawing_details_type::instance().fill_rectangle(*m_p_details, position, dimension, *m_p_background);
         }
 
         /*!
@@ -278,7 +278,7 @@ namespace tetengo2::gui::drawing {
         */
         void draw_polygon(const std::vector<position_type>& positions)
         {
-            drawing_details_type::draw_polygon(
+            drawing_details_type::instance().draw_polygon(
                 *m_p_details, positions, m_line_width, static_cast<int>(m_line_style), m_color);
         }
 
@@ -290,7 +290,7 @@ namespace tetengo2::gui::drawing {
         void fill_polygon(const std::vector<position_type>& positions)
         {
             assert(m_p_background);
-            drawing_details_type::fill_polygon(*m_p_details, positions, *m_p_background);
+            drawing_details_type::instance().fill_polygon(*m_p_details, positions, *m_p_background);
         }
 
         /*!
@@ -317,7 +317,7 @@ namespace tetengo2::gui::drawing {
         */
         dimension_type calc_text_dimension(const string_type& text, const dimension_unit_type& max_width) const
         {
-            return drawing_details_type::calc_text_dimension(*m_p_details, m_font, text, max_width);
+            return drawing_details_type::instance().calc_text_dimension(*m_p_details, m_font, text, max_width);
         }
 
         /*!
@@ -329,7 +329,7 @@ namespace tetengo2::gui::drawing {
         */
         dimension_type calc_vertical_text_dimension(const string_type& text) const
         {
-            return drawing_details_type::calc_vertical_text_dimension(*m_p_details, m_font, text);
+            return drawing_details_type::instance().calc_vertical_text_dimension(*m_p_details, m_font, text);
         }
 
         /*!
@@ -364,7 +364,7 @@ namespace tetengo2::gui::drawing {
             const dimension_unit_type& max_width,
             const double               angle = 0.0)
         {
-            drawing_details_type::draw_text(*m_p_details, m_font, text, position, max_width, m_color, angle);
+            drawing_details_type::instance().draw_text(*m_p_details, m_font, text, position, max_width, m_color, angle);
         }
 
         /*!
@@ -377,7 +377,7 @@ namespace tetengo2::gui::drawing {
         */
         void draw_vertical_text(const string_type& text, const position_type& position)
         {
-            drawing_details_type::draw_vertical_text(*m_p_details, m_font, text, position, m_color);
+            drawing_details_type::instance().draw_vertical_text(*m_p_details, m_font, text, position, m_color);
         }
 
         /*!
@@ -389,7 +389,7 @@ namespace tetengo2::gui::drawing {
         */
         void paint_picture(const picture_type& picture, const position_type& position, const dimension_type& dimension)
         {
-            drawing_details_type::paint_picture(*m_p_details, picture, position, dimension);
+            drawing_details_type::instance().paint_picture(*m_p_details, picture, position, dimension);
         }
 
         /*!
@@ -411,7 +411,7 @@ namespace tetengo2::gui::drawing {
         */
         void paint_icon(const icon_type& icon, const position_type& position)
         {
-            drawing_details_type::paint_icon(*m_p_details, icon, position);
+            drawing_details_type::instance().paint_icon(*m_p_details, icon, position);
         }
 
         /*!
