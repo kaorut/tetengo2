@@ -13,21 +13,20 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/detail/stub/drawing.h>
+
 
 namespace tetengo2::gui::drawing {
     /*!
-        \brief The class template for a background.
-
-        \tparam DrawingDetails A detail implementation type of a drawing.
+        \brief The class for a background.
     */
-    template <typename DrawingDetails>
     class background : private boost::noncopyable
     {
     public:
         // types
 
         //! The drawing details type.
-        using drawing_details_type = DrawingDetails;
+        using drawing_details_type = detail::stub::drawing;
 
         //! The details type.
         using details_type = typename drawing_details_type::background_details_type;

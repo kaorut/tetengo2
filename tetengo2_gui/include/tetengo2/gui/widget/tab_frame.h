@@ -23,7 +23,6 @@
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/gui/dimension.h>
-#include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
 #include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/gui/drawing/solid_background.h>
@@ -605,7 +604,7 @@ namespace tetengo2::gui::widget {
 
         using dimension_unit_type = typename dimension_type::unit_type;
 
-        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
+        using solid_background_type = gui::drawing::solid_background;
 
         using system_color_set_type = gui::drawing::system_color_set;
 

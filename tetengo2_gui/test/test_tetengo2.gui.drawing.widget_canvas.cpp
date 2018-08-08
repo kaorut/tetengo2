@@ -6,13 +6,11 @@
     $Id$
 */
 
-#include <memory>
 #include <sstream>
 
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/widget_canvas.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"

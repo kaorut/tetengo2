@@ -32,7 +32,6 @@
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
 #include <tetengo2/gui/drawing/font.h>
-#include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/widget_canvas.h>
 #include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/message/focus_observer_set.h>
@@ -80,7 +79,7 @@ namespace tetengo2::gui::widget {
         using widget_canvas_type = gui::drawing::widget_canvas<drawing_details_type>;
 
         //! The background type.
-        using background_type = gui::drawing::background<drawing_details_type>;
+        using background_type = gui::drawing::background;
 
         //! The font type.
         using font_type = gui::drawing::font;

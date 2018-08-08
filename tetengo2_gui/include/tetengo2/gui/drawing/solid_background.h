@@ -19,18 +19,15 @@
 
 namespace tetengo2::gui::drawing {
     /*!
-        \brief The class template for a solid background.
-
-        \tparam DrawingDetails A detail implementation type of a drawing.
+        \brief The class for a solid background.
     */
-    template <typename DrawingDetails>
-    class solid_background : public background<DrawingDetails>
+    class solid_background : public background
     {
     public:
         // types
 
         //! The base type.
-        using base_type = background<DrawingDetails>;
+        using base_type = background;
 
         //! The color type.
         using color_type = color;

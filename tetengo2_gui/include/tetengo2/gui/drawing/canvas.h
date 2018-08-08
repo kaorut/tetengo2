@@ -63,10 +63,10 @@ namespace tetengo2::gui::drawing {
         using details_ptr_type = typename drawing_details_type::canvas_details_ptr_type;
 
         //! The background type.
-        using background_type = background<drawing_details_type>;
+        using background_type = background;
 
         //! The solid background type.
-        using solid_background_type = solid_background<drawing_details_type>;
+        using solid_background_type = solid_background;
 
         //! The font type.
         using font_type = font;

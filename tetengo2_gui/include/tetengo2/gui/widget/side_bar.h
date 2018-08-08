@@ -196,7 +196,7 @@ namespace tetengo2::gui::widget {
 
         using timer_type = gui::timer<widget, timer_details_type>;
 
-        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
+        using solid_background_type = gui::drawing::solid_background;
 
         using system_color_set_type = gui::drawing::system_color_set;
 

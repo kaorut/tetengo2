@@ -54,11 +54,11 @@ namespace {
 
     using drawing_details_type = detail_type_list_type::drawing_type;
 
-    using background_type = tetengo2::gui::drawing::background<drawing_details_type>;
+    using background_type = tetengo2::gui::drawing::background;
 
-    using solid_background_type = tetengo2::gui::drawing::solid_background<drawing_details_type>;
+    using solid_background_type = tetengo2::gui::drawing::solid_background;
 
-    using transparent_background_type = tetengo2::gui::drawing::transparent_background<drawing_details_type>;
+    using transparent_background_type = tetengo2::gui::drawing::transparent_background;
 
     using font_type = tetengo2::gui::drawing::font;
 

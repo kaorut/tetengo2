@@ -17,18 +17,15 @@
 
 namespace tetengo2::gui::drawing {
     /*!
-        \brief The class template for a transparent background.
-
-        \tparam DrawingDetails A detail implementation type of a drawing.
+        \brief The class for a transparent background.
     */
-    template <typename DrawingDetails>
-    class transparent_background : public background<DrawingDetails>
+    class transparent_background : public background
     {
     public:
         // types
 
         //! The base type.
-        using base_type = background<DrawingDetails>;
+        using base_type = background;
 
 
         // constructors and destructor

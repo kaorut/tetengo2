@@ -19,7 +19,6 @@
 #include <tetengo2/detail/stub/drawing.h>
 #include <tetengo2/detail/stub/message_handler.h>
 #include <tetengo2/gui/drawing/canvas.h>
-#include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/widget_canvas.h>
 #include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/message/paint_observer_set.h>

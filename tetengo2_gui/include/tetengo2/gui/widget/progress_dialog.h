@@ -23,7 +23,6 @@
 
 #include <tetengo2/concurrent/progressive_future.h>
 #include <tetengo2/concurrent/progressive_promise.h>
-#include <tetengo2/detail/stub/drawing.h>
 #include <tetengo2/detail/stub/timer.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
@@ -223,9 +222,7 @@ namespace tetengo2::gui::widget {
 
         using dimension_unit_type = typename dimension_type::unit_type;
 
-        using drawing_details_type = detail::stub::drawing;
-
-        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
+        using solid_background_type = gui::drawing::solid_background;
 
         using timer_details_type = detail::stub::timer;
 
