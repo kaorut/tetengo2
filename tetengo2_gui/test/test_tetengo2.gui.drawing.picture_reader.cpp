@@ -17,7 +17,6 @@
 #include <tetengo2/stdalt.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
-#include "test_tetengo2.gui.type_list.h"
 
 
 namespace {
@@ -25,11 +24,9 @@ namespace {
 
     using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
-
     using drawing_details_type = detail_type_list_type::drawing_type;
 
-    using picture_type = tetengo2::gui::drawing::picture<drawing_details_type>;
+    using picture_type = tetengo2::gui::drawing::picture;
 
     using picture_reader_type = tetengo2::gui::drawing::picture_reader<drawing_details_type>;
 }

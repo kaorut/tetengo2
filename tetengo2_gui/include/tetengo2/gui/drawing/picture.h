@@ -9,22 +9,21 @@
 #if !defined(TETENGO2_GUI_DRAWING_PICTURE_H)
 #define TETENGO2_GUI_DRAWING_PICTURE_H
 
+#include <algorithm>
 #include <cassert>
 #include <stdexcept>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/detail/stub/drawing.h>
 #include <tetengo2/gui/type_list.h>
 
 
 namespace tetengo2::gui::drawing {
     /*!
-        \brief The class template for a picture.
-
-        \tparam DrawingDetails A detail implementation type of a drawing.
+        \brief The class for a picture.
     */
-    template <typename DrawingDetails>
     class picture : private boost::noncopyable
     {
     public:
@@ -34,7 +33,7 @@ namespace tetengo2::gui::drawing {
         using dimension_type = gui::type_list::dimension_type;
 
         //! The drawing details type.
-        using drawing_details_type = DrawingDetails;
+        using drawing_details_type = detail::stub::drawing;
 
         //! The details type.
         using details_type = typename drawing_details_type::picture_details_type;

@@ -34,7 +34,7 @@ namespace tetengo2::gui::drawing {
         using drawing_details_type = DrawingDetails;
 
         //! The picture type.
-        using picture_type = picture<drawing_details_type>;
+        using picture_type = picture;
 
 
         // constructors and destructor
