@@ -82,6 +82,10 @@ namespace tetengo2::detail::windows {
 
             /*!
                 \brief Creates a windows widget details.
+
+                \param handle             A handle.
+                \param window_procedure   A window procedure.
+                \param first_child_handle A handle to the first child.
             */
             windows_widget_details_type(
                 std::intptr_t handle,

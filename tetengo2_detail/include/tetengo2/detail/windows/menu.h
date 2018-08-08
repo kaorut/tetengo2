@@ -87,7 +87,9 @@ namespace tetengo2::detail::windows {
             virtual ~windows_shortcut_key_table_details_type() noexcept;
 
             /*!
-                \brief Returns the accerator_table_handle.
+                \brief Returns the accerator table handle.
+
+                \return The accerator table handle.
             */
             std::intptr_t get() const;
 
