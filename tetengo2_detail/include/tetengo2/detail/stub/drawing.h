@@ -9,10 +9,8 @@
 #if !defined(TETENGO2_DETAIL_STUB_DRAWING_H)
 #define TETENGO2_DETAIL_STUB_DRAWING_H
 
-#include <cstddef>
 #include <cstdint>
 #include <memory>
-#include <utility>
 #include <vector>
 
 #include <tetengo2/detail/base/drawing.h>
