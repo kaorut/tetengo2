@@ -14,6 +14,7 @@
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/operators.hpp>
+#include <boost/throw_exception.hpp>
 
 #pragma warning(push)
 #pragma warning(disable : 4005)
@@ -29,7 +30,11 @@
 #include <dxgiformat.h>
 
 #include <tetengo2/detail/base/widget.h>
+#include <tetengo2/detail/windows/com_ptr.h>
 #include <tetengo2/detail/windows/direct2d/drawing.h>
+#include <tetengo2/detail/windows/direct2d/error_category.h>
+#include <tetengo2/detail/windows/error_category.h>
+#include <tetengo2/detail/windows/widget.h>
 #include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/gui/type_list.h>
@@ -80,15 +85,49 @@ namespace tetengo2::detail::windows::direct2d {
         // functions
 
         std::unique_ptr<canvas_details_type>
-        create_canvas_impl(TETENGO2_STDALT_MAYBE_UNUSED const base::widget::widget_details_type& widget_details) const
+        create_canvas_impl(const base::widget::widget_details_type& widget_details) const
         {
-            return std::make_unique<canvas_details_type>();
+            const auto window_handle = reinterpret_cast<::HWND>(
+                static_cast<const windows::widget::windows_widget_details_type&>(widget_details).handle);
+
+            auto props = D2D1::RenderTargetProperties();
+            props.pixelFormat = D2D1::PixelFormat(::DXGI_FORMAT_B8G8R8A8_UNORM, ::D2D1_ALPHA_MODE_PREMULTIPLIED);
+            props.usage = ::D2D1_RENDER_TARGET_USAGE_GDI_COMPATIBLE;
+
+            ::D2D1_HWND_RENDER_TARGET_PROPERTIES hwnd_props{};
+            {
+                ::RECT     rect{};
+                const auto result = ::GetClientRect(window_handle, &rect);
+                if (result == 0)
+                {
+                    BOOST_THROW_EXCEPTION(
+                        (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                            "Can't get client rectangle." }));
+                }
+                hwnd_props = D2D1::HwndRenderTargetProperties(
+                    window_handle, D2D1::SizeU(rect.right - rect.left, rect.bottom - rect.top));
+            }
+
+            ::ID2D1HwndRenderTarget* rp_render_target = nullptr;
+            const auto hr = direct2d_factory().CreateHwndRenderTarget(props, hwnd_props, &rp_render_target);
+            if (FAILED(hr))
+            {
+                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ hr, direct2d_category() },
+                                                          "Can't create HWND render target." }));
+            }
+            auto p_canvas_details = std::make_unique<direct2d_canvas_details_type>(rp_render_target);
+
+            p_canvas_details->render_target().BeginDraw();
+            p_canvas_details->render_target().Clear(colorref_to_color_f(::GetSysColor(COLOR_3DFACE)));
+
+            return canvas_details_ptr_type{ std::move(p_canvas_details) };
         }
 
         std::unique_ptr<canvas_details_type>
         create_canvas_impl(TETENGO2_STDALT_MAYBE_UNUSED std::intptr_t canvas_handle) const
         {
-            return std::make_unique<canvas_details_type>();
+            assert(false);
+            BOOST_THROW_EXCEPTION(std::logic_error{ "Not implemented." });
         }
 
         void begin_transaction_impl(
@@ -240,6 +279,73 @@ namespace tetengo2::detail::windows::direct2d {
     private:
         // types
 
+        struct direct2d_background_details_type : public background_details_type
+        {
+            virtual ~direct2d_background_details_type() = default;
+
+            virtual bool is_transparent() const = 0;
+        };
+
+        class direct2d_solid_background_details_type : public direct2d_background_details_type
+        {
+        public:
+            direct2d_solid_background_details_type(
+                const unsigned char red,
+                const unsigned char green,
+                const unsigned char blue,
+                const unsigned char alpha)
+            : m_red{ red }, m_green{ green }, m_blue{ blue }, m_alpha{ alpha }
+            {}
+
+            virtual ~direct2d_solid_background_details_type() = default;
+
+            virtual bool is_transparent() const override
+            {
+                return false;
+            }
+
+            unsigned char red() const
+            {
+                return m_red;
+            }
+
+            unsigned char green() const
+            {
+                return m_green;
+            }
+
+            unsigned char blue() const
+            {
+                return m_blue;
+            }
+
+            unsigned char alpha() const
+            {
+                return m_alpha;
+            }
+
+
+        private:
+            const unsigned char m_red;
+
+            const unsigned char m_green;
+
+            const unsigned char m_blue;
+
+            const unsigned char m_alpha;
+        };
+
+        class direct2d_transparent_background_details : public direct2d_background_details_type
+        {
+        public:
+            virtual ~direct2d_transparent_background_details() = default;
+
+            virtual bool is_transparent() const override
+            {
+                return true;
+            }
+        };
+
         struct direct2d_picture_details_type : public picture_details_type
         {
             std::pair<type_list::size_type, type_list::size_type> dimension;
@@ -250,6 +356,90 @@ namespace tetengo2::detail::windows::direct2d {
 
             virtual ~direct2d_picture_details_type() = default;
         };
+
+        class direct2d_canvas_details_type : public canvas_details_type
+        {
+        public:
+            direct2d_canvas_details_type(::ID2D1HwndRenderTarget* const p_render_target)
+            : m_p_render_target{ p_render_target }
+            {}
+
+            virtual ~direct2d_canvas_details_type() = default;
+
+            const ::ID2D1RenderTarget& render_target() const
+            {
+                return *m_p_render_target;
+            }
+
+            ::ID2D1RenderTarget& render_target()
+            {
+                return *m_p_render_target;
+            }
+
+
+        private:
+            struct release_render_target
+            {
+                void operator()(::ID2D1RenderTarget* p_render_target) const
+                {
+                    if (p_render_target)
+                    {
+                        const auto hr = p_render_target->EndDraw();
+                        if (hr == D2DERR_RECREATE_TARGET)
+                        {
+                            assert(false);
+                        }
+                        p_render_target->Release();
+                        p_render_target = nullptr;
+                    }
+                }
+            };
+
+            const std::unique_ptr<::ID2D1RenderTarget, release_render_target> m_p_render_target;
+        };
+
+        using direct2d_factory_ptr_type = unique_com_ptr<::ID2D1Factory>;
+
+        using direct_write_factory_ptr_type = unique_com_ptr<::IDWriteFactory>;
+
+
+        // static functions
+
+        static ::ID2D1Factory& direct2d_factory()
+        {
+            static const direct2d_factory_ptr_type p_factory{ create_direct2d_factory() };
+            return *p_factory;
+        }
+
+        static direct2d_factory_ptr_type create_direct2d_factory()
+        {
+            ::ID2D1Factory* rp_factory = nullptr;
+            const auto      hr = ::D2D1CreateFactory(::D2D1_FACTORY_TYPE_SINGLE_THREADED, &rp_factory);
+            if (FAILED(hr))
+            {
+                BOOST_THROW_EXCEPTION((
+                    std::system_error{ std::error_code{ hr, direct2d_category() }, "Can't create Direct2D factory." }));
+            }
+
+            return direct2d_factory_ptr_type{ rp_factory };
+        }
+
+        static ::D2D1_COLOR_F colorref_to_color_f(const ::COLORREF colorref)
+        {
+            return rgba_to_color_f(GetRValue(colorref), GetGValue(colorref), GetBValue(colorref), 255);
+        }
+
+        static ::D2D1_COLOR_F rgba_to_color_f(
+            const unsigned char red,
+            const unsigned char green,
+            const unsigned char blue,
+            const unsigned char alpha)
+        {
+            return ::D2D1_COLOR_F{ static_cast<::FLOAT>(red / 255.0),
+                                   static_cast<::FLOAT>(green / 255.0),
+                                   static_cast<::FLOAT>(blue / 255.0),
+                                   static_cast<::FLOAT>(alpha / 255.0) };
+        }
     };
 
 
