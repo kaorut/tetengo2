@@ -140,12 +140,13 @@ namespace tetengo2::detail::windows::direct2d {
         std::unique_ptr<background_details_type>
         create_solid_background_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::drawing::color& color) const
         {
-            return std::make_unique<background_details_type>();
+            return std::make_unique<direct2d_solid_background_details_type>(
+                color.red(), color.green(), color.blue(), color.alpha());
         }
 
         std::unique_ptr<background_details_type> create_transparent_background_impl() const
         {
-            return std::make_unique<background_details_type>();
+            return std::make_unique<direct2d_transparent_background_details_type>();
         }
 
         std::unique_ptr<picture_details_type> create_picture_impl(const gui::type_list::dimension_type& dimension) const
@@ -335,10 +336,10 @@ namespace tetengo2::detail::windows::direct2d {
             const unsigned char m_alpha;
         };
 
-        class direct2d_transparent_background_details : public direct2d_background_details_type
+        class direct2d_transparent_background_details_type : public direct2d_background_details_type
         {
         public:
-            virtual ~direct2d_transparent_background_details() = default;
+            virtual ~direct2d_transparent_background_details_type() = default;
 
             virtual bool is_transparent() const override
             {
