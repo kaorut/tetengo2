@@ -63,8 +63,6 @@ namespace tetengo2::detail::windows::direct2d {
 
         using picture_details_ptr_type = drawing::picture_details_ptr_type;
 
-        using stub_picture_details_type = drawing::stub_picture_details_type;
-
         using canvas_details_type = drawing::canvas_details_type;
 
         using canvas_details_ptr_type = drawing::canvas_details_ptr_type;
@@ -115,22 +113,22 @@ namespace tetengo2::detail::windows::direct2d {
         {
             const auto& width = dimension.width();
             const auto& height = dimension.height();
-            return std::make_unique<stub_picture_details_type>(width.to_pixels(), height.to_pixels());
+            return std::make_unique<direct2d_picture_details_type>(width.to_pixels(), height.to_pixels());
         }
 
         std::unique_ptr<picture_details_type>
         read_picture_impl(TETENGO2_STDALT_MAYBE_UNUSED const tetengo2::stdalt::filesystem::path& path) const
         {
-            return std::make_unique<stub_picture_details_type>(123, 456);
+            return std::make_unique<direct2d_picture_details_type>(123, 456);
         }
 
         gui::type_list::dimension_type picture_dimension_impl(const picture_details_type& picture) const
         {
             return gui::type_list::dimension_type{
                 gui::type_list::dimension_unit_type::from_pixels(
-                    static_cast<const stub_picture_details_type&>(picture).dimension.first),
+                    static_cast<const direct2d_picture_details_type&>(picture).dimension.first),
                 gui::type_list::dimension_unit_type::from_pixels(
-                    static_cast<const stub_picture_details_type&>(picture).dimension.second)
+                    static_cast<const direct2d_picture_details_type&>(picture).dimension.second)
             };
         }
 
@@ -237,16 +235,23 @@ namespace tetengo2::detail::windows::direct2d {
             TETENGO2_STDALT_MAYBE_UNUSED const gui::icon& icon,
             TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position) const
         {}
+
+
+    private:
+        // types
+
+        struct direct2d_picture_details_type : public picture_details_type
+        {
+            std::pair<type_list::size_type, type_list::size_type> dimension;
+
+            direct2d_picture_details_type(const type_list::size_type width, const type_list::size_type height)
+            : dimension{ width, height }
+            {}
+
+            virtual ~direct2d_picture_details_type() = default;
+        };
     };
 
-
-    drawing::stub_picture_details_type::stub_picture_details_type(
-        const type_list::size_type width,
-        const type_list::size_type height)
-    : dimension{ width, height }
-    {}
-
-    drawing::stub_picture_details_type::~stub_picture_details_type() = default;
 
     const drawing& drawing::instance()
     {

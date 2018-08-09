@@ -54,26 +54,6 @@ namespace tetengo2::detail::windows::direct2d {
         //! The picture details pointer type.
         using picture_details_ptr_type = base::drawing::picture_details_ptr_type;
 
-        //! The stub picture details type.
-        struct stub_picture_details_type : public picture_details_type
-        {
-            //! The dimension.
-            std::pair<std::size_t, std::size_t> dimension;
-
-            /*!
-                \brief Creates a picture details type.
-
-                \param width A width.
-                \param height A height.
-            */
-            stub_picture_details_type(type_list::size_type width, type_list::size_type height);
-
-            /*!
-                \brief Destroys the picture details type.
-            */
-            virtual ~stub_picture_details_type();
-        };
-
         //! The canvas details type.
         using canvas_details_type = base::drawing::canvas_details_type;
 

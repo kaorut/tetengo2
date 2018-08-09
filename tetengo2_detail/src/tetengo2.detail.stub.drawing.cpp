@@ -49,8 +49,6 @@ namespace tetengo2::detail::stub {
 
         using picture_details_ptr_type = drawing::picture_details_ptr_type;
 
-        using stub_picture_details_type = drawing::stub_picture_details_type;
-
         using canvas_details_type = drawing::canvas_details_type;
 
         using canvas_details_ptr_type = drawing::canvas_details_ptr_type;
@@ -223,16 +221,23 @@ namespace tetengo2::detail::stub {
             TETENGO2_STDALT_MAYBE_UNUSED const gui::icon& icon,
             TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position) const
         {}
+
+
+    private:
+        // types
+
+        struct stub_picture_details_type : public picture_details_type
+        {
+            std::pair<type_list::size_type, type_list::size_type> dimension;
+
+            stub_picture_details_type(const type_list::size_type width, const type_list::size_type height)
+            : dimension{ width, height }
+            {}
+
+            virtual ~stub_picture_details_type() = default;
+        };
     };
 
-
-    drawing::stub_picture_details_type::stub_picture_details_type(
-        const type_list::size_type width,
-        const type_list::size_type height)
-    : dimension{ width, height }
-    {}
-
-    drawing::stub_picture_details_type::~stub_picture_details_type() = default;
 
     const drawing& drawing::instance()
     {
