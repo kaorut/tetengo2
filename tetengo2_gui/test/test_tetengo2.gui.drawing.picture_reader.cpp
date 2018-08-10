@@ -12,23 +12,18 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/drawing/picture_reader.h>
 #include <tetengo2/stdalt.h>
-
-#include "test_tetengo2.gui.detail_type_list.h"
 
 
 namespace {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
-
-    using drawing_details_type = detail_type_list_type::drawing_type;
-
     using picture_type = tetengo2::gui::drawing::picture;
 
-    using picture_reader_type = tetengo2::gui::drawing::picture_reader<drawing_details_type>;
+    using picture_reader_type = tetengo2::gui::drawing::picture_reader;
 }
 
 
@@ -43,7 +38,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     tetengo2::stdalt::filesystem::path path{};
-                    const picture_reader_type          reader{ std::move(path) };
+                    const picture_reader_type          reader{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                      std::move(path) };
                 }
 
                 BOOST_AUTO_TEST_CASE(read)
@@ -51,7 +47,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     tetengo2::stdalt::filesystem::path path{};
-                    picture_reader_type                reader{ std::move(path) };
+                    picture_reader_type reader{ tetengo2::detail::gui_detail_impl_set().drawing_(), std::move(path) };
 
                     const auto p_picture = reader.read();
                 }

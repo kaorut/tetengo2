@@ -24,7 +24,6 @@
 
 #include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/base/widget.h>
-#include <tetengo2/detail/stub/drawing.h>
 #include <tetengo2/detail/stub/message_handler.h>
 #include <tetengo2/detail/stub/scroll.h>
 #include <tetengo2/gui/cursor/cursor_base.h>
@@ -69,14 +68,11 @@ namespace tetengo2::gui::widget {
         //! The details type.
         using details_type = typename widget_details_type::widget_details_type;
 
-        //! The drawing details type.
-        using drawing_details_type = detail::stub::drawing;
-
         //! The canvas type.
-        using canvas_type = gui::drawing::canvas<drawing_details_type>;
+        using canvas_type = gui::drawing::canvas;
 
         //! The widget canvas type.
-        using widget_canvas_type = gui::drawing::widget_canvas<drawing_details_type>;
+        using widget_canvas_type = gui::drawing::widget_canvas;
 
         //! The background type.
         using background_type = gui::drawing::background;
@@ -557,7 +553,7 @@ namespace tetengo2::gui::widget {
         */
         std::unique_ptr<canvas_type> create_canvas() const
         {
-            return std::make_unique<widget_canvas_type>(details());
+            return std::make_unique<widget_canvas_type>(detail::gui_detail_impl_set().drawing_(), details());
         }
 
         /*!
@@ -772,7 +768,7 @@ namespace tetengo2::gui::widget {
 
             widget_details().associate_to_native_window_system(*p_widget);
 
-            p_widget->set_font(font_type::dialog_font());
+            p_widget->set_font(font_type::dialog_font(detail::gui_detail_impl_set().drawing_()));
 
             p_widget->m_p_vertical_scroll_bar = p_widget->create_vertical_scroll_bar();
             p_widget->m_p_horizontal_scroll_bar = p_widget->create_horizontal_scroll_bar();

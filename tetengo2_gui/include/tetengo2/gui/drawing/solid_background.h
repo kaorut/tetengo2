@@ -13,7 +13,6 @@
 #include <memory>
 #include <utility>
 
-#include <tetengo2/detail/stub/drawing.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/color.h>
 
@@ -33,17 +32,21 @@ namespace tetengo2::gui::drawing {
         //! The color type.
         using color_type = color;
 
+        //! The drawing details type.
+        using drawing_details_type = base_type::drawing_details_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a solid background.
 
-            \param color A color.
+            \param drawing_details A detailm implementation of a drawing.
+            \param color           A color.
         */
-        explicit solid_background(color_type color)
-        : base_type{}, m_color{ std::move(color) }, m_p_details{
-              base_type::drawing_details_type::instance().create_solid_background(m_color)
+        solid_background(const drawing_details_type& drawing_details, color_type color)
+        : base_type{}, m_drawing_details{ drawing_details }, m_color{ std::move(color) }, m_p_details{
+              drawing_details.create_solid_background(m_color)
           }
         {}
 
@@ -76,6 +79,8 @@ namespace tetengo2::gui::drawing {
 
         // variables
 
+        const drawing_details_type& m_drawing_details;
+
         const color_type m_color;
 
         const details_ptr_type m_p_details;
@@ -85,7 +90,7 @@ namespace tetengo2::gui::drawing {
 
         virtual std::unique_ptr<base_type> clone_impl() const override
         {
-            return std::make_unique<solid_background>(m_color);
+            return std::make_unique<solid_background>(m_drawing_details, m_color);
         }
 
         virtual const details_type& details_impl() const override

@@ -13,7 +13,8 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/detail/stub/drawing.h>
+#include <tetengo2/detail/base/drawing.h>
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/unit/em.h>
@@ -50,18 +51,32 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     {
-                        const picture_type picture{ dimension_type{ dimension_unit_type{ 123 },
+                        const picture_type picture{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                    dimension_type{ dimension_unit_type{ 123 },
                                                                     dimension_unit_type{ 456 } } };
                     }
                     {
-                        picture_type::details_ptr_type p_details{ drawing_details_type::instance().create_picture(
-                            dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } }) };
-                        const picture_type             picture2{ std::move(p_details) };
+                        picture_type::details_ptr_type p_details{
+                            tetengo2::detail::gui_detail_impl_set().drawing_().create_picture(
+                                dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } })
+                        };
+                        const picture_type picture2{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                     std::move(p_details) };
                     }
                     {
                         picture_type::details_ptr_type p_details;
 
-                        BOOST_CHECK_THROW(picture_type picture{ std::move(p_details) }, std::invalid_argument);
+                        auto exception_thrown = false;
+                        try
+                        {
+                            picture_type picture{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                  std::move(p_details) };
+                        }
+                        catch (const std::invalid_argument&)
+                        {
+                            exception_thrown = true;
+                        }
+                        BOOST_TEST(exception_thrown);
                     }
                 }
 
@@ -69,7 +84,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    const picture_type picture{ dimension_type{ dimension_unit_type{ 123 },
+                    const picture_type picture{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                dimension_type{ dimension_unit_type{ 123 },
                                                                 dimension_unit_type{ 456 } } };
 
                     BOOST_CHECK(
@@ -82,13 +98,15 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     {
-                        const picture_type picture{ dimension_type{ dimension_unit_type{ 123 },
+                        const picture_type picture{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                    dimension_type{ dimension_unit_type{ 123 },
                                                                     dimension_unit_type{ 456 } } };
 
                         picture.details();
                     }
                     {
-                        picture_type picture{ dimension_type{ dimension_unit_type{ 123 },
+                        picture_type picture{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                              dimension_type{ dimension_unit_type{ 123 },
                                                               dimension_unit_type{ 456 } } };
 
                         picture.details();

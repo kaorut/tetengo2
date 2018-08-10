@@ -11,19 +11,14 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/drawing/widget_canvas.h>
-
-#include "test_tetengo2.gui.detail_type_list.h"
 
 
 namespace {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
-
-    using drawing_details_type = detail_type_list_type::drawing_type;
-
-    using canvas_type = tetengo2::gui::drawing::widget_canvas<drawing_details_type>;
+    using canvas_type = tetengo2::gui::drawing::widget_canvas;
 }
 
 
@@ -37,7 +32,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    const canvas_type canvas{ 42 };
+                    const canvas_type canvas{ tetengo2::detail::gui_detail_impl_set().drawing_(), 42 };
                 }
 
 

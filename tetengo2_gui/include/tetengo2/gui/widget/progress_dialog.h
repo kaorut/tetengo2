@@ -23,6 +23,7 @@
 
 #include <tetengo2/concurrent/progressive_future.h>
 #include <tetengo2/concurrent/progressive_promise.h>
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/stub/timer.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
@@ -309,8 +310,9 @@ namespace tetengo2::gui::widget {
             auto p_label = std::make_unique<label>(*this);
 
             p_label->set_text(std::move(waiting_message));
-            auto p_background =
-                std::make_unique<solid_background_type>(system_color_set_type::instance().dialog_background());
+            auto p_background = std::make_unique<solid_background_type>(
+                tetengo2::detail::gui_detail_impl_set().drawing_(),
+                system_color_set_type::instance().dialog_background());
             p_label->set_background(std::move(p_background));
 
             return p_label;
@@ -321,8 +323,9 @@ namespace tetengo2::gui::widget {
             auto p_label = std::make_unique<label>(*this);
 
             p_label->set_text(string_type{ TETENGO2_TEXT("0%") });
-            auto p_background =
-                std::make_unique<solid_background_type>(system_color_set_type::instance().dialog_background());
+            auto p_background = std::make_unique<solid_background_type>(
+                tetengo2::detail::gui_detail_impl_set().drawing_(),
+                system_color_set_type::instance().dialog_background());
             p_label->set_background(std::move(p_background));
 
             return p_label;

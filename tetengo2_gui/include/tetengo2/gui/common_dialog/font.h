@@ -11,6 +11,7 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/stdalt.h>
 
@@ -65,7 +66,7 @@ namespace tetengo2::gui::common_dialog {
         */
         font(const tetengo2::stdalt::optional<font_type>& font, abstract_window_type& parent)
         : m_p_details{ common_dialog_details_type::create_font_dialog(parent, font) }, m_result{
-              font ? *font : font_type::dialog_font()
+              font ? *font : font_type::dialog_font(tetengo2::detail::gui_detail_impl_set().drawing_())
           }
         {}
 

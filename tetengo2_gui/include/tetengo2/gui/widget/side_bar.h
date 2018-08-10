@@ -20,6 +20,7 @@
 #include <boost/math/constants/constants.hpp>
 #include <boost/operators.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/stub/timer.h>
 #include <tetengo2/gui/cursor/system.h>
 #include <tetengo2/gui/drawing/background.h>
@@ -316,7 +317,8 @@ namespace tetengo2::gui::widget {
                 auto original_background = canvas.get_background().clone();
                 canvas.set_color(border_color());
                 canvas.set_line_width(dimension_unit_type{ 1 } / 16);
-                canvas.set_background(std::make_unique<solid_background_type>(*m_p_current_background_color));
+                canvas.set_background(std::make_unique<solid_background_type>(
+                    tetengo2::detail::gui_detail_impl_set().drawing_(), *m_p_current_background_color));
 
                 const auto triangle = make_triangle();
                 canvas.fill_polygon(triangle);
@@ -449,8 +451,9 @@ namespace tetengo2::gui::widget {
                 auto original_color = canvas.get_color();
                 auto p_original_background = canvas.get_background().clone();
                 canvas.set_color(system_color_set_type::instance().title_bar_text());
-                canvas.set_background(
-                    std::make_unique<solid_background_type>(system_color_set_type::instance().title_bar_background()));
+                canvas.set_background(std::make_unique<solid_background_type>(
+                    tetengo2::detail::gui_detail_impl_set().drawing_(),
+                    system_color_set_type::instance().title_bar_background()));
 
                 canvas.fill_rectangle(this->position(), this->dimension());
 
@@ -616,8 +619,9 @@ namespace tetengo2::gui::widget {
                     return;
 
                 auto original_background = canvas.get_background().clone();
-                canvas.set_background(
-                    std::make_unique<solid_background_type>(system_color_set_type::instance().dialog_background()));
+                canvas.set_background(std::make_unique<solid_background_type>(
+                    tetengo2::detail::gui_detail_impl_set().drawing_(),
+                    system_color_set_type::instance().dialog_background()));
 
                 canvas.fill_rectangle(this->position(), this->dimension());
 
@@ -716,8 +720,9 @@ namespace tetengo2::gui::widget {
         static void initialize_side_bar(side_bar& side_bar_)
         {
             side_bar_.set_dimension(dimension_type{ dimension_unit_type{ 16 }, dimension_unit_type{ 16 } });
-            side_bar_.set_background(
-                std::make_unique<solid_background_type>(system_color_set_type::instance().dialog_background()));
+            side_bar_.set_background(std::make_unique<solid_background_type>(
+                tetengo2::detail::gui_detail_impl_set().drawing_(),
+                system_color_set_type::instance().dialog_background()));
 
             create_items(side_bar_);
 

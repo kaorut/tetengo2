@@ -13,6 +13,7 @@
 #include <cassert>
 #include <memory>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/cursor/system.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
@@ -109,8 +110,9 @@ namespace tetengo2::gui::widget {
         {
             assert(p_link_label);
 
-            p_link_label->set_background(
-                std::make_unique<solid_background_type>(system_color_set_type::instance().dialog_background()));
+            p_link_label->set_background(std::make_unique<solid_background_type>(
+                tetengo2::detail::gui_detail_impl_set().drawing_(),
+                system_color_set_type::instance().dialog_background()));
 
             const auto original_font = p_link_label->font();
             p_link_label->set_font(font_type{ original_font.family(),

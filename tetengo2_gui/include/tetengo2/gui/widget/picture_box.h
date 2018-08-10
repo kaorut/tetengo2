@@ -15,8 +15,9 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
 
+#include <tetengo2/detail/base/drawing.h>
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/base/widget.h>
-#include <tetengo2/detail/stub/drawing.h>
 #include <tetengo2/detail/stub/message_handler.h>
 #include <tetengo2/gui/drawing/canvas.h>
 #include <tetengo2/gui/drawing/widget_canvas.h>
@@ -36,10 +37,10 @@ namespace tetengo2::gui::widget {
         // types
 
         //! The fast drawing details type.
-        using fast_drawing_details_type = detail::stub::drawing;
+        using fast_drawing_details_type = detail::base::drawing;
 
         //! The fast canvas type.
-        using fast_canvas_type = gui::drawing::canvas<fast_drawing_details_type>;
+        using fast_canvas_type = gui::drawing::canvas;
 
         //! The fast paint observer set type.
         using fast_paint_observer_set_type = gui::message::paint_observer_set<fast_canvas_type>;
@@ -103,7 +104,8 @@ namespace tetengo2::gui::widget {
         */
         std::unique_ptr<fast_canvas_type> create_fast_canvas() const
         {
-            return std::make_unique<fast_widget_canvas_type>(this->details());
+            return std::make_unique<fast_widget_canvas_type>(
+                detail::gui_detail_impl_set().fast_drawing(), this->details());
         }
 
         /*!
@@ -130,7 +132,7 @@ namespace tetengo2::gui::widget {
     private:
         // types
 
-        using fast_widget_canvas_type = gui::drawing::widget_canvas<fast_drawing_details_type>;
+        using fast_widget_canvas_type = gui::drawing::widget_canvas;
 
         using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
 

@@ -23,6 +23,7 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/windows/widget.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/widget.h>
@@ -41,7 +42,8 @@ namespace tetengo2::detail::windows::message_handler_detail::control {
         const auto device_context = reinterpret_cast<::HDC>(w_param);
         if (!control.paint_observer_set().paint_background().empty())
         {
-            gui::widget::widget::widget_canvas_type canvas{ reinterpret_cast<std::intptr_t>(device_context) };
+            gui::widget::widget::widget_canvas_type canvas{ detail::gui_detail_impl_set().drawing_(),
+                                                            reinterpret_cast<std::intptr_t>(device_context) };
             control.paint_observer_set().paint_background()(canvas);
         }
 

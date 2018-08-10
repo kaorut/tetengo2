@@ -12,6 +12,7 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/transparent_background.h>
 
@@ -33,14 +34,14 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    const background_type background{};
+                    const background_type background{ tetengo2::detail::gui_detail_impl_set().drawing_() };
                 }
 
                 BOOST_AUTO_TEST_CASE(clone)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    const background_type background{};
+                    const background_type background{ tetengo2::detail::gui_detail_impl_set().drawing_() };
 
                     const auto p_clone = background.clone();
 
@@ -53,12 +54,12 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     {
-                        const background_type background{};
+                        const background_type background{ tetengo2::detail::gui_detail_impl_set().drawing_() };
 
                         background.details();
                     }
                     {
-                        background_type background{};
+                        background_type background{ tetengo2::detail::gui_detail_impl_set().drawing_() };
 
                         background.details();
                     }

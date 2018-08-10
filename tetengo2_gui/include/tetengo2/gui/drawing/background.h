@@ -13,7 +13,7 @@
 
 #include <boost/core/noncopyable.hpp>
 
-#include <tetengo2/detail/stub/drawing.h>
+#include <tetengo2/detail/base/drawing.h>
 
 
 namespace tetengo2::gui::drawing {
@@ -26,7 +26,7 @@ namespace tetengo2::gui::drawing {
         // types
 
         //! The drawing details type.
-        using drawing_details_type = detail::stub::drawing;
+        using drawing_details_type = detail::base::drawing;
 
         //! The details type.
         using details_type = drawing_details_type::background_details_type;

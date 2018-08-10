@@ -14,24 +14,22 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/detail/base/drawing.h>
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::drawing {
     /*!
-        \brief The class template for a picture reader.
-
-        \tparam DrawingDetails A detail implementation type of a drawing.
+        \brief The class for a picture reader.
     */
-    template <typename DrawingDetails>
     class picture_reader : private boost::noncopyable
     {
     public:
         // types
 
         //! The drawing details type.
-        using drawing_details_type = DrawingDetails;
+        using drawing_details_type = detail::base::drawing;
 
         //! The picture type.
         using picture_type = picture;
@@ -42,9 +40,12 @@ namespace tetengo2::gui::drawing {
         /*!
             \brief Creates a picture reader.
 
-            \param path A path.
+            \param drawing_details A detail implementation of a drawing.
+            \param path            A path.
         */
-        explicit picture_reader(tetengo2::stdalt::filesystem::path path) : m_path{ std::move(path) } {}
+        picture_reader(const drawing_details_type& drawing_details, tetengo2::stdalt::filesystem::path path)
+        : m_drawing_details{ drawing_details }, m_path{ std::move(path) }
+        {}
 
 
         // functions
@@ -56,8 +57,8 @@ namespace tetengo2::gui::drawing {
         */
         std::unique_ptr<picture_type> read()
         {
-            picture_details_ptr_type p_picture{ drawing_details_type::instance().read_picture(m_path) };
-            return std::make_unique<picture_type>(std::move(p_picture));
+            picture_details_ptr_type p_picture{ m_drawing_details.read_picture(m_path) };
+            return std::make_unique<picture_type>(m_drawing_details, std::move(p_picture));
         }
 
 
@@ -68,6 +69,8 @@ namespace tetengo2::gui::drawing {
 
 
         // variables
+
+        const drawing_details_type& m_drawing_details;
 
         const tetengo2::stdalt::filesystem::path m_path;
     };

@@ -15,6 +15,7 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
@@ -70,16 +71,20 @@ namespace {
 
     using canvas_details_ptr_type = drawing_details_type::canvas_details_ptr_type;
 
-    using canvas_type = tetengo2::gui::drawing::canvas<drawing_details_type>;
+    using canvas_type = tetengo2::gui::drawing::canvas;
 
     struct concrete_canvas : public canvas_type
     {
-        concrete_canvas() : canvas_type{ std::make_unique<canvas_details_type>() } {}
+        concrete_canvas()
+        : canvas_type{ tetengo2::detail::gui_detail_impl_set().drawing_(), std::make_unique<canvas_details_type>() }
+        {}
     };
 
     struct concrete_canvas0 : public canvas_type
     {
-        concrete_canvas0() : canvas_type{ canvas_details_ptr_type{} } {}
+        concrete_canvas0()
+        : canvas_type{ tetengo2::detail::gui_detail_impl_set().drawing_(), canvas_details_ptr_type{} }
+        {}
     };
 
 
@@ -179,7 +184,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     concrete_canvas canvas{};
 
-                    canvas.set_background(std::make_unique<const transparent_background_type>());
+                    canvas.set_background(std::make_unique<const transparent_background_type>(
+                        tetengo2::detail::gui_detail_impl_set().drawing_()));
 
                     BOOST_TEST(dynamic_cast<const transparent_background_type*>(&canvas.get_background()));
                 }
@@ -236,7 +242,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     const auto& font = canvas.get_font();
 
-                    BOOST_CHECK(font == font_type::dialog_font());
+                    BOOST_CHECK(font == font_type::dialog_font(tetengo2::detail::gui_detail_impl_set().drawing_()));
                 }
 
                 BOOST_AUTO_TEST_CASE(set_font)
@@ -400,13 +406,15 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         concrete_canvas canvas{};
 
-                        const picture_type picture{ make_dimension(123U, 456U) };
+                        const picture_type picture{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                    make_dimension(123U, 456U) };
                         canvas.paint_picture(picture, make_position(12, 34), make_dimension(56U, 78U));
                     }
                     {
                         concrete_canvas canvas{};
 
-                        const picture_type picture{ make_dimension(123U, 456U) };
+                        const picture_type picture{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                    make_dimension(123U, 456U) };
                         canvas.paint_picture(picture, make_position(12, 34));
                     }
                 }

@@ -13,6 +13,7 @@
 
 #include <boost/operators.hpp>
 
+#include <tetengo2/detail/base/drawing.h>
 #include <tetengo2/type_list.h>
 
 
@@ -31,15 +32,19 @@ namespace tetengo2::gui::drawing {
         //! The size type.
         using size_type = tetengo2::type_list::size_type;
 
+        //! The drawing details type.
+        using drawing_details_type = detail::base::drawing;
+
 
         // static functions
 
         /*!
             \brief Returns the dialog font.
 
+
             \return The dialog font.
         */
-        static const font& dialog_font();
+        static const font& dialog_font(const drawing_details_type& drawing_details);
 
 
         // constructors and destructor

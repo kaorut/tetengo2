@@ -21,6 +21,7 @@
 #include <boost/rational.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/cursor/system.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
@@ -461,6 +462,7 @@ namespace tetengo2::gui::widget {
                 {
                     canvas.set_color(system_color_set_type::instance().selected_text());
                     canvas.set_background(std::make_unique<solid_background_type>(
+                        tetengo2::detail::gui_detail_impl_set().drawing_(),
                         system_color_set_type::instance().selected_background()));
                     canvas.fill_rectangle(position_to_paint_, this->dimension());
                 }
@@ -600,8 +602,9 @@ namespace tetengo2::gui::widget {
 
         static void initialize_map_box(map_box& map_box_)
         {
-            map_box_.set_background(
-                std::make_unique<solid_background_type>(system_color_set_type::instance().control_background()));
+            map_box_.set_background(std::make_unique<solid_background_type>(
+                tetengo2::detail::gui_detail_impl_set().drawing_(),
+                system_color_set_type::instance().control_background()));
 
             create_items(map_box_);
 

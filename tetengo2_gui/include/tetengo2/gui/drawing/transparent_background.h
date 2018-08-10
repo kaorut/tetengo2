@@ -12,7 +12,6 @@
 #include <cassert>
 #include <memory>
 
-#include <tetengo2/detail/stub/drawing.h>
 #include <tetengo2/gui/drawing/background.h>
 
 
@@ -28,14 +27,21 @@ namespace tetengo2::gui::drawing {
         //! The base type.
         using base_type = background;
 
+        //! The drawing details type.
+        using drawing_details_type = base_type::drawing_details_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a transparent background.
+
+            \param drawing_details A detailm implementation of a drawing.
         */
-        transparent_background()
-        : base_type{}, m_p_details{ base_type::drawing_details_type::instance().create_transparent_background() }
+        explicit transparent_background(const drawing_details_type& drawing_details)
+        : base_type{}, m_drawing_details{ drawing_details }, m_p_details{
+              m_drawing_details.create_transparent_background()
+          }
         {}
 
         /*!
@@ -54,6 +60,8 @@ namespace tetengo2::gui::drawing {
 
         // variables
 
+        const drawing_details_type& m_drawing_details;
+
         const details_ptr_type m_p_details;
 
 
@@ -61,7 +69,7 @@ namespace tetengo2::gui::drawing {
 
         virtual std::unique_ptr<base_type> clone_impl() const override
         {
-            return std::make_unique<transparent_background>();
+            return std::make_unique<transparent_background>(m_drawing_details);
         }
 
         virtual const details_type& details_impl() const override

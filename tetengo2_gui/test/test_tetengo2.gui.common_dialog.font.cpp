@@ -15,6 +15,7 @@
 #include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/common_dialog/font.h>
 #include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
@@ -86,7 +87,9 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         window_type            parent{};
                         const font_dialog_type font{ TETENGO2_STDALT_NULLOPT, parent };
 
-                        BOOST_CHECK(font.result() == font_type::dialog_font());
+                        BOOST_CHECK(
+                            font.result() ==
+                            font_type::dialog_font(tetengo2::detail::gui_detail_impl_set().drawing_()));
                     }
                     {
                         window_type      parent{};
@@ -94,7 +97,9 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                         font.do_modal();
 
-                        BOOST_CHECK(font.result() != font_type::dialog_font());
+                        BOOST_CHECK(
+                            font.result() !=
+                            font_type::dialog_font(tetengo2::detail::gui_detail_impl_set().drawing_()));
                     }
                 }
 

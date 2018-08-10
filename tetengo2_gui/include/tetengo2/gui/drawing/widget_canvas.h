@@ -15,17 +15,17 @@
 namespace tetengo2::gui::drawing {
     /*!
         \brief The class template for a widget canvas.
-
-        \tparam DrawingDetails A detail implementation type of a drawing.
     */
-    template <typename DrawingDetails>
-    class widget_canvas : public canvas<DrawingDetails>
+    class widget_canvas : public canvas
     {
     public:
         // types
 
         //! The base type.
-        using base_type = canvas<DrawingDetails>;
+        using base_type = canvas;
+
+        //! The drawing details type.
+        using drawing_details_type = base_type::drawing_details_type;
 
 
         // constructors and destructor
@@ -35,11 +35,14 @@ namespace tetengo2::gui::drawing {
 
             \tparam HandleOrWidgetDetails A handle type or a widget details type.
 
+            \param drawing_details          A detail implementation of a drawing.
             \param handle_or_widget_details A handle or a widget details.
         */
         template <typename HandleOrWidgetDetails>
-        explicit widget_canvas(const HandleOrWidgetDetails& handle_or_widget_details)
-        : base_type{ base_type::drawing_details_type::instance().create_canvas(handle_or_widget_details) }
+        widget_canvas(
+            const drawing_details_type&  drawing_details,
+            const HandleOrWidgetDetails& handle_or_widget_details)
+        : base_type{ drawing_details, drawing_details.create_canvas(handle_or_widget_details) }
         {}
 
         /*!

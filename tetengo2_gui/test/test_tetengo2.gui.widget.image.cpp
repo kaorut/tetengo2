@@ -14,6 +14,7 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/drawing/picture_reader.h>
@@ -37,15 +38,13 @@ namespace {
 
     using window_type = tetengo2::gui::widget::window;
 
-    using drawing_details_type = detail_type_list_type::drawing_type;
-
     using dimension_type = common_type_list_type::dimension_type;
 
     using dimension_unit_type = dimension_type::unit_type;
 
     using picture_type = tetengo2::gui::drawing::picture;
 
-    using picture_reader_type = tetengo2::gui::drawing::picture_reader<drawing_details_type>;
+    using picture_reader_type = tetengo2::gui::drawing::picture_reader;
 
     using icon_type = tetengo2::gui::icon;
 
@@ -80,7 +79,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     BOOST_TEST(!image.has_picture());
 
-                    picture_reader_type picture_reader{ "image_file" };
+                    picture_reader_type picture_reader{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                        "image_file" };
                     image.set_picture(picture_reader.read());
 
                     BOOST_TEST(image.has_picture());
@@ -97,7 +97,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_CHECK_THROW(image.picture(), std::logic_error);
                     BOOST_CHECK_THROW(const_image.picture(), std::logic_error);
 
-                    picture_reader_type picture_reader{ "image_file" };
+                    picture_reader_type picture_reader{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                        "image_file" };
                     image.set_picture(picture_reader.read());
                     image.picture();
                     const_image.picture();
@@ -111,7 +112,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         window_type parent{};
                         image_type  image{ parent };
 
-                        picture_reader_type picture_reader{ "image_file" };
+                        picture_reader_type picture_reader{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                            "image_file" };
                         image.set_picture(picture_reader.read());
 
                         BOOST_TEST(image.has_picture());
@@ -128,7 +130,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                             std::make_unique<icon_type>(path_type{ path_string_type{ TETENGO2_TEXT("hoge.ico") } });
                         image.set_icon(std::move(p_icon));
 
-                        picture_reader_type picture_reader{ "image_file" };
+                        picture_reader_type picture_reader{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                            "image_file" };
                         image.set_picture(picture_reader.read());
 
                         BOOST_TEST(image.has_picture());
@@ -192,7 +195,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         window_type parent{};
                         image_type  image{ parent };
 
-                        picture_reader_type picture_reader{ "image_file" };
+                        picture_reader_type picture_reader{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                            "image_file" };
                         image.set_picture(picture_reader.read());
 
                         auto p_icon =
@@ -212,7 +216,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     image_type  image{ parent };
 
                     {
-                        picture_reader_type picture_reader{ "image_file" };
+                        picture_reader_type picture_reader{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                            "image_file" };
                         image.set_picture(picture_reader.read());
 
                         image.fit_to_content();

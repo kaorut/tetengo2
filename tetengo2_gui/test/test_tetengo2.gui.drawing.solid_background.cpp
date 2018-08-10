@@ -12,6 +12,7 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/gui/drawing/solid_background.h>
@@ -36,14 +37,16 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    const background_type background{ color_type{ 0x12, 0x34, 0x56, 0x78 } };
+                    const background_type background{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                      color_type{ 0x12, 0x34, 0x56, 0x78 } };
                 }
 
                 BOOST_AUTO_TEST_CASE(get_color)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    const background_type background{ color_type{ 0x12, 0x34, 0x56, 0x78 } };
+                    const background_type background{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                      color_type{ 0x12, 0x34, 0x56, 0x78 } };
 
                     BOOST_CHECK((background.get_color() == color_type{ 0x12, 0x34, 0x56, 0x78 }));
                 }
@@ -52,7 +55,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    const background_type background{ color_type{ 0x12, 0x34, 0x56, 0x78 } };
+                    const background_type background{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                      color_type{ 0x12, 0x34, 0x56, 0x78 } };
 
                     const auto p_clone = background.clone();
 
@@ -66,12 +70,14 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     {
-                        const background_type background{ color_type{ 0x12, 0x34, 0x56, 0x78 } };
+                        const background_type background{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                          color_type{ 0x12, 0x34, 0x56, 0x78 } };
 
                         background.details();
                     }
                     {
-                        background_type background{ color_type{ 0x12, 0x34, 0x56, 0x78 } };
+                        background_type background{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                    color_type{ 0x12, 0x34, 0x56, 0x78 } };
 
                         background.details();
                     }
