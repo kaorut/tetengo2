@@ -16,6 +16,7 @@
 namespace tetengo2::detail::base {
     class alert;
     class cursor;
+    class drawing;
     class gui_fixture;
     class icon;
     class menu;
@@ -45,6 +46,18 @@ namespace tetengo2::detail::unixos {
     }
 
     const base::cursor& gui_impl_set::cursor_impl() const
+    {
+        assert(false);
+        throw std::logic_error("No implementation.");
+    }
+
+    const base::drawing& gui_impl_set::drawing_impl() const
+    {
+        assert(false);
+        throw std::logic_error("No implementation.");
+    }
+
+    const base::drawing& gui_impl_set::fast_drawing_impl() const
     {
         assert(false);
         throw std::logic_error("No implementation.");

@@ -18,6 +18,7 @@ namespace tetengo2::detail {
     namespace base {
         class alert;
         class cursor;
+        class drawing;
         class gui_fixture;
         class icon;
         class menu;
@@ -52,11 +53,25 @@ namespace tetengo2::detail {
             const alert& alert_() const;
 
             /*!
-                \brief Returns the detail implementation of alert.
+                \brief Returns the detail implementation of cursor.
 
                 \return The detail implementation.
             */
             const cursor& cursor_() const;
+
+            /*!
+                \brief Returns the detail implementation of drawing.
+
+                \return The detail implementation.
+            */
+            const drawing& drawing_() const;
+
+            /*!
+                \brief Returns the detail implementation of fast drawing.
+
+                \return The detail implementation.
+            */
+            const drawing& fast_drawing() const;
 
             /*!
                 \brief Creates a detail implementation of GUI fixture.
@@ -130,6 +145,10 @@ namespace tetengo2::detail {
             virtual const alert& alert_impl() const = 0;
 
             virtual const cursor& cursor_impl() const = 0;
+
+            virtual const drawing& drawing_impl() const = 0;
+
+            virtual const drawing& fast_drawing_impl() const = 0;
 
             virtual std::unique_ptr<gui_fixture> create_gui_fixture_impl() const = 0;
 

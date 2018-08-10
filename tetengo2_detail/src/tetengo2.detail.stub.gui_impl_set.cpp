@@ -10,6 +10,7 @@
 
 #include <tetengo2/detail/base/alert.h>
 #include <tetengo2/detail/base/cursor.h>
+#include <tetengo2/detail/base/drawing.h>
 #include <tetengo2/detail/base/gui_fixture.h>
 #include <tetengo2/detail/base/icon.h>
 #include <tetengo2/detail/base/menu.h>
@@ -20,6 +21,7 @@
 #include <tetengo2/detail/base/widget.h>
 #include <tetengo2/detail/stub/alert.h>
 #include <tetengo2/detail/stub/cursor.h>
+#include <tetengo2/detail/stub/drawing.h>
 #include <tetengo2/detail/stub/gui_fixture.h>
 #include <tetengo2/detail/stub/gui_impl_set.h>
 #include <tetengo2/detail/stub/icon.h>
@@ -50,6 +52,16 @@ namespace tetengo2::detail::stub {
     const base::cursor& gui_impl_set::cursor_impl() const
     {
         return cursor::instance();
+    }
+
+    const base::drawing& gui_impl_set::drawing_impl() const
+    {
+        return drawing::instance();
+    }
+
+    const base::drawing& gui_impl_set::fast_drawing_impl() const
+    {
+        return drawing::instance();
     }
 
     std::unique_ptr<base::gui_fixture> gui_impl_set::create_gui_fixture_impl() const

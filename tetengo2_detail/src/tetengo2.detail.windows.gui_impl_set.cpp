@@ -10,6 +10,7 @@
 
 #include <tetengo2/detail/base/alert.h>
 #include <tetengo2/detail/base/cursor.h>
+#include <tetengo2/detail/base/drawing.h>
 #include <tetengo2/detail/base/gui_fixture.h>
 #include <tetengo2/detail/base/icon.h>
 #include <tetengo2/detail/base/menu.h>
@@ -19,6 +20,8 @@
 #include <tetengo2/detail/base/virtual_key.h>
 #include <tetengo2/detail/windows/alert.h>
 #include <tetengo2/detail/windows/cursor.h>
+#include <tetengo2/detail/windows/direct2d/drawing.h>
+#include <tetengo2/detail/windows/gdiplus/drawing.h>
 #include <tetengo2/detail/windows/gui_fixture.h>
 #include <tetengo2/detail/windows/gui_impl_set.h>
 #include <tetengo2/detail/windows/icon.h>
@@ -49,6 +52,16 @@ namespace tetengo2::detail::windows {
     const base::cursor& gui_impl_set::cursor_impl() const
     {
         return cursor::instance();
+    }
+
+    const base::drawing& gui_impl_set::drawing_impl() const
+    {
+        return gdiplus::drawing::instance();
+    }
+
+    const base::drawing& gui_impl_set::fast_drawing_impl() const
+    {
+        return direct2d::drawing::instance();
     }
 
     std::unique_ptr<base::gui_fixture> gui_impl_set::create_gui_fixture_impl() const

@@ -18,6 +18,7 @@
 namespace tetengo2::detail::base {
     class alert;
     class cursor;
+    class drawing;
     class icon;
     class menu;
     class shell;
@@ -40,6 +41,16 @@ namespace tetengo2::detail {
         const cursor& gui_impl_set::cursor_() const
         {
             return cursor_impl();
+        }
+
+        const drawing& gui_impl_set::drawing_() const
+        {
+            return drawing_impl();
+        }
+
+        const drawing& gui_impl_set::fast_drawing() const
+        {
+            return fast_drawing_impl();
         }
 
         std::unique_ptr<gui_fixture> gui_impl_set::create_gui_fixture() const
