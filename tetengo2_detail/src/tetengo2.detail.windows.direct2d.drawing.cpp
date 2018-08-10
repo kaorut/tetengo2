@@ -28,12 +28,14 @@
 #include <d2d1.h>
 #include <dwrite.h>
 #include <dxgiformat.h>
+#include <wincodec.h>
 
 #include <tetengo2/detail/base/widget.h>
 #include <tetengo2/detail/windows/com_ptr.h>
 #include <tetengo2/detail/windows/direct2d/drawing.h>
 #include <tetengo2/detail/windows/direct2d/error_category.h>
 #include <tetengo2/detail/windows/error_category.h>
+#include <tetengo2/detail/windows/picture.h>
 #include <tetengo2/detail/windows/widget.h>
 #include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/gui/drawing/font.h>
@@ -137,8 +139,7 @@ namespace tetengo2::detail::windows::direct2d {
 
         void end_transaction_impl(TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas) const {}
 
-        std::unique_ptr<background_details_type>
-        create_solid_background_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::drawing::color& color) const
+        std::unique_ptr<background_details_type> create_solid_background_impl(const gui::drawing::color& color) const
         {
             return std::make_unique<direct2d_solid_background_details_type>(
                 color.red(), color.green(), color.blue(), color.alpha());
@@ -151,25 +152,17 @@ namespace tetengo2::detail::windows::direct2d {
 
         std::unique_ptr<picture_details_type> create_picture_impl(const gui::type_list::dimension_type& dimension) const
         {
-            const auto& width = dimension.width();
-            const auto& height = dimension.height();
-            return std::make_unique<direct2d_picture_details_type>(width.to_pixels(), height.to_pixels());
+            return std::make_unique<direct2d_picture_details_type>(dimension);
         }
 
-        std::unique_ptr<picture_details_type>
-        read_picture_impl(TETENGO2_STDALT_MAYBE_UNUSED const tetengo2::stdalt::filesystem::path& path) const
+        std::unique_ptr<picture_details_type> read_picture_impl(const tetengo2::stdalt::filesystem::path& path) const
         {
-            return std::make_unique<direct2d_picture_details_type>(123, 456);
+            return std::make_unique<direct2d_picture_details_type>(path);
         }
 
         gui::type_list::dimension_type picture_dimension_impl(const picture_details_type& picture) const
         {
-            return gui::type_list::dimension_type{
-                gui::type_list::dimension_unit_type::from_pixels(
-                    static_cast<const direct2d_picture_details_type&>(picture).dimension.first),
-                gui::type_list::dimension_unit_type::from_pixels(
-                    static_cast<const direct2d_picture_details_type&>(picture).dimension.second)
-            };
+            return picture::instance().dimension(*static_cast<const direct2d_picture_details_type&>(picture).p_details);
         }
 
         void draw_line_impl(
@@ -349,10 +342,14 @@ namespace tetengo2::detail::windows::direct2d {
 
         struct direct2d_picture_details_type : public picture_details_type
         {
-            std::pair<type_list::size_type, type_list::size_type> dimension;
+            picture::details_ptr_type p_details;
 
-            direct2d_picture_details_type(const type_list::size_type width, const type_list::size_type height)
-            : dimension{ width, height }
+            direct2d_picture_details_type(const gui::type_list::dimension_type& dimension)
+            : p_details{ picture::instance().create(dimension) }
+            {}
+
+            direct2d_picture_details_type(const tetengo2::stdalt::filesystem::path& path)
+            : p_details{ picture::instance().read(path) }
             {}
 
             virtual ~direct2d_picture_details_type() = default;
