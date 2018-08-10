@@ -178,7 +178,7 @@ namespace tetengo2::detail::windows::direct2d {
             const gui::type_list::position_type&       from,
             const gui::type_list::position_type&       to,
             const gui::type_list::dimension_unit_type& width,
-            int                                        style,
+            const int                                  style,
             const gui::drawing::color&                 color) const
         {
             const auto p_background_details = create_solid_background_impl(color);
@@ -206,7 +206,7 @@ namespace tetengo2::detail::windows::direct2d {
             const gui::type_list::position_type&       position,
             const gui::type_list::dimension_type&      dimension,
             const gui::type_list::dimension_unit_type& width,
-            int                                        style,
+            const int                                  style,
             const gui::drawing::color&                 color) const
         {
             const auto p_background_details = create_solid_background_impl(color);
@@ -239,7 +239,7 @@ namespace tetengo2::detail::windows::direct2d {
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
             TETENGO2_STDALT_MAYBE_UNUSED const std::vector<gui::type_list::position_type>& positions,
             TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_unit_type& width,
-            TETENGO2_STDALT_MAYBE_UNUSED int                                        style,
+            TETENGO2_STDALT_MAYBE_UNUSED const int                                  style,
             TETENGO2_STDALT_MAYBE_UNUSED const gui::drawing::color& color) const
         {
             assert(false);
@@ -261,7 +261,7 @@ namespace tetengo2::detail::windows::direct2d {
 
             assert(log_font.lfHeight < 0);
             return gui::drawing::font{
-                log_font.lfFaceName,          static_cast<typename gui::drawing::font::size_type>(-log_font.lfHeight),
+                log_font.lfFaceName,          static_cast<gui::drawing::font::size_type>(-log_font.lfHeight),
                 log_font.lfWeight >= FW_BOLD, log_font.lfItalic != 0,
                 log_font.lfUnderline != 0,    log_font.lfStrikeOut != 0
             };
@@ -326,7 +326,7 @@ namespace tetengo2::detail::windows::direct2d {
             const gui::type_list::position_type&       position,
             const gui::type_list::dimension_unit_type& max_width,
             const gui::drawing::color&                 color,
-            double                                     angle) const
+            const double                               angle) const
         {
             const auto p_layout = create_text_layout(text, font, max_width);
 
@@ -1065,7 +1065,7 @@ namespace tetengo2::detail::windows::direct2d {
         canvas_details_type&                              canvas,
         const std::vector<gui::type_list::position_type>& positions,
         const gui::type_list::dimension_unit_type&        width,
-        int                                               style,
+        const int                                         style,
         const gui::drawing::color&                        color) const
     {
         m_p_impl->draw_polygon_impl(canvas, positions, width, style, color);
@@ -1108,7 +1108,7 @@ namespace tetengo2::detail::windows::direct2d {
         const gui::type_list::position_type&       position,
         const gui::type_list::dimension_unit_type& max_width,
         const gui::drawing::color&                 color,
-        double                                     angle) const
+        const double                               angle) const
     {
         m_p_impl->draw_text_impl(canvas, font, text, position, max_width, color, angle);
     }
