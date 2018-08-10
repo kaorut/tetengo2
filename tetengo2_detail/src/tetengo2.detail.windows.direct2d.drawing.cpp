@@ -14,6 +14,7 @@
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/operators.hpp>
+#include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
 
 #pragma warning(push)
@@ -35,15 +36,22 @@
 #include <tetengo2/detail/windows/direct2d/drawing.h>
 #include <tetengo2/detail/windows/direct2d/error_category.h>
 #include <tetengo2/detail/windows/error_category.h>
+#include <tetengo2/detail/windows/font.h>
 #include <tetengo2/detail/windows/picture.h>
 #include <tetengo2/detail/windows/widget.h>
+#include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/gui/drawing/font.h>
+#include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/type_list.h>
 #include <tetengo2/gui/unit/em.h>
 #include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/text.h>
+#include <tetengo2/text/character_iterator.h>
+#include <tetengo2/text/encoder.h>
+#include <tetengo2/text/encoding/locale.h>
+#include <tetengo2/text/encoding/utf8.h>
 #include <tetengo2/type_list.h>
 
 namespace tetengo2 { namespace gui {
@@ -166,35 +174,66 @@ namespace tetengo2::detail::windows::direct2d {
         }
 
         void draw_line_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& from,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& to,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_unit_type& width,
-            TETENGO2_STDALT_MAYBE_UNUSED int                                        style,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::drawing::color& color) const
-        {}
+            canvas_details_type&                       canvas,
+            const gui::type_list::position_type&       from,
+            const gui::type_list::position_type&       to,
+            const gui::type_list::dimension_unit_type& width,
+            int                                        style,
+            const gui::drawing::color&                 color) const
+        {
+            const auto p_background_details = create_solid_background_impl(color);
+            const auto p_brush = create_brush(canvas, *p_background_details);
+            const auto p_stroke_style = create_stroke_style(style);
+            static_cast<direct2d_canvas_details_type&>(canvas).render_target().DrawLine(
+                position_to_point_2f(from),
+                position_to_point_2f(to),
+                p_brush.get(),
+                size_to_float(width),
+                p_stroke_style.get());
+        }
 
         void draw_focus_indication_impl(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
             TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position,
             TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_type& dimension) const
-        {}
+        {
+            assert(false);
+            BOOST_THROW_EXCEPTION(std::logic_error{ "Not implemented." });
+        }
 
         void draw_rectangle_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_type& dimension,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_unit_type& width,
-            TETENGO2_STDALT_MAYBE_UNUSED int                                        style,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::drawing::color& color) const
-        {}
+            canvas_details_type&                       canvas,
+            const gui::type_list::position_type&       position,
+            const gui::type_list::dimension_type&      dimension,
+            const gui::type_list::dimension_unit_type& width,
+            int                                        style,
+            const gui::drawing::color&                 color) const
+        {
+            const auto p_background_details = create_solid_background_impl(color);
+            const auto p_brush = create_brush(canvas, *p_background_details);
+            const auto p_stroke_style = create_stroke_style(style);
+            static_cast<direct2d_canvas_details_type&>(canvas).render_target().DrawRectangle(
+                position_and_dimension_to_rect_f(position, dimension),
+                p_brush.get(),
+                size_to_float(width),
+                p_stroke_style.get());
+        }
 
         void fill_rectangle_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_type& dimension,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::drawing::background& background) const
-        {}
+            canvas_details_type&                  canvas,
+            const gui::type_list::position_type&  position,
+            const gui::type_list::dimension_type& dimension,
+            const gui::drawing::background&       background) const
+        {
+            const auto& background_details = background.details();
+            if (static_cast<const direct2d_background_details_type&>(background_details).is_transparent())
+                return;
+
+            const auto p_brush = create_brush(canvas, background_details);
+
+            static_cast<direct2d_canvas_details_type&>(canvas).render_target().FillRectangle(
+                position_and_dimension_to_rect_f(position, dimension), p_brush.get());
+        }
 
         void draw_polygon_impl(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
@@ -202,72 +241,199 @@ namespace tetengo2::detail::windows::direct2d {
             TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_unit_type& width,
             TETENGO2_STDALT_MAYBE_UNUSED int                                        style,
             TETENGO2_STDALT_MAYBE_UNUSED const gui::drawing::color& color) const
-        {}
+        {
+            assert(false);
+            BOOST_THROW_EXCEPTION(std::logic_error{ "Not implemented." });
+        }
 
         void fill_polygon_impl(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
             TETENGO2_STDALT_MAYBE_UNUSED const std::vector<gui::type_list::position_type>& positions,
             TETENGO2_STDALT_MAYBE_UNUSED const gui::drawing::background& background) const
-        {}
+        {
+            assert(false);
+            BOOST_THROW_EXCEPTION(std::logic_error{ "Not implemented." });
+        }
 
         gui::drawing::font make_dialog_font_impl() const
         {
+            const auto log_font = get_message_font();
+
+            assert(log_font.lfHeight < 0);
             return gui::drawing::font{
-                gui::drawing::font::string_type{ TETENGO2_TEXT("TetengoFont") }, 12, false, false, false, false
+                log_font.lfFaceName,          static_cast<typename gui::drawing::font::size_type>(-log_font.lfHeight),
+                log_font.lfWeight >= FW_BOLD, log_font.lfItalic != 0,
+                log_font.lfUnderline != 0,    log_font.lfStrikeOut != 0
             };
         }
 
         gui::type_list::dimension_type calc_text_dimension_impl(
             TETENGO2_STDALT_MAYBE_UNUSED const canvas_details_type& canvas,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::drawing::font& font,
-            TETENGO2_STDALT_MAYBE_UNUSED const type_list::string_type& text,
-            const gui::type_list::dimension_unit_type&                 max_width) const
+            const gui::drawing::font&                               font,
+            const type_list::string_type&                           text,
+            const gui::type_list::dimension_unit_type&              max_width) const
         {
-            using dimension_unit_type = gui::type_list::dimension_unit_type;
-            return max_width == dimension_unit_type{} || max_width >= dimension_unit_type{ 123 } ?
-                       gui::type_list::dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } } :
-                       gui::type_list::dimension_type{ dimension_unit_type{ 46 }, dimension_unit_type{ 890 } };
+            const auto p_layout = create_text_layout(text, font, max_width);
+
+            ::DWRITE_TEXT_METRICS metrics{};
+            const auto            get_metrics_hr = p_layout->GetMetrics(&metrics);
+            if (FAILED(get_metrics_hr))
+            {
+                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ get_metrics_hr, win32_category() },
+                                                          "Can't get text metrics." }));
+            }
+
+            return { gui::type_list::dimension_unit_type::from_pixels(to_ddp_x(metrics.width)),
+                     gui::type_list::dimension_unit_type::from_pixels(to_ddp_y(metrics.height)) };
         }
 
         gui::type_list::dimension_type calc_vertical_text_dimension_impl(
             TETENGO2_STDALT_MAYBE_UNUSED const canvas_details_type& canvas,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::drawing::font& font,
-            TETENGO2_STDALT_MAYBE_UNUSED const type_list::string_type& text) const
+            const gui::drawing::font&                               font,
+            const type_list::string_type&                           text) const
         {
+            const auto chunks = split_to_vertical_text_chunks(text);
+
             using dimension_unit_type = gui::type_list::dimension_unit_type;
-            return gui::type_list::dimension_type{ dimension_unit_type{ 456 }, dimension_unit_type{ 123 } };
+            dimension_unit_type max_width{};
+            dimension_unit_type total_height{};
+            for (const auto& chunk : chunks)
+            {
+                const auto  chunk_dimension = calc_text_dimension_impl(canvas, font, chunk, dimension_unit_type{});
+                const auto& chunk_width = chunk_dimension.width();
+                const auto& chunk_height = chunk_dimension.height();
+                if (character_rotation(chunk) % 2 == 0)
+                {
+                    if (chunk_width > max_width)
+                        max_width = chunk_width;
+                    total_height += chunk_height;
+                }
+                else
+                {
+                    if (chunk_height > max_width)
+                        max_width = chunk_height;
+                    total_height += chunk_width;
+                }
+            }
+
+            return gui::type_list::dimension_type{ max_width, total_height };
         }
 
         void draw_text_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::drawing::font& font,
-            TETENGO2_STDALT_MAYBE_UNUSED const type_list::string_type& text,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_unit_type& max_width,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::drawing::color& color,
-            TETENGO2_STDALT_MAYBE_UNUSED double                     angle) const
-        {}
+            canvas_details_type&                       canvas,
+            const gui::drawing::font&                  font,
+            const type_list::string_type&              text,
+            const gui::type_list::position_type&       position,
+            const gui::type_list::dimension_unit_type& max_width,
+            const gui::drawing::color&                 color,
+            double                                     angle) const
+        {
+            const auto p_layout = create_text_layout(text, font, max_width);
+
+            const auto p_background_details = create_solid_background_impl(color);
+            const auto p_brush = create_brush(canvas, *p_background_details);
+
+            auto& render_target = static_cast<direct2d_canvas_details_type&>(canvas).render_target();
+            auto  original_transform = D2D1::Matrix3x2F{};
+            render_target.GetTransform(&original_transform);
+            BOOST_SCOPE_EXIT((&render_target)(&original_transform))
+            {
+                render_target.SetTransform(original_transform);
+            }
+            BOOST_SCOPE_EXIT_END;
+            auto rotating_transform =
+                D2D1::Matrix3x2F::Rotation(radian_to_degree(angle), position_to_point_2f(position));
+            render_target.SetTransform(rotating_transform);
+
+            render_target.DrawTextLayout(position_to_point_2f(position), p_layout.get(), p_brush.get());
+        }
 
         void draw_vertical_text_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::drawing::font& font,
-            TETENGO2_STDALT_MAYBE_UNUSED const type_list::string_type& text,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::drawing::color& color) const
-        {}
+            canvas_details_type&                 canvas,
+            const gui::drawing::font&            font,
+            const type_list::string_type&        text,
+            const gui::type_list::position_type& position,
+            const gui::drawing::color&           color) const
+        {
+            const auto  dimension = calc_vertical_text_dimension_impl(canvas, font, text);
+            const auto& max_width = dimension.width();
+
+            const auto chunks = split_to_vertical_text_chunks(text);
+
+            using position_unit_type = gui::type_list::dimension_unit_type;
+            using dimension_unit_type = gui::type_list::dimension_unit_type;
+            const auto& base_left = position.left();
+            const auto& base_top = position.top();
+            auto        next_chunk_top = base_top;
+            for (const auto& chunk : chunks)
+            {
+                const auto  chunk_dimension = calc_text_dimension_impl(canvas, font, chunk, dimension_unit_type{});
+                const auto& chunk_width = chunk_dimension.width();
+                const auto& chunk_height = chunk_dimension.height();
+
+                const int    rotation = character_rotation(chunk);
+                const double angle = rotation * boost::math::constants::pi<double>() / 2.0;
+
+                const auto chunk_left = rotation % 2 == 0 ?
+                                            base_left + position_unit_type::from(max_width - chunk_width) / 2 :
+                                            base_left + position_unit_type::from(max_width - chunk_height) / 2;
+
+                gui::type_list::position_type chunk_position{ chunk_left, next_chunk_top };
+                if (rotation == 1)
+                {
+                    chunk_position = gui::type_list::position_type{ chunk_left + position_unit_type::from(chunk_height),
+                                                                    next_chunk_top };
+                }
+                else if (rotation == 2)
+                {
+                    chunk_position =
+                        gui::type_list::position_type{ chunk_left + position_unit_type::from(chunk_width),
+                                                       next_chunk_top + position_unit_type::from(chunk_height) };
+                }
+                else
+                {
+                    assert(rotation == 0);
+                }
+
+
+                draw_text_impl(canvas, font, chunk, chunk_position, dimension_unit_type{}, color, angle);
+
+                next_chunk_top +=
+                    rotation % 2 == 0 ? position_unit_type::from(chunk_height) : position_unit_type::from(chunk_width);
+            }
+        }
 
         void paint_picture_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::drawing::picture& picture,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position,
-            TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::dimension_type& dimension) const
-        {}
+            canvas_details_type&                  canvas,
+            const gui::drawing::picture&          picture,
+            const gui::type_list::position_type&  position,
+            const gui::type_list::dimension_type& dimension) const
+        {
+            auto& picture_details =
+                static_cast<direct2d_picture_details_type&>(const_cast<gui::drawing::picture&>(picture).details());
+
+            auto&          render_target = static_cast<direct2d_canvas_details_type&>(canvas).render_target();
+            ::ID2D1Bitmap* rp_bitmap = nullptr;
+            const auto     create_bitmap_hr =
+                render_target.CreateBitmapFromWicBitmap(picture_details.p_details.get(), &rp_bitmap);
+            if (FAILED(create_bitmap_hr))
+            {
+                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ create_bitmap_hr, direct2d_category() },
+                                                          "Can't create bitmap." }));
+            }
+            const unique_com_ptr<::ID2D1Bitmap> p_bitmap{ rp_bitmap };
+
+            render_target.DrawBitmap(p_bitmap.get(), position_and_dimension_to_rect_f(position, dimension));
+        }
 
         void paint_icon_impl(
             TETENGO2_STDALT_MAYBE_UNUSED canvas_details_type& canvas,
             TETENGO2_STDALT_MAYBE_UNUSED const gui::icon& icon,
             TETENGO2_STDALT_MAYBE_UNUSED const gui::type_list::position_type& position) const
-        {}
+        {
+            assert(false);
+            BOOST_THROW_EXCEPTION(std::logic_error{ "Not implemented." });
+        }
 
 
     private:
@@ -400,6 +566,9 @@ namespace tetengo2::detail::windows::direct2d {
 
         using direct_write_factory_ptr_type = unique_com_ptr<::IDWriteFactory>;
 
+        using native_drawing_encoder_type =
+            text::encoder<type_list::internal_encoding_type, text::encoding::locale<std::wstring>>;
+
 
         // static functions
 
@@ -422,6 +591,85 @@ namespace tetengo2::detail::windows::direct2d {
             return direct2d_factory_ptr_type{ rp_factory };
         }
 
+        static ::IDWriteFactory& direct_write_factory()
+        {
+            static const direct_write_factory_ptr_type p_factory{ create_direct_write_factory() };
+            return *p_factory;
+        }
+
+        static direct_write_factory_ptr_type create_direct_write_factory()
+        {
+            ::IDWriteFactory* rp_factory = nullptr;
+            const auto        hr = ::DWriteCreateFactory(
+                ::DWRITE_FACTORY_TYPE_SHARED, __uuidof(::IDWriteFactory), reinterpret_cast<::IUnknown**>(&rp_factory));
+            if (FAILED(hr))
+            {
+                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ hr, win32_category() },
+                                                          "Can't create Direct Write factory." }));
+            }
+
+            return direct_write_factory_ptr_type{ rp_factory };
+        }
+
+        static const std::pair<::FLOAT, ::FLOAT>& dpi()
+        {
+            static const auto singleton = calculate_dpi();
+            return singleton;
+        }
+
+        static std::pair<::FLOAT, ::FLOAT> calculate_dpi()
+        {
+            std::pair<::FLOAT, ::FLOAT> dpi{};
+
+            direct2d_factory().GetDesktopDpi(&dpi.first, &dpi.second);
+            assert(dpi.first != 0 && dpi.second != 0);
+
+            return dpi;
+        }
+
+        static ::FLOAT to_ddp_x(const ::FLOAT dip)
+        {
+            return dip * dpi().first / 96.0f;
+        }
+
+        static ::FLOAT to_ddp_y(const ::FLOAT dip)
+        {
+            return dip * dpi().second / 96.0f;
+        }
+
+        static ::FLOAT to_dip_x(const ::FLOAT ddp)
+        {
+            return ddp * 96.0f / dpi().first;
+        }
+
+        static ::FLOAT to_dip_y(const ::FLOAT ddp)
+        {
+            return ddp * 96.0f / dpi().second;
+        }
+
+        static ::FLOAT size_to_float(const gui::type_list::dimension_unit_type& size)
+        {
+            return to_dip_y(static_cast<::FLOAT>(size.to_pixels()));
+        }
+
+        static ::D2D1_POINT_2F position_to_point_2f(const gui::type_list::position_type& position)
+        {
+            const auto left = to_dip_x(static_cast<::FLOAT>(position.left().to_pixels()));
+            const auto top = to_dip_y(static_cast<::FLOAT>(position.top().to_pixels()));
+            return ::D2D1_POINT_2F{ left - 0.5f, top - 0.5f };
+        }
+
+        static ::D2D1_RECT_F position_and_dimension_to_rect_f(
+            const gui::type_list::position_type&  position,
+            const gui::type_list::dimension_type& dimension)
+        {
+            const auto left = to_dip_x(static_cast<::FLOAT>(position.left().to_pixels()));
+            const auto top = to_dip_y(static_cast<::FLOAT>(position.top().to_pixels()));
+            const auto width = to_dip_x(static_cast<::FLOAT>(dimension.width().to_pixels()));
+            const auto height = to_dip_y(static_cast<::FLOAT>(dimension.height().to_pixels()));
+            return ::D2D1_RECT_F{ left, top, left + width, top + height };
+        }
+
         static ::D2D1_COLOR_F colorref_to_color_f(const ::COLORREF colorref)
         {
             return rgba_to_color_f(GetRValue(colorref), GetGValue(colorref), GetBValue(colorref), 255);
@@ -437,6 +685,280 @@ namespace tetengo2::detail::windows::direct2d {
                                    static_cast<::FLOAT>(green / 255.0),
                                    static_cast<::FLOAT>(blue / 255.0),
                                    static_cast<::FLOAT>(alpha / 255.0) };
+        }
+
+        static const native_drawing_encoder_type& native_drawing_encoder()
+        {
+            static const native_drawing_encoder_type singleton;
+            return singleton;
+        }
+
+        using utf8_encoder_type = text::encoder<type_list::internal_encoding_type, text::encoding::utf8>;
+
+        static const utf8_encoder_type& utf8_encoder()
+        {
+            static const utf8_encoder_type singleton;
+            return singleton;
+        }
+
+        static unique_com_ptr<::ID2D1Brush>
+        create_brush(canvas_details_type& canvas, const background_details_type& background_details)
+        {
+            const auto* const p_solid = static_cast<const direct2d_solid_background_details_type*>(&background_details);
+            if (!p_solid)
+            {
+                assert(false);
+                BOOST_THROW_EXCEPTION((std::invalid_argument{ "Invalid background details type." }));
+            }
+            ::ID2D1SolidColorBrush* rp_brush = nullptr;
+            const auto hr = static_cast<direct2d_canvas_details_type&>(canvas).render_target().CreateSolidColorBrush(
+                rgba_to_color_f(p_solid->red(), p_solid->green(), p_solid->blue(), p_solid->alpha()),
+                D2D1::BrushProperties(),
+                &rp_brush);
+            if (FAILED(hr))
+            {
+                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ hr, direct2d_category() },
+                                                          "Can't create solid color brush." }));
+            }
+            return unique_com_ptr<::ID2D1Brush>{ rp_brush };
+        }
+
+        static unique_com_ptr<::ID2D1StrokeStyle> create_stroke_style(const int style)
+        {
+            ::ID2D1StrokeStyle* rp_stroke_style = nullptr;
+            const auto          hr = direct2d_factory().CreateStrokeStyle(
+                D2D1::StrokeStyleProperties(
+                    ::D2D1_CAP_STYLE_ROUND,
+                    ::D2D1_CAP_STYLE_ROUND,
+                    ::D2D1_CAP_STYLE_ROUND,
+                    ::D2D1_LINE_JOIN_ROUND,
+                    1.0f,
+                    to_stroke_dash_style(style)),
+                nullptr,
+                0,
+                &rp_stroke_style);
+            if (FAILED(hr))
+            {
+                BOOST_THROW_EXCEPTION(
+                    (std::system_error{ std::error_code{ hr, direct2d_category() }, "Can't create stroke style." }));
+            }
+            return unique_com_ptr<::ID2D1StrokeStyle>{ rp_stroke_style };
+        }
+
+        static ::D2D1_DASH_STYLE to_stroke_dash_style(const int style)
+        {
+            switch (style)
+            {
+            case 0:
+                return ::D2D1_DASH_STYLE_SOLID;
+            case 1:
+                return ::D2D1_DASH_STYLE_DASH;
+            case 2:
+                return ::D2D1_DASH_STYLE_DOT;
+            case 3:
+                return ::D2D1_DASH_STYLE_DASH_DOT;
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION((std::invalid_argument{ "Unknown stroke dash style." }));
+            }
+        }
+
+        static unique_com_ptr<::IDWriteTextLayout> create_text_layout(
+            const type_list::string_type&              text,
+            const gui::drawing::font&                  font,
+            const gui::type_list::dimension_unit_type& max_width)
+        {
+            ::IDWriteTextFormat* rp_format = nullptr;
+            const auto           create_format_hr = direct_write_factory().CreateTextFormat(
+                native_drawing_encoder().encode(font.family()).c_str(),
+                nullptr,
+                font.bold() ? ::DWRITE_FONT_WEIGHT_BOLD : ::DWRITE_FONT_WEIGHT_NORMAL,
+                font.italic() ? ::DWRITE_FONT_STYLE_ITALIC : ::DWRITE_FONT_STYLE_NORMAL,
+                ::DWRITE_FONT_STRETCH_NORMAL,
+                static_cast<::FLOAT>(font.size()),
+                L"",
+                &rp_format);
+            if (FAILED(create_format_hr))
+            {
+                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ create_format_hr, win32_category() },
+                                                          "Can't create text format." }));
+            }
+            const typename unique_com_ptr<::IDWriteTextFormat> p_format{ rp_format };
+
+            const auto    encoded_text = native_drawing_encoder().encode(text);
+            const ::FLOAT max_width_in_dip = max_width == gui::type_list::dimension_unit_type{} ?
+                                                 std::numeric_limits<::FLOAT>::max() :
+                                                 to_dip_x(static_cast<::FLOAT>(max_width.to_pixels()));
+            ::IDWriteTextLayout* rp_layout = nullptr;
+            const auto           create_layout_hr = direct_write_factory().CreateTextLayout(
+                encoded_text.c_str(),
+                static_cast<::UINT32>(encoded_text.length()),
+                p_format.get(),
+                max_width_in_dip,
+                std::numeric_limits<::FLOAT>::max(),
+                &rp_layout);
+            if (FAILED(create_layout_hr))
+            {
+                BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ create_layout_hr, win32_category() },
+                                                          "Can't create text layout." }));
+            }
+            typename unique_com_ptr<::IDWriteTextLayout> p_layout{ rp_layout };
+
+            const ::DWRITE_TEXT_RANGE range{ 0, static_cast<::UINT32>(encoded_text.length()) };
+            p_layout->SetUnderline(font.underline() ? TRUE : FALSE, range);
+            p_layout->SetStrikethrough(font.strikeout() ? TRUE : FALSE, range);
+
+            return std::move(p_layout);
+        }
+
+        static std::vector<type_list::string_type> split_to_vertical_text_chunks(const type_list::string_type& text)
+        {
+            using character_iterator_type = text::character_iterator<type_list::string_type>;
+
+            std::vector<type_list::string_type> chunks{};
+            type_list::string_type              tatechuyoko{};
+            const character_iterator_type       end{};
+            for (auto i = character_iterator_type{ text,
+                                                   text::encoding::make_polymorphic<type_list::internal_encoding_type>(
+                                                       native_drawing_encoder().internal_encoding()) };
+                 i != end;
+                 ++i)
+            {
+                const auto& char_as_string = *i;
+                if (is_tatechuyoko_character(char_as_string))
+                {
+                    tatechuyoko.append(char_as_string);
+                    continue;
+                }
+                if (!tatechuyoko.empty())
+                {
+                    chunks.push_back(tatechuyoko);
+                    tatechuyoko.clear();
+                }
+
+                if (!chunks.empty() && is_dakuten_character(char_as_string))
+                    chunks.back().append(char_as_string);
+                else
+                    chunks.push_back(char_as_string);
+            }
+            if (!tatechuyoko.empty())
+                chunks.push_back(tatechuyoko);
+
+            return std::move(chunks);
+        }
+
+        static bool is_tatechuyoko_character(const type_list::string_type& char_as_string)
+        {
+            const auto char_in_utf8 = utf8_encoder().encode(char_as_string);
+
+            static const std::vector<std::string> digits{
+                std::string{ to_char(0x30) }, // 0
+                std::string{ to_char(0x31) }, // 1
+                std::string{ to_char(0x32) }, // 2
+                std::string{ to_char(0x33) }, // 3
+                std::string{ to_char(0x34) }, // 4
+                std::string{ to_char(0x35) }, // 5
+                std::string{ to_char(0x36) }, // 6
+                std::string{ to_char(0x37) }, // 7
+                std::string{ to_char(0x38) }, // 8
+                std::string{ to_char(0x39) }, // 9
+            };
+            if (std::find(digits.begin(), digits.end(), char_in_utf8) != digits.end())
+                return true;
+
+            return false;
+        }
+
+        static bool is_dakuten_character(const type_list::string_type& char_as_string)
+        {
+            const auto char_in_utf8 = utf8_encoder().encode(char_as_string);
+
+            static const std::vector<std::string> dakutens{
+                std::string{ to_char(0xEF), to_char(0xBE), to_char(0x9E) }, // halfwidth katakana dakuten
+                std::string{ to_char(0xEF), to_char(0xBE), to_char(0x9F) }, // halfwidth katakana handakuten
+            };
+            if (std::find(dakutens.begin(), dakutens.end(), char_in_utf8) != dakutens.end())
+                return true;
+
+            return false;
+        }
+
+        static int character_rotation(const type_list::string_type& char_as_string)
+        {
+            const auto char_in_utf8 = utf8_encoder().encode(char_as_string);
+
+            static const std::vector<std::string> r90degs{
+                std::string{ to_char(0x29) }, // right parenthesis
+                std::string{ to_char(0x2D) }, // hyphen-minus
+                std::string{ to_char(0x5B) }, // left square bracket
+                std::string{ to_char(0x5D) }, // right square bracket
+                std::string{ to_char(0x7B) }, // left curly bracket
+                std::string{ to_char(0x7D) }, // left curly bracket
+                std::string{ to_char(0x28) }, // left parenthesis
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x88) }, // left angle bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x89) }, // right angle bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x8A) }, // left double angle bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x8B) }, // right double angle bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x8C) }, // left corner bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x8D) }, // right corner bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x8E) }, // left white corner bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x8F) }, // right white corner bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x90) }, // left black lenticular bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x91) }, // right black lenticular bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x94) }, // left tortoise shell bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x95) }, // right tortoise shell bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x96) }, // left white lenticular bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x97) }, // right white lenticular bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x98) }, // left white tortoise shell bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x99) }, // right white tortoise shell bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x9A) }, // left white square bracket
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x9B) }, // right white square bracket
+                std::string{ to_char(0xE3), to_char(0x83), to_char(0xBC) }, // choon
+                std::string{ to_char(0xEF), to_char(0xBC), to_char(0x88) }, // fullwidth left parenthesis
+                std::string{ to_char(0xEF), to_char(0xBC), to_char(0x89) }, // fullwidth right parenthesis
+                std::string{ to_char(0xEF), to_char(0xBC), to_char(0x8D) }, // fullwidth hyphen-minus
+                std::string{ to_char(0xEF), to_char(0xBC), to_char(0xBB) }, // fullwidth left bracket
+                std::string{ to_char(0xEF), to_char(0xBC), to_char(0xBD) }, // fullwidth right bracket
+                std::string{ to_char(0xEF), to_char(0xBD), to_char(0x9B) }, // fullwidth left curly bracket
+                std::string{ to_char(0xEF), to_char(0xBD), to_char(0x9D) }, // fullwidth right curly bracket
+                std::string{ to_char(0xEF), to_char(0xBD), to_char(0x9E) }, // fullwidth tilde
+                std::string{ to_char(0xEF), to_char(0xBD), to_char(0xA2) }, // halfwidth left corner bracket
+                std::string{ to_char(0xEF), to_char(0xBD), to_char(0xA3) }, // halfwidth right corner bracket
+                std::string{ to_char(0xEF), to_char(0xBD), to_char(0xB0) }, // halfwidth choon
+            };
+            static const std::vector<std::string> r180degs{
+                std::string{ to_char(0x2C) }, // comma
+                std::string{ to_char(0x2E) }, // full stop
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x81) }, // toten
+                std::string{ to_char(0xE3), to_char(0x80), to_char(0x82) }, // kuten
+                std::string{ to_char(0xEF), to_char(0xBC), to_char(0x8C) }, // fullwidth comma
+                std::string{ to_char(0xEF), to_char(0xBC), to_char(0x8E) }, // fullwidth full stop
+                std::string{ to_char(0xEF), to_char(0xBD), to_char(0xA1) }, // halfwidth kuten
+                std::string{ to_char(0xEF), to_char(0xBD), to_char(0xA4) }, // halfwidth toten
+            };
+            if (std::find(r90degs.begin(), r90degs.end(), char_in_utf8) != r90degs.end())
+            {
+                return 1;
+            }
+            else if (std::find(r180degs.begin(), r180degs.end(), char_in_utf8) != r180degs.end())
+            {
+                return 2;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        template <typename C>
+        static char to_char(C c)
+        {
+            return static_cast<char>(c);
+        }
+
+        static ::FLOAT radian_to_degree(const double radian)
+        {
+            return static_cast<::FLOAT>(radian * 180.0 / boost::math::constants::pi<double>());
         }
     };
 
