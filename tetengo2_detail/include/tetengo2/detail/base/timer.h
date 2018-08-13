@@ -9,15 +9,9 @@
 #if !defined(TETENGO2_DETAIL_BASE_TIMER_H)
 #define TETENGO2_DETAIL_BASE_TIMER_H
 
-#include <chrono>
-#include <functional>
 #include <memory>
 
 #include <boost/core/noncopyable.hpp>
-
-namespace tetengo2 { namespace gui { namespace widget {
-    class widget;
-}}}
 
 
 namespace tetengo2::detail::base {
@@ -31,17 +25,8 @@ namespace tetengo2::detail::base {
 
         /*!
             \brief Creates a detail implementation of a timer.
-
-            \param widget    A widget.
-            \param procedure A procedure called by this timer.
-            \param interval  An interval.
-            \param once_only Set true to execute the procedure once only.
         */
-        timer(
-            const gui::widget::widget&       widget,
-            std::function<void(bool&)>       procedure,
-            const std::chrono::milliseconds& interval,
-            bool                             once_only);
+        timer();
 
         /*!
             \brief Destroys the detail implementation of a timer.
