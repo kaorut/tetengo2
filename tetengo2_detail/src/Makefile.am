@@ -21,6 +21,7 @@ sources = \
     tetengo2.detail.base.messages.cpp \
     tetengo2.detail.base.shell.cpp \
     tetengo2.detail.base.system_color.cpp \
+    tetengo2.detail.base.timer.cpp \
     tetengo2.detail.base.unit.cpp \
     tetengo2.detail.base.virtual_key.cpp \
     tetengo2.detail.base.widget.cpp \
@@ -35,6 +36,7 @@ sources = \
     tetengo2.detail.stub.message_handler.cpp \
     tetengo2.detail.stub.shell.cpp \
     tetengo2.detail.stub.system_color.cpp \
+    tetengo2.detail.stub.timer.cpp \
     tetengo2.detail.stub.unit.cpp \
     tetengo2.detail.stub.virtual_key.cpp \
     tetengo2.detail.stub.widget.cpp \
@@ -66,6 +68,7 @@ extra_sources = \
     tetengo2.detail.windows.picture.cpp \
     tetengo2.detail.windows.shell.cpp \
     tetengo2.detail.windows.system_color.cpp \
+    tetengo2.detail.windows.timer.cpp \
     tetengo2.detail.windows.unit.cpp \
     tetengo2.detail.windows.virtual_key.cpp \
     tetengo2.detail.windows.widget.cpp \

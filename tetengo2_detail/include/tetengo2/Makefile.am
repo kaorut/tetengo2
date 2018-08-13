@@ -17,6 +17,7 @@ pkg_headers = \
     detail/base/messages.h \
     detail/base/shell.h \
     detail/base/system_color.h \
+    detail/base/timer.h \
     detail/base/unit.h \
     detail/base/virtual_key.h \
     detail/base/widget.h \

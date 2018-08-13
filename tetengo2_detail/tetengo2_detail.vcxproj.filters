@@ -321,6 +321,9 @@
     <ClInclude Include="include\tetengo2\detail\base\drawing.h">
       <Filter>headers\tetengo2::detail\base</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\base\timer.h">
+      <Filter>headers\tetengo2::detail\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\tetengo2.detail.base.config.cpp">
@@ -508,6 +511,15 @@
     </ClCompile>
     <ClCompile Include="src\tetengo2.detail.windows.gdiplus.drawing.cpp">
       <Filter>sources\tetengo2::detail\windows\gdiplus</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.base.timer.cpp">
+      <Filter>sources\tetengo2::detail\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.stub.timer.cpp">
+      <Filter>sources\tetengo2::detail\stub</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.timer.cpp">
+      <Filter>sources\tetengo2::detail\windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

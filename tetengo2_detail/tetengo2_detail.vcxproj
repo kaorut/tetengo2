@@ -34,6 +34,7 @@
     <ClInclude Include="include\tetengo2\detail\base\message_handler.h" />
     <ClInclude Include="include\tetengo2\detail\base\shell.h" />
     <ClInclude Include="include\tetengo2\detail\base\system_color.h" />
+    <ClInclude Include="include\tetengo2\detail\base\timer.h" />
     <ClInclude Include="include\tetengo2\detail\base\unit.h" />
     <ClInclude Include="include\tetengo2\detail\base\virtual_key.h" />
     <ClInclude Include="include\tetengo2\detail\base\widget.h" />
@@ -153,6 +154,7 @@
     <ClCompile Include="src\tetengo2.detail.base.message_handler.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.shell.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.system_color.cpp" />
+    <ClCompile Include="src\tetengo2.detail.base.timer.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.unit.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.virtual_key.cpp" />
     <ClCompile Include="src\tetengo2.detail.base.widget.cpp" />
@@ -167,6 +169,7 @@
     <ClCompile Include="src\tetengo2.detail.stub.message_handler.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.shell.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.system_color.cpp" />
+    <ClCompile Include="src\tetengo2.detail.stub.timer.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.unit.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.virtual_key.cpp" />
     <ClCompile Include="src\tetengo2.detail.stub.widget.cpp" />
@@ -221,6 +224,7 @@
     <ClCompile Include="src\tetengo2.detail.windows.picture.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.shell.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.system_color.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.timer.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.unit.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.virtual_key.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.widget.cpp" />
