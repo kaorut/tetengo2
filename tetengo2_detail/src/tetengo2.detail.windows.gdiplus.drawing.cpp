@@ -111,12 +111,14 @@ namespace tetengo2::detail::windows::gdiplus {
 
         void begin_transaction_impl(canvas_details_type& canvas, const gui::type_list::dimension_type& dimension) const
         {
+            assert(dynamic_cast<gdiplus_canvas_details_type*>(&canvas));
             static_cast<gdiplus_canvas_details_type&>(canvas).begin_transaction(
                 static_cast<::INT>(dimension.width().to_pixels()), static_cast<::INT>(dimension.height().to_pixels()));
         }
 
         void end_transaction_impl(canvas_details_type& canvas) const
         {
+            assert(dynamic_cast<gdiplus_canvas_details_type*>(&canvas));
             static_cast<gdiplus_canvas_details_type&>(canvas).end_transaction();
         }
 
@@ -143,6 +145,7 @@ namespace tetengo2::detail::windows::gdiplus {
 
         gui::type_list::dimension_type picture_dimension_impl(const picture_details_type& picture) const
         {
+            assert(dynamic_cast<const gdiplus_picture_details_type*>(&picture));
             return picture::instance().dimension(*static_cast<const gdiplus_picture_details_type&>(picture).p_details);
         }
 
@@ -160,7 +163,8 @@ namespace tetengo2::detail::windows::gdiplus {
                                                 static_cast<Gdiplus::REAL>(from.top().to_pixels()) };
             const Gdiplus::PointF gdiplus_to{ static_cast<Gdiplus::REAL>(to.left().to_pixels()),
                                               static_cast<Gdiplus::REAL>(to.top().to_pixels()) };
-            const auto            status =
+            assert(dynamic_cast<gdiplus_canvas_details_type*>(&canvas));
+            const auto status =
                 static_cast<gdiplus_canvas_details_type&>(canvas).get().DrawLine(&pen, gdiplus_from, gdiplus_to);
             if (status != Gdiplus::Ok)
             {
@@ -178,6 +182,7 @@ namespace tetengo2::detail::windows::gdiplus {
                                static_cast<::LONG>(position.top().to_pixels()),
                                static_cast<::LONG>(dimension.width().to_pixels()),
                                static_cast<::LONG>(dimension.height().to_pixels()) };
+            assert(dynamic_cast<gdiplus_canvas_details_type*>(&canvas));
             if (::DrawFocusRect(static_cast<gdiplus_canvas_details_type&>(canvas).get().GetHDC(), &rect) == 0)
             {
                 BOOST_THROW_EXCEPTION((std::system_error{ std::error_code{ Gdiplus::Win32Error, gdiplus_category() },
@@ -203,6 +208,7 @@ namespace tetengo2::detail::windows::gdiplus {
             const gui::type_list::dimension_type& dimension,
             const gui::drawing::background&       background) const
         {
+            assert(dynamic_cast<const gdiplus_background_details_type*>(&background.details()));
             const auto& background_details = static_cast<const gdiplus_background_details_type&>(background.details());
             if (!background_details.get())
                 return;
@@ -211,7 +217,8 @@ namespace tetengo2::detail::windows::gdiplus {
                                            static_cast<::INT>(position.top().to_pixels()),
                                            static_cast<::INT>(dimension.width().to_pixels()),
                                            static_cast<::INT>(dimension.height().to_pixels()) };
-            const auto          status = static_cast<gdiplus_canvas_details_type&>(canvas).get().FillRectangle(
+            assert(dynamic_cast<gdiplus_canvas_details_type*>(&canvas));
+            const auto status = static_cast<gdiplus_canvas_details_type&>(canvas).get().FillRectangle(
                 background_details.get(), rectangle);
             if (status != Gdiplus::Ok)
             {
@@ -230,7 +237,8 @@ namespace tetengo2::detail::windows::gdiplus {
             const Gdiplus::Pen pen{ Gdiplus::Color{ color.alpha(), color.red(), color.green(), color.blue() },
                                     static_cast<Gdiplus::REAL>(width.to_pixels()) };
             const auto         points = to_gdiplus_points(positions);
-            const auto         status = static_cast<gdiplus_canvas_details_type&>(canvas).get().DrawPolygon(
+            assert(dynamic_cast<gdiplus_canvas_details_type*>(&canvas));
+            const auto status = static_cast<gdiplus_canvas_details_type&>(canvas).get().DrawPolygon(
                 &pen, points.data(), static_cast<::INT>(points.size()));
             if (status != Gdiplus::Ok)
             {
@@ -244,11 +252,13 @@ namespace tetengo2::detail::windows::gdiplus {
             const std::vector<gui::type_list::position_type>& positions,
             const gui::drawing::background&                   background) const
         {
+            assert(dynamic_cast<const gdiplus_background_details_type*>(&background.details()));
             const auto& background_details = static_cast<const gdiplus_background_details_type&>(background.details());
             if (!background_details.get())
                 return;
 
             const auto points = to_gdiplus_points(positions);
+            assert(dynamic_cast<gdiplus_canvas_details_type*>(&canvas));
             const auto status = static_cast<gdiplus_canvas_details_type&>(canvas).get().FillPolygon(
                 background_details.get(), points.data(), static_cast<::INT>(points.size()));
             if (status != Gdiplus::Ok)
@@ -286,7 +296,8 @@ namespace tetengo2::detail::windows::gdiplus {
                                                         static_cast<Gdiplus::REAL>(max_width.to_pixels());
             const Gdiplus::RectF layout{ 0, 0, gdiplus_max_width, std::numeric_limits<Gdiplus::REAL>::max() };
             Gdiplus::RectF       bounding;
-            const auto           status = static_cast<const gdiplus_canvas_details_type&>(canvas).get().MeasureString(
+            assert(dynamic_cast<const gdiplus_canvas_details_type*>(&canvas));
+            const auto status = static_cast<const gdiplus_canvas_details_type&>(canvas).get().MeasureString(
                 encoded_text.c_str(),
                 static_cast<::INT>(encoded_text.length()),
                 p_gdiplus_font.get(),
@@ -337,6 +348,7 @@ namespace tetengo2::detail::windows::gdiplus {
                 gdiplus_point.X, gdiplus_point.Y, gdiplus_max_width, std::numeric_limits<Gdiplus::REAL>::max()
             };
 
+            assert(dynamic_cast<gdiplus_canvas_details_type*>(&canvas));
             auto&           canvas_details = static_cast<gdiplus_canvas_details_type&>(canvas);
             Gdiplus::Matrix original_matrix;
             const auto      get_transform_status = canvas_details.get().GetTransform(&original_matrix);
@@ -359,6 +371,7 @@ namespace tetengo2::detail::windows::gdiplus {
             }
             BOOST_SCOPE_EXIT_END;
 
+            assert(dynamic_cast<const gdiplus_background_details_type*>(p_solid_brush.get()));
             const auto draw_string_status = canvas_details.get().DrawString(
                 encoded_text.c_str(),
                 static_cast<::INT>(encoded_text.length()),
@@ -390,6 +403,7 @@ namespace tetengo2::detail::windows::gdiplus {
             const gui::type_list::position_type&  position,
             const gui::type_list::dimension_type& dimension) const
         {
+            assert(dynamic_cast<gdiplus_picture_details_type*>(&const_cast<gui::drawing::picture&>(picture).details()));
             auto& picture_details =
                 static_cast<gdiplus_picture_details_type&>(const_cast<gui::drawing::picture&>(picture).details());
 
@@ -427,7 +441,8 @@ namespace tetengo2::detail::windows::gdiplus {
                                     static_cast<::INT>(stride),
                                     PixelFormat32bppRGB,
                                     buffer.data() };
-            const auto      status = static_cast<gdiplus_canvas_details_type&>(canvas).get().DrawImage(
+            assert(dynamic_cast<gdiplus_canvas_details_type*>(&canvas));
+            const auto status = static_cast<gdiplus_canvas_details_type&>(canvas).get().DrawImage(
                 &bitmap,
                 static_cast<::INT>(position.left().to_pixels()),
                 static_cast<::INT>(position.top().to_pixels()),
@@ -445,6 +460,7 @@ namespace tetengo2::detail::windows::gdiplus {
             const gui::icon&                     icon,
             const gui::type_list::position_type& position) const
         {
+            assert(dynamic_cast<gdiplus_canvas_details_type*>(&canvas));
             const ::BOOL result = ::DrawIconEx(
                 static_cast<gdiplus_canvas_details_type&>(canvas).get().GetHDC(),
                 static_cast<int>(position.left().to_pixels()),

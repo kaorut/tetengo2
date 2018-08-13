@@ -6,7 +6,7 @@
     $Id$
 */
 
-
+#include <cassert>
 #include <cstdint>
 #include <memory>
 #include <utility>
@@ -170,6 +170,7 @@ namespace tetengo2::detail::windows::direct2d {
 
         gui::type_list::dimension_type picture_dimension_impl(const picture_details_type& picture) const
         {
+            assert(dynamic_cast<const direct2d_picture_details_type*>(&picture));
             return picture::instance().dimension(*static_cast<const direct2d_picture_details_type&>(picture).p_details);
         }
 
@@ -184,6 +185,7 @@ namespace tetengo2::detail::windows::direct2d {
             const auto p_background_details = create_solid_background_impl(color);
             const auto p_brush = create_brush(canvas, *p_background_details);
             const auto p_stroke_style = create_stroke_style(style);
+            assert(dynamic_cast<direct2d_canvas_details_type*>(&canvas));
             static_cast<direct2d_canvas_details_type&>(canvas).render_target().DrawLine(
                 position_to_point_2f(from),
                 position_to_point_2f(to),
@@ -212,6 +214,7 @@ namespace tetengo2::detail::windows::direct2d {
             const auto p_background_details = create_solid_background_impl(color);
             const auto p_brush = create_brush(canvas, *p_background_details);
             const auto p_stroke_style = create_stroke_style(style);
+            assert(dynamic_cast<direct2d_canvas_details_type*>(&canvas));
             static_cast<direct2d_canvas_details_type&>(canvas).render_target().DrawRectangle(
                 position_and_dimension_to_rect_f(position, dimension),
                 p_brush.get(),
@@ -226,11 +229,13 @@ namespace tetengo2::detail::windows::direct2d {
             const gui::drawing::background&       background) const
         {
             const auto& background_details = background.details();
+            assert(dynamic_cast<const direct2d_background_details_type*>(&background_details));
             if (static_cast<const direct2d_background_details_type&>(background_details).is_transparent())
                 return;
 
             const auto p_brush = create_brush(canvas, background_details);
 
+            assert(dynamic_cast<direct2d_canvas_details_type*>(&canvas));
             static_cast<direct2d_canvas_details_type&>(canvas).render_target().FillRectangle(
                 position_and_dimension_to_rect_f(position, dimension), p_brush.get());
         }
@@ -333,6 +338,7 @@ namespace tetengo2::detail::windows::direct2d {
             const auto p_background_details = create_solid_background_impl(color);
             const auto p_brush = create_brush(canvas, *p_background_details);
 
+            assert(dynamic_cast<direct2d_canvas_details_type*>(&canvas));
             auto& render_target = static_cast<direct2d_canvas_details_type&>(canvas).render_target();
             auto  original_transform = D2D1::Matrix3x2F{};
             render_target.GetTransform(&original_transform);
@@ -409,9 +415,12 @@ namespace tetengo2::detail::windows::direct2d {
             const gui::type_list::position_type&  position,
             const gui::type_list::dimension_type& dimension) const
         {
+            assert(
+                dynamic_cast<direct2d_picture_details_type*>(&const_cast<gui::drawing::picture&>(picture).details()));
             auto& picture_details =
                 static_cast<direct2d_picture_details_type&>(const_cast<gui::drawing::picture&>(picture).details());
 
+            assert(dynamic_cast<direct2d_canvas_details_type*>(&canvas));
             auto&          render_target = static_cast<direct2d_canvas_details_type&>(canvas).render_target();
             ::ID2D1Bitmap* rp_bitmap = nullptr;
             const auto     create_bitmap_hr =
@@ -711,6 +720,7 @@ namespace tetengo2::detail::windows::direct2d {
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "Invalid background details type." }));
             }
             ::ID2D1SolidColorBrush* rp_brush = nullptr;
+            assert(dynamic_cast<direct2d_canvas_details_type*>(&canvas));
             const auto hr = static_cast<direct2d_canvas_details_type&>(canvas).render_target().CreateSolidColorBrush(
                 rgba_to_color_f(p_solid->red(), p_solid->green(), p_solid->blue(), p_solid->alpha()),
                 D2D1::BrushProperties(),

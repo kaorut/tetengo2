@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <cassert>
 #include <cstdint>
 #include <memory>
 #include <utility>
@@ -110,11 +111,11 @@ namespace tetengo2::detail::stub {
 
         gui::type_list::dimension_type picture_dimension_impl(const picture_details_type& picture) const
         {
+            assert(dynamic_cast<const stub_picture_details_type*>(&picture));
+            const auto& stub_picture = static_cast<const stub_picture_details_type&>(picture);
             return gui::type_list::dimension_type{
-                gui::type_list::dimension_unit_type::from_pixels(
-                    static_cast<const stub_picture_details_type&>(picture).dimension.first),
-                gui::type_list::dimension_unit_type::from_pixels(
-                    static_cast<const stub_picture_details_type&>(picture).dimension.second)
+                gui::type_list::dimension_unit_type::from_pixels(stub_picture.dimension.first),
+                gui::type_list::dimension_unit_type::from_pixels(stub_picture.dimension.second)
             };
         }
 
