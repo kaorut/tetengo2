@@ -54,7 +54,7 @@ namespace tetengo2::gui {
         timer(const widget_type& widget, procedure_type procedure, const inteval_type& interval, bool once_only);
 
         /*!
-            \bried Destroys the timer.
+            \brief Destroys the timer.
         */
         ~timer();
 
