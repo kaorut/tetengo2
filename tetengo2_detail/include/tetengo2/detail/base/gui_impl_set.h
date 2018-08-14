@@ -9,9 +9,15 @@
 #if !defined(TETENGO2_DETAIL_BASE_GUIIMPLSET_H)
 #define TETENGO2_DETAIL_BASE_GUIIMPLSET_H
 
+#include <chrono>
+#include <functional>
 #include <memory>
 
 #include <boost/core/noncopyable.hpp>
+
+namespace tetengo2::gui::widget {
+    class widget;
+}
 
 
 namespace tetengo2::detail {
@@ -110,11 +116,20 @@ namespace tetengo2::detail {
             const system_color& system_color_() const;
 
             /*!
-                \brief Returns the detail implementation of timer.
+                \brief Creates a detail implementation of timer.
+
+                \param widget    A widget.
+                \param procedure A procedure called by this timer.
+                \param interval  An interval.
+                \param once_only Set true to execute the procedure once only.
 
                 \return The detail implementation.
             */
-            const timer& timer_() const;
+            std::unique_ptr<timer> crate_timer(
+                const gui::widget::widget&       widget,
+                std::function<void(bool&)>       procedure,
+                const std::chrono::milliseconds& interval,
+                bool                             once_only) const;
 
             /*!
                 \brief Returns the detail implementation of unit.
@@ -168,7 +183,11 @@ namespace tetengo2::detail {
 
             virtual const system_color& system_color_impl() const = 0;
 
-            virtual const timer& timer_impl() const = 0;
+            virtual std::unique_ptr<timer> crate_timer_impl(
+                const gui::widget::widget&       widget,
+                std::function<void(bool&)>       procedure,
+                const std::chrono::milliseconds& interval,
+                bool                             once_only) const = 0;
 
             virtual const unit& unit_impl() const = 0;
 

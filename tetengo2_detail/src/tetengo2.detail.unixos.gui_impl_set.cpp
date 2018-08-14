@@ -7,25 +7,34 @@
 */
 
 #include <cassert>
+#include <chrono>
+#include <functional>
 #include <memory>
 #include <stdexcept>
 
 #include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/unixos/gui_impl_set.h>
+#include <tetengo2/stdalt.h>
 
-namespace tetengo2::detail::base {
-    class alert;
-    class cursor;
-    class drawing;
-    class gui_fixture;
-    class icon;
-    class menu;
-    class shell;
-    class system_color;
-    class timer;
-    class unit;
-    class virtual_key;
-    class widget;
+namespace tetengo2 {
+    namespace detail::base {
+        class alert;
+        class cursor;
+        class drawing;
+        class gui_fixture;
+        class icon;
+        class menu;
+        class shell;
+        class system_color;
+        class timer;
+        class unit;
+        class virtual_key;
+        class widget;
+    }
+
+    namespace gui::widget {
+        class widget;
+    }
 }
 
 
@@ -94,7 +103,11 @@ namespace tetengo2::detail::unixos {
         throw std::logic_error("No implementation.");
     }
 
-    const base::timer& gui_impl_set::timer_impl() const
+    std::unique_ptr<base::timer> gui_impl_set::crate_timer_impl(
+        TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget,
+        TETENGO2_STDALT_MAYBE_UNUSED std::function<void(bool&)> procedure,
+        TETENGO2_STDALT_MAYBE_UNUSED const std::chrono::milliseconds& interval,
+        TETENGO2_STDALT_MAYBE_UNUSED const bool                       once_only) const
     {
         assert(false);
         throw std::logic_error("No implementation.");

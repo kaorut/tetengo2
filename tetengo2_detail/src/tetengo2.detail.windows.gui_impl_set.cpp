@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <algorithm>
 #include <memory>
 
 #include <tetengo2/detail/base/alert.h>
@@ -33,6 +34,10 @@
 #include <tetengo2/detail/windows/unit.h>
 #include <tetengo2/detail/windows/virtual_key.h>
 #include <tetengo2/detail/windows/widget.h>
+
+namespace tetengo2::gui::widget {
+    class widget;
+}
 
 
 namespace tetengo2::detail::windows {
@@ -91,10 +96,13 @@ namespace tetengo2::detail::windows {
         return system_color::instance();
     }
 
-    const base::timer& gui_impl_set::timer_impl() const
+    std::unique_ptr<base::timer> gui_impl_set::crate_timer_impl(
+        const gui::widget::widget&       widget,
+        std::function<void(bool&)>       procedure,
+        const std::chrono::milliseconds& interval,
+        const bool                       once_only) const
     {
-        throw std::logic_error("Not implemented yet.");
-        //return timer::instance();
+        return std::make_unique<timer>(widget, std::move(procedure), interval, once_only);
     }
 
     const base::unit& gui_impl_set::unit_impl() const

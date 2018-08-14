@@ -6,6 +6,9 @@
     $Id$
 */
 
+#include <algorithm>
+#include <chrono>
+#include <functional>
 #include <memory>
 #include <stdexcept>
 
@@ -13,20 +16,25 @@
 
 #include <tetengo2/detail/base/gui_fixture.h>
 #include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/timer.h>
 
+namespace tetengo2 {
+    namespace detail::base {
+        class alert;
+        class cursor;
+        class drawing;
+        class icon;
+        class menu;
+        class shell;
+        class system_color;
+        class unit;
+        class virtual_key;
+        class widget;
+    }
 
-namespace tetengo2::detail::base {
-    class alert;
-    class cursor;
-    class drawing;
-    class icon;
-    class menu;
-    class shell;
-    class system_color;
-    class timer;
-    class unit;
-    class virtual_key;
-    class widget;
+    namespace gui::widget {
+        class widget;
+    }
 }
 
 
@@ -79,9 +87,13 @@ namespace tetengo2::detail {
             return system_color_impl();
         }
 
-        const timer& gui_impl_set::timer_() const
+        std::unique_ptr<timer> gui_impl_set::crate_timer(
+            const gui::widget::widget&       widget,
+            std::function<void(bool&)>       procedure,
+            const std::chrono::milliseconds& interval,
+            const bool                       once_only) const
         {
-            return timer_impl();
+            return crate_timer_impl(widget, std::move(procedure), interval, once_only);
         }
 
         const unit& gui_impl_set::unit_() const

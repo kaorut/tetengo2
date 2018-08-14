@@ -9,23 +9,31 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_GUIIMPLSET_H)
 #define TETENGO2_DETAIL_WINDOWS_GUIIMPLSET_H
 
+#include <chrono>
+#include <functional>
 #include <memory>
 
 #include <tetengo2/detail/base/gui_impl_set.h>
 
-namespace tetengo2::detail::base {
-    class alert;
-    class cursor;
-    class drawing;
-    class gui_fixture;
-    class icon;
-    class menu;
-    class shell;
-    class system_color;
-    class timer;
-    class unit;
-    class virtual_key;
-    class widget;
+namespace tetengo2 {
+    namespace detail::base {
+        class alert;
+        class cursor;
+        class drawing;
+        class gui_fixture;
+        class icon;
+        class menu;
+        class shell;
+        class system_color;
+        class timer;
+        class unit;
+        class virtual_key;
+        class widget;
+    }
+
+    namespace gui::widget {
+        class widget;
+    }
 }
 
 
@@ -80,7 +88,11 @@ namespace tetengo2::detail::windows {
 
         virtual const base::system_color& system_color_impl() const override;
 
-        virtual const base::timer& timer_impl() const override;
+        virtual std::unique_ptr<base::timer> crate_timer_impl(
+            const gui::widget::widget&       widget,
+            std::function<void(bool&)>       procedure,
+            const std::chrono::milliseconds& interval,
+            bool                             once_only) const override;
 
         virtual const base::unit& unit_impl() const override;
 
