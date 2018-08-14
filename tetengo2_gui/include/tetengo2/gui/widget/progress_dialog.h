@@ -24,7 +24,6 @@
 #include <tetengo2/concurrent/progressive_future.h>
 #include <tetengo2/concurrent/progressive_promise.h>
 #include <tetengo2/detail/base/gui_impl_set.h>
-#include <tetengo2/detail/stub/timer.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/message/mouse_observer_set.h>
@@ -225,9 +224,7 @@ namespace tetengo2::gui::widget {
 
         using solid_background_type = gui::drawing::solid_background;
 
-        using timer_details_type = detail::stub::timer;
-
-        using timer_type = gui::timer<widget, timer_details_type>;
+        using timer_type = gui::timer;
 
         using system_color_set_type = gui::drawing::system_color_set;
 

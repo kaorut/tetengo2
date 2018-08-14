@@ -21,7 +21,6 @@
 #include <boost/operators.hpp>
 
 #include <tetengo2/detail/base/gui_impl_set.h>
-#include <tetengo2/detail/stub/timer.h>
 #include <tetengo2/gui/cursor/system.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
@@ -193,9 +192,7 @@ namespace tetengo2::gui::widget {
     private:
         // types
 
-        using timer_details_type = detail::stub::timer;
-
-        using timer_type = gui::timer<widget, timer_details_type>;
+        using timer_type = gui::timer;
 
         using solid_background_type = gui::drawing::solid_background;
 

@@ -11,29 +11,24 @@
 
 #include <chrono>
 #include <functional>
-#include <utility>
+#include <memory>
 
 #include <boost/core/noncopyable.hpp>
+
+#include <tetengo2/gui/widget/widget.h>
 
 
 namespace tetengo2::gui {
     /*!
-        \brief The class template for a timer.
-
-        \tparam Widget       A widget type.
-        \tparam TimerDetails A detail implementation type of a timer.
+        \brief The class for a timer.
     */
-    template <typename Widget, typename TimerDetails>
     class timer : private boost::noncopyable
     {
     public:
         // types
 
         //! The widget type.
-        using widget_type = Widget;
-
-        //! The timer details type.
-        using timer_details_type = TimerDetails;
+        using widget_type = widget::widget;
 
         /*!
             \brief The procedure type.
@@ -56,9 +51,12 @@ namespace tetengo2::gui {
             \param interval  An interval.
             \param once_only Set true to execute the procedure once only.
         */
-        timer(const widget_type& widget, procedure_type procedure, const inteval_type& interval, const bool once_only)
-        : m_timer_details{ widget, std::move(procedure), interval, once_only }
-        {}
+        timer(const widget_type& widget, procedure_type procedure, const inteval_type& interval, bool once_only);
+
+        /*!
+            \bried Destroys the timer.
+        */
+        ~timer();
 
 
         // functions
@@ -68,24 +66,23 @@ namespace tetengo2::gui {
 
             \return The stopped status.
         */
-        bool stopped() const
-        {
-            return m_timer_details.stopped();
-        }
+        bool stopped() const;
 
         /*!
             \brief Stops the timer.
         */
-        void stop()
-        {
-            m_timer_details.stop();
-        }
+        void stop();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        timer_details_type m_timer_details;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

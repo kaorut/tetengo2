@@ -6,14 +6,12 @@
     $Id$
 */
 
-#include <chrono>
 #include <sstream>
 
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/timer.h>
-#include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/gui/widget/window.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
@@ -24,11 +22,9 @@ namespace {
 
     using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-    using widget_type = tetengo2::gui::widget::widget;
-
     using window_type = tetengo2::gui::widget::window;
 
-    using timer_type = tetengo2::gui::timer<widget_type, detail_type_list_type::timer_type>;
+    using timer_type = tetengo2::gui::timer;
 
 
     // functions
