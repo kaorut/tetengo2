@@ -23,6 +23,7 @@ namespace tetengo2::detail::base {
     class menu;
     class shell;
     class system_color;
+    class timer;
     class unit;
     class virtual_key;
     class widget;
@@ -76,6 +77,11 @@ namespace tetengo2::detail {
         const system_color& gui_impl_set::system_color_() const
         {
             return system_color_impl();
+        }
+
+        const timer& gui_impl_set::timer_() const
+        {
+            return timer_impl();
         }
 
         const unit& gui_impl_set::unit_() const

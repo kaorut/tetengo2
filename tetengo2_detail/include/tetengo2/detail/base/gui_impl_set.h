@@ -24,6 +24,7 @@ namespace tetengo2::detail {
         class menu;
         class shell;
         class system_color;
+        class timer;
         class unit;
         class virtual_key;
         class widget;
@@ -102,11 +103,18 @@ namespace tetengo2::detail {
             const shell& shell_() const;
 
             /*!
-                \brief Returns the detail implementation of system color.
+                 \brief Returns the detail implementation of system color.
+
+                 \return The detail implementation.
+             */
+            const system_color& system_color_() const;
+
+            /*!
+                \brief Returns the detail implementation of timer.
 
                 \return The detail implementation.
             */
-            const system_color& system_color_() const;
+            const timer& timer_() const;
 
             /*!
                 \brief Returns the detail implementation of unit.
@@ -159,6 +167,8 @@ namespace tetengo2::detail {
             virtual const shell& shell_impl() const = 0;
 
             virtual const system_color& system_color_impl() const = 0;
+
+            virtual const timer& timer_impl() const = 0;
 
             virtual const unit& unit_impl() const = 0;
 

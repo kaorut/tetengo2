@@ -22,6 +22,7 @@ namespace tetengo2::detail::base {
     class menu;
     class shell;
     class system_color;
+    class timer;
     class unit;
     class virtual_key;
     class widget;
@@ -78,6 +79,8 @@ namespace tetengo2::detail::unixos {
         virtual const base::shell& shell_impl() const override;
 
         virtual const base::system_color& system_color_impl() const override;
+
+        virtual const base::timer& timer_impl() const override;
 
         virtual const base::unit& unit_impl() const override;
 

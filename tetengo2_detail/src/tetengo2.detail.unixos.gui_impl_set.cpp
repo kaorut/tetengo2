@@ -22,6 +22,7 @@ namespace tetengo2::detail::base {
     class menu;
     class shell;
     class system_color;
+    class timer;
     class unit;
     class virtual_key;
     class widget;
@@ -88,6 +89,12 @@ namespace tetengo2::detail::unixos {
     }
 
     const base::system_color& gui_impl_set::system_color_impl() const
+    {
+        assert(false);
+        throw std::logic_error("No implementation.");
+    }
+
+    const base::timer& gui_impl_set::timer_impl() const
     {
         assert(false);
         throw std::logic_error("No implementation.");

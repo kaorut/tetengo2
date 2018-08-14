@@ -16,6 +16,7 @@
 #include <tetengo2/detail/base/menu.h>
 #include <tetengo2/detail/base/shell.h>
 #include <tetengo2/detail/base/system_color.h>
+#include <tetengo2/detail/base/timer.h>
 #include <tetengo2/detail/base/unit.h>
 #include <tetengo2/detail/base/virtual_key.h>
 #include <tetengo2/detail/base/widget.h>
@@ -28,6 +29,7 @@
 #include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/detail/stub/shell.h>
 #include <tetengo2/detail/stub/system_color.h>
+#include <tetengo2/detail/stub/timer.h>
 #include <tetengo2/detail/stub/unit.h>
 #include <tetengo2/detail/stub/virtual_key.h>
 #include <tetengo2/detail/stub/widget.h>
@@ -87,6 +89,12 @@ namespace tetengo2::detail::stub {
     const base::system_color& gui_impl_set::system_color_impl() const
     {
         return system_color::instance();
+    }
+
+    const base::timer& gui_impl_set::timer_impl() const
+    {
+        throw std::logic_error("Not implemented yet.");
+        //return timer::instance();
     }
 
     const base::unit& gui_impl_set::unit_impl() const
