@@ -19,18 +19,9 @@ namespace tetengo2::gui {
     /*!
         \brief The class template for a mouse capture.
 
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
         \tparam MouseCaptureDetails   A detail implementation type of a mouse capture.
     */
-    template <
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename MouseCaptureDetails>
+    template <typename MouseCaptureDetails>
     class mouse_capture : private boost::noncopyable
     {
     public:

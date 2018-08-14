@@ -28,17 +28,6 @@
 #include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/stdalt.h>
 
-namespace tetengo2 { namespace detail {
-    namespace base {
-        class drawing;
-    }
-
-    namespace stub {
-        class scroll;
-        class widget;
-    }
-}}
-
 
 namespace tetengo2::gui::widget {
     class inner_item;
@@ -59,12 +48,7 @@ namespace tetengo2::gui::widget {
         using mouse_button_type = typename mouse_observer_set_type::mouse_button_type;
 
         //! The mouse capture type.
-        using mouse_capture_type = gui::mouse_capture<
-            detail::stub::widget,
-            detail::base::drawing,
-            detail::stub::scroll,
-            detail::stub::message_handler,
-            mouse_capture_details_type>;
+        using mouse_capture_type = gui::mouse_capture<mouse_capture_details_type>;
 
 
         // constructors and destructor
