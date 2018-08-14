@@ -24,6 +24,7 @@ namespace tetengo2 {
         class gui_fixture;
         class icon;
         class menu;
+        class mouse_capture;
         class shell;
         class system_color;
         class timer;
@@ -86,6 +87,13 @@ namespace tetengo2::detail::unixos {
     }
 
     const base::menu& gui_impl_set::menu_impl() const
+    {
+        assert(false);
+        throw std::logic_error("No implementation.");
+    }
+
+    std::unique_ptr<base::mouse_capture>
+    gui_impl_set::create_mouse_capture_impl(TETENGO2_STDALT_MAYBE_UNUSED const gui::widget::widget& widget) const
     {
         assert(false);
         throw std::logic_error("No implementation.");

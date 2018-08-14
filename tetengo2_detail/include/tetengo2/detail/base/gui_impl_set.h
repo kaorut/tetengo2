@@ -28,6 +28,7 @@ namespace tetengo2::detail {
         class gui_fixture;
         class icon;
         class menu;
+        class mouse_capture;
         class shell;
         class system_color;
         class timer;
@@ -102,6 +103,15 @@ namespace tetengo2::detail {
             const menu& menu_() const;
 
             /*!
+                \brief Creates a detail implementation of mouse capture.
+
+                \param widget A widget.
+
+                \return A unique pointer to a detail implementation.
+            */
+            std::unique_ptr<mouse_capture> create_mouse_capture(const gui::widget::widget& widget) const;
+
+            /*!
                 \brief Returns the detail implementation of shell.
 
                 \return The detail implementation.
@@ -123,7 +133,7 @@ namespace tetengo2::detail {
                 \param interval  An interval.
                 \param once_only Set true to execute the procedure once only.
 
-                \return The detail implementation.
+                \return A unique pointer to a detail implementation.
             */
             std::unique_ptr<timer> crate_timer(
                 const gui::widget::widget&       widget,
@@ -178,6 +188,9 @@ namespace tetengo2::detail {
             virtual const icon& icon_impl() const = 0;
 
             virtual const menu& menu_impl() const = 0;
+
+            virtual std::unique_ptr<mouse_capture>
+            create_mouse_capture_impl(const gui::widget::widget& widget) const = 0;
 
             virtual const shell& shell_impl() const = 0;
 

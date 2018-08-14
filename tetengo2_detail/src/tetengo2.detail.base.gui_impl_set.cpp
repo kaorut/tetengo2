@@ -16,6 +16,7 @@
 
 #include <tetengo2/detail/base/gui_fixture.h>
 #include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/mouse_capture.h>
 #include <tetengo2/detail/base/timer.h>
 
 namespace tetengo2 {
@@ -75,6 +76,11 @@ namespace tetengo2::detail {
         const menu& gui_impl_set::menu_() const
         {
             return menu_impl();
+        }
+
+        std::unique_ptr<mouse_capture> gui_impl_set::create_mouse_capture(const gui::widget::widget& widget) const
+        {
+            return create_mouse_capture_impl(widget);
         }
 
         const shell& gui_impl_set::shell_() const
