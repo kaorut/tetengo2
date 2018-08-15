@@ -24,14 +24,16 @@ namespace tetengo2::detail::base {
         // constructors and destructor
 
         /*!
-            \brief Creates a detail implementation of a mouse capture.
-        */
-        mouse_capture();
-
-        /*!
             \brief Destroys the detail implementation of a mouse capture.
         */
         virtual ~mouse_capture();
+
+
+    protected:
+        /*!
+            \brief Creates a detail implementation of a mouse capture.
+        */
+        mouse_capture();
 
 
     private:

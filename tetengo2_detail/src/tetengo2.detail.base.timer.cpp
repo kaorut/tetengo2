@@ -31,9 +31,9 @@ namespace tetengo2::detail::base {
     };
 
 
-    timer::timer() : m_p_impl{ std::make_unique<impl>() } {}
-
     timer::~timer() = default;
+
+    timer::timer() : m_p_impl{ std::make_unique<impl>() } {}
 
     bool timer::stopped() const
     {

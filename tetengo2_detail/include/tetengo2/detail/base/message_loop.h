@@ -28,11 +28,6 @@ namespace tetengo2::detail::base {
         // constructors and destructor
 
         /*!
-            \brief Creates a detail implementation.
-        */
-        message_loop();
-
-        /*!
             \brief Destroys the detail implementation.
         */
         virtual ~message_loop();
@@ -68,6 +63,13 @@ namespace tetengo2::detail::base {
             \param exit_code An exit code.
         */
         void break_loop(int exit_code) const;
+
+
+    protected:
+        /*!
+            \brief Creates a detail implementation.
+        */
+        message_loop();
 
 
     private:

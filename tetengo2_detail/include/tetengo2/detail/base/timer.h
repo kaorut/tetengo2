@@ -24,11 +24,6 @@ namespace tetengo2::detail::base {
         // constructors and destructor
 
         /*!
-            \brief Creates a detail implementation of a timer.
-        */
-        timer();
-
-        /*!
             \brief Destroys the detail implementation of a timer.
         */
         virtual ~timer();
@@ -47,6 +42,13 @@ namespace tetengo2::detail::base {
             \brief Stops the timer.
         */
         void stop();
+
+
+    protected:
+        /*!
+            \brief Creates a detail implementation of a timer.
+        */
+        timer();
 
 
     private:

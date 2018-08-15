@@ -19,7 +19,7 @@ namespace tetengo2::detail::base {
     };
 
 
-    mouse_capture::mouse_capture() : m_p_impl{ std::make_unique<impl>() } {}
-
     mouse_capture::~mouse_capture() = default;
+
+    mouse_capture::mouse_capture() : m_p_impl{ std::make_unique<impl>() } {}
 }

@@ -40,9 +40,9 @@ namespace tetengo2::detail::base {
     };
 
 
-    message_loop::message_loop() : m_p_impl{ std::make_unique<impl>() } {}
-
     message_loop::~message_loop() = default;
+
+    message_loop::message_loop() : m_p_impl{ std::make_unique<impl>() } {}
 
     int message_loop::loop(gui::widget::abstract_window& window) const
     {
