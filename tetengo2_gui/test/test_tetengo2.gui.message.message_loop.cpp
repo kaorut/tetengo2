@@ -18,19 +18,13 @@
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/gui/widget/widget.h>
 
-#include "test_tetengo2.gui.detail_type_list.h"
-
 
 namespace {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
-
     using abstract_window_type = tetengo2::gui::widget::abstract_window;
 
-    using message_loop_details_type = detail_type_list_type::message_loop_type;
-
-    using message_loop_type = tetengo2::gui::message::message_loop<abstract_window_type, message_loop_details_type>;
+    using message_loop_type = tetengo2::gui::message::message_loop;
 
     class concrete_window : public abstract_window_type
     {

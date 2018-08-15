@@ -15,7 +15,6 @@
 
 #include <tetengo2/detail/base/widget.h>
 #include <tetengo2/detail/stub/message_handler.h>
-#include <tetengo2/detail/stub/message_loop.h>
 #include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/message/dialog_message_loop.h>
 #include <tetengo2/gui/message/message_loop_break.h>
@@ -33,14 +32,11 @@ namespace tetengo2::gui::widget {
     public:
         // types
 
-        //! The message loop details type.
-        using message_loop_details_type = detail::stub::message_loop;
-
         //! The message loop type.
-        using message_loop_type = gui::message::dialog_message_loop<abstract_window, message_loop_details_type>;
+        using message_loop_type = gui::message::dialog_message_loop;
 
         //! The message loop break type.
-        using message_loop_break_type = gui::message::message_loop_break<message_loop_details_type>;
+        using message_loop_break_type = gui::message::message_loop_break;
 
         //! The result type.
         enum class result_type
