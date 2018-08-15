@@ -15,19 +15,15 @@
 #include <tetengo2/gui/mouse_capture.h>
 #include <tetengo2/gui/widget/window.h>
 
-#include "test_tetengo2.gui.detail_type_list.h"
-
 
 namespace {
     // types
-
-    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
     using window_type = tetengo2::gui::widget::window;
 
     using mouse_button_type = tetengo2::gui::message::mouse_observer_set::mouse_button_type;
 
-    using mouse_capture_type = tetengo2::gui::mouse_capture<detail_type_list_type::mouse_capture_type>;
+    using mouse_capture_type = tetengo2::gui::mouse_capture;
 }
 
 

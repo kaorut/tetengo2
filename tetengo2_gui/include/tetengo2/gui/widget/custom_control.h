@@ -19,7 +19,6 @@
 
 #include <tetengo2/detail/base/widget.h>
 #include <tetengo2/detail/stub/message_handler.h>
-#include <tetengo2/detail/stub/mouse_capture.h>
 #include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/mouse_capture.h>
 #include <tetengo2/gui/unit/em.h>
@@ -41,14 +40,11 @@ namespace tetengo2::gui::widget {
     public:
         // types
 
-        //! The mouse capture details type.
-        using mouse_capture_details_type = detail::stub::mouse_capture;
-
         //! The mouse button type.
         using mouse_button_type = typename mouse_observer_set_type::mouse_button_type;
 
         //! The mouse capture type.
-        using mouse_capture_type = gui::mouse_capture<mouse_capture_details_type>;
+        using mouse_capture_type = gui::mouse_capture;
 
 
         // constructors and destructor
