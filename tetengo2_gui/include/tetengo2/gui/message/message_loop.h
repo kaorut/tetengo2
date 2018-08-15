@@ -51,7 +51,7 @@ namespace tetengo2::gui::message {
         */
         int operator()() const
         {
-            return message_loop_details_type::loop(m_window);
+            return message_loop_details_type::instance().loop(m_window);
         }
 
 

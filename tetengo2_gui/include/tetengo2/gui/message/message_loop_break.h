@@ -35,7 +35,7 @@ namespace tetengo2::gui::message {
         */
         void operator()(const int exit_code) const
         {
-            message_loop_details_type::break_loop(exit_code);
+            message_loop_details_type::instance().break_loop(exit_code);
         }
     };
 }
