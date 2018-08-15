@@ -21,6 +21,7 @@ sources = \
     tetengo2.detail.base.message_loop.cpp \
     tetengo2.detail.base.messages.cpp \
     tetengo2.detail.base.mouse_capture.cpp \
+    tetengo2.detail.base.scroll.cpp \
     tetengo2.detail.base.shell.cpp \
     tetengo2.detail.base.system_color.cpp \
     tetengo2.detail.base.timer.cpp \
@@ -38,6 +39,7 @@ sources = \
     tetengo2.detail.stub.message_handler.cpp \
     tetengo2.detail.stub.message_loop.cpp \
     tetengo2.detail.stub.mouse_capture.cpp \
+    tetengo2.detail.stub.scroll.cpp \
     tetengo2.detail.stub.shell.cpp \
     tetengo2.detail.stub.system_color.cpp \
     tetengo2.detail.stub.timer.cpp \
@@ -72,6 +74,7 @@ extra_sources = \
     tetengo2.detail.windows.messages.cpp \
     tetengo2.detail.windows.mouse_capture.cpp \
     tetengo2.detail.windows.picture.cpp \
+    tetengo2.detail.windows.scroll.cpp \
     tetengo2.detail.windows.shell.cpp \
     tetengo2.detail.windows.system_color.cpp \
     tetengo2.detail.windows.timer.cpp \

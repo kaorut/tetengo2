@@ -17,6 +17,7 @@ pkg_headers = \
     detail/base/message_loop.h \
     detail/base/messages.h \
     detail/base/mouse_capture.h \
+    detail/base/scroll.h \
     detail/base/shell.h \
     detail/base/system_color.h \
     detail/base/timer.h \
