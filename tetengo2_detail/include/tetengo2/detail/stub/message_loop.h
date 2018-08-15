@@ -67,65 +67,6 @@ namespace tetengo2::detail::stub {
 
         virtual void break_loop_impl(int exit_code) const override;
     };
-
-
-#if 0
-    /*!
-        \brief The class for a detail implementation of a message loop.
-    */
-    class message_loop : private boost::noncopyable
-    {
-    public:
-        // static functions
-
-        /*!
-            \brief Run the message loop.
-
-            \tparam AbstractWindow An abstract window type.
-
-            \param window A window.
-
-            \return The exit code.
-
-            \throw std::system_error When a message loop error has happened.
-        */
-        template <typename AbstractWindow>
-        static int loop(TETENGO2_STDALT_MAYBE_UNUSED AbstractWindow& window)
-        {
-            return 0;
-        }
-
-        /*!
-            \brief Run the message loop for a dialog.
-
-            \tparam AbstractWindow An abstract window type.
-
-            \param dialog A dialog.
-
-            \return The exit status code.
-
-            \throw std::system_error When a message loop error has happened.
-        */
-        template <typename AbstractWindow>
-        static int dialog_loop(TETENGO2_STDALT_MAYBE_UNUSED AbstractWindow& dialog)
-        {
-            return 0;
-        }
-
-        /*!
-            \brief Breaks the message loop.
-
-            \param exit_code An exit code.
-        */
-        static void break_loop(TETENGO2_STDALT_MAYBE_UNUSED const int exit_code) {}
-
-
-    private:
-        // forbidden operations
-
-        message_loop() = delete;
-    };
-#endif
 }
 
 
