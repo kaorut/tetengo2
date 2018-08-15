@@ -11,23 +11,18 @@
 #include <utility>
 
 #include <boost/preprocessor.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/scroll_bar.h>
 #include <tetengo2/gui/widget/window.h>
 
-#include "test_tetengo2.gui.detail_type_list.h"
-
 
 namespace {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
-
     using window_type = tetengo2::gui::widget::window;
 
-    using scroll_bar_type = tetengo2::gui::scroll_bar<detail_type_list_type::scroll_type>;
+    using scroll_bar_type = tetengo2::gui::scroll_bar;
 }
 
 

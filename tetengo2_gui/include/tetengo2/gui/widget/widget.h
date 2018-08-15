@@ -25,7 +25,6 @@
 #include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/base/widget.h>
 #include <tetengo2/detail/stub/message_handler.h>
-#include <tetengo2/detail/stub/scroll.h>
 #include <tetengo2/gui/cursor/cursor_base.h>
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/background.h>
@@ -83,11 +82,8 @@ namespace tetengo2::gui::widget {
         //! The cursor type.
         using cursor_type = gui::cursor::cursor_base;
 
-        //! The scroll details type.
-        using scroll_details_type = detail::stub::scroll;
-
         //! The scroll bar type.
-        using scroll_bar_type = gui::scroll_bar<scroll_details_type>;
+        using scroll_bar_type = gui::scroll_bar;
 
         //! The scroll bar style type.
         enum class scroll_bar_style_type
