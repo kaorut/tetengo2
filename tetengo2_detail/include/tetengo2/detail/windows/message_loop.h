@@ -14,8 +14,8 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
-#pragma warning (push)
-#pragma warning (disable: 4005)
+#pragma warning(push)
+#pragma warning(disable : 4005)
 #include <intsafe.h>
 #include <stdint.h> // IWYU pragma: keep
 #pragma warning(pop)
@@ -53,24 +53,19 @@ namespace tetengo2::detail::windows {
             for (;;)
             {
                 const auto result = ::GetMessageW(&message, nullptr, 0, 0);
-                if      (result == 0)
+                if (result == 0)
                 {
                     return static_cast<int>(message.wParam);
                 }
                 else if (result == -1)
                 {
-                    BOOST_THROW_EXCEPTION((
-                        std::system_error{
-                            std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
-                            "Win32 Message Loop Error"
-                        }
-                    ));
+                    BOOST_THROW_EXCEPTION(
+                        (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                            "Win32 Message Loop Error" }));
                 }
 
-                if (
-                    shortcut_keys_defined(window) &&
-                    ::TranslateAcceleratorW(window.details().handle.get(), accelerator_table_handle(window), &message)
-                )
+                if (shortcut_keys_defined(window) &&
+                    ::TranslateAcceleratorW(window.details().handle.get(), accelerator_table_handle(window), &message))
                 {
                     continue;
                 }
@@ -78,7 +73,6 @@ namespace tetengo2::detail::windows {
                 ::TranslateMessage(&message);
                 ::DispatchMessageW(&message);
             }
-
         }
 
         /*!
@@ -99,28 +93,22 @@ namespace tetengo2::detail::windows {
             for (;;)
             {
                 const auto result = ::GetMessageW(&message, nullptr, 0, 0);
-                if      (result == 0)
+                if (result == 0)
                 {
                     return static_cast<int>(message.wParam);
                 }
                 else if (result == -1)
                 {
-                    BOOST_THROW_EXCEPTION((
-                        std::system_error{
-                            std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
-                            "Win32 Message Loop Error"
-                        }
-                    ));
+                    BOOST_THROW_EXCEPTION(
+                        (std::system_error{ std::error_code{ static_cast<int>(::GetLastError()), win32_category() },
+                                            "Win32 Message Loop Error" }));
                 }
 
                 if (!dialog.destroyed() && ::IsDialogMessageW(dialog.details().handle.get(), &message) != 0)
                     continue;
 
-                if (
-                    !dialog.destroyed() &&
-                    shortcut_keys_defined(dialog) &&
-                    ::TranslateAcceleratorW(dialog.details().handle.get(), accelerator_table_handle(dialog), &message)
-                )
+                if (!dialog.destroyed() && shortcut_keys_defined(dialog) &&
+                    ::TranslateAcceleratorW(dialog.details().handle.get(), accelerator_table_handle(dialog), &message))
                 {
                     continue;
                 }
@@ -164,13 +152,8 @@ namespace tetengo2::detail::windows {
 
         // forbidden operations
 
-        message_loop()
-        = delete;
-
-
-   };
-
-
+        message_loop() = delete;
+    };
 }
 
 

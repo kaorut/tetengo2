@@ -14,6 +14,7 @@ pkg_headers = \
     detail/base/impl_set.h \
     detail/base/menu.h \
     detail/base/message_handler.h \
+    detail/base/message_loop.h \
     detail/base/messages.h \
     detail/base/mouse_capture.h \
     detail/base/shell.h \
@@ -84,6 +85,7 @@ extra_headers = \
     detail/windows/message_handler_detail/pictur.h \
     detail/windows/message_handler_detail/text_b.h \
     detail/windows/message_handler_detail/widget.h \
+    detail/windows/message_loop.h \
     detail/windows/messages.h \
     detail/windows/mouse_capture.h \
     detail/windows/picture.h \
