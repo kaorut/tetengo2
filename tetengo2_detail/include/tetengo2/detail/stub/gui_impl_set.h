@@ -23,6 +23,7 @@ namespace tetengo2 {
         class gui_fixture;
         class icon;
         class menu;
+        class message_loop;
         class mouse_capture;
         class shell;
         class system_color;
@@ -84,6 +85,8 @@ namespace tetengo2::detail::stub {
         virtual const base::icon& icon_impl() const override;
 
         virtual const base::menu& menu_impl() const override;
+
+        virtual const base::message_loop& message_loop_impl() const override;
 
         virtual std::unique_ptr<base::mouse_capture>
         create_mouse_capture_impl(const gui::widget::widget& widget) const override;

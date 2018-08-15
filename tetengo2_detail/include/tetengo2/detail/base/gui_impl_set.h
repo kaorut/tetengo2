@@ -28,6 +28,7 @@ namespace tetengo2::detail {
         class gui_fixture;
         class icon;
         class menu;
+        class message_loop;
         class mouse_capture;
         class shell;
         class system_color;
@@ -101,6 +102,13 @@ namespace tetengo2::detail {
                 \return The detail implementation.
             */
             const menu& menu_() const;
+
+            /*!
+                \brief Returns the detail implementation of message loop.
+
+                \return The detail implementation.
+            */
+            const message_loop& message_loop_() const;
 
             /*!
                 \brief Creates a detail implementation of mouse capture.
@@ -188,6 +196,8 @@ namespace tetengo2::detail {
             virtual const icon& icon_impl() const = 0;
 
             virtual const menu& menu_impl() const = 0;
+
+            virtual const message_loop& message_loop_impl() const = 0;
 
             virtual std::unique_ptr<mouse_capture>
             create_mouse_capture_impl(const gui::widget::widget& widget) const = 0;

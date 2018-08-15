@@ -15,6 +15,7 @@
 #include <tetengo2/detail/base/gui_fixture.h>
 #include <tetengo2/detail/base/icon.h>
 #include <tetengo2/detail/base/menu.h>
+#include <tetengo2/detail/base/message_loop.h>
 #include <tetengo2/detail/base/mouse_capture.h>
 #include <tetengo2/detail/base/shell.h>
 #include <tetengo2/detail/base/system_color.h>
@@ -29,6 +30,7 @@
 #include <tetengo2/detail/windows/gui_impl_set.h>
 #include <tetengo2/detail/windows/icon.h>
 #include <tetengo2/detail/windows/menu.h>
+#include <tetengo2/detail/windows/message_loop.h>
 #include <tetengo2/detail/windows/mouse_capture.h>
 #include <tetengo2/detail/windows/shell.h>
 #include <tetengo2/detail/windows/system_color.h>
@@ -86,6 +88,11 @@ namespace tetengo2::detail::windows {
     const base::menu& gui_impl_set::menu_impl() const
     {
         return menu::instance();
+    }
+
+    const base::message_loop& gui_impl_set::message_loop_impl() const
+    {
+        return message_loop::instance();
     }
 
     std::unique_ptr<base::mouse_capture>
