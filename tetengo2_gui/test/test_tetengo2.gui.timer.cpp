@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <chrono>
 #include <sstream>
 
 #include <boost/preprocessor.hpp>
