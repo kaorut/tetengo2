@@ -28,6 +28,7 @@ namespace tetengo2::detail {
         class gui_fixture;
         class icon;
         class menu;
+        class message_handler;
         class message_loop;
         class mouse_capture;
         class scroll;
@@ -103,6 +104,13 @@ namespace tetengo2::detail {
                 \return The detail implementation.
             */
             const menu& menu_() const;
+
+            /*!
+                \brief Returns the detail implementation of message handler.
+
+                \return The detail implementation.
+            */
+            const message_handler& message_handler_() const;
 
             /*!
                 \brief Returns the detail implementation of message loop.
@@ -204,6 +212,8 @@ namespace tetengo2::detail {
             virtual const icon& icon_impl() const = 0;
 
             virtual const menu& menu_impl() const = 0;
+
+            virtual const message_handler& message_handler_impl() const = 0;
 
             virtual const message_loop& message_loop_impl() const = 0;
 

@@ -23,6 +23,7 @@ namespace tetengo2 {
         class gui_fixture;
         class icon;
         class menu;
+        class message_handler;
         class message_loop;
         class mouse_capture;
         class scroll;
@@ -86,6 +87,8 @@ namespace tetengo2::detail::windows {
         virtual const base::icon& icon_impl() const override;
 
         virtual const base::menu& menu_impl() const override;
+
+        virtual const base::message_handler& message_handler_impl() const override;
 
         virtual const base::message_loop& message_loop_impl() const override;
 

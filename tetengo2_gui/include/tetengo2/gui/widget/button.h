@@ -11,8 +11,9 @@
 
 #include <boost/predef.h>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/message_handler.h>
 #include <tetengo2/detail/base/widget.h>
-#include <tetengo2/detail/stub/message_handler.h>
 #include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/widget.h>
@@ -55,7 +56,7 @@ namespace tetengo2::gui::widget {
 #pragma warning(disable : 4355)
 #endif
           control{ control::scroll_bar_style_type::none,
-                   message_handler_details_type::instance().make_button_message_handler_map(
+                   detail::gui_detail_impl_set().message_handler_().make_button_message_handler_map(
                        *this,
                        message_handler_map_type{}),
                    widget_details().create_button(parent, style == style_type::default_, style == style_type::cancel) },

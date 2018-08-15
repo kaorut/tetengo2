@@ -23,8 +23,8 @@
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/message_handler.h>
 #include <tetengo2/detail/base/widget.h>
-#include <tetengo2/detail/stub/message_handler.h>
 #include <tetengo2/gui/cursor/cursor_base.h>
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/background.h>
@@ -95,7 +95,7 @@ namespace tetengo2::gui::widget {
         };
 
         //! The message handler details type.
-        using message_handler_details_type = detail::stub::message_handler;
+        using message_handler_details_type = detail::base::message_handler;
 
         //! The message handler map type.
         using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
@@ -796,7 +796,7 @@ namespace tetengo2::gui::widget {
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          m_message_handler_map{ message_handler_details_type::instance().make_widget_message_handler_map(
+          m_message_handler_map{ detail::gui_detail_impl_set().message_handler_().make_widget_message_handler_map(
               *this,
               std::move(message_handler_map)) },
 #if BOOST_COMP_MSVC

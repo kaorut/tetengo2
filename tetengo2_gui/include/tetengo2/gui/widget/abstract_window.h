@@ -16,8 +16,9 @@
 #include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/message_handler.h>
 #include <tetengo2/detail/base/widget.h>
-#include <tetengo2/detail/stub/message_handler.h>
 #include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/menu/menu_bar.h>
 #include <tetengo2/gui/message/file_drop_observer_set.h>
@@ -291,7 +292,7 @@ namespace tetengo2::gui::widget {
 #pragma warning(disable : 4355)
 #endif
           widget{ scroll_bar_style,
-                  message_handler_details_type::instance().make_abstract_window_message_handler_map(
+                  detail::gui_detail_impl_set().message_handler_().make_abstract_window_message_handler_map(
                       *this,
                       std::move(message_handler_map)) },
 #if BOOST_COMP_MSVC

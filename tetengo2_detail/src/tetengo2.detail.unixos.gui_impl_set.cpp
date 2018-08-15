@@ -24,6 +24,7 @@ namespace tetengo2 {
         class gui_fixture;
         class icon;
         class menu;
+        class message_handler;
         class message_loop;
         class mouse_capture;
         class scroll;
@@ -89,6 +90,12 @@ namespace tetengo2::detail::unixos {
     }
 
     const base::menu& gui_impl_set::menu_impl() const
+    {
+        assert(false);
+        throw std::logic_error("No implementation.");
+    }
+
+    const base::message_handler& gui_impl_set::message_handler_impl() const
     {
         assert(false);
         throw std::logic_error("No implementation.");

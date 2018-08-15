@@ -17,6 +17,7 @@
 #include <tetengo2/detail/base/gui_fixture.h>
 #include <tetengo2/detail/base/icon.h>
 #include <tetengo2/detail/base/menu.h>
+#include <tetengo2/detail/base/message_handler.h>
 #include <tetengo2/detail/base/message_loop.h>
 #include <tetengo2/detail/base/mouse_capture.h>
 #include <tetengo2/detail/base/scroll.h>
@@ -33,6 +34,7 @@
 #include <tetengo2/detail/stub/gui_impl_set.h>
 #include <tetengo2/detail/stub/icon.h>
 #include <tetengo2/detail/stub/menu.h>
+#include <tetengo2/detail/stub/message_handler.h>
 #include <tetengo2/detail/stub/message_loop.h>
 #include <tetengo2/detail/stub/mouse_capture.h>
 #include <tetengo2/detail/stub/scroll.h>
@@ -92,6 +94,11 @@ namespace tetengo2::detail::stub {
     const base::menu& gui_impl_set::menu_impl() const
     {
         return menu::instance();
+    }
+
+    const base::message_handler& gui_impl_set::message_handler_impl() const
+    {
+        return message_handler::instance();
     }
 
     const base::message_loop& gui_impl_set::message_loop_impl() const
