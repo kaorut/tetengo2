@@ -65,22 +65,22 @@ namespace tetengo2::detail::base {
 
         size_type page_size(const scroll_bar_details_type& details, const scroll& self) const
         {
-            return self.page_size(details);
+            return self.page_size_impl(details);
         }
 
         void set_page_size(scroll_bar_details_type& details, const size_type page_size, const scroll& self) const
         {
-            self.set_page_size(details, page_size);
+            self.set_page_size_impl(details, page_size);
         }
 
         bool enabled(const scroll_bar_details_type& details, const scroll& self) const
         {
-            return self.enabled(details);
+            return self.enabled_impl(details);
         }
 
         void set_enabled(scroll_bar_details_type& details, const bool enabled, const scroll& self) const
         {
-            self.set_enabled(details, enabled);
+            self.set_enabled_impl(details, enabled);
         }
     };
 
