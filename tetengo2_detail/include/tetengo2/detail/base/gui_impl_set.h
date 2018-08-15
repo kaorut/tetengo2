@@ -30,6 +30,7 @@ namespace tetengo2::detail {
         class menu;
         class message_loop;
         class mouse_capture;
+        class scroll;
         class shell;
         class system_color;
         class timer;
@@ -120,6 +121,13 @@ namespace tetengo2::detail {
             std::unique_ptr<mouse_capture> create_mouse_capture(const gui::widget::widget& widget) const;
 
             /*!
+                \brief Returns the detail implementation of scroll.
+
+                \return The detail implementation.
+            */
+            const scroll& scroll_() const;
+
+            /*!
                 \brief Returns the detail implementation of shell.
 
                 \return The detail implementation.
@@ -201,6 +209,8 @@ namespace tetengo2::detail {
 
             virtual std::unique_ptr<mouse_capture>
             create_mouse_capture_impl(const gui::widget::widget& widget) const = 0;
+
+            virtual const scroll& scroll_impl() const = 0;
 
             virtual const shell& shell_impl() const = 0;
 

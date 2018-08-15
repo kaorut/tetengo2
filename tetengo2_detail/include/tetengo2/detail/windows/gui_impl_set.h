@@ -25,6 +25,7 @@ namespace tetengo2 {
         class menu;
         class message_loop;
         class mouse_capture;
+        class scroll;
         class shell;
         class system_color;
         class timer;
@@ -90,6 +91,8 @@ namespace tetengo2::detail::windows {
 
         virtual std::unique_ptr<base::mouse_capture>
         create_mouse_capture_impl(const gui::widget::widget& widget) const override;
+
+        virtual const base::scroll& scroll_impl() const override;
 
         virtual const base::shell& shell_impl() const override;
 

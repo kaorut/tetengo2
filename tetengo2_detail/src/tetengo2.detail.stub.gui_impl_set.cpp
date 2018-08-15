@@ -19,6 +19,7 @@
 #include <tetengo2/detail/base/menu.h>
 #include <tetengo2/detail/base/message_loop.h>
 #include <tetengo2/detail/base/mouse_capture.h>
+#include <tetengo2/detail/base/scroll.h>
 #include <tetengo2/detail/base/shell.h>
 #include <tetengo2/detail/base/system_color.h>
 #include <tetengo2/detail/base/timer.h>
@@ -34,6 +35,7 @@
 #include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/detail/stub/message_loop.h>
 #include <tetengo2/detail/stub/mouse_capture.h>
+#include <tetengo2/detail/stub/scroll.h>
 #include <tetengo2/detail/stub/shell.h>
 #include <tetengo2/detail/stub/system_color.h>
 #include <tetengo2/detail/stub/timer.h>
@@ -101,6 +103,11 @@ namespace tetengo2::detail::stub {
     gui_impl_set::create_mouse_capture_impl(const gui::widget::widget& widget) const
     {
         return std::make_unique<mouse_capture>(widget);
+    }
+
+    const base::scroll& gui_impl_set::scroll_impl() const
+    {
+        return scroll::instance();
     }
 
     const base::shell& gui_impl_set::shell_impl() const

@@ -27,6 +27,7 @@ namespace tetengo2 {
         class icon;
         class menu;
         class message_loop;
+        class scroll;
         class shell;
         class system_color;
         class unit;
@@ -87,6 +88,11 @@ namespace tetengo2::detail {
         std::unique_ptr<mouse_capture> gui_impl_set::create_mouse_capture(const gui::widget::widget& widget) const
         {
             return create_mouse_capture_impl(widget);
+        }
+
+        const scroll& gui_impl_set::scroll_() const
+        {
+            return scroll_impl();
         }
 
         const shell& gui_impl_set::shell_() const
