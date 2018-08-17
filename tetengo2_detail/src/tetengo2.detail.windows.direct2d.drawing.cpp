@@ -288,8 +288,10 @@ namespace tetengo2::detail::windows::direct2d {
                                                           "Can't get text metrics." }));
             }
 
-            return { gui::type_list::dimension_unit_type::from_pixels(to_ddp_x(metrics.width)),
-                     gui::type_list::dimension_unit_type::from_pixels(to_ddp_y(metrics.height)) };
+            return gui::type_list::dimension_type{ gui::type_list::dimension_unit_type::from_pixels(
+                                                       static_cast<type_list::size_type>(to_ddp_x(metrics.width))),
+                                                   gui::type_list::dimension_unit_type::from_pixels(
+                                                       static_cast<type_list::size_type>(to_ddp_y(metrics.height))) };
         }
 
         gui::type_list::dimension_type calc_vertical_text_dimension_impl(
