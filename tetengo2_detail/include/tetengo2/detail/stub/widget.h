@@ -15,6 +15,7 @@
 #include <utility>
 #include <vector>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/base/widget.h>
 #include <tetengo2/detail/stub/drawing.h>
 #include <tetengo2/gui/drawing/font.h>
