@@ -552,8 +552,10 @@ namespace tetengo2::detail::windows::gdiplus {
                     (std::system_error{ std::error_code{ status, gdiplus_category() }, "Can't measure text!" }));
             }
 
-            return { gui::type_list::dimension_unit_type::from_pixels(bounding.Width),
-                     gui::type_list::dimension_unit_type::from_pixels(bounding.Height) };
+            return {
+                gui::type_list::dimension_unit_type::from_pixels(static_cast<type_list::size_type>(bounding.Width)),
+                gui::type_list::dimension_unit_type::from_pixels(static_cast<type_list::size_type>(bounding.Height))
+            };
         }
 
         /*!

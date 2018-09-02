@@ -544,7 +544,7 @@ namespace tetengo2::detail::windows {
                 accel.fVirt |= FALT;
             accel.fVirt |= FVIRTKEY;
 
-            accel.key = shortcut_key.key().code();
+            accel.key = static_cast<::WORD>(shortcut_key.key().code());
 
             accel.cmd = static_cast<::WORD>(menu.details().id);
 
