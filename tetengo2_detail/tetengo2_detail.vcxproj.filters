@@ -333,6 +333,9 @@
     <ClInclude Include="include\tetengo2\detail\base\scroll.h">
       <Filter>headers\tetengo2::detail\base</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\base\common_dialog.h">
+      <Filter>headers\tetengo2::detail\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\tetengo2.detail.base.config.cpp">
@@ -558,6 +561,15 @@
       <Filter>sources\tetengo2::detail\windows</Filter>
     </ClCompile>
     <ClCompile Include="src\tetengo2.detail.windows.com_ptr.cpp">
+      <Filter>sources\tetengo2::detail\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.base.common_dialog.cpp">
+      <Filter>sources\tetengo2::detail\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.stub.common_dialog.cpp">
+      <Filter>sources\tetengo2::detail\stub</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.common_dialog.cpp">
       <Filter>sources\tetengo2::detail\windows</Filter>
     </ClCompile>
   </ItemGroup>

@@ -8,6 +8,7 @@ extra_headers =
 
 sources = \
     tetengo2.detail.base.alert.cpp \
+    tetengo2.detail.base.common_dialog.cpp \
     tetengo2.detail.base.config.cpp \
     tetengo2.detail.base.cursor.cpp \
     tetengo2.detail.base.drawing.cpp \
@@ -29,6 +30,7 @@ sources = \
     tetengo2.detail.base.virtual_key.cpp \
     tetengo2.detail.base.widget.cpp \
     tetengo2.detail.stub.alert.cpp \
+    tetengo2.detail.stub.common_dialog.cpp \
     tetengo2.detail.stub.cursor.cpp \
     tetengo2.detail.stub.drawing.cpp \
     tetengo2.detail.stub.gui_fixture.cpp \
@@ -55,6 +57,7 @@ sources = \
 extra_sources = \
     tetengo2.detail.windows.alert.cpp \
     tetengo2.detail.windows.com_ptr.cpp \
+    tetengo2.detail.windows.common_dialog.cpp \
     tetengo2.detail.windows.config.cpp \
     tetengo2.detail.windows.cursor.cpp \
     tetengo2.detail.windows.direct2d.drawing.cpp \

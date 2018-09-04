@@ -4,6 +4,7 @@
 
 pkg_headers = \
     detail/base/alert.h \
+    detail/base/common_dialog.h \
     detail/base/config.h \
     detail/base/cursor.h \
     detail/base/drawing.h \
