@@ -11,17 +11,6 @@
 
 #include <memory>
 
-#pragma warning(push)
-#pragma warning(disable : 4005)
-#include <intsafe.h>
-#include <stdint.h> // IWYU pragma: keep
-#pragma warning(pop)
-#define NOMINMAX
-#define OEMRESOURCE
-#include <Unknwn.h>
-#include <Windows.h>
-
-
 namespace tetengo2::detail::windows {
 #if !defined(DOCUMENTATION)
     namespace detail {
@@ -29,11 +18,7 @@ namespace tetengo2::detail::windows {
 
         struct release_unknown
         {
-            void operator()(::IUnknown* const p_unknown) const
-            {
-                if (p_unknown)
-                    p_unknown->Release();
-            }
+            void operator()(::IUnknown* p_unknown) const;
         };
     }
 #endif

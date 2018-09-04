@@ -54,6 +54,7 @@ sources = \
 
 extra_sources = \
     tetengo2.detail.windows.alert.cpp \
+    tetengo2.detail.windows.com_ptr.cpp \
     tetengo2.detail.windows.config.cpp \
     tetengo2.detail.windows.cursor.cpp \
     tetengo2.detail.windows.direct2d.drawing.cpp \

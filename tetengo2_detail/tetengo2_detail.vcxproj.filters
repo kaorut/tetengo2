@@ -557,6 +557,9 @@
     <ClCompile Include="src\tetengo2.detail.windows.scroll.cpp">
       <Filter>sources\tetengo2::detail\windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.com_ptr.cpp">
+      <Filter>sources\tetengo2::detail\windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\tetengo2\detail\base\0namespace.dox">
