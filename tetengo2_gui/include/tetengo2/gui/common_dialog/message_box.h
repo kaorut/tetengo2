@@ -238,7 +238,7 @@ namespace tetengo2::gui::common_dialog {
             string_type              sub_content,
             const button_style_type& button_style,
             const icon_style_type    icon_style)
-        : m_p_details{ common_dialog_details_type::create_message_box(
+        : m_p_details{ common_dialog_details_type::instance().create_message_box(
               parent,
               std::move(title),
               std::move(main_content),
@@ -260,7 +260,7 @@ namespace tetengo2::gui::common_dialog {
         */
         button_id_type do_modal()
         {
-            return to_button_id(common_dialog_details_type::show_message_box(*m_p_details));
+            return to_button_id(common_dialog_details_type::instance().show_message_box(*m_p_details));
         }
 
         /*!

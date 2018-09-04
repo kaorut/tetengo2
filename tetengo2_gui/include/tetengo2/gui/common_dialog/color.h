@@ -62,7 +62,7 @@ namespace tetengo2::gui::common_dialog {
             \param parent A parent widget.
         */
         color(const tetengo2::stdalt::optional<color_type>& color, abstract_window_type& parent)
-        : m_p_details{ common_dialog_details_type::create_color_dialog(parent, color) }, m_result{
+        : m_p_details{ common_dialog_details_type::instance().create_color_dialog(parent, color) }, m_result{
               color ? *color : color_type{ 0, 0, 0 }
           }
         {}
@@ -88,7 +88,7 @@ namespace tetengo2::gui::common_dialog {
         */
         bool do_modal()
         {
-            const auto result = common_dialog_details_type::show_color_dialog(*m_p_details);
+            const auto result = common_dialog_details_type::instance().show_color_dialog(*m_p_details);
             if (!result)
                 return false;
 

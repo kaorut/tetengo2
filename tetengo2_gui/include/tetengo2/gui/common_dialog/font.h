@@ -65,7 +65,7 @@ namespace tetengo2::gui::common_dialog {
             \param parent A parent widget.
         */
         font(const tetengo2::stdalt::optional<font_type>& font, abstract_window_type& parent)
-        : m_p_details{ common_dialog_details_type::create_font_dialog(parent, font) }, m_result{
+        : m_p_details{ common_dialog_details_type::instance().create_font_dialog(parent, font) }, m_result{
               font ? *font : font_type::dialog_font(tetengo2::detail::gui_detail_impl_set().drawing_())
           }
         {}
@@ -91,7 +91,7 @@ namespace tetengo2::gui::common_dialog {
         */
         bool do_modal()
         {
-            const auto result = common_dialog_details_type::template show_font_dialog<font_type>(*m_p_details);
+            const auto result = common_dialog_details_type::instance().show_font_dialog(*m_p_details);
             if (!result)
                 return false;
 
