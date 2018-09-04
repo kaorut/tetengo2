@@ -395,5 +395,17 @@
     <ClCompile Include="src\tetengo2.gui.timer.cpp">
       <Filter>sources\tetengo2::gui</Filter>
     </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.common_dialog.color.cpp">
+      <Filter>sources\tetengo2::gui\common_dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.common_dialog.file_open.cpp">
+      <Filter>sources\tetengo2::gui\common_dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.common_dialog.file_save.cpp">
+      <Filter>sources\tetengo2::gui\common_dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.common_dialog.font.cpp">
+      <Filter>sources\tetengo2::gui\common_dialog</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

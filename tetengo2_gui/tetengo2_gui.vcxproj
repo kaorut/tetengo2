@@ -111,6 +111,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\tetengo2.gui.alert.cpp" />
+    <ClCompile Include="src\tetengo2.gui.common_dialog.color.cpp" />
+    <ClCompile Include="src\tetengo2.gui.common_dialog.file_open.cpp" />
+    <ClCompile Include="src\tetengo2.gui.common_dialog.file_save.cpp" />
+    <ClCompile Include="src\tetengo2.gui.common_dialog.font.cpp" />
     <ClCompile Include="src\tetengo2.gui.common_dialog.message_box.cpp" />
     <ClCompile Include="src\tetengo2.gui.cursor.cursor_base.cpp" />
     <ClCompile Include="src\tetengo2.gui.cursor.system.cpp" />
