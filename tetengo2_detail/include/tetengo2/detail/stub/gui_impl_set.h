@@ -18,6 +18,7 @@
 namespace tetengo2 {
     namespace detail::base {
         class alert;
+        class common_dialog;
         class cursor;
         class drawing;
         class gui_fixture;
@@ -75,6 +76,8 @@ namespace tetengo2::detail::stub {
         // virtual functions
 
         virtual const base::alert& alert_impl() const override;
+
+        virtual const base::common_dialog& common_dialog_impl() const override;
 
         virtual const base::cursor& cursor_impl() const override;
 

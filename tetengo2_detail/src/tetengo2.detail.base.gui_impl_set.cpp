@@ -22,6 +22,7 @@
 namespace tetengo2 {
     namespace detail::base {
         class alert;
+        class common_dialog;
         class cursor;
         class drawing;
         class icon;
@@ -49,6 +50,11 @@ namespace tetengo2::detail {
         const alert& gui_impl_set::alert_() const
         {
             return alert_impl();
+        }
+
+        const common_dialog& gui_impl_set::common_dialog_() const
+        {
+            return common_dialog_impl();
         }
 
         const cursor& gui_impl_set::cursor_() const

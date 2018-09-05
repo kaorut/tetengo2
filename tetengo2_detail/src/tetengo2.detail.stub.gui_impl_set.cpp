@@ -12,6 +12,7 @@
 #include <memory>
 
 #include <tetengo2/detail/base/alert.h>
+#include <tetengo2/detail/base/common_dialog.h>
 #include <tetengo2/detail/base/cursor.h>
 #include <tetengo2/detail/base/drawing.h>
 #include <tetengo2/detail/base/gui_fixture.h>
@@ -28,6 +29,7 @@
 #include <tetengo2/detail/base/virtual_key.h>
 #include <tetengo2/detail/base/widget.h>
 #include <tetengo2/detail/stub/alert.h>
+#include <tetengo2/detail/stub/common_dialog.h>
 #include <tetengo2/detail/stub/cursor.h>
 #include <tetengo2/detail/stub/drawing.h>
 #include <tetengo2/detail/stub/gui_fixture.h>
@@ -64,6 +66,11 @@ namespace tetengo2::detail::stub {
     const base::alert& gui_impl_set::alert_impl() const
     {
         return alert::instance();
+    }
+
+    const base::common_dialog& gui_impl_set::common_dialog_impl() const
+    {
+        return common_dialog::instance();
     }
 
     const base::cursor& gui_impl_set::cursor_impl() const

@@ -23,6 +23,7 @@ namespace tetengo2::gui::widget {
 namespace tetengo2::detail {
     namespace base {
         class alert;
+        class common_dialog;
         class cursor;
         class drawing;
         class gui_fixture;
@@ -62,6 +63,13 @@ namespace tetengo2::detail {
                 \return The detail implementation.
             */
             const alert& alert_() const;
+
+            /*!
+                \brief Returns the detail implementation of common dialogs.
+
+                \return The detail implementation.
+            */
+            const common_dialog& common_dialog_() const;
 
             /*!
                 \brief Returns the detail implementation of cursor.
@@ -200,6 +208,8 @@ namespace tetengo2::detail {
             // virtual functions
 
             virtual const alert& alert_impl() const = 0;
+
+            virtual const common_dialog& common_dialog_impl() const = 0;
 
             virtual const cursor& cursor_impl() const = 0;
 

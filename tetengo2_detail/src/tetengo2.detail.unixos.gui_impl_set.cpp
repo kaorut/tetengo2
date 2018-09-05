@@ -19,6 +19,7 @@
 namespace tetengo2 {
     namespace detail::base {
         class alert;
+        class common_dialog;
         class cursor;
         class drawing;
         class gui_fixture;
@@ -54,6 +55,12 @@ namespace tetengo2::detail::unixos {
     gui_impl_set::gui_impl_set() = default;
 
     const base::alert& gui_impl_set::alert_impl() const
+    {
+        assert(false);
+        throw std::logic_error("No implementation.");
+    }
+
+    const base::common_dialog& gui_impl_set::common_dialog_impl() const
     {
         assert(false);
         throw std::logic_error("No implementation.");
