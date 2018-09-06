@@ -11,6 +11,8 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/detail/base/common_dialog.h>
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/stdalt.h>
@@ -18,20 +20,8 @@
 
 namespace tetengo2::gui::common_dialog {
     /*!
-        \brief The class template for a color dialog.
-
-        \tparam CommonDialogDetails   A detail implementation type of common dialogs.
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \brief The class for a color dialog.
     */
-    template <
-        typename CommonDialogDetails,
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails>
     class color : private boost::noncopyable
     {
     public:
@@ -41,13 +31,13 @@ namespace tetengo2::gui::common_dialog {
         using color_type = gui::drawing::color;
 
         //! The common dialog details type.
-        using common_dialog_details_type = CommonDialogDetails;
+        using common_dialog_details_type = detail::base::common_dialog;
 
         //! The details type.
-        using details_type = typename common_dialog_details_type::color_dialog_details_type;
+        using details_type = common_dialog_details_type::color_dialog_details_type;
 
         //! The details pointer type;
-        using details_ptr_type = typename common_dialog_details_type::color_dialog_details_ptr_type;
+        using details_ptr_type = common_dialog_details_type::color_dialog_details_ptr_type;
 
         //! The abstract window type.
         using abstract_window_type = gui::widget::abstract_window;
@@ -62,7 +52,7 @@ namespace tetengo2::gui::common_dialog {
             \param parent A parent widget.
         */
         color(const tetengo2::stdalt::optional<color_type>& color, abstract_window_type& parent)
-        : m_p_details{ common_dialog_details_type::instance().create_color_dialog(parent, color) }, m_result{
+        : m_p_details{ detail::gui_detail_impl_set().common_dialog_().create_color_dialog(parent, color) }, m_result{
               color ? *color : color_type{ 0, 0, 0 }
           }
         {}
@@ -88,7 +78,7 @@ namespace tetengo2::gui::common_dialog {
         */
         bool do_modal()
         {
-            const auto result = common_dialog_details_type::instance().show_color_dialog(*m_p_details);
+            const auto result = detail::gui_detail_impl_set().common_dialog_().show_color_dialog(*m_p_details);
             if (!result)
                 return false;
 
