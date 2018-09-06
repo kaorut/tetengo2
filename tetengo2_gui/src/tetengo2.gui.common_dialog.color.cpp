@@ -24,11 +24,11 @@ namespace tetengo2::gui::common_dialog {
     public:
         // types
 
-        using color_type = gui::drawing::color;
+        using color_type = color::color_type;
 
-        using abstract_window_type = gui::widget::abstract_window;
+        using abstract_window_type = color::abstract_window_type;
 
-        using details_type = detail::base::common_dialog::color_dialog_details_type;
+        using details_type = color::details_type;
 
 
         // constructors and destructor
