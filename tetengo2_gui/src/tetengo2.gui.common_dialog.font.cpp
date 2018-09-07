@@ -22,13 +22,10 @@ namespace tetengo2::gui::common_dialog {
     public:
         // types
 
-        //! The font type.
         using font_type = font::font_type;
 
-        //! The abstract window type.
         using abstract_window_type = font::abstract_window_type;
 
-        //! The details type.
         using details_type = font::details_type;
 
 
