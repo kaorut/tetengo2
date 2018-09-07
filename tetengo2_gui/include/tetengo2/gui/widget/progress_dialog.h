@@ -75,7 +75,7 @@ namespace tetengo2::gui::widget {
 
             \return The value.
         */
-        static T get(const task_result_base& task_result_)
+        static const T& get(const task_result_base& task_result_)
         {
             return static_cast<const task_result<T>&>(task_result_).get_value();
         }
@@ -87,7 +87,7 @@ namespace tetengo2::gui::widget {
 
             \return The value.
         */
-        static T get(task_result_base& task_result_)
+        static T& get(task_result_base& task_result_)
         {
             return static_cast<task_result<T>&>(task_result_).get_value();
         }
