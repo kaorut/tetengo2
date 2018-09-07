@@ -12,10 +12,7 @@
 #include <memory>
 
 #include <boost/predef.h>
-#include <boost/shared_ptr.hpp>
-#include <boost/signals2.hpp>
 
-#include <tetengo2/detail/base/drawing.h>
 #include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/base/message_handler.h>
 #include <tetengo2/detail/base/widget.h>
@@ -36,14 +33,11 @@ namespace tetengo2::gui::widget {
     public:
         // types
 
-        //! The fast drawing details type.
-        using fast_drawing_details_type = detail::base::drawing;
-
         //! The fast canvas type.
         using fast_canvas_type = gui::drawing::canvas;
 
         //! The fast paint observer set type.
-        using fast_paint_observer_set_type = gui::message::paint_observer_set<fast_canvas_type>;
+        using fast_paint_observer_set_type = gui::message::paint_observer_set;
 
 
         // constructors and destructor

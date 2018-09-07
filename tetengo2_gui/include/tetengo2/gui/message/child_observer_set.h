@@ -10,23 +10,26 @@
 #define TETENGO2_GUI_MESSAGE_CHILDOBSERVERSET_H
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/signals2.hpp>
+#include <boost/signals2.hpp> // IWYU pragma: keep
+
+#if !defined(IWYU)
+namespace tetengo2 { namespace gui { namespace widget {
+    class widget;
+}}}
+#endif
 
 
 namespace tetengo2::gui::message {
     /*!
-        \brief The class template for a child observer set.
-
-        \tparam Widget A widget type.
+        \brief The class for a child observer set.
     */
-    template <typename Widget>
     class child_observer_set : private boost::noncopyable
     {
     public:
         // types
 
         //! The widget type.
-        using widget_type = Widget;
+        using widget_type = gui::widget::widget;
 
         /*!
             \brief The observer type of child creation.

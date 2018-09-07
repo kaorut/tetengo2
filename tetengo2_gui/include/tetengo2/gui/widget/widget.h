@@ -18,8 +18,6 @@
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/predef.h>
-#include <boost/shared_ptr.hpp>
-#include <boost/signals2.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/detail/base/gui_impl_set.h>
@@ -104,7 +102,7 @@ namespace tetengo2::gui::widget {
         using child_type = widget;
 
         //! The child observer set type.
-        using child_observer_set_type = gui::message::child_observer_set<child_type>;
+        using child_observer_set_type = gui::message::child_observer_set;
 
         //! The size observer set type.
         using size_observer_set_type = gui::message::size_observer_set;
@@ -113,7 +111,7 @@ namespace tetengo2::gui::widget {
         using focus_observer_set_type = gui::message::focus_observer_set;
 
         //! The paint observer set type.
-        using paint_observer_set_type = gui::message::paint_observer_set<canvas_type>;
+        using paint_observer_set_type = gui::message::paint_observer_set;
 
         //! The keyboard observer set type.
         using keyboard_observer_set_type = gui::message::keyboard_observer_set;

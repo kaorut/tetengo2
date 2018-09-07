@@ -9,19 +9,15 @@
 #include <sstream>
 
 #include <boost/preprocessor.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/gui/drawing/canvas.h>
 #include <tetengo2/gui/message/paint_observer_set.h>
 
 
 namespace {
     // types
 
-    using canvas_type = tetengo2::gui::drawing::canvas;
-
-    using paint_observer_set_type = tetengo2::gui::message::paint_observer_set<canvas_type>;
+    using paint_observer_set_type = tetengo2::gui::message::paint_observer_set;
 }
 
 
