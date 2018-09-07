@@ -19,7 +19,6 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/math/constants/constants.hpp>
 #include <boost/operators.hpp>
-#include <boost/signals2.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/detail/base/gui_impl_set.h>
@@ -28,7 +27,9 @@
 #include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
+#include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/message/mouse_observer_set.h>
+#include <tetengo2/gui/message/paint_observer_set.h>
 #include <tetengo2/gui/message/size_observer_set.h>
 #include <tetengo2/gui/position.h>
 #include <tetengo2/gui/unit/em.h>
