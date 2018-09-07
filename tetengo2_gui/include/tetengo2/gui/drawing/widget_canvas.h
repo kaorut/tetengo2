@@ -14,7 +14,7 @@
 
 namespace tetengo2::gui::drawing {
     /*!
-        \brief The class template for a widget canvas.
+        \brief The class for a widget canvas.
     */
     class widget_canvas : public canvas
     {
