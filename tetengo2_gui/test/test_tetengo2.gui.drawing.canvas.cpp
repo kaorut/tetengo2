@@ -430,6 +430,15 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     canvas.paint_icon(icon, make_position(12, 34));
                 }
 
+                BOOST_AUTO_TEST_CASE(drawing_details)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    const concrete_canvas canvas{};
+
+                    canvas.drawing_details();
+                }
+
                 BOOST_AUTO_TEST_CASE(details)
                 {
                     BOOST_TEST_PASSPOINT();

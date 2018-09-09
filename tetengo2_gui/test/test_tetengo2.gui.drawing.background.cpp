@@ -12,6 +12,7 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/drawing/background.h>
 
 
@@ -31,6 +32,11 @@ namespace {
         virtual std::unique_ptr<background_type> clone_impl() const override
         {
             return std::make_unique<concrete_background>();
+        }
+
+        virtual const background_type::drawing_details_type& drawing_details_impl() const override
+        {
+            return tetengo2::detail::gui_detail_impl_set().drawing_();
         }
 
         virtual const background_type::details_type& details_impl() const override
@@ -68,6 +74,15 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     const concrete_background background;
 
                     background.details();
+                }
+
+                BOOST_AUTO_TEST_CASE(drawing_details)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    const concrete_background background;
+
+                    background.drawing_details();
                 }
 
                 BOOST_AUTO_TEST_CASE(details)

@@ -72,6 +72,11 @@ namespace tetengo2::gui::drawing {
             return std::make_unique<transparent_background>(m_drawing_details);
         }
 
+        virtual const drawing_details_type& drawing_details_impl() const override
+        {
+            return m_drawing_details;
+        }
+
         virtual const details_type& details_impl() const override
         {
             assert(m_p_details);

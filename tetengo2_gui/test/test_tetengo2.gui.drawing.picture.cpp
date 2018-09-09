@@ -93,6 +93,17 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                          dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } }));
                 }
 
+                BOOST_AUTO_TEST_CASE(drawing_details)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    const picture_type picture{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                dimension_type{ dimension_unit_type{ 123 },
+                                                                dimension_unit_type{ 456 } } };
+
+                    picture.drawing_details();
+                }
+
                 BOOST_AUTO_TEST_CASE(details)
                 {
                     BOOST_TEST_PASSPOINT();

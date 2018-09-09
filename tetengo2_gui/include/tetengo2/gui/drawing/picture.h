@@ -82,6 +82,16 @@ namespace tetengo2::gui::drawing {
             return m_drawing_details.picture_dimension(*m_p_details);
         }
 
+        /*!\
+            \brief Returns the detail implentation of a drawing.
+
+            \return The detail implementation of a drawing.
+        */
+        const drawing_details_type& drawing_details() const
+        {
+            return m_drawing_details;
+        }
+
         /*!
             \brief Returns the detail implementation.
 

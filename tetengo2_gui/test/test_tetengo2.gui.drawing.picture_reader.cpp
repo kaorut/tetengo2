@@ -52,6 +52,16 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     const auto p_picture = reader.read();
                 }
 
+                BOOST_AUTO_TEST_CASE(drawing_details)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    tetengo2::stdalt::filesystem::path path{};
+                    picture_reader_type reader{ tetengo2::detail::gui_detail_impl_set().drawing_(), std::move(path) };
+
+                    reader.drawing_details();
+                }
+
 
             BOOST_AUTO_TEST_SUITE_END()
         BOOST_AUTO_TEST_SUITE_END()

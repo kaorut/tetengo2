@@ -55,6 +55,16 @@ namespace tetengo2::gui::drawing {
             return clone_impl();
         }
 
+        /*!\
+            \brief Returns the detail implentation of a drawing.
+
+            \return The detail implementation of a drawing.
+        */
+        const drawing_details_type& drawing_details() const
+        {
+            return drawing_details_impl();
+        }
+
         /*!
             \brief Returns the detail implementation;
 
@@ -89,6 +99,8 @@ namespace tetengo2::gui::drawing {
         // virtual functions
 
         virtual std::unique_ptr<background> clone_impl() const = 0;
+
+        virtual const drawing_details_type& drawing_details_impl() const = 0;
 
         virtual const details_type& details_impl() const = 0;
 

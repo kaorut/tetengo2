@@ -61,6 +61,16 @@ namespace tetengo2::gui::drawing {
             return std::make_unique<picture_type>(m_drawing_details, std::move(p_picture));
         }
 
+        /*!\
+            \brief Returns the detail implentation of a drawing.
+
+            \return The detail implementation of a drawing.
+        */
+        const drawing_details_type& drawing_details() const
+        {
+            return m_drawing_details;
+        }
+
 
     private:
         // types

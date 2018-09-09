@@ -65,6 +65,16 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_CHECK(dynamic_cast<background_type*>(p_clone.get())->get_color() == background.get_color());
                 }
 
+                BOOST_AUTO_TEST_CASE(drawing_details)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    const background_type background{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                      color_type{ 0x12, 0x34, 0x56, 0x78 } };
+
+                    background.drawing_details();
+                }
+
                 BOOST_AUTO_TEST_CASE(details)
                 {
                     BOOST_TEST_PASSPOINT();

@@ -411,6 +411,16 @@ namespace tetengo2::gui::drawing {
             m_drawing_details.paint_icon(*m_p_details, icon, position);
         }
 
+        /*!\
+            \brief Returns the detail implentation of a drawing.
+
+            \return The detail implementation of a drawing.
+        */
+        const drawing_details_type& drawing_details() const
+        {
+            return m_drawing_details;
+        }
+
         /*!
             \brief Returns the detail implementation.
 
