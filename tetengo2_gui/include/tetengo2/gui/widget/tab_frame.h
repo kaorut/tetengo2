@@ -166,8 +166,7 @@ namespace tetengo2::gui::widget {
                 auto original_line_width = canvas.line_width();
                 canvas.set_color(system_color_set_type::instance().control_text());
                 canvas.set_background(std::make_unique<solid_background_type>(
-                    tetengo2::detail::gui_detail_impl_set().drawing_(),
-                    system_color_set_type::instance().control_background()));
+                    canvas.drawing_details(), system_color_set_type::instance().control_background()));
                 canvas.set_line_width(dimension_unit_type{ 1 } / 8);
 
                 position_unit_type unselected_left{};
@@ -618,7 +617,7 @@ namespace tetengo2::gui::widget {
         {
             tab_frame_.set_dimension(dimension_type{ dimension_unit_type{ 16 }, dimension_unit_type{ 16 } });
             tab_frame_.set_background(std::make_unique<solid_background_type>(
-                tetengo2::detail::gui_detail_impl_set().drawing_(),
+
                 system_color_set_type::instance().dialog_background()));
 
             set_observers(tab_frame_);

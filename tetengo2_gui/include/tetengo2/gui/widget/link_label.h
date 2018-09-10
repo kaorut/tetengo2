@@ -111,7 +111,7 @@ namespace tetengo2::gui::widget {
             assert(p_link_label);
 
             p_link_label->set_background(std::make_unique<solid_background_type>(
-                tetengo2::detail::gui_detail_impl_set().drawing_(),
+
                 system_color_set_type::instance().dialog_background()));
 
             const auto original_font = p_link_label->font();

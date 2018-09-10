@@ -308,7 +308,7 @@ namespace tetengo2::gui::widget {
 
             p_label->set_text(std::move(waiting_message));
             auto p_background = std::make_unique<solid_background_type>(
-                tetengo2::detail::gui_detail_impl_set().drawing_(),
+
                 system_color_set_type::instance().dialog_background());
             p_label->set_background(std::move(p_background));
 
@@ -321,7 +321,7 @@ namespace tetengo2::gui::widget {
 
             p_label->set_text(string_type{ TETENGO2_TEXT("0%") });
             auto p_background = std::make_unique<solid_background_type>(
-                tetengo2::detail::gui_detail_impl_set().drawing_(),
+
                 system_color_set_type::instance().dialog_background());
             p_label->set_background(std::move(p_background));
 
