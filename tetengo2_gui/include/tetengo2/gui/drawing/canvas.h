@@ -154,6 +154,15 @@ namespace tetengo2::gui::drawing {
         */
         void set_background(std::unique_ptr<const background_type> p_background)
         {
+            if (!p_background)
+            {
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "The specified background is nullptr." });
+            }
+            if (&p_background->drawing_details() != &m_drawing_details)
+            {
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "The drawing detail implementations mismatch." });
+            }
             m_p_background = std::move(p_background);
         }
 
@@ -386,6 +395,11 @@ namespace tetengo2::gui::drawing {
         */
         void paint_picture(const picture_type& picture, const position_type& position, const dimension_type& dimension)
         {
+            if (&picture.drawing_details() != &m_drawing_details)
+            {
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::invalid_argument{ "The picture detail implementations mismatch." });
+            }
             m_drawing_details.paint_picture(*m_p_details, picture, position, dimension);
         }
 

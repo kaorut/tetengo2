@@ -182,12 +182,21 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    concrete_canvas canvas{};
+                    {
+                        concrete_canvas canvas{};
 
-                    canvas.set_background(std::make_unique<const transparent_background_type>(
-                        tetengo2::detail::gui_detail_impl_set().drawing_()));
+                        BOOST_CHECK_THROW(
+                            canvas.set_background(std::unique_ptr<const transparent_background_type>{}),
+                            std::invalid_argument);
+                    }
+                    {
+                        concrete_canvas canvas{};
 
-                    BOOST_TEST(dynamic_cast<const transparent_background_type*>(&canvas.get_background()));
+                        canvas.set_background(std::make_unique<const transparent_background_type>(
+                            tetengo2::detail::gui_detail_impl_set().drawing_()));
+
+                        BOOST_TEST(dynamic_cast<const transparent_background_type*>(&canvas.get_background()));
+                    }
                 }
 
                 BOOST_AUTO_TEST_CASE(line_width)
