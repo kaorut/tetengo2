@@ -17,6 +17,7 @@
 #include <boost/throw_exception.hpp>
 
 #include <tetengo2/detail/base/drawing.h>
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/type_list.h>
 
 
@@ -55,6 +56,18 @@ namespace tetengo2::gui::drawing {
         {}
 
         /*!
+            \brief Creates an empty picture.
+
+            Creates a picture for widgets.
+
+            \param dimension A dimension.
+        */
+        explicit picture(const dimension_type& dimension)
+        : m_drawing_details{ detail::gui_detail_impl_set().drawing_() }, m_p_details{ m_drawing_details.create_picture(
+                                                                             dimension) }
+        {}
+
+        /*!
             \brief Creates a picture with a detail implementation.
 
             \param drawing_details A detail implementation of a drawing.
@@ -64,6 +77,22 @@ namespace tetengo2::gui::drawing {
         */
         picture(const drawing_details_type& drawing_details, details_ptr_type p_details)
         : m_drawing_details{ drawing_details }, m_p_details{ std::move(p_details) }
+        {
+            if (!m_p_details)
+                BOOST_THROW_EXCEPTION((std::invalid_argument{ "The detail implementation is nullptr." }));
+        }
+
+        /*!
+            \brief Creates a picture with a detail implementation.
+
+            Creates a picture for widgets.
+
+            \param p_details A unique pointer to a detail implementation.
+
+            \throw std::invalid_argument When p_details is nullptr.
+        */
+        explicit picture(details_ptr_type p_details)
+        : m_drawing_details{ detail::gui_detail_impl_set().drawing_() }, m_p_details{ std::move(p_details) }
         {
             if (!m_p_details)
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "The detail implementation is nullptr." }));

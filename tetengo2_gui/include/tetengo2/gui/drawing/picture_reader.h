@@ -15,6 +15,7 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/base/drawing.h>
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/stdalt.h>
 
@@ -45,6 +46,17 @@ namespace tetengo2::gui::drawing {
         */
         picture_reader(const drawing_details_type& drawing_details, tetengo2::stdalt::filesystem::path path)
         : m_drawing_details{ drawing_details }, m_path{ std::move(path) }
+        {}
+
+        /*!
+            \brief Creates a picture reader.
+
+            Creates a picture reader for widgets.
+
+            \param path A path.
+        */
+        explicit picture_reader(tetengo2::stdalt::filesystem::path path)
+        : m_drawing_details{ detail::gui_detail_impl_set().drawing_() }, m_path{ std::move(path) }
         {}
 
 

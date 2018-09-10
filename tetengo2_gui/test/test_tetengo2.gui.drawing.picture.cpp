@@ -56,6 +56,10 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                                                                     dimension_unit_type{ 456 } } };
                     }
                     {
+                        const picture_type picture{ dimension_type{ dimension_unit_type{ 123 },
+                                                                    dimension_unit_type{ 456 } } };
+                    }
+                    {
                         picture_type::details_ptr_type p_details{
                             tetengo2::detail::gui_detail_impl_set().drawing_().create_picture(
                                 dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } })
@@ -71,6 +75,27 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         {
                             picture_type picture{ tetengo2::detail::gui_detail_impl_set().drawing_(),
                                                   std::move(p_details) };
+                        }
+                        catch (const std::invalid_argument&)
+                        {
+                            exception_thrown = true;
+                        }
+                        BOOST_TEST(exception_thrown);
+                    }
+                    {
+                        picture_type::details_ptr_type p_details{
+                            tetengo2::detail::gui_detail_impl_set().drawing_().create_picture(
+                                dimension_type{ dimension_unit_type{ 123 }, dimension_unit_type{ 456 } })
+                        };
+                        const picture_type picture2{ std::move(p_details) };
+                    }
+                    {
+                        picture_type::details_ptr_type p_details;
+
+                        auto exception_thrown = false;
+                        try
+                        {
+                            picture_type picture{ std::move(p_details) };
                         }
                         catch (const std::invalid_argument&)
                         {

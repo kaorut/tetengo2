@@ -13,6 +13,7 @@
 #include <memory>
 #include <utility>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/color.h>
 
@@ -46,8 +47,20 @@ namespace tetengo2::gui::drawing {
         */
         solid_background(const drawing_details_type& drawing_details, color_type color)
         : base_type{}, m_drawing_details{ drawing_details }, m_color{ std::move(color) }, m_p_details{
-              drawing_details.create_solid_background(m_color)
+              m_drawing_details.create_solid_background(m_color)
           }
+        {}
+
+        /*!
+            \brief Creates a solid background.
+
+            Creates a background for widgets.
+
+            \param color           A color.
+        */
+        explicit solid_background(color_type color)
+        : base_type{}, m_drawing_details{ detail::gui_detail_impl_set().drawing_() }, m_color{ std::move(color) },
+          m_p_details{ m_drawing_details.create_solid_background(m_color) }
         {}
 
         /*!
