@@ -23,7 +23,6 @@
 
 #include <tetengo2/concurrent/progressive_future.h>
 #include <tetengo2/concurrent/progressive_promise.h>
-#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/message/mouse_observer_set.h>

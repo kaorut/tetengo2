@@ -21,7 +21,6 @@
 #include <boost/operators.hpp>
 #include <boost/throw_exception.hpp>
 
-#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/canvas.h>
 #include <tetengo2/gui/drawing/font.h>
