@@ -17,6 +17,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/stub/widget.h>
 #include <tetengo2/gui/cursor/cursor_base.h>
 #include <tetengo2/gui/cursor/system.h>
@@ -45,8 +46,6 @@ namespace {
 
     using string_type = common_type_list_type::string_type;
 
-    using details_font_type = detail_type_list_type::widget_type::details_font_type;
-
     using position_type = common_type_list_type::position_type;
 
     using position_unit_type = position_type::unit_type;
@@ -55,21 +54,15 @@ namespace {
 
     using dimension_unit_type = dimension_type::unit_type;
 
-    using drawing_details_type = detail_type_list_type::drawing_type;
+    using background_type = tetengo2::gui::drawing::background;
 
-    using background_type = tetengo2::gui::drawing::background<drawing_details_type>;
+    using transparent_background_type = tetengo2::gui::drawing::transparent_background;
 
-    using transparent_background_type = tetengo2::gui::drawing::transparent_background<drawing_details_type>;
-
-    using font_type = tetengo2::gui::drawing::font<drawing_details_type>;
+    using font_type = tetengo2::gui::drawing::font;
 
     using system_cursor_type = tetengo2::gui::cursor::system;
 
-    using widget_type = tetengo2::gui::widget::widget<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type>;
+    using widget_type = tetengo2::gui::widget::widget;
 
     class concrete_widget : public widget_type
     {
@@ -78,7 +71,7 @@ namespace {
             widget_type* const                       p_parent = nullptr,
             const widget_type::scroll_bar_style_type scroll_bar_style = widget_type::scroll_bar_style_type::none)
         : widget_type{ scroll_bar_style, message_handler_map_type{} }, m_p_details{
-              std::make_unique<widget_details_type::widget_details_type>(
+              std::make_unique<tetengo2::detail::stub::widget::widget_details_type>(
                   p_parent,
                   true,
                   true,
@@ -86,7 +79,7 @@ namespace {
                   std::make_pair(0, 0),
                   std::make_pair(1, 1),
                   string_type{},
-                  details_font_type{ string_type{}, 12, false, false, false, false },
+                  font_type{ string_type{}, 12, false, false, false, false },
                   std::vector<void*>{},
                   false,
                   false,
@@ -449,7 +442,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         concrete_widget widget{};
 
-                        auto p_background = std::make_unique<transparent_background_type>();
+                        auto p_background = std::make_unique<transparent_background_type>(
+                            tetengo2::detail::gui_detail_impl_set().drawing_());
                         widget.set_background(std::move(p_background));
 
                         BOOST_TEST(widget.p_background());
@@ -469,7 +463,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         concrete_widget widget{};
 
-                        auto p_background = std::make_unique<transparent_background_type>();
+                        auto p_background = std::make_unique<transparent_background_type>(
+                            tetengo2::detail::gui_detail_impl_set().drawing_());
                         widget.set_background(std::move(p_background));
                     }
                 }
@@ -895,6 +890,14 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST_PASSPOINT();
 
                     // initialize() is called in the constructor of concrete_widget.
+                    const concrete_widget widget{};
+                }
+
+                BOOST_AUTO_TEST_CASE(widget_details)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    // widget_details() is called in the constructor of concrete_widget.
                     const concrete_widget widget{};
                 }
 

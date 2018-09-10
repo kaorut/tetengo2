@@ -13,15 +13,6 @@
 
 #include <tetengo2/gui/message/message_loop_break.h>
 
-#include "test_tetengo2.gui.detail_type_list.h"
-
-
-namespace {
-    // types
-
-    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
-}
-
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
     BOOST_AUTO_TEST_SUITE(gui)
@@ -33,8 +24,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    using message_loop_break_type =
-                        tetengo2::gui::message::message_loop_break<detail_type_list_type::message_loop_type>;
+                    using message_loop_break_type = tetengo2::gui::message::message_loop_break;
                     const message_loop_break_type message_loop_break{};
 
                     message_loop_break(0);

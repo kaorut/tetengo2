@@ -12,23 +12,26 @@
 #include <algorithm>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/signals2.hpp>
+#include <boost/signals2.hpp> // IWYU pragma: keep
+
+#if !defined(IWYU)
+namespace tetengo2 { namespace gui { namespace drawing {
+    class canvas;
+}}}
+#endif
 
 
 namespace tetengo2::gui::message {
     /*!
-        \brief The class template for a paint observer set.
-
-        \tparam Canvas A canvas type.
+        \brief The class for a paint observer set.
     */
-    template <typename Canvas>
     class paint_observer_set : private boost::noncopyable
     {
     public:
         // types
 
         //! The canvas type.
-        using canvas_type = Canvas;
+        using canvas_type = gui::drawing::canvas;
 
         /*!
             \brief The observer type of paint-background.
@@ -39,7 +42,7 @@ namespace tetengo2::gui::message {
                           and it should not be painted by the system.
             \retval false Otherwise.
         */
-        using paint_background_type = bool(typename paint_observer_set::canvas_type& canvas);
+        using paint_background_type = bool(canvas_type& canvas);
 
 #if defined(DOCUMENTATION)
         //! The logical OR combiner type.
@@ -70,7 +73,7 @@ namespace tetengo2::gui::message {
 
             \param canvas A canvas.
         */
-        using paint_type = void(typename paint_observer_set::canvas_type& canvas);
+        using paint_type = void(canvas_type& canvas);
 
         //! The signal type of paint.
         using paint_signal_type = boost::signals2::signal<paint_type>;

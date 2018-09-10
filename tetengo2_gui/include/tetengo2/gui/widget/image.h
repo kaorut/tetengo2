@@ -9,49 +9,35 @@
 #if !defined(TETENGO2_GUI_WIDGET_IMAGE_H)
 #define TETENGO2_GUI_WIDGET_IMAGE_H
 
+#include <algorithm>
 #include <memory>
 #include <stdexcept>
 
 #include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/message_handler.h>
+#include <tetengo2/detail/base/widget.h>
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/icon.h>
+#include <tetengo2/gui/message/child_observer_set.h> // IWYU pragma: keep
+#include <tetengo2/gui/message/paint_observer_set.h> // IWYU pragma: keep
 #include <tetengo2/gui/widget/control.h>
+#include <tetengo2/gui/widget/widget.h>
 
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for an image.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \brief The class for an image.
     */
-    template <typename WidgetDetails, typename DrawingDetails, typename ScrollDetails, typename MessageHandlerDetails>
-    class image : public control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
+    class image : public control
     {
     public:
         // types
 
-        //! The widget details type.
-        using widget_details_type = WidgetDetails;
-
-        //! The drawing details type.
-        using drawing_details_type = DrawingDetails;
-
-        //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
-
-        //! The base type.
-        using base_type = control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
-
-        //! The widget type.
-        using widget_type = typename base_type::base_type;
-
         //! The picture type.
-        using picture_type = gui::drawing::picture<drawing_details_type>;
+        using picture_type = gui::drawing::picture;
 
         //! The icon type.
         using icon_type = gui::icon;
@@ -64,15 +50,17 @@ namespace tetengo2::gui::widget {
 
             \param parent A parent widget.
         */
-        explicit image(widget_type& parent)
+        explicit image(widget& parent)
         :
 #if BOOST_COMP_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type{ base_type::scroll_bar_style_type::none,
-                     message_handler_details_type::make_image_message_handler_map(*this, message_handler_map_type{}),
-                     widget_details_type::create_image(parent) },
+          control{ control::scroll_bar_style_type::none,
+                   detail::gui_detail_impl_set().message_handler_().make_image_message_handler_map(
+                       *this,
+                       message_handler_map_type{}),
+                   widget_details().create_image(parent) },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
@@ -219,10 +207,6 @@ namespace tetengo2::gui::widget {
 
     private:
         // types
-
-        using canvas_type = typename base_type::canvas_type;
-
-        using position_type = typename base_type::position_type;
 
         using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
 

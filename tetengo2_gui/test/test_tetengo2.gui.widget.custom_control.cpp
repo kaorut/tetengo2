@@ -10,22 +10,15 @@
 #include <sstream>
 
 #include <boost/preprocessor.hpp>
-#include <boost/shared_ptr.hpp>
-#include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/dimension.h>
-#include <tetengo2/gui/drawing/solid_background.h>
-#include <tetengo2/gui/menu/abstract_popup.h>
-#include <tetengo2/gui/menu/menu_bar.h>
 #include <tetengo2/gui/position.h>
 #include <tetengo2/gui/unit/em.h>
-#include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/custom_control.h>
 #include <tetengo2/gui/widget/window.h>
 
 #include "test_tetengo2.gui.detail_type_list.h"
-#include "test_tetengo2.gui.type_list.h"
 
 
 namespace {
@@ -33,25 +26,11 @@ namespace {
 
     using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
 
-    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
-
-    using menu_details_type = detail_type_list_type::menu_type;
-
-    using window_type = tetengo2::gui::widget::window<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type,
-        menu_details_type>;
+    using window_type = tetengo2::gui::widget::window;
 
     using mouse_capture_details_type = detail_type_list_type::mouse_capture_type;
 
-    using custom_control_type = tetengo2::gui::widget::custom_control<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type,
-        mouse_capture_details_type>;
+    using custom_control_type = tetengo2::gui::widget::custom_control;
 
     using mouse_button_type = custom_control_type::mouse_button_type;
 
@@ -63,8 +42,6 @@ namespace {
 
     using dimension_unit_type = dimension_type::unit_type;
 
-    using inner_item_type = custom_control_type::inner_item_type;
-
     class concrete_custom_control : public custom_control_type
     {
     public:
@@ -73,13 +50,13 @@ namespace {
         {}
     };
 
-    class concrete_inner_item : public inner_item_type
+    class concrete_inner_item : public tetengo2::gui::widget::inner_item
     {
     public:
         concrete_inner_item(custom_control_type& parent)
-        : inner_item_type{ parent,
-                           position_type{ position_unit_type{ 42 }, position_unit_type{ 24 } },
-                           dimension_type{ dimension_unit_type{ 12 }, dimension_unit_type{ 34 } } }
+        : tetengo2::gui::widget::inner_item{ parent,
+                                             position_type{ position_unit_type{ 42 }, position_unit_type{ 24 } },
+                                             dimension_type{ dimension_unit_type{ 12 }, dimension_unit_type{ 34 } } }
         {}
 
         const custom_control_type& call_parent() const

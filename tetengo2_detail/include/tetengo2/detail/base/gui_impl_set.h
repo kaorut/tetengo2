@@ -9,21 +9,36 @@
 #if !defined(TETENGO2_DETAIL_BASE_GUIIMPLSET_H)
 #define TETENGO2_DETAIL_BASE_GUIIMPLSET_H
 
+#include <chrono>
+#include <functional>
 #include <memory>
 
 #include <boost/core/noncopyable.hpp>
+
+namespace tetengo2::gui::widget {
+    class widget;
+}
 
 
 namespace tetengo2::detail {
     namespace base {
         class alert;
+        class common_dialog;
         class cursor;
+        class drawing;
         class gui_fixture;
         class icon;
+        class menu;
+        class message_handler;
+        class message_loop;
+        class mouse_capture;
+        class scroll;
         class shell;
         class system_color;
+        class timer;
         class unit;
         class virtual_key;
+        class widget;
 
 
         /*!
@@ -50,11 +65,32 @@ namespace tetengo2::detail {
             const alert& alert_() const;
 
             /*!
-                \brief Returns the detail implementation of alert.
+                \brief Returns the detail implementation of common dialogs.
+
+                \return The detail implementation.
+            */
+            const common_dialog& common_dialog_() const;
+
+            /*!
+                \brief Returns the detail implementation of cursor.
 
                 \return The detail implementation.
             */
             const cursor& cursor_() const;
+
+            /*!
+                \brief Returns the detail implementation of drawing.
+
+                \return The detail implementation.
+            */
+            const drawing& drawing_() const;
+
+            /*!
+                \brief Returns the detail implementation of fast drawing.
+
+                \return The detail implementation.
+            */
+            const drawing& fast_drawing() const;
 
             /*!
                 \brief Creates a detail implementation of GUI fixture.
@@ -71,6 +107,43 @@ namespace tetengo2::detail {
             const icon& icon_() const;
 
             /*!
+                \brief Returns the detail implementation of menu.
+
+                \return The detail implementation.
+            */
+            const menu& menu_() const;
+
+            /*!
+                \brief Returns the detail implementation of message handler.
+
+                \return The detail implementation.
+            */
+            const message_handler& message_handler_() const;
+
+            /*!
+                \brief Returns the detail implementation of message loop.
+
+                \return The detail implementation.
+            */
+            const message_loop& message_loop_() const;
+
+            /*!
+                \brief Creates a detail implementation of mouse capture.
+
+                \param widget A widget.
+
+                \return A unique pointer to a detail implementation.
+            */
+            std::unique_ptr<mouse_capture> create_mouse_capture(const gui::widget::widget& widget) const;
+
+            /*!
+                \brief Returns the detail implementation of scroll.
+
+                \return The detail implementation.
+            */
+            const scroll& scroll_() const;
+
+            /*!
                 \brief Returns the detail implementation of shell.
 
                 \return The detail implementation.
@@ -78,11 +151,27 @@ namespace tetengo2::detail {
             const shell& shell_() const;
 
             /*!
-                \brief Returns the detail implementation of system color.
+                 \brief Returns the detail implementation of system color.
 
-                \return The detail implementation.
-            */
+                 \return The detail implementation.
+             */
             const system_color& system_color_() const;
+
+            /*!
+                \brief Creates a detail implementation of timer.
+
+                \param widget    A widget.
+                \param procedure A procedure called by this timer.
+                \param interval  An interval.
+                \param once_only Set true to execute the procedure once only.
+
+                \return A unique pointer to a detail implementation.
+            */
+            std::unique_ptr<timer> crate_timer(
+                const gui::widget::widget&       widget,
+                std::function<void(bool&)>       procedure,
+                const std::chrono::milliseconds& interval,
+                bool                             once_only) const;
 
             /*!
                 \brief Returns the detail implementation of unit.
@@ -97,6 +186,13 @@ namespace tetengo2::detail {
                 \return The detail implementation.
             */
             const virtual_key& virtual_key_() const;
+
+            /*!
+                \brief Returns the detail implementation of widget.
+
+                \return The detail implementation.
+            */
+            const widget& widget_() const;
 
 
         protected:
@@ -113,19 +209,44 @@ namespace tetengo2::detail {
 
             virtual const alert& alert_impl() const = 0;
 
+            virtual const common_dialog& common_dialog_impl() const = 0;
+
             virtual const cursor& cursor_impl() const = 0;
+
+            virtual const drawing& drawing_impl() const = 0;
+
+            virtual const drawing& fast_drawing_impl() const = 0;
 
             virtual std::unique_ptr<gui_fixture> create_gui_fixture_impl() const = 0;
 
             virtual const icon& icon_impl() const = 0;
 
+            virtual const menu& menu_impl() const = 0;
+
+            virtual const message_handler& message_handler_impl() const = 0;
+
+            virtual const message_loop& message_loop_impl() const = 0;
+
+            virtual std::unique_ptr<mouse_capture>
+            create_mouse_capture_impl(const gui::widget::widget& widget) const = 0;
+
+            virtual const scroll& scroll_impl() const = 0;
+
             virtual const shell& shell_impl() const = 0;
 
             virtual const system_color& system_color_impl() const = 0;
 
+            virtual std::unique_ptr<timer> crate_timer_impl(
+                const gui::widget::widget&       widget,
+                std::function<void(bool&)>       procedure,
+                const std::chrono::milliseconds& interval,
+                bool                             once_only) const = 0;
+
             virtual const unit& unit_impl() const = 0;
 
             virtual const virtual_key& virtual_key_impl() const = 0;
+
+            virtual const widget& widget_impl() const = 0;
         };
     }
 

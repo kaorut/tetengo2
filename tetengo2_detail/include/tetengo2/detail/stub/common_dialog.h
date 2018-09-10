@@ -12,297 +12,153 @@
 #include <memory>
 #include <utility>
 
-#include <boost/core/noncopyable.hpp>
-
+#include <tetengo2/detail/base/common_dialog.h>
 #include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/stdalt.h>
-#include <tetengo2/text.h>
 #include <tetengo2/type_list.h>
+
+namespace tetengo2 { namespace gui {
+    namespace drawing {
+        class font;
+    }
+    namespace widget {
+        class abstract_window;
+    }
+}}
+
 
 namespace tetengo2::detail::stub {
     /*!
         \brief The class for a detail implementation of dialogs.
     */
-    class common_dialog : private boost::noncopyable
+    class common_dialog : public base::common_dialog
     {
     public:
         // types
 
         //! The message box button style type.
-        enum class message_box_button_style_type
-        {
-            ok, //!< With OK button.
-            yes_no, //!< With Yes and No buttons.
-        };
+        using message_box_button_style_type = base::common_dialog::message_box_button_style_type;
 
         //! The message box icon style type.
-        enum class message_box_icon_style_type
-        {
-            error, //!< Error.
-            warning, //!< Warning.
-            information, //!< Information.
-        };
+        using message_box_icon_style_type = base::common_dialog::message_box_icon_style_type;
 
         //! The message box button ID type.
-        enum class message_box_button_id_type
-        {
-            ok, //!< OK button.
-            yes, //!< Yes button.
-            no, //!< No button.
-            cancel, //!< Cancel button.
-        };
+        using message_box_button_id_type = base::common_dialog::message_box_button_id_type;
 
         //! The message box details type.
-        struct message_box_details_type
-        {
-        };
+        using message_box_details_type = base::common_dialog::message_box_details_type;
 
         //! The message box details pointer type.
-        using message_box_details_ptr_type = std::unique_ptr<message_box_details_type>;
+        using message_box_details_ptr_type = base::common_dialog::message_box_details_ptr_type;
 
         //! The filters type.
-        using filters_type = std::vector<std::pair<type_list::string_type, type_list::string_type>>;
+        using filters_type = base::common_dialog::filters_type;
 
         //! The file open dialog details type.
-        struct file_open_dialog_details_type
-        {
-        };
+        using file_open_dialog_details_type = base::common_dialog::file_open_dialog_details_type;
 
         //! The file open dialog details pointer type.
-        using file_open_dialog_details_ptr_type = std::unique_ptr<file_open_dialog_details_type>;
+        using file_open_dialog_details_ptr_type = base::common_dialog::file_open_dialog_details_ptr_type;
 
         //! The file save dialog details type.
-        struct file_save_dialog_details_type
-        {
-        };
+        using file_save_dialog_details_type = base::common_dialog::file_save_dialog_details_type;
 
         //! The file save dialog details pointer type.
-        using file_save_dialog_details_ptr_type = std::unique_ptr<file_save_dialog_details_type>;
+        using file_save_dialog_details_ptr_type = base::common_dialog::file_save_dialog_details_ptr_type;
 
         //! The font dialog details type.
-        struct font_dialog_details_type
-        {
-        };
+        using font_dialog_details_type = base::common_dialog::font_dialog_details_type;
 
         //! The font dialog details pointer type.
-        using font_dialog_details_ptr_type = std::unique_ptr<font_dialog_details_type>;
+        using font_dialog_details_ptr_type = base::common_dialog::font_dialog_details_ptr_type;
 
         //! The color dialog details type.
-        struct color_dialog_details_type
-        {
-        };
+        using color_dialog_details_type = base::common_dialog::color_dialog_details_type;
 
         //! The color dialog details pointer type.
-        using color_dialog_details_ptr_type = std::unique_ptr<color_dialog_details_type>;
+        using color_dialog_details_ptr_type = base::common_dialog::color_dialog_details_ptr_type;
 
 
         // static functions
 
         /*!
-            \brief Creates a message box.
+            \brief Returns the instance.
 
-            \tparam AbstractWindow An abstract window type.
-
-            \param parent                      A parent window.
-            \param title                       A title.
-            \param main_content                A main content.
-            \param sub_content                 A sub content.
-            \param cancellable                 Whether the message box is cancellable.
-            \param button_style                A button style.
-            \param icon_style                  An icon style.
-            \param custom_ok_button_label      A custom OK button label.
-            \param custom_yes_no_button_labels A custom Yes and No button labels.
-
-            \return A unique pointer to a message box.
+            \return The instance.
         */
-        template <typename AbstractWindow>
-        static message_box_details_ptr_type create_message_box(
-            TETENGO2_STDALT_MAYBE_UNUSED AbstractWindow& parent,
-            TETENGO2_STDALT_MAYBE_UNUSED type_list::string_type title,
-            TETENGO2_STDALT_MAYBE_UNUSED type_list::string_type main_content,
-            TETENGO2_STDALT_MAYBE_UNUSED type_list::string_type sub_content,
-            TETENGO2_STDALT_MAYBE_UNUSED const bool             cancellable,
-            TETENGO2_STDALT_MAYBE_UNUSED const message_box_button_style_type button_style,
-            TETENGO2_STDALT_MAYBE_UNUSED const message_box_icon_style_type icon_style,
-            TETENGO2_STDALT_MAYBE_UNUSED tetengo2::stdalt::optional<type_list::string_type> custom_ok_button_label,
-            TETENGO2_STDALT_MAYBE_UNUSED                                                    tetengo2::stdalt::optional<
-                std::pair<type_list::string_type, type_list::string_type>> custom_yes_no_button_labels)
-        {
-            return std::make_unique<message_box_details_type>();
-        }
+        static const common_dialog& instance();
+
+
+        // constructors and destructor
 
         /*!
-            \brief Shows a message box and return a button id.
-
-            \param message_box A message box.
-
-            \return The path.
-
-            \throw std::system_error When the message box cannot be shown.
+            \brief Destroys the detail implementation.
         */
-        static message_box_button_id_type
-        show_message_box(TETENGO2_STDALT_MAYBE_UNUSED message_box_details_type& message_box)
-        {
-            return message_box_button_id_type::cancel;
-        }
-
-        /*!
-            \brief Creates a file open dialog.
-
-            \tparam AbstractWindow An abstract window type.
-
-            \param parent  A parent window.
-            \param title   A title.
-            \param filters A file filters. Each element is a pair of a label and a file pattern.
-
-            \return A unique pointer to a file open dialog.
-
-            \throw std::system_error When the file open dialog cannot be created.
-        */
-        template <typename AbstractWindow>
-        static file_open_dialog_details_ptr_type create_file_open_dialog(
-            TETENGO2_STDALT_MAYBE_UNUSED AbstractWindow& parent,
-            TETENGO2_STDALT_MAYBE_UNUSED type_list::string_type title,
-            TETENGO2_STDALT_MAYBE_UNUSED const filters_type& filters)
-        {
-            return std::make_unique<file_open_dialog_details_type>();
-        }
-
-        /*!
-            \brief Shows a file open dialog and return a path.
+        virtual ~common_dialog();
 
 
-            \param dialog  A file open dialog.
+    private:
+        // types
 
-            \return The path.
-
-            \throw std::system_error When the file open dialog cannot be shown.
-        */
-        static tetengo2::stdalt::optional<tetengo2::stdalt::filesystem::path>
-        show_file_open_dialog(TETENGO2_STDALT_MAYBE_UNUSED file_open_dialog_details_type& dialog)
-        {
-            tetengo2::stdalt::filesystem::path file_name{ tetengo2::stdalt::filesystem::path::string_type{
-                TETENGO2_TEXT("file_open_dialog") } };
-            return tetengo2::stdalt::make_optional(
-                tetengo2::stdalt::filesystem::temp_directory_path() / std::move(file_name));
-        }
-
-        /*!
-            \brief Creates a file save dialog.
-
-            \tparam AbstractWindow An abstract window type.
-
-            \param parent  A parent window.
-            \param title   A title.
-            \param path    A path.
-            \param filters A file filters. Each element is a pair of a label and a file pattern.
-
-            \return A unique pointer to a file save dialog.
-
-            \throw std::system_error When the file save dialog cannot be created.
-        */
-        template <typename AbstractWindow>
-        static file_save_dialog_details_ptr_type create_file_save_dialog(
-            TETENGO2_STDALT_MAYBE_UNUSED AbstractWindow& parent,
-            TETENGO2_STDALT_MAYBE_UNUSED type_list::string_type title,
-            TETENGO2_STDALT_MAYBE_UNUSED const tetengo2::stdalt::optional<tetengo2::stdalt::filesystem::path>& path,
-            TETENGO2_STDALT_MAYBE_UNUSED const filters_type& filters)
-        {
-            return std::make_unique<file_save_dialog_details_type>();
-        }
-
-        /*!
-            \brief Shows a file save dialog and return a path.
+        class impl;
 
 
-            \param dialog  A file save dialog.
+        // variables
 
-            \return The path.
+        const std::unique_ptr<impl> m_p_impl;
 
-            \throw std::system_error When the file save dialog cannot be shown.
-        */
-        static tetengo2::stdalt::optional<tetengo2::stdalt::filesystem::path>
-        show_file_save_dialog(TETENGO2_STDALT_MAYBE_UNUSED file_save_dialog_details_type& dialog)
-        {
-            tetengo2::stdalt::filesystem::path file_name{ tetengo2::stdalt::filesystem::path::string_type{
-                TETENGO2_TEXT("file_save_dialog") } };
-            return tetengo2::stdalt::make_optional(tetengo2::stdalt::filesystem::temp_directory_path() / file_name);
-        }
 
-        /*!
-            \brief Creates a font dialog.
+        // constructors
 
-            \tparam AbstractWindow An abstract window type.
-            \tparam OptionalFont   An optional font type.
+        common_dialog();
 
-            \param parent  A parent window.
-            \param font    A font.
 
-            \return A unique pointer to a font dialog.
+        // virtual functions
 
-            \throw std::system_error When the font dialog cannot be created.
-        */
-        template <typename AbstractWindow, typename OptionalFont>
-        static font_dialog_details_ptr_type create_font_dialog(
-            TETENGO2_STDALT_MAYBE_UNUSED AbstractWindow& parent,
-            TETENGO2_STDALT_MAYBE_UNUSED const OptionalFont& font)
-        {
-            return std::make_unique<font_dialog_details_type>();
-        }
+        virtual message_box_details_ptr_type create_message_box_impl(
+            gui::widget::abstract_window&                      parent,
+            type_list::string_type                             title,
+            type_list::string_type                             main_content,
+            type_list::string_type                             sub_content,
+            bool                                               cancellable,
+            message_box_button_style_type                      button_style,
+            message_box_icon_style_type                        icon_style,
+            tetengo2::stdalt::optional<type_list::string_type> custom_ok_button_label,
+            tetengo2::stdalt::optional<std::pair<type_list::string_type, type_list::string_type>>
+                custom_yes_no_button_labels) const override;
 
-        /*!
-            \brief Shows a font dialog and return a font.
+        virtual message_box_button_id_type show_message_box_impl(message_box_details_type& message_box) const override;
 
-            \tparam Font    A font type.
+        virtual file_open_dialog_details_ptr_type create_file_open_dialog_impl(
+            gui::widget::abstract_window& parent,
+            type_list::string_type        title,
+            const filters_type&           filters) const override;
 
-            \param dialog  A font dialog.
+        virtual tetengo2::stdalt::optional<tetengo2::stdalt::filesystem::path>
+        show_file_open_dialog_impl(file_open_dialog_details_type& dialog) const override;
 
-            \return The font.
+        virtual file_save_dialog_details_ptr_type create_file_save_dialog_impl(
+            gui::widget::abstract_window&                                         parent,
+            type_list::string_type                                                title,
+            const tetengo2::stdalt::optional<tetengo2::stdalt::filesystem::path>& path,
+            const filters_type&                                                   filters) const override;
 
-            \throw std::system_error When the font dialog cannot be shown.
-        */
-        template <typename Font>
-        static tetengo2::stdalt::optional<Font>
-        show_font_dialog(TETENGO2_STDALT_MAYBE_UNUSED font_dialog_details_type& dialog)
-        {
-            return tetengo2::stdalt::make_optional(
-                Font{ typename Font::string_type{ TETENGO2_TEXT("font_dialog_font") }, 42, false, true, false, true });
-        }
+        virtual tetengo2::stdalt::optional<tetengo2::stdalt::filesystem::path>
+        show_file_save_dialog_impl(file_save_dialog_details_type& dialog) const override;
 
-        /*!
-            \brief Creates a color dialog.
+        virtual font_dialog_details_ptr_type create_font_dialog_impl(
+            gui::widget::abstract_window&                         parent,
+            const tetengo2::stdalt::optional<gui::drawing::font>& font) const override;
 
-            \tparam AbstractWindow An abstract window type.
+        virtual tetengo2::stdalt::optional<gui::drawing::font>
+        show_font_dialog_impl(font_dialog_details_type& dialog) const override;
 
-            \param parent A parent window.
-            \param color  A color.
+        virtual color_dialog_details_ptr_type create_color_dialog_impl(
+            gui::widget::abstract_window&                          parent,
+            const tetengo2::stdalt::optional<gui::drawing::color>& color) const override;
 
-            \return A unique pointer to a color dialog.
-
-            \throw std::system_error When the color dialog cannot be created.
-        */
-        template <typename AbstractWindow>
-        static color_dialog_details_ptr_type create_color_dialog(
-            TETENGO2_STDALT_MAYBE_UNUSED AbstractWindow& parent,
-            TETENGO2_STDALT_MAYBE_UNUSED const tetengo2::stdalt::optional<gui::drawing::color>& color)
-        {
-            return std::make_unique<color_dialog_details_type>();
-        }
-
-        /*!
-            \brief Shows a color dialog and return a font.
-
-            \param dialog A color dialog.
-
-            \return The color.
-
-            \throw std::system_error When the color dialog cannot be shown.
-        */
-        static tetengo2::stdalt::optional<gui::drawing::color>
-        show_color_dialog(TETENGO2_STDALT_MAYBE_UNUSED color_dialog_details_type& dialog)
-        {
-            return tetengo2::stdalt::make_optional(gui::drawing::color{ 0xAB, 0xCD, 0xEF });
-        }
+        virtual tetengo2::stdalt::optional<gui::drawing::color>
+        show_color_dialog_impl(color_dialog_details_type& dialog) const override;
     };
 }
 

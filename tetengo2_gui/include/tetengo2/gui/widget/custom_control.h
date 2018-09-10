@@ -9,85 +9,43 @@
 #if !defined(TETENGO2_GUI_WIDGET_CUSTOMCONTROL_H)
 #define TETENGO2_GUI_WIDGET_CUSTOMCONTROL_H
 
+#include <algorithm>
 #include <cassert>
 #include <memory>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/operators.hpp>
 #include <boost/predef.h>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/message_handler.h>
+#include <tetengo2/detail/base/widget.h>
+#include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/mouse_capture.h>
+#include <tetengo2/gui/unit/em.h>
+#include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/gui/widget/control.h>
+#include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::widget {
-    template <typename CustomControl>
     class inner_item;
 
 
     /*!
-        \brief The class template for a custom control.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam MouseCaptureDetails   A detail implementation type of a mouse capture.
+        \brief The class for a custom control.
     */
-    template <
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename MouseCaptureDetails>
-    class custom_control : public control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
+    class custom_control : public control
     {
     public:
         // types
-
-        //! The widget details type.
-        using widget_details_type = WidgetDetails;
-
-        //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
-
-        //! The mouse capture details type.
-        using mouse_capture_details_type = MouseCaptureDetails;
-
-        //! The base type.
-        using base_type = control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
-
-        //! The widget type.
-        using widget_type = typename base_type::base_type;
-
-        //! The canvas type.
-        using canvas_type = typename base_type::canvas_type;
-
-        //! The position type.
-        using position_type = typename base_type::position_type;
-
-        //! The dimension type.
-        using dimension_type = typename base_type::dimension_type;
-
-        //! The scroll bar style type.
-        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
-
-        //! The mouse observer set type.
-        using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
 
         //! The mouse button type.
         using mouse_button_type = typename mouse_observer_set_type::mouse_button_type;
 
         //! The mouse capture type.
-        using mouse_capture_type = gui::mouse_capture<
-            WidgetDetails,
-            DrawingDetails,
-            ScrollDetails,
-            MessageHandlerDetails,
-            mouse_capture_details_type>;
-
-        //! The inner item type.
-        using inner_item_type = inner_item<custom_control>;
+        using mouse_capture_type = gui::mouse_capture;
 
 
         // constructors and destructor
@@ -99,23 +57,26 @@ namespace tetengo2::gui::widget {
             \param border           Set true to add border lines.
             \param scroll_bar_style A scroll bar style type.
         */
-        custom_control(widget_type& parent, const bool border, const scroll_bar_style_type scroll_bar_style)
+        custom_control(widget& parent, const bool border, const scroll_bar_style_type scroll_bar_style)
         :
 #if BOOST_COMP_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type{
-              scroll_bar_style,
-              message_handler_details_type::make_custom_control_message_handler_map(*this, message_handler_map_type{}),
-              widget_details_type::create_custom_control(parent, border, scroll_bar_style)
-          },
+          control{ scroll_bar_style,
+                   detail::gui_detail_impl_set().message_handler_().make_custom_control_message_handler_map(
+                       *this,
+                       message_handler_map_type{}),
+                   widget_details().create_custom_control(
+                       parent,
+                       border,
+                       static_cast<widget_details_type::scroll_bar_style_type>(scroll_bar_style)) },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
           m_p_mouse_capture{}, m_p_mouse_captured_item{ nullptr }
         {
-            base_type::initialize(this);
+            control::initialize(this);
 
             parent.child_observer_set().created()(*this);
         }
@@ -148,7 +109,7 @@ namespace tetengo2::gui::widget {
             \retval true  When the mouse is captured by the inner item.
             \retval false Otherwise.
         */
-        bool mouse_captured(const inner_item_type* const p_inner_item) const
+        bool mouse_captured(const inner_item* const p_inner_item) const
         {
             return static_cast<bool>(m_p_mouse_capture) && (!p_inner_item || m_p_mouse_captured_item == p_inner_item);
         }
@@ -164,7 +125,7 @@ namespace tetengo2::gui::widget {
             \retval true  When the mouse is captured by the inner item.
             \retval false Otherwise.
         */
-        bool mouse_captured(const mouse_button_type mouse_button, const inner_item_type* const p_inner_item) const
+        bool mouse_captured(const mouse_button_type mouse_button, const inner_item* const p_inner_item) const
         {
             return static_cast<bool>(m_p_mouse_capture) && m_p_mouse_capture->button() == mouse_button &&
                    (!p_inner_item || m_p_mouse_captured_item == p_inner_item);
@@ -179,7 +140,7 @@ namespace tetengo2::gui::widget {
             \retval true  When a mouse capture is set to the specified inner item.
             \retval false Otherwise.
         */
-        bool set_mouse_capture(const mouse_button_type mouse_button, const inner_item_type* const p_inner_item)
+        bool set_mouse_capture(const mouse_button_type mouse_button, const inner_item* const p_inner_item)
         {
             if (m_p_mouse_capture)
                 return false;
@@ -210,38 +171,32 @@ namespace tetengo2::gui::widget {
 
         std::unique_ptr<mouse_capture_type> m_p_mouse_capture;
 
-        const inner_item_type* m_p_mouse_captured_item;
+        const inner_item* m_p_mouse_captured_item;
     };
 
 
     /*!
-        \brief The class template for a inner item.
-
-        \tparam CustomControl A custom control type.
+        \brief The class for a inner item.
     */
-    template <typename CustomControl>
     class inner_item : private boost::noncopyable
     {
     public:
         // types
 
-        //! The custom control type.
-        using custom_control_type = CustomControl;
-
         //! The mouse button type.
-        using mouse_button_type = typename custom_control_type::mouse_button_type;
+        using mouse_button_type = custom_control::mouse_button_type;
 
         //! The postion type.
-        using position_type = typename custom_control_type::position_type;
+        using position_type = custom_control::position_type;
 
         //! The position unit type.
-        using position_unit_type = typename position_type::unit_type;
+        using position_unit_type = position_type::unit_type;
 
         //! The dimension type.
-        using dimension_type = typename custom_control_type::dimension_type;
+        using dimension_type = custom_control::dimension_type;
 
         //! The canvas type.
-        using canvas_type = typename custom_control_type::canvas_type;
+        using canvas_type = custom_control::canvas_type;
 
 
         // constructors and destructors
@@ -382,7 +337,7 @@ namespace tetengo2::gui::widget {
             \param position  A position.
             \param dimension A dimension.
         */
-        inner_item(custom_control_type& parent, position_type&& position, dimension_type&& dimension)
+        inner_item(custom_control& parent, position_type&& position, dimension_type&& dimension)
         : m_parent{ parent }, m_position{ std::move(position) }, m_dimension{ std::move(dimension) }, m_mouse_inside{
               false
           }
@@ -396,7 +351,7 @@ namespace tetengo2::gui::widget {
 
             \return The parent.
         */
-        const custom_control_type& parent() const
+        const custom_control& parent() const
         {
             return m_parent;
         }
@@ -406,7 +361,7 @@ namespace tetengo2::gui::widget {
 
             \return The parent.
         */
-        custom_control_type& parent()
+        custom_control& parent()
         {
             return m_parent;
         }
@@ -464,7 +419,7 @@ namespace tetengo2::gui::widget {
     private:
         // variables
 
-        custom_control_type& m_parent;
+        custom_control& m_parent;
 
         position_type m_position;
 

@@ -13,27 +13,26 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/detail/base/drawing.h>
+
 
 namespace tetengo2::gui::drawing {
     /*!
-        \brief The class template for a background.
-
-        \tparam DrawingDetails A detail implementation type of a drawing.
+        \brief The class for a background.
     */
-    template <typename DrawingDetails>
     class background : private boost::noncopyable
     {
     public:
         // types
 
         //! The drawing details type.
-        using drawing_details_type = DrawingDetails;
+        using drawing_details_type = detail::base::drawing;
 
         //! The details type.
-        using details_type = typename drawing_details_type::background_details_type;
+        using details_type = drawing_details_type::background_details_type;
 
         //! The detail implementation pointer type.
-        using details_ptr_type = typename drawing_details_type::background_details_ptr_type;
+        using details_ptr_type = drawing_details_type::background_details_ptr_type;
 
 
         // constructors and destructor
@@ -54,6 +53,16 @@ namespace tetengo2::gui::drawing {
         std::unique_ptr<background> clone() const
         {
             return clone_impl();
+        }
+
+        /*!\
+            \brief Returns the detail implentation of a drawing.
+
+            \return The detail implementation of a drawing.
+        */
+        const drawing_details_type& drawing_details() const
+        {
+            return drawing_details_impl();
         }
 
         /*!
@@ -90,6 +99,8 @@ namespace tetengo2::gui::drawing {
         // virtual functions
 
         virtual std::unique_ptr<background> clone_impl() const = 0;
+
+        virtual const drawing_details_type& drawing_details_impl() const = 0;
 
         virtual const details_type& details_impl() const = 0;
 

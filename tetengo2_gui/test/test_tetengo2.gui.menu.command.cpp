@@ -11,6 +11,8 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/menu.h>
 #include <tetengo2/gui/menu/command.h>
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/text.h>
@@ -28,11 +30,9 @@ namespace {
 
     using string_type = common_type_list_type::string_type;
 
-    using menu_details_type = detail_type_list_type::menu_type;
+    using menu_base_type = tetengo2::gui::menu::menu_base;
 
-    using menu_base_type = tetengo2::gui::menu::menu_base<menu_details_type>;
-
-    using menu_command_type = tetengo2::gui::menu::command<menu_details_type>;
+    using menu_command_type = tetengo2::gui::menu::command;
 }
 
 
@@ -55,7 +55,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     const menu_command_type menu_command{ string_type{ TETENGO2_TEXT("Tetengo") } };
 
-                    BOOST_CHECK(&menu_command.style() == &menu_details_type::menu_command_style<menu_base_type>());
+                    BOOST_CHECK(
+                        &menu_command.style() == &tetengo2::detail::gui_detail_impl_set().menu_().menu_command_style());
                 }
 
 

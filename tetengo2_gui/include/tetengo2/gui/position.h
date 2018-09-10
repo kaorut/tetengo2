@@ -18,7 +18,7 @@
 
 namespace tetengo2::gui {
     /*!
-        \brief The class for a position.
+        \brief The class template for a position.
 
         \tparam Unit A unit type.
     */

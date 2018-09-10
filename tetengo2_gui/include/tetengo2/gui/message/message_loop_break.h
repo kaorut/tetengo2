@@ -9,23 +9,17 @@
 #if !defined(TETENGO2_GUI_MESSAGE_MESSAGELOOPBREAK_H)
 #define TETENGO2_GUI_MESSAGE_MESSAGELOOPBREAK_H
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/message_loop.h>
+
 
 namespace tetengo2::gui::message {
     /*!
-        \brief The class template for a message loop break.
-
-        \tparam MessageLoopDetails The message loop details type.
+        \brief The class for a message loop break.
     */
-    template <typename MessageLoopDetails>
     class message_loop_break
     {
     public:
-        // types
-
-        //! The message loop details type.
-        using message_loop_details_type = MessageLoopDetails;
-
-
         // functions
 
         /*!
@@ -35,7 +29,7 @@ namespace tetengo2::gui::message {
         */
         void operator()(const int exit_code) const
         {
-            message_loop_details_type::break_loop(exit_code);
+            detail::gui_detail_impl_set().message_loop_().break_loop(exit_code);
         }
     };
 }

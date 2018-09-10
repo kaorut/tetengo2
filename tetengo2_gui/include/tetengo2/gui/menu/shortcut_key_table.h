@@ -11,41 +11,37 @@
 
 #include <cassert>
 #include <iterator>
+#include <memory>
 #include <utility>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/iterator/iterator_facade.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/menu.h>
 #include <tetengo2/gui/menu/menu_base.h>
+#include <tetengo2/gui/menu/recursive_iterator.h>
 #include <tetengo2/gui/menu/shortcut_key.h>
 
 
 namespace tetengo2::gui::menu {
     /*!
-        \brief The class template for a shortcut key table.
-
-        \tparam MenuDetails A detail implementation type of a menu.
+        \brief The class for a shortcut key table.
    */
-    template <typename MenuDetails>
     class shortcut_key_table : private boost::noncopyable
     {
     public:
         // types
 
-        //! The menu details type.
-        using menu_details_type = MenuDetails;
-
         //! The details type.
-        using details_type = typename menu_details_type::shortcut_key_table_details_type;
-
-        //! The detail implementation pointer type.
-        using details_ptr_type = typename menu_details_type::shortcut_key_table_details_ptr_type;
+        using details_type = detail::base::menu::shortcut_key_table_details_type;
 
         //! The virtual key type.
         using shortcut_key_type = shortcut_key;
 
         //! The menu base type.
-        using menu_base_type = menu_base<menu_details_type>;
+        using menu_base_type = menu_base;
 
         //! The entry type.
         using entry_type = std::pair<shortcut_key_type, const menu_base_type*>;
@@ -60,21 +56,17 @@ namespace tetengo2::gui::menu {
             \brief Creates an empty shortcut key table.
         */
         shortcut_key_table()
-        : m_entries{}, m_p_details{ menu_details_type::template create_shortcut_key_table<entry_type>() }
+        : m_entries{}, m_p_details{ detail::gui_detail_impl_set().menu_().create_shortcut_key_table() }
         {}
 
         /*!
             \brief Creates a shortcut key table.
 
-            \tparam ForwardIterator A forward iterator type.
-
-            \param first A first position among menus.
-            \param last  A last position among menus.
+            \param root_menu A root menu.
         */
-        template <typename ForwardIterator>
-        shortcut_key_table(const ForwardIterator first, const ForwardIterator last)
-        : m_entries{ build_entries(first, last) }, m_p_details{
-              menu_details_type::create_shortcut_key_table(first, last)
+        shortcut_key_table(const menu_base_type& root_menu)
+        : m_entries{ build_entries(root_menu.recursive_begin(), root_menu.recursive_end()) }, m_p_details{
+              detail::gui_detail_impl_set().menu_().create_shortcut_key_table(root_menu)
           }
         {}
 
@@ -125,6 +117,11 @@ namespace tetengo2::gui::menu {
 
 
     private:
+        // types
+
+        using details_ptr_type = detail::base::menu::shortcut_key_table_details_ptr_type;
+
+
         // static functions
 
         template <typename ForwardIterator>

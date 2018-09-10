@@ -13,59 +13,31 @@
 
 #include <boost/predef.h>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/message_handler.h>
+#include <tetengo2/detail/base/widget.h>
 #include <tetengo2/gui/drawing/canvas.h>
 #include <tetengo2/gui/drawing/widget_canvas.h>
+#include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/message/paint_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
+#include <tetengo2/gui/widget/widget.h>
 
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for a picture box.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam FastDrawingDetails    A detail implementation type of fast drawing.
+        \brief The class for a picture box.
     */
-    template <
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename FastDrawingDetails>
-    class picture_box : public control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
+    class picture_box : public control
     {
     public:
         // types
 
-        //! The widget details type.
-        using widget_details_type = WidgetDetails;
-
-        //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
-
-        //! The fast drawing details type.
-        using fast_drawing_details_type = FastDrawingDetails;
-
-        //! The base type.
-        using base_type = control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
-
-        //! The widget type.
-        using widget_type = typename base_type::base_type;
-
-        //! The scroll bar style type.
-        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
-
         //! The fast canvas type.
-        using fast_canvas_type = gui::drawing::canvas<fast_drawing_details_type>;
-
-        //! The fast widget canvas type.
-        using fast_widget_canvas_type = gui::drawing::widget_canvas<fast_drawing_details_type>;
+        using fast_canvas_type = gui::drawing::canvas;
 
         //! The fast paint observer set type.
-        using fast_paint_observer_set_type = gui::message::paint_observer_set<fast_canvas_type>;
+        using fast_paint_observer_set_type = gui::message::paint_observer_set;
 
 
         // constructors and destructor
@@ -76,28 +48,29 @@ namespace tetengo2::gui::widget {
             \param parent           A parent widget.
             \param scroll_bar_style A scroll bar style type.
         */
-        picture_box(widget_type& parent, const scroll_bar_style_type scroll_bar_style)
+        picture_box(widget& parent, const scroll_bar_style_type scroll_bar_style)
         :
 #if BOOST_COMP_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type{
-              scroll_bar_style,
-              message_handler_details_type::make_picture_box_message_handler_map(*this, message_handler_map_type{}),
-              widget_details_type::create_picture_box(parent, scroll_bar_style)
-          },
+          control{ scroll_bar_style,
+                   detail::gui_detail_impl_set().message_handler_().make_picture_box_message_handler_map(
+                       *this,
+                       message_handler_map_type{}),
+                   widget_details().create_picture_box(
+                       parent,
+                       static_cast<widget_details_type::scroll_bar_style_type>(scroll_bar_style)) },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
           m_fast_paint_observer_set{}
         {
-            base_type::initialize(this);
+            control::initialize(this);
 
             parent.child_observer_set().created()(*this);
 
-            this->paint_observer_set().paint_background().connect(
-                [](typename base_type::canvas_type&) { return true; });
+            this->paint_observer_set().paint_background().connect([](typename control::canvas_type&) { return true; });
         }
 
         /*!
@@ -125,7 +98,8 @@ namespace tetengo2::gui::widget {
         */
         std::unique_ptr<fast_canvas_type> create_fast_canvas() const
         {
-            return std::make_unique<fast_widget_canvas_type>(this->details());
+            return std::make_unique<fast_widget_canvas_type>(
+                detail::gui_detail_impl_set().fast_drawing(), this->details());
         }
 
         /*!
@@ -151,6 +125,8 @@ namespace tetengo2::gui::widget {
 
     private:
         // types
+
+        using fast_widget_canvas_type = gui::drawing::widget_canvas;
 
         using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
 

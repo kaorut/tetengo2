@@ -30,11 +30,7 @@ namespace {
 
     using color_type = tetengo2::gui::drawing::color;
 
-    using control_type = tetengo2::gui::widget::control<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type>;
+    using control_type = tetengo2::gui::widget::control;
 
     class concrete_control : public control_type
     {
@@ -43,9 +39,9 @@ namespace {
         : control_type{ control_type::scroll_bar_style_type::none,
                         message_handler_map_type{},
                         widget_details_type::widget_details_ptr_type(
-                            std::make_unique<widget_details_type::widget_details_type>()) }
+                            std::make_unique<tetengo2::detail::stub::widget::widget_details_type>()) }
         {
-            base_type::initialize(this);
+            tetengo2::gui::widget::widget::initialize(this);
         }
 
         virtual ~concrete_control() = default;

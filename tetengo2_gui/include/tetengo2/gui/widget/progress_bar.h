@@ -11,36 +11,23 @@
 
 #include <boost/predef.h>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/message_handler.h>
+#include <tetengo2/detail/base/widget.h>
+#include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
+#include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for a progress bar.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \brief The class for a progress bar.
     */
-    template <typename WidgetDetails, typename DrawingDetails, typename ScrollDetails, typename MessageHandlerDetails>
-    class progress_bar : public control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
+    class progress_bar : public control
     {
     public:
         // types
-
-        //! The widget details type.
-        using widget_details_type = WidgetDetails;
-
-        //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
-
-        //! The base type.
-        using base_type = control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
-
-        //! The widget type.
-        using widget_type = typename base_type::base_type;
 
         //! The size type.
         using size_type = tetengo2::type_list::size_type;
@@ -61,23 +48,24 @@ namespace tetengo2::gui::widget {
 
             \param parent A parent widget.
         */
-        explicit progress_bar(widget_type& parent)
+        explicit progress_bar(widget& parent)
         :
 #if BOOST_COMP_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type
+          control
         {
-            base_type::scroll_bar_style_type::none,
-                message_handler_details_type::make_button_message_handler_map(*this, message_handler_map_type{}),
-                widget_details_type::create_progress_bar(parent)
+            control::scroll_bar_style_type::none,
+                detail::gui_detail_impl_set().message_handler_().make_progress_bar_message_handler_map(
+                    *this, message_handler_map_type{}),
+                widget_details().create_progress_bar(parent)
         }
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
         {
-            base_type::initialize(this);
+            control::initialize(this);
 
             parent.child_observer_set().created()(*this);
         }
@@ -107,7 +95,7 @@ namespace tetengo2::gui::widget {
         */
         size_type goal() const
         {
-            return widget_details_type::progress_bar_goal(*this);
+            return widget_details().progress_bar_goal(*this);
         }
 
         /*!
@@ -117,7 +105,7 @@ namespace tetengo2::gui::widget {
         */
         void set_goal(const size_type goal)
         {
-            widget_details_type::set_progress_bar_goal(*this, goal);
+            widget_details().set_progress_bar_goal(*this, goal);
         }
 
         /*!
@@ -127,7 +115,7 @@ namespace tetengo2::gui::widget {
         */
         size_type progress() const
         {
-            return widget_details_type::progress_bar_progress(*this);
+            return widget_details().progress_bar_progress(*this);
         }
 
         /*!
@@ -137,7 +125,7 @@ namespace tetengo2::gui::widget {
         */
         void set_progress(const size_type progress)
         {
-            widget_details_type::set_progress_bar_progress(*this, progress);
+            widget_details().set_progress_bar_progress(*this, progress);
         }
 
         /*!
@@ -147,7 +135,7 @@ namespace tetengo2::gui::widget {
         */
         state_type state() const
         {
-            return widget_details_type::progress_bar_state(*this);
+            return static_cast<state_type>(widget_details().progress_bar_state(*this));
         }
 
         /*!
@@ -157,7 +145,8 @@ namespace tetengo2::gui::widget {
         */
         void set_state(const state_type state)
         {
-            widget_details_type::set_progress_bar_state(*this, state);
+            widget_details().set_progress_bar_state(
+                *this, static_cast<widget_details_type::progress_bar_state_type>(state));
         }
 
 

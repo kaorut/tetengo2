@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <algorithm>
 #include <sstream>
 #include <string>
 
@@ -16,17 +17,11 @@
 #include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/text.h>
 
-#include "test_tetengo2.gui.detail_type_list.h"
-
 
 namespace {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
-
-    using drawing_details_type = detail_type_list_type::drawing_type;
-
-    using font_type = tetengo2::gui::drawing::font<drawing_details_type>;
+    using font_type = tetengo2::gui::drawing::font;
 
     using string_type = font_type::string_type;
 }
@@ -131,13 +126,37 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     }
                 }
 
+                BOOST_AUTO_TEST_CASE(operator_assign)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    {
+                        const font_type font1{
+                            string_type{ TETENGO2_TEXT("TetengoFont") }, 12, false, false, false, false
+                        };
+                        font_type font2{ string_type{ TETENGO2_TEXT("TetengoFont2") }, 12, false, false, false, false };
+
+                        font2 = font1;
+
+                        BOOST_CHECK(font1 == font2);
+                    }
+                    {
+                        font_type font1{ string_type{ TETENGO2_TEXT("TetengoFont") }, 12, false, false, false, false };
+                        font_type font2{ string_type{ TETENGO2_TEXT("TetengoFont2") }, 12, false, false, false, false };
+
+                        font2 = std::move(font1);
+
+                        BOOST_CHECK(font2.family() == string_type{ TETENGO2_TEXT("TetengoFont") });
+                    }
+                }
+
                 BOOST_AUTO_TEST_CASE(family)
                 {
                     BOOST_TEST_PASSPOINT();
 
                     const font_type font{ string_type{ TETENGO2_TEXT("TetengoFont") }, 12, false, true, false, true };
 
-                    BOOST_CHECK(font.family() == font_type::string_type{ TETENGO2_TEXT("TetengoFont") });
+                    BOOST_CHECK(font.family() == string_type{ TETENGO2_TEXT("TetengoFont") });
                 }
 
                 BOOST_AUTO_TEST_CASE(size)

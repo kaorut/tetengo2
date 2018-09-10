@@ -10,6 +10,7 @@ tetengo2::config::[a-zA-Z0-9_]+_config::get_impl
 tetengo2::config::[a-zA-Z0-9_]+_config::set_impl
 tetengo2::config::[a-zA-Z0-9_]+_config::clear_impl
 tetengo2::gui::cursor::system::details_impl
+tetengo2::gui::drawing::operator ==
 tetengo2::gui::drawing::system_color_set::system_color_set
 tetengo2::gui::menu::operator ==
 tetengo2::gui::operator ==
@@ -66,9 +67,10 @@ test_tetengo2::config::config_list::clear
 test_tetengo2::config::[a-zA-Z0-9_]+_config::get
 test_tetengo2::config::[a-zA-Z0-9_]+_config::set
 test_tetengo2::config::[a-zA-Z0-9_]+_config::clear
-test_tetengo2::gui::cursor::system::details
 test_tetengo2::gui::basic_dimension::operator_equal
 test_tetengo2::gui::basic_position::operator_equal
+test_tetengo2::gui::cursor::system::details
+test_tetengo2::gui::drawing::font::operator_equal
 test_tetengo2::gui::menu::abstract_popup::insert
 test_tetengo2::gui::menu::abstract_popup::erase
 test_tetengo2::gui::menu::[a-zA-Z0-9_]+::style

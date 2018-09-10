@@ -9,66 +9,63 @@
 #if !defined(TETENGO2_DETAIL_STUB_MESSAGELOOP_H)
 #define TETENGO2_DETAIL_STUB_MESSAGELOOP_H
 
-#include <boost/core/noncopyable.hpp>
+#include <memory>
 
-#include <tetengo2/stdalt.h>
+#include <tetengo2/detail/base/message_loop.h>
+
+namespace tetengo2 { namespace gui { namespace widget {
+    class abstract_window;
+}}}
 
 
 namespace tetengo2::detail::stub {
     /*!
         \brief The class for a detail implementation of a message loop.
     */
-    class message_loop : private boost::noncopyable
+    class message_loop : public base::message_loop
     {
     public:
         // static functions
 
         /*!
-            \brief Run the message loop.
+            \brief Returns the instance.
 
-            \tparam AbstractWindow An abstract window type.
-
-            \param window A window.
-
-            \return The exit code.
-
-            \throw std::system_error When a message loop error has happened.
+            \return The instance.
         */
-        template <typename AbstractWindow>
-        static int loop(TETENGO2_STDALT_MAYBE_UNUSED AbstractWindow& window)
-        {
-            return 0;
-        }
+        static const message_loop& instance();
+
+
+        // constructors and destructor
 
         /*!
-            \brief Run the message loop for a dialog.
-
-            \tparam AbstractWindow An abstract window type.
-
-            \param dialog A dialog.
-
-            \return The exit status code.
-
-            \throw std::system_error When a message loop error has happened.
+            \brief Destroys the detail implementation.
         */
-        template <typename AbstractWindow>
-        static int dialog_loop(TETENGO2_STDALT_MAYBE_UNUSED AbstractWindow& dialog)
-        {
-            return 0;
-        }
-
-        /*!
-            \brief Breaks the message loop.
-
-            \param exit_code An exit code.
-        */
-        static void break_loop(TETENGO2_STDALT_MAYBE_UNUSED const int exit_code) {}
+        virtual ~message_loop();
 
 
     private:
-        // forbidden operations
+        // types
 
-        message_loop() = delete;
+        class impl;
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
+
+
+        // constructors
+
+        message_loop();
+
+
+        // virtual functions
+
+        virtual int loop_impl(gui::widget::abstract_window& window) const override;
+
+        virtual int dialog_loop_impl(gui::widget::abstract_window& dialog) const override;
+
+        virtual void break_loop_impl(int exit_code) const override;
     };
 }
 

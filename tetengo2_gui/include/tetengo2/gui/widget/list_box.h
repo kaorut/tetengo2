@@ -9,52 +9,32 @@
 #if !defined(TETENGO2_GUI_WIDGET_LISTBOX_H)
 #define TETENGO2_GUI_WIDGET_LISTBOX_H
 
+#include <algorithm>
 #include <stdexcept>
 
 #include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/message_handler.h>
 #include <tetengo2/gui/message/list_selection_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
+#include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for a list box.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \brief The class for a list box.
     */
-    template <typename WidgetDetails, typename DrawingDetails, typename ScrollDetails, typename MessageHandlerDetails>
-    class list_box : public control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
+    class list_box : public control
     {
     public:
         // types
 
-        //! The widget details type.
-        using widget_details_type = WidgetDetails;
-
-        //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
-
-        //! The base type.
-        using base_type = control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
-
-        //! The widget type.
-        using widget_type = typename base_type::base_type;
-
         //! The integer size type.
         using size_type = tetengo2::type_list::size_type;
-
-        //! The string type.
-        using string_type = typename base_type::string_type;
-
-        //! The scroll bar style type.
-        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
         //! The list selection observer set type.
         using list_selection_observer_set_type = gui::message::list_selection_observer_set;
@@ -68,21 +48,25 @@ namespace tetengo2::gui::widget {
             \param parent           A parent widget.
             \param scroll_bar_style A scroll bar style type.
         */
-        list_box(widget_type& parent, const scroll_bar_style_type scroll_bar_style)
+        list_box(widget& parent, const scroll_bar_style_type scroll_bar_style)
         :
 #if BOOST_COMP_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type{ scroll_bar_style,
-                     message_handler_details_type::make_list_box_message_handler_map(*this, message_handler_map_type{}),
-                     widget_details_type::create_list_box(parent, scroll_bar_style) },
+          control{ scroll_bar_style,
+                   detail::gui_detail_impl_set().message_handler_().make_list_box_message_handler_map(
+                       *this,
+                       message_handler_map_type{}),
+                   widget_details().create_list_box(
+                       parent,
+                       static_cast<widget_details_type::scroll_bar_style_type>(scroll_bar_style)) },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
           m_list_selection_observer_set{}
         {
-            base_type::initialize(this);
+            control::initialize(this);
 
             parent.child_observer_set().created()(*this);
         }
@@ -112,7 +96,7 @@ namespace tetengo2::gui::widget {
         */
         size_type value_count() const
         {
-            return widget_details_type::list_box_value_count(*this);
+            return widget_details().list_box_value_count(*this);
         }
 
         /*!
@@ -129,7 +113,7 @@ namespace tetengo2::gui::widget {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            return widget_details_type::list_box_value(*this, index);
+            return widget_details().list_box_value(*this, index);
         }
 
         /*!
@@ -145,7 +129,7 @@ namespace tetengo2::gui::widget {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            widget_details_type::set_list_box_value(*this, index, std::move(value));
+            widget_details().set_list_box_value(*this, index, std::move(value));
         }
 
         /*!
@@ -161,7 +145,7 @@ namespace tetengo2::gui::widget {
             if (index > value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            widget_details_type::insert_list_box_value(*this, index, std::move(value));
+            widget_details().insert_list_box_value(*this, index, std::move(value));
         }
 
         /*!
@@ -176,7 +160,7 @@ namespace tetengo2::gui::widget {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            widget_details_type::erase_list_box_value(*this, index);
+            widget_details().erase_list_box_value(*this, index);
         }
 
         /*!
@@ -184,7 +168,7 @@ namespace tetengo2::gui::widget {
         */
         void clear()
         {
-            widget_details_type::clear_list_box(*this);
+            widget_details().clear_list_box(*this);
         }
 
         /*!
@@ -194,7 +178,7 @@ namespace tetengo2::gui::widget {
         */
         tetengo2::stdalt::optional<size_type> selected_value_index() const
         {
-            return widget_details_type::selected_list_box_value_index(*this);
+            return widget_details().selected_list_box_value_index(*this);
         }
 
         /*!
@@ -209,7 +193,7 @@ namespace tetengo2::gui::widget {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            widget_details_type::select_list_box_value(*this, index);
+            widget_details().select_list_box_value(*this, index);
         }
 
         /*!

@@ -9,64 +9,26 @@
 #if !defined(TETENGO2_GUI_WIDGET_LINKLABEL_H)
 #define TETENGO2_GUI_WIDGET_LINKLABEL_H
 
+#include <algorithm>
 #include <cassert>
 #include <memory>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/gui/cursor/system.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
 #include <tetengo2/gui/shell.h>
+#include <tetengo2/gui/virtual_key.h>
 #include <tetengo2/gui/widget/label.h>
 
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for a link label.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \brief The class for a link label.
     */
-    template <typename WidgetDetails, typename DrawingDetails, typename ScrollDetails, typename MessageHandlerDetails>
-    class link_label : public label<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
+    class link_label : public label
     {
     public:
-        // types
-
-        //! The drawing details type.
-        using drawing_details_type = DrawingDetails;
-
-        //! The base type.
-        using base_type = label<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
-
-        //! The widget type.
-        using widget_type = typename base_type::base_type::base_type;
-
-        //! The string type.
-        using string_type = typename base_type::string_type;
-
-        //! The font type.
-        using font_type = typename base_type::font_type;
-
-        //! The system cursor type.
-        using system_cursor_type = typename base_type::system_cursor_type;
-
-        //! The mouse observer set type.
-        using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
-
-        //! The keyboard observer set type.
-        using keyboard_observer_set_type = typename base_type::keyboard_observer_set_type;
-
-        //! The solid background type.
-        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
-
-        //! The system color set type.
-        using system_color_set_type = gui::drawing::system_color_set;
-
-        //! The shell type.
-        using shell_type = gui::shell;
-
-
         // constructors and destructor
 
         /*!
@@ -74,7 +36,7 @@ namespace tetengo2::gui::widget {
 
             \param parent A parent widget.
         */
-        explicit link_label(widget_type& parent) : base_type{ parent }, m_target{}, m_mouse_button_pressing{ false }
+        explicit link_label(widget& parent) : label{ parent }, m_target{}, m_mouse_button_pressing{ false }
         {
             initialize_link_label(this);
         }
@@ -111,9 +73,13 @@ namespace tetengo2::gui::widget {
     private:
         // types
 
-        using canvas_type = typename base_type::canvas_type;
+        using solid_background_type = gui::drawing::solid_background;
 
-        using position_type = typename base_type::position_type;
+        using system_color_set_type = gui::drawing::system_color_set;
+
+        using shell_type = gui::shell;
+
+        using system_cursor_type = cursor::system;
 
         class paint_background
         {
@@ -144,8 +110,9 @@ namespace tetengo2::gui::widget {
         {
             assert(p_link_label);
 
-            p_link_label->set_background(
-                std::make_unique<solid_background_type>(system_color_set_type::instance().dialog_background()));
+            p_link_label->set_background(std::make_unique<solid_background_type>(
+
+                system_color_set_type::instance().dialog_background()));
 
             const auto original_font = p_link_label->font();
             p_link_label->set_font(font_type{ original_font.family(),

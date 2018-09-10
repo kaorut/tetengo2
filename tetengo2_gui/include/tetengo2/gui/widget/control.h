@@ -14,6 +14,8 @@
 
 #include <boost/predef.h>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/message_handler.h>
 #include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/stdalt.h>
@@ -21,36 +23,12 @@
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for a control.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \brief The class for a control.
     */
-    template <typename WidgetDetails, typename DrawingDetails, typename ScrollDetails, typename MessageHandlerDetails>
-    class control : public widget<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
+    class control : public widget
     {
     public:
         // types
-
-        //! The widget details type.
-        using widget_details_type = WidgetDetails;
-
-        //! The details type.
-        using details_type = typename widget_details_type::widget_details_type;
-
-        //! The detail implementation pointer type.
-        using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
-
-        //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
-
-        //! The base type.
-        using base_type = widget<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
-
-        //! The scroll bar style type.
-        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
         //! The color type.
         using color_type = gui::drawing::color;
@@ -94,7 +72,7 @@ namespace tetengo2::gui::widget {
         */
         bool focusable() const
         {
-            return widget_details_type::focusable(*this);
+            return widget_details().focusable(*this);
         }
 
         /*!
@@ -104,7 +82,7 @@ namespace tetengo2::gui::widget {
         */
         void set_focusable(const bool focusable)
         {
-            widget_details_type::set_focusable(*this, focusable);
+            widget_details().set_focusable(*this, focusable);
         }
 
 
@@ -125,18 +103,18 @@ namespace tetengo2::gui::widget {
             \param p_details           A unique pointer to a detail implementation.
         */
         control(
-            const scroll_bar_style_type scroll_bar_style,
-            message_handler_map_type&&  message_handler_map,
-            details_ptr_type            p_details)
+            const scroll_bar_style_type                           scroll_bar_style,
+            message_handler_map_type&&                            message_handler_map,
+            typename widget_details_type::widget_details_ptr_type p_details)
         :
 #if BOOST_COMP_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type{
-              scroll_bar_style,
-              message_handler_details_type::make_control_message_handler_map(*this, std::move(message_handler_map))
-          },
+          widget{ scroll_bar_style,
+                  detail::gui_detail_impl_set().message_handler_().make_control_message_handler_map(
+                      *this,
+                      std::move(message_handler_map)) },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
@@ -147,7 +125,7 @@ namespace tetengo2::gui::widget {
     private:
         // variables
 
-        const details_ptr_type m_p_details;
+        const typename widget_details_type::widget_details_ptr_type m_p_details;
 
         tetengo2::stdalt::optional<color_type> m_text_color;
 
@@ -157,13 +135,13 @@ namespace tetengo2::gui::widget {
         virtual const details_type& details_impl() const override
         {
             assert(m_p_details);
-            return *m_p_details;
+            return *static_cast<const details_type*>(m_p_details.get());
         }
 
         virtual details_type& details_impl() override
         {
             assert(m_p_details);
-            return *m_p_details;
+            return *static_cast<details_type*>(m_p_details.get());
         }
     };
 }

@@ -10,16 +10,10 @@
 #include <sstream>
 
 #include <boost/preprocessor.hpp>
-#include <boost/shared_ptr.hpp>
-#include <boost/signals2.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/canvas.h>
-#include <tetengo2/gui/drawing/solid_background.h>
-#include <tetengo2/gui/menu/abstract_popup.h>
-#include <tetengo2/gui/menu/menu_bar.h>
-#include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/label.h>
 #include <tetengo2/gui/widget/window.h>
 #include <tetengo2/text.h>
@@ -37,24 +31,13 @@ namespace {
 
     using string_type = common_type_list_type::string_type;
 
-    using menu_details_type = detail_type_list_type::menu_type;
-
-    using window_type = tetengo2::gui::widget::window<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type,
-        menu_details_type>;
+    using window_type = tetengo2::gui::widget::window;
 
     using dimension_type = common_type_list_type::dimension_type;
 
     using dimension_unit_type = dimension_type::unit_type;
 
-    using label_type = tetengo2::gui::widget::label<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type>;
+    using label_type = tetengo2::gui::widget::label;
 }
 
 

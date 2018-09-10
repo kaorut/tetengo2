@@ -11,25 +11,21 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/message_loop.h>
+
 
 namespace tetengo2::gui::message {
     /*!
-        \brief The class template for a message loop.
-
-        \tparam AbstractWindow     An abstract window type.
-        \tparam MessageLoopDetails The message loop details type.
+        \brief The class for a message loop.
     */
-    template <typename AbstractWindow, typename MessageLoopDetails>
     class message_loop : private boost::noncopyable
     {
     public:
         // types
 
         //! The abstract window type.
-        using abstract_window_type = AbstractWindow;
-
-        //! The message loop details type.
-        using message_loop_details_type = MessageLoopDetails;
+        using abstract_window_type = widget::abstract_window;
 
 
         // constructors and destructor
@@ -51,7 +47,7 @@ namespace tetengo2::gui::message {
         */
         int operator()() const
         {
-            return message_loop_details_type::loop(m_window);
+            return detail::gui_detail_impl_set().message_loop_().loop(m_window);
         }
 
 

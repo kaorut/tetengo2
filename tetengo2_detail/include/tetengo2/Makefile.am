@@ -4,18 +4,27 @@
 
 pkg_headers = \
     detail/base/alert.h \
+    detail/base/common_dialog.h \
     detail/base/config.h \
     detail/base/cursor.h \
+    detail/base/drawing.h \
     detail/base/encoding.h \
     detail/base/gui_fixture.h \
     detail/base/gui_impl_set.h \
     detail/base/icon.h \
     detail/base/impl_set.h \
+    detail/base/menu.h \
+    detail/base/message_handler.h \
+    detail/base/message_loop.h \
     detail/base/messages.h \
+    detail/base/mouse_capture.h \
+    detail/base/scroll.h \
     detail/base/shell.h \
     detail/base/system_color.h \
+    detail/base/timer.h \
     detail/base/unit.h \
     detail/base/virtual_key.h \
+    detail/base/widget.h \
     detail/stub/alert.h \
     detail/stub/common_dialog.h \
     detail/stub/cursor.h \
@@ -78,6 +87,7 @@ extra_headers = \
     detail/windows/message_handler_detail/pictur.h \
     detail/windows/message_handler_detail/text_b.h \
     detail/windows/message_handler_detail/widget.h \
+    detail/windows/message_loop.h \
     detail/windows/messages.h \
     detail/windows/mouse_capture.h \
     detail/windows/picture.h \

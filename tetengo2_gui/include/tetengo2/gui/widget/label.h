@@ -9,49 +9,35 @@
 #if !defined(TETENGO2_GUI_WIDGET_LABEL_H)
 #define TETENGO2_GUI_WIDGET_LABEL_H
 
+#include <algorithm>
 #include <cmath>
 #include <cstddef>
+#include <memory>
 
+#include <boost/operators.hpp>
 #include <boost/predef.h>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/message_handler.h>
+#include <tetengo2/detail/base/widget.h>
+#include <tetengo2/gui/dimension.h>
+#include <tetengo2/gui/drawing/canvas.h>
+#include <tetengo2/gui/message/child_observer_set.h>
+#include <tetengo2/gui/message/paint_observer_set.h>
+#include <tetengo2/gui/unit/em.h>
+#include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/gui/widget/control.h>
+#include <tetengo2/gui/widget/widget.h>
 
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for a label.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \brief The class for a label.
     */
-    template <typename WidgetDetails, typename DrawingDetails, typename ScrollDetails, typename MessageHandlerDetails>
-    class label : public control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
+    class label : public control
     {
     public:
         // types
-
-        //! The widget details type.
-        using widget_details_type = WidgetDetails;
-
-        //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
-
-        //! The base type.
-        using base_type = control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
-
-        //! The widget type.
-        using widget_type = typename base_type::base_type;
-
-        //! The canvas type.
-        using canvas_type = typename base_type::canvas_type;
-
-        //! The position type.
-        using position_type = typename base_type::position_type;
-
-        //! The dimension type.
-        using dimension_type = typename base_type::dimension_type;
 
         //! The dimension unit type.
         using dimension_unit_type = typename dimension_type::unit_type;
@@ -64,17 +50,18 @@ namespace tetengo2::gui::widget {
 
             \param parent A parent widget.
         */
-        explicit label(widget_type& parent)
+        explicit label(widget& parent)
         :
 #if BOOST_COMP_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type
+          control
         {
-            base_type::scroll_bar_style_type::none,
-                message_handler_details_type::make_label_message_handler_map(*this, message_handler_map_type{}),
-                widget_details_type::create_label(parent)
+            control::scroll_bar_style_type::none,
+                detail::gui_detail_impl_set().message_handler_().make_label_message_handler_map(
+                    *this, message_handler_map_type{}),
+                widget_details().create_label(parent)
         }
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
@@ -169,19 +156,18 @@ namespace tetengo2::gui::widget {
 
         static void initialize_label(label* const p_label)
         {
-            base_type::initialize(p_label);
+            control::initialize(p_label);
 
             p_label->paint_observer_set().paint_background().disconnect_all_slots();
             p_label->paint_observer_set().paint_background().connect(paint_background(*p_label));
         }
 
-
         // functions
 
         dimension_type calc_text_dimension() const
         {
-            return widget_details_type::template use_canvas<dimension_type>(
-                *this, [this](const canvas_type& canvas) { return canvas.calc_text_dimension(this->text()); });
+            std::unique_ptr<canvas_type> p_canvas = create_canvas();
+            return p_canvas->calc_text_dimension(this->text());
         }
     };
 }

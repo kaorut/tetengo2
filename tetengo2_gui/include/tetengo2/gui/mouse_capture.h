@@ -9,38 +9,27 @@
 #if !defined(TETENGO2_GUI_MOUSECAPTURE_H)
 #define TETENGO2_GUI_MOUSECAPTURE_H
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/mouse_capture.h>
 #include <tetengo2/gui/message/mouse_observer_set.h>
 #include <tetengo2/gui/widget/widget.h>
 
 
 namespace tetengo2::gui {
     /*!
-        \brief The class template for a mouse capture.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam MouseCaptureDetails   A detail implementation type of a mouse capture.
+        \brief The class for a mouse capture.
     */
-    template <
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename MouseCaptureDetails>
     class mouse_capture : private boost::noncopyable
     {
     public:
         // types
 
-        //! The mouse capture details type.
-        using mouse_capture_details_type = MouseCaptureDetails;
-
         //! The widget type.
-        using widget_type = widget::widget<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
+        using widget_type = widget::widget;
 
         //! The mouse button type.
         using mouse_button_type = message::mouse_observer_set::mouse_button_type;
@@ -55,7 +44,7 @@ namespace tetengo2::gui {
             \param button A button.
         */
         mouse_capture(const widget_type& widget, const mouse_button_type button)
-        : m_mouse_capture_details{ widget }, m_button{ button }
+        : m_p_mouse_capture_details{ detail::gui_detail_impl_set().create_mouse_capture(widget) }, m_button{ button }
         {}
 
 
@@ -73,9 +62,14 @@ namespace tetengo2::gui {
 
 
     private:
+        // types
+
+        using mouse_capture_details_type = detail::base::mouse_capture;
+
+
         // variables
 
-        const mouse_capture_details_type m_mouse_capture_details;
+        const std::unique_ptr<mouse_capture_details_type> m_p_mouse_capture_details;
 
         const mouse_button_type m_button;
     };

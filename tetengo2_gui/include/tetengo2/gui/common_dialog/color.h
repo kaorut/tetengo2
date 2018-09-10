@@ -9,31 +9,19 @@
 #if !defined(TETENGO2_GUI_COMMONDIALOG_COLOR_H)
 #define TETENGO2_GUI_COMMONDIALOG_COLOR_H
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/detail/base/common_dialog.h>
 #include <tetengo2/gui/drawing/color.h>
-#include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::common_dialog {
     /*!
-        \brief The class template for a color dialog.
-
-        \tparam CommonDialogDetails   A detail implementation type of common dialogs.
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam MenuDetails           A detail implementation type of a menu.
+        \brief The class for a color dialog.
     */
-    template <
-        typename CommonDialogDetails,
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename MenuDetails>
     class color : private boost::noncopyable
     {
     public:
@@ -42,21 +30,11 @@ namespace tetengo2::gui::common_dialog {
         //! The color type.
         using color_type = gui::drawing::color;
 
-        //! The common dialog details type.
-        using common_dialog_details_type = CommonDialogDetails;
+        //! The abstract window type.
+        using abstract_window_type = gui::widget::abstract_window;
 
         //! The details type.
-        using details_type = typename common_dialog_details_type::color_dialog_details_type;
-
-        //! The details pointer type;
-        using details_ptr_type = typename common_dialog_details_type::color_dialog_details_ptr_type;
-
-        //! The menu details type.
-        using menu_details_type = MenuDetails;
-
-        //! The abstract window type.
-        using abstract_window_type = gui::widget::
-            abstract_window<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, menu_details_type>;
+        using details_type = detail::base::common_dialog::color_dialog_details_type;
 
 
         // constructors and destructor
@@ -67,11 +45,12 @@ namespace tetengo2::gui::common_dialog {
             \param color  A color.
             \param parent A parent widget.
         */
-        color(const tetengo2::stdalt::optional<color_type>& color, abstract_window_type& parent)
-        : m_p_details{ common_dialog_details_type::create_color_dialog(parent, color) }, m_result{
-              color ? *color : color_type{ 0, 0, 0 }
-          }
-        {}
+        color(const tetengo2::stdalt::optional<color_type>& color, abstract_window_type& parent);
+
+        /*!
+            \brief Destroys the color dialog.
+        */
+        ~color();
 
 
         // functions
@@ -81,10 +60,7 @@ namespace tetengo2::gui::common_dialog {
 
             \return The result.
         */
-        const color_type& result() const
-        {
-            return m_result;
-        }
+        const color_type& result() const;
 
         /*!
             \brief Shows the dialog as model.
@@ -92,43 +68,32 @@ namespace tetengo2::gui::common_dialog {
             \retval true  When the OK button is pressed.
             \retval false Otherwise.
         */
-        bool do_modal()
-        {
-            const auto result = common_dialog_details_type::show_color_dialog(*m_p_details);
-            if (!result)
-                return false;
-
-            m_result = *result;
-            return true;
-        }
+        bool do_modal();
 
         /*!
             \brief Returns the detail implementation.
 
             \return The detail implementation.
         */
-        const details_type& details() const
-        {
-            return *m_p_details;
-        }
+        const details_type& details() const;
 
         /*!
             \brief Returns the detail implementation.
 
             \return The detail implementation.
         */
-        details_type& details()
-        {
-            return *m_p_details;
-        }
+        details_type& details();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        details_ptr_type m_p_details;
-
-        color_type m_result;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

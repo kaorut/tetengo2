@@ -15,7 +15,6 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/gui/menu/popup.h>
 #include <tetengo2/gui/menu/recursive_iterator.h>
@@ -34,11 +33,9 @@ namespace {
 
     using string_type = common_type_list_type::string_type;
 
-    using menu_details_type = detail_type_list_type::menu_type;
+    using menu_base_type = tetengo2::gui::menu::menu_base;
 
-    using menu_base_type = tetengo2::gui::menu::menu_base<menu_details_type>;
-
-    using popup_menu_type = tetengo2::gui::menu::popup<menu_details_type>;
+    using popup_menu_type = tetengo2::gui::menu::popup;
 
     using iterator_type = tetengo2::gui::menu::recursive_iterator<menu_base_type>;
 

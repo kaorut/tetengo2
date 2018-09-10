@@ -1,10 +1,10 @@
 [
-  { include: ["<bits/shared_ptr.h>",          "private", "<memory>",            "public"] },
-  { include: ["<bits/uses_allocator.h>",      "private", "<memory>",            "public"] },
-  { include: ["@<boost/variant/.+>",          "private", "<tetengo2/stdalt.h>", "public"] },
-  { include: ["<experimental/bits/fs_ops.h>", "private", "<tetengo2/stdalt.h>", "public"] },
-  { include: ["<experimental/filesystem>",    "private", "<tetengo2/stdalt.h>", "public"] },
-  { include: ["<experimental/optional>",      "private", "<tetengo2/stdalt.h>", "public"] },
+  { include: ["<bits/shared_ptr.h>",          "private", "<memory>",                                 "public"] },
+  { include: ["<bits/uses_allocator.h>",      "private", "<memory>",                                 "public"] },
+  { include: ["<experimental/bits/fs_ops.h>", "private", "<tetengo2/stdalt.h>",                      "public"] },
+  { include: ["<experimental/filesystem>",    "private", "<tetengo2/stdalt.h>",                      "public"] },
+  { include: ["<experimental/optional>",      "private", "<tetengo2/stdalt.h>",                      "public"] },
+  { include: ["<ext/alloc_traits.h>",         "private", "<memory>",                                 "public"] },
 
   { include: ["@<boost/algorithm/string/.+>",                         "private", "<boost/algorithm/string.hpp>",                  "public"] },
   { include: ["<boost/detail/basic_pointerbuf.hpp>",                  "private", "<boost/lexical_cast.hpp>",                      "public"] },
@@ -22,5 +22,9 @@
   { include: ["<boost/spirit/home/support/common_terminals.hpp>",     "private", "<boost/spirit/include/support.hpp>",            "public"] },
   { include: ["<boost/spirit/home/support/terminal.hpp>",             "private", "<boost/spirit/include/support.hpp>",            "public"] },
   { include: ["@<boost/test/.+>",                                     "private", "<boost/test/unit_test.hpp>",                    "public"] },
-  { include: ["@<boost/type_traits/.+>",                              "private", "<boost/type_traits.hpp>",                       "public"] }
+  { include: ["@<boost/type_traits/.+>",                              "private", "<boost/type_traits.hpp>",                       "public"] },
+  { include: ["@<boost/variant/.+>",                                  "private", "<tetengo2/stdalt.h>",                           "public"] },
+
+  { include: ["<recursive_iteartor.h>", "private", "<tetengo2/gui/menu/recursive_iterator.h>", "public"] }
+
 ]

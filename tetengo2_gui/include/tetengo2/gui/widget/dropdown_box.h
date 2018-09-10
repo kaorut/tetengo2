@@ -9,49 +9,32 @@
 #if !defined(TETENGO2_GUI_WIDGET_DROPDOWNBOX_H)
 #define TETENGO2_GUI_WIDGET_DROPDOWNBOX_H
 
+#include <algorithm>
 #include <stdexcept>
 
 #include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/message_handler.h>
 #include <tetengo2/gui/message/list_selection_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
+#include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for a dropdown box.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \brief The class for a dropdown box.
     */
-    template <typename WidgetDetails, typename DrawingDetails, typename ScrollDetails, typename MessageHandlerDetails>
-    class dropdown_box : public control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
+    class dropdown_box : public control
     {
     public:
         // types
 
-        //! The widget details type.
-        using widget_details_type = WidgetDetails;
-
-        //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
-
-        //! The base type.
-        using base_type = control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
-
-        //! The widget type.
-        using widget_type = typename base_type::base_type;
-
         //! The size type.
         using size_type = tetengo2::type_list::size_type;
-
-        //! The string type.
-        using string_type = typename base_type::string_type;
 
         //! The list selection observer set type.
         using list_selection_observer_set_type = gui::message::list_selection_observer_set;
@@ -64,23 +47,23 @@ namespace tetengo2::gui::widget {
 
             \param parent A parent widget.
         */
-        explicit dropdown_box(widget_type& parent)
+        explicit dropdown_box(widget& parent)
         :
 #if BOOST_COMP_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type{
-              base_type::scroll_bar_style_type::none,
-              message_handler_details_type::make_dropdown_box_message_handler_map(*this, message_handler_map_type{}),
-              widget_details_type::create_dropdown_box(parent)
-          },
+          control{ control::scroll_bar_style_type::none,
+                   detail::gui_detail_impl_set().message_handler_().make_dropdown_box_message_handler_map(
+                       *this,
+                       message_handler_map_type{}),
+                   widget_details().create_dropdown_box(parent) },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
           m_list_selection_observer_set{}
         {
-            base_type::initialize(this);
+            control::initialize(this);
 
             parent.child_observer_set().created()(*this);
         }
@@ -110,7 +93,7 @@ namespace tetengo2::gui::widget {
         */
         size_type value_count() const
         {
-            return widget_details_type::dropdown_box_value_count(*this);
+            return widget_details().dropdown_box_value_count(*this);
         }
 
         /*!
@@ -127,7 +110,7 @@ namespace tetengo2::gui::widget {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            return widget_details_type::dropdown_box_value(*this, index);
+            return widget_details().dropdown_box_value(*this, index);
         }
 
         /*!
@@ -143,7 +126,7 @@ namespace tetengo2::gui::widget {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            widget_details_type::set_dropdown_box_value(*this, index, std::move(value));
+            widget_details().set_dropdown_box_value(*this, index, std::move(value));
         }
 
         /*!
@@ -159,7 +142,7 @@ namespace tetengo2::gui::widget {
             if (index > value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            widget_details_type::insert_dropdown_box_value(*this, index, std::move(value));
+            widget_details().insert_dropdown_box_value(*this, index, std::move(value));
         }
 
         /*!
@@ -174,7 +157,7 @@ namespace tetengo2::gui::widget {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            widget_details_type::erase_dropdown_box_value(*this, index);
+            widget_details().erase_dropdown_box_value(*this, index);
         }
 
         /*!
@@ -182,7 +165,7 @@ namespace tetengo2::gui::widget {
         */
         void clear()
         {
-            widget_details_type::clear_dropdown_box(*this);
+            widget_details().clear_dropdown_box(*this);
         }
 
         /*!
@@ -192,7 +175,7 @@ namespace tetengo2::gui::widget {
         */
         tetengo2::stdalt::optional<size_type> selected_value_index() const
         {
-            return widget_details_type::selected_dropdown_box_value_index(*this);
+            return widget_details().selected_dropdown_box_value_index(*this);
         }
 
         /*!
@@ -207,7 +190,7 @@ namespace tetengo2::gui::widget {
             if (index >= value_count())
                 BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
 
-            widget_details_type::select_dropdown_box_value(*this, index);
+            widget_details().select_dropdown_box_value(*this, index);
         }
 
         /*!

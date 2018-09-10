@@ -17,6 +17,8 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/menu.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/gui/menu/recursive_iterator.h>
@@ -35,11 +37,9 @@ namespace {
 
     using string_type = common_type_list_type::string_type;
 
-    using menu_details_type = detail_type_list_type::menu_type;
+    using menu_base_type = tetengo2::gui::menu::menu_base;
 
-    using menu_base_type = tetengo2::gui::menu::menu_base<menu_details_type>;
-
-    using abstract_popup_menu_type = tetengo2::gui::menu::abstract_popup<menu_details_type>;
+    using abstract_popup_menu_type = tetengo2::gui::menu::abstract_popup;
 
     class concrete_popup_menu : public abstract_popup_menu_type
     {
@@ -47,7 +47,8 @@ namespace {
         // constructors and destructor
 
         concrete_popup_menu(string_type text)
-        : abstract_popup_menu_type{ std::move(text), menu_details_type::create_popup_menu() }
+        : abstract_popup_menu_type{ std::move(text),
+                                    tetengo2::detail::gui_detail_impl_set().menu_().create_popup_menu() }
         {}
 
 
@@ -56,7 +57,7 @@ namespace {
 
         virtual const style_type& style_impl() const override
         {
-            return menu_details_type::popup_menu_style<menu_base_type>();
+            return tetengo2::detail::gui_detail_impl_set().menu_().popup_menu_style();
         }
     };
 }

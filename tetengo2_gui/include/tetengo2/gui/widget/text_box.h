@@ -11,39 +11,23 @@
 
 #include <boost/predef.h>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/message_handler.h>
+#include <tetengo2/detail/base/widget.h>
+#include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/message/text_box_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
+#include <tetengo2/gui/widget/widget.h>
 
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for a text box.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \brief The class for a text box.
     */
-    template <typename WidgetDetails, typename DrawingDetails, typename ScrollDetails, typename MessageHandlerDetails>
-    class text_box : public control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
+    class text_box : public control
     {
     public:
         // types
-
-        //! The widget details type.
-        using widget_details_type = WidgetDetails;
-
-        //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
-
-        //! The base type.
-        using base_type = control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
-
-        //! The widget type.
-        using widget_type = typename base_type::base_type;
-
-        //! The scroll bar style type.
-        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
 
         //! The text box observer set type.
         using text_box_observer_set_type = gui::message::text_box_observer_set;
@@ -57,21 +41,25 @@ namespace tetengo2::gui::widget {
             \param parent           A parent widget.
             \param scroll_bar_style A scroll bar style type.
         */
-        text_box(widget_type& parent, const scroll_bar_style_type scroll_bar_style)
+        text_box(widget& parent, const scroll_bar_style_type scroll_bar_style)
         :
 #if BOOST_COMP_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type{ scroll_bar_style,
-                     message_handler_details_type::make_text_box_message_handler_map(*this, message_handler_map_type{}),
-                     widget_details_type::create_text_box(parent, scroll_bar_style) },
+          control{ scroll_bar_style,
+                   detail::gui_detail_impl_set().message_handler_().make_text_box_message_handler_map(
+                       *this,
+                       message_handler_map_type{}),
+                   widget_details().create_text_box(
+                       parent,
+                       static_cast<widget_details_type::scroll_bar_style_type>(scroll_bar_style)) },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
           m_text_box_observer_set{}
         {
-            base_type::initialize(this);
+            control::initialize(this);
 
             parent.child_observer_set().created()(*this);
         }
@@ -102,7 +90,7 @@ namespace tetengo2::gui::widget {
         */
         bool read_only() const
         {
-            return widget_details_type::read_only(*this);
+            return widget_details().read_only(*this);
         }
 
         /*!
@@ -112,7 +100,7 @@ namespace tetengo2::gui::widget {
         */
         void set_read_only(const bool read_only)
         {
-            widget_details_type::set_read_only(*this, read_only);
+            widget_details().set_read_only(*this, read_only);
         }
 
         /*!

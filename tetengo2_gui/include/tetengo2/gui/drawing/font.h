@@ -9,21 +9,19 @@
 #if !defined(TETENGO2_GUI_DRAWING_FONT_H)
 #define TETENGO2_GUI_DRAWING_FONT_H
 
-#include <algorithm>
+#include <memory>
 
 #include <boost/operators.hpp>
 
+#include <tetengo2/detail/base/drawing.h>
 #include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::drawing {
     /*!
-        \brief The class template for a font.
-
-        \tparam DrawingDetails A detail implementation type of a drawing.
+        \brief The class for a font.
    */
-    template <typename DrawingDetails>
-    class font : private boost::equality_comparable<font<DrawingDetails>>
+    class font : private boost::equality_comparable<font>
     {
     public:
         // types
@@ -35,7 +33,7 @@ namespace tetengo2::gui::drawing {
         using size_type = tetengo2::type_list::size_type;
 
         //! The drawing details type.
-        using drawing_details_type = DrawingDetails;
+        using drawing_details_type = detail::base::drawing;
 
 
         // static functions
@@ -45,11 +43,7 @@ namespace tetengo2::gui::drawing {
 
             \return The dialog font.
         */
-        static const font& dialog_font()
-        {
-            static const font singleton{ drawing_details_type::template make_dialog_font<font>() };
-            return singleton;
-        }
+        static const font& dialog_font();
 
 
         // constructors and destructor
@@ -66,16 +60,26 @@ namespace tetengo2::gui::drawing {
             \param underline Whether this font is underlined.
             \param strikeout Whether this font is striked out.
         */
-        font(
-            string_type     family,
-            const size_type size,
-            const bool      bold,
-            const bool      italic,
-            const bool      underline,
-            const bool      strikeout)
-        : m_family{ std::move(family) }, m_size{ size }, m_bold{ bold }, m_italic{ italic }, m_underline{ underline },
-          m_strikeout{ strikeout }
-        {}
+        font(string_type family, size_type size, bool bold, bool italic, bool underline, bool strikeout);
+
+        /*!
+            \brief Copies a font.
+
+            \param another Another font.
+        */
+        font(const font& another);
+
+        /*!
+            \brief Moves a font.
+
+            \param another Another font.
+        */
+        font(font&& another);
+
+        /*!
+            \brief Destroys the font.
+        */
+        ~font();
 
 
         // functions
@@ -89,32 +93,39 @@ namespace tetengo2::gui::drawing {
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        friend bool operator==(const font& one, const font& another)
-        {
-            return one.m_family == another.m_family && one.m_size == another.m_size && one.m_bold == another.m_bold &&
-                   one.m_italic == another.m_italic && one.m_underline == another.m_underline &&
-                   one.m_strikeout == another.m_strikeout;
-        }
+        friend bool operator==(const font& one, const font& another);
+
+        /*!
+            \brief Assigns another font.
+
+            \param another Another font.
+
+            \return This object.
+        */
+        font& operator=(const font& another);
+
+        /*!
+            \brief Assigns another font.
+
+            \param another Another font.
+
+            \return This object.
+        */
+        font& operator=(font&& another);
 
         /*!
             \brief Returns the family.
 
             \return The family.
         */
-        const string_type& family() const
-        {
-            return m_family;
-        }
+        const string_type& family() const;
 
         /*!
             \brief Returns the size.
 
             \return The size.
         */
-        size_type size() const
-        {
-            return m_size;
-        }
+        size_type size() const;
 
         /*!
             \brief Returns whether this font is bold.
@@ -122,10 +133,7 @@ namespace tetengo2::gui::drawing {
             \retval true  When this font is bold.
             \retval false Otherwise.
         */
-        bool bold() const
-        {
-            return m_bold;
-        }
+        bool bold() const;
 
         /*!
             \brief Returns whether this font is italic.
@@ -133,10 +141,7 @@ namespace tetengo2::gui::drawing {
             \retval true  When this font is italic.
             \retval false Otherwise.
         */
-        bool italic() const
-        {
-            return m_italic;
-        }
+        bool italic() const;
 
         /*!
             \brief Returns whether this font is underlined.
@@ -144,10 +149,7 @@ namespace tetengo2::gui::drawing {
             \retval true  When this font is underlined.
             \retval false Otherwise.
         */
-        bool underline() const
-        {
-            return m_underline;
-        }
+        bool underline() const;
 
         /*!
             \brief Returns whether this font is striked out.
@@ -155,26 +157,18 @@ namespace tetengo2::gui::drawing {
             \retval true  When this font is striked out.
             \retval false Otherwise.
         */
-        bool strikeout() const
-        {
-            return m_strikeout;
-        }
+        bool strikeout() const;
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        string_type m_family;
-
-        size_type m_size;
-
-        bool m_bold;
-
-        bool m_italic;
-
-        bool m_underline;
-
-        bool m_strikeout;
+        std::unique_ptr<impl> m_p_impl;
     };
 }
 

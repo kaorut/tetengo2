@@ -12,26 +12,18 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/gui/drawing/solid_background.h>
-
-#include "test_tetengo2.gui.detail_type_list.h"
-#include "test_tetengo2.gui.type_list.h"
 
 
 namespace {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
-
-    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
-
     using color_type = tetengo2::gui::drawing::color;
 
-    using drawing_details_type = detail_type_list_type::drawing_type;
-
-    using background_type = tetengo2::gui::drawing::solid_background<drawing_details_type>;
+    using background_type = tetengo2::gui::drawing::solid_background;
 }
 
 
@@ -45,14 +37,21 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    const background_type background{ color_type{ 0x12, 0x34, 0x56, 0x78 } };
+                    {
+                        const background_type background{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                          color_type{ 0x12, 0x34, 0x56, 0x78 } };
+                    }
+                    {
+                        const background_type background{ color_type{ 0x12, 0x34, 0x56, 0x78 } };
+                    }
                 }
 
                 BOOST_AUTO_TEST_CASE(get_color)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    const background_type background{ color_type{ 0x12, 0x34, 0x56, 0x78 } };
+                    const background_type background{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                      color_type{ 0x12, 0x34, 0x56, 0x78 } };
 
                     BOOST_CHECK((background.get_color() == color_type{ 0x12, 0x34, 0x56, 0x78 }));
                 }
@@ -61,7 +60,8 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    const background_type background{ color_type{ 0x12, 0x34, 0x56, 0x78 } };
+                    const background_type background{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                      color_type{ 0x12, 0x34, 0x56, 0x78 } };
 
                     const auto p_clone = background.clone();
 
@@ -70,17 +70,29 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_CHECK(dynamic_cast<background_type*>(p_clone.get())->get_color() == background.get_color());
                 }
 
+                BOOST_AUTO_TEST_CASE(drawing_details)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    const background_type background{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                      color_type{ 0x12, 0x34, 0x56, 0x78 } };
+
+                    background.drawing_details();
+                }
+
                 BOOST_AUTO_TEST_CASE(details)
                 {
                     BOOST_TEST_PASSPOINT();
 
                     {
-                        const background_type background{ color_type{ 0x12, 0x34, 0x56, 0x78 } };
+                        const background_type background{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                          color_type{ 0x12, 0x34, 0x56, 0x78 } };
 
                         background.details();
                     }
                     {
-                        background_type background{ color_type{ 0x12, 0x34, 0x56, 0x78 } };
+                        background_type background{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                    color_type{ 0x12, 0x34, 0x56, 0x78 } };
 
                         background.details();
                     }

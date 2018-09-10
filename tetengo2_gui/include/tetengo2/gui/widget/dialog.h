@@ -13,65 +13,31 @@
 
 #include <boost/predef.h>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/message_handler.h>
+#include <tetengo2/detail/base/widget.h>
+#include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/message/dialog_message_loop.h>
 #include <tetengo2/gui/message/message_loop_break.h>
+#include <tetengo2/gui/message/window_observer_set.h>
 #include <tetengo2/gui/widget/abstract_window.h>
+#include <tetengo2/gui/widget/widget.h>
 
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for a modal dialog.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam MenuDetails           A detail implementation type of a menu.
-        \tparam MessageLoopDetails    A detail implementation type of a message loop.
+        \brief The class for a modal dialog.
     */
-    template <
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename MenuDetails,
-        typename MessageLoopDetails>
-    class dialog
-    : public abstract_window<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, MenuDetails>
+    class dialog : public abstract_window
     {
     public:
         // types
 
-        //! The widget details type.
-        using widget_details_type = WidgetDetails;
-
-        //! The details type.
-        using details_type = typename widget_details_type::widget_details_type;
-
-        //! The detail implementation pointer type.
-        using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
-
-        //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
-
-        //! The menu details type.
-        using menu_details_type = MenuDetails;
-
-        //! The message loop details type.
-        using message_loop_details_type = MessageLoopDetails;
-
-        //! The base type.
-        using base_type =
-            abstract_window<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, MenuDetails>;
-
-        //! The position type.
-        using position_type = typename base_type::position_type;
-
         //! The message loop type.
-        using message_loop_type = gui::message::dialog_message_loop<base_type, message_loop_details_type>;
+        using message_loop_type = gui::message::dialog_message_loop;
 
         //! The message loop break type.
-        using message_loop_break_type = gui::message::message_loop_break<message_loop_details_type>;
+        using message_loop_break_type = gui::message::message_loop_break;
 
         //! The result type.
         enum class result_type
@@ -90,21 +56,21 @@ namespace tetengo2::gui::widget {
             \param parent         A parent window.
             \param file_droppable Set true to enable file drop.
         */
-        explicit dialog(base_type& parent, const bool file_droppable = false)
+        explicit dialog(abstract_window& parent, const bool file_droppable = false)
         :
 #if BOOST_COMP_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type{ base_type::scroll_bar_style_type::none,
-                     file_droppable,
-                     message_handler_details_type::make_dialog_message_handler_map(*this, message_handler_map_type{}) },
+          abstract_window{ abstract_window::scroll_bar_style_type::none,
+                           file_droppable,
+                           detail::gui_detail_impl_set().message_handler_().make_dialog_message_handler_map(
+                               *this,
+                               message_handler_map_type{}) },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
-          m_result{ result_type::undecided }, m_p_details{
-              widget_details_type::template create_dialog<typename base_type::base_type>(&parent, file_droppable)
-          }
+          m_result{ result_type::undecided }, m_p_details{ widget_details().create_dialog(&parent, file_droppable) }
         {
             initialize_dialog();
 
@@ -159,12 +125,12 @@ namespace tetengo2::gui::widget {
             do_modal_impl();
 
             assert(this->has_parent());
-            auto& parent_window = dynamic_cast<base_type&>(this->parent());
+            auto& parent_window = dynamic_cast<abstract_window&>(this->parent());
             parent_window.set_enabled(false);
 
             this->window_observer_set().closing().connect([this](bool& cancel) { this->on_close_impl(cancel); });
             this->window_observer_set().destroyed().connect([]() { message_loop_break_type{}(0); });
-            this->set_position(widget_details_type::dialog_position(*this, parent_window));
+            this->set_position(widget_details().dialog_position(*this, parent_window));
             this->set_visible(true);
 
             message_loop_type{ *this }();
@@ -184,7 +150,7 @@ namespace tetengo2::gui::widget {
         */
         void initialize_dialog()
         {
-            base_type::initialize(this);
+            abstract_window::initialize(this);
         }
 
 
@@ -198,7 +164,7 @@ namespace tetengo2::gui::widget {
 
         result_type m_result;
 
-        const details_ptr_type m_p_details;
+        const typename widget_details_type::widget_details_ptr_type m_p_details;
 
 
         // virtual functions
@@ -212,13 +178,13 @@ namespace tetengo2::gui::widget {
         virtual const details_type& details_impl() const override
         {
             assert(m_p_details);
-            return *m_p_details;
+            return *static_cast<const details_type*>(m_p_details.get());
         }
 
         virtual details_type& details_impl() override
         {
             assert(m_p_details);
-            return *m_p_details;
+            return *static_cast<details_type*>(m_p_details.get());
         }
     };
 }

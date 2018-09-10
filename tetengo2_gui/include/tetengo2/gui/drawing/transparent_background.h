@@ -12,32 +12,48 @@
 #include <cassert>
 #include <memory>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/drawing/background.h>
 
 
 namespace tetengo2::gui::drawing {
     /*!
-        \brief The class template for a transparent background.
-
-        \tparam DrawingDetails A detail implementation type of a drawing.
+        \brief The class for a transparent background.
     */
-    template <typename DrawingDetails>
-    class transparent_background : public background<DrawingDetails>
+    class transparent_background : public background
     {
     public:
         // types
 
         //! The base type.
-        using base_type = background<DrawingDetails>;
+        using base_type = background;
+
+        //! The drawing details type.
+        using drawing_details_type = base_type::drawing_details_type;
 
 
         // constructors and destructor
 
         /*!
             \brief Creates a transparent background.
+
+            \param drawing_details A detailm implementation of a drawing.
+        */
+        explicit transparent_background(const drawing_details_type& drawing_details)
+        : base_type{}, m_drawing_details{ drawing_details }, m_p_details{
+              m_drawing_details.create_transparent_background()
+          }
+        {}
+
+        /*!
+            \brief Creates a transparent background.
+
+            Creates a background for widgets.
         */
         transparent_background()
-        : base_type{}, m_p_details{ base_type::drawing_details_type::create_transparent_background() }
+        : base_type{}, m_drawing_details{ detail::gui_detail_impl_set().drawing_() }, m_p_details{
+              m_drawing_details.create_transparent_background()
+          }
         {}
 
         /*!
@@ -56,6 +72,8 @@ namespace tetengo2::gui::drawing {
 
         // variables
 
+        const drawing_details_type& m_drawing_details;
+
         const details_ptr_type m_p_details;
 
 
@@ -63,7 +81,12 @@ namespace tetengo2::gui::drawing {
 
         virtual std::unique_ptr<base_type> clone_impl() const override
         {
-            return std::make_unique<transparent_background>();
+            return std::make_unique<transparent_background>(m_drawing_details);
+        }
+
+        virtual const drawing_details_type& drawing_details_impl() const override
+        {
+            return m_drawing_details;
         }
 
         virtual const details_type& details_impl() const override

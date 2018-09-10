@@ -9,15 +9,12 @@
 #if !defined(TETENGO2_GUI_COMMONDIALOG_MESSAGEBOX_H)
 #define TETENGO2_GUI_COMMONDIALOG_MESSAGEBOX_H
 
-#include <cassert>
 #include <memory>
-#include <stdexcept>
 #include <utility>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/throw_exception.hpp>
 
-#include <tetengo2/gui/widget/abstract_window.h>
+#include <tetengo2/detail/base/common_dialog.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
 
@@ -163,22 +160,8 @@ namespace tetengo2::gui::common_dialog {
 
 
     /*!
-        \brief The class template for a message box.
-
-        \tparam CommonDialogDetails   A detail implementation type of common dialogs.
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam MenuDetails           A detail implementation type of a menu.
+        \brief The class for a message box.
     */
-    template <
-        typename CommonDialogDetails,
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename MenuDetails>
     class message_box : private boost::noncopyable
     {
     public:
@@ -187,21 +170,8 @@ namespace tetengo2::gui::common_dialog {
         //! The string type.
         using string_type = tetengo2::type_list::string_type;
 
-        //! The common dialog details type.
-        using common_dialog_details_type = CommonDialogDetails;
-
-        //! The details type.
-        using details_type = typename common_dialog_details_type::message_box_details_type;
-
-        //! The detail implementaiton pointer type;
-        using details_ptr_type = typename common_dialog_details_type::message_box_details_ptr_type;
-
-        //! The menu details type.
-        using menu_details_type = MenuDetails;
-
         //! The abstract window type.
-        using abstract_window_type = gui::widget::
-            abstract_window<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, menu_details_type>;
+        using abstract_window_type = gui::widget::abstract_window;
 
         //! The button style type.
         using button_style_type = message_box_style::button_style;
@@ -223,6 +193,9 @@ namespace tetengo2::gui::common_dialog {
             cancel, //!< Cancel button.
         };
 
+        //! The details type.
+        using details_type = detail::base::common_dialog::message_box_details_type;
+
 
         // constructors and destructor
 
@@ -242,18 +215,12 @@ namespace tetengo2::gui::common_dialog {
             string_type              main_content,
             string_type              sub_content,
             const button_style_type& button_style,
-            const icon_style_type    icon_style)
-        : m_p_details{ common_dialog_details_type::create_message_box(
-              parent,
-              std::move(title),
-              std::move(main_content),
-              std::move(sub_content),
-              button_style.cancellable(),
-              to_details_button_style(button_style.style()),
-              to_details_icon_style(icon_style),
-              button_style.ok_button_label(),
-              button_style.yes_no_button_labels()) }
-        {}
+            const icon_style_type    icon_style);
+
+        /*!
+            \brief Destroys the message box.
+        */
+        ~message_box();
 
 
         // functions
@@ -263,90 +230,32 @@ namespace tetengo2::gui::common_dialog {
 
             \return The selected button id.
         */
-        button_id_type do_modal()
-        {
-            return to_button_id(common_dialog_details_type::show_message_box(*m_p_details));
-        }
+        button_id_type do_modal();
 
         /*!
             \brief Returns the detail implementation.
 
             \return The detail implementation.
         */
-        const details_type& details() const
-        {
-            return *m_p_details;
-        }
+        const details_type& details() const;
 
         /*!
             \brief Returns the detail implementation.
 
             \return The detail implementation.
         */
-        details_type& details()
-        {
-            return *m_p_details;
-        }
+        details_type& details();
 
 
     private:
-        // static functions
+        // types
 
-        static typename common_dialog_details_type::message_box_button_style_type
-        to_details_button_style(const typename button_style_type::style_type style)
-        {
-            switch (style)
-            {
-            case button_style_type::style_type::ok:
-                return common_dialog_details_type::message_box_button_style_type::ok;
-            case button_style_type::style_type::yes_no:
-                return common_dialog_details_type::message_box_button_style_type::yes_no;
-            default:
-                assert(false);
-                BOOST_THROW_EXCEPTION((std::invalid_argument{ "Invalid button style." }));
-            }
-        }
-
-        static typename common_dialog_details_type::message_box_icon_style_type
-        to_details_icon_style(const icon_style_type style)
-        {
-            switch (style)
-            {
-            case icon_style_type::error:
-                return common_dialog_details_type::message_box_icon_style_type::error;
-            case icon_style_type::warning:
-                return common_dialog_details_type::message_box_icon_style_type::warning;
-            case icon_style_type::information:
-                return common_dialog_details_type::message_box_icon_style_type::information;
-            default:
-                assert(false);
-                BOOST_THROW_EXCEPTION((std::invalid_argument{ "Invalid icon style." }));
-            }
-        }
-
-        static button_id_type
-        to_button_id(const typename common_dialog_details_type::message_box_button_id_type details_button_id)
-        {
-            switch (details_button_id)
-            {
-            case common_dialog_details_type::message_box_button_id_type::ok:
-                return button_id_type::ok;
-            case common_dialog_details_type::message_box_button_id_type::yes:
-                return button_id_type::yes;
-            case common_dialog_details_type::message_box_button_id_type::no:
-                return button_id_type::no;
-            case common_dialog_details_type::message_box_button_id_type::cancel:
-                return button_id_type::cancel;
-            default:
-                assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid button ID."));
-            }
-        }
+        class impl;
 
 
         // variables
 
-        details_ptr_type m_p_details;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

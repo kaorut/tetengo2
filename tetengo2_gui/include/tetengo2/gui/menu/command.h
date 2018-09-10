@@ -11,18 +11,17 @@
 
 #include <algorithm>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/menu.h>
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::menu {
     /*!
-        \brief The class template for a menu command.
-
-        \tparam MenuDetails A detail implementation type of a menu.
+        \brief The class for a menu command.
    */
-    template <typename MenuDetails>
-    class command : public menu_base<MenuDetails>
+    class command : public menu_base
     {
     public:
         // types
@@ -30,11 +29,8 @@ namespace tetengo2::gui::menu {
         //! The string type.
         using string_type = tetengo2::type_list::string_type;
 
-        //! The menu details type.
-        using menu_details_type = MenuDetails;
-
         //! The base type.
-        using base_type = menu_base<menu_details_type>;
+        using base_type = menu_base;
 
         //! The shortcut key type.
         using shortcut_key_type = typename base_type::shortcut_key_type;
@@ -47,7 +43,9 @@ namespace tetengo2::gui::menu {
 
             \param text A text.
         */
-        explicit command(string_type text) : base_type{ std::move(text), menu_details_type::create_menu() } {}
+        explicit command(string_type text)
+        : base_type{ std::move(text), detail::gui_detail_impl_set().menu_().create_menu() }
+        {}
 
         /*!
             \brief Creates a menu command with a shortcut key.
@@ -56,7 +54,7 @@ namespace tetengo2::gui::menu {
             \param shortcut_key A shortcut key.
         */
         command(string_type text, shortcut_key_type shortcut_key)
-        : base_type{ std::move(text), std::move(shortcut_key), menu_details_type::create_menu() }
+        : base_type{ std::move(text), std::move(shortcut_key), detail::gui_detail_impl_set().menu_().create_menu() }
         {}
 
         /*!
@@ -75,7 +73,7 @@ namespace tetengo2::gui::menu {
 
         virtual const style_type& style_impl() const override
         {
-            return menu_details_type::template menu_command_style<base_type>();
+            return detail::gui_detail_impl_set().menu_().menu_command_style();
         }
     };
 }

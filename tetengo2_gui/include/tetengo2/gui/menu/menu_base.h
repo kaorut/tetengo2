@@ -20,6 +20,8 @@
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/menu.h>
 #include <tetengo2/gui/menu/recursive_iterator.h>
 #include <tetengo2/gui/menu/shortcut_key.h>
 #include <tetengo2/gui/message/menu_observer_set.h>
@@ -29,11 +31,8 @@
 
 namespace tetengo2::gui::menu {
     /*!
-        \brief The base class template for a menu base.
-
-        \tparam MenuDetails A detail implementation type of a menu.
+        \brief The base class for a menu base.
    */
-    template <typename MenuDetails>
     class menu_base : private boost::noncopyable
     {
     public:
@@ -42,14 +41,11 @@ namespace tetengo2::gui::menu {
         //! The string type.
         using string_type = tetengo2::type_list::string_type;
 
-        //! The menu details type.
-        using menu_details_type = MenuDetails;
-
         //! The details type.
-        using details_type = typename menu_details_type::menu_details_type;
+        using details_type = detail::base::menu::menu_details_type;
 
         //! The detail implementation pointer type.
-        using details_ptr_type = typename menu_details_type::menu_details_ptr_type;
+        using details_ptr_type = detail::base::menu::menu_details_ptr_type;
 
         //! The shortcut key type.
         using shortcut_key_type = shortcut_key;
@@ -71,7 +67,7 @@ namespace tetengo2::gui::menu {
         using recursive_iterator_type = recursive_iterator<menu_base>;
 
         //! The style type.
-        using style_type = typename menu_details_type::template style_tag<menu_base>;
+        using style_type = detail::base::menu::style_tag;
 
         //! The state type.
         enum class state_type
@@ -129,7 +125,7 @@ namespace tetengo2::gui::menu {
         */
         void set_enabled(const bool enabled)
         {
-            menu_details_type::set_enabled(*this, enabled);
+            detail::gui_detail_impl_set().menu_().set_enabled(*this, enabled);
             m_enabled = enabled;
         }
 
@@ -150,7 +146,7 @@ namespace tetengo2::gui::menu {
         */
         void set_state(const state_type state)
         {
-            menu_details_type::set_state(*this, state);
+            detail::gui_detail_impl_set().menu_().set_state(*this, static_cast<detail::base::menu::state_type>(state));
             m_state = state;
         }
 

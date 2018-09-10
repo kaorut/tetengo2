@@ -16,6 +16,8 @@
 
 #include <boost/iterator/iterator_facade.hpp>
 
+#include <tetengo2/type_list.h>
+
 namespace boost::iterators {
     struct forward_traversal_tag;
 }
@@ -115,7 +117,7 @@ namespace tetengo2::gui::menu {
     private:
         // types
 
-        using menu_difference_type = typename menu_base_type::const_iterator::difference_type;
+        using menu_difference_type = tetengo2::type_list::difference_type;
 
         using parent_and_index_type = std::pair<menu_base_type*, menu_difference_type>;
 

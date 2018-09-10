@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_WIDGET_SIDEBAR_H)
 #define TETENGO2_GUI_WIDGET_SIDEBAR_H
 
+#include <algorithm>
 #include <cassert>
 #include <chrono>
 #include <cmath>
@@ -17,80 +18,34 @@
 #include <vector>
 
 #include <boost/math/constants/constants.hpp>
+#include <boost/operators.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/gui/cursor/system.h>
+#include <tetengo2/gui/drawing/background.h>
+#include <tetengo2/gui/drawing/canvas.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
+#include <tetengo2/gui/position.h>
 #include <tetengo2/gui/timer.h>
+#include <tetengo2/gui/unit/em.h>
+#include <tetengo2/gui/unit/unit.h>
 #include <tetengo2/gui/widget/custom_control.h>
+#include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for a side bar.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam MouseCaptureDetails   A detail implementation type of a mouse capture.
-        \tparam TimerDetails          A detail implementation type of a timer.
+        \brief The class for a side bar.
     */
-    template <
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename MouseCaptureDetails,
-        typename TimerDetails>
-    class side_bar
-    : public custom_control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, MouseCaptureDetails>
+    class side_bar : public custom_control
     {
     public:
         // types
 
-        //! The drawing details type.
-        using drawing_details_type = DrawingDetails;
-
-        //! The mouse capture details type.
-        using mouse_capture_details_type = MouseCaptureDetails;
-
-        //! THe timer details type.
-        using timer_details_type = TimerDetails;
-
-        //! The base type.
-        using base_type =
-            custom_control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, MouseCaptureDetails>;
-
-        //! The widget type.
-        using widget_type = typename base_type::base_type::base_type;
-
-        //! The cursor type.
-        using cursor_type = typename base_type::cursor_type;
-
-        //! The system cursor type.
-        using system_cursor_type = typename base_type::system_cursor_type;
-
-        //! The canvas type.
-        using canvas_type = typename base_type::canvas_type;
-
-        //! The position type.
-        using position_type = typename base_type::position_type;
-
-        //! The dimension type.
-        using dimension_type = typename base_type::dimension_type;
-
         //! The dimension unit type.
         using dimension_unit_type = typename dimension_type::unit_type;
-
-        //! The solid background type.
-        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
-
-        //! The system color set type.
-        using system_color_set_type = gui::drawing::system_color_set;
-
-        //! The timer type.
-        using timer_type = gui::timer<widget_type, timer_details_type>;
 
 
         // constructors and destructor
@@ -100,8 +55,8 @@ namespace tetengo2::gui::widget {
 
             \param parent A parent widget.
         */
-        side_bar(widget_type& parent)
-        : base_type{ parent, false, scroll_bar_style_type::none }, m_p_caption{}, m_p_splitter{},
+        side_bar(widget& parent)
+        : custom_control{ parent, false, scroll_bar_style_type::none }, m_p_caption{}, m_p_splitter{},
           m_preferred_width{ dimension_unit_type{} }, m_minimized{ false }
         {
             initialize_side_bar(*this);
@@ -237,7 +192,13 @@ namespace tetengo2::gui::widget {
     private:
         // types
 
-        using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
+        using timer_type = gui::timer;
+
+        using solid_background_type = gui::drawing::solid_background;
+
+        using system_color_set_type = gui::drawing::system_color_set;
+
+        using mouse_observer_set_type = typename custom_control::mouse_observer_set_type;
 
         using mouse_button_type = typename mouse_observer_set_type::mouse_button_type;
 
@@ -245,19 +206,17 @@ namespace tetengo2::gui::widget {
 
         using position_unit_type = typename position_type::unit_type;
 
-        using scroll_bar_style_type = typename base_type::scroll_bar_style_type;
+        using scroll_bar_style_type = typename custom_control::scroll_bar_style_type;
 
-        using inner_item_type = typename base_type::inner_item_type;
-
-        class state_button : public inner_item_type
+        class state_button : public inner_item
         {
         public:
             // constructors and destructor
 
             explicit state_button(side_bar& side_bar_)
-            : inner_item_type{ side_bar_,
-                               position_type{},
-                               dimension_type{ dimension_unit_type{ 1 }, dimension_unit_type{ 1 } } },
+            : inner_item{ side_bar_,
+                          position_type{},
+                          dimension_type{ dimension_unit_type{ 1 }, dimension_unit_type{ 1 } } },
               m_p_current_background_color{ &background_color() }, m_p_timer{}, m_animation_step{ 0 }
             {}
 
@@ -355,7 +314,8 @@ namespace tetengo2::gui::widget {
                 auto original_background = canvas.get_background().clone();
                 canvas.set_color(border_color());
                 canvas.set_line_width(dimension_unit_type{ 1 } / 16);
-                canvas.set_background(std::make_unique<solid_background_type>(*m_p_current_background_color));
+                canvas.set_background(
+                    std::make_unique<solid_background_type>(canvas.drawing_details(), *m_p_current_background_color));
 
                 const auto triangle = make_triangle();
                 canvas.fill_polygon(triangle);
@@ -447,13 +407,13 @@ namespace tetengo2::gui::widget {
             }
         };
 
-        class caption : public inner_item_type
+        class caption : public inner_item
         {
         public:
             // constructors and destructor
 
             explicit caption(side_bar& side_bar_)
-            : inner_item_type{ side_bar_, position_type{}, dimension_type{} }, m_text_position{}
+            : inner_item{ side_bar_, position_type{}, dimension_type{} }, m_text_position{}
             {}
 
             virtual ~caption() = default;
@@ -488,8 +448,8 @@ namespace tetengo2::gui::widget {
                 auto original_color = canvas.get_color();
                 auto p_original_background = canvas.get_background().clone();
                 canvas.set_color(system_color_set_type::instance().title_bar_text());
-                canvas.set_background(
-                    std::make_unique<solid_background_type>(system_color_set_type::instance().title_bar_background()));
+                canvas.set_background(std::make_unique<solid_background_type>(
+                    canvas.drawing_details(), system_color_set_type::instance().title_bar_background()));
 
                 canvas.fill_rectangle(this->position(), this->dimension());
 
@@ -616,18 +576,23 @@ namespace tetengo2::gui::widget {
             }
         };
 
-        class splitter : public inner_item_type
+        class splitter : public inner_item
         {
         public:
             // constructors and destructor
 
             explicit splitter(side_bar& side_bar_)
-            : inner_item_type{ side_bar_, position_type{}, dimension_type{} }, m_need_size_recalculation{ true },
+            : inner_item{ side_bar_, position_type{}, dimension_type{} }, m_need_size_recalculation{ true },
               m_pressed_position{ position_type{} }
             {}
 
 
         private:
+            // types
+
+            using system_cursor_type = cursor::system;
+
+
             // variables
 
             bool m_need_size_recalculation;
@@ -650,8 +615,8 @@ namespace tetengo2::gui::widget {
                     return;
 
                 auto original_background = canvas.get_background().clone();
-                canvas.set_background(
-                    std::make_unique<solid_background_type>(system_color_set_type::instance().dialog_background()));
+                canvas.set_background(std::make_unique<solid_background_type>(
+                    canvas.drawing_details(), system_color_set_type::instance().dialog_background()));
 
                 canvas.fill_rectangle(this->position(), this->dimension());
 
@@ -750,8 +715,9 @@ namespace tetengo2::gui::widget {
         static void initialize_side_bar(side_bar& side_bar_)
         {
             side_bar_.set_dimension(dimension_type{ dimension_unit_type{ 16 }, dimension_unit_type{ 16 } });
-            side_bar_.set_background(
-                std::make_unique<solid_background_type>(system_color_set_type::instance().dialog_background()));
+            side_bar_.set_background(std::make_unique<solid_background_type>(
+
+                system_color_set_type::instance().dialog_background()));
 
             create_items(side_bar_);
 

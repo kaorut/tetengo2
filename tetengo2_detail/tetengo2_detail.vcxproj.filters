@@ -309,6 +309,33 @@
     <ClInclude Include="include\tetengo2\detail\base\gui_impl_set.h">
       <Filter>headers\tetengo2::detail\base</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\base\widget.h">
+      <Filter>headers\tetengo2::detail\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\base\message_handler.h">
+      <Filter>headers\tetengo2::detail\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\base\menu.h">
+      <Filter>headers\tetengo2::detail\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\base\drawing.h">
+      <Filter>headers\tetengo2::detail\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\base\timer.h">
+      <Filter>headers\tetengo2::detail\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\base\mouse_capture.h">
+      <Filter>headers\tetengo2::detail\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\base\message_loop.h">
+      <Filter>headers\tetengo2::detail\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\base\scroll.h">
+      <Filter>headers\tetengo2::detail\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2\detail\base\common_dialog.h">
+      <Filter>headers\tetengo2::detail\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\tetengo2.detail.base.config.cpp">
@@ -456,6 +483,93 @@
       <Filter>sources\tetengo2::detail\unixos</Filter>
     </ClCompile>
     <ClCompile Include="src\tetengo2.detail.windows.gui_impl_set.cpp">
+      <Filter>sources\tetengo2::detail\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.base.widget.cpp">
+      <Filter>sources\tetengo2::detail\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.stub.widget.cpp">
+      <Filter>sources\tetengo2::detail\stub</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.widget.cpp">
+      <Filter>sources\tetengo2::detail\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.base.message_handler.cpp">
+      <Filter>sources\tetengo2::detail\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.stub.message_handler.cpp">
+      <Filter>sources\tetengo2::detail\stub</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler.cpp">
+      <Filter>sources\tetengo2::detail\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.base.menu.cpp">
+      <Filter>sources\tetengo2::detail\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.stub.menu.cpp">
+      <Filter>sources\tetengo2::detail\stub</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.menu.cpp">
+      <Filter>sources\tetengo2::detail\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.base.drawing.cpp">
+      <Filter>sources\tetengo2::detail\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.stub.drawing.cpp">
+      <Filter>sources\tetengo2::detail\stub</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.direct2d.drawing.cpp">
+      <Filter>sources\tetengo2::detail\windows\direct2d</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.gdiplus.drawing.cpp">
+      <Filter>sources\tetengo2::detail\windows\gdiplus</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.base.timer.cpp">
+      <Filter>sources\tetengo2::detail\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.stub.timer.cpp">
+      <Filter>sources\tetengo2::detail\stub</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.timer.cpp">
+      <Filter>sources\tetengo2::detail\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.base.mouse_capture.cpp">
+      <Filter>sources\tetengo2::detail\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.stub.mouse_capture.cpp">
+      <Filter>sources\tetengo2::detail\stub</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.mouse_capture.cpp">
+      <Filter>sources\tetengo2::detail\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.base.message_loop.cpp">
+      <Filter>sources\tetengo2::detail\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.stub.message_loop.cpp">
+      <Filter>sources\tetengo2::detail\stub</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.message_loop.cpp">
+      <Filter>sources\tetengo2::detail\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.base.scroll.cpp">
+      <Filter>sources\tetengo2::detail\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.stub.scroll.cpp">
+      <Filter>sources\tetengo2::detail\stub</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.scroll.cpp">
+      <Filter>sources\tetengo2::detail\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.com_ptr.cpp">
+      <Filter>sources\tetengo2::detail\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.base.common_dialog.cpp">
+      <Filter>sources\tetengo2::detail\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.stub.common_dialog.cpp">
+      <Filter>sources\tetengo2::detail\stub</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.common_dialog.cpp">
       <Filter>sources\tetengo2::detail\windows</Filter>
     </ClCompile>
   </ItemGroup>

@@ -21,37 +21,15 @@
 #include <tetengo2/gui/widget/window.h>
 #include <tetengo2/stdalt.h>
 
-#include "test_tetengo2.gui.detail_type_list.h"
-#include "test_tetengo2.gui.type_list.h"
-
 
 namespace {
     // types
 
-    using detail_type_list_type = test_tetengo2::gui::type_list::detail_for_test;
-
-    using common_type_list_type = test_tetengo2::gui::type_list::common<detail_type_list_type>;
-
-    using menu_details_type = detail_type_list_type::menu_type;
-
-    using window_type = tetengo2::gui::widget::window<
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type,
-        menu_details_type>;
+    using window_type = tetengo2::gui::widget::window;
 
     using color_type = tetengo2::gui::drawing::color;
 
-    using common_dialog_details_type = detail_type_list_type::common_dialog_type;
-
-    using color_dialog_type = tetengo2::gui::common_dialog::color<
-        common_dialog_details_type,
-        common_type_list_type::widget_details_type,
-        common_type_list_type::drawing_details_type,
-        common_type_list_type::scroll_details_type,
-        common_type_list_type::message_handler_details_type,
-        menu_details_type>;
+    using color_dialog_type = tetengo2::gui::common_dialog::color;
 }
 
 

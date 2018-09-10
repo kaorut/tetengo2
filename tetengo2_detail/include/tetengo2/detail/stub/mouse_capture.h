@@ -9,16 +9,20 @@
 #if !defined(TETENGO2_DETAIL_STUB_MOUSECAPTURE_H)
 #define TETENGO2_DETAIL_STUB_MOUSECAPTURE_H
 
-#include <boost/core/noncopyable.hpp>
+#include <memory>
 
-#include <tetengo2/stdalt.h>
+#include <tetengo2/detail/base/mouse_capture.h>
+
+namespace tetengo2 { namespace gui { namespace widget {
+    class widget;
+}}}
 
 
 namespace tetengo2::detail::stub {
     /*!
         \brief The class for a detail implementation of a mouse capture.
     */
-    class mouse_capture : private boost::noncopyable
+    class mouse_capture : public base::mouse_capture
     {
     public:
         // constructors and destructor
@@ -26,13 +30,25 @@ namespace tetengo2::detail::stub {
         /*!
             \brief Creates a detail implementation of a mouse capture.
 
-            \tparam Widget A widget type.
-
             \param widget A widget.
         */
-        template <typename Widget>
-        explicit mouse_capture(TETENGO2_STDALT_MAYBE_UNUSED const Widget& widget)
-        {}
+        explicit mouse_capture(const gui::widget::widget& widget);
+
+        /*!
+            \brief Destroys the detail implementation of a mouse capture.
+        */
+        virtual ~mouse_capture();
+
+
+    private:
+        // types
+
+        class impl;
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

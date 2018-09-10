@@ -12,6 +12,8 @@
 #include <cassert>
 #include <memory>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/menu.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/shortcut_key_table.h>
 #include <tetengo2/type_list.h>
@@ -19,12 +21,9 @@
 
 namespace tetengo2::gui::menu {
     /*!
-        \brief The class template for a menu bar.
-
-        \tparam MenuDetails A detail implementation type of a menu.
+        \brief The class for a menu bar.
    */
-    template <typename MenuDetails>
-    class menu_bar : public abstract_popup<MenuDetails>
+    class menu_bar : public abstract_popup
     {
     public:
         // types
@@ -32,14 +31,11 @@ namespace tetengo2::gui::menu {
         //! The string type.
         using string_type = tetengo2::type_list::string_type;
 
-        //! The menu details type.
-        using menu_details_type = MenuDetails;
-
         //! The base type.
-        using base_type = abstract_popup<menu_details_type>;
+        using base_type = abstract_popup;
 
         //! The shortcut key table type.
-        using shortcut_key_table_type = shortcut_key_table<menu_details_type>;
+        using shortcut_key_table_type = shortcut_key_table;
 
 
         // constructors and destructor
@@ -48,7 +44,7 @@ namespace tetengo2::gui::menu {
             \brief Creates a menu bar.
         */
         menu_bar()
-        : base_type{ string_type{}, menu_details_type::create_menu_bar() }, m_p_shortcut_key_table{
+        : base_type{ string_type{}, detail::gui_detail_impl_set().menu_().create_menu_bar() }, m_p_shortcut_key_table{
               std::make_unique<shortcut_key_table_type>()
           }
         {}
@@ -77,8 +73,7 @@ namespace tetengo2::gui::menu {
         */
         void update_shortcut_key_table()
         {
-            m_p_shortcut_key_table =
-                std::make_unique<shortcut_key_table_type>(this->recursive_begin(), this->recursive_end());
+            m_p_shortcut_key_table = std::make_unique<shortcut_key_table_type>(*this);
         }
 
 
@@ -97,7 +92,7 @@ namespace tetengo2::gui::menu {
 
         virtual const style_type& style_impl() const override
         {
-            return menu_details_type::template menu_bar_style<typename base_type::base_type>();
+            return detail::gui_detail_impl_set().menu_().menu_bar_style();
         }
     };
 }

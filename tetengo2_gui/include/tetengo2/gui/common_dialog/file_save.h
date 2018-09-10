@@ -9,11 +9,13 @@
 #if !defined(TETENGO2_GUI_COMMONDIALOG_FILESAVE_H)
 #define TETENGO2_GUI_COMMONDIALOG_FILESAVE_H
 
+#include <memory>
 #include <utility>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
 
+#include <tetengo2/detail/base/common_dialog.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
@@ -21,22 +23,8 @@
 
 namespace tetengo2::gui::common_dialog {
     /*!
-        \brief The class template for a file save dialog.
-
-        \tparam CommonDialogDetails   A detail implementation type of common dialogs.
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam MenuDetails           A detail implementation type of a menu.
+        \brief The class for a file save dialog.
     */
-    template <
-        typename CommonDialogDetails,
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename MenuDetails>
     class file_save : private boost::noncopyable
     {
     public:
@@ -45,27 +33,17 @@ namespace tetengo2::gui::common_dialog {
         //! The string type.
         using string_type = tetengo2::type_list::string_type;
 
-        //! The common dialog details type.
-        using common_dialog_details_type = CommonDialogDetails;
-
-        //! The details type.
-        using details_type = typename common_dialog_details_type::file_save_dialog_details_type;
-
-        //! The detail implementaiton pointer type;
-        using details_ptr_type = typename common_dialog_details_type::file_save_dialog_details_ptr_type;
-
-        //! The menu details type.
-        using menu_details_type = MenuDetails;
-
         //! The abstract window type.
-        using abstract_window_type = gui::widget::
-            abstract_window<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, menu_details_type>;
+        using abstract_window_type = gui::widget::abstract_window;
 
         //! The file filter type.
         using file_filter_type = std::pair<string_type, string_type>;
 
         //! The file filters type.
         using file_filters_type = std::vector<file_filter_type>;
+
+        //! The details type.
+        using details_type = detail::base::common_dialog::file_save_dialog_details_type;
 
 
         // constructors and destructor
@@ -82,14 +60,12 @@ namespace tetengo2::gui::common_dialog {
             string_type                                                           title,
             const tetengo2::stdalt::optional<tetengo2::stdalt::filesystem::path>& path,
             file_filters_type                                                     file_filters,
-            abstract_window_type&                                                 parent)
-        : m_p_details{ common_dialog_details_type::create_file_save_dialog(
-              parent,
-              std::move(title),
-              path,
-              std::move(file_filters)) },
-          m_result{ path ? *path : tetengo2::stdalt::filesystem::path{} }
-        {}
+            abstract_window_type&                                                 parent);
+
+        /*!
+            \brief Destroys the file save dialog.
+        */
+        ~file_save();
 
 
         // functions
@@ -99,10 +75,7 @@ namespace tetengo2::gui::common_dialog {
 
             \return The result.
         */
-        const tetengo2::stdalt::filesystem::path& result() const
-        {
-            return m_result;
-        }
+        const tetengo2::stdalt::filesystem::path& result() const;
 
         /*!
             \brief Shows the dialog as model.
@@ -110,43 +83,32 @@ namespace tetengo2::gui::common_dialog {
             \retval true  When the OK button is pressed.
             \retval false Otherwise.
         */
-        bool do_modal()
-        {
-            const auto result = common_dialog_details_type::show_file_save_dialog(*m_p_details);
-            if (!result)
-                return false;
-
-            m_result = *result;
-            return true;
-        }
+        bool do_modal();
 
         /*!
             \brief Returns the detail implementation.
 
             \return The detail implementation.
         */
-        const details_type& details() const
-        {
-            return *m_p_details;
-        }
+        const details_type& details() const;
 
         /*!
             \brief Returns the detail implementation.
 
             \return The detail implementation.
         */
-        details_type& details()
-        {
-            return *m_p_details;
-        }
+        details_type& details();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        details_ptr_type m_p_details;
-
-        tetengo2::stdalt::filesystem::path m_result;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

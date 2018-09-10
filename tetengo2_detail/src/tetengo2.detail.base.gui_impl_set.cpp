@@ -6,6 +6,9 @@
     $Id$
 */
 
+#include <algorithm>
+#include <chrono>
+#include <functional>
 #include <memory>
 #include <stdexcept>
 
@@ -13,16 +16,30 @@
 
 #include <tetengo2/detail/base/gui_fixture.h>
 #include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/mouse_capture.h>
+#include <tetengo2/detail/base/timer.h>
 
+namespace tetengo2 {
+    namespace detail::base {
+        class alert;
+        class common_dialog;
+        class cursor;
+        class drawing;
+        class icon;
+        class menu;
+        class message_handler;
+        class message_loop;
+        class scroll;
+        class shell;
+        class system_color;
+        class unit;
+        class virtual_key;
+        class widget;
+    }
 
-namespace tetengo2::detail::base {
-    class alert;
-    class cursor;
-    class icon;
-    class shell;
-    class system_color;
-    class unit;
-    class virtual_key;
+    namespace gui::widget {
+        class widget;
+    }
 }
 
 
@@ -35,9 +52,24 @@ namespace tetengo2::detail {
             return alert_impl();
         }
 
+        const common_dialog& gui_impl_set::common_dialog_() const
+        {
+            return common_dialog_impl();
+        }
+
         const cursor& gui_impl_set::cursor_() const
         {
             return cursor_impl();
+        }
+
+        const drawing& gui_impl_set::drawing_() const
+        {
+            return drawing_impl();
+        }
+
+        const drawing& gui_impl_set::fast_drawing() const
+        {
+            return fast_drawing_impl();
         }
 
         std::unique_ptr<gui_fixture> gui_impl_set::create_gui_fixture() const
@@ -50,6 +82,31 @@ namespace tetengo2::detail {
             return icon_impl();
         }
 
+        const menu& gui_impl_set::menu_() const
+        {
+            return menu_impl();
+        }
+
+        const message_handler& gui_impl_set::message_handler_() const
+        {
+            return message_handler_impl();
+        }
+
+        const message_loop& gui_impl_set::message_loop_() const
+        {
+            return message_loop_impl();
+        }
+
+        std::unique_ptr<mouse_capture> gui_impl_set::create_mouse_capture(const gui::widget::widget& widget) const
+        {
+            return create_mouse_capture_impl(widget);
+        }
+
+        const scroll& gui_impl_set::scroll_() const
+        {
+            return scroll_impl();
+        }
+
         const shell& gui_impl_set::shell_() const
         {
             return shell_impl();
@@ -60,6 +117,15 @@ namespace tetengo2::detail {
             return system_color_impl();
         }
 
+        std::unique_ptr<timer> gui_impl_set::crate_timer(
+            const gui::widget::widget&       widget,
+            std::function<void(bool&)>       procedure,
+            const std::chrono::milliseconds& interval,
+            const bool                       once_only) const
+        {
+            return crate_timer_impl(widget, std::move(procedure), interval, once_only);
+        }
+
         const unit& gui_impl_set::unit_() const
         {
             return unit_impl();
@@ -68,6 +134,11 @@ namespace tetengo2::detail {
         const virtual_key& gui_impl_set::virtual_key_() const
         {
             return virtual_key_impl();
+        }
+
+        const widget& gui_impl_set::widget_() const
+        {
+            return widget_impl();
         }
 
         gui_impl_set::gui_impl_set() = default;

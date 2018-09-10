@@ -23,13 +23,18 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/windows/widget.h>
+#include <tetengo2/gui/widget/control.h>
+#include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::windows::message_handler_detail::control {
-    template <typename Control>
-    tetengo2::stdalt::optional<::LRESULT>
-    on_control_color(Control& control, const ::WPARAM w_param, TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
+    tetengo2::stdalt::optional<::LRESULT> on_control_color(
+        gui::widget::control&                       control,
+        const ::WPARAM                              w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         if (!control.p_background() && !control.text_color())
             return TETENGO2_STDALT_NULLOPT;
@@ -37,7 +42,8 @@ namespace tetengo2::detail::windows::message_handler_detail::control {
         const auto device_context = reinterpret_cast<::HDC>(w_param);
         if (!control.paint_observer_set().paint_background().empty())
         {
-            typename Control::base_type::widget_canvas_type canvas{ device_context };
+            gui::widget::widget::widget_canvas_type canvas{ detail::gui_detail_impl_set().drawing_(),
+                                                            reinterpret_cast<std::intptr_t>(device_context) };
             control.paint_observer_set().paint_background()(canvas);
         }
 
@@ -62,9 +68,8 @@ namespace tetengo2::detail::windows::message_handler_detail::control {
         return tetengo2::stdalt::make_optional(reinterpret_cast<::LRESULT>(::GetStockObject(NULL_BRUSH)));
     }
 
-    template <typename Control>
     tetengo2::stdalt::optional<::LRESULT> on_set_focus(
-        Control&                                    control,
+        gui::widget::control&                       control,
         TETENGO2_STDALT_MAYBE_UNUSED const ::WPARAM w_param,
         TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
@@ -72,7 +77,8 @@ namespace tetengo2::detail::windows::message_handler_detail::control {
         {
             auto& dialog = control.root_ancestor();
 
-            dialog.details().first_child_handle = control.details().handle.get();
+            static_cast<detail::windows::widget::windows_widget_details_type&>(dialog.details()).first_child_handle =
+                static_cast<detail::windows::widget::windows_widget_details_type&>(control.details()).handle;
         }
 
         return TETENGO2_STDALT_NULLOPT;

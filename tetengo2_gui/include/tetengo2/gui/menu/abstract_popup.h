@@ -16,18 +16,17 @@
 
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/menu.h>
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::menu {
     /*!
-        \brief The base class template for an abstract popup menu.
-
-        \tparam MenuDetails A detail implementation type of a menu.
+        \brief The base class for an abstract popup menu.
    */
-    template <typename MenuDetails>
-    class abstract_popup : public menu_base<MenuDetails>
+    class abstract_popup : public menu_base
     {
     public:
         // types
@@ -35,17 +34,11 @@ namespace tetengo2::gui::menu {
         //! The string type.
         using string_type = tetengo2::type_list::string_type;
 
-        //! The menu details type.
-        using menu_details_type = MenuDetails;
-
-        //! The details type.
-        using details_type = typename menu_details_type::menu_details_type;
-
         //! The detail implementation pointer type.
-        using details_ptr_type = typename menu_details_type::menu_details_ptr_type;
+        using details_ptr_type = detail::base::menu::menu_details_ptr_type;
 
         //! The base type.
-        using base_type = menu_base<menu_details_type>;
+        using base_type = menu_base;
 
         //! The shortcut key type.
         using shortcut_key_type = typename base_type::shortcut_key_type;
@@ -135,14 +128,14 @@ namespace tetengo2::gui::menu {
             if (!p_menu)
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "The unique pointer to a menu is nullptr." }));
 
-            menu_details_type::insert_menu(*this, offset, *p_menu);
+            detail::gui_detail_impl_set().menu_().insert_menu(*this, offset, *p_menu);
 
             m_children.insert(offset.base(), std::move(p_menu));
         }
 
         virtual void erase_impl(const iterator first, const iterator last) override
         {
-            menu_details_type::erase_menus(*this, first, last);
+            detail::gui_detail_impl_set().menu_().erase_menus(*this, first, last);
 
             m_children.erase(first.base(), last.base());
         }

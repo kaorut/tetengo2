@@ -18,74 +18,43 @@
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/math/constants/constants.hpp>
+#include <boost/operators.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/gui/dimension.h>
+#include <tetengo2/gui/drawing/canvas.h>
+#include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 #include <tetengo2/gui/drawing/system_color_set.h>
+#include <tetengo2/gui/message/child_observer_set.h>
+#include <tetengo2/gui/message/mouse_observer_set.h>
+#include <tetengo2/gui/message/paint_observer_set.h>
+#include <tetengo2/gui/message/size_observer_set.h>
+#include <tetengo2/gui/position.h>
+#include <tetengo2/gui/unit/em.h>
+#include <tetengo2/gui/unit/unit.h>
+#include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/custom_control.h>
+#include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for a tab frame.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
-        \tparam MouseCaptureDetails   A detail implementation type of a mouse capture.
+        \brief The class for a tab frame.
     */
-    template <
-        typename WidgetDetails,
-        typename DrawingDetails,
-        typename ScrollDetails,
-        typename MessageHandlerDetails,
-        typename MouseCaptureDetails>
-    class tab_frame
-    : public custom_control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, MouseCaptureDetails>
+    class tab_frame : public custom_control
     {
     public:
         // types
-
-        //! The mouse capture details type.
-        using mouse_capture_details_type = MouseCaptureDetails;
-
-        //! The base type.
-        using base_type =
-            custom_control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails, MouseCaptureDetails>;
-
-        //! The widget type.
-        using widget_type = typename base_type::base_type::base_type;
-
-        //! The canvas type.
-        using canvas_type = typename base_type::canvas_type;
-
-        //! The position type.
-        using position_type = typename base_type::position_type;
-
-        //! The dimension type.
-        using dimension_type = typename base_type::dimension_type;
-
-        //! The string type.
-        using string_type = tetengo2::type_list::string_type;
-
-        //! The control type.
-        using control_type = typename base_type::base_type;
 
         //! The size type.
         using size_type = tetengo2::type_list::size_type;
 
         //! The tab label type.
-        class tab_label_type : public inner_item<typename tab_frame::base_type>
+        class tab_label_type : public inner_item
         {
         public:
-            // types
-
-            //! The base type.
-            using base_type = inner_item<typename tab_frame::base_type>;
-
-
             // constructors and destructor
 
             /*!
@@ -95,7 +64,7 @@ namespace tetengo2::gui::widget {
                 \param index  A tab index.
                 */
             tab_label_type(tab_frame& parent, const size_type index)
-            : base_type{ parent, position_type{}, dimension_type{} }, m_index{ index }, m_title{}
+            : inner_item{ parent, position_type{}, dimension_type{} }, m_index{ index }, m_title{}
             {}
 
             /*!
@@ -152,9 +121,9 @@ namespace tetengo2::gui::widget {
         private:
             // types
 
-            using position_unit_type = typename tab_frame::position_unit_type;
+            using position_unit_type = typename position_type::unit_type;
 
-            using dimension_unit_type = typename tab_frame::dimension_unit_type;
+            using dimension_unit_type = typename dimension_type::unit_type;
 
             using font_type = typename canvas_type::font_type;
 
@@ -195,8 +164,8 @@ namespace tetengo2::gui::widget {
                 auto p_original_background = canvas.get_background().clone();
                 auto original_line_width = canvas.line_width();
                 canvas.set_color(system_color_set_type::instance().control_text());
-                canvas.set_background(
-                    std::make_unique<solid_background_type>(system_color_set_type::instance().control_background()));
+                canvas.set_background(std::make_unique<solid_background_type>(
+                    canvas.drawing_details(), system_color_set_type::instance().control_background()));
                 canvas.set_line_width(dimension_unit_type{ 1 } / 8);
 
                 position_unit_type unselected_left{};
@@ -282,25 +251,19 @@ namespace tetengo2::gui::widget {
         };
 
         //! The tab body type.
-        class tab_body_type : public inner_item<typename tab_frame::base_type>
+        class tab_body_type : public inner_item
         {
         public:
-            // types
-
-            //! The base type.
-            using base_type = inner_item<typename tab_frame::base_type>;
-
-
             // constructors and destructor
 
             /*!
                 \brief Creates a tab body.
 
-                \param parent A parent.
-                \param control A control.
+                \param parent   A parent.
+                \param control_ A control.
             */
-            tab_body_type(tab_frame& parent, control_type& control)
-            : base_type{ parent, position_type{}, dimension_type{} }, m_control{ control }
+            tab_body_type(tab_frame& parent, control& control_)
+            : inner_item{ parent, position_type{}, dimension_type{} }, m_control{ control_ }
             {}
 
             /*!
@@ -343,14 +306,14 @@ namespace tetengo2::gui::widget {
         private:
             // types
 
-            using position_unit_type = typename tab_frame::position_unit_type;
+            using position_unit_type = typename position_type::unit_type;
 
-            using dimension_unit_type = typename tab_frame::dimension_unit_type;
+            using dimension_unit_type = typename dimension_type::unit_type;
 
 
             // variables
 
-            control_type& m_control;
+            control& m_control;
 
 
             // virtual functions
@@ -380,10 +343,10 @@ namespace tetengo2::gui::widget {
 
                 \param parent  A parent.
                 \param index   A tab index.
-                \param control A control.
+                \param control_ A control.
             */
-            tab_type(tab_frame& parent, const size_type index, control_type& control)
-            : m_label{ parent, index }, m_body{ parent, control }, m_selected{ false }
+            tab_type(tab_frame& parent, const size_type index, control& control_)
+            : m_label{ parent, index }, m_body{ parent, control_ }, m_selected{ false }
             {}
 
 
@@ -465,7 +428,7 @@ namespace tetengo2::gui::widget {
             void select()
             {
                 m_selected = true;
-                m_body.template get<control_type>().set_visible(true);
+                m_body.template get<control>().set_visible(true);
             }
 
             /*!
@@ -474,7 +437,7 @@ namespace tetengo2::gui::widget {
             void unselect()
             {
                 m_selected = false;
-                m_body.template get<control_type>().set_visible(false);
+                m_body.template get<control>().set_visible(false);
             }
 
 
@@ -496,8 +459,8 @@ namespace tetengo2::gui::widget {
 
             \param parent A parent widget.
         */
-        explicit tab_frame(widget_type& parent)
-        : base_type{ parent, false, base_type::scroll_bar_style_type::none }, m_p_tabs{}
+        explicit tab_frame(widget& parent)
+        : custom_control{ parent, false, custom_control::scroll_bar_style_type::none }, m_p_tabs{}
         {
             initialize_tab_frame(*this);
         }
@@ -636,17 +599,13 @@ namespace tetengo2::gui::widget {
     private:
         // types
 
-        using drawing_details_type = DrawingDetails;
-
-        using mouse_observer_set_type = typename base_type::mouse_observer_set_type;
-
         using mouse_button_type = typename mouse_observer_set_type::mouse_button_type;
 
         using position_unit_type = typename position_type::unit_type;
 
         using dimension_unit_type = typename dimension_type::unit_type;
 
-        using solid_background_type = gui::drawing::solid_background<drawing_details_type>;
+        using solid_background_type = gui::drawing::solid_background;
 
         using system_color_set_type = gui::drawing::system_color_set;
 
@@ -656,8 +615,9 @@ namespace tetengo2::gui::widget {
         static void initialize_tab_frame(tab_frame& tab_frame_)
         {
             tab_frame_.set_dimension(dimension_type{ dimension_unit_type{ 16 }, dimension_unit_type{ 16 } });
-            tab_frame_.set_background(
-                std::make_unique<solid_background_type>(system_color_set_type::instance().dialog_background()));
+            tab_frame_.set_background(std::make_unique<solid_background_type>(
+
+                system_color_set_type::instance().dialog_background()));
 
             set_observers(tab_frame_);
         }
@@ -665,9 +625,9 @@ namespace tetengo2::gui::widget {
         static void set_observers(tab_frame& tab_frame_)
         {
             tab_frame_.child_observer_set().created().connect(
-                [&tab_frame_](widget_type& child) { tab_frame_.child_created(child); });
+                [&tab_frame_](widget& child) { tab_frame_.child_created(child); });
             tab_frame_.child_observer_set().destroying().connect(
-                [&tab_frame_](widget_type& child) { tab_frame_.child_destroying(child); });
+                [&tab_frame_](widget& child) { tab_frame_.child_destroying(child); });
 
             tab_frame_.size_observer_set().resized().connect([&tab_frame_]() {
                 for (const std::unique_ptr<tab_type>& p_tab : tab_frame_.m_p_tabs)
@@ -733,9 +693,9 @@ namespace tetengo2::gui::widget {
                 });
         }
 
-        static bool has_same_control(const tab_type& tab, const control_type& child)
+        static bool has_same_control(const tab_type& tab, const control& child)
         {
-            return &tab.body().template get<control_type>() == &child;
+            return &tab.body().template get<control>() == &child;
         }
 
 
@@ -746,9 +706,9 @@ namespace tetengo2::gui::widget {
 
         // functions
 
-        void child_created(widget_type& child)
+        void child_created(widget& child)
         {
-            auto* const p_child = dynamic_cast<control_type*>(&child);
+            auto* const p_child = dynamic_cast<control*>(&child);
             if (!p_child)
                 return;
 
@@ -758,9 +718,9 @@ namespace tetengo2::gui::widget {
             select_tab(m_p_tabs.size() - 1);
         }
 
-        void child_destroying(widget_type& child)
+        void child_destroying(widget& child)
         {
-            const auto* const p_child = dynamic_cast<control_type*>(&child);
+            const auto* const p_child = dynamic_cast<control*>(&child);
             if (!p_child)
                 return;
 
@@ -779,7 +739,7 @@ namespace tetengo2::gui::widget {
             m_p_tabs.erase(tab_position_to_erase);
         }
 
-        typename std::vector<std::unique_ptr<tab_type>>::const_iterator find_tab_item(const control_type& child) const
+        typename std::vector<std::unique_ptr<tab_type>>::const_iterator find_tab_item(const control& child) const
         {
             return std::find_if(m_p_tabs.begin(), m_p_tabs.end(), [&child](const std::unique_ptr<tab_type>& p_tab) {
                 return has_same_control(*p_tab, child);

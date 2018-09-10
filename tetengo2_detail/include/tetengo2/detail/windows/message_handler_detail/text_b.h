@@ -19,13 +19,15 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include <tetengo2/gui/widget/text_box.h>
 #include <tetengo2/stdalt.h>
 
 
 namespace tetengo2::detail::windows::message_handler_detail::text_box {
-    template <typename TextBox>
-    tetengo2::stdalt::optional<::LRESULT>
-    on_tetengo2_command(TextBox& text_box, const ::WPARAM w_param, TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
+    tetengo2::stdalt::optional<::LRESULT> on_tetengo2_command(
+        gui::widget::text_box&                      text_box,
+        const ::WPARAM                              w_param,
+        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
     {
         switch (HIWORD(w_param))
         {

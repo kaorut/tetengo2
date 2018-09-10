@@ -9,13 +9,13 @@
 #include <memory>
 #include <sstream>
 #include <stdexcept>
-#include <string>
 #include <utility>
 #include <vector>
 
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
@@ -55,15 +55,15 @@ namespace {
 
     using drawing_details_type = detail_type_list_type::drawing_type;
 
-    using background_type = tetengo2::gui::drawing::background<drawing_details_type>;
+    using background_type = tetengo2::gui::drawing::background;
 
-    using solid_background_type = tetengo2::gui::drawing::solid_background<drawing_details_type>;
+    using solid_background_type = tetengo2::gui::drawing::solid_background;
 
-    using transparent_background_type = tetengo2::gui::drawing::transparent_background<drawing_details_type>;
+    using transparent_background_type = tetengo2::gui::drawing::transparent_background;
 
-    using font_type = tetengo2::gui::drawing::font<drawing_details_type>;
+    using font_type = tetengo2::gui::drawing::font;
 
-    using picture_type = tetengo2::gui::drawing::picture<drawing_details_type>;
+    using picture_type = tetengo2::gui::drawing::picture;
 
     using icon_type = tetengo2::gui::icon;
 
@@ -71,16 +71,20 @@ namespace {
 
     using canvas_details_ptr_type = drawing_details_type::canvas_details_ptr_type;
 
-    using canvas_type = tetengo2::gui::drawing::canvas<drawing_details_type>;
+    using canvas_type = tetengo2::gui::drawing::canvas;
 
     struct concrete_canvas : public canvas_type
     {
-        concrete_canvas() : canvas_type{ std::make_unique<canvas_details_type>() } {}
+        concrete_canvas()
+        : canvas_type{ tetengo2::detail::gui_detail_impl_set().drawing_(), std::make_unique<canvas_details_type>() }
+        {}
     };
 
     struct concrete_canvas0 : public canvas_type
     {
-        concrete_canvas0() : canvas_type{ canvas_details_ptr_type{} } {}
+        concrete_canvas0()
+        : canvas_type{ tetengo2::detail::gui_detail_impl_set().drawing_(), canvas_details_ptr_type{} }
+        {}
     };
 
 
@@ -178,11 +182,21 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    concrete_canvas canvas{};
+                    {
+                        concrete_canvas canvas{};
 
-                    canvas.set_background(std::make_unique<const transparent_background_type>());
+                        BOOST_CHECK_THROW(
+                            canvas.set_background(std::unique_ptr<const transparent_background_type>{}),
+                            std::invalid_argument);
+                    }
+                    {
+                        concrete_canvas canvas{};
 
-                    BOOST_TEST(dynamic_cast<const transparent_background_type*>(&canvas.get_background()));
+                        canvas.set_background(std::make_unique<const transparent_background_type>(
+                            tetengo2::detail::gui_detail_impl_set().drawing_()));
+
+                        BOOST_TEST(dynamic_cast<const transparent_background_type*>(&canvas.get_background()));
+                    }
                 }
 
                 BOOST_AUTO_TEST_CASE(line_width)
@@ -401,13 +415,15 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     {
                         concrete_canvas canvas{};
 
-                        const picture_type picture{ make_dimension(123U, 456U) };
+                        const picture_type picture{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                    make_dimension(123U, 456U) };
                         canvas.paint_picture(picture, make_position(12, 34), make_dimension(56U, 78U));
                     }
                     {
                         concrete_canvas canvas{};
 
-                        const picture_type picture{ make_dimension(123U, 456U) };
+                        const picture_type picture{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                    make_dimension(123U, 456U) };
                         canvas.paint_picture(picture, make_position(12, 34));
                     }
                 }
@@ -421,6 +437,15 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     const icon_type icon{ tetengo2::stdalt::filesystem::path{
                         tetengo2::stdalt::filesystem::path::string_type{ TETENGO2_TEXT("hoge.ico") } } };
                     canvas.paint_icon(icon, make_position(12, 34));
+                }
+
+                BOOST_AUTO_TEST_CASE(drawing_details)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    const concrete_canvas canvas{};
+
+                    canvas.drawing_details();
                 }
 
                 BOOST_AUTO_TEST_CASE(details)

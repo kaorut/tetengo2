@@ -13,7 +13,6 @@
 #include <tetengo2/detail/stub/cursor.h>
 #include <tetengo2/detail/stub/drawing.h>
 #include <tetengo2/detail/stub/icon.h>
-#include <tetengo2/detail/stub/menu.h>
 #include <tetengo2/detail/stub/message_handler.h>
 #include <tetengo2/detail/stub/message_loop.h>
 #include <tetengo2/detail/stub/mouse_capture.h>
@@ -35,8 +34,6 @@ namespace test_tetengo2::gui::type_list {
         using icon_details_type = tetengo2::detail::stub::icon;
 
         using cursor_details_type = tetengo2::detail::stub::cursor;
-
-        using menu_details_type = tetengo2::detail::stub::menu;
 
         using message_handler_details_type = tetengo2::detail::stub::message_handler;
 
@@ -70,9 +67,6 @@ namespace test_tetengo2::gui::type_list {
 
         //! The cursor type.
         using cursor_type = detail::detail::test::cursor_details_type;
-
-        //! The menu type.
-        using menu_type = detail::detail::test::menu_details_type;
 
         //! The message handler type.
         using message_handler_type = detail::detail::test::message_handler_details_type;

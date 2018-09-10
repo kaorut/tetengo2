@@ -20,8 +20,10 @@
 #include <boost/predef.h>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/message_handler.h>
+#include <tetengo2/detail/base/widget.h>
 #include <tetengo2/gui/cursor/cursor_base.h>
-#include <tetengo2/gui/cursor/system.h>
 #include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/canvas.h>
@@ -41,14 +43,8 @@
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The base class template for a GUI widget.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \brief The base class for a GUI widget.
     */
-    template <typename WidgetDetails, typename DrawingDetails, typename ScrollDetails, typename MessageHandlerDetails>
     class widget : private boost::noncopyable
     {
     public:
@@ -64,43 +60,28 @@ namespace tetengo2::gui::widget {
         using dimension_type = tetengo2::gui::type_list::dimension_type;
 
         //! The widget details type.
-        using widget_details_type = WidgetDetails;
+        using widget_details_type = detail::base::widget;
 
         //! The details type.
         using details_type = typename widget_details_type::widget_details_type;
 
-        //! The detail implementation pointer type.
-        using details_ptr_type = typename widget_details_type::widget_details_ptr_type;
-
-        //! The drawing details type.
-        using drawing_details_type = DrawingDetails;
-
-        //! The scroll details type.
-        using scroll_details_type = ScrollDetails;
-
         //! The canvas type.
-        using canvas_type = gui::drawing::canvas<drawing_details_type>;
+        using canvas_type = gui::drawing::canvas;
 
         //! The widget canvas type.
-        using widget_canvas_type = gui::drawing::widget_canvas<drawing_details_type>;
+        using widget_canvas_type = gui::drawing::widget_canvas;
 
         //! The background type.
-        using background_type = gui::drawing::background<drawing_details_type>;
+        using background_type = gui::drawing::background;
 
         //! The font type.
-        using font_type = gui::drawing::font<drawing_details_type>;
+        using font_type = gui::drawing::font;
 
         //! The cursor type.
         using cursor_type = gui::cursor::cursor_base;
 
-        //! The system cursor type.
-        using system_cursor_type = gui::cursor::system;
-
         //! The scroll bar type.
-        using scroll_bar_type = gui::scroll_bar<scroll_details_type>;
-
-        //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
+        using scroll_bar_type = gui::scroll_bar;
 
         //! The scroll bar style type.
         enum class scroll_bar_style_type
@@ -111,6 +92,9 @@ namespace tetengo2::gui::widget {
             both, //!< The widget has both vertiacal and horizontal scroll bars.
         };
 
+        //! The message handler details type.
+        using message_handler_details_type = detail::base::message_handler;
+
         //! The message handler map type.
         using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
 
@@ -118,7 +102,7 @@ namespace tetengo2::gui::widget {
         using child_type = widget;
 
         //! The child observer set type.
-        using child_observer_set_type = gui::message::child_observer_set<child_type>;
+        using child_observer_set_type = gui::message::child_observer_set;
 
         //! The size observer set type.
         using size_observer_set_type = gui::message::size_observer_set;
@@ -127,7 +111,7 @@ namespace tetengo2::gui::widget {
         using focus_observer_set_type = gui::message::focus_observer_set;
 
         //! The paint observer set type.
-        using paint_observer_set_type = gui::message::paint_observer_set<canvas_type>;
+        using paint_observer_set_type = gui::message::paint_observer_set;
 
         //! The keyboard observer set type.
         using keyboard_observer_set_type = gui::message::keyboard_observer_set;
@@ -154,7 +138,7 @@ namespace tetengo2::gui::widget {
         */
         bool has_parent() const
         {
-            return widget_details_type::has_parent(*this);
+            return widget_details().has_parent(*this);
         }
 
         /*!
@@ -169,7 +153,7 @@ namespace tetengo2::gui::widget {
             if (!has_parent())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "Has no parent." }));
 
-            return widget_details_type::parent(*this);
+            return widget_details().parent(*this);
         }
 
         /*!
@@ -184,7 +168,7 @@ namespace tetengo2::gui::widget {
             if (!has_parent())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "Has no parent." }));
 
-            return widget_details_type::parent(*this);
+            return widget_details().parent(*this);
         }
 
         /*!
@@ -197,7 +181,7 @@ namespace tetengo2::gui::widget {
             if (!has_parent())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "Has no parent." }));
 
-            return widget_details_type::root_ancestor(*this);
+            return widget_details().root_ancestor(*this);
         }
 
         /*!
@@ -210,7 +194,7 @@ namespace tetengo2::gui::widget {
             if (!has_parent())
                 BOOST_THROW_EXCEPTION((std::logic_error{ "Has no parent." }));
 
-            return widget_details_type::root_ancestor(*this);
+            return widget_details().root_ancestor(*this);
         }
 
         /*!
@@ -220,7 +204,7 @@ namespace tetengo2::gui::widget {
         */
         bool enabled() const
         {
-            return widget_details_type::enabled(*this);
+            return widget_details().enabled(*this);
         }
 
         /*!
@@ -230,7 +214,7 @@ namespace tetengo2::gui::widget {
         */
         void set_enabled(const bool enabled)
         {
-            widget_details_type::set_enabled(*this, enabled);
+            widget_details().set_enabled(*this, enabled);
         }
 
         /*!
@@ -240,7 +224,7 @@ namespace tetengo2::gui::widget {
         */
         bool visible() const
         {
-            return widget_details_type::visible(*this);
+            return widget_details().visible(*this);
         }
 
         /*!
@@ -250,7 +234,7 @@ namespace tetengo2::gui::widget {
         */
         void set_visible(const bool visible)
         {
-            widget_details_type::set_visible(*this, visible);
+            widget_details().set_visible(*this, visible);
         }
 
         /*!
@@ -268,7 +252,7 @@ namespace tetengo2::gui::widget {
         */
         void set_focus()
         {
-            widget_details_type::set_focus(*this);
+            widget_details().set_focus(*this);
         }
 
         /*!
@@ -278,7 +262,7 @@ namespace tetengo2::gui::widget {
         */
         position_type position() const
         {
-            return widget_details_type::position(*this);
+            return widget_details().position(*this);
         }
 
         /*!
@@ -288,7 +272,7 @@ namespace tetengo2::gui::widget {
         */
         void set_position(const position_type& position)
         {
-            widget_details_type::move(*this, position, dimension());
+            widget_details().move(*this, position, dimension());
         }
 
         /*!
@@ -298,7 +282,7 @@ namespace tetengo2::gui::widget {
         */
         dimension_type dimension() const
         {
-            return widget_details_type::dimension(*this);
+            return widget_details().dimension(*this);
         }
 
         /*!
@@ -308,7 +292,7 @@ namespace tetengo2::gui::widget {
         */
         void set_dimension(const dimension_type& dimension)
         {
-            widget_details_type::move(*this, position(), dimension);
+            widget_details().move(*this, position(), dimension);
         }
 
         /*!
@@ -318,7 +302,7 @@ namespace tetengo2::gui::widget {
         */
         dimension_type client_dimension() const
         {
-            return widget_details_type::client_dimension(*this);
+            return widget_details().client_dimension(*this);
         }
 
         /*!
@@ -335,7 +319,7 @@ namespace tetengo2::gui::widget {
                 BOOST_THROW_EXCEPTION((std::invalid_argument{ "Client dimension has zero value." }));
             }
 
-            widget_details_type::set_client_dimension(*this, client_dimension);
+            widget_details().set_client_dimension(*this, client_dimension);
         }
 
         /*!
@@ -346,7 +330,7 @@ namespace tetengo2::gui::widget {
         */
         void set_position_and_dimension(const position_type& position, const dimension_type& dimension)
         {
-            widget_details_type::move(*this, position, dimension);
+            widget_details().move(*this, position, dimension);
         }
 
         /*!
@@ -356,7 +340,7 @@ namespace tetengo2::gui::widget {
         */
         string_type text() const
         {
-            return widget_details_type::text(*this);
+            return widget_details().text(*this);
         }
 
         /*!
@@ -366,7 +350,7 @@ namespace tetengo2::gui::widget {
         */
         void set_text(string_type text)
         {
-            widget_details_type::set_text(*this, std::move(text));
+            widget_details().set_text(*this, std::move(text));
         }
 
         /*!
@@ -400,7 +384,7 @@ namespace tetengo2::gui::widget {
         */
         font_type font() const
         {
-            return widget_details_type::template font<font_type>(*this);
+            return widget_details().font(*this);
         }
 
         /*!
@@ -410,7 +394,7 @@ namespace tetengo2::gui::widget {
         */
         void set_font(const font_type& font)
         {
-            widget_details_type::set_font(*this, font);
+            widget_details().set_font(*this, font);
         }
 
         /*!
@@ -520,7 +504,9 @@ namespace tetengo2::gui::widget {
         */
         std::vector<std::reference_wrapper<const child_type>> children() const
         {
-            return widget_details_type::template children<const child_type>(*this);
+            const std::vector<std::reference_wrapper<child_type>> children_ =
+                widget_details().children(const_cast<widget&>(*this));
+            return std::vector<std::reference_wrapper<const child_type>>{ children_.begin(), children_.end() };
         }
 
         /*!
@@ -530,7 +516,7 @@ namespace tetengo2::gui::widget {
         */
         std::vector<std::reference_wrapper<child_type>> children()
         {
-            return widget_details_type::template children<child_type>(*this);
+            return widget_details().children(*this);
         }
 
         /*!
@@ -540,7 +526,7 @@ namespace tetengo2::gui::widget {
         */
         void repaint(const bool immediately = false) const
         {
-            widget_details_type::repaint(*this, immediately);
+            widget_details().repaint(*this, immediately);
         }
 
         /*!
@@ -551,7 +537,7 @@ namespace tetengo2::gui::widget {
         */
         void repaint_partially(const position_type& position, const dimension_type& dimension) const
         {
-            widget_details_type::repaint_partially(*this, position, dimension);
+            widget_details().repaint_partially(*this, position, dimension);
         }
 
         /*!
@@ -561,7 +547,7 @@ namespace tetengo2::gui::widget {
         */
         std::unique_ptr<canvas_type> create_canvas() const
         {
-            return std::make_unique<widget_canvas_type>(details());
+            return std::make_unique<widget_canvas_type>(detail::gui_detail_impl_set().drawing_(), details());
         }
 
         /*!
@@ -774,12 +760,23 @@ namespace tetengo2::gui::widget {
         {
             assert(p_widget);
 
-            widget_details_type::associate_to_native_window_system(*p_widget);
+            widget_details().associate_to_native_window_system(*p_widget);
 
             p_widget->set_font(font_type::dialog_font());
 
             p_widget->m_p_vertical_scroll_bar = p_widget->create_vertical_scroll_bar();
             p_widget->m_p_horizontal_scroll_bar = p_widget->create_horizontal_scroll_bar();
+        }
+
+
+        /*!
+            \brief Returns the detail implementation.
+
+            \return The detail implementation.
+        */
+        static const detail::base::widget& widget_details()
+        {
+            return detail::gui_detail_impl_set().widget_();
         }
 
 
@@ -797,9 +794,9 @@ namespace tetengo2::gui::widget {
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          m_message_handler_map{
-              message_handler_details_type::make_widget_message_handler_map(*this, std::move(message_handler_map))
-          },
+          m_message_handler_map{ detail::gui_detail_impl_set().message_handler_().make_widget_message_handler_map(
+              *this,
+              std::move(message_handler_map)) },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
@@ -888,7 +885,7 @@ namespace tetengo2::gui::widget {
                 return {};
             }
 
-            return std::make_unique<scroll_bar_type>(details(), scroll_bar_type::style_type::vertical);
+            return std::make_unique<scroll_bar_type>(*this, scroll_bar_type::style_type::vertical);
         }
 
         std::unique_ptr<scroll_bar_type> create_horizontal_scroll_bar()
@@ -899,7 +896,7 @@ namespace tetengo2::gui::widget {
                 return {};
             }
 
-            return std::make_unique<scroll_bar_type>(details(), scroll_bar_type::style_type::horizontal);
+            return std::make_unique<scroll_bar_type>(*this, scroll_bar_type::style_type::horizontal);
         }
     };
 }

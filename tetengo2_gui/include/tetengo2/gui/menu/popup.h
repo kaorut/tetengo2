@@ -11,18 +11,17 @@
 
 #include <algorithm>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/menu.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::menu {
     /*!
-        \brief The class template for a popup menu.
-
-        \tparam MenuDetails A detail implementation type of a menu.
+        \brief The class for a popup menu.
    */
-    template <typename MenuDetails>
-    class popup : public abstract_popup<MenuDetails>
+    class popup : public abstract_popup
     {
     public:
         // types
@@ -30,11 +29,8 @@ namespace tetengo2::gui::menu {
         //! The string type.
         using string_type = tetengo2::type_list::string_type;
 
-        //! The menu details type.
-        using menu_details_type = MenuDetails;
-
         //! The base type.
-        using base_type = abstract_popup<menu_details_type>;
+        using base_type = abstract_popup;
 
 
         // constructors and destructor
@@ -44,7 +40,9 @@ namespace tetengo2::gui::menu {
 
             \param text A text.
         */
-        explicit popup(string_type text) : base_type{ std::move(text), menu_details_type::create_popup_menu() } {}
+        explicit popup(string_type text)
+        : base_type{ std::move(text), detail::gui_detail_impl_set().menu_().create_popup_menu() }
+        {}
 
         /*!
             \brief Destroys the popup menu.
@@ -62,7 +60,7 @@ namespace tetengo2::gui::menu {
 
         virtual const style_type& style_impl() const override
         {
-            return menu_details_type::template popup_menu_style<typename base_type::base_type>();
+            return detail::gui_detail_impl_set().menu_().popup_menu_style();
         }
     };
 }

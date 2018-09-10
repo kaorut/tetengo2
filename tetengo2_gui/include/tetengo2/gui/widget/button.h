@@ -11,35 +11,22 @@
 
 #include <boost/predef.h>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/detail/base/message_handler.h>
+#include <tetengo2/detail/base/widget.h>
+#include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
+#include <tetengo2/gui/widget/widget.h>
 
 
 namespace tetengo2::gui::widget {
     /*!
-        \brief The class template for a button.
-
-        \tparam WidgetDetails         A detail implementation type of a widget.
-        \tparam DrawingDetails        A detail implementation type of drawing.
-        \tparam ScrollDetails         A detail implementation type of a scroll.
-        \tparam MessageHandlerDetails A detail implementation type of a message handler.
+        \brief The class for a button.
     */
-    template <typename WidgetDetails, typename DrawingDetails, typename ScrollDetails, typename MessageHandlerDetails>
-    class button : public control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>
+    class button : public control
     {
     public:
         // types
-
-        //! The widget details type.
-        using widget_details_type = WidgetDetails;
-
-        //! The message handler details type.
-        using message_handler_details_type = MessageHandlerDetails;
-
-        //! The base type.
-        using base_type = control<WidgetDetails, DrawingDetails, ScrollDetails, MessageHandlerDetails>;
-
-        //! The widget type.
-        using widget_type = typename base_type::base_type;
 
         //! The style type.
         enum class style_type
@@ -62,23 +49,23 @@ namespace tetengo2::gui::widget {
             \param parent A parent widget.
             \param style  A style.
         */
-        explicit button(widget_type& parent, const style_type style = style_type::normal)
+        explicit button(widget& parent, const style_type style = style_type::normal)
         :
 #if BOOST_COMP_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4355)
 #endif
-          base_type{
-              base_type::scroll_bar_style_type::none,
-              message_handler_details_type::make_button_message_handler_map(*this, message_handler_map_type{}),
-              widget_details_type::create_button(parent, style == style_type::default_, style == style_type::cancel)
-          },
+          control{ control::scroll_bar_style_type::none,
+                   detail::gui_detail_impl_set().message_handler_().make_button_message_handler_map(
+                       *this,
+                       message_handler_map_type{}),
+                   widget_details().create_button(parent, style == style_type::default_, style == style_type::cancel) },
 #if BOOST_COMP_MSVC
 #pragma warning(pop)
 #endif
           m_style{ style }
         {
-            base_type::initialize(this);
+            control::initialize(this);
 
             parent.child_observer_set().created()(*this);
         }
