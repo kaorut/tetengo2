@@ -41,11 +41,9 @@ namespace tetengo2::gui::drawing {
         /*!
             \brief Returns the dialog font.
 
-            \param drawing_details A detail implementation of a drawing.
-
             \return The dialog font.
         */
-        static const font& dialog_font(const drawing_details_type& drawing_details);
+        static const font& dialog_font();
 
 
         // constructors and destructor

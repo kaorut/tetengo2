@@ -509,8 +509,7 @@ namespace tetengo2::detail::windows {
             }
             else
             {
-                const auto& dialog_font =
-                    gui::drawing::font::dialog_font(tetengo2::detail::windows::gdiplus::drawing::instance());
+                const auto& dialog_font = gui::drawing::font::dialog_font();
 
                 p_log_font->lfHeight = -static_cast<::LONG>(dialog_font.size());
                 p_log_font->lfWeight = dialog_font.bold() ? FW_BOLD : FW_NORMAL;

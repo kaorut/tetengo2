@@ -475,14 +475,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     concrete_widget widget{};
 
-                    const font_type font{
-                        font_type::dialog_font(tetengo2::detail::gui_detail_impl_set().drawing_()).family(),
-                        42,
-                        false,
-                        true,
-                        false,
-                        true
-                    };
+                    const font_type font{ font_type::dialog_font().family(), 42, false, true, false, true };
                     widget.set_font(font);
 
                     BOOST_CHECK(widget.font() == font);
@@ -494,14 +487,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     concrete_widget widget{};
 
-                    const font_type font{
-                        font_type::dialog_font(tetengo2::detail::gui_detail_impl_set().drawing_()).family(),
-                        42,
-                        false,
-                        true,
-                        false,
-                        true
-                    };
+                    const font_type font{ font_type::dialog_font().family(), 42, false, true, false, true };
                     widget.set_font(font);
 
                     BOOST_CHECK(widget.font() == font);

@@ -33,7 +33,7 @@ namespace tetengo2::gui::common_dialog {
 
         impl(const tetengo2::stdalt::optional<font_type>& font, abstract_window_type& parent)
         : m_p_details{ detail::gui_detail_impl_set().common_dialog_().create_font_dialog(parent, font) }, m_result{
-              font ? *font : font_type::dialog_font(tetengo2::detail::gui_detail_impl_set().drawing_())
+              font ? *font : font_type::dialog_font()
           }
         {}
 

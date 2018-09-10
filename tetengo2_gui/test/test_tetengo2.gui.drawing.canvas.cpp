@@ -251,7 +251,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                     const auto& font = canvas.get_font();
 
-                    BOOST_CHECK(font == font_type::dialog_font(tetengo2::detail::gui_detail_impl_set().drawing_()));
+                    BOOST_CHECK(font == font_type::dialog_font());
                 }
 
                 BOOST_AUTO_TEST_CASE(set_font)

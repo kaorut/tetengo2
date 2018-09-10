@@ -14,7 +14,6 @@
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/text.h>
 
@@ -38,7 +37,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    const auto& font = font_type::dialog_font(tetengo2::detail::gui_detail_impl_set().drawing_());
+                    const auto& font = font_type::dialog_font();
 
                     BOOST_CHECK(
                         font == font_type(string_type{ TETENGO2_TEXT("TetengoFont") }, 12, false, false, false, false));

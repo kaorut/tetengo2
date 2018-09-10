@@ -11,6 +11,7 @@
 #include <string>
 
 #include <tetengo2/detail/base/drawing.h>
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/drawing/font.h>
 
 
@@ -29,9 +30,9 @@ namespace tetengo2::gui::drawing {
 
         // static functions
 
-        static const font& dialog_font(const drawing_details_type& drawing_details)
+        static const font& dialog_font()
         {
-            static const font singleton{ drawing_details.make_dialog_font() };
+            static const font singleton{ detail::gui_detail_impl_set().drawing_().make_dialog_font() };
             return singleton;
         }
 
@@ -120,9 +121,9 @@ namespace tetengo2::gui::drawing {
     };
 
 
-    const font& font::dialog_font(const drawing_details_type& drawing_details)
+    const font& font::dialog_font()
     {
-        return impl::dialog_font(drawing_details);
+        return impl::dialog_font();
     }
 
     font::font(

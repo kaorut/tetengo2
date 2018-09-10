@@ -479,7 +479,7 @@ namespace tetengo2::gui::drawing {
               std::make_unique<const solid_background_type>(m_drawing_details, color_type{ 255, 255, 255, 255 })
           },
           m_line_width{ dimension_unit_type{ 1 } }, m_line_style{ line_style_type::solid }, m_font{
-              font_type::dialog_font(m_drawing_details)
+              font_type::dialog_font()
           }
         {
             if (!m_p_details)

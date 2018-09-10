@@ -17,7 +17,6 @@
 
 #include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/base/widget.h>
-#include <tetengo2/detail/stub/drawing.h>
 #include <tetengo2/gui/drawing/font.h>
 #include <tetengo2/gui/type_list.h>
 #include <tetengo2/stdalt.h>
@@ -84,9 +83,8 @@ namespace tetengo2::detail::stub {
 
             widget_details_type()
             : p_parent{}, enabled{}, visible{}, window_state{}, position{}, dimension{}, text{},
-              font{ gui::drawing::font::dialog_font(stub::drawing::instance()) }, children{}, focusable{}, read_only{},
-              list_box_values{}, selected_list_box_value_index{}, progress_bar_goal{}, progress_bar_progress{},
-              progress_bar_state{}
+              font{ gui::drawing::font::dialog_font() }, children{}, focusable{}, read_only{}, list_box_values{},
+              selected_list_box_value_index{}, progress_bar_goal{}, progress_bar_progress{}, progress_bar_state{}
             {}
 
             widget_details_type(

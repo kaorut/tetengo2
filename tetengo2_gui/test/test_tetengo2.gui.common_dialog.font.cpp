@@ -71,9 +71,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         window_type            parent{};
                         const font_dialog_type font{ TETENGO2_STDALT_NULLOPT, parent };
 
-                        BOOST_CHECK(
-                            font.result() ==
-                            font_type::dialog_font(tetengo2::detail::gui_detail_impl_set().drawing_()));
+                        BOOST_CHECK(font.result() == font_type::dialog_font());
                     }
                     {
                         window_type      parent{};
@@ -81,9 +79,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                         font.do_modal();
 
-                        BOOST_CHECK(
-                            font.result() !=
-                            font_type::dialog_font(tetengo2::detail::gui_detail_impl_set().drawing_()));
+                        BOOST_CHECK(font.result() != font_type::dialog_font());
                     }
                 }
 

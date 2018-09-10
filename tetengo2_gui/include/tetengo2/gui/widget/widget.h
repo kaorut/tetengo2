@@ -762,7 +762,7 @@ namespace tetengo2::gui::widget {
 
             widget_details().associate_to_native_window_system(*p_widget);
 
-            p_widget->set_font(font_type::dialog_font(detail::gui_detail_impl_set().drawing_()));
+            p_widget->set_font(font_type::dialog_font());
 
             p_widget->m_p_vertical_scroll_bar = p_widget->create_vertical_scroll_bar();
             p_widget->m_p_horizontal_scroll_bar = p_widget->create_horizontal_scroll_bar();

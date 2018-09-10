@@ -640,8 +640,7 @@ namespace tetengo2::detail::windows::gdiplus {
                     std::error_code{ Gdiplus::FontFamilyNotFound, gdiplus_category() }, "Font is not available." }));
             }
 
-            const auto& font_family =
-                fallback_level < 1 ? font.family() : gui::drawing::font::dialog_font(impl::instance()).family();
+            const auto& font_family = fallback_level < 1 ? font.family() : gui::drawing::font::dialog_font().family();
             const Gdiplus::FontFamily gdiplus_font_family{ native_drawing_encoder().encode(font_family).c_str(),
                                                            &font_collection };
             if (!gdiplus_font_family.IsAvailable())
@@ -649,13 +648,11 @@ namespace tetengo2::detail::windows::gdiplus {
                 return create_gdiplus_font(font, font_collection, fallback_level + 1);
             }
 
-            const auto font_size =
-                fallback_level < 2 ?
-                    static_cast<Gdiplus::REAL>(font.size()) :
-                    static_cast<Gdiplus::REAL>(gui::drawing::font::dialog_font(impl::instance()).size());
-            const auto font_style = fallback_level < 2 ?
-                                        get_font_style(font) :
-                                        get_font_style(gui::drawing::font::dialog_font(impl::instance()));
+            const auto font_size = fallback_level < 2 ?
+                                       static_cast<Gdiplus::REAL>(font.size()) :
+                                       static_cast<Gdiplus::REAL>(gui::drawing::font::dialog_font().size());
+            const auto font_style =
+                fallback_level < 2 ? get_font_style(font) : get_font_style(gui::drawing::font::dialog_font());
             auto p_gdiplus_font =
                 std::make_unique<Gdiplus::Font>(&gdiplus_font_family, font_size, font_style, Gdiplus::UnitPixel);
             if (!p_gdiplus_font->IsAvailable())
