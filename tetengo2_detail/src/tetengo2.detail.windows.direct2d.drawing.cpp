@@ -13,6 +13,7 @@
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/math/constants/constants.hpp>
 #include <boost/operators.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
