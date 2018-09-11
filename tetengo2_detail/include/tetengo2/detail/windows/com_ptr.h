@@ -11,6 +11,9 @@
 
 #include <memory>
 
+struct IUnknown;
+
+
 namespace tetengo2::detail::windows {
 #if !defined(DOCUMENTATION)
     namespace detail {

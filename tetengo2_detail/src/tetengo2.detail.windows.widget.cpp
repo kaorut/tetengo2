@@ -16,6 +16,8 @@
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
+#// prevent sort by ClangFormat
+#include <CommCtrl.h>
 
 #include <tetengo2/detail/windows/error_category.h>
 #include <tetengo2/detail/windows/icon.h>

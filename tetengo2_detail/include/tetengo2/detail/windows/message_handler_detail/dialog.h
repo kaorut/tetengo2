@@ -34,10 +34,11 @@ namespace tetengo2::detail::windows::message_handler_detail::dialog {
         const ::WORD lo_wparam = LOWORD(w_param);
         if (hi_wparam == 0 && (lo_wparam == IDOK || lo_wparam == IDCANCEL))
         {
-            const auto  widget_handle = reinterpret_cast<::HWND>(l_param);
-            const auto& dialog_details =
-                static_cast<detail::windows::widget::windows_widget_details_type&>(dialog.details());
+            const auto widget_handle = reinterpret_cast<::HWND>(l_param);
+#if !NDEBUG
+            auto& dialog_details = static_cast<detail::windows::widget::windows_widget_details_type&>(dialog.details());
             assert(widget_handle == ::GetDlgItem(reinterpret_cast<::HWND>(dialog_details.handle), lo_wparam));
+#endif
             if (widget_handle)
             {
                 detail::windows::widget::instance()

@@ -18,6 +18,7 @@
 #include <cmath>
 #include <condition_variable>
 #include <cstddef>
+#include <cstdint>
 #include <cstdlib>
 #include <cwchar>
 #include <exception>
