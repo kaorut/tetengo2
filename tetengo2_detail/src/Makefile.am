@@ -74,6 +74,17 @@ extra_sources = \
     tetengo2.detail.windows.impl_set.cpp \
     tetengo2.detail.windows.menu.cpp \
     tetengo2.detail.windows.message_handler.cpp \
+    tetengo2.detail.windows.message_handler_detail.widget.cpp \
+    tetengo2.detail.windows.message_handler_detail.abstra.cpp \
+    tetengo2.detail.windows.message_handler_detail.button.cpp \
+    tetengo2.detail.windows.message_handler_detail.contro.cpp \
+    tetengo2.detail.windows.message_handler_detail.custom.cpp \
+    tetengo2.detail.windows.message_handler_detail.dialog.cpp \
+    tetengo2.detail.windows.message_handler_detail.dropdo.cpp \
+    tetengo2.detail.windows.message_handler_detail.list_b.cpp \
+    tetengo2.detail.windows.message_handler_detail.messag.cpp \
+    tetengo2.detail.windows.message_handler_detail.pictur.cpp \
+    tetengo2.detail.windows.message_handler_detail.text_b.cpp \
     tetengo2.detail.windows.message_loop.cpp \
     tetengo2.detail.windows.messages.cpp \
     tetengo2.detail.windows.mouse_capture.cpp \
