@@ -242,7 +242,6 @@
     <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.dialog.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.dropdo.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.list_b.cpp" />
-    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.messag.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.pictur.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.text_b.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.widget.cpp" />

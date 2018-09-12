@@ -21,28 +21,16 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include <tetengo2/gui/widget/list_box.h>
 #include <tetengo2/stdalt.h>
+
+namespace tetengo2 { namespace gui { namespace widget {
+    class list_box;
+}}}
 
 
 namespace tetengo2::detail::windows::message_handler_detail::list_box {
-    tetengo2::stdalt::optional<::LRESULT> on_tetengo2_command(
-        gui::widget::list_box&                      list_box,
-        const ::WPARAM                              w_param,
-        TETENGO2_STDALT_MAYBE_UNUSED const ::LPARAM l_param)
-    {
-        switch (HIWORD(w_param))
-        {
-        case LBN_SELCANCEL:
-        case LBN_SELCHANGE:
-            list_box.list_selection_observer_set().selection_changed()();
-            break;
-        default:
-            break;
-        }
-
-        return tetengo2::stdalt::make_optional<::LRESULT>(0);
-    }
+    tetengo2::stdalt::optional<::LRESULT>
+    on_tetengo2_command(gui::widget::list_box& list_box, ::WPARAM w_param, ::LPARAM l_param);
 }
 
 

@@ -596,9 +596,6 @@
     <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.list_b.cpp">
       <Filter>sources\tetengo2::detail\windows\message_handler_detail</Filter>
     </ClCompile>
-    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.messag.cpp">
-      <Filter>sources\tetengo2::detail\windows\message_handler_detail</Filter>
-    </ClCompile>
     <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.pictur.cpp">
       <Filter>sources\tetengo2::detail\windows\message_handler_detail</Filter>
     </ClCompile>
