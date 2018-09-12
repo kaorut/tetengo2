@@ -8,14 +8,7 @@
     $Id$
 */
 
-#if !defined(DOCUMENTATION)
-#if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_CUSTOMCONTROL_H)
-#define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_CUSTOMCONTROL_H
-
+#include <tetengo2/detail/windows/message_handler_detail/custom.h>
 
 namespace tetengo2::detail::windows::message_handler_detail::custom_control {
 }
-
-
-#endif
-#endif

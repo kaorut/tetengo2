@@ -52,6 +52,9 @@
     <Filter Include="sources\tetengo2::detail\unixos">
       <UniqueIdentifier>{5aac4953-74ff-48d6-9585-656886e7e295}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\tetengo2::detail\windows\message_handler_detail">
+      <UniqueIdentifier>{90e48c31-05ad-4885-8d4f-c875b24517f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2\detail\stub\0namespace.dox">
@@ -571,6 +574,36 @@
     </ClCompile>
     <ClCompile Include="src\tetengo2.detail.windows.common_dialog.cpp">
       <Filter>sources\tetengo2::detail\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.abstra.cpp">
+      <Filter>sources\tetengo2::detail\windows\message_handler_detail</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.button.cpp">
+      <Filter>sources\tetengo2::detail\windows\message_handler_detail</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.contro.cpp">
+      <Filter>sources\tetengo2::detail\windows\message_handler_detail</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.custom.cpp">
+      <Filter>sources\tetengo2::detail\windows\message_handler_detail</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.dialog.cpp">
+      <Filter>sources\tetengo2::detail\windows\message_handler_detail</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.dropdo.cpp">
+      <Filter>sources\tetengo2::detail\windows\message_handler_detail</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.list_b.cpp">
+      <Filter>sources\tetengo2::detail\windows\message_handler_detail</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.pictur.cpp">
+      <Filter>sources\tetengo2::detail\windows\message_handler_detail</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.text_b.cpp">
+      <Filter>sources\tetengo2::detail\windows\message_handler_detail</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.widget.cpp">
+      <Filter>sources\tetengo2::detail\windows\message_handler_detail</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

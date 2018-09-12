@@ -1,6 +1,8 @@
 /*! \file
     \brief The definition of custom messages for tetengo2::detail::windows::message_handler_detail.
 
+    The file name is truncated due to the path length limitation of tar command on UNIX.
+
     Copyright (C) 2007-2018 kaoru
 
     $Id$

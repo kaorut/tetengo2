@@ -235,6 +235,16 @@
     <ClCompile Include="src\tetengo2.detail.windows.menu.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.messages.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.message_handler.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.abstra.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.button.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.contro.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.custom.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.dialog.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.dropdo.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.list_b.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.pictur.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.text_b.cpp" />
+    <ClCompile Include="src\tetengo2.detail.windows.message_handler_detail.widget.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.message_loop.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.mouse_capture.cpp" />
     <ClCompile Include="src\tetengo2.detail.windows.picture.cpp" />
