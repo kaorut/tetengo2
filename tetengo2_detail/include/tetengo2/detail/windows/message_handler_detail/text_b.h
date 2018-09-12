@@ -23,12 +23,9 @@
 
 #include <tetengo2/stdalt.h>
 
-namespace tetengo2
-{
-    namespace gui { namespace widget {
-        class text_box;
-    }}
-}
+namespace tetengo2 { namespace gui { namespace widget {
+    class text_box;
+}}}
 
 
 namespace tetengo2::detail::windows::message_handler_detail::text_box {
