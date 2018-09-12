@@ -160,7 +160,7 @@ namespace tetengo2::detail::base {
                 custom_yes_no_button_labels) const;
 
         /*!
-            \brief Shows a message box and return a button id.
+            \brief Shows a message box and returns a button id.
 
             \param message_box A message box.
 
