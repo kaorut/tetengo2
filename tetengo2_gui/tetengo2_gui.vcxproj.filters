@@ -407,5 +407,29 @@
     <ClCompile Include="src\tetengo2.gui.common_dialog.font.cpp">
       <Filter>sources\tetengo2::gui\common_dialog</Filter>
     </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.drawing.background.cpp">
+      <Filter>sources\tetengo2::gui\drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.drawing.canvas.cpp">
+      <Filter>sources\tetengo2::gui\drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.drawing.color.cpp">
+      <Filter>sources\tetengo2::gui\drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.drawing.picture.cpp">
+      <Filter>sources\tetengo2::gui\drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.drawing.picture_reader.cpp">
+      <Filter>sources\tetengo2::gui\drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.drawing.solid_background.cpp">
+      <Filter>sources\tetengo2::gui\drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.drawing.transparent_background.cpp">
+      <Filter>sources\tetengo2::gui\drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.drawing.widget_canvas.cpp">
+      <Filter>sources\tetengo2::gui\drawing</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
