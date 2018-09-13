@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_DRAWING_COLOR_H
 
 #include <limits>
-#include <stdexcept>
 
 #include <boost/operators.hpp>
 
@@ -45,9 +44,7 @@ namespace tetengo2::gui::drawing {
             const value_type red,
             const value_type green,
             const value_type blue,
-            const value_type alpha = std::numeric_limits<value_type>::max())
-        : m_red{ red }, m_green{ green }, m_blue{ blue }, m_alpha{ alpha }
-        {}
+            const value_type alpha = std::numeric_limits<value_type>::max());
 
 
         // functions
@@ -55,57 +52,44 @@ namespace tetengo2::gui::drawing {
         /*!
             \brief Checks whether one basic color is equal to another.
 
+            \tparam V A value type.
+
             \param one     One color.
             \param another Another basic color.
 
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        friend bool operator==(const basic_color& one, const basic_color& another)
-        {
-            return one.m_red == another.m_red && one.m_green == another.m_green && one.m_blue == another.m_blue &&
-                   one.m_alpha == another.m_alpha;
-        }
+        template <typename V>
+        friend bool operator==(const basic_color<V>& one, const basic_color<V>& another);
 
         /*!
             \brief Returns the red value.
 
             \return The red value.
         */
-        value_type red() const
-        {
-            return m_red;
-        }
+        value_type red() const;
 
         /*!
             \brief Returns the green value.
 
             \return The green value.
         */
-        value_type green() const
-        {
-            return m_green;
-        }
+        value_type green() const;
 
         /*!
             \brief Returns the blue value.
 
             \return The blue value.
         */
-        value_type blue() const
-        {
-            return m_blue;
-        }
+        value_type blue() const;
 
         /*!
             \brief Returns the alpha channel value.
 
             \return The alpha channel value.
         */
-        value_type alpha() const
-        {
-            return m_alpha;
-        }
+        value_type alpha() const;
 
         /*!
             \brief Mixes a color.
@@ -117,21 +101,7 @@ namespace tetengo2::gui::drawing {
 
             \throw std::invalid_argument When weight is less than 0.0 or greater than 1.0.
         */
-        basic_color mix(const basic_color& another, const double weight) const
-        {
-            if (weight < 0 || 1.0 < weight)
-                throw std::invalid_argument("Invalid weight value.");
-
-            const auto mixed_red = static_cast<unsigned char>(
-                static_cast<double>(m_red) * (1.0 - weight) + static_cast<double>(another.m_red) * weight);
-            const auto mixed_green = static_cast<unsigned char>(
-                static_cast<double>(m_green) * (1.0 - weight) + static_cast<double>(another.m_green) * weight);
-            const auto mixed_blue = static_cast<unsigned char>(
-                static_cast<double>(m_blue) * (1.0 - weight) + static_cast<double>(another.m_blue) * weight);
-            const auto mixed_alpha = static_cast<unsigned char>(
-                static_cast<double>(m_alpha) * (1.0 - weight) + static_cast<double>(another.m_alpha) * weight);
-            return basic_color{ mixed_red, mixed_green, mixed_blue, mixed_alpha };
-        }
+        basic_color mix(const basic_color& another, const double weight) const;
 
 
     private:

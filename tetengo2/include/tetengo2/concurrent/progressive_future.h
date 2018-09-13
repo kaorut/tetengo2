@@ -17,6 +17,7 @@
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/rational.hpp>
+#include <boost/throw_exception.hpp>
 
 #include <tetengo2/type_list.h>
 
@@ -186,7 +187,7 @@ namespace tetengo2::concurrent {
         const progress_type& progress() const
         {
             if (!valid())
-                throw std::logic_error{ "This future is not valid." };
+                BOOST_THROW_EXCEPTION(std::logic_error{ "This future is not valid." });
 
             return m_p_state->get();
         }
@@ -197,7 +198,7 @@ namespace tetengo2::concurrent {
         void request_abort()
         {
             if (!valid())
-                throw std::logic_error{ "This future is not valid." };
+                BOOST_THROW_EXCEPTION(std::logic_error{ "This future is not valid." });
 
             m_p_state->request_abort();
         }
