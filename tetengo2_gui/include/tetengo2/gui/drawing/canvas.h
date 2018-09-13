@@ -9,28 +9,24 @@
 #if !defined(TETENGO2_GUI_DRAWING_CANVAS_H)
 #define TETENGO2_GUI_DRAWING_CANVAS_H
 
-#include <cassert>
 #include <memory>
-#include <stdexcept>
-#include <utility>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/throw_exception.hpp>
 
 #include <tetengo2/detail/base/drawing.h>
-#include <tetengo2/gui/drawing/background.h>
+#include <tetengo2/detail/base/widget.h>
 #include <tetengo2/gui/drawing/color.h>
-#include <tetengo2/gui/drawing/font.h>
-#include <tetengo2/gui/drawing/picture.h>
-#include <tetengo2/gui/drawing/solid_background.h>
-#include <tetengo2/gui/icon.h>
 #include <tetengo2/gui/type_list.h>
-#include <tetengo2/gui/unit/em.h>
 #include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::drawing {
+#if !defined(IWYU)
+    class solid_background;
+#endif
+
+
     /*!
         \brief The class for a canvas.
     */
@@ -93,7 +89,7 @@ namespace tetengo2::gui::drawing {
         /*!
             \brief Destroys the canvas.
         */
-        virtual ~canvas() = default;
+        virtual ~canvas();
 
 
         // functions
@@ -103,98 +99,61 @@ namespace tetengo2::gui::drawing {
 
             \param dimension A dimension.
         */
-        void begin_transaction(const dimension_type& dimension)
-        {
-            m_drawing_details.begin_transaction(*m_p_details, dimension);
-        }
+        void begin_transaction(const dimension_type& dimension);
 
         /*!
             \brief Ends a transaction.
         */
-        void end_transaction()
-        {
-            m_drawing_details.end_transaction(*m_p_details);
-        }
+        void end_transaction();
 
         /*!
             \brief Returns the color.
 
             \return The color.
         */
-        const color_type& get_color() const
-        {
-            return m_color;
-        }
+        const color_type& get_color() const;
 
         /*!
             \brief Sets a color.
 
             \param color A color.
         */
-        void set_color(color_type color)
-        {
-            m_color = std::move(color);
-        }
+        void set_color(color_type color);
 
         /*!
             \brief Returns the background.
 
             \return The background.
         */
-        const background_type& get_background() const
-        {
-            assert(m_p_background);
-            return *m_p_background;
-        }
+        const background_type& get_background() const;
 
         /*!
             \brief Sets a background.
 
             \param p_background A unique pointer to a background.
         */
-        void set_background(std::unique_ptr<const background_type> p_background)
-        {
-            if (!p_background)
-            {
-                BOOST_THROW_EXCEPTION(std::invalid_argument{ "The specified background is nullptr." });
-            }
-            if (&p_background->drawing_details() != &m_drawing_details)
-            {
-                assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument{ "The drawing detail implementations mismatch." });
-            }
-            m_p_background = std::move(p_background);
-        }
+        void set_background(std::unique_ptr<const background_type> p_background);
 
         /*!
             \brief Returns the line width.
 
             \return The line_width.
         */
-        const dimension_unit_type& line_width() const
-        {
-            return m_line_width;
-        }
+        const dimension_unit_type& line_width() const;
 
         /*!
             \brief Sets a line width.
 
             \param line_width A line width.
         */
-        void set_line_width(dimension_unit_type line_width)
-        {
-            m_line_width = std::move(line_width);
-        }
+        void set_line_width(dimension_unit_type line_width);
 
         /*!
             \brief Returns the line style.
 
             \return The line_width.
         */
-        line_style_type line_style() const
-        {
-            return m_line_style;
-        }
+        line_style_type line_style() const;
 
         /*!
             \brief Sets a line style.
@@ -203,20 +162,14 @@ namespace tetengo2::gui::drawing {
 
             \param line_style A line width.
         */
-        void set_line_style(const line_style_type line_style)
-        {
-            m_line_style = line_style;
-        }
+        void set_line_style(const line_style_type line_style);
 
         /*!
             \brief Returns the font.
 
             \return The font.
         */
-        const font_type& get_font() const
-        {
-            return m_font;
-        }
+        const font_type& get_font() const;
 
         /*!
             \brief Sets a font.
@@ -225,10 +178,7 @@ namespace tetengo2::gui::drawing {
 
             \param font A font.
         */
-        void set_font(font_type font)
-        {
-            m_font = std::move(font);
-        }
+        void set_font(font_type font);
 
         /*!
             \brief Draws a line.
@@ -236,10 +186,7 @@ namespace tetengo2::gui::drawing {
             \param from A beginning position.
             \param to   An ending position.
         */
-        void draw_line(const position_type& from, const position_type& to)
-        {
-            m_drawing_details.draw_line(*m_p_details, from, to, m_line_width, static_cast<int>(m_line_style), m_color);
-        }
+        void draw_line(const position_type& from, const position_type& to);
 
         /*!
             \brief Draws a focus indication.
@@ -247,10 +194,7 @@ namespace tetengo2::gui::drawing {
             \param position  A position of a region.
             \param dimension A dimension of a region.
         */
-        void draw_focus_indication(const position_type& position, const dimension_type& dimension)
-        {
-            m_drawing_details.draw_focus_indication(*m_p_details, position, dimension);
-        }
+        void draw_focus_indication(const position_type& position, const dimension_type& dimension);
 
         /*!
             \brief Draws a rectangle.
@@ -258,12 +202,7 @@ namespace tetengo2::gui::drawing {
             \param position   A position of a region.
             \param dimension  A dimension of a region.
         */
-        void draw_rectangle(const position_type& position, const dimension_type& dimension)
-        {
-            assert(m_p_background);
-            m_drawing_details.draw_rectangle(
-                *m_p_details, position, dimension, m_line_width, static_cast<int>(m_line_style), m_color);
-        }
+        void draw_rectangle(const position_type& position, const dimension_type& dimension);
 
         /*!
             \brief Fills a rectangle region.
@@ -271,33 +210,21 @@ namespace tetengo2::gui::drawing {
             \param position   A position of a region.
             \param dimension  A dimension of a region.
         */
-        void fill_rectangle(const position_type& position, const dimension_type& dimension)
-        {
-            assert(m_p_background);
-            m_drawing_details.fill_rectangle(*m_p_details, position, dimension, *m_p_background);
-        }
+        void fill_rectangle(const position_type& position, const dimension_type& dimension);
 
         /*!
             \brief Draws a polygon.
 
             \param positions Positions of a region.
         */
-        void draw_polygon(const std::vector<position_type>& positions)
-        {
-            m_drawing_details.draw_polygon(
-                *m_p_details, positions, m_line_width, static_cast<int>(m_line_style), m_color);
-        }
+        void draw_polygon(const std::vector<position_type>& positions);
 
         /*!
             \brief Fills a polygon region.
 
             \param positions Positions of a region.
         */
-        void fill_polygon(const std::vector<position_type>& positions)
-        {
-            assert(m_p_background);
-            m_drawing_details.fill_polygon(*m_p_details, positions, *m_p_background);
-        }
+        void fill_polygon(const std::vector<position_type>& positions);
 
         /*!
             \brief Calculates the dimension of a text.
@@ -308,10 +235,7 @@ namespace tetengo2::gui::drawing {
 
             \return The dimension of the text.
         */
-        dimension_type calc_text_dimension(const string_type& text) const
-        {
-            return calc_text_dimension(text, dimension_unit_type{});
-        }
+        dimension_type calc_text_dimension(const string_type& text) const;
 
         /*!
             \brief Calculates the dimension of a text.
@@ -321,10 +245,7 @@ namespace tetengo2::gui::drawing {
 
             \return The dimension of the text.
         */
-        dimension_type calc_text_dimension(const string_type& text, const dimension_unit_type& max_width) const
-        {
-            return m_drawing_details.calc_text_dimension(*m_p_details, m_font, text, max_width);
-        }
+        dimension_type calc_text_dimension(const string_type& text, const dimension_unit_type& max_width) const;
 
         /*!
             \brief Calculates the dimension of a vertical text.
@@ -333,10 +254,7 @@ namespace tetengo2::gui::drawing {
 
             \return The dimension of the vertical text.
         */
-        dimension_type calc_vertical_text_dimension(const string_type& text) const
-        {
-            return m_drawing_details.calc_vertical_text_dimension(*m_p_details, m_font, text);
-        }
+        dimension_type calc_vertical_text_dimension(const string_type& text) const;
 
         /*!
             \brief Draws a text.
@@ -349,10 +267,7 @@ namespace tetengo2::gui::drawing {
             \param position A position where the text is drawn.
             \param angle    A clockwise angle in radians.
         */
-        void draw_text(const string_type& text, const position_type& position, const double angle = 0.0)
-        {
-            draw_text(text, position, dimension_unit_type{}, angle);
-        }
+        void draw_text(const string_type& text, const position_type& position, double angle = 0.0);
 
         /*!
             \brief Draws a text.
@@ -368,10 +283,7 @@ namespace tetengo2::gui::drawing {
             const string_type&         text,
             const position_type&       position,
             const dimension_unit_type& max_width,
-            const double               angle = 0.0)
-        {
-            m_drawing_details.draw_text(*m_p_details, m_font, text, position, max_width, m_color, angle);
-        }
+            double                     angle = 0.0);
 
         /*!
             \brief Draws a vertical text.
@@ -381,10 +293,7 @@ namespace tetengo2::gui::drawing {
             \param text     A text to draw.
             \param position A position where the text is drawn.
         */
-        void draw_vertical_text(const string_type& text, const position_type& position)
-        {
-            m_drawing_details.draw_vertical_text(*m_p_details, m_font, text, position, m_color);
-        }
+        void draw_vertical_text(const string_type& text, const position_type& position);
 
         /*!
             \brief Paints a picture.
@@ -393,15 +302,7 @@ namespace tetengo2::gui::drawing {
             \param position  A position where the picture is painted.
             \param dimension A dimension in which the picture is painted.
         */
-        void paint_picture(const picture_type& picture, const position_type& position, const dimension_type& dimension)
-        {
-            if (&picture.drawing_details() != &m_drawing_details)
-            {
-                assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument{ "The picture detail implementations mismatch." });
-            }
-            m_drawing_details.paint_picture(*m_p_details, picture, position, dimension);
-        }
+        void paint_picture(const picture_type& picture, const position_type& position, const dimension_type& dimension);
 
         /*!
             \brief Paints a picture.
@@ -409,10 +310,7 @@ namespace tetengo2::gui::drawing {
             \param picture  A picture to paint.
             \param position A position where the picture is painted.
         */
-        void paint_picture(const picture_type& picture, const position_type& position)
-        {
-            paint_picture(picture, position, picture.dimension());
-        }
+        void paint_picture(const picture_type& picture, const position_type& position);
 
         /*!
             \brief Paints an icon.
@@ -420,42 +318,28 @@ namespace tetengo2::gui::drawing {
             \param icon     An icon to paint.
             \param position A position where the picture is painted.
         */
-        void paint_icon(const icon_type& icon, const position_type& position)
-        {
-            m_drawing_details.paint_icon(*m_p_details, icon, position);
-        }
+        void paint_icon(const icon_type& icon, const position_type& position);
 
         /*!\
             \brief Returns the detail implentation of a drawing.
 
             \return The detail implementation of a drawing.
         */
-        const drawing_details_type& drawing_details() const
-        {
-            return m_drawing_details;
-        }
+        const drawing_details_type& drawing_details() const;
 
         /*!
             \brief Returns the detail implementation.
 
             \return The detail implementation.
         */
-        const details_type& details() const
-        {
-            assert(m_p_details);
-            return *m_p_details;
-        }
+        const details_type& details() const;
 
         /*!
             \brief Returns the detail implementation.
 
             \return The detail implementation.
         */
-        details_type& details()
-        {
-            assert(m_p_details);
-            return *m_p_details;
-        }
+        details_type& details();
 
 
     protected:
@@ -473,36 +357,18 @@ namespace tetengo2::gui::drawing {
 
             \throw std::invalid_argument When p_details is nullptr.
         */
-        canvas(const drawing_details_type& drawing_details, details_ptr_type p_details)
-        : m_drawing_details(drawing_details), m_p_details{ std::move(p_details) }, m_color{ 0, 0, 0, 255 },
-          m_p_background{
-              std::make_unique<const solid_background_type>(m_drawing_details, color_type{ 255, 255, 255, 255 })
-          },
-          m_line_width{ dimension_unit_type{ 1 } }, m_line_style{ line_style_type::solid }, m_font{
-              font_type::dialog_font()
-          }
-        {
-            if (!m_p_details)
-                BOOST_THROW_EXCEPTION((std::invalid_argument{ "The detail implementation is nullptr." }));
-        }
+        canvas(const drawing_details_type& drawing_details, details_ptr_type p_details);
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        const drawing_details_type& m_drawing_details;
-
-        const details_ptr_type m_p_details;
-
-        color_type m_color;
-
-        std::unique_ptr<const background_type> m_p_background;
-
-        dimension_unit_type m_line_width;
-
-        line_style_type m_line_style;
-
-        font_type m_font;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

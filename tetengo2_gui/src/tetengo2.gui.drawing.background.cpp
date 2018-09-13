@@ -6,11 +6,11 @@
     $Id$
 */
 
-#include <tetengo2/gui/drawing/background.h>
-
 #include <memory>
 
 #include <boost/core/noncopyable.hpp>
+
+#include <tetengo2/gui/drawing/background.h>
 
 
 namespace tetengo2::gui::drawing {
