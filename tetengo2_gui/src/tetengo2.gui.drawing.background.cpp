@@ -23,8 +23,6 @@ namespace tetengo2::gui::drawing {
 
         using details_type = background::details_type;
 
-        using details_ptr_type = background::details_ptr_type;
-
 
         // functions
 

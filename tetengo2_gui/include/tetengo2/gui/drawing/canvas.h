@@ -22,11 +22,6 @@
 
 
 namespace tetengo2::gui::drawing {
-#if !defined(IWYU)
-    class solid_background;
-#endif
-
-
     /*!
         \brief The class for a canvas.
     */
@@ -58,9 +53,6 @@ namespace tetengo2::gui::drawing {
 
         //! The background type.
         using background_type = background;
-
-        //! The solid background type.
-        using solid_background_type = solid_background;
 
         //! The font type.
         using font_type = font;

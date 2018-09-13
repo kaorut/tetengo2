@@ -49,8 +49,6 @@ namespace tetengo2::gui::drawing {
 
         using background_type = canvas::background_type;
 
-        using solid_background_type = canvas::solid_background_type;
-
         using font_type = canvas::font_type;
 
         using picture_type = canvas::picture_type;
@@ -199,7 +197,7 @@ namespace tetengo2::gui::drawing {
             return m_drawing_details.calc_vertical_text_dimension(*m_p_details, m_font, text);
         }
 
-        void draw_text(const string_type& text, const position_type& position, const double angle = 0.0)
+        void draw_text(const string_type& text, const position_type& position, const double angle)
         {
             draw_text(text, position, dimension_unit_type{}, angle);
         }
@@ -208,7 +206,7 @@ namespace tetengo2::gui::drawing {
             const string_type&         text,
             const position_type&       position,
             const dimension_unit_type& max_width,
-            const double               angle = 0.0)
+            const double               angle)
         {
             m_drawing_details.draw_text(*m_p_details, m_font, text, position, max_width, m_color, angle);
         }
@@ -257,6 +255,11 @@ namespace tetengo2::gui::drawing {
 
 
     private:
+        // types
+
+        using solid_background_type = solid_background;
+
+
         // variables
 
         const drawing_details_type& m_drawing_details;
