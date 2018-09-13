@@ -40,7 +40,7 @@ namespace tetengo2::gui::drawing {
         /*!
             \brief Destroys the background.
         */
-        virtual ~background() = default;
+        virtual ~background();
 
 
         // functions
@@ -50,40 +50,28 @@ namespace tetengo2::gui::drawing {
 
             \return A unique pointer to a clone.
         */
-        std::unique_ptr<background> clone() const
-        {
-            return clone_impl();
-        }
+        std::unique_ptr<background> clone() const;
 
         /*!\
             \brief Returns the detail implentation of a drawing.
 
             \return The detail implementation of a drawing.
         */
-        const drawing_details_type& drawing_details() const
-        {
-            return drawing_details_impl();
-        }
+        const drawing_details_type& drawing_details() const;
 
         /*!
             \brief Returns the detail implementation;
 
             \return The detail implementation.
         */
-        const details_type& details() const
-        {
-            return details_impl();
-        }
+        const details_type& details() const;
 
         /*!
             \brief Returns the detail implementation;
 
             \return The detail implementation.
         */
-        details_type& details()
-        {
-            return details_impl();
-        }
+        details_type& details();
 
 
     protected:
@@ -92,10 +80,20 @@ namespace tetengo2::gui::drawing {
         /*!
             \brief Creates a background.
         */
-        background() {}
+        background();
 
 
     private:
+        // types
+
+        class impl;
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
+
+
         // virtual functions
 
         virtual std::unique_ptr<background> clone_impl() const = 0;
