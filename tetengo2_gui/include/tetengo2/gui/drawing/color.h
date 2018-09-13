@@ -10,6 +10,7 @@
 #define TETENGO2_GUI_DRAWING_COLOR_H
 
 #include <limits>
+#include <memory>
 
 #include <boost/operators.hpp>
 
@@ -41,10 +42,29 @@ namespace tetengo2::gui::drawing {
             \param alpha An alpha channel value.
         */
         basic_color(
-            const value_type red,
-            const value_type green,
-            const value_type blue,
-            const value_type alpha = std::numeric_limits<value_type>::max());
+            value_type red,
+            value_type green,
+            value_type blue,
+            value_type alpha = std::numeric_limits<value_type>::max());
+
+        /*!
+            \brief Copies a basic color.
+
+            \param another Another basic color.
+        */
+        basic_color(const basic_color& another);
+
+        /*!
+            \brief Moves a basic color.
+
+            \param another Another basic color.
+        */
+        basic_color(basic_color&& another);
+
+        /*!
+            \brief Destroys the basic color.
+        */
+        ~basic_color();
 
 
         // functions
@@ -62,6 +82,24 @@ namespace tetengo2::gui::drawing {
         */
         template <typename V>
         friend bool operator==(const basic_color<V>& one, const basic_color<V>& another);
+
+        /*!
+            \brief Assigns a basic color.
+
+            \param another Another basic color.
+
+            \return This object.
+        */
+        basic_color& operator=(const basic_color& another);
+
+        /*!
+            \brief Assigns a basic color.
+
+            \param another Another basic color.
+
+            \return This object.
+        */
+        basic_color& operator=(basic_color&& another);
 
         /*!
             \brief Returns the red value.
@@ -101,19 +139,18 @@ namespace tetengo2::gui::drawing {
 
             \throw std::invalid_argument When weight is less than 0.0 or greater than 1.0.
         */
-        basic_color mix(const basic_color& another, const double weight) const;
+        basic_color mix(const basic_color& another, double weight) const;
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        value_type m_red;
-
-        value_type m_green;
-
-        value_type m_blue;
-
-        value_type m_alpha;
+        std::unique_ptr<impl> m_p_impl;
     };
 
 

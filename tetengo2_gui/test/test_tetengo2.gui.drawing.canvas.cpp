@@ -162,7 +162,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     color_type color{ 12, 34, 56, 78 };
                     canvas.set_color(std::move(color));
 
-                    BOOST_CHECK(canvas.get_color() == color);
+                    BOOST_CHECK((canvas.get_color() == color_type{ 12, 34, 56, 78 }));
                 }
 
                 BOOST_AUTO_TEST_CASE(get_background)
