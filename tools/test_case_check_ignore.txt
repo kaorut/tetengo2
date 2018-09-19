@@ -70,6 +70,7 @@ test_tetengo2::config::[a-zA-Z0-9_]+_config::clear
 test_tetengo2::gui::basic_dimension::operator_equal
 test_tetengo2::gui::basic_position::operator_equal
 test_tetengo2::gui::cursor::system::details
+test_tetengo2::gui::drawing::basic_color::operator_equal
 test_tetengo2::gui::drawing::font::operator_equal
 test_tetengo2::gui::menu::abstract_popup::insert
 test_tetengo2::gui::menu::abstract_popup::erase

@@ -13,10 +13,13 @@
 
 #include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/drawing/widget_canvas.h>
+#include <tetengo2/gui/widget/window.h>
 
 
 namespace {
     // types
+
+    using window_type = tetengo2::gui::widget::window;
 
     using canvas_type = tetengo2::gui::drawing::widget_canvas;
 }
@@ -32,7 +35,14 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                 {
                     BOOST_TEST_PASSPOINT();
 
-                    const canvas_type canvas{ tetengo2::detail::gui_detail_impl_set().drawing_(), 42 };
+                    {
+                        const window_type window;
+                        const canvas_type canvas{ tetengo2::detail::gui_detail_impl_set().drawing_(),
+                                                  window.details() };
+                    }
+                    {
+                        const canvas_type canvas{ tetengo2::detail::gui_detail_impl_set().drawing_(), 42 };
+                    }
                 }
 
 

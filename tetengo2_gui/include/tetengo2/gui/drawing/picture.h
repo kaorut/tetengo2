@@ -9,15 +9,11 @@
 #if !defined(TETENGO2_GUI_DRAWING_PICTURE_H)
 #define TETENGO2_GUI_DRAWING_PICTURE_H
 
-#include <algorithm>
-#include <cassert>
-#include <stdexcept>
+#include <memory>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/throw_exception.hpp>
 
 #include <tetengo2/detail/base/drawing.h>
-#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/type_list.h>
 
 
@@ -51,9 +47,7 @@ namespace tetengo2::gui::drawing {
             \param drawing_details A detail implementation of a drawing.
             \param dimension       A dimension.
         */
-        picture(const drawing_details_type& drawing_details, const dimension_type& dimension)
-        : m_drawing_details{ drawing_details }, m_p_details{ m_drawing_details.create_picture(dimension) }
-        {}
+        picture(const drawing_details_type& drawing_details, const dimension_type& dimension);
 
         /*!
             \brief Creates an empty picture.
@@ -62,10 +56,7 @@ namespace tetengo2::gui::drawing {
 
             \param dimension A dimension.
         */
-        explicit picture(const dimension_type& dimension)
-        : m_drawing_details{ detail::gui_detail_impl_set().drawing_() }, m_p_details{ m_drawing_details.create_picture(
-                                                                             dimension) }
-        {}
+        explicit picture(const dimension_type& dimension);
 
         /*!
             \brief Creates a picture with a detail implementation.
@@ -75,12 +66,7 @@ namespace tetengo2::gui::drawing {
 
             \throw std::invalid_argument When p_details is nullptr.
         */
-        picture(const drawing_details_type& drawing_details, details_ptr_type p_details)
-        : m_drawing_details{ drawing_details }, m_p_details{ std::move(p_details) }
-        {
-            if (!m_p_details)
-                BOOST_THROW_EXCEPTION((std::invalid_argument{ "The detail implementation is nullptr." }));
-        }
+        picture(const drawing_details_type& drawing_details, details_ptr_type p_details);
 
         /*!
             \brief Creates a picture with a detail implementation.
@@ -91,12 +77,12 @@ namespace tetengo2::gui::drawing {
 
             \throw std::invalid_argument When p_details is nullptr.
         */
-        explicit picture(details_ptr_type p_details)
-        : m_drawing_details{ detail::gui_detail_impl_set().drawing_() }, m_p_details{ std::move(p_details) }
-        {
-            if (!m_p_details)
-                BOOST_THROW_EXCEPTION((std::invalid_argument{ "The detail implementation is nullptr." }));
-        }
+        explicit picture(details_ptr_type p_details);
+
+        /*!
+            \brief Destroys the picture.
+        */
+        ~picture();
 
 
         // functions
@@ -106,50 +92,39 @@ namespace tetengo2::gui::drawing {
 
             \return The dimension.
         */
-        dimension_type dimension() const
-        {
-            return m_drawing_details.picture_dimension(*m_p_details);
-        }
+        dimension_type dimension() const;
 
         /*!\
             \brief Returns the detail implentation of a drawing.
 
             \return The detail implementation of a drawing.
         */
-        const drawing_details_type& drawing_details() const
-        {
-            return m_drawing_details;
-        }
+        const drawing_details_type& drawing_details() const;
 
         /*!
             \brief Returns the detail implementation.
 
             \return The detail implementation.
         */
-        const details_type& details() const
-        {
-            assert(m_p_details);
-            return *m_p_details;
-        }
+        const details_type& details() const;
 
         /*!
             \brief Returns the detail implementation.
 
             \return The detail implementation.
         */
-        details_type& details()
-        {
-            assert(m_p_details);
-            return *m_p_details;
-        }
+        details_type& details();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        const drawing_details_type& m_drawing_details;
-
-        const details_ptr_type m_p_details;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

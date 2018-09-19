@@ -10,13 +10,10 @@
 #define TETENGO2_GUI_DRAWING_PICTUREREADER_H
 
 #include <memory>
-#include <utility>
 
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/base/drawing.h>
-#include <tetengo2/detail/base/gui_impl_set.h>
-#include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/stdalt.h>
 
 
@@ -44,9 +41,7 @@ namespace tetengo2::gui::drawing {
             \param drawing_details A detail implementation of a drawing.
             \param path            A path.
         */
-        picture_reader(const drawing_details_type& drawing_details, tetengo2::stdalt::filesystem::path path)
-        : m_drawing_details{ drawing_details }, m_path{ std::move(path) }
-        {}
+        picture_reader(const drawing_details_type& drawing_details, tetengo2::stdalt::filesystem::path path);
 
         /*!
             \brief Creates a picture reader.
@@ -55,9 +50,12 @@ namespace tetengo2::gui::drawing {
 
             \param path A path.
         */
-        explicit picture_reader(tetengo2::stdalt::filesystem::path path)
-        : m_drawing_details{ detail::gui_detail_impl_set().drawing_() }, m_path{ std::move(path) }
-        {}
+        explicit picture_reader(tetengo2::stdalt::filesystem::path path);
+
+        /*!
+            \brief Destroys the picture reader.
+        */
+        ~picture_reader();
 
 
         // functions
@@ -67,34 +65,25 @@ namespace tetengo2::gui::drawing {
 
             \return A unique pointer to a picture.
         */
-        std::unique_ptr<picture_type> read()
-        {
-            picture_details_ptr_type p_picture{ m_drawing_details.read_picture(m_path) };
-            return std::make_unique<picture_type>(m_drawing_details, std::move(p_picture));
-        }
+        std::unique_ptr<picture_type> read();
 
         /*!\
             \brief Returns the detail implentation of a drawing.
 
             \return The detail implementation of a drawing.
         */
-        const drawing_details_type& drawing_details() const
-        {
-            return m_drawing_details;
-        }
+        const drawing_details_type& drawing_details() const;
 
 
     private:
         // types
 
-        using picture_details_ptr_type = typename drawing_details_type::picture_details_ptr_type;
+        class impl;
 
 
         // variables
 
-        const drawing_details_type& m_drawing_details;
-
-        const tetengo2::stdalt::filesystem::path m_path;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

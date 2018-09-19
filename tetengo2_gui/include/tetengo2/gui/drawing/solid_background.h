@@ -9,11 +9,8 @@
 #if !defined(TETENGO2_GUI_DRAWING_SOLIDBACKGROUND_H)
 #define TETENGO2_GUI_DRAWING_SOLIDBACKGROUND_H
 
-#include <cassert>
 #include <memory>
-#include <utility>
 
-#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/gui/drawing/background.h>
 #include <tetengo2/gui/drawing/color.h>
 
@@ -45,11 +42,7 @@ namespace tetengo2::gui::drawing {
             \param drawing_details A detailm implementation of a drawing.
             \param color           A color.
         */
-        solid_background(const drawing_details_type& drawing_details, color_type color)
-        : base_type{}, m_drawing_details{ drawing_details }, m_color{ std::move(color) }, m_p_details{
-              m_drawing_details.create_solid_background(m_color)
-          }
-        {}
+        solid_background(const drawing_details_type& drawing_details, color_type color);
 
         /*!
             \brief Creates a solid background.
@@ -58,15 +51,12 @@ namespace tetengo2::gui::drawing {
 
             \param color           A color.
         */
-        explicit solid_background(color_type color)
-        : base_type{}, m_drawing_details{ detail::gui_detail_impl_set().drawing_() }, m_color{ std::move(color) },
-          m_p_details{ m_drawing_details.create_solid_background(m_color) }
-        {}
+        explicit solid_background(color_type color);
 
         /*!
-            \brief Destroys the background.
+            \brief Destroys the solid background.
         */
-        virtual ~solid_background() = default;
+        virtual ~solid_background();
 
 
         // functions
@@ -76,52 +66,31 @@ namespace tetengo2::gui::drawing {
 
             \return The color.
         */
-        const color_type& get_color() const
-        {
-            return m_color;
-        }
+        const color_type& get_color() const;
 
 
     private:
         // types
 
-        using details_type = typename base_type::details_type;
+        using details_type = base_type::details_type;
 
-        using details_ptr_type = typename base_type::details_ptr_type;
+        class impl;
 
 
         // variables
 
-        const drawing_details_type& m_drawing_details;
-
-        const color_type m_color;
-
-        const details_ptr_type m_p_details;
+        const std::unique_ptr<impl> m_p_impl;
 
 
         // virtual functions
 
-        virtual std::unique_ptr<base_type> clone_impl() const override
-        {
-            return std::make_unique<solid_background>(m_drawing_details, m_color);
-        }
+        virtual std::unique_ptr<base_type> clone_impl() const override;
 
-        virtual const drawing_details_type& drawing_details_impl() const override
-        {
-            return m_drawing_details;
-        }
+        virtual const drawing_details_type& drawing_details_impl() const override;
 
-        virtual const details_type& details_impl() const override
-        {
-            assert(m_p_details);
-            return *m_p_details;
-        }
+        virtual const details_type& details_impl() const override;
 
-        virtual details_type& details_impl() override
-        {
-            assert(m_p_details);
-            return *m_p_details;
-        }
+        virtual details_type& details_impl() override;
     };
 }
 

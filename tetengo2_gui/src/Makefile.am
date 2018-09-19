@@ -16,8 +16,16 @@ sources = \
     tetengo2.gui.cursor.cursor_base.cpp \
     tetengo2.gui.cursor.system.cpp \
     tetengo2.gui.dimension.cpp \
+    tetengo2.gui.drawing.background.cpp \
+    tetengo2.gui.drawing.canvas.cpp \
+    tetengo2.gui.drawing.color.cpp \
     tetengo2.gui.drawing.font.cpp \
+    tetengo2.gui.drawing.picture.cpp \
+    tetengo2.gui.drawing.picture_reader.cpp \
+    tetengo2.gui.drawing.solid_background.cpp \
     tetengo2.gui.drawing.system_color_set.cpp \
+    tetengo2.gui.drawing.transparent_background.cpp \
+    tetengo2.gui.drawing.widget_canvas.cpp \
     tetengo2.gui.fixture.cpp \
     tetengo2.gui.icon.cpp \
     tetengo2.gui.menu.shortcut_key.cpp \
@@ -38,6 +46,7 @@ sources = \
     tetengo2.gui.unit.pixel.cpp \
     tetengo2.gui.unit.point.cpp \
     tetengo2.gui.virtual_key.cpp
+
 
 extra_sources =
 
