@@ -13,8 +13,6 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <tetengo2/detail/base/gui_impl_set.h>
-#include <tetengo2/gui/drawing/background.h>
-#include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/gui/drawing/solid_background.h>
 
 
@@ -24,11 +22,11 @@ namespace tetengo2::gui::drawing {
     public:
         // types
 
-        using base_type = background;
+        using base_type = solid_background::base_type;
 
-        using color_type = color;
+        using color_type = solid_background::color_type;
 
-        using drawing_details_type = base_type::drawing_details_type;
+        using drawing_details_type = solid_background::drawing_details_type;
 
 
         // constructors and destructor
