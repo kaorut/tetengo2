@@ -56,7 +56,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_CHECK((background.get_color() == color_type{ 0x12, 0x34, 0x56, 0x78 }));
                 }
 
-                BOOST_AUTO_TEST_CASE(clone)
+                BOOST_AUTO_TEST_CASE(clone_impl)
                 {
                     BOOST_TEST_PASSPOINT();
 
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_CHECK(dynamic_cast<background_type*>(p_clone.get())->get_color() == background.get_color());
                 }
 
-                BOOST_AUTO_TEST_CASE(drawing_details)
+                BOOST_AUTO_TEST_CASE(drawing_details_impl)
                 {
                     BOOST_TEST_PASSPOINT();
 
@@ -80,7 +80,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     background.drawing_details();
                 }
 
-                BOOST_AUTO_TEST_CASE(details)
+                BOOST_AUTO_TEST_CASE(details_impl)
                 {
                     BOOST_TEST_PASSPOINT();
 
