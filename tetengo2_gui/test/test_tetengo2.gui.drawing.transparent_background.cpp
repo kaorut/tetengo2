@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     }
                 }
 
-                BOOST_AUTO_TEST_CASE(clone)
+                BOOST_AUTO_TEST_CASE(clone_impl)
                 {
                     BOOST_TEST_PASSPOINT();
 
@@ -54,7 +54,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST(dynamic_cast<background_type*>(p_clone.get()));
                 }
 
-                BOOST_AUTO_TEST_CASE(drawing_details)
+                BOOST_AUTO_TEST_CASE(drawing_details_impl)
                 {
                     BOOST_TEST_PASSPOINT();
 
@@ -63,7 +63,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     background.drawing_details();
                 }
 
-                BOOST_AUTO_TEST_CASE(details)
+                BOOST_AUTO_TEST_CASE(details_impl)
                 {
                     BOOST_TEST_PASSPOINT();
 

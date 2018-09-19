@@ -74,8 +74,6 @@ namespace tetengo2::gui::drawing {
 
         using details_type = base_type::details_type;
 
-        using details_ptr_type = drawing_details_type::background_details_ptr_type;
-
         class impl;
 
 
