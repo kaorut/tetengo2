@@ -28,6 +28,8 @@ namespace tetengo2::gui::drawing {
 
         using drawing_details_type = solid_background::drawing_details_type;
 
+        using details_type = solid_background::details_type;
+
 
         // constructors and destructor
 
@@ -75,8 +77,6 @@ namespace tetengo2::gui::drawing {
 
     private:
         // types
-
-        using details_type = solid_background::details_type;
 
         using details_ptr_type = drawing_details_type::background_details_ptr_type;
 
