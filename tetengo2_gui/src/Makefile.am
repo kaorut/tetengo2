@@ -28,6 +28,13 @@ sources = \
     tetengo2.gui.drawing.widget_canvas.cpp \
     tetengo2.gui.fixture.cpp \
     tetengo2.gui.icon.cpp \
+    tetengo2.gui.menu.abstract_popup.cpp \
+    tetengo2.gui.menu.command.cpp \
+    tetengo2.gui.menu.menu_bar.cpp \
+    tetengo2.gui.menu.menu_base.cpp \
+    tetengo2.gui.menu.popup.cpp \
+    tetengo2.gui.menu.recursive_iterator.cpp \
+    tetengo2.gui.menu.separator.cpp \
     tetengo2.gui.menu.shortcut_key.cpp \
     tetengo2.gui.message.file_drop_observer_set.cpp \
     tetengo2.gui.message.focus_observer_set.cpp \
