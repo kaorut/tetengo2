@@ -12,6 +12,12 @@ tetengo2::config::[a-zA-Z0-9_]+_config::clear_impl
 tetengo2::gui::cursor::system::details_impl
 tetengo2::gui::drawing::operator ==
 tetengo2::gui::drawing::system_color_set::system_color_set
+tetengo2::gui::menu::menu_base::begin_impl
+tetengo2::gui::menu::menu_base::end_impl
+tetengo2::gui::menu::menu_base::erase_impl
+tetengo2::gui::menu::menu_base::insert_impl
+tetengo2::gui::menu::menu_base::recursive_begin_impl
+tetengo2::gui::menu::menu_base::recursive_end_impl
 tetengo2::gui::menu::operator ==
 tetengo2::gui::operator ==
 tetengo2::gui::unit::operator ==
