@@ -34,8 +34,6 @@ namespace tetengo2::gui::menu {
 
         using base_type = abstract_popup::base_type;
 
-        using shortcut_key_type = abstract_popup::shortcut_key_type;
-
         using const_iterator = abstract_popup::const_iterator;
 
         using iterator = abstract_popup::iterator;

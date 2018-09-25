@@ -34,9 +34,6 @@ namespace tetengo2::gui::menu {
         //! The base type.
         using base_type = menu_base;
 
-        //! The shortcut key type.
-        using shortcut_key_type = typename base_type::shortcut_key_type;
-
         //! The const iterator type.
         using const_iterator = typename base_type::const_iterator;
 
