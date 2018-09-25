@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     const menu_command_type menu_command{ string_type{ TETENGO2_TEXT("Tetengo") } };
                 }
 
-                BOOST_AUTO_TEST_CASE(style)
+                BOOST_AUTO_TEST_CASE(style_impl)
                 {
                     BOOST_TEST_PASSPOINT();
 
