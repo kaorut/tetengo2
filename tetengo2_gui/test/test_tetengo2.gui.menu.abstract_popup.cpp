@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     const concrete_popup_menu popup_menu{ string_type{ TETENGO2_TEXT("Tetengo") } };
                 }
 
-                BOOST_AUTO_TEST_CASE(insert)
+                BOOST_AUTO_TEST_CASE(insert_impl)
                 {
                     BOOST_TEST_PASSPOINT();
 
@@ -93,7 +93,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_CHECK(std::next(popup_menu.begin())->text() == string_type{ TETENGO2_TEXT("Hoge") });
                 }
 
-                BOOST_AUTO_TEST_CASE(erase)
+                BOOST_AUTO_TEST_CASE(erase_impl)
                 {
                     BOOST_TEST_PASSPOINT();
 
@@ -114,7 +114,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_TEST(std::distance(popup_menu.begin(), popup_menu.end()) == 0);
                 }
 
-                BOOST_AUTO_TEST_CASE(begin)
+                BOOST_AUTO_TEST_CASE(begin_impl)
                 {
                     BOOST_TEST_PASSPOINT();
 
@@ -130,7 +130,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     }
                 }
 
-                BOOST_AUTO_TEST_CASE(end)
+                BOOST_AUTO_TEST_CASE(end_impl)
                 {
                     BOOST_TEST_PASSPOINT();
 
@@ -165,7 +165,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     }
                 }
 
-                BOOST_AUTO_TEST_CASE(recursive_begin)
+                BOOST_AUTO_TEST_CASE(recursive_begin_impl)
                 {
                     BOOST_TEST_PASSPOINT();
 
@@ -181,7 +181,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     }
                 }
 
-                BOOST_AUTO_TEST_CASE(recursive_end)
+                BOOST_AUTO_TEST_CASE(recursive_end_impl)
                 {
                     BOOST_TEST_PASSPOINT();
 
