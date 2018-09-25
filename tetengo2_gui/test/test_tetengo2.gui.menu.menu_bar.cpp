@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     const menu_bar_type menu_bar;
                 }
 
-                BOOST_AUTO_TEST_CASE(style)
+                BOOST_AUTO_TEST_CASE(style_impl)
                 {
                     BOOST_TEST_PASSPOINT();
 

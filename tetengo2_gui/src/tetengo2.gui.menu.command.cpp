@@ -14,7 +14,6 @@
 #include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/base/menu.h>
 #include <tetengo2/gui/menu/command.h>
-#include <tetengo2/gui/menu/menu_base.h>
 
 
 namespace tetengo2::gui::menu {
@@ -26,9 +25,9 @@ namespace tetengo2::gui::menu {
     public:
         // types
 
-        using base_type = menu_base;
+        using base_type = command::base_type;
 
-        using style_type = typename base_type::style_type;
+        using style_type = command::style_type;
 
 
         // functions
