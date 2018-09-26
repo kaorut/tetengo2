@@ -25,10 +25,6 @@ namespace tetengo2::gui::menu {
     public:
         // types
 
-        using string_type = menu_bar::string_type;
-
-        using base_type = menu_bar::base_type;
-
         using shortcut_key_table_type = menu_bar::shortcut_key_table_type;
 
         using style_type = menu_bar::style_type;

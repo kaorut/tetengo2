@@ -22,10 +22,6 @@ namespace tetengo2::gui::menu {
     public:
         // types
 
-        using string_type = popup::string_type;
-
-        using base_type = popup::base_type;
-
         using style_type = popup::style_type;
 
 

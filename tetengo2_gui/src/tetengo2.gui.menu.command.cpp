@@ -25,8 +25,6 @@ namespace tetengo2::gui::menu {
     public:
         // types
 
-        using base_type = command::base_type;
-
         using style_type = command::style_type;
 
 

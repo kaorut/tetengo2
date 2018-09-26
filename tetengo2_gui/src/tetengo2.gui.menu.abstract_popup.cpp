@@ -28,10 +28,6 @@ namespace tetengo2::gui::menu {
     public:
         // types
 
-        using string_type = abstract_popup::string_type;
-
-        using details_ptr_type = abstract_popup::details_ptr_type;
-
         using base_type = abstract_popup::base_type;
 
         using const_iterator = abstract_popup::const_iterator;
