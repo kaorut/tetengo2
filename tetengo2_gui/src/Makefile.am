@@ -36,6 +36,7 @@ sources = \
     tetengo2.gui.menu.recursive_iterator.cpp \
     tetengo2.gui.menu.separator.cpp \
     tetengo2.gui.menu.shortcut_key.cpp \
+    tetengo2.gui.menu.shortcut_key_table.cpp \
     tetengo2.gui.message.file_drop_observer_set.cpp \
     tetengo2.gui.message.focus_observer_set.cpp \
     tetengo2.gui.message.keyboard_observer_set.cpp \
