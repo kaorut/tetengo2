@@ -9,23 +9,16 @@
 #if !defined(TETENGO2_GUI_MENU_MENUBASE_H)
 #define TETENGO2_GUI_MENU_MENUBASE_H
 
-#include <algorithm>
-#include <cassert>
 #include <memory>
-#include <stdexcept>
-#include <type_traits>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
-#include <boost/throw_exception.hpp>
 
-#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/base/menu.h>
 #include <tetengo2/gui/menu/recursive_iterator.h>
 #include <tetengo2/gui/menu/shortcut_key.h>
 #include <tetengo2/gui/message/menu_observer_set.h>
-#include <tetengo2/stdalt.h>
 #include <tetengo2/type_list.h>
 
 
@@ -83,7 +76,7 @@ namespace tetengo2::gui::menu {
         /*!
             \brief Destroys the menu base.
         */
-        virtual ~menu_base() = default;
+        virtual ~menu_base();
 
 
         // functions
@@ -93,72 +86,49 @@ namespace tetengo2::gui::menu {
 
             \return The text.
         */
-        const string_type& text() const
-        {
-            return m_text;
-        }
+        const string_type& text() const;
 
         /*!
             \brief Returns the style.
 
             \return The style.
         */
-        const style_type& style() const
-        {
-            return style_impl();
-        }
+        const style_type& style() const;
 
         /*!
             \brief Returns the enabled status.
 
             \return The enabled status.
         */
-        bool enabled() const
-        {
-            return m_enabled;
-        }
+        bool enabled() const;
 
         /*!
             \brief Sets an enabled status.
 
             \param enabled An enabled status.
         */
-        void set_enabled(const bool enabled)
-        {
-            detail::gui_detail_impl_set().menu_().set_enabled(*this, enabled);
-            m_enabled = enabled;
-        }
+        void set_enabled(const bool enabled);
 
         /*!
             \brief Returns the state.
 
             \return The state.
         */
-        state_type state() const
-        {
-            return m_state;
-        }
+        state_type state() const;
 
         /*!
             \brief Sets a state.
 
             \param state A state.
         */
-        void set_state(const state_type state)
-        {
-            detail::gui_detail_impl_set().menu_().set_state(*this, static_cast<detail::base::menu::state_type>(state));
-            m_state = state;
-        }
+        void set_state(const state_type state);
 
         /*!
             \brief Checks whether the menu has a shortucut key.
 
             \retval true  When the menu has a shortcut key.
         */
-        bool has_shortcut_key() const
-        {
-            return static_cast<bool>(m_shortcut_key);
-        }
+        bool has_shortcut_key() const;
 
         /*!
             \brief Returns the shortcut key.
@@ -167,81 +137,54 @@ namespace tetengo2::gui::menu {
 
             \throw std::logic_error When the menu has no shortcut key.
         */
-        const shortcut_key_type& get_shortcut_key() const
-        {
-            if (!has_shortcut_key())
-                BOOST_THROW_EXCEPTION((std::logic_error{ "This menu has no shortcut key." }));
-
-            return *m_shortcut_key;
-        }
+        const shortcut_key_type& get_shortcut_key() const;
 
         /*!
             \brief Selects this menu.
         */
-        void select()
-        {
-            m_menu_observer_set.selected()();
-        }
+        void select();
 
         /*!
             \brief Returns the menu observer set.
 
             \return The menu observer set.
         */
-        const menu_observer_set_type& menu_observer_set() const
-        {
-            return m_menu_observer_set;
-        }
+        const menu_observer_set_type& menu_observer_set() const;
 
         /*!
             \brief Returns the menu observer set.
 
             \return The menu observer set.
         */
-        menu_observer_set_type& menu_observer_set()
-        {
-            return m_menu_observer_set;
-        }
+        menu_observer_set_type& menu_observer_set();
 
         /*!
             \brief Returns the first immutable iterator to the children.
 
             \return The first immutable iterator.
         */
-        const_iterator begin() const
-        {
-            return begin_impl();
-        }
+        const_iterator begin() const;
 
         /*!
             \brief Returns the first mutable iterator to the children.
 
             \return The first mutable iterator.
         */
-        iterator begin()
-        {
-            return begin_impl();
-        }
+        iterator begin();
 
         /*!
             \brief Returns the last immutable iterator to the children.
 
             \return The last immutable iterator.
         */
-        const_iterator end() const
-        {
-            return end_impl();
-        }
+        const_iterator end() const;
 
         /*!
             \brief Returns the last mutable iterator to the children.
 
             \return The last mutable iterator.
         */
-        iterator end()
-        {
-            return end_impl();
-        }
+        iterator end();
 
         /*!
             \brief Returns the recursive first immutable iterator to this menu and the children.
@@ -250,10 +193,7 @@ namespace tetengo2::gui::menu {
 
             \return The recursive first immutable iterator.
         */
-        const_recursive_iterator_type recursive_begin() const
-        {
-            return recursive_begin_impl();
-        }
+        const_recursive_iterator_type recursive_begin() const;
 
         /*!
             \brief Returns the recursive first mutable iterator to this menu and the children.
@@ -262,30 +202,21 @@ namespace tetengo2::gui::menu {
 
             \return The recursive first mutable iterator.
         */
-        recursive_iterator_type recursive_begin()
-        {
-            return recursive_begin_impl();
-        }
+        recursive_iterator_type recursive_begin();
 
         /*!
             \brief Returns the recursive last immutable iterator to this menu and the children.
 
             \return The recursive last immutable iterator.
         */
-        const_recursive_iterator_type recursive_end() const
-        {
-            return recursive_end_impl();
-        }
+        const_recursive_iterator_type recursive_end() const;
 
         /*!
             \brief Returns the recursive last mutable iterator to this menu and the children.
 
             \return The recursive last mutable iterator.
         */
-        recursive_iterator_type recursive_end()
-        {
-            return recursive_end_impl();
-        }
+        recursive_iterator_type recursive_end();
 
         /*!
             \brief Inserts a menu as a child.
@@ -293,10 +224,7 @@ namespace tetengo2::gui::menu {
             \param offset An offset where a menu is inserted.
             \param p_menu A unique pointer to a menu. It must not be nullptr.
         */
-        void insert(const iterator offset, std::unique_ptr<menu_base> p_menu)
-        {
-            insert_impl(offset, std::move(p_menu));
-        }
+        void insert(const iterator offset, std::unique_ptr<menu_base> p_menu);
 
         /*!
             \brief Erases the menus from the children.
@@ -306,32 +234,21 @@ namespace tetengo2::gui::menu {
 
             \throw std::logic_error Always.
         */
-        void erase(const iterator first, const iterator last)
-        {
-            erase_impl(first, last);
-        }
+        void erase(const iterator first, const iterator last);
 
         /*!
             \brief Returns the detail implementation.
 
             \return The detail implementation.
         */
-        const details_type& details() const
-        {
-            assert(m_p_details);
-            return *m_p_details;
-        }
+        const details_type& details() const;
 
         /*!
             \brief Returns the detail implementation.
 
             \return The detail implementation.
         */
-        details_type& details()
-        {
-            assert(m_p_details);
-            return *m_p_details;
-        }
+        details_type& details();
 
 
     protected:
@@ -343,13 +260,7 @@ namespace tetengo2::gui::menu {
             \param text      A text.
             \param p_details A unique pointer to a detail implementation.
         */
-        menu_base(string_type text, details_ptr_type p_details)
-        : m_text{ std::move(text) }, m_enabled{ true }, m_state{ state_type::default_ }, m_shortcut_key{},
-          m_menu_observer_set{}, m_p_details{ std::move(p_details) }
-        {
-            set_enabled(true);
-            set_state(state_type::default_);
-        }
+        menu_base(string_type text, details_ptr_type p_details);
 
         /*!
             \brief Creates a menu base without a shortcut key.
@@ -358,97 +269,43 @@ namespace tetengo2::gui::menu {
             \param shortcut_key A shortcut key.
             \param p_details    A unique pointer to a detail implementation.
         */
-        menu_base(string_type text, shortcut_key_type shortcut_key, details_ptr_type p_details)
-        : m_text{ std::move(text) }, m_enabled{ true }, m_state{ state_type::default_ },
-          m_shortcut_key{ std::move(shortcut_key) }, m_menu_observer_set{}, m_p_details{ std::move(p_details) }
-        {
-            set_enabled(true);
-            set_state(state_type::default_);
-        }
+        menu_base(string_type text, shortcut_key_type shortcut_key, details_ptr_type p_details);
 
 
     private:
-        // static functions
+        // types
 
-        static std::vector<std::unique_ptr<menu_base>>& empty_children()
-        {
-            static std::vector<std::unique_ptr<menu_base>> singleton;
-            assert(singleton.empty());
-            return singleton;
-        }
+        class impl;
 
 
         // variables
 
-        const string_type m_text;
-
-        bool m_enabled;
-
-        state_type m_state;
-
-        const tetengo2::stdalt::optional<shortcut_key_type> m_shortcut_key;
-
-        menu_observer_set_type m_menu_observer_set;
-
-        const details_ptr_type m_p_details;
+        const std::unique_ptr<impl> m_p_impl;
 
 
         // virtual functions
 
         virtual const style_type& style_impl() const = 0;
 
-        virtual const_iterator begin_impl() const
-        {
-            return { empty_children().begin() };
-        }
+        virtual const_iterator begin_impl() const;
 
-        virtual iterator begin_impl()
-        {
-            return { empty_children().begin() };
-        }
+        virtual iterator begin_impl();
 
-        virtual const_iterator end_impl() const
-        {
-            return { empty_children().end() };
-        }
+        virtual const_iterator end_impl() const;
 
-        virtual iterator end_impl()
-        {
-            return { empty_children().end() };
-        }
+        virtual iterator end_impl();
 
-        virtual const_recursive_iterator_type recursive_begin_impl() const
-        {
-            return {};
-        }
+        virtual const_recursive_iterator_type recursive_begin_impl() const;
 
-        virtual recursive_iterator_type recursive_begin_impl()
-        {
-            return {};
-        }
+        virtual recursive_iterator_type recursive_begin_impl();
 
-        virtual const_recursive_iterator_type recursive_end_impl() const
-        {
-            return {};
-        }
+        virtual const_recursive_iterator_type recursive_end_impl() const;
 
-        virtual recursive_iterator_type recursive_end_impl()
-        {
-            return {};
-        }
+        virtual recursive_iterator_type recursive_end_impl();
 
-        virtual void insert_impl(
-            TETENGO2_STDALT_MAYBE_UNUSED const iterator offset,
-            TETENGO2_STDALT_MAYBE_UNUSED std::unique_ptr<menu_base> p_menu)
-        {
-            BOOST_THROW_EXCEPTION((std::logic_error{ "Can't insert any menus." }));
-        }
+        virtual void insert_impl(const iterator offset, std::unique_ptr<menu_base> p_menu);
 
-        virtual void
-        erase_impl(TETENGO2_STDALT_MAYBE_UNUSED const iterator first, TETENGO2_STDALT_MAYBE_UNUSED const iterator last)
-        {
-            BOOST_THROW_EXCEPTION((std::logic_error{ "Can't erase any menus." }));
-        }
+        virtual void erase_impl(const iterator first, const iterator last);
     };
 }
 

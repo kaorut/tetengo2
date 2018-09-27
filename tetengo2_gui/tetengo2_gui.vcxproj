@@ -131,7 +131,15 @@
     <ClCompile Include="src\tetengo2.gui.drawing.widget_canvas.cpp" />
     <ClCompile Include="src\tetengo2.gui.fixture.cpp" />
     <ClCompile Include="src\tetengo2.gui.icon.cpp" />
+    <ClCompile Include="src\tetengo2.gui.menu.abstract_popup.cpp" />
+    <ClCompile Include="src\tetengo2.gui.menu.command.cpp" />
+    <ClCompile Include="src\tetengo2.gui.menu.menu_bar.cpp" />
+    <ClCompile Include="src\tetengo2.gui.menu.menu_base.cpp" />
+    <ClCompile Include="src\tetengo2.gui.menu.popup.cpp" />
+    <ClCompile Include="src\tetengo2.gui.menu.recursive_iterator.cpp" />
+    <ClCompile Include="src\tetengo2.gui.menu.separator.cpp" />
     <ClCompile Include="src\tetengo2.gui.menu.shortcut_key.cpp" />
+    <ClCompile Include="src\tetengo2.gui.menu.shortcut_key_table.cpp" />
     <ClCompile Include="src\tetengo2.gui.message.file_drop_observer_set.cpp" />
     <ClCompile Include="src\tetengo2.gui.message.focus_observer_set.cpp" />
     <ClCompile Include="src\tetengo2.gui.message.keyboard_observer_set.cpp" />

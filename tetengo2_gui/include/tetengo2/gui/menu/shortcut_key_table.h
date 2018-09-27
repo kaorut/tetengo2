@@ -9,19 +9,14 @@
 #if !defined(TETENGO2_GUI_MENU_SHORTCUTKEYTABLE_H)
 #define TETENGO2_GUI_MENU_SHORTCUTKEYTABLE_H
 
-#include <cassert>
-#include <iterator>
 #include <memory>
 #include <utility>
 #include <vector>
 
 #include <boost/core/noncopyable.hpp>
-#include <boost/iterator/iterator_facade.hpp>
 
-#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/base/menu.h>
 #include <tetengo2/gui/menu/menu_base.h>
-#include <tetengo2/gui/menu/recursive_iterator.h>
 #include <tetengo2/gui/menu/shortcut_key.h>
 
 
@@ -55,20 +50,19 @@ namespace tetengo2::gui::menu {
         /*!
             \brief Creates an empty shortcut key table.
         */
-        shortcut_key_table()
-        : m_entries{}, m_p_details{ detail::gui_detail_impl_set().menu_().create_shortcut_key_table() }
-        {}
+        shortcut_key_table();
 
         /*!
             \brief Creates a shortcut key table.
 
             \param root_menu A root menu.
         */
-        shortcut_key_table(const menu_base_type& root_menu)
-        : m_entries{ build_entries(root_menu.recursive_begin(), root_menu.recursive_end()) }, m_p_details{
-              detail::gui_detail_impl_set().menu_().create_shortcut_key_table(root_menu)
-          }
-        {}
+        shortcut_key_table(const menu_base_type& root_menu);
+
+        /*!
+            \brief Destroys the shortcut key table.
+        */
+        ~shortcut_key_table();
 
 
         // functions
@@ -78,75 +72,39 @@ namespace tetengo2::gui::menu {
 
             \return The first immutable iterator.
         */
-        iterator begin() const
-        {
-            return m_entries.begin();
-        }
+        iterator begin() const;
 
         /*!
             \brief Returns the last immutable iterator to the entries.
 
             \return The last immutable iterator.
         */
-        iterator end() const
-        {
-            return m_entries.end();
-        }
+        iterator end() const;
 
         /*!
             \brief Returns the detail implementation.
 
             \return The detail implementation.
         */
-        const details_type& details() const
-        {
-            assert(m_p_details);
-            return *m_p_details;
-        }
+        const details_type& details() const;
 
         /*!
             \brief Returns the detail implementation.
 
             \return The detail implementation.
         */
-        details_type& details()
-        {
-            assert(m_p_details);
-            return *m_p_details;
-        }
+        details_type& details();
 
 
     private:
         // types
 
-        using details_ptr_type = detail::base::menu::shortcut_key_table_details_ptr_type;
-
-
-        // static functions
-
-        template <typename ForwardIterator>
-        static std::vector<entry_type> build_entries(const ForwardIterator first, const ForwardIterator last)
-        {
-            std::vector<entry_type> entries{};
-            entries.reserve(std::distance(first, last));
-
-            for (ForwardIterator i = first; i != last; ++i)
-            {
-                if (!i->has_shortcut_key())
-                    continue;
-
-                entries.emplace_back(i->get_shortcut_key(), &*i);
-            }
-
-            return entries;
-        }
+        class impl;
 
 
         // variables
 
-        std::vector<entry_type> m_entries;
-
-        details_ptr_type m_p_details;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

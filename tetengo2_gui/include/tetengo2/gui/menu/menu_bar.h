@@ -9,11 +9,8 @@
 #if !defined(TETENGO2_GUI_MENU_MENUBAR_H)
 #define TETENGO2_GUI_MENU_MENUBAR_H
 
-#include <cassert>
 #include <memory>
 
-#include <tetengo2/detail/base/gui_impl_set.h>
-#include <tetengo2/detail/base/menu.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/gui/menu/shortcut_key_table.h>
 #include <tetengo2/type_list.h>
@@ -37,22 +34,21 @@ namespace tetengo2::gui::menu {
         //! The shortcut key table type.
         using shortcut_key_table_type = shortcut_key_table;
 
+        //! The style type.
+        using style_type = typename base_type::base_type::style_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a menu bar.
         */
-        menu_bar()
-        : base_type{ string_type{}, detail::gui_detail_impl_set().menu_().create_menu_bar() }, m_p_shortcut_key_table{
-              std::make_unique<shortcut_key_table_type>()
-          }
-        {}
+        menu_bar();
 
         /*!
             \brief Destroys the menu bar.
         */
-        virtual ~menu_bar() = default;
+        virtual ~menu_bar();
 
 
         // functions
@@ -62,38 +58,28 @@ namespace tetengo2::gui::menu {
 
             \return The shortcut key table.
         */
-        const shortcut_key_table_type& get_shortcut_key_table() const
-        {
-            assert(m_p_shortcut_key_table);
-            return *m_p_shortcut_key_table;
-        }
+        const shortcut_key_table_type& get_shortcut_key_table() const;
 
         /*!
             \brief Updates the shortcut key table.
         */
-        void update_shortcut_key_table()
-        {
-            m_p_shortcut_key_table = std::make_unique<shortcut_key_table_type>(*this);
-        }
+        void update_shortcut_key_table();
 
 
     private:
         // types
 
-        using style_type = typename base_type::base_type::style_type;
+        class impl;
 
 
         // variables
 
-        std::unique_ptr<shortcut_key_table_type> m_p_shortcut_key_table;
+        const std::unique_ptr<impl> m_p_impl;
 
 
         // virtual functions
 
-        virtual const style_type& style_impl() const override
-        {
-            return detail::gui_detail_impl_set().menu_().menu_bar_style();
-        }
+        virtual const style_type& style_impl() const override;
     };
 }
 

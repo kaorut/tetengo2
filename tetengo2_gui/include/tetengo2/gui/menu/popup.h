@@ -9,10 +9,8 @@
 #if !defined(TETENGO2_GUI_MENU_POPUP_H)
 #define TETENGO2_GUI_MENU_POPUP_H
 
-#include <algorithm>
+#include <memory>
 
-#include <tetengo2/detail/base/gui_impl_set.h>
-#include <tetengo2/detail/base/menu.h>
 #include <tetengo2/gui/menu/abstract_popup.h>
 #include <tetengo2/type_list.h>
 
@@ -32,6 +30,9 @@ namespace tetengo2::gui::menu {
         //! The base type.
         using base_type = abstract_popup;
 
+        //! The style type.
+        using style_type = typename base_type::style_type;
+
 
         // constructors and destructor
 
@@ -40,28 +41,28 @@ namespace tetengo2::gui::menu {
 
             \param text A text.
         */
-        explicit popup(string_type text)
-        : base_type{ std::move(text), detail::gui_detail_impl_set().menu_().create_popup_menu() }
-        {}
+        explicit popup(string_type text);
 
         /*!
             \brief Destroys the popup menu.
         */
-        virtual ~popup() = default;
+        virtual ~popup();
 
 
     private:
         // types
 
-        using style_type = typename base_type::style_type;
+        class impl;
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
 
 
         // virtual functions
 
-        virtual const style_type& style_impl() const override
-        {
-            return detail::gui_detail_impl_set().menu_().popup_menu_style();
-        }
+        virtual const style_type& style_impl() const override;
     };
 }
 

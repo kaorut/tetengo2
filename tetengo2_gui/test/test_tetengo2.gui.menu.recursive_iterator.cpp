@@ -72,6 +72,40 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         const auto          p_menu = create_menu();
                         const iterator_type iterator{ p_menu.get() };
                     }
+                    {
+                        const auto          p_menu = create_menu();
+                        const iterator_type iterator1{ p_menu.get() };
+                        const iterator_type iterator2{ iterator1 };
+
+                        BOOST_TEST(iterator1.equal(iterator2));
+                    }
+                    {
+                        const auto          p_menu = create_menu();
+                        iterator_type       iterator1{ p_menu.get() };
+                        const iterator_type iterator2{ std::move(iterator1) };
+                    }
+                }
+
+                BOOST_AUTO_TEST_CASE(operator_assign)
+                {
+                    BOOST_TEST_PASSPOINT();
+
+                    {
+                        const auto          p_menu = create_menu();
+                        const iterator_type iterator1{ p_menu.get() };
+                        iterator_type       iterator2{};
+
+                        iterator2 = iterator1;
+
+                        BOOST_TEST(iterator1.equal(iterator2));
+                    }
+                    {
+                        const auto    p_menu = create_menu();
+                        iterator_type iterator1{ p_menu.get() };
+                        iterator_type iterator2{};
+
+                        iterator2 = std::move(iterator1);
+                    }
                 }
 
                 BOOST_AUTO_TEST_CASE(dereference)

@@ -9,14 +9,8 @@
 #if !defined(TETENGO2_GUI_MENU_ABSTRACTPOPUP_H)
 #define TETENGO2_GUI_MENU_ABSTRACTPOPUP_H
 
-#include <algorithm>
 #include <memory>
-#include <stdexcept>
-#include <vector>
 
-#include <boost/throw_exception.hpp>
-
-#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/base/menu.h>
 #include <tetengo2/gui/menu/menu_base.h>
 #include <tetengo2/type_list.h>
@@ -40,9 +34,6 @@ namespace tetengo2::gui::menu {
         //! The base type.
         using base_type = menu_base;
 
-        //! The shortcut key type.
-        using shortcut_key_type = typename base_type::shortcut_key_type;
-
         //! The const iterator type.
         using const_iterator = typename base_type::const_iterator;
 
@@ -56,8 +47,16 @@ namespace tetengo2::gui::menu {
         using recursive_iterator_type = typename base_type::recursive_iterator_type;
 
 
-    protected:
         // constructors and destructor
+
+        /*!
+            \brief Destroys the abstract_popup.
+        */
+        virtual ~abstract_popup();
+
+
+    protected:
+        // constructors
 
         /*!
             \brief Creates an abstract popup menu.
@@ -65,80 +64,41 @@ namespace tetengo2::gui::menu {
             \param text      A text.
             \param p_details A unique pointer to a detail implementation.
         */
-        abstract_popup(string_type text, details_ptr_type p_details)
-        : base_type{ std::move(text), std::move(p_details) }, m_children{}
-        {}
-
-        /*!
-            \brief Destroys the abstract_popup.
-        */
-        virtual ~abstract_popup() = default;
+        abstract_popup(string_type text, details_ptr_type p_details);
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        std::vector<std::unique_ptr<base_type>> m_children;
+        const std::unique_ptr<impl> m_p_impl;
 
 
         // virtual functions
 
-        virtual const_iterator begin_impl() const override
-        {
-            return { m_children.begin() };
-        }
+        virtual const_iterator begin_impl() const override;
 
-        virtual iterator begin_impl() override
-        {
-            return { m_children.begin() };
-        }
+        virtual iterator begin_impl() override;
 
-        virtual const_iterator end_impl() const override
-        {
-            return { m_children.end() };
-        }
+        virtual const_iterator end_impl() const override;
 
-        virtual iterator end_impl() override
-        {
-            return { m_children.end() };
-        }
+        virtual iterator end_impl() override;
 
-        virtual const_recursive_iterator_type recursive_begin_impl() const override
-        {
-            return const_recursive_iterator_type{ this };
-        }
+        virtual const_recursive_iterator_type recursive_begin_impl() const override;
 
-        virtual recursive_iterator_type recursive_begin_impl() override
-        {
-            return recursive_iterator_type{ this };
-        }
+        virtual recursive_iterator_type recursive_begin_impl() override;
 
-        virtual const_recursive_iterator_type recursive_end_impl() const override
-        {
-            return {};
-        }
+        virtual const_recursive_iterator_type recursive_end_impl() const override;
 
-        virtual recursive_iterator_type recursive_end_impl() override
-        {
-            return {};
-        }
+        virtual recursive_iterator_type recursive_end_impl() override;
 
-        virtual void insert_impl(const iterator offset, std::unique_ptr<base_type> p_menu) override
-        {
-            if (!p_menu)
-                BOOST_THROW_EXCEPTION((std::invalid_argument{ "The unique pointer to a menu is nullptr." }));
+        virtual void insert_impl(const iterator offset, std::unique_ptr<base_type> p_menu) override;
 
-            detail::gui_detail_impl_set().menu_().insert_menu(*this, offset, *p_menu);
-
-            m_children.insert(offset.base(), std::move(p_menu));
-        }
-
-        virtual void erase_impl(const iterator first, const iterator last) override
-        {
-            detail::gui_detail_impl_set().menu_().erase_menus(*this, first, last);
-
-            m_children.erase(first.base(), last.base());
-        }
+        virtual void erase_impl(const iterator first, const iterator last) override;
     };
 }
 

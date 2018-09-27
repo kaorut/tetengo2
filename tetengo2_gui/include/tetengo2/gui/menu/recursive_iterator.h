@@ -9,14 +9,9 @@
 #if !defined(TETENGO2_GUI_MENU_RECURSIVEITERATOR_H)
 #define TETENGO2_GUI_MENU_RECURSIVEITERATOR_H
 
-#include <cassert>
-#include <iterator>
-#include <stack>
-#include <utility>
+#include <memory>
 
 #include <boost/iterator/iterator_facade.hpp>
-
-#include <tetengo2/type_list.h>
 
 namespace boost::iterators {
     struct forward_traversal_tag;
@@ -45,33 +40,61 @@ namespace tetengo2::gui::menu {
         /*!
             \brief Creates a recursive iterator.
         */
-        recursive_iterator() : m_p_menu{ nullptr }, m_parents{}
-        {
-            m_parents.emplace(nullptr, 0);
-        }
+        recursive_iterator();
 
         /*!
             \brief Creates a recursive iterator.
 
             \param p_menu A pointer to a menu.
         */
-        explicit recursive_iterator(menu_base_type* const p_menu) : m_p_menu{ p_menu }, m_parents{}
-        {
-            m_parents.emplace(nullptr, 0);
-        }
+        explicit recursive_iterator(menu_base_type* const p_menu);
+
+        /*!
+            \brief Copies a recursive iterator.
+
+            \param another Another recursive iterator.
+        */
+        recursive_iterator(const recursive_iterator& another);
+
+        /*!
+            \brief Moves a recursive iterator.
+
+            \param another Another recursive iterator.
+        */
+        recursive_iterator(recursive_iterator&& another);
+
+        /*!
+            \brief Destroys the recursive iterator.
+        */
+        ~recursive_iterator();
 
 
         // functions
+
+        /*!
+            \brief Assigns an recursive iterator.
+
+            \param another Another recursive_iterator.
+
+            \return This object.
+        */
+        recursive_iterator& operator=(const recursive_iterator& another);
+
+        /*!
+            \brief Assigns an recursive iterator.
+
+            \param another Another recursive_iterator.
+
+            \return This object.
+        */
+        recursive_iterator& operator=(recursive_iterator&& another);
 
         /*!
             \brief Dereferences the iterator.
 
             \return The value.
         */
-        menu_base_type& dereference() const
-        {
-            return *m_p_menu;
-        }
+        menu_base_type& dereference() const;
 
         /*!
             \brief Returns whether this iterator is equal to another.
@@ -81,52 +104,23 @@ namespace tetengo2::gui::menu {
             \retval true  When this iterator is equal to another.
             \retval false Otherwise.
         */
-        bool equal(const recursive_iterator& another) const
-        {
-            return m_p_menu == another.m_p_menu;
-        }
+        bool equal(const recursive_iterator& another) const;
 
         /*!
             \brief Increments the iterator.
         */
-        void increment()
-        {
-            assert(m_p_menu);
-
-            if (m_parents.top().second < std::distance(m_p_menu->begin(), m_p_menu->end()))
-            {
-                const auto index = m_parents.top().second;
-                m_parents.emplace(m_p_menu, 0);
-                m_p_menu = &*std::next(m_p_menu->begin(), index);
-                return;
-            }
-
-            if (!m_parents.top().first)
-            {
-                m_p_menu = nullptr;
-                return;
-            }
-
-            m_p_menu = m_parents.top().first;
-            m_parents.pop();
-            ++m_parents.top().second;
-            increment();
-        }
+        void increment();
 
 
     private:
         // types
 
-        using menu_difference_type = tetengo2::type_list::difference_type;
-
-        using parent_and_index_type = std::pair<menu_base_type*, menu_difference_type>;
+        class impl;
 
 
         // variables
 
-        menu_base_type* m_p_menu;
-
-        std::stack<parent_and_index_type> m_parents;
+        std::unique_ptr<impl> m_p_impl;
     };
 }
 

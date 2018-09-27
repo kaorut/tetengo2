@@ -431,5 +431,29 @@
     <ClCompile Include="src\tetengo2.gui.drawing.widget_canvas.cpp">
       <Filter>sources\tetengo2::gui\drawing</Filter>
     </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.menu.shortcut_key_table.cpp">
+      <Filter>sources\tetengo2::gui\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.menu.abstract_popup.cpp">
+      <Filter>sources\tetengo2::gui\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.menu.command.cpp">
+      <Filter>sources\tetengo2::gui\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.menu.menu_bar.cpp">
+      <Filter>sources\tetengo2::gui\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.menu.menu_base.cpp">
+      <Filter>sources\tetengo2::gui\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.menu.popup.cpp">
+      <Filter>sources\tetengo2::gui\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.menu.recursive_iterator.cpp">
+      <Filter>sources\tetengo2::gui\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.menu.separator.cpp">
+      <Filter>sources\tetengo2::gui\menu</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
