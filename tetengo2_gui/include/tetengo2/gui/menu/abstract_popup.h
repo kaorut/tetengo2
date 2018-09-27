@@ -96,9 +96,9 @@ namespace tetengo2::gui::menu {
 
         virtual recursive_iterator_type recursive_end_impl() override;
 
-        virtual void insert_impl(const iterator offset, std::unique_ptr<base_type> p_menu) override;
+        virtual void insert_impl(iterator offset, std::unique_ptr<base_type> p_menu) override;
 
-        virtual void erase_impl(const iterator first, const iterator last) override;
+        virtual void erase_impl(iterator first, iterator last) override;
     };
 }
 

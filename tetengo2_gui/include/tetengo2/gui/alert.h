@@ -42,7 +42,7 @@ namespace tetengo2::gui {
 
             \param widget_handle A widget handle.
         */
-        explicit alert(const widget_handle_type widget_handle);
+        explicit alert(widget_handle_type widget_handle);
 
         /*!
             \brief Creates an alert.

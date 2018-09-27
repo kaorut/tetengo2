@@ -49,7 +49,7 @@ namespace tetengo2::gui::common_dialog {
 
                 \return A button style.
             */
-            static button_style ok(const bool cancellable);
+            static button_style ok(bool cancellable);
 
             /*!
                 \brief Makes an OK button style with a custom label.
@@ -59,7 +59,7 @@ namespace tetengo2::gui::common_dialog {
 
                 \return A button style.
             */
-            static button_style ok(const bool cancellable, string_type ok_button_label);
+            static button_style ok(bool cancellable, string_type ok_button_label);
 
             /*!
                 \brief Makes a Yes and No button style with standard labels.
@@ -68,7 +68,7 @@ namespace tetengo2::gui::common_dialog {
 
                 \return A button style.
             */
-            static button_style yes_no(const bool cancellable);
+            static button_style yes_no(bool cancellable);
 
             /*!
                 \brief Makes a OK button style with a custom label.
@@ -79,8 +79,7 @@ namespace tetengo2::gui::common_dialog {
 
                 \return A button style.
             */
-            static button_style
-            yes_no(const bool cancellable, string_type yes_button_label, string_type no_button_label);
+            static button_style yes_no(bool cancellable, string_type yes_button_label, string_type no_button_label);
 
 
             // constructors and destructor

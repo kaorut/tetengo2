@@ -65,7 +65,7 @@ namespace tetengo2::gui {
 
             \return The pointer to the virtual key. Or nullptr when no corresponding virtual key to the code.
         */
-        static const virtual_key* find_by_code(const code_type code);
+        static const virtual_key* find_by_code(code_type code);
 
         //! Returns the virtual key for BackSpace.
         //! \return The virtual key.
