@@ -53,6 +53,25 @@ sources = \
     tetengo2.gui.unit.em.cpp \
     tetengo2.gui.unit.pixel.cpp \
     tetengo2.gui.unit.point.cpp \
+    tetengo2.gui.widget.window.cpp \
+    tetengo2.gui.widget.abstract_window.cpp \
+    tetengo2.gui.widget.button.cpp \
+    tetengo2.gui.widget.control.cpp \
+    tetengo2.gui.widget.custom_control.cpp \
+    tetengo2.gui.widget.dialog.cpp \
+    tetengo2.gui.widget.dropdown_box.cpp \
+    tetengo2.gui.widget.image.cpp \
+    tetengo2.gui.widget.label.cpp \
+    tetengo2.gui.widget.link_label.cpp \
+    tetengo2.gui.widget.list_box.cpp \
+    tetengo2.gui.widget.map_box.cpp \
+    tetengo2.gui.widget.picture_box.cpp \
+    tetengo2.gui.widget.progress_bar.cpp \
+    tetengo2.gui.widget.progress_dialog.cpp \
+    tetengo2.gui.widget.side_bar.cpp \
+    tetengo2.gui.widget.tab_frame.cpp \
+    tetengo2.gui.widget.text_box.cpp \
+    tetengo2.gui.widget.widget.cpp \
     tetengo2.gui.virtual_key.cpp
 
 
