@@ -57,21 +57,15 @@ namespace tetengo2::gui::menu {
 
         // constructors and destructor
 
-        impl(string_type text, details_ptr_type p_details, menu_base& self)
+        impl(string_type text, details_ptr_type p_details)
         : m_text{ std::move(text) }, m_enabled{ true }, m_state{ state_type::default_ }, m_shortcut_key{},
           m_menu_observer_set{}, m_p_details{ std::move(p_details) }
-        {
-            detail::gui_detail_impl_set().menu_().set_enabled(self, m_enabled);
-            detail::gui_detail_impl_set().menu_().set_state(self, static_cast<detail::base::menu::state_type>(m_state));
-        }
+        {}
 
-        impl(string_type text, shortcut_key_type shortcut_key, details_ptr_type p_details, menu_base& self)
+        impl(string_type text, shortcut_key_type shortcut_key, details_ptr_type p_details)
         : m_text{ std::move(text) }, m_enabled{ true }, m_state{ state_type::default_ },
           m_shortcut_key{ std::move(shortcut_key) }, m_menu_observer_set{}, m_p_details{ std::move(p_details) }
-        {
-            detail::gui_detail_impl_set().menu_().set_enabled(self, m_enabled);
-            detail::gui_detail_impl_set().menu_().set_state(self, static_cast<detail::base::menu::state_type>(m_state));
-        }
+        {}
 
 
         // functions
@@ -396,12 +390,20 @@ namespace tetengo2::gui::menu {
     }
 
     menu_base::menu_base(string_type text, details_ptr_type p_details)
-    : m_p_impl{ std::make_unique<impl>(std::move(text), std::move(p_details), *this) }
-    {}
+    : m_p_impl{ std::make_unique<impl>(std::move(text), std::move(p_details)) }
+    {
+        detail::gui_detail_impl_set().menu_().set_enabled(*this, m_p_impl->enabled());
+        detail::gui_detail_impl_set().menu_().set_state(
+            *this, static_cast<detail::base::menu::state_type>(m_p_impl->state()));
+    }
 
     menu_base::menu_base(string_type text, shortcut_key_type shortcut_key, details_ptr_type p_details)
-    : m_p_impl{ std::make_unique<impl>(std::move(text), std::move(shortcut_key), std::move(p_details), *this) }
-    {}
+    : m_p_impl{ std::make_unique<impl>(std::move(text), std::move(shortcut_key), std::move(p_details)) }
+    {
+        detail::gui_detail_impl_set().menu_().set_enabled(*this, m_p_impl->enabled());
+        detail::gui_detail_impl_set().menu_().set_state(
+            *this, static_cast<detail::base::menu::state_type>(m_p_impl->state()));
+    }
 
     menu_base::const_iterator menu_base::begin_impl() const
     {
