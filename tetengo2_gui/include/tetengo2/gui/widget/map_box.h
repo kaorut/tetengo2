@@ -290,10 +290,10 @@ namespace tetengo2::gui::widget {
             {
                 auto adjusted_position = adjust_position(std::move(position));
 
-                if (this->template parent_to<map_box>().m_splitter_position == adjusted_position)
+                if (this->template parent_as<map_box>().m_splitter_position == adjusted_position)
                     return;
 
-                this->template parent_to<map_box>().m_splitter_position = std::move(adjusted_position);
+                this->template parent_as<map_box>().m_splitter_position = std::move(adjusted_position);
 
                 this->parent().size_observer_set().resized()();
                 this->parent().repaint();
@@ -325,8 +325,8 @@ namespace tetengo2::gui::widget {
 
             virtual void resized_impl() override
             {
-                adjust_position(this->template parent_to<map_box>().m_splitter_position);
-                this->set_position(position_type{ this->template parent_to<map_box>().m_splitter_position - width() / 2,
+                adjust_position(this->template parent_as<map_box>().m_splitter_position);
+                this->set_position(position_type{ this->template parent_as<map_box>().m_splitter_position - width() / 2,
                                                   position_unit_type{} });
 
                 const auto map_box_client_dimension = this->parent().client_dimension();
@@ -458,7 +458,7 @@ namespace tetengo2::gui::widget {
                 if (outside_client_area(position_to_paint_))
                     return;
 
-                if (this->template parent_to<map_box>().selected_value_index() == index())
+                if (this->template parent_as<map_box>().selected_value_index() == index())
                 {
                     canvas.set_color(system_color_set_type::instance().selected_text());
                     canvas.set_background(std::make_unique<solid_background_type>(
@@ -491,7 +491,7 @@ namespace tetengo2::gui::widget {
                 if (!this->inside(cursor_position))
                     return;
 
-                this->template parent_to<map_box>().select_value(index());
+                this->template parent_as<map_box>().select_value(index());
                 this->parent().repaint();
             }
 
@@ -523,7 +523,7 @@ namespace tetengo2::gui::widget {
 
             position_type mapped_text_position(const position_type& position_to_paint_) const
             {
-                auto left = position_to_paint_.left() + this->template parent_to<map_box>().m_splitter_position +
+                auto left = position_to_paint_.left() + this->template parent_as<map_box>().m_splitter_position +
                             position_unit_type::from(padding_width());
                 auto top = position_to_paint_.top() + position_unit_type::from(padding_height());
 
@@ -532,10 +532,10 @@ namespace tetengo2::gui::widget {
 
             dimension_unit_type key_text_max_width() const
             {
-                if (dimension_unit_type::from(this->template parent_to<map_box>().m_splitter_position) >
+                if (dimension_unit_type::from(this->template parent_as<map_box>().m_splitter_position) >
                     padding_width() * 2)
                 {
-                    return dimension_unit_type::from(this->template parent_to<map_box>().m_splitter_position) -
+                    return dimension_unit_type::from(this->template parent_as<map_box>().m_splitter_position) -
                            padding_width() * 2;
                 }
                 else
@@ -548,11 +548,11 @@ namespace tetengo2::gui::widget {
             {
                 const dimension_unit_type map_box_client_width = this->parent().client_dimension().width();
                 if (map_box_client_width >
-                    dimension_unit_type::from(this->template parent_to<map_box>().m_splitter_position) +
+                    dimension_unit_type::from(this->template parent_as<map_box>().m_splitter_position) +
                         padding_width() * 2)
                 {
                     return map_box_client_width -
-                           dimension_unit_type::from(this->template parent_to<map_box>().m_splitter_position) -
+                           dimension_unit_type::from(this->template parent_as<map_box>().m_splitter_position) -
                            padding_width() * 2;
                 }
                 else
@@ -579,7 +579,7 @@ namespace tetengo2::gui::widget {
                 const auto& left = position_to_paint_.left();
                 const auto& top = position_to_paint_.top();
                 const auto& height = this->dimension().height();
-                const auto& splitter_position = this->template parent_to<map_box>().m_splitter_position;
+                const auto& splitter_position = this->template parent_as<map_box>().m_splitter_position;
 
                 return std::make_pair(
                     position_type{ left + splitter_position, top },
@@ -589,11 +589,11 @@ namespace tetengo2::gui::widget {
             size_type index() const
             {
                 const auto my_position = std::find_if(
-                    this->template parent_to<map_box>().m_p_value_items.begin(),
-                    this->template parent_to<map_box>().m_p_value_items.end(),
+                    this->template parent_as<map_box>().m_p_value_items.begin(),
+                    this->template parent_as<map_box>().m_p_value_items.end(),
                     [this](const std::unique_ptr<value_item>& p_item) { return p_item.get() == this; });
-                assert(my_position != this->template parent_to<map_box>().m_p_value_items.end());
-                return std::distance(this->template parent_to<map_box>().m_p_value_items.begin(), my_position);
+                assert(my_position != this->template parent_as<map_box>().m_p_value_items.end());
+                return std::distance(this->template parent_as<map_box>().m_p_value_items.begin(), my_position);
             }
         };
 
