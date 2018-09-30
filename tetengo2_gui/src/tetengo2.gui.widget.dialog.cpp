@@ -99,8 +99,6 @@ namespace tetengo2::gui::widget {
 
         using message_loop_break_type = gui::message::message_loop_break;
 
-        using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
-
 
         // variables
 
