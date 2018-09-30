@@ -14,7 +14,6 @@
 
 #include <boost/core/noncopyable.hpp>
 
-#include <tetengo2/gui/mouse_capture.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/widget.h>
 
@@ -33,9 +32,6 @@ namespace tetengo2::gui::widget {
 
         //! The mouse button type.
         using mouse_button_type = typename mouse_observer_set_type::mouse_button_type;
-
-        //! The mouse capture type.
-        using mouse_capture_type = gui::mouse_capture;
 
 
         // constructors and destructor
@@ -128,9 +124,6 @@ namespace tetengo2::gui::widget {
 
         //! The postion type.
         using position_type = custom_control::position_type;
-
-        //! The position unit type.
-        using position_unit_type = position_type::unit_type;
 
         //! The dimension type.
         using dimension_type = custom_control::dimension_type;

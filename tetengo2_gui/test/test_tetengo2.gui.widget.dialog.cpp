@@ -131,7 +131,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     dialog.do_modal();
                 }
 
-                BOOST_AUTO_TEST_CASE(details)
+                BOOST_AUTO_TEST_CASE(details_impl)
                 {
                     BOOST_TEST_PASSPOINT();
 
@@ -147,15 +147,6 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
 
                         dialog.details();
                     }
-                }
-
-                BOOST_AUTO_TEST_CASE(initialize_dialog)
-                {
-                    BOOST_TEST_PASSPOINT();
-
-                    // initialize_dialog() is called in the constructor of concrete_widget.
-                    window_type           parent{};
-                    const concrete_dialog dialog{ parent };
                 }
 
 

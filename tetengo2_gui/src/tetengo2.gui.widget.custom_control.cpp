@@ -34,8 +34,6 @@ namespace tetengo2::gui::widget {
 
         using mouse_button_type = custom_control::mouse_button_type;
 
-        using mouse_capture_type = custom_control::mouse_capture_type;
-
 
         // constructors and destructor
 
@@ -80,6 +78,8 @@ namespace tetengo2::gui::widget {
         // types
 
         using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
+
+        using mouse_capture_type = gui::mouse_capture;
 
 
         // variables
@@ -156,8 +156,6 @@ namespace tetengo2::gui::widget {
         using mouse_button_type = inner_item::mouse_button_type;
 
         using position_type = inner_item::position_type;
-
-        using position_unit_type = inner_item::position_unit_type;
 
         using dimension_type = inner_item::dimension_type;
 
@@ -287,6 +285,11 @@ namespace tetengo2::gui::widget {
 
 
     private:
+        // types
+
+        using position_unit_type = position_type::unit_type;
+
+
         // variables
 
         custom_control& m_parent;
