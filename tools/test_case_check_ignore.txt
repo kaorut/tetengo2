@@ -36,7 +36,6 @@ tetengo2::gui::widget::inner_item::mouse_pressed_impl
 tetengo2::gui::widget::inner_item::mouse_released_impl
 tetengo2::gui::widget::inner_item::paint_impl
 tetengo2::gui::widget::inner_item::resized_impl
-tetengo2::gui::widget::label::paint_background::
 tetengo2::gui::widget::link_label::paint_background::
 tetengo2::gui::widget::map_box::splitter::
 tetengo2::gui::widget::map_box::value_item::
