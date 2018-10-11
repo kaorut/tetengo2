@@ -141,7 +141,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     BOOST_CHECK(future.wait_for(std::chrono::seconds{ 0 }) == std::future_status::timeout);
                 }
 
-                BOOST_AUTO_TEST_CASE(do_modal)
+                BOOST_AUTO_TEST_CASE(do_modal_impl)
                 {
                     BOOST_TEST_PASSPOINT();
 
