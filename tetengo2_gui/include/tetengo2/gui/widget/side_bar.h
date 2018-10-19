@@ -80,7 +80,7 @@ namespace tetengo2::gui::widget {
 
             \param minimized A minimized status.
         */
-        void set_minimized(const bool minimized);
+        void set_minimized(bool minimized);
 
         /*!
             \brief Returns the child control area position.
