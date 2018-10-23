@@ -441,9 +441,7 @@ namespace tetengo2::gui::widget {
 
         void resized_impl(tab_label_type& self, const tab_frame& parent)
         {
-            self.set_position(
-                position_type{ position_unit_type{},
-                               /*static_cast<const tab_frame&>(self.parent())*/ parent.m_p_impl->tab_label_top(self) });
+            self.set_position(position_type{ position_unit_type{}, parent.m_p_impl->tab_label_top(self) });
         }
 
         void paint_impl(canvas_type& canvas, const tab_label_type& self, const tab_frame& parent) const
@@ -457,7 +455,7 @@ namespace tetengo2::gui::widget {
             canvas.set_line_width(dimension_unit_type{ 1 } / 8);
 
             position_unit_type unselected_left{};
-            if (m_index != /*static_cast<const tab_frame&>(self.parent())*/ parent.selected_tab_index())
+            if (m_index != parent.selected_tab_index())
                 unselected_left = position_unit_type{ 1 } / 12;
             position_type  label_position{ self.position().left() + unselected_left, self.position().top() };
             dimension_type label_dimension{ self.dimension().width() - dimension_unit_type::from(unselected_left),
@@ -467,7 +465,7 @@ namespace tetengo2::gui::widget {
             {
                 auto original_font = canvas.get_font();
                 auto font =
-                    m_index == /*static_cast<const tab_frame&>(self.parent())*/ parent.selected_tab_index() ?
+                    m_index == parent.selected_tab_index() ?
                         font_type{ original_font.family(), original_font.size(),      true,
                                    original_font.italic(), original_font.underline(), original_font.strikeout() } :
                         original_font;
