@@ -40,7 +40,6 @@ tetengo2::gui::widget::progress_dialog::on_close
 tetengo2::gui::widget::tab_frame::tab_type::
 tetengo2::gui::widget::tab_frame::tab_body_type::
 tetengo2::gui::widget::tab_frame::tab_label_type::
-tetengo2::gui::widget::widget::paint_background::
 tetengo2::iterator::polymorphic_forward_iterator::operator *
 tetengo2::message::messages::do_close
 tetengo2::message::messages::do_get

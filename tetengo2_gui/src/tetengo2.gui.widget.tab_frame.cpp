@@ -325,6 +325,45 @@ namespace tetengo2::gui::widget {
     };
 
 
+    tab_frame::tab_frame(widget& parent)
+    : custom_control{ parent, false, custom_control::scroll_bar_style_type::none }, m_p_impl{ std::make_unique<impl>() }
+    {
+        impl::initialize_tab_frame(*this);
+    }
+
+    tab_frame::~tab_frame() = default;
+
+    tab_frame::size_type tab_frame::tab_count() const
+    {
+        return m_p_impl->tab_count();
+    }
+
+    const tab_frame::tab_type& tab_frame::tab_at(const size_type index) const
+    {
+        return m_p_impl->tab_at(index);
+    }
+
+    tab_frame::tab_type& tab_frame::tab_at(const size_type index)
+    {
+        return m_p_impl->tab_at(index);
+    }
+
+    tab_frame::size_type tab_frame::selected_tab_index() const
+    {
+        return m_p_impl->selected_tab_index();
+    }
+
+    void tab_frame::select_tab(const size_type index)
+    {
+        m_p_impl->select_tab(index, *this);
+    }
+
+    void tab_frame::move_tab(const size_type from, const size_type to)
+    {
+        m_p_impl->move_tab(from, to);
+    }
+
+
     class tab_frame::tab_type::impl : private boost::noncopyable
     {
     public:
@@ -405,6 +444,56 @@ namespace tetengo2::gui::widget {
 
         bool m_selected;
     };
+
+
+    tab_frame::tab_type::tab_type(tab_frame& parent, const size_type index, control& control_)
+    : m_p_impl{ std::make_unique<impl>(parent, index, control_) }
+    {}
+
+    const tab_frame::tab_label_type& tab_frame::tab_type::label() const
+    {
+        return m_p_impl->label();
+    }
+
+    tab_frame::tab_label_type& tab_frame::tab_type::label()
+    {
+        return m_p_impl->label();
+    }
+
+    const tab_frame::tab_body_type& tab_frame::tab_type::body() const
+    {
+        return m_p_impl->body();
+    }
+
+    tab_frame::tab_body_type& tab_frame::tab_type::body()
+    {
+        return m_p_impl->body();
+    }
+
+    tab_frame::size_type tab_frame::tab_type::index() const
+    {
+        return m_p_impl->index();
+    }
+
+    void tab_frame::tab_type::set_index(const size_type index)
+    {
+        m_p_impl->set_index(index);
+    }
+
+    bool tab_frame::tab_type::selected() const
+    {
+        return m_p_impl->selected();
+    }
+
+    void tab_frame::tab_type::select()
+    {
+        m_p_impl->select();
+    }
+
+    void tab_frame::tab_type::unselect()
+    {
+        m_p_impl->unselect();
+    }
 
 
     class tab_frame::tab_label_type::impl : private boost::noncopyable
@@ -573,6 +662,48 @@ namespace tetengo2::gui::widget {
     };
 
 
+    tab_frame::tab_label_type::tab_label_type(tab_frame& parent, const size_type index)
+    : inner_item{ parent, position_type{}, dimension_type{} }, m_p_impl{ std::make_unique<impl>(index) }
+    {}
+
+    tab_frame::tab_label_type::~tab_label_type() = default;
+
+    tab_frame::size_type tab_frame::tab_label_type::index() const
+    {
+        return m_p_impl->index();
+    }
+
+    void tab_frame::tab_label_type::set_index(const size_type index)
+    {
+        m_p_impl->set_index(index);
+    }
+
+    const tab_frame::string_type& tab_frame::tab_label_type::title() const
+    {
+        return m_p_impl->title();
+    }
+
+    void tab_frame::tab_label_type::set_title(string_type title)
+    {
+        m_p_impl->set_title(std::move(title), *this, this->parent_as<tab_frame>());
+    }
+
+    void tab_frame::tab_label_type::resized_impl()
+    {
+        m_p_impl->resized_impl(*this, this->parent_as<tab_frame>());
+    }
+
+    void tab_frame::tab_label_type::paint_impl(canvas_type& canvas) const
+    {
+        m_p_impl->paint_impl(canvas, *this, this->parent_as<tab_frame>());
+    }
+
+    void tab_frame::tab_label_type::mouse_released_impl(const position_type& cursor_position)
+    {
+        m_p_impl->mouse_released_impl(cursor_position, this->parent_as<tab_frame>());
+    }
+
+
     class tab_frame::tab_body_type::impl : private boost::noncopyable
     {
     public:
@@ -618,137 +749,6 @@ namespace tetengo2::gui::widget {
 
         control& m_control;
     };
-
-
-    tab_frame::tab_frame(widget& parent)
-    : custom_control{ parent, false, custom_control::scroll_bar_style_type::none }, m_p_impl{ std::make_unique<impl>() }
-    {
-        impl::initialize_tab_frame(*this);
-    }
-
-    tab_frame::~tab_frame() = default;
-
-    tab_frame::size_type tab_frame::tab_count() const
-    {
-        return m_p_impl->tab_count();
-    }
-
-    const tab_frame::tab_type& tab_frame::tab_at(const size_type index) const
-    {
-        return m_p_impl->tab_at(index);
-    }
-
-    tab_frame::tab_type& tab_frame::tab_at(const size_type index)
-    {
-        return m_p_impl->tab_at(index);
-    }
-
-    tab_frame::size_type tab_frame::selected_tab_index() const
-    {
-        return m_p_impl->selected_tab_index();
-    }
-
-    void tab_frame::select_tab(const size_type index)
-    {
-        m_p_impl->select_tab(index, *this);
-    }
-
-    void tab_frame::move_tab(const size_type from, const size_type to)
-    {
-        m_p_impl->move_tab(from, to);
-    }
-
-
-    tab_frame::tab_type::tab_type(tab_frame& parent, const size_type index, control& control_)
-    : m_p_impl{ std::make_unique<impl>(parent, index, control_) }
-    {}
-
-    const tab_frame::tab_label_type& tab_frame::tab_type::label() const
-    {
-        return m_p_impl->label();
-    }
-
-    tab_frame::tab_label_type& tab_frame::tab_type::label()
-    {
-        return m_p_impl->label();
-    }
-
-    const tab_frame::tab_body_type& tab_frame::tab_type::body() const
-    {
-        return m_p_impl->body();
-    }
-
-    tab_frame::tab_body_type& tab_frame::tab_type::body()
-    {
-        return m_p_impl->body();
-    }
-
-    tab_frame::size_type tab_frame::tab_type::index() const
-    {
-        return m_p_impl->index();
-    }
-
-    void tab_frame::tab_type::set_index(const size_type index)
-    {
-        m_p_impl->set_index(index);
-    }
-
-    bool tab_frame::tab_type::selected() const
-    {
-        return m_p_impl->selected();
-    }
-
-    void tab_frame::tab_type::select()
-    {
-        m_p_impl->select();
-    }
-
-    void tab_frame::tab_type::unselect()
-    {
-        m_p_impl->unselect();
-    }
-
-
-    tab_frame::tab_label_type::tab_label_type(tab_frame& parent, const size_type index)
-    : inner_item{ parent, position_type{}, dimension_type{} }, m_p_impl{ std::make_unique<impl>(index) }
-    {}
-
-    tab_frame::tab_label_type::~tab_label_type() = default;
-
-    tab_frame::size_type tab_frame::tab_label_type::index() const
-    {
-        return m_p_impl->index();
-    }
-
-    void tab_frame::tab_label_type::set_index(const size_type index)
-    {
-        m_p_impl->set_index(index);
-    }
-
-    const tab_frame::string_type& tab_frame::tab_label_type::title() const
-    {
-        return m_p_impl->title();
-    }
-
-    void tab_frame::tab_label_type::set_title(string_type title)
-    {
-        m_p_impl->set_title(std::move(title), *this, this->parent_as<tab_frame>());
-    }
-
-    void tab_frame::tab_label_type::resized_impl()
-    {
-        m_p_impl->resized_impl(*this, this->parent_as<tab_frame>());
-    }
-
-    void tab_frame::tab_label_type::paint_impl(canvas_type& canvas) const
-    {
-        m_p_impl->paint_impl(canvas, *this, this->parent_as<tab_frame>());
-    }
-
-    void tab_frame::tab_label_type::mouse_released_impl(const position_type& cursor_position)
-    {
-        m_p_impl->mouse_released_impl(cursor_position, this->parent_as<tab_frame>());
-    }
 
 
     tab_frame::tab_body_type::tab_body_type(tab_frame& parent, control& control_)
