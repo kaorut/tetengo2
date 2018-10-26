@@ -107,7 +107,7 @@ namespace tetengo2::gui::menu {
 
             \param enabled An enabled status.
         */
-        void set_enabled(const bool enabled);
+        void set_enabled(bool enabled);
 
         /*!
             \brief Returns the state.
@@ -121,7 +121,7 @@ namespace tetengo2::gui::menu {
 
             \param state A state.
         */
-        void set_state(const state_type state);
+        void set_state(state_type state);
 
         /*!
             \brief Checks whether the menu has a shortucut key.
@@ -224,7 +224,7 @@ namespace tetengo2::gui::menu {
             \param offset An offset where a menu is inserted.
             \param p_menu A unique pointer to a menu. It must not be nullptr.
         */
-        void insert(const iterator offset, std::unique_ptr<menu_base> p_menu);
+        void insert(iterator offset, std::unique_ptr<menu_base> p_menu);
 
         /*!
             \brief Erases the menus from the children.
@@ -234,7 +234,7 @@ namespace tetengo2::gui::menu {
 
             \throw std::logic_error Always.
         */
-        void erase(const iterator first, const iterator last);
+        void erase(iterator first, iterator last);
 
         /*!
             \brief Returns the detail implementation.
@@ -303,9 +303,9 @@ namespace tetengo2::gui::menu {
 
         virtual recursive_iterator_type recursive_end_impl();
 
-        virtual void insert_impl(const iterator offset, std::unique_ptr<menu_base> p_menu);
+        virtual void insert_impl(iterator offset, std::unique_ptr<menu_base> p_menu);
 
-        virtual void erase_impl(const iterator first, const iterator last);
+        virtual void erase_impl(iterator first, iterator last);
     };
 }
 

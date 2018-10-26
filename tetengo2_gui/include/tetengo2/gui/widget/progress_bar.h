@@ -9,18 +9,16 @@
 #if !defined(TETENGO2_GUI_WIDGET_PROGRESSBAR_H)
 #define TETENGO2_GUI_WIDGET_PROGRESSBAR_H
 
-#include <boost/predef.h>
+#include <memory>
 
-#include <tetengo2/detail/base/gui_impl_set.h>
-#include <tetengo2/detail/base/message_handler.h>
-#include <tetengo2/detail/base/widget.h>
-#include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
-#include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/type_list.h>
 
 
 namespace tetengo2::gui::widget {
+    class widget;
+
+
     /*!
         \brief The class for a progress bar.
     */
@@ -48,42 +46,12 @@ namespace tetengo2::gui::widget {
 
             \param parent A parent widget.
         */
-        explicit progress_bar(widget& parent)
-        :
-#if BOOST_COMP_MSVC
-#pragma warning(push)
-#pragma warning(disable : 4355)
-#endif
-          control
-        {
-            control::scroll_bar_style_type::none,
-                detail::gui_detail_impl_set().message_handler_().make_progress_bar_message_handler_map(
-                    *this, message_handler_map_type{}),
-                widget_details().create_progress_bar(parent)
-        }
-#if BOOST_COMP_MSVC
-#pragma warning(pop)
-#endif
-        {
-            control::initialize(this);
-
-            parent.child_observer_set().created()(*this);
-        }
+        explicit progress_bar(widget& parent);
 
         /*!
             \brief Destroys the progress bar.
         */
-        virtual ~progress_bar() noexcept
-        {
-            try
-            {
-                if (this->has_parent())
-                    this->parent().child_observer_set().destroying()(*this);
-            }
-            catch (...)
-            {
-            }
-        }
+        virtual ~progress_bar() noexcept;
 
 
         // functions
@@ -93,67 +61,53 @@ namespace tetengo2::gui::widget {
 
             \return The goal.
         */
-        size_type goal() const
-        {
-            return widget_details().progress_bar_goal(*this);
-        }
+        size_type goal() const;
 
         /*!
             \brief Sets a goal.
 
             \param goal A goal.
         */
-        void set_goal(const size_type goal)
-        {
-            widget_details().set_progress_bar_goal(*this, goal);
-        }
+        void set_goal(size_type goal);
 
         /*!
             \brief Returns the progress.
 
             \return The progress.
         */
-        size_type progress() const
-        {
-            return widget_details().progress_bar_progress(*this);
-        }
+        size_type progress() const;
 
         /*!
             \brief Sets a progress.
 
             \param progress A progress.
         */
-        void set_progress(const size_type progress)
-        {
-            widget_details().set_progress_bar_progress(*this, progress);
-        }
+        void set_progress(size_type progress);
 
         /*!
             \brief Returns the state.
 
             \return The state.
         */
-        state_type state() const
-        {
-            return static_cast<state_type>(widget_details().progress_bar_state(*this));
-        }
+        state_type state() const;
 
         /*!
             \brief Sets a state.
 
             \param state A state.
         */
-        void set_state(const state_type state)
-        {
-            widget_details().set_progress_bar_state(
-                *this, static_cast<widget_details_type::progress_bar_state_type>(state));
-        }
+        void set_state(state_type state);
 
 
     private:
         // types
 
-        using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
+        class impl;
+
+
+        // variables
+
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

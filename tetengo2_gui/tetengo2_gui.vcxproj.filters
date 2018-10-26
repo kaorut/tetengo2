@@ -52,6 +52,9 @@
     <Filter Include="sources\tetengo2::gui\message">
       <UniqueIdentifier>{52dd663d-f967-4d08-ad5b-9ee9c58e0f82}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\tetengo2::gui\widget">
+      <UniqueIdentifier>{5608cc43-8604-4945-9536-6d525144b032}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2\gui\0namespace.dox">
@@ -454,6 +457,63 @@
     </ClCompile>
     <ClCompile Include="src\tetengo2.gui.menu.separator.cpp">
       <Filter>sources\tetengo2::gui\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.widget.abstract_window.cpp">
+      <Filter>sources\tetengo2::gui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.widget.button.cpp">
+      <Filter>sources\tetengo2::gui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.widget.control.cpp">
+      <Filter>sources\tetengo2::gui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.widget.custom_control.cpp">
+      <Filter>sources\tetengo2::gui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.widget.dialog.cpp">
+      <Filter>sources\tetengo2::gui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.widget.dropdown_box.cpp">
+      <Filter>sources\tetengo2::gui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.widget.image.cpp">
+      <Filter>sources\tetengo2::gui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.widget.label.cpp">
+      <Filter>sources\tetengo2::gui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.widget.link_label.cpp">
+      <Filter>sources\tetengo2::gui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.widget.list_box.cpp">
+      <Filter>sources\tetengo2::gui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.widget.map_box.cpp">
+      <Filter>sources\tetengo2::gui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.widget.picture_box.cpp">
+      <Filter>sources\tetengo2::gui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.widget.progress_bar.cpp">
+      <Filter>sources\tetengo2::gui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.widget.progress_dialog.cpp">
+      <Filter>sources\tetengo2::gui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.widget.side_bar.cpp">
+      <Filter>sources\tetengo2::gui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.widget.tab_frame.cpp">
+      <Filter>sources\tetengo2::gui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.widget.text_box.cpp">
+      <Filter>sources\tetengo2::gui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.widget.widget.cpp">
+      <Filter>sources\tetengo2::gui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.widget.window.cpp">
+      <Filter>sources\tetengo2::gui\widget</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

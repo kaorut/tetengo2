@@ -154,7 +154,7 @@ namespace tetengo2::gui::drawing {
 
             \param line_style A line width.
         */
-        void set_line_style(const line_style_type line_style);
+        void set_line_style(line_style_type line_style);
 
         /*!
             \brief Returns the font.

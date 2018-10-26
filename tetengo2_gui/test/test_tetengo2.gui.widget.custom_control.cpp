@@ -70,15 +70,15 @@ namespace {
         }
 
         template <typename T>
-        const T& call_parent_to() const
+        const T& call_parent_as() const
         {
-            return parent_to<T>();
+            return parent_as<T>();
         }
 
         template <typename T>
-        T& call_parent_to()
+        T& call_parent_as()
         {
-            return parent_to<T>();
+            return parent_as<T>();
         }
 
         bool call_inside(const position_type& position) const
@@ -260,7 +260,7 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                     }
                 }
 
-                BOOST_AUTO_TEST_CASE(parent_to)
+                BOOST_AUTO_TEST_CASE(parent_as)
                 {
                     BOOST_TEST_PASSPOINT();
 
@@ -269,14 +269,14 @@ BOOST_AUTO_TEST_SUITE(test_tetengo2)
                         concrete_custom_control   custom_control{ parent };
                         const concrete_inner_item inner_item{ custom_control };
 
-                        BOOST_TEST(&inner_item.call_parent_to<concrete_custom_control>() == &custom_control);
+                        BOOST_TEST(&inner_item.call_parent_as<concrete_custom_control>() == &custom_control);
                     }
                     {
                         window_type             parent{};
                         concrete_custom_control custom_control{ parent };
                         concrete_inner_item     inner_item{ custom_control };
 
-                        BOOST_TEST(&inner_item.call_parent_to<concrete_custom_control>() == &custom_control);
+                        BOOST_TEST(&inner_item.call_parent_as<concrete_custom_control>() == &custom_control);
                     }
                 }
 

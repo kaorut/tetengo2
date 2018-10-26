@@ -107,8 +107,8 @@ tetengo2_gui_test_LDFLAGS = \
     -L$(top_builddir)/tetengo2_gui/src \
     -L$(top_builddir)/tetengo2_detail/src
 tetengo2_gui_test_LDADD = \
-    -ltetengo2 \
     -ltetengo2_gui \
+    -ltetengo2 \
     -ltetengo2_detail \
     $(UNITTEST_LIBS)
 tetengo2_gui_test_SOURCES = $(headers) $(sources)

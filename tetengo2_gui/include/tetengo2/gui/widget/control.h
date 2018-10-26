@@ -9,13 +9,8 @@
 #if !defined(TETENGO2_GUI_WIDGET_CONTROL_H)
 #define TETENGO2_GUI_WIDGET_CONTROL_H
 
-#include <cassert>
-#include <utility>
+#include <memory>
 
-#include <boost/predef.h>
-
-#include <tetengo2/detail/base/gui_impl_set.h>
-#include <tetengo2/detail/base/message_handler.h>
 #include <tetengo2/gui/drawing/color.h>
 #include <tetengo2/gui/widget/widget.h>
 #include <tetengo2/stdalt.h>
@@ -39,7 +34,7 @@ namespace tetengo2::gui::widget {
         /*!
             \brief Destroys the control.
         */
-        virtual ~control() = default;
+        virtual ~control();
 
 
         // functions
@@ -49,20 +44,14 @@ namespace tetengo2::gui::widget {
 
             \return The text color.
         */
-        const tetengo2::stdalt::optional<color_type>& text_color() const
-        {
-            return m_text_color;
-        }
+        const tetengo2::stdalt::optional<color_type>& text_color() const;
 
         /*!
             \brief Sets a text color.
 
             \param text_color A text color.
         */
-        void set_text_color(tetengo2::stdalt::optional<color_type> text_color = TETENGO2_STDALT_NULLOPT)
-        {
-            m_text_color = std::move(text_color);
-        }
+        void set_text_color(tetengo2::stdalt::optional<color_type> text_color = TETENGO2_STDALT_NULLOPT);
 
         /*!
             \brief Checks whether the control accepts a focus.
@@ -70,20 +59,14 @@ namespace tetengo2::gui::widget {
             \retval true  When the control accepts a focus.
             \retval false Otherwise.
         */
-        bool focusable() const
-        {
-            return widget_details().focusable(*this);
-        }
+        bool focusable() const;
 
         /*!
             \brief Sets whether the control accepts a focus.
 
             \param focusable True when the control accepts a focus.
         */
-        void set_focusable(const bool focusable)
-        {
-            widget_details().set_focusable(*this, focusable);
-        }
+        void set_focusable(const bool focusable);
 
 
     protected:
@@ -105,44 +88,25 @@ namespace tetengo2::gui::widget {
         control(
             const scroll_bar_style_type                           scroll_bar_style,
             message_handler_map_type&&                            message_handler_map,
-            typename widget_details_type::widget_details_ptr_type p_details)
-        :
-#if BOOST_COMP_MSVC
-#pragma warning(push)
-#pragma warning(disable : 4355)
-#endif
-          widget{ scroll_bar_style,
-                  detail::gui_detail_impl_set().message_handler_().make_control_message_handler_map(
-                      *this,
-                      std::move(message_handler_map)) },
-#if BOOST_COMP_MSVC
-#pragma warning(pop)
-#endif
-          m_p_details{ std::move(p_details) }, m_text_color{}
-        {}
+            typename widget_details_type::widget_details_ptr_type p_details);
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        const typename widget_details_type::widget_details_ptr_type m_p_details;
-
-        tetengo2::stdalt::optional<color_type> m_text_color;
+        const std::unique_ptr<impl> m_p_impl;
 
 
         // virtual functions
 
-        virtual const details_type& details_impl() const override
-        {
-            assert(m_p_details);
-            return *static_cast<const details_type*>(m_p_details.get());
-        }
+        virtual const details_type& details_impl() const override;
 
-        virtual details_type& details_impl() override
-        {
-            assert(m_p_details);
-            return *static_cast<details_type*>(m_p_details.get());
-        }
+        virtual details_type& details_impl() override;
     };
 }
 

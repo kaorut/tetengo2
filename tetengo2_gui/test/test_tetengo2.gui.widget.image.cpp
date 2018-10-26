@@ -6,14 +6,20 @@
     $Id$
 */
 
+#include <algorithm>
+#include <memory>
+#include <sstream>
 #include <stdexcept>
 
 #include <boost/preprocessor.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
+#include <tetengo2/gui/dimension.h>
 #include <tetengo2/gui/drawing/picture.h>
 #include <tetengo2/gui/drawing/picture_reader.h>
 #include <tetengo2/gui/icon.h>
+#include <tetengo2/gui/unit/em.h>
 #include <tetengo2/gui/widget/image.h>
 #include <tetengo2/gui/widget/window.h>
 #include <tetengo2/stdalt.h>

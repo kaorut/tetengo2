@@ -9,14 +9,8 @@
 #if !defined(TETENGO2_GUI_WIDGET_WINDOW_H)
 #define TETENGO2_GUI_WIDGET_WINDOW_H
 
-#include <cassert>
+#include <memory>
 
-#include <boost/predef.h>
-
-#include <tetengo2/detail/base/gui_impl_set.h>
-#include <tetengo2/detail/base/message_handler.h>
-#include <tetengo2/detail/base/widget.h>
-#include <tetengo2/gui/message/child_observer_set.h>
 #include <tetengo2/gui/widget/abstract_window.h>
 #include <tetengo2/gui/widget/widget.h>
 
@@ -37,17 +31,8 @@ namespace tetengo2::gui::widget {
             \param file_droppable   Set true to enable file drop.
         */
         explicit window(
-            const scroll_bar_style_type scroll_bar_style = abstract_window::scroll_bar_style_type::none,
-            const bool                  file_droppable = false)
-        : abstract_window{ scroll_bar_style, file_droppable, message_handler_map_type{} }, m_p_details{
-              widget_details().create_window(
-                  nullptr,
-                  static_cast<widget_details_type::scroll_bar_style_type>(scroll_bar_style),
-                  file_droppable)
-          }
-        {
-            initialize_window();
-        }
+            scroll_bar_style_type scroll_bar_style = abstract_window::scroll_bar_style_type::none,
+            bool                  file_droppable = false);
 
         /*!
             \brief Creates a owned window.
@@ -56,78 +41,30 @@ namespace tetengo2::gui::widget {
             \param scroll_bar_style A scroll bar style.
             \param file_droppable   Set true to enable file drop.
         */
-        window(abstract_window& parent, const scroll_bar_style_type scroll_bar_style, const bool file_droppable)
-        :
-#if BOOST_COMP_MSVC
-#pragma warning(push)
-#pragma warning(disable : 4355)
-#endif
-          abstract_window{ scroll_bar_style,
-                           file_droppable,
-                           detail::gui_detail_impl_set().message_handler_().make_window_message_handler_map(
-                               *this,
-                               message_handler_map_type{}) },
-#if BOOST_COMP_MSVC
-#pragma warning(pop)
-#endif
-          m_p_details{ widget_details().create_window(
-              &parent,
-              static_cast<widget_details_type::scroll_bar_style_type>(scroll_bar_style),
-              file_droppable) }
-        {
-            initialize_window();
-
-            parent.child_observer_set().created()(*this);
-        }
+        window(abstract_window& parent, scroll_bar_style_type scroll_bar_style, bool file_droppable);
 
         /*!
             \brief Destroys the window.
         */
-        virtual ~window() noexcept
-        {
-            try
-            {
-                if (this->has_parent())
-                    this->parent().child_observer_set().destroying()(*this);
-            }
-            catch (...)
-            {
-            }
-        }
+        virtual ~window() noexcept;
 
 
     private:
         // types
 
-        using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
+        class impl;
 
 
         // variables
 
-        const typename widget_details_type::widget_details_ptr_type m_p_details;
+        const std::unique_ptr<impl> m_p_impl;
 
 
         // virtual functions
 
-        virtual const details_type& details_impl() const override
-        {
-            assert(m_p_details);
-            return *static_cast<const details_type*>(m_p_details.get());
-        }
+        virtual const details_type& details_impl() const override;
 
-        virtual details_type& details_impl() override
-        {
-            assert(m_p_details);
-            return *static_cast<details_type*>(m_p_details.get());
-        }
-
-
-        // functions
-
-        void initialize_window()
-        {
-            abstract_window::initialize(this);
-        }
+        virtual details_type& details_impl() override;
     };
 }
 

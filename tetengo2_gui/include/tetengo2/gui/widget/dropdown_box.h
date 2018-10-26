@@ -9,14 +9,8 @@
 #if !defined(TETENGO2_GUI_WIDGET_DROPDOWNBOX_H)
 #define TETENGO2_GUI_WIDGET_DROPDOWNBOX_H
 
-#include <algorithm>
-#include <stdexcept>
+#include <memory>
 
-#include <boost/predef.h>
-#include <boost/throw_exception.hpp>
-
-#include <tetengo2/detail/base/gui_impl_set.h>
-#include <tetengo2/detail/base/message_handler.h>
 #include <tetengo2/gui/message/list_selection_observer_set.h>
 #include <tetengo2/gui/widget/control.h>
 #include <tetengo2/gui/widget/widget.h>
@@ -47,41 +41,12 @@ namespace tetengo2::gui::widget {
 
             \param parent A parent widget.
         */
-        explicit dropdown_box(widget& parent)
-        :
-#if BOOST_COMP_MSVC
-#pragma warning(push)
-#pragma warning(disable : 4355)
-#endif
-          control{ control::scroll_bar_style_type::none,
-                   detail::gui_detail_impl_set().message_handler_().make_dropdown_box_message_handler_map(
-                       *this,
-                       message_handler_map_type{}),
-                   widget_details().create_dropdown_box(parent) },
-#if BOOST_COMP_MSVC
-#pragma warning(pop)
-#endif
-          m_list_selection_observer_set{}
-        {
-            control::initialize(this);
-
-            parent.child_observer_set().created()(*this);
-        }
+        explicit dropdown_box(widget& parent);
 
         /*!
             \brief Destroys the dropdown box.
         */
-        virtual ~dropdown_box() noexcept
-        {
-            try
-            {
-                if (this->has_parent())
-                    this->parent().child_observer_set().destroying()(*this);
-            }
-            catch (...)
-            {
-            }
-        }
+        virtual ~dropdown_box() noexcept;
 
 
         // functions
@@ -91,10 +56,7 @@ namespace tetengo2::gui::widget {
 
             \return The value count.
         */
-        size_type value_count() const
-        {
-            return widget_details().dropdown_box_value_count(*this);
-        }
+        size_type value_count() const;
 
         /*!
             \brief Returns the value.
@@ -105,13 +67,7 @@ namespace tetengo2::gui::widget {
 
             \throw std::out_of_range When index is out of the range.
         */
-        string_type value(const size_type index) const
-        {
-            if (index >= value_count())
-                BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
-
-            return widget_details().dropdown_box_value(*this, index);
-        }
+        string_type value(size_type index) const;
 
         /*!
             \brief Sets an value.
@@ -121,13 +77,7 @@ namespace tetengo2::gui::widget {
 
             \throw std::out_of_range When index is out of the range.
         */
-        void set_value(const size_type index, string_type value)
-        {
-            if (index >= value_count())
-                BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
-
-            widget_details().set_dropdown_box_value(*this, index, std::move(value));
-        }
+        void set_value(size_type index, string_type value);
 
         /*!
             \brief Inserts an value.
@@ -137,13 +87,7 @@ namespace tetengo2::gui::widget {
 
             \throw std::out_of_range When index is out of the range.
         */
-        void insert_value(const size_type index, string_type value)
-        {
-            if (index > value_count())
-                BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
-
-            widget_details().insert_dropdown_box_value(*this, index, std::move(value));
-        }
+        void insert_value(size_type index, string_type value);
 
         /*!
             \brief Erases an value.
@@ -152,31 +96,19 @@ namespace tetengo2::gui::widget {
 
             \throw std::out_of_range When index is out of the range.
         */
-        void erase_value(const size_type index)
-        {
-            if (index >= value_count())
-                BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
-
-            widget_details().erase_dropdown_box_value(*this, index);
-        }
+        void erase_value(size_type index);
 
         /*!
             \brief Clears the dropdown box.
         */
-        void clear()
-        {
-            widget_details().clear_dropdown_box(*this);
-        }
+        void clear();
 
         /*!
             \brief Returns the selected value index.
 
             \return The selected value index. Or TETENGO2_STDALT_NULLOPT when no value is selected.
         */
-        tetengo2::stdalt::optional<size_type> selected_value_index() const
-        {
-            return widget_details().selected_dropdown_box_value_index(*this);
-        }
+        tetengo2::stdalt::optional<size_type> selected_value_index() const;
 
         /*!
             \brief Selects an value.
@@ -185,44 +117,32 @@ namespace tetengo2::gui::widget {
 
             \throw std::out_of_range When index is out of the range.
         */
-        void select_value(const size_type index)
-        {
-            if (index >= value_count())
-                BOOST_THROW_EXCEPTION((std::out_of_range{ "index is out of range." }));
-
-            widget_details().select_dropdown_box_value(*this, index);
-        }
+        void select_value(size_type index);
 
         /*!
             \brief Returns the list selection observer set.
 
             \return The list selection observer set.
         */
-        const list_selection_observer_set_type& list_selection_observer_set() const
-        {
-            return m_list_selection_observer_set;
-        }
+        const list_selection_observer_set_type& list_selection_observer_set() const;
 
         /*!
             \brief Returns the list selection observer set.
 
             \return The list selection observer set.
         */
-        list_selection_observer_set_type& list_selection_observer_set()
-        {
-            return m_list_selection_observer_set;
-        }
+        list_selection_observer_set_type& list_selection_observer_set();
 
 
     private:
         // types
 
-        using message_handler_map_type = typename message_handler_details_type::message_handler_map_type;
+        class impl;
 
 
         // variables
 
-        list_selection_observer_set_type m_list_selection_observer_set;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

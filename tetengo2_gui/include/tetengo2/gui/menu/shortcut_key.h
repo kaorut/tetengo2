@@ -43,7 +43,7 @@ namespace tetengo2::gui::menu {
             \param control True when a control key is required.
             \param meta    True when a meta key is required.
         */
-        shortcut_key(const virtual_key_type& key, const bool shift, const bool control, const bool meta);
+        shortcut_key(const virtual_key_type& key, bool shift, bool control, bool meta);
 
         /*!
             \brief Copies a shortcut key.
