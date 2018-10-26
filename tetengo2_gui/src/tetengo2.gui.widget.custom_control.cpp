@@ -193,14 +193,14 @@ namespace tetengo2::gui::widget {
             m_dimension = std::move(dimension);
         }
 
-        void resized()
+        void resized(inner_item& self)
         {
-            resized_impl();
+            self.resized_impl();
         }
 
-        void paint(canvas_type& canvas) const
+        void paint(canvas_type& canvas, const inner_item& self) const
         {
-            paint_impl(canvas);
+            self.paint_impl(canvas);
         }
 
         void mouse_pressed(const mouse_button_type mouse_button, const position_type& cursor_position, inner_item& self)
@@ -211,7 +211,7 @@ namespace tetengo2::gui::widget {
             if (!this->parent().set_mouse_capture(mouse_button, &self))
                 return;
 
-            mouse_pressed_impl(cursor_position);
+            self.mouse_pressed_impl(cursor_position);
         }
 
         void
@@ -220,7 +220,7 @@ namespace tetengo2::gui::widget {
             if (!this->parent().mouse_captured(mouse_button, &self))
                 return;
 
-            mouse_released_impl(cursor_position);
+            self.mouse_released_impl(cursor_position);
 
             this->parent().release_mouse_capture();
         }
@@ -229,10 +229,10 @@ namespace tetengo2::gui::widget {
         {
             if (this->parent().mouse_captured(&self) || inside(cursor_position))
             {
-                mouse_moved_impl(cursor_position);
+                self.mouse_moved_impl(cursor_position);
                 if (!m_mouse_inside)
                 {
-                    mouse_entered_impl();
+                    self.mouse_entered_impl();
                     m_mouse_inside = true;
                 }
             }
@@ -240,7 +240,7 @@ namespace tetengo2::gui::widget {
             {
                 if (m_mouse_inside)
                 {
-                    mouse_left_impl();
+                    self.mouse_left_impl();
                     m_mouse_inside = false;
                 }
             }
@@ -326,12 +326,12 @@ namespace tetengo2::gui::widget {
 
     void inner_item::resized()
     {
-        m_p_impl->resized();
+        m_p_impl->resized(*this);
     }
 
     void inner_item::paint(canvas_type& canvas) const
     {
-        m_p_impl->paint(canvas);
+        m_p_impl->paint(canvas, *this);
     }
 
     void inner_item::mouse_pressed(const mouse_button_type mouse_button, const position_type& cursor_position)
