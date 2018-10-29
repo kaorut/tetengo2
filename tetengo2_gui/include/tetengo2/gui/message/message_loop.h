@@ -9,9 +9,10 @@
 #if !defined(TETENGO2_GUI_MESSAGE_MESSAGELOOP_H)
 #define TETENGO2_GUI_MESSAGE_MESSAGELOOP_H
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
 
-#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/base/message_loop.h>
 
 
@@ -35,7 +36,12 @@ namespace tetengo2::gui::message {
 
             \param window A window.
         */
-        explicit message_loop(abstract_window_type& window) : m_window{ window } {}
+        explicit message_loop(abstract_window_type& window);
+
+        /*!
+            \brief Destroys the message loop.
+        */
+        ~message_loop();
 
 
         // functions
@@ -45,16 +51,18 @@ namespace tetengo2::gui::message {
 
             \return The exit status code.
         */
-        int operator()() const
-        {
-            return detail::gui_detail_impl_set().message_loop_().loop(m_window);
-        }
+        int operator()() const;
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        abstract_window_type& m_window;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 
