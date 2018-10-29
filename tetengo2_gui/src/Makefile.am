@@ -45,6 +45,7 @@ sources = \
     tetengo2.gui.message.list_selection_observer_set.cpp \
     tetengo2.gui.message.menu_observer_set.cpp \
     tetengo2.gui.message.message_loop.cpp \
+    tetengo2.gui.message.message_loop_break.cpp \
     tetengo2.gui.message.mouse_observer_set.cpp \
     tetengo2.gui.message.paint_observer_set.cpp \
     tetengo2.gui.message.scroll_bar_observer_set.cpp \
