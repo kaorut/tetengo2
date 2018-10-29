@@ -37,12 +37,16 @@ sources = \
     tetengo2.gui.menu.separator.cpp \
     tetengo2.gui.menu.shortcut_key.cpp \
     tetengo2.gui.menu.shortcut_key_table.cpp \
+    tetengo2.gui.message.child_observer_set.cpp \
+    tetengo2.gui.message.dialog_message_loop.cpp \
     tetengo2.gui.message.file_drop_observer_set.cpp \
     tetengo2.gui.message.focus_observer_set.cpp \
     tetengo2.gui.message.keyboard_observer_set.cpp \
     tetengo2.gui.message.list_selection_observer_set.cpp \
     tetengo2.gui.message.menu_observer_set.cpp \
+    tetengo2.gui.message.message_loop.cpp \
     tetengo2.gui.message.mouse_observer_set.cpp \
+    tetengo2.gui.message.paint_observer_set.cpp \
     tetengo2.gui.message.scroll_bar_observer_set.cpp \
     tetengo2.gui.message.size_observer_set.cpp \
     tetengo2.gui.message.text_box_observer_set.cpp \
