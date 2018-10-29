@@ -515,5 +515,20 @@
     <ClCompile Include="src\tetengo2.gui.widget.window.cpp">
       <Filter>sources\tetengo2::gui\widget</Filter>
     </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.message.child_observer_set.cpp">
+      <Filter>sources\tetengo2::gui\message</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.message.dialog_message_loop.cpp">
+      <Filter>sources\tetengo2::gui\message</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.message.message_loop.cpp">
+      <Filter>sources\tetengo2::gui\message</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.message.paint_observer_set.cpp">
+      <Filter>sources\tetengo2::gui\message</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.message.message_loop_break.cpp">
+      <Filter>sources\tetengo2::gui\message</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@
 #define TETENGO2_GUI_MESSAGE_PAINTOBSERVERSET_H
 
 #include <algorithm>
+#include <memory>
 
 #include <boost/core/noncopyable.hpp>
 #include <boost/signals2.hpp> // IWYU pragma: keep
@@ -52,13 +53,10 @@ namespace tetengo2::gui::message {
         {
             using result_type = bool;
 
-            static bool is_true(bool b)
-            {
-                return b;
-            }
+            static bool is_true(bool b);
 
             template <typename InputIterator>
-            bool operator()(const InputIterator first, const InputIterator last) const
+            bool operator()(InputIterator first, InputIterator last) const
             {
                 return std::any_of(first, last, is_true);
             }
@@ -79,6 +77,19 @@ namespace tetengo2::gui::message {
         using paint_signal_type = boost::signals2::signal<paint_type>;
 
 
+        // constructors and destructor
+
+        /*!
+            \brief Creates a paint observer set.
+        */
+        paint_observer_set();
+
+        /*!
+            \brief Destroys the paint observer set.
+        */
+        ~paint_observer_set();
+
+
         // functions
 
         /*!
@@ -86,48 +97,39 @@ namespace tetengo2::gui::message {
 
             \return The observer called when the background of a canvas needs to be repainted.
         */
-        const paint_background_signal_type& paint_background() const
-        {
-            return m_paint_background;
-        }
+        const paint_background_signal_type& paint_background() const;
 
         /*!
             \brief Returns the observer called when the background of a canvas needs to be repainted.
 
             \return The observer called when the background of a canvas needs to be repainted.
         */
-        paint_background_signal_type& paint_background()
-        {
-            return m_paint_background;
-        }
+        paint_background_signal_type& paint_background();
 
         /*!
             \brief Returns the observer called when a canvas needs to be repainted.
 
             \return The observer called when a canvas needs to be repainted.
         */
-        const paint_signal_type& paint() const
-        {
-            return m_paint;
-        }
+        const paint_signal_type& paint() const;
 
         /*!
             \brief Returns the observer called when a canvas needs to be repainted.
 
             \return The observer called when a canvas needs to be repainted.
         */
-        paint_signal_type& paint()
-        {
-            return m_paint;
-        }
+        paint_signal_type& paint();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        paint_background_signal_type m_paint_background;
-
-        paint_signal_type m_paint;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 

@@ -19,6 +19,7 @@ tetengo2::gui::menu::menu_base::insert_impl
 tetengo2::gui::menu::menu_base::recursive_begin_impl
 tetengo2::gui::menu::menu_base::recursive_end_impl
 tetengo2::gui::menu::operator ==
+tetengo2::gui::message::paint_observer_set::logical_or_combiner::is_true
 tetengo2::gui::operator ==
 tetengo2::gui::unit::operator ==
 tetengo2::gui::unit::operator >
