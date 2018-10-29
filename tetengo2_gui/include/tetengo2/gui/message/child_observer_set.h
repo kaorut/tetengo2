@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_MESSAGE_CHILDOBSERVERSET_H)
 #define TETENGO2_GUI_MESSAGE_CHILDOBSERVERSET_H
 
+#include <memory>
+
 #include <boost/core/noncopyable.hpp>
 #include <boost/signals2.hpp> // IWYU pragma: keep
 
@@ -52,6 +54,19 @@ namespace tetengo2::gui::message {
         using destroying_signal_type = boost::signals2::signal<destroying_type>;
 
 
+        // constructors and destructor
+
+        /*!
+            \brief Creates a child observer set.
+        */
+        child_observer_set();
+
+        /*!
+            \brief Destroys the child observer set.
+        */
+        ~child_observer_set();
+
+
         // functions
 
         /*!
@@ -59,48 +74,39 @@ namespace tetengo2::gui::message {
 
             \return The observer called when a child is created.
         */
-        const created_signal_type& created() const
-        {
-            return m_created;
-        }
+        const created_signal_type& created() const;
 
         /*!
             \brief Returns the observer called when a child is created.
 
             \return The observer called when a child is created.
         */
-        created_signal_type& created()
-        {
-            return m_created;
-        }
+        created_signal_type& created();
 
         /*!
             \brief Returns the observer called when a child is about to be destroyed.
 
             \return The observer called when a child is about to be destroyed.
         */
-        const destroying_signal_type& destroying() const
-        {
-            return m_destroying;
-        }
+        const destroying_signal_type& destroying() const;
 
         /*!
             \brief Returns the observer called when a child is about to be destroyed.
 
             \return The observer called when a child is about to be destroyed.
         */
-        destroying_signal_type& destroying()
-        {
-            return m_destroying;
-        }
+        destroying_signal_type& destroying();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        created_signal_type m_created;
-
-        destroying_signal_type m_destroying;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
 
