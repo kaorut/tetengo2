@@ -530,5 +530,11 @@
     <ClCompile Include="src\tetengo2.gui.message.message_loop_break.cpp">
       <Filter>sources\tetengo2::gui\message</Filter>
     </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.mouse_capture.cpp">
+      <Filter>sources\tetengo2::gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tetengo2.gui.scroll_bar.cpp">
+      <Filter>sources\tetengo2::gui</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
