@@ -52,7 +52,9 @@ sources = \
     tetengo2.gui.message.size_observer_set.cpp \
     tetengo2.gui.message.text_box_observer_set.cpp \
     tetengo2.gui.message.window_observer_set.cpp \
+    tetengo2.gui.mouse_capture.cpp \
     tetengo2.gui.position.cpp \
+    tetengo2.gui.scroll_bar.cpp \
     tetengo2.gui.shell.cpp \
     tetengo2.gui.timer.cpp \
     tetengo2.gui.unit.em.cpp \

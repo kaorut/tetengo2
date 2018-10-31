@@ -25,6 +25,7 @@
 #include <Windows.h>
 #include <windowsx.h>
 
+#include <tetengo2/detail/base/gui_impl_set.h>
 #include <tetengo2/detail/windows/cursor.h>
 #include <tetengo2/detail/windows/error_category.h>
 #include <tetengo2/detail/windows/message_handler.h>

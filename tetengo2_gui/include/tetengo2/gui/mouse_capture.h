@@ -13,8 +13,6 @@
 
 #include <boost/core/noncopyable.hpp>
 
-#include <tetengo2/detail/base/gui_impl_set.h>
-#include <tetengo2/detail/base/mouse_capture.h>
 #include <tetengo2/gui/message/mouse_observer_set.h>
 #include <tetengo2/gui/widget/widget.h>
 
@@ -43,9 +41,12 @@ namespace tetengo2::gui {
             \param widget A widget.
             \param button A button.
         */
-        mouse_capture(const widget_type& widget, const mouse_button_type button)
-        : m_p_mouse_capture_details{ detail::gui_detail_impl_set().create_mouse_capture(widget) }, m_button{ button }
-        {}
+        mouse_capture(const widget_type& widget, mouse_button_type button);
+
+        /*!
+            \brief Destroys the mouse capture.
+        */
+        ~mouse_capture();
 
 
         // functions
@@ -55,24 +56,20 @@ namespace tetengo2::gui {
 
             \return The button.
         */
-        mouse_button_type button() const
-        {
-            return m_button;
-        }
+        mouse_button_type button() const;
 
 
     private:
         // types
 
-        using mouse_capture_details_type = detail::base::mouse_capture;
+        class impl;
 
 
         // variables
 
-        const std::unique_ptr<mouse_capture_details_type> m_p_mouse_capture_details;
-
-        const mouse_button_type m_button;
+        const std::unique_ptr<impl> m_p_impl;
     };
 }
+
 
 #endif
