@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of tetengo2::text::grammar::json.
 
-    Copyright (C) 2007-2018 kaoru
+    Copyright (C) 2007-2019 kaoru
 
     $Id$
 */

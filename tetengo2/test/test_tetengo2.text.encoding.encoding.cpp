@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class tetengo2::text::encoding::encoding.
 
-    Copyright (C) 2007-2018 kaoru
+    Copyright (C) 2007-2019 kaoru
 
     $Id$
 */

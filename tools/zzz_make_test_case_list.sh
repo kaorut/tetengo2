@@ -1,6 +1,6 @@
 #!/bin/sh
 # Makes a test case list.
-# Copyright (C) 2007-2018 kaoru
+# Copyright (C) 2007-2019 kaoru
 # $Id$
 
 TOOLS_DIR=`dirname $0`

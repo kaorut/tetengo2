@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of detail::windows::config.
 
-    Copyright (C) 2007-2018 kaoru
+    Copyright (C) 2007-2019 kaoru
 
     $Id$
 */

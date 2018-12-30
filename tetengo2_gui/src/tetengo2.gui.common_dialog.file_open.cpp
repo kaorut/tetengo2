@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of tetengo2::gui::common_dialog::file_open.
 
-    Copyright (C) 2007-2018 kaoru
+    Copyright (C) 2007-2019 kaoru
 
     $Id$
 */
