@@ -3,7 +3,7 @@
 
     The file name is truncated due to the path length limitation of tar command on UNIX.
 
-    Copyright (C) 2007-2018 kaoru
+    Copyright (C) 2007-2019 kaoru
 
     $Id$
 */

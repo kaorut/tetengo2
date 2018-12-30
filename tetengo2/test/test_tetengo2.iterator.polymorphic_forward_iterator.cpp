@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class tetengo2::iterator::observable_forward_iteratorpolymorphic_forward_iterator.
 
-    Copyright (C) 2007-2016 kaoru
+    Copyright (C) 2007-2019 kaoru
 
     $Id$
 */

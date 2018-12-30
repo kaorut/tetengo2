@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of picture utilities for tetengo2::detail::windows.
 
-    Copyright (C) 2007-2018 kaoru
+    Copyright (C) 2007-2019 kaoru
 
     $Id$
 */

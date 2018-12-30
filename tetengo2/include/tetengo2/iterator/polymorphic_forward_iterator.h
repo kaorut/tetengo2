@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of tetengo2::iterator::polymorphic_forward_iterator.
 
-    Copyright (C) 2007-2016 kaoru
+    Copyright (C) 2007-2019 kaoru
 
     $Id$
 */

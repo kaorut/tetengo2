@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # Makes precompiled.h.
-# Copyright (C) 2007-2018 kaoru
+# Copyright (C) 2007-2019 kaoru
 # $Id$
 
 import re

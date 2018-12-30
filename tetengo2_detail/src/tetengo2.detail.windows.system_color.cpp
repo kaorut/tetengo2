@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of tetengo2::detail::windows::system_color.
 
-    Copyright (C) 2007-2018 kaoru
+    Copyright (C) 2007-2019 kaoru
 
     $Id$
 */

@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of tetengo2::gui::unit::unit.
 
-    Copyright (C) 2007-2018 kaoru
+    Copyright (C) 2007-2019 kaoru
 
     $Id$
 */
