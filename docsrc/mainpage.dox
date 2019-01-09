@@ -44,7 +44,7 @@ You need the following tools in order to build Tetengo2:
   - [include-what-you-use 3.9](https://include-what-you-use.org/)
   - [ClangFormat 5.0](https://clang.llvm.org/docs/ClangFormat.html)
   - [Dos2Unix](https://waterlan.home.xs4all.nl/dos2unix.html)
-  - [Doxygen 1.8.14](http://www.doxygen.org)
+  - [Doxygen 1.8.15](http://www.doxygen.nl)
   - [Graphviz](https://www.graphviz.org)
 
 You can obtain the source code either by downloading an archive or by cloning the Git repository.
@@ -85,7 +85,7 @@ You need the following tools in order to build Tetengo2 libraries:
 - [include-what-you-use 3.9](https://include-what-you-use.org/)
 - [ClangFormat 5.0](https://clang.llvm.org/docs/ClangFormat.html)
 - [Dos2Unix](https://waterlan.home.xs4all.nl/dos2unix.html)
-- [Doxygen 1.8.14](http://www.doxygen.org)
+- [Doxygen 1.8.15](http://www.doxygen.nl)
 - [Graphviz](https://www.graphviz.org)
 
 You can obtain the source code either by downloading an archive or by cloning the Git repository.
