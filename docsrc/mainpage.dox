@@ -8,13 +8,13 @@
 
 /*! \mainpage
 
-What is Tetengo2? {#what_is_tetengo2}
+What is Tetengo2?
 =================
 
 Tetengo2 is a kind of GUI toolkit.
 
 
-Requirements {#requirements}
+Requirements
 ============
 
 The libraries are available on Windows and UNIX-like systems.
@@ -29,7 +29,7 @@ It's tested on the following systems:
 - [Debian GNU/Linux 9](https://www.debian.org/)
 
 
-How to Build {#how_to_build}
+How to Build
 ============
 
 Building on Windows
